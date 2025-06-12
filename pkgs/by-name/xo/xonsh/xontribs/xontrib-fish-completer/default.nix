@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   writableTmpDirAsHomeHook,
   pytestCheckHook,
@@ -10,7 +9,6 @@
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-fish-completer";
   version = "0.0.1";
@@ -39,12 +37,12 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Populate rich completions using fish and remove the default bash based completer";
     homepage = "https://github.com/xonsh/xontrib-fish-completer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

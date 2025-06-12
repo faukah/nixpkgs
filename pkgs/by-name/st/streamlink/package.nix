@@ -5,7 +5,6 @@
   replaceVars,
   ffmpeg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "streamlink";
   version = "7.1.3";

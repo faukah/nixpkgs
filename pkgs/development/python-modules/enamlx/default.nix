@@ -8,7 +8,6 @@
   pythonocc-core,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "enamlx";
   version = "0.6.4";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frmdstryr/enamlx";
     description = "Additional Qt Widgets for Enaml";
     license = licenses.mit;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

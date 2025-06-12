@@ -7,7 +7,6 @@
   cmake,
   makeBinaryWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "CroMagRally";
   version = "3.0.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jorio/CroMagRally";
     changelog = "https://github.com/jorio/CroMagRally/releases";
     license = lib.licenses.cc-by-sa-40;
-    maintainers = with lib.maintainers; [ lux ];
+    maintainers = with lib.maintainers; [lux];
     platforms = lib.platforms.linux;
     mainProgram = "CroMagRally";
   };

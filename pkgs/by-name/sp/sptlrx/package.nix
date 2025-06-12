@@ -6,7 +6,6 @@
   testers,
   sptlrx,
 }:
-
 buildGoModule rec {
   pname = "sptlrx";
   version = "1.2.2";
@@ -25,15 +24,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags =
-    let
-      # Requires network access
-      skippedTests = [ "TestGetIndex" ];
-    in
-    [ "-skip=^${lib.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Requires network access
+    skippedTests = ["TestGetIndex"];
+  in ["-skip=^${lib.concatStringsSep "$|^" skippedTests}$"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = sptlrx;
       version = "v${version}"; # needed because testVersion uses grep -Fw
@@ -45,7 +42,7 @@ buildGoModule rec {
     homepage = "https://github.com/raitonoberu/sptlrx";
     changelog = "https://github.com/raitonoberu/sptlrx/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ MoritzBoehme ];
+    maintainers = with lib.maintainers; [MoritzBoehme];
     mainProgram = "sptlrx";
   };
 }

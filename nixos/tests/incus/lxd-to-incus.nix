@@ -1,82 +1,79 @@
 import ../make-test-python.nix (
-
   {
     pkgs,
     lib,
     lts ? true,
     ...
-  }:
-
-  let
-    releases = import ../../release.nix { configuration.documentation.enable = lib.mkForce false; };
+  }: let
+    releases = import ../../release.nix {configuration.documentation.enable = lib.mkForce false;};
 
     container-image-metadata = releases.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
     container-image-rootfs = releases.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
-  in
-  {
+  in {
     name = "lxd-to-incus";
 
     meta = {
       maintainers = lib.teams.lxc.members;
     };
 
-    nodes.machine =
-      { ... }:
-      {
-        virtualisation = {
-          diskSize = 6144;
-          cores = 2;
-          memorySize = 2048;
+    nodes.machine = {...}: {
+      virtualisation = {
+        diskSize = 6144;
+        cores = 2;
+        memorySize = 2048;
 
-          lxd.enable = true;
-          lxd.preseed = {
-            networks = [
-              {
-                name = "nixostestbr0";
-                type = "bridge";
-                config = {
-                  "ipv4.address" = "10.0.100.1/24";
-                  "ipv4.nat" = "true";
+        lxd.enable = true;
+        lxd.preseed = {
+          networks = [
+            {
+              name = "nixostestbr0";
+              type = "bridge";
+              config = {
+                "ipv4.address" = "10.0.100.1/24";
+                "ipv4.nat" = "true";
+              };
+            }
+          ];
+          profiles = [
+            {
+              name = "default";
+              devices = {
+                eth0 = {
+                  name = "eth0";
+                  network = "nixostestbr0";
+                  type = "nic";
                 };
-              }
-            ];
-            profiles = [
-              {
-                name = "default";
-                devices = {
-                  eth0 = {
-                    name = "eth0";
-                    network = "nixostestbr0";
-                    type = "nic";
-                  };
-                  root = {
-                    path = "/";
-                    pool = "nixostest_pool";
-                    size = "35GiB";
-                    type = "disk";
-                  };
+                root = {
+                  path = "/";
+                  pool = "nixostest_pool";
+                  size = "35GiB";
+                  type = "disk";
                 };
-              }
-              {
-                name = "nixos_notdefault";
-                devices = { };
-              }
-            ];
-            storage_pools = [
-              {
-                name = "nixostest_pool";
-                driver = "dir";
-              }
-            ];
-          };
-
-          incus = {
-            enable = true;
-            package = if lts then pkgs.incus-lts else pkgs.incus;
-          };
+              };
+            }
+            {
+              name = "nixos_notdefault";
+              devices = {};
+            }
+          ];
+          storage_pools = [
+            {
+              name = "nixostest_pool";
+              driver = "dir";
+            }
+          ];
         };
-        networking.nftables.enable = true;
+
+        incus = {
+          enable = true;
+          package =
+            if lts
+            then pkgs.incus-lts
+            else pkgs.incus;
+        };
       };
+      networking.nftables.enable = true;
+    };
 
     testScript = ''
       def lxd_wait_for_preseed(_) -> bool:

@@ -1,5 +1,7 @@
-{ cudaMajorMinorVersion, lib }:
-let
+{
+  cudaMajorMinorVersion,
+  lib,
+}: let
   inherit (lib) attrsets modules trivial;
   redistName = "cuda";
 
@@ -51,8 +53,7 @@ let
 
   # Builder function which builds a single redist package for a given platform.
   # buildRedistPackage : callPackage -> PackageName -> Derivation
-  buildRedistPackage =
-    callPackage: pname:
+  buildRedistPackage = callPackage: pname:
     callPackage ../generic-builders/manifest.nix {
       inherit pname redistName;
       # We pass the whole release to the builder because it has logic to handle
@@ -62,12 +63,11 @@ let
     };
 
   # Build all the redist packages given final and prev.
-  redistPackages =
-    final: _prev:
-    # Wrap the whole thing in an optionalAttrs so we can return an empty set if the CUDA version
-    # is not supported.
-    # NOTE: We cannot include the call to optionalAttrs *in* the pipe as we would strictly evaluate the
-    # attrNames before we check if the CUDA version is supported.
+  redistPackages = final: _prev:
+  # Wrap the whole thing in an optionalAttrs so we can return an empty set if the CUDA version
+  # is not supported.
+  # NOTE: We cannot include the call to optionalAttrs *in* the pipe as we would strictly evaluate the
+  # attrNames before we check if the CUDA version is supported.
     attrsets.optionalAttrs cudaVersionMappingExists (
       trivial.pipe featureManifest [
         # Get all the package names
@@ -77,4 +77,4 @@ let
       ]
     );
 in
-redistPackages
+  redistPackages

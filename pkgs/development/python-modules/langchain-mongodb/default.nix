@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   poetry-core,
-
   # dependencies
   langchain-core,
   numpy,
   pymongo,
-
   freezegun,
   httpx,
   langchain,
@@ -20,7 +17,6 @@
   pytest-mock,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-mongodb";
   version = "0.2.0";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/mongodb";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -60,9 +56,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_mongodb" ];
+  pythonImportsCheck = ["langchain_mongodb"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

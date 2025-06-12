@@ -24,7 +24,6 @@
   vulkan-loader,
   zenity,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "parsec-bin";
   version = "150_97c";

@@ -15,7 +15,6 @@
   testers,
   slither-analyzer,
 }:
-
 buildPythonPackage rec {
   pname = "slither-analyzer";
   version = "0.10.3";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
 
   postFixup = lib.optionalString withSolc ''
     wrapProgram $out/bin/slither \
-      --prefix PATH : "${lib.makeBinPath [ solc ]}"
+      --prefix PATH : "${lib.makeBinPath [solc]}"
   '';
 
   # required for pythonImportsCheck
@@ -84,7 +83,7 @@ buildPythonPackage rec {
     version = "${version}";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Static Analyzer for Solidity";

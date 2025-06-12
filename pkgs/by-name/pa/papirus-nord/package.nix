@@ -6,8 +6,7 @@
   getent,
   papirus-icon-theme,
   accent ? "frostblue1",
-}:
-let
+}: let
   validAccents = [
     "auroragreen"
     "auroragreenb"
@@ -33,8 +32,7 @@ let
   pname = "papirus-nord";
   version = "3.2.0";
 in
-lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ]
-
+  lib.checkListOfEnum "${pname}: accent colors" validAccents [accent]
   stdenvNoCC.mkDerivation
   {
     inherit pname version;
@@ -75,6 +73,6 @@ lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ]
       homepage = "https://github.com/Adapta-Projects/Papirus-Nord";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ aacebedo ];
+      maintainers = with maintainers; [aacebedo];
     };
   }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "raygui";
   version = "4.0";
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Simple and easy-to-use immediate-mode gui library";
     homepage = "https://github.com/raysan5/raygui";
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.unix;
   };
 })

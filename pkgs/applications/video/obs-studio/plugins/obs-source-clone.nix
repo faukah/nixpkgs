@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-source-clone";
   version = "0.1.5";
@@ -17,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-0rBtFPfqVvB333eeWRpVe4TgrJTiBTIzsV/SSe3EgOc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ obs-studio ];
+  buildInputs = [obs-studio];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_OUT_OF_TREE" true)
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Plugin for OBS Studio to clone sources";
     homepage = "https://github.com/exeldro/obs-source-clone";
-    maintainers = with lib.maintainers; [ flexiondotorg ];
+    maintainers = with lib.maintainers; [flexiondotorg];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

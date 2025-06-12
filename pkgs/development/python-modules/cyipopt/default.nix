@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cyipopt";
   version = "1.5.0";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-ddiSCVzywlCeeVbRJg2wxKIlAVlZw9Js95IbEDqhh5Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ ipopt ];
+  buildInputs = [ipopt];
 
   build-system = [
     cython
@@ -32,17 +31,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cyipopt" ];
+  pythonImportsCheck = ["cyipopt"];
 
   meta = {
     description = "Cython interface for the interior point optimzer IPOPT";
     homepage = "https://github.com/mechmotum/cyipopt";
     changelog = "https://github.com/mechmotum/cyipopt/blob/${src.rev}/CHANGELOG.rst";
     license = lib.licenses.epl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

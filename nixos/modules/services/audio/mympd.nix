@@ -3,19 +3,14 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.mympd;
-in
-{
+in {
   options = {
-
     services.mympd = {
-
       enable = lib.mkEnableOption "MyMPD server";
 
-      package = lib.mkPackageOption pkgs "mympd" { };
+      package = lib.mkPackageOption pkgs "mympd" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -27,8 +22,8 @@ in
 
       extraGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "music" ];
+        default = [];
+        example = ["music"];
         description = ''
           Additional groups for the systemd service.
         '';
@@ -36,8 +31,7 @@ in
 
       settings = lib.mkOption {
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             attrsOf (
               nullOr (oneOf [
                 str
@@ -77,14 +71,13 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.mympd = {
       # upstream service config: https://github.com/jcorporation/myMPD/blob/master/contrib/initscripts/mympd.service.in
-      after = [ "mpd.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["mpd.service"];
+      wantedBy = ["multi-user.target"];
       preStart = with lib; ''
         config_dir="/var/lib/mympd/config"
         mkdir -p "$config_dir"
@@ -92,7 +85,11 @@ in
         ${pipe cfg.settings [
           (mapAttrsToList (
             name: value: ''
-              echo -n "${if isBool value then boolToString value else toString value}" > "$config_dir/${name}"
+              echo -n "${
+                if isBool value
+                then boolToString value
+                else toString value
+              }" > "$config_dir/${name}"
             ''
           ))
           (concatStringsSep "\n")
@@ -131,15 +128,13 @@ in
 
     networking.firewall = lib.mkMerge [
       (lib.mkIf cfg.openFirewall {
-        allowedTCPPorts = [ cfg.settings.http_port ];
+        allowedTCPPorts = [cfg.settings.http_port];
       })
       (lib.mkIf (cfg.openFirewall && cfg.settings.ssl && cfg.settings.ssl_port != null) {
-        allowedTCPPorts = [ cfg.settings.ssl_port ];
+        allowedTCPPorts = [cfg.settings.ssl_port];
       })
     ];
-
   };
 
-  meta.maintainers = [ lib.maintainers.eliandoran ];
-
+  meta.maintainers = [lib.maintainers.eliandoran];
 }

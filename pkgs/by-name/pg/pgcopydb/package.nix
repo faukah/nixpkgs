@@ -12,7 +12,6 @@
   testers,
   zlib,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "pgcopydb";
   version = "0.15";
@@ -42,7 +41,7 @@ clangStdenv.mkDerivation (finalAttrs: {
       pam
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     runHook preInstall
@@ -63,7 +62,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dimitri/pgcopydb";
     changelog = "https://github.com/dimitri/pgcopydb/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.postgresql;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pgcopydb";
     platforms = platforms.all;
   };

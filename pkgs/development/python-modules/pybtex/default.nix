@@ -6,14 +6,13 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "0.24.0";
   format = "setuptools";
   pname = "pybtex";
 
   doCheck = false;
-  pythonImportsCheck = [ "pybtex" ];
+  pythonImportsCheck = ["pybtex"];
 
   propagatedBuildInputs = [
     latexcodec

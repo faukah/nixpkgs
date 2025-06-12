@@ -3,41 +3,33 @@
   config,
   python3,
   emptyFile,
-}:
-
-let
+}: let
   inherit (lib) extends;
 
   # doc: https://github.com/NixOS/nixpkgs/pull/158781/files#diff-854251fa1fe071654921224671c8ba63c95feb2f96b2b3a9969c81676780053a
-  encapsulate =
-    layerZero:
-    let
-      fixed = layerZero ({ extend = f: encapsulate (extends f layerZero); } // fixed);
-    in
+  encapsulate = layerZero: let
+    fixed = layerZero ({extend = f: encapsulate (extends f layerZero);} // fixed);
+  in
     fixed.public;
 
   nixopsContextBase = this: {
-
     python = python3.override {
       self = this.python;
-      packageOverrides =
-        self: super:
+      packageOverrides = self: super:
         {
-          nixops = self.callPackage ./unwrapped.nix { };
+          nixops = self.callPackage ./unwrapped.nix {};
         }
         // (this.plugins self super);
     };
 
-    plugins =
-      ps: _super:
-      with ps;
-      (
+    plugins = ps: _super:
+      with ps; (
         rec {
-          nixops-digitalocean = callPackage ./plugins/nixops-digitalocean.nix { };
-          nixops-encrypted-links = callPackage ./plugins/nixops-encrypted-links.nix { };
-          nixops-hercules-ci = callPackage ./plugins/nixops-hercules-ci.nix { };
-          nixops-vbox = callPackage ./plugins/nixops-vbox.nix { };
-          nixos-modules-contrib = callPackage ./plugins/nixos-modules-contrib.nix { };
+          nixops-digitalocean = callPackage ./plugins/nixops-digitalocean.nix {};
+          nixops-encrypted-links = callPackage ./plugins/nixops-encrypted-links.nix {};
+          nixops-hercules-ci = callPackage ./plugins/nixops-hercules-ci.nix {};
+          nixops-vbox = callPackage ./plugins/nixops-vbox.nix {};
+          nixos-modules-contrib = callPackage ./plugins/nixos-modules-contrib.nix {};
 
           # aliases for backwards compatibility
           nixopsvbox = nixops-vbox;
@@ -55,12 +47,11 @@ let
     # We should not reapply the overlay, but it tends to work out. (It's been this way since poetry2nix was dropped.)
     availablePlugins = this.plugins this.python.pkgs this.python.pkgs;
 
-    selectedPlugins = [ ];
+    selectedPlugins = [];
 
     # selector is a function mapping pythonPackages to a list of plugins
     # e.g. nixops_unstable.withPlugins (ps: with ps; [ nixops-digitalocean ])
-    withPlugins =
-      selector:
+    withPlugins = selector:
       this.extend (
         this: _old: {
           selectedPlugins = selector this.availablePlugins;
@@ -81,7 +72,8 @@ let
 
     # Extra package attributes that aren't derivation attributes, just like `mkDerivation`'s `passthru`.
     extraPackageAttrs = {
-      inherit (this)
+      inherit
+        (this)
         selectedPlugins
         availablePlugins
         withPlugins
@@ -93,38 +85,34 @@ let
           nixos = this.rawPackage.tests.nixos.passthru.override {
             nixopsPkg = this.rawPackage;
           };
-          commutative_addAvailablePlugins_withPlugins =
-            assert
-              (this.public.addAvailablePlugins (self: super: { inherit emptyFile; })).withPlugins (ps: [
-                emptyFile
-              ]) ==
-              # Note that this value proves that the package is not instantiated until the end, where it's valid again.
-              (this.public.withPlugins (ps: [ emptyFile ])).addAvailablePlugins (
-                self: super: { inherit emptyFile; }
-              );
-            emptyFile;
+          commutative_addAvailablePlugins_withPlugins = assert (this.public.addAvailablePlugins (self: super: {inherit emptyFile;})).withPlugins (ps: [
+            emptyFile
+          ])
+          ==
+          # Note that this value proves that the package is not instantiated until the end, where it's valid again.
+          (this.public.withPlugins (ps: [emptyFile])).addAvailablePlugins (
+            self: super: {inherit emptyFile;}
+          ); emptyFile;
         }
         # Make sure we also test with a configuration that's been extended with a plugin.
-        // lib.optionalAttrs (this.selectedPlugins == [ ]) {
+        // lib.optionalAttrs (this.selectedPlugins == []) {
           withAPlugin =
             lib.recurseIntoAttrs
-              (this.withPlugins (ps: with ps; [ nixops-encrypted-links ])).tests;
+            (this.withPlugins (ps: with ps; [nixops-encrypted-links])).tests;
         };
-      overrideAttrs =
-        f:
+      overrideAttrs = f:
         this.extend (
           this: oldThis: {
             rawPackage = oldThis.rawPackage.overrideAttrs f;
           }
         );
       /**
-        nixops.addAvailablePlugins: Overlay -> Package
+      nixops.addAvailablePlugins: Overlay -> Package
 
-        Add available plugins to the package. You probably also want to enable
-        them with the `withPlugins` method.
+      Add available plugins to the package. You probably also want to enable
+      them with the `withPlugins` method.
       */
-      addAvailablePlugins =
-        newPlugins:
+      addAvailablePlugins = newPlugins:
         this.extend (
           finalThis: oldThis: {
             plugins = lib.composeExtensions oldThis.plugins newPlugins;
@@ -149,9 +137,7 @@ let
   };
 
   minimal = encapsulate nixopsContextBase;
-
-in
-{
+in {
   nixops_unstable_minimal = minimal;
 
   # Not recommended; too fragile.

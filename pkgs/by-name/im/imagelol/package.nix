@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imagelol";
   version = "0.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       name = "gcc-12.patch";
       url = "https://github.com/MCredstoner2004/ImageLOL/commit/013fb1f901d88f5fd21a896bfab47c7fff0737d7.patch";
       hash = "sha256-RVaG2xbUqE4CxqI2lhvug2qihT6A8vN+pIfK58CXLDw=";
-      includes = [ "imagelol/ImageLOL.inl" ];
+      includes = ["imagelol/ImageLOL.inl"];
       # change lib/ for imagelol
       stripLen = 2;
       extraPrefix = "imagelol/";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
       --replace 'add_subdirectory("imagelol")' 'add_subdirectory("src")'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    [ (lib.cmakeFeature "CMAKE_C_FLAGS" "-std=gnu90") ]
+    [(lib.cmakeFeature "CMAKE_C_FLAGS" "-std=gnu90")]
     ++ lib.optional (
       stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
     ) "-DPNG_ARM_NEON=off";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/MCredstoner2004/ImageLOL";
     description = "Simple program to store a file into a PNG image";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "ImageLOL";
   };

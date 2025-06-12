@@ -19,7 +19,6 @@
   libpulseaudio,
   quazip,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.6.2";
   pname = "ckb-next";
@@ -31,16 +30,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-lA1FpUee2SpUQwJotbYhG0QX7LT5l2PP9lJ9F3uNtdU=";
   };
 
-  buildInputs = [
-    udev
-    qtbase
-    zlib
-    libXdmcp
-    qttools
-    qtx11extras
-    libdbusmenu
-    quazip
-  ] ++ lib.optional withPulseaudio libpulseaudio;
+  buildInputs =
+    [
+      udev
+      qtbase
+      zlib
+      libXdmcp
+      qttools
+      qtx11extras
+      libdbusmenu
+      quazip
+    ]
+    ++ lib.optional withPulseaudio libpulseaudio;
 
   nativeBuildInputs = [
     wrapQtAppsHook
@@ -73,6 +74,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     mainProgram = "ckb-next";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

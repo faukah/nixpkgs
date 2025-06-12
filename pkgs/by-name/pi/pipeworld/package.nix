@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalPackages: {
   pname = "pipeworld";
   version = "unstable-2023-02-05";
@@ -44,8 +43,8 @@ stdenvNoCC.mkDerivation (finalPackages: {
       application within another desktop as a 'substitute' for your normal
       terminal emulator.
     '';
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

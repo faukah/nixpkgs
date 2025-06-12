@@ -44,6 +44,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/profanity-im/stabber";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ hschaeidt ];
+    maintainers = with maintainers; [hschaeidt];
   };
 }

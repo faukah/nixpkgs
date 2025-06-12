@@ -6,7 +6,6 @@
   json5,
   packaging,
 }:
-
 buildPythonApplication rec {
   pname = "fortls";
   version = "3.2.2";
@@ -18,7 +17,7 @@ buildPythonApplication rec {
     hash = "sha256-cUZBr+dtTFbd68z6ts4quIPp9XYMikUBrCq+icrZ1KU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     json5
@@ -32,7 +31,7 @@ buildPythonApplication rec {
     description = "Fortran Language Server";
     mainProgram = "fortls";
     homepage = "https://github.com/fortran-lang/fortls";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.sheepforce ];
+    license = [licenses.mit];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -4,7 +4,6 @@
   flit-core,
   cmake,
 }:
-
 buildPythonPackage {
   pname = "cmake";
   inherit (cmake) version;
@@ -23,9 +22,9 @@ buildPythonPackage {
 
   inherit (cmake) setupHooks;
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  pythonImportsCheck = [ "cmake" ];
+  pythonImportsCheck = ["cmake"];
 
   meta = with lib; {
     description = "CMake is an open-source, cross-platform family of tools designed to build, test and package software";
@@ -35,6 +34,6 @@ buildPythonPackage {
     '';
     homepage = "https://github.com/scikit-build/cmake-python-distributions";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

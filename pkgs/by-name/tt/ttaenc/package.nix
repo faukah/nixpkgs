@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./ttaenc-inline.patch # Patch __inline used into always_inline for both GCC and clang
   ];
 
-  makeFlags = [ "INSDIR=$(out)/bin" ];
+  makeFlags = ["INSDIR=$(out)/bin"];
 
   preBuild = ''
     # From the Makefile, with `-msse` removed, since we have those on by x86_64 by default.
@@ -39,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = lib.platforms.unix;
     mainProgram = "ttaenc";
-    maintainers = with lib.maintainers; [ natsukagami ];
+    maintainers = with lib.maintainers; [natsukagami];
   };
 })

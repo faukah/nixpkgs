@@ -9,7 +9,6 @@
   libmaxminddb ? null,
   geolite-legacy ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipv6calc";
   version = "4.3.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.deepspace6.net/projects/ipv6calc.html";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

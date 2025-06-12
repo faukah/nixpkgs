@@ -6,7 +6,6 @@
   cffi,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pycmarkgfm";
   version = "1.2.1";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-oPklCB54aHn33ewTiSlXgx38T0RzLure5OzGuFwsLNo=";
   };
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   # I would gladly use pytestCheckHook, but pycmarkgfm relies on a native
   # extension (cmark.so, built through setup.py), and pytestCheckHook runs
   # pytest in an environment that does not contain this extension, which fails.
   # cmarkgfm has virtually the same build setup as this package, and uses the
   # same trick: pkgs/development/python-modules/cmarkgfm/default.nix
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     pytest
   '';
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/zopieux/pycmarkgfm/raw/v${version}/CHANGELOG.md";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ zopieux ];
+    maintainers = with maintainers; [zopieux];
   };
 }

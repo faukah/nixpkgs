@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "kodi-six";
   namespace = "script.module.kodi-six";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/romanvm/kodi.six";
     description = "Wrappers around Kodi Python API for seamless Python 2/3 compatibility";
     license = licenses.gpl3Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

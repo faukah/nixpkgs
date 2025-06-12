@@ -11,7 +11,6 @@
   vulkan-loader,
   wine,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vkd3d";
   version = "1.15";
@@ -59,9 +58,9 @@ stdenv.mkDerivation (finalAttrs: {
       If vkd3d is available when building Wine, then Wine will use it to support
       Direct3D 12 applications.
     '';
-    license = with lib.licenses; [ lgpl21Plus ];
+    license = with lib.licenses; [lgpl21Plus];
     mainProgram = "vkd3d-compiler";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wine.meta) platforms;
   };
 })

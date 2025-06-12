@@ -17,7 +17,6 @@
   libICE,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dssi";
   version = "1.1.1";

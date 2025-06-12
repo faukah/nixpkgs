@@ -9,7 +9,6 @@
   pythonOlder,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pylink-square";
   version = "1.4.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Fjulh2wmcVO+/608uTO10orRz8Pq0I+ZhJ8zMa3YFC0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     psutil
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pylink" ];
+  pythonImportsCheck = ["pylink"];
 
   disabledTests = [
     # AttributeError: 'called_once_with' is not a valid assertion
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/square/pylink";
     changelog = "https://github.com/square/pylink/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dump_stack ];
+    maintainers = with maintainers; [dump_stack];
   };
 }

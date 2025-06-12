@@ -8,7 +8,6 @@
   libGLU,
   libglut,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "antiprism";
   version = "0.32";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-0FkaIsZixYHP45H0gytnzlpRvNd8mMYjW22w15z3RH8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     libX11
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://www.antiprism.com";
     description = "Collection of programs for generating, manipulating, transforming and viewing polyhedra";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [];
   };
 })

@@ -14,7 +14,6 @@
   openssl,
   curl,
 }:
-
 stdenv.mkDerivation {
   pname = "implot-demos";
   version = "unstable-2023-08-20";
@@ -46,22 +45,24 @@ stdenv.mkDerivation {
     })
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "FETCHCONTENT_FULLY_DISCONNECTED" true) ];
+  cmakeFlags = [(lib.cmakeBool "FETCHCONTENT_FULLY_DISCONNECTED" true)];
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    fmt
-    iir1
-    imgui
-    imnodes
-    implot
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ gtk3 ];
+  buildInputs =
+    [
+      curl
+      fmt
+      iir1
+      imgui
+      imnodes
+      implot
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [gtk3];
 
   meta = {
     description = "Standalone ImPlot Demos";
@@ -70,7 +71,7 @@ stdenv.mkDerivation {
       stdenv.hostPlatform.isAarch64 # Target "mandel" relies on AVX2
       || stdenv.hostPlatform.isDarwin;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
     mainProgram = "implot-demos";
     platforms = lib.platforms.all;
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "voidmap";
   version = "1.1.5-unstable-2023-09-13";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/void-rs/void";
     license = lib.licenses.gpl3Only;
     mainProgram = "void";
-    maintainers = with lib.maintainers; [ poptart ];
+    maintainers = with lib.maintainers; [poptart];
     platforms = lib.platforms.linux;
   };
 }

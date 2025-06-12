@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "fantasque-sans-mono";
   version = "1.8.0";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Font family with a great monospaced variant for programmers";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

@@ -6,7 +6,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zenmonitor";
   version = "unstable-2024-12-19";
@@ -18,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5N1Hhv2s0cv4Rujw4wFGHyIy7NyKAFThVvAo+xXqSyk=";
   };
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
   nativeBuildInputs = [
     pkg-config
     wrapGAppsHook3
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     inherit (src.meta) homepage;

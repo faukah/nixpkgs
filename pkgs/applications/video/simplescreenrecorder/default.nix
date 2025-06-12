@@ -23,7 +23,6 @@
   ninja,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "simplescreenrecorder";
   version = "0.4.4-unstable-2025-01-25";
@@ -37,7 +36,11 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DWITH_QT5=TRUE"
-    "-DWITH_GLINJECT=${if stdenv.hostPlatform.isx86 then "TRUE" else "FALSE"}"
+    "-DWITH_GLINJECT=${
+      if stdenv.hostPlatform.isx86
+      then "TRUE"
+      else "FALSE"
+    }"
   ];
 
   postPatch = ''
@@ -74,13 +77,13 @@ stdenv.mkDerivation {
     qtx11extras
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Screen recorder for Linux";
     homepage = "https://www.maartenbaert.be/simplescreenrecorder";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "diceware";
   version = "1.0.1";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-VLaQgJ8MVqswhaGOFaDDgE1KDRJ/OK7wtc9fhZ0PZjk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ setuptools ];
+  dependencies = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     # see https://github.com/ulif/diceware/commit/a7d844df76cd4b95a717f21ef5aa6167477b6733
     "-m 'not packaging'"
   ];
 
-  pythonImportsCheck = [ "diceware" ];
+  pythonImportsCheck = ["diceware"];
 
   meta = with lib; {
     description = "Generates passphrases by concatenating words randomly picked from wordlists";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ulif/diceware";
     changelog = "https://github.com/ulif/diceware/blob/v${version}/CHANGES.rst";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
   };
 }

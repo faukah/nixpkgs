@@ -6,7 +6,6 @@
   testers,
   triton,
 }:
-
 buildNpmPackage rec {
   pname = "triton";
   version = "7.17.0";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd triton --bash <($out/bin/triton completion)
@@ -40,7 +39,7 @@ buildNpmPackage rec {
     description = "TritonDataCenter Client CLI and Node.js SDK";
     homepage = "https://github.com/TritonDataCenter/node-triton";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ teutat3s ];
+    maintainers = with maintainers; [teutat3s];
     mainProgram = "triton";
   };
 }

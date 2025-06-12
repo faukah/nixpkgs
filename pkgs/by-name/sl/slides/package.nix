@@ -5,7 +5,6 @@
   fetchFromGitHub,
   go,
 }:
-
 buildGoModule rec {
   pname = "slides";
   version = "0.9.0";

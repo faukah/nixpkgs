@@ -5,7 +5,6 @@
   oelint-adv,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "bitbake-language-server";
   version = "0.0.15";
@@ -23,14 +22,13 @@ python3.pkgs.buildPythonApplication rec {
     setuptools-generate
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       pygls
     ]
-    ++ [ oelint-adv ];
+    ++ [oelint-adv];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language server for bitbake";
@@ -38,6 +36,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Freed-Wu/bitbake-language-server";
     changelog = "https://github.com/Freed-Wu/bitbake-language-server/releases/tag/${version}";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.otavio ];
+    maintainers = [lib.maintainers.otavio];
   };
 }

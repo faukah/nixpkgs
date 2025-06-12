@@ -4,14 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.mobile;
-in
-{
+in {
   options = {
     services.xserver.displayManager.lightdm.greeters.mobile = {
       enable = mkEnableOption "lightdm-mobile-greeter as the lightdm greeter";

@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.screen;
-in
-
-{
+in {
   options = {
     programs.screen = {
       enable = lib.mkEnableOption "screen, a basic terminal multiplexer";
 
-      package = lib.mkPackageOption pkgs "screen" { };
+      package = lib.mkPackageOption pkgs "screen" {};
 
       screenrc = lib.mkOption {
         type = lib.types.lines;
@@ -33,8 +29,8 @@ in
       environment.etc.screenrc = {
         text = cfg.screenrc;
       };
-      environment.systemPackages = [ cfg.package ];
-      security.pam.services.screen = { };
+      environment.systemPackages = [cfg.package];
+      security.pam.services.screen = {};
     })
   ];
 }

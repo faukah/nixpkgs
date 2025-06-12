@@ -8,7 +8,6 @@
   setuptools,
   striprtf,
 }:
-
 buildPythonPackage rec {
   pname = "xknxproject";
   version = "3.8.2";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-EIonCsolfAAFQpHuSFUuYAAZozjtqSwJCpw86Cc2d4I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyzipper
     striprtf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xknxproject" ];
+  pythonImportsCheck = ["xknxproject"];
 
   meta = with lib; {
     description = "Library to extract KNX projects and parses the underlying XML";
     homepage = "https://github.com/XKNX/xknxproject";
     changelog = "https://github.com/XKNX/xknxproject/releases/tag/${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "pnbruckner";
   domain = "sun2";
@@ -20,7 +19,7 @@ buildHomeAssistantComponent rec {
     description = "Home Assistant Sun2 sensor";
     homepage = "https://github.com/pnbruckner/ha-sun2";
     changelog = "${homepage}/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ sephalon ];
+    maintainers = with lib.maintainers; [sephalon];
     license = lib.licenses.unlicense;
   };
 }

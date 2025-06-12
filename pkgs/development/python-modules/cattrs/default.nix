@@ -23,7 +23,6 @@
   typing-extensions,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "cattrs";
   version = "24.1.2";
@@ -60,7 +59,7 @@ buildPythonPackage rec {
   ];
 
   dependencies =
-    [ attrs ]
+    [attrs]
     ++ lib.optionals (pythonOlder "3.11") [
       exceptiongroup
       typing-extensions
@@ -112,13 +111,13 @@ buildPythonPackage rec {
       "test_unstructure_deeply_nested_generics_list"
     ];
 
-  pythonImportsCheck = [ "cattr" ];
+  pythonImportsCheck = ["cattr"];
 
   meta = {
     description = "Python custom class converters for attrs";
     homepage = "https://github.com/python-attrs/cattrs";
     changelog = "https://github.com/python-attrs/cattrs/blob/${src.rev}/HISTORY.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -9,7 +9,6 @@
   setuptools-scm,
   writeScript,
 }:
-
 buildPythonPackage rec {
   pname = "setuptools-odoo";
   version = "3.3";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-38YlkDH/PuJ1yvQ43OYmdnRd1SGJULv6fC/+fitLDJ8=";
   };
 
-  nativeBuildInputs = [ distutils ];
+  nativeBuildInputs = [distutils];
 
-  propagatedBuildInputs = [ setuptools-scm ];
+  propagatedBuildInputs = [setuptools-scm];
 
   # HACK https://github.com/NixOS/nixpkgs/pull/229460
   patchPhase = ''
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     runHook postPatch
   '';
 
-  pythonImportsCheck = [ "setuptools_odoo" ];
+  pythonImportsCheck = ["setuptools_odoo"];
 
   setupHook = writeScript "setupHook.sh" ''
     setuptoolsOdooHook() {
@@ -78,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/acsone/setuptools-odoo";
     changelog = "https://github.com/acsone/setuptools-odoo/blob/${version}/CHANGES.rst";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ yajo ];
+    maintainers = with maintainers; [yajo];
   };
 }

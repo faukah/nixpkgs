@@ -6,19 +6,18 @@
   jre_headless,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "purpur";
   version = "1.21.3r2358";
 
   src = fetchurl {
     url = "https://api.purpurmc.org/v2/purpur/${
-      builtins.replaceStrings [ "r" ] [ "/" ] version
+      builtins.replaceStrings ["r"] ["/"] version
     }/download";
     sha256 = "sha256-RFrP7q1jgKUztF518HA6Jmj1qXa51l1HegMH1wMr5W4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preferLocalBuild = true;
 
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   passthru = {
-    tests = { inherit (nixosTests) minecraft-server; };
+    tests = {inherit (nixosTests) minecraft-server;};
   };
 
   meta = with lib; {
@@ -43,10 +42,10 @@ stdenv.mkDerivation rec {
       gameplay features, and performance built on top of Airplane.
     '';
     homepage = "https://purpurmc.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "minecraft-server";
   };
 }

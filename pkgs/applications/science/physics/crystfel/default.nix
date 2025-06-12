@@ -34,9 +34,7 @@
   argp-standalone,
   withGui ? true,
   withBitshuffle ? true,
-}:
-
-let
+}: let
   libccp4 = stdenv.mkDerivation rec {
     pname = "libccp4";
     version = "8.0.0";
@@ -53,7 +51,7 @@ let
       gsl
     ];
 
-    configureFlags = [ "FFLAGS=-fallow-argument-mismatch" ];
+    configureFlags = ["FFLAGS=-fallow-argument-mismatch"];
 
     # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
     # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
@@ -64,39 +62,40 @@ let
       ./libccp4-use-hardcoded-syminfo-lib.patch
     ];
 
-    postPatch =
-      let
-        mesonPatch = fetchzip {
-          url = "https://wrapdb.mesonbuild.com/v2/libccp4c_8.0.0-1/get_patch#somefile.zip";
-          hash = "sha256-ohskfKh+972Pl56KtwAeWwHtAaAFNpCzz5vZBAI/vdU=";
-        };
-      in
-      ''
-        cp ${mesonPatch}/meson.build .
-      '';
+    postPatch = let
+      mesonPatch = fetchzip {
+        url = "https://wrapdb.mesonbuild.com/v2/libccp4c_8.0.0-1/get_patch#somefile.zip";
+        hash = "sha256-ohskfKh+972Pl56KtwAeWwHtAaAFNpCzz5vZBAI/vdU=";
+      };
+    in ''
+      cp ${mesonPatch}/meson.build .
+    '';
   };
   # This is the statically-linked, pre-built binary of mosflm. Compiling it ourselves turns out to be very difficult
   # since the build process is very hard-coded for a specific machine, architecture, and libraries.
-  mosflm =
-    let
-      version = "7.4.0";
-      src =
-        if stdenv.hostPlatform.isDarwin then
-          fetchurl {
-            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
-              builtins.replaceStrings [ "." ] [ "" ] version
-            }/pre-built/mosflm-osx-64-noX11.zip";
-            sha256 = "1da5wimv3kl8bccp49j69vh8gi28cn7axg59lrmb38s68c618h7j";
-          }
-        else
-          fetchurl {
-            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
-              builtins.replaceStrings [ "." ] [ "" ] version
-            }/pre-built/mosflm-linux-64-noX11.zip";
-            hash = "sha256:1f2qins5kaz5v6mkaclncqpirx3mlz177ywm13py9p6s9mk99g32";
-          };
-      mosflmBinary = if stdenv.hostPlatform.isDarwin then "bin/mosflm" else "mosflm-linux-64-noX11";
-    in
+  mosflm = let
+    version = "7.4.0";
+    src =
+      if stdenv.hostPlatform.isDarwin
+      then
+        fetchurl {
+          url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
+            builtins.replaceStrings ["."] [""] version
+          }/pre-built/mosflm-osx-64-noX11.zip";
+          sha256 = "1da5wimv3kl8bccp49j69vh8gi28cn7axg59lrmb38s68c618h7j";
+        }
+      else
+        fetchurl {
+          url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
+            builtins.replaceStrings ["."] [""] version
+          }/pre-built/mosflm-linux-64-noX11.zip";
+          hash = "sha256:1f2qins5kaz5v6mkaclncqpirx3mlz177ywm13py9p6s9mk99g32";
+        };
+    mosflmBinary =
+      if stdenv.hostPlatform.isDarwin
+      then "bin/mosflm"
+      else "mosflm-linux-64-noX11";
+  in
     stdenv.mkDerivation {
       pname = "mosflm";
 
@@ -133,7 +132,7 @@ let
       pkg-config
       ninja
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   pinkIndexer = stdenv.mkDerivation rec {
@@ -149,7 +148,7 @@ let
       pkg-config
       ninja
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   fdip = stdenv.mkDerivation rec {
@@ -165,7 +164,7 @@ let
       ninja
       pkg-config
     ];
-    buildInputs = [ eigen ];
+    buildInputs = [eigen];
   };
 
   hdf5-external-filter-plugins = stdenv.mkDerivation rec {
@@ -185,7 +184,7 @@ let
       })
     ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       hdf5
       lz4
@@ -207,90 +206,91 @@ let
       hash = "sha256-aFoo8AGBsUEN2u3AmnSpTqJ6JeNV6j9vkAFTZ34I+sI=";
     };
 
-    nativeBuildInputs = [ gfortran ];
-    buildInputs = [ zlib ];
+    nativeBuildInputs = [gfortran];
+    buildInputs = [zlib];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
   };
 in
-stdenv.mkDerivation rec {
-  pname = "crystfel";
-  version = "0.11.1";
-  src = fetchurl {
-    url = "https://www.desy.de/~twhite/crystfel/crystfel-${version}.tar.gz";
-    sha256 = "sha256-vZuN9dYnowySC/OX0EZB0mbhoBOyRiOWfX9d6sl1lKQ=";
-  };
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    flex
-    bison
-    doxygen
-    opencl-headers
-    makeWrapper
-  ] ++ lib.optionals withGui [ wrapGAppsHook3 ];
-  buildInputs =
-    [
-      hdf5
-      gsl
-      ncurses
-      msgpack
-      fftw
-      fdip
-      zeromq
-      ocl-icd
-      libccp4
-      mosflm
-      pinkIndexer
-      xgandalf
-      pandoc
-    ]
-    ++ lib.optionals withGui [
-      gtk3
-      gdk-pixbuf
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      argp-standalone
-    ]
-    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
+  stdenv.mkDerivation rec {
+    pname = "crystfel";
+    version = "0.11.1";
+    src = fetchurl {
+      url = "https://www.desy.de/~twhite/crystfel/crystfel-${version}.tar.gz";
+      sha256 = "sha256-vZuN9dYnowySC/OX0EZB0mbhoBOyRiOWfX9d6sl1lKQ=";
+    };
+    nativeBuildInputs =
+      [
+        meson
+        pkg-config
+        ninja
+        flex
+        bison
+        doxygen
+        opencl-headers
+        makeWrapper
+      ]
+      ++ lib.optionals withGui [wrapGAppsHook3];
+    buildInputs =
+      [
+        hdf5
+        gsl
+        ncurses
+        msgpack
+        fftw
+        fdip
+        zeromq
+        ocl-icd
+        libccp4
+        mosflm
+        pinkIndexer
+        xgandalf
+        pandoc
+      ]
+      ++ lib.optionals withGui [
+        gtk3
+        gdk-pixbuf
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        argp-standalone
+      ]
+      ++ lib.optionals withBitshuffle [hdf5-external-filter-plugins];
 
-  patches = [
-    # on darwin at least, we need to link to a separate argp library;
-    # this patch adds a test for this and the necessary linker options
-    ./link-to-argp-standalone-if-needed.patch
-  ];
+    patches = [
+      # on darwin at least, we need to link to a separate argp library;
+      # this patch adds a test for this and the necessary linker options
+      ./link-to-argp-standalone-if-needed.patch
+    ];
 
-  # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
-  # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
-  # hard-code mosflm's path once.
-  postPatch = ''
-    sed -i -e 's#execlp("mosflm"#execl("${mosflm}/bin/mosflm"#' libcrystfel/src/indexers/mosflm.c;
-  '';
+    # CrystFEL calls mosflm by searching PATH for it. We could've create a wrapper script that sets the PATH, but
+    # we'd have to do that for every CrystFEL executable (indexamajig, crystfel, partialator). Better to just
+    # hard-code mosflm's path once.
+    postPatch = ''
+      sed -i -e 's#execlp("mosflm"#execl("${mosflm}/bin/mosflm"#' libcrystfel/src/indexers/mosflm.c;
+    '';
 
-  postInstall = lib.optionalString withBitshuffle ''
-    for file in $out/bin/*; do
-      wrapProgram $file \
-        --set HDF5_PLUGIN_PATH ${hdf5-external-filter-plugins}/lib/plugins \
-        --prefix PATH ":" ${lib.makeBinPath [ millepede-ii ]}
-    done
-  '';
+    postInstall = lib.optionalString withBitshuffle ''
+      for file in $out/bin/*; do
+        wrapProgram $file \
+          --set HDF5_PLUGIN_PATH ${hdf5-external-filter-plugins}/lib/plugins \
+          --prefix PATH ":" ${lib.makeBinPath [millepede-ii]}
+      done
+    '';
 
-  meta = with lib; {
-    description = "Data processing for serial crystallography";
-    longDescription = ''
-      CrystFEL is a suite of programs for processing (and simulating) Bragg diffraction data from "serial crystallography" experiments, often (but not always) performed using an X-ray Free-Electron Laser. Compared to rotation data, some of the particular characteristics of such data which call for a specialised software suite are:
+    meta = with lib; {
+      description = "Data processing for serial crystallography";
+      longDescription = ''
+        CrystFEL is a suite of programs for processing (and simulating) Bragg diffraction data from "serial crystallography" experiments, often (but not always) performed using an X-ray Free-Electron Laser. Compared to rotation data, some of the particular characteristics of such data which call for a specialised software suite are:
 
-      - The sliced, rather than integrated, measurement of intensity data. Many, if not all reflections are partially integrated.
-      - Many patterns (thousands) are required - high throughput is needed.
-      - The crystal orientations in each pattern are random and uncorrelated.
-      - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.'';
-    homepage = "https://www.desy.de/~twhite/crystfel/";
-    changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
-    downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pmiddend ];
-    platforms = platforms.unix;
-  };
-
-}
+        - The sliced, rather than integrated, measurement of intensity data. Many, if not all reflections are partially integrated.
+        - Many patterns (thousands) are required - high throughput is needed.
+        - The crystal orientations in each pattern are random and uncorrelated.
+        - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.'';
+      homepage = "https://www.desy.de/~twhite/crystfel/";
+      changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
+      downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [pmiddend];
+      platforms = platforms.unix;
+    };
+  }

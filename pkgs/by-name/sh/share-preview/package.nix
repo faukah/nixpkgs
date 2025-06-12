@@ -14,7 +14,6 @@
   openssl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "share-preview";
   version = "1.0.0";
@@ -49,11 +48,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.hostPlatform.isDarwin [ "-Wno-error=incompatible-function-pointer-types" ]
+    lib.optionals stdenv.hostPlatform.isDarwin ["-Wno-error=incompatible-function-pointer-types"]
   );
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/rafaelmardojai/share-preview/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "share-preview";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.unix;
   };
 })

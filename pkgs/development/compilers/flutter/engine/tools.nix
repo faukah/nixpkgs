@@ -29,35 +29,32 @@
     "windows-386" = "fa6ed0022a38ffc51ff8a927e3947fe7e59a64b2019dcddca9d3afacf7630444";
     "windows-amd64" = "b5423e4b4429837f7fe4d571ce99c068aa0ccb37ddbebc1978a423fd2b0086df";
   },
-}:
-let
-  constants = callPackage ./constants.nix { platform = buildPlatform; };
-  host-constants = callPackage ./constants.nix { platform = hostPlatform; };
-  stdenv-constants = callPackage ./constants.nix { platform = stdenv.hostPlatform; };
-in
-{
+}: let
+  constants = callPackage ./constants.nix {platform = buildPlatform;};
+  host-constants = callPackage ./constants.nix {platform = hostPlatform;};
+  stdenv-constants = callPackage ./constants.nix {platform = stdenv.hostPlatform;};
+in {
   depot_tools = fetchgit {
     url = "https://chromium.googlesource.com/chromium/tools/depot_tools.git";
     rev = depot_toolsCommit;
     hash = depot_toolsHash;
   };
 
-  cipd =
-    let
-      unwrapped =
-        runCommand "cipd-${cipdCommit}"
-          {
-            src = fetchurl {
-              name = "cipd-${cipdCommit}-unwrapped";
-              url = "https://chrome-infra-packages.appspot.com/client?platform=${stdenv-constants.platform}&version=git_revision:${cipdCommit}";
-              sha256 = cipdHashes.${stdenv-constants.platform};
-            };
-          }
-          ''
-            mkdir -p $out/bin
-            install -m755 $src $out/bin/cipd
-          '';
-    in
+  cipd = let
+    unwrapped =
+      runCommand "cipd-${cipdCommit}"
+      {
+        src = fetchurl {
+          name = "cipd-${cipdCommit}-unwrapped";
+          url = "https://chrome-infra-packages.appspot.com/client?platform=${stdenv-constants.platform}&version=git_revision:${cipdCommit}";
+          sha256 = cipdHashes.${stdenv-constants.platform};
+        };
+      }
+      ''
+        mkdir -p $out/bin
+        install -m755 $src $out/bin/cipd
+      '';
+  in
     writeShellScriptBin "cipd" ''
       params=$@
 
@@ -87,9 +84,8 @@ in
       exec ${unwrapped}/bin/cipd $params
     '';
 
-  vpython =
-    pythonPkg:
-    runCommand "vpython3" { } "mkdir -p $out/bin && ln -s ${pythonPkg}/bin/python $out/bin/vpython3";
+  vpython = pythonPkg:
+    runCommand "vpython3" {} "mkdir -p $out/bin && ln -s ${pythonPkg}/bin/python $out/bin/vpython3";
 
   xcode-select = writeShellScriptBin "xcode-select" ''
     echo ${darwin.xcode}/Contents/Developer

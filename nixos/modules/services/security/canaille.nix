@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.canaille;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkIf
     mkEnableOption
@@ -23,7 +22,7 @@ let
   dataDir = "/var/lib/canaille";
   secretsDir = "${dataDir}/secrets";
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 
   # Remove null values, so we can document optional/forbidden values that don't end up in the generated TOML file.
   filterConfig = converge (filterAttrsRecursive (_: v: v != null));
@@ -39,10 +38,12 @@ let
       ++ old.optional-dependencies.postgresql
       ++ old.optional-dependencies.otp
       ++ old.optional-dependencies.sms;
-    makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
-      "--set CONFIG /etc/canaille/config.toml"
-      "--set SECRETS_DIR \"${secretsDir}\""
-    ];
+    makeWrapperArgs =
+      (old.makeWrapperArgs or [])
+      ++ [
+        "--set CONFIG /etc/canaille/config.toml"
+        "--set SECRETS_DIR \"${secretsDir}\""
+      ];
   });
   inherit (finalPackage) python;
   pythonEnv = python.buildEnv.override {
@@ -63,12 +64,10 @@ let
 
   postgresqlHost = "postgresql://localhost/canaille?host=/run/postgresql";
   createLocalPostgresqlDb = cfg.settings.CANAILLE_SQL.DATABASE_URI == postgresqlHost;
-in
-{
-
+in {
   options.services.canaille = {
     enable = mkEnableOption "Canaille";
-    package = mkPackageOption pkgs "canaille" { };
+    package = mkPackageOption pkgs "canaille" {};
     secretKeyFile = mkOption {
       description = ''
         File containing the Flask secret key. Its content is going to be
@@ -110,7 +109,7 @@ in
       type = types.nullOr types.path;
     };
     settings = mkOption {
-      default = { };
+      default = {};
       description = "Settings for Canaille. See [the documentation](https://canaille.readthedocs.io/en/latest/references/configuration.html) for details.";
       type = types.submodule {
         freeformType = settingsFormat.type;
@@ -149,13 +148,13 @@ in
               type = types.nullOr (
                 types.submodule {
                   freeformType = settingsFormat.type;
-                  options = { };
+                  options = {};
                 }
               );
             };
             SMTP = mkOption {
               default = null;
-              example = { };
+              example = {};
               description = ''
                 SMTP configuration. By default, sending emails is not enabled.
 
@@ -181,7 +180,6 @@ in
                 }
               );
             };
-
           };
           CANAILLE_OIDC = mkOption {
             default = null;
@@ -282,21 +280,25 @@ in
     # This is not a migration, just an initial setup of schemas
     systemd.services.canaille-install = {
       # We want this on boot, not on socket activation
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = optional createLocalPostgresqlDb "postgresql.service";
-      serviceConfig = commonServiceConfig // {
-        Type = "oneshot";
-        ExecStart = "${getExe finalPackage} install";
-      };
+      serviceConfig =
+        commonServiceConfig
+        // {
+          Type = "oneshot";
+          ExecStart = "${getExe finalPackage} install";
+        };
     };
 
     systemd.services.canaille = {
       description = "Canaille";
-      documentation = [ "https://canaille.readthedocs.io/en/latest/tutorial/deployment.html" ];
-      after = [
-        "network.target"
-        "canaille-install.service"
-      ] ++ optional createLocalPostgresqlDb "postgresql.service";
+      documentation = ["https://canaille.readthedocs.io/en/latest/tutorial/deployment.html"];
+      after =
+        [
+          "network.target"
+          "canaille-install.service"
+        ]
+        ++ optional createLocalPostgresqlDb "postgresql.service";
       requires = [
         "canaille-install.service"
         "canaille.socket"
@@ -306,28 +308,28 @@ in
         CONFIG = "/etc/canaille/config.toml";
         SECRETS_DIR = secretsDir;
       };
-      serviceConfig = commonServiceConfig // {
-        Restart = "on-failure";
-        ExecStart =
-          let
+      serviceConfig =
+        commonServiceConfig
+        // {
+          Restart = "on-failure";
+          ExecStart = let
             gunicorn = python.pkgs.gunicorn.overridePythonAttrs (old: {
               # Allows Gunicorn to set a meaningful process name
-              dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.setproctitle;
+              dependencies = (old.dependencies or []) ++ old.optional-dependencies.setproctitle;
             });
-          in
-          ''
+          in ''
             ${getExe gunicorn} \
               --name=canaille \
               --bind='unix:///run/canaille.socket' \
               'canaille:create_app()'
           '';
-      };
-      restartTriggers = [ "/etc/canaille/config.toml" ];
+        };
+      restartTriggers = ["/etc/canaille/config.toml"];
     };
 
     systemd.sockets.canaille = {
-      before = [ "nginx.service" ];
-      wantedBy = [ "sockets.target" ];
+      before = ["nginx.service"];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = "/run/canaille.socket";
         SocketUser = "canaille";
@@ -377,17 +379,17 @@ in
           ensureDBOwnership = true;
         }
       ];
-      ensureDatabases = [ "canaille" ];
+      ensureDatabases = ["canaille"];
     };
 
     users.users.canaille = {
       isSystemUser = true;
       group = "canaille";
-      packages = [ finalPackage ];
+      packages = [finalPackage];
     };
 
-    users.groups.canaille.members = [ config.services.nginx.user ];
+    users.groups.canaille.members = [config.services.nginx.user];
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen ];
+  meta.maintainers = with lib.maintainers; [erictapen];
 }

@@ -13,13 +13,12 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-twitter";
   version = "3.5";
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.7";
 
@@ -61,12 +60,12 @@ buildPythonPackage rec {
     "test_filecache"
   ];
 
-  pythonImportsCheck = [ "twitter" ];
+  pythonImportsCheck = ["twitter"];
 
   meta = with lib; {
     description = "Python wrapper around the Twitter API";
     homepage = "https://github.com/bear/python-twitter";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

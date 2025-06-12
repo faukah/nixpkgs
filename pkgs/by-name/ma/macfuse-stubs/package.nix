@@ -7,7 +7,6 @@
   undmg,
   libtapi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "macfuse-stubs";
   version = "4.8.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       project website</link>.
     '';
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
 
     # macFUSE as a whole includes code with restrictions on commercial
     # redistribution. However, the build artifacts that we actually touch for

@@ -9,7 +9,6 @@
   coreutils,
   asciidoctor,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-adventure";
   version = "1.20";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "advent";
     homepage = "http://www.catb.org/~esr/open-adventure/";
     changelog = "https://gitlab.com/esr/open-adventure/-/blob/${finalAttrs.version}/NEWS.adoc";
-    maintainers = with lib.maintainers; [ EmanuelM153 ];
+    maintainers = with lib.maintainers; [EmanuelM153];
     platforms = lib.platforms.all;
   };
 })

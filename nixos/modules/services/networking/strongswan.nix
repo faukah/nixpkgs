@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   inherit (builtins) toFile;
-  inherit (lib)
+  inherit
+    (lib)
     concatMapStrings
     concatStringsSep
     mapAttrsToList
@@ -24,42 +22,38 @@ let
 
   ipsecSecrets = secrets: concatMapStrings (f: "include ${f}\n") secrets;
 
-  ipsecConf =
-    {
-      setup,
-      connections,
-      ca,
-    }:
-    let
-      # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
-      makeSections =
-        type: sections:
-        concatStringsSep "\n\n" (
-          mapAttrsToList (
-            sec: attrs:
+  ipsecConf = {
+    setup,
+    connections,
+    ca,
+  }: let
+    # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
+    makeSections = type: sections:
+      concatStringsSep "\n\n" (
+        mapAttrsToList (
+          sec: attrs:
             "${type} ${sec}\n" + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
-          ) sections
-        );
-      setupConf = makeSections "config" { inherit setup; };
-      connectionsConf = makeSections "conn" connections;
-      caConf = makeSections "ca" ca;
-
-    in
+        )
+        sections
+      );
+    setupConf = makeSections "config" {inherit setup;};
+    connectionsConf = makeSections "conn" connections;
+    caConf = makeSections "ca" ca;
+  in
     builtins.toFile "ipsec.conf" ''
       ${setupConf}
       ${connectionsConf}
       ${caConf}
     '';
 
-  strongswanConf =
-    {
-      setup,
-      connections,
-      ca,
-      secretsFile,
-      managePlugins,
-      enabledPlugins,
-    }:
+  strongswanConf = {
+    setup,
+    connections,
+    ca,
+    secretsFile,
+    managePlugins,
+    enabledPlugins,
+  }:
     toFile "strongswan.conf" ''
       charon {
         ${optionalString managePlugins "load_modular = no"}
@@ -72,19 +66,17 @@ let
       }
 
       starter {
-        config_file = ${ipsecConf { inherit setup connections ca; }}
+        config_file = ${ipsecConf {inherit setup connections ca;}}
       }
     '';
-
-in
-{
+in {
   options.services.strongswan = {
     enable = mkEnableOption "strongSwan";
 
     secrets = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "/run/keys/ipsec-foo.secret" ];
+      default = [];
+      example = ["/run/keys/ipsec-foo.secret"];
       description = ''
         A list of paths to IPSec secret files. These
         files will be included into the main ipsec.secrets file with
@@ -95,7 +87,7 @@ in
 
     setup = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = {
         cachecrls = "yes";
         strictcrlpolicy = "yes";
@@ -109,7 +101,7 @@ in
 
     connections = mkOption {
       type = types.attrsOf (types.attrsOf types.str);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "%default" = {
@@ -133,7 +125,7 @@ in
 
     ca = mkOption {
       type = types.attrsOf (types.attrsOf types.str);
-      default = { };
+      default = {};
       example = {
         strongswan = {
           auto = "add";
@@ -160,7 +152,7 @@ in
 
     enabledPlugins = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         A list of additional plugins to enable if
         {option}`managePlugins` is true.
@@ -168,25 +160,23 @@ in
     };
   };
 
-  config =
-    with cfg;
+  config = with cfg;
     mkIf enable {
-
       # here we should use the default strongswan ipsec.secrets and
       # append to it (default one is empty so not a pb for now)
       environment.etc."ipsec.secrets".text = ipsecSecrets cfg.secrets;
 
       systemd.services.strongswan = {
         description = "strongSwan IPSec Service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         path = with pkgs; [
           kmod
           iproute2
           iptables
           util-linux
         ]; # XXX Linux
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
         environment = {
           STRONGSWAN_CONF = strongswanConf {
             inherit

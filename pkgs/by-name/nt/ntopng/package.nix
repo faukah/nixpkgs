@@ -24,7 +24,6 @@
   which,
   zeromq,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ntopng";
   version = "6.2";
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/ntop/ntopng/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "ntopng";
   };
 })

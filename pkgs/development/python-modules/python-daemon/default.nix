@@ -12,7 +12,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "python-daemon";
   version = "3.1.2";
@@ -74,6 +73,6 @@ buildPythonPackage rec {
       gpl3Plus
       asl20
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

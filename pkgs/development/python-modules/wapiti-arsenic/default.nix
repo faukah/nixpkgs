@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiohttp,
   attrs,
   packaging,
   structlog,
 }:
-
 buildPythonPackage rec {
   pname = "wapiti-arsenic";
   version = "28.2";
@@ -46,7 +43,7 @@ buildPythonPackage rec {
     structlog
   ];
 
-  pythonImportsCheck = [ "wapiti_arsenic" ];
+  pythonImportsCheck = ["wapiti_arsenic"];
 
   # No tests in the pypi archive
   doCheck = false;
@@ -55,6 +52,6 @@ buildPythonPackage rec {
     description = "Asynchronous WebDriver client";
     homepage = "https://github.com/wapiti-scanner/arsenic";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

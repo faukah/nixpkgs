@@ -2,9 +2,7 @@
   lib,
   fetchurl,
   appimageTools,
-}:
-
-let
+}: let
   pname = "polypane";
   version = "24.0.2";
 
@@ -18,27 +16,27 @@ let
     inherit pname src version;
   };
 in
-appimageTools.wrapType2 {
-  inherit pname src version;
+  appimageTools.wrapType2 {
+    inherit pname src version;
 
-  extraPkgs = pkgs: [ pkgs.bash ];
+    extraPkgs = pkgs: [pkgs.bash];
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
-    install -m 444 -D ${appimageContents}/${pname}.png \
-      $out/share/icons/hicolor/512x512/apps/${pname}.png
-  '';
-
-  meta = with lib; {
-    description = "Browser with unified devtools targeting responsability and accessibility";
-    longDescription = ''
-      The stand-alone browser for ambitious developers that want to build responsive,
-      accessible and performant websites in a fraction of the time it takes with other browsers.
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
+      install -m 444 -D ${appimageContents}/${pname}.png \
+        $out/share/icons/hicolor/512x512/apps/${pname}.png
     '';
-    homepage = "https://polypane.app/";
-    maintainers = with maintainers; [ zoedsoupe ];
-    platforms = [ "x86_64-linux" ];
-    changelog = "https://polypane.app/docs/changelog/";
-    license = licenses.unfree;
-  };
-}
+
+    meta = with lib; {
+      description = "Browser with unified devtools targeting responsability and accessibility";
+      longDescription = ''
+        The stand-alone browser for ambitious developers that want to build responsive,
+        accessible and performant websites in a fraction of the time it takes with other browsers.
+      '';
+      homepage = "https://polypane.app/";
+      maintainers = with maintainers; [zoedsoupe];
+      platforms = ["x86_64-linux"];
+      changelog = "https://polypane.app/docs/changelog/";
+      license = licenses.unfree;
+    };
+  }

@@ -3,19 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.physlock;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.physlock = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -68,7 +62,6 @@ in
       };
 
       lockOn = {
-
         suspend = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -87,8 +80,8 @@ in
 
         extraTargets = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
-          example = [ "display-manager.service" ];
+          default = [];
+          example = ["display-manager.service"];
           description = ''
             Other targets to lock the screen just before.
 
@@ -98,11 +91,8 @@ in
             booted relatively unattended.
           '';
         };
-
       };
-
     };
-
   };
 
   ###### implementation
@@ -110,13 +100,12 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-
         # for physlock -l and physlock -L
-        environment.systemPackages = [ pkgs.physlock ];
+        environment.systemPackages = [pkgs.physlock];
 
         systemd.services.physlock = {
           enable = true;
-          documentation = [ "man:physlock(1)" ];
+          documentation = ["man:physlock(1)"];
           description = "Physlock";
           wantedBy =
             lib.optional cfg.lockOn.suspend "suspend.target"
@@ -137,21 +126,17 @@ in
           };
         };
 
-        security.pam.services.physlock = { };
-
+        security.pam.services.physlock = {};
       }
 
       (lib.mkIf cfg.allowAnyUser {
-
         security.wrappers.physlock = {
           setuid = true;
           owner = "root";
           group = "root";
           source = "${pkgs.physlock}/bin/physlock";
         };
-
       })
     ]
   );
-
 }

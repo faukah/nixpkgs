@@ -6,7 +6,6 @@
   autoconf,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libstroke";
   version = "0.5.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     automake
     autoconf
   ];
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   # libstroke ships with an ancient config.sub that doesn't know about x86_64, so regenerate it.
   # Also, modern automake doesn't like things and returns error code 63.  But it generates the file.

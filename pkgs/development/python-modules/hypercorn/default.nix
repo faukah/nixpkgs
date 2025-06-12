@@ -17,7 +17,6 @@
   pytest-trio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "hypercorn";
   version = "0.17.3";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     h11
@@ -46,21 +45,23 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    h3 = [ aioquic ];
-    trio = [ trio ];
-    uvloop = [ uvloop ];
+    h3 = [aioquic];
+    trio = [trio];
+    uvloop = [uvloop];
   };
 
-  nativeCheckInputs = [
-    httpx
-    pytest-asyncio
-    pytest-trio
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      httpx
+      pytest-asyncio
+      pytest-trio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "hypercorn" ];
+  pythonImportsCheck = ["hypercorn"];
 
   meta = with lib; {
     changelog = "https://github.com/pgjones/hypercorn/blob/${src.tag}/CHANGELOG.rst";
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     description = "ASGI web server inspired by Gunicorn";
     mainProgram = "hypercorn";
     license = licenses.mit;
-    maintainers = with maintainers; [ dgliwka ];
+    maintainers = with maintainers; [dgliwka];
   };
 }

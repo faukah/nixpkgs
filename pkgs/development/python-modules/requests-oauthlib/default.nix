@@ -8,7 +8,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "requests-oauthlib";
   version = "2.0.0";
@@ -38,14 +37,14 @@ buildPythonPackage rec {
   ];
 
   # Requires selenium and chrome
-  disabledTestPaths = [ "tests/examples/test_native_spa_pkce_auth0.py" ];
+  disabledTestPaths = ["tests/examples/test_native_spa_pkce_auth0.py"];
 
-  pythonImportsCheck = [ "requests_oauthlib" ];
+  pythonImportsCheck = ["requests_oauthlib"];
 
   meta = with lib; {
     description = "OAuthlib authentication support for Requests";
     homepage = "https://github.com/requests/requests-oauthlib";
-    license = with licenses; [ isc ];
-    maintainers = with maintainers; [ prikhi ];
+    license = with licenses; [isc];
+    maintainers = with maintainers; [prikhi];
   };
 }

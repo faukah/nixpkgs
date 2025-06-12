@@ -16,13 +16,12 @@
   parameterized,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "captum";
   version = "0.8.0";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchFromGitHub {
     owner = "pytorch";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     "numpy"
   ];
 
-  pythonImportsCheck = [ "captum" ];
+  pythonImportsCheck = ["captum"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     description = "Model interpretability and understanding for PyTorch";
     homepage = "https://github.com/pytorch/captum";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

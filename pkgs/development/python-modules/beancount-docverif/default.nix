@@ -8,7 +8,6 @@
   regex,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "beancount-docverif";
   version = "1.0.1";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-CFBv1FZP5JO+1MPnD86ttrO42zZlvE157zqig7s4HOg=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ beancount ];
+  dependencies = [beancount];
 
   nativeCheckInputs = [
     pytestCheckHook
     regex
   ];
 
-  pythonImportsCheck = [ "beancount_docverif" ];
+  pythonImportsCheck = ["beancount_docverif"];
 
   meta = with lib; {
     description = "Document verification plugin for Beancount";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
       - Guarantee integrity: verify that every document declared does in fact exist on disk.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

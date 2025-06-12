@@ -3,7 +3,6 @@
   setuptools,
   nftables,
 }:
-
 buildPythonPackage {
   pname = "nftables";
   inherit (nftables) version src;
@@ -16,12 +15,13 @@ buildPythonPackage {
 
   setSourceRoot = "sourceRoot=$(echo */py)";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "nftables" ];
+  pythonImportsCheck = ["nftables"];
 
   meta = {
-    inherit (nftables.meta)
+    inherit
+      (nftables.meta)
       description
       homepage
       license

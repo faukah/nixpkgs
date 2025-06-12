@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "plemoljp-hs";
   version = "2.0.4";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/yuru7/PlemolJP";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ kachick ];
+    maintainers = with lib.maintainers; [kachick];
   };
 }

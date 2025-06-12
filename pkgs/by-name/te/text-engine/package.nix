@@ -3,18 +3,15 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   gobject-introspection,
   gtk4,
   meson,
   ninja,
   pkg-config,
-
   json-glib,
   libadwaita,
   libxml2,
 }:
-
 stdenv.mkDerivation {
   pname = "text-engine";
   version = "0.1.1-unstable-2024-09-16";
@@ -53,6 +50,6 @@ stdenv.mkDerivation {
       mpl20
       lgpl21Plus
     ];
-    maintainers = with lib.maintainers; [ foo-dogsquared ];
+    maintainers = with lib.maintainers; [foo-dogsquared];
   };
 }

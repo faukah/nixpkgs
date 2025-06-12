@@ -14,7 +14,6 @@
   xz,
   zfs,
 }:
-
 buildGoModule rec {
   pname = "booster";
   version = "0.12";
@@ -42,28 +41,26 @@ buildGoModule rec {
     xz
   ];
 
-  postInstall =
-    let
-      runtimeInputs = [
-        bash
-        binutils
-        kbd
-        libfido2
-        lvm2
-        mdadm
-        zfs
-      ];
-    in
-    ''
-      wrapProgram $out/bin/generator --prefix PATH : ${lib.makeBinPath runtimeInputs}
-      wrapProgram $out/bin/init --prefix PATH : ${lib.makeBinPath runtimeInputs}
-    '';
+  postInstall = let
+    runtimeInputs = [
+      bash
+      binutils
+      kbd
+      libfido2
+      lvm2
+      mdadm
+      zfs
+    ];
+  in ''
+    wrapProgram $out/bin/generator --prefix PATH : ${lib.makeBinPath runtimeInputs}
+    wrapProgram $out/bin/init --prefix PATH : ${lib.makeBinPath runtimeInputs}
+  '';
 
   meta = with lib; {
     description = "Fast and secure initramfs generator";
     homepage = "https://github.com/anatol/booster";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "init";
   };
 }

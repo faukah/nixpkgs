@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gungnir";
   version = "1.3.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Command-line tool that continuously monitors certificate transparency (CT) logs for newly issued SSL/TLS certificates";
     homepage = "https://github.com/g0ldencybersec/gungnir";
     license = licenses.mit;
-    maintainers = with maintainers; [ cherrykitten ];
+    maintainers = with maintainers; [cherrykitten];
     mainProgram = "gungnir";
   };
 }

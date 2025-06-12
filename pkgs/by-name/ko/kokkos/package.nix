@@ -6,7 +6,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kokkos";
   version = "4.6.01";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doCheck = true;
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "C++ Performance Portability Programming EcoSystem";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       llvm-exception
     ];
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -8,7 +8,6 @@
   jsonschema,
   svgwrite,
 }:
-
 buildPythonPackage rec {
   pname = "tskit";
   version = "0.6.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "numpy>=2.0" "numpy"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jsonschema
@@ -39,13 +38,13 @@ buildPythonPackage rec {
   # will ask upstream to include tests in pypi
   doCheck = false;
 
-  pythonImportsCheck = [ "tskit" ];
+  pythonImportsCheck = ["tskit"];
 
   meta = {
     description = "Tree sequence toolkit";
     mainProgram = "tskit";
     homepage = "https://github.com/tskit-dev/tskit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ alxsimon ];
+    maintainers = with lib.maintainers; [alxsimon];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "hacompanion";
   version = "1.0.21";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/tobias-kuendig/hacompanion";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ramblurr ];
+    maintainers = with lib.maintainers; [ramblurr];
   };
 }

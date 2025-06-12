@@ -9,9 +9,7 @@
   fetchFromGitHub,
   perl,
   makeWrapper,
-}:
-
-let
+}: let
   version = "110";
   customInstallPhase = ''
     mkdir -p $out/${perl.libPrefix}/${perl.version}/
@@ -19,9 +17,8 @@ let
     cp -r $tests $out/${perl.libPrefix}/${perl.version}/
   '';
 
-  ensemblGit =
-    name: sha256:
-    # Copy modules directly
+  ensemblGit = name: sha256:
+  # Copy modules directly
     stdenv.mkDerivation {
       inherit name version;
       src = fetchFromGitHub {
@@ -70,65 +67,65 @@ let
   ensembl-variation = ensemblGit "ensembl-variation" "sha256-UjrLHF9EqI+Mp+SZR4sLNZUCGiA/UYhoFWtpwiKF8tM=";
   ensembl-funcgen = ensemblGit "ensembl-funcgen" "sha256-a9hxLBoXJsF5JWuRdpyOac1u033M8ivEjEQecuncghs=";
 in
-perlPackages.buildPerlModule rec {
-  inherit version;
-  pname = "vep";
-  buildInputs =
-    (with perlPackages; [
-      ArchiveZip
-      BioBigFile
-      BioDBHTS
-      BioExtAlign
-      BioPerl
-      DBI
-      DBDmysql
-      LWP
-      JSON
-    ])
-    ++ [
-      ensembl-xs
-      ensembl
-      ensembl-funcgen
-      ensembl-io
-      ensembl-variation
-    ];
-  propagatedBuildInputs = [ htslib ];
-  src = fetchFromGitHub {
-    owner = "Ensembl";
-    repo = "ensembl-${pname}";
-    rev = "release/${version}";
-    sha256 = "sha256-6lRdWV2ispl+mpBhkZez/d9PxOw1fkNUWeG8mUIqBJc=";
-  };
+  perlPackages.buildPerlModule rec {
+    inherit version;
+    pname = "vep";
+    buildInputs =
+      (with perlPackages; [
+        ArchiveZip
+        BioBigFile
+        BioDBHTS
+        BioExtAlign
+        BioPerl
+        DBI
+        DBDmysql
+        LWP
+        JSON
+      ])
+      ++ [
+        ensembl-xs
+        ensembl
+        ensembl-funcgen
+        ensembl-io
+        ensembl-variation
+      ];
+    propagatedBuildInputs = [htslib];
+    src = fetchFromGitHub {
+      owner = "Ensembl";
+      repo = "ensembl-${pname}";
+      rev = "release/${version}";
+      sha256 = "sha256-6lRdWV2ispl+mpBhkZez/d9PxOw1fkNUWeG8mUIqBJc=";
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
-  dontBuild = true;
-  doCheck = false;
+    nativeBuildInputs = [makeWrapper];
+    dontBuild = true;
+    doCheck = false;
 
-  outputs = [ "out" ];
+    outputs = ["out"];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    install -D -m755 filter_vep vep $out/bin/
+      mkdir -p $out/bin
+      install -D -m755 filter_vep vep $out/bin/
 
-    wrapProgram $out/bin/vep \
-      --prefix PERL5LIB : $out/${perl.libPrefix}/${perl.version}/ \
-      --add-flags "--dir_plugins ${vepPlugins}"
+      wrapProgram $out/bin/vep \
+        --prefix PERL5LIB : $out/${perl.libPrefix}/${perl.version}/ \
+        --add-flags "--dir_plugins ${vepPlugins}"
 
-    wrapProgram $out/bin/filter_vep \
-      --prefix PERL5LIB : $out/${perl.libPrefix}/${perl.version}/
-    ${customInstallPhase}
+      wrapProgram $out/bin/filter_vep \
+        --prefix PERL5LIB : $out/${perl.libPrefix}/${perl.version}/
+      ${customInstallPhase}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    homepage = "https://www.ensembl.org/info/docs/tools/vep/index.html";
-    description = "Annotate genetics variants based on genes, transcripts, and protein sequence, as well as regulatory regions";
-    license = lib.licenses.asl20;
-    mainProgram = "vep";
-    maintainers = with lib.maintainers; [ apraga ];
-    platforms = lib.platforms.unix;
-  };
-}
+    meta = {
+      homepage = "https://www.ensembl.org/info/docs/tools/vep/index.html";
+      description = "Annotate genetics variants based on genes, transcripts, and protein sequence, as well as regulatory regions";
+      license = lib.licenses.asl20;
+      mainProgram = "vep";
+      maintainers = with lib.maintainers; [apraga];
+      platforms = lib.platforms.unix;
+    };
+  }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tile38";
   version = "1.34.4";
@@ -36,6 +35,6 @@ buildGoModule rec {
     '';
     homepage = "https://tile38.com/";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

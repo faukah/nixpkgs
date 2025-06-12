@@ -3,22 +3,15 @@
   clang-unwrapped,
   binutils-unwrapped,
   runCommand,
-
   wrapBintoolsWith,
   wrapCCWith,
   buildIosSdk,
   targetIosSdkPkgs,
   xcode,
   lib,
-}:
-
-let
-
+}: let
   minSdkVersion = stdenv.targetPlatform.minSdkVersion or "9.0";
-
-in
-
-rec {
+in rec {
   sdk = rec {
     name = "ios-sdk";
     type = "derivation";
@@ -40,7 +33,7 @@ rec {
       cc = clang-unwrapped;
       bintools = binutils;
       libc = targetIosSdkPkgs.libraries;
-      extraPackages = [ "${sdk}/System" ];
+      extraPackages = ["${sdk}/System"];
       extraBuildCommands = ''
         tr '\n' ' ' < $out/nix-support/cc-cflags > cc-cflags.tmp
         mv cc-cflags.tmp $out/nix-support/cc-cflags
@@ -53,21 +46,20 @@ rec {
       inherit sdk;
     };
 
-  libraries =
-    let
-      sdk = buildIosSdk;
-    in
+  libraries = let
+    sdk = buildIosSdk;
+  in
     runCommand "libSystem-prebuilt"
-      {
-        passthru = {
-          inherit sdk;
-        };
-      }
-      ''
-        if ! [ -d ${sdk} ]; then
-            echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
-            exit 1
-        fi
-        ln -s ${sdk}/usr $out
-      '';
+    {
+      passthru = {
+        inherit sdk;
+      };
+    }
+    ''
+      if ! [ -d ${sdk} ]; then
+          echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
+          exit 1
+      fi
+      ln -s ${sdk}/usr $out
+    '';
 }

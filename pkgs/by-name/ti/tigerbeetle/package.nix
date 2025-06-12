@@ -5,59 +5,62 @@
   testers,
   tigerbeetle,
   nix-update-script,
-}:
-let
+}: let
   platform =
-    if stdenvNoCC.hostPlatform.isDarwin then "universal-macos" else stdenvNoCC.hostPlatform.system;
+    if stdenvNoCC.hostPlatform.isDarwin
+    then "universal-macos"
+    else stdenvNoCC.hostPlatform.system;
   hash = builtins.getAttr platform {
     "universal-macos" = "sha256-47glX5O8MALXv8JFrbIGaj6LKJyRuZcR8yapwKmzWbc=";
     "x86_64-linux" = "sha256-5HIxbswZV94Tem8LUVtGcx8cb00J5qGLBsNZR077Bm4=";
     "aarch64-linux" = "sha256-wXiSL3hJ6yulrGagb5TflJSWujAQqpUGZtz+GJWcy0M=";
   };
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "tigerbeetle";
-  version = "0.16.44";
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "tigerbeetle";
+    version = "0.16.44";
 
-  src = fetchzip {
-    url = "https://github.com/tigerbeetle/tigerbeetle/releases/download/${finalAttrs.version}/tigerbeetle-${platform}.zip";
-    inherit hash;
-  };
-
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    cp $src/tigerbeetle $out/bin/tigerbeetle
-
-    runHook postInstall
-  '';
-
-  passthru = {
-    tests.version = testers.testVersion {
-      package = tigerbeetle;
-      command = "tigerbeetle version";
+    src = fetchzip {
+      url = "https://github.com/tigerbeetle/tigerbeetle/releases/download/${finalAttrs.version}/tigerbeetle-${platform}.zip";
+      inherit hash;
     };
-    updateScript = ./update.sh;
-  };
 
-  meta = {
-    homepage = "https://tigerbeetle.com/";
-    description = "Financial accounting database designed to be distributed and fast";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      danielsidhion
-      nwjsmith
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ] ++ lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    mainProgram = "tigerbeetle";
-  };
-})
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+      cp $src/tigerbeetle $out/bin/tigerbeetle
+
+      runHook postInstall
+    '';
+
+    passthru = {
+      tests.version = testers.testVersion {
+        package = tigerbeetle;
+        command = "tigerbeetle version";
+      };
+      updateScript = ./update.sh;
+    };
+
+    meta = {
+      homepage = "https://tigerbeetle.com/";
+      description = "Financial accounting database designed to be distributed and fast";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        danielsidhion
+        nwjsmith
+      ];
+      platforms =
+        [
+          "x86_64-linux"
+          "aarch64-linux"
+        ]
+        ++ lib.platforms.darwin;
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+      mainProgram = "tigerbeetle";
+    };
+  })

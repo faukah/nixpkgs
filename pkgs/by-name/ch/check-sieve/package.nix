@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeCheckInputs = [
-    (python3.withPackages (p: [ p.setuptools ]))
+    (python3.withPackages (p: [p.setuptools]))
   ];
 
   # https://github.com/dburkart/check-sieve/issues/67
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=check-sieve-(.*)" ];
+    extraArgs = ["--version-regex=check-sieve-(.*)"];
   };
 
   meta = {
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/dburkart/check-sieve/blob/master/ChangeLog";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ eilvelia ];
+    maintainers = with lib.maintainers; [eilvelia];
   };
 }

@@ -11,7 +11,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "aws-lambda-builders";
   version = "1.53.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
       --replace-fail "version=read_version()," 'version="${version}",'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   nativeCheckInputs = [
     mock
@@ -70,7 +69,7 @@ buildPythonPackage rec {
     "tests/integration/workflows/dotnet_clipackage/test_dotnet.py"
   ];
 
-  pythonImportsCheck = [ "aws_lambda_builders" ];
+  pythonImportsCheck = ["aws_lambda_builders"];
 
   meta = with lib; {
     description = "Tool to compile, build and package AWS Lambda functions";
@@ -82,6 +81,6 @@ buildPythonPackage rec {
       AWS Lambda functions for several runtimes & frameworks.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ dhkl ];
+    maintainers = with maintainers; [dhkl];
   };
 }

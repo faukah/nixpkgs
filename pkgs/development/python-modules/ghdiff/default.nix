@@ -6,7 +6,6 @@
   six,
   chardet,
 }:
-
 buildPythonPackage rec {
   pname = "ghdiff";
   version = "0.4";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "17mdhi2sq9017nq8rkjhhc87djpi5z99xiil0xz17dyplr7nmkqk";
   };
 
-  nativeCheckInputs = [ zope-testrunner ];
+  nativeCheckInputs = [zope-testrunner];
   propagatedBuildInputs = [
     six
     chardet
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     license = licenses.mit;
     description = "Generate Github-style HTML for unified diffs";
     mainProgram = "ghdiff";
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

@@ -7,7 +7,6 @@
   jinja2,
   python-jose,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "christaangoossens";
   domain = "auth_oidc";
@@ -32,6 +31,6 @@ buildHomeAssistantComponent rec {
     description = "OpenID Connect authentication provider for Home Assistant";
     homepage = "https://github.com/christiaangoossens/hass-oidc-auth";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

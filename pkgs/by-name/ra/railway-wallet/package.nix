@@ -16,7 +16,7 @@ appimageTools.wrapType2 rec {
     description = "Private DeFi wallet for Linux";
     homepage = "https://www.railway.xyz";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mitchmindtree ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [mitchmindtree];
+    platforms = ["x86_64-linux"];
   };
 }

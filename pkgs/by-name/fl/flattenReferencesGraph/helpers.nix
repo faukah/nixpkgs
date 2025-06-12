@@ -2,13 +2,10 @@
   bash,
   writers,
   python3Packages,
-}:
-let
-  writeCheckedBashBin =
-    name:
-    let
-      interpreter = "${bash}/bin/bash";
-    in
+}: let
+  writeCheckedBashBin = name: let
+    interpreter = "${bash}/bin/bash";
+  in
     writers.makeScriptWriter {
       inherit interpreter;
       check = "${interpreter} -n $1";
@@ -30,7 +27,6 @@ let
   format = writeCheckedBashBin "format" ''
     ${python3Packages.autopep8}/bin/autopep8 -r -i . "''${@}"
   '';
-in
-{
+in {
   inherit format lint unittest;
 }

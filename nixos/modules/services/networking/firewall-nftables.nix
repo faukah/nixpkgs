@@ -3,25 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.networking.firewall;
 
   ifaceSet = lib.concatStringsSep ", " (map (x: ''"${x}"'') cfg.trustedInterfaces);
 
-  portsToNftSet =
-    ports: portRanges:
+  portsToNftSet = ports: portRanges:
     lib.concatStringsSep ", " (
       map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges
     );
-
-in
-
-{
-
+in {
   options = {
-
     networking.firewall = {
       extraInputRules = lib.mkOption {
         type = lib.types.lines;
@@ -59,11 +51,9 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf (cfg.enable && config.networking.nftables.enable) {
-
     assertions = [
       {
         assertion = cfg.extraCommands == "";
@@ -102,8 +92,8 @@ in
           jump rpfilter-allow
 
           ${lib.optionalString cfg.logReversePathDrops ''
-            log level info prefix "rpfilter drop: "
-          ''}
+          log level info prefix "rpfilter drop: "
+        ''}
 
         }
       ''}
@@ -116,8 +106,8 @@ in
         type filter hook input priority filter; policy drop;
 
         ${lib.optionalString (
-          ifaceSet != ""
-        ) ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''}
+        ifaceSet != ""
+      ) ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''}
 
         # Some ICMPv6 types like NDP is untracked
         ct state vmap {
@@ -129,47 +119,46 @@ in
         }
 
         ${lib.optionalString cfg.logRefusedConnections ''
-          tcp flags syn / fin,syn,rst,ack log level info prefix "refused connection: "
-        ''}
+        tcp flags syn / fin,syn,rst,ack log level info prefix "refused connection: "
+      ''}
         ${lib.optionalString (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
-          pkttype broadcast log level info prefix "refused broadcast: "
-          pkttype multicast log level info prefix "refused multicast: "
-        ''}
+        pkttype broadcast log level info prefix "refused broadcast: "
+        pkttype multicast log level info prefix "refused multicast: "
+      ''}
         ${lib.optionalString cfg.logRefusedPackets ''
-          pkttype host log level info prefix "refused packet: "
-        ''}
+        pkttype host log level info prefix "refused packet: "
+      ''}
 
         ${lib.optionalString cfg.rejectPackets ''
-          meta l4proto tcp reject with tcp reset
-          reject
-        ''}
+        meta l4proto tcp reject with tcp reset
+        reject
+      ''}
 
       }
 
       chain input-allow {
 
         ${lib.concatStrings (
-          lib.mapAttrsToList (
-            iface: cfg:
-            let
-              ifaceExpr = lib.optionalString (iface != "default") "iifname ${iface}";
-              tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
-              udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
-            in
-            ''
-              ${lib.optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
-              ${lib.optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
-            ''
-          ) cfg.allInterfaces
-        )}
+        lib.mapAttrsToList (
+          iface: cfg: let
+            ifaceExpr = lib.optionalString (iface != "default") "iifname ${iface}";
+            tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
+            udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
+          in ''
+            ${lib.optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
+            ${lib.optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
+          ''
+        )
+        cfg.allInterfaces
+      )}
 
         meta l4proto . th dport @temp-ports accept
 
         ${lib.optionalString cfg.allowPing ''
-          icmp type echo-request ${
-            lib.optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
-          } accept comment "allow ping"
-        ''}
+        icmp type echo-request ${
+          lib.optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
+        } accept comment "allow ping"
+      ''}
 
         icmpv6 type != { nd-redirect, 139 } accept comment "Accept all ICMPv6 messages except redirects and node information queries (type 139).  See RFC 4890, section 4.4."
         ip6 daddr fe80::/64 udp dport 546 accept comment "DHCPv6 client"
@@ -203,7 +192,5 @@ in
         }
       ''}
     '';
-
   };
-
 }

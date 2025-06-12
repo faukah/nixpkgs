@@ -19,7 +19,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-xkb-plugin";
   version = "0.9.0";
@@ -55,13 +54,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-xkb-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-xkb-plugin-";};
 
   meta = {
     description = "Allows you to setup and use multiple keyboard layouts";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-xkb-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

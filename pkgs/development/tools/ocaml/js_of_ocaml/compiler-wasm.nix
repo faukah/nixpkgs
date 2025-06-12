@@ -10,7 +10,6 @@
   sedlex,
   yojson,
 }:
-
 buildDunePackage {
   pname = "wasm_of_ocaml-compiler";
   inherit (js_of_ocaml-compiler) version src;
@@ -33,9 +32,11 @@ buildDunePackage {
     yojson
   ];
 
-  meta = js_of_ocaml-compiler.meta // {
-    description = "Compiler from OCaml bytecode to WebAssembly";
-    mainProgram = "wasm_of_ocaml";
-    maintainers = [ lib.maintainers.stepbrobd ];
-  };
+  meta =
+    js_of_ocaml-compiler.meta
+    // {
+      description = "Compiler from OCaml bytecode to WebAssembly";
+      mainProgram = "wasm_of_ocaml";
+      maintainers = [lib.maintainers.stepbrobd];
+    };
 }

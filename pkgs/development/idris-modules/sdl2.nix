@@ -11,7 +11,7 @@ build-idris-package rec {
   pname = "sdl2";
   version = "0.1.1";
 
-  idrisDeps = [ effects ];
+  idrisDeps = [effects];
 
   nativeBuildInputs = [
     pkg-config

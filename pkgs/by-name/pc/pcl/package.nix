@@ -3,19 +3,16 @@
   stdenv,
   config,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   libsForQt5,
   pkg-config,
-
   # buildInputs
   eigen,
   libXt,
   libpcap,
   libusb1,
   llvmPackages,
-
   # nativeBuildInputs
   boost,
   flann,
@@ -23,13 +20,10 @@
   libtiff,
   qhull,
   vtk,
-
   gitUpdater,
-
   cudaSupport ? config.cudaSupport,
   cudaPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pcl";
   version = "1.15.0";
@@ -49,19 +43,23 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '/-ffloat-store/d' cmake/pcl_find_sse.cmake
   '';
 
-  nativeBuildInputs = [
-    cmake
-    libsForQt5.wrapQtAppsHook
-    pkg-config
-  ] ++ lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ];
+  nativeBuildInputs =
+    [
+      cmake
+      libsForQt5.wrapQtAppsHook
+      pkg-config
+    ]
+    ++ lib.optionals cudaSupport [cudaPackages.cuda_nvcc];
 
-  buildInputs = [
-    eigen
-    libXt
-    libpcap
-    libsForQt5.qtbase
-    libusb1
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      eigen
+      libXt
+      libpcap
+      libsForQt5.qtbase
+      libusb1
+    ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   propagatedBuildInputs = [
     boost

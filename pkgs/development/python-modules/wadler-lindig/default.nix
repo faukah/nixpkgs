@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # tests
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wadler-lindig";
   version = "0.1.6";
@@ -41,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/patrick-kidger/wadler_lindig";
     changelog = "https://github.com/patrick-kidger/wadler_lindig/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

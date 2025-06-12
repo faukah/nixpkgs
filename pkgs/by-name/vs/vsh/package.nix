@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "vsh";
   version = "0.13.0";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "HashiCorp Vault interactive shell";
     homepage = "https://github.com/fishi0x01/vsh";
     license = licenses.mit;
-    maintainers = with maintainers; [ fishi0x01 ];
+    maintainers = with maintainers; [fishi0x01];
     mainProgram = "vsh";
   };
 }

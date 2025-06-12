@@ -6,7 +6,6 @@
   requests,
   dmenu,
 }:
-
 buildPythonApplication rec {
   pname = "dmensamenu";
   version = "1.2.2";
@@ -36,6 +35,6 @@ buildPythonApplication rec {
     description = "Print German canteen menus using dmenu and OpenMensa";
     mainProgram = "dmensamenu";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

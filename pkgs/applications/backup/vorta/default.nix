@@ -11,7 +11,6 @@
   qtbase,
   qtsvg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "vorta";
   version = "0.10.3";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${qtWrapperArgs[@]}"
-      --prefix PATH : ${lib.makeBinPath [ borgbackup ]}
+      --prefix PATH : ${lib.makeBinPath [borgbackup]}
     )
   '';
 
@@ -74,20 +73,18 @@ python3Packages.buildPythonApplication rec {
   ];
   versionCheckProgramArg = "--version";
 
-  preCheck =
-    let
-      fontsConf = makeFontsConf {
-        fontDirectories = [ ];
-      };
-    in
-    ''
-      export HOME=$(mktemp -d)
-      export FONTCONFIG_FILE=${fontsConf};
-      # For tests/test_misc.py::test_autostart
-      mkdir -p $HOME/.config/autostart
-      export QT_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}"
-      export QT_QPA_PLATFORM=offscreen
-    '';
+  preCheck = let
+    fontsConf = makeFontsConf {
+      fontDirectories = [];
+    };
+  in ''
+    export HOME=$(mktemp -d)
+    export FONTCONFIG_FILE=${fontsConf};
+    # For tests/test_misc.py::test_autostart
+    mkdir -p $HOME/.config/autostart
+    export QT_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}"
+    export QT_QPA_PLATFORM=offscreen
+  '';
 
   disabledTestPaths =
     [
@@ -105,7 +102,7 @@ python3Packages.buildPythonApplication rec {
     description = "Desktop Backup Client for Borg";
     homepage = "https://vorta.borgbase.com/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ma27 ];
+    maintainers = with lib.maintainers; [ma27];
     platforms = lib.platforms.linux;
     mainProgram = "vorta";
   };

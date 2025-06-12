@@ -12,7 +12,6 @@
 #
 # [0]: https://github.com/taiki-e/cargo-llvm-cov/issues/242
 # [1]: https://github.com/NixOS/nixpkgs/pull/197478
-
 {
   stdenv,
   lib,
@@ -21,9 +20,7 @@
   rustPlatform,
   llvmPackages_19,
   gitMinimal,
-}:
-
-let
+}: let
   pname = "cargo-llvm-cov";
   version = "0.6.14";
 
@@ -44,63 +41,62 @@ let
     '';
   };
 in
+  rustPlatform.buildRustPackage (finalAttrs: {
+    inherit pname version;
 
-rustPlatform.buildRustPackage (finalAttrs: {
-  inherit pname version;
+    # Use `fetchFromGitHub` instead of `fetchCrate` because the latter does not
+    # pull in fixtures needed for the test suite
+    src = fetchFromGitHub {
+      inherit owner;
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-iJrnNDSMich5OzEbPgnQWLVz6Zj/MUIzEsaBzqVdoDg=";
+    };
 
-  # Use `fetchFromGitHub` instead of `fetchCrate` because the latter does not
-  # pull in fixtures needed for the test suite
-  src = fetchFromGitHub {
-    inherit owner;
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-iJrnNDSMich5OzEbPgnQWLVz6Zj/MUIzEsaBzqVdoDg=";
-  };
-
-  # Upstream doesn't include the lockfile so we need to add it back
-  postUnpack = ''
-    cp ${cargoLock} ${finalAttrs.src.name}/Cargo.lock
-  '';
-
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-Sr56iu51WjVi8qCqSRjix/e6NNvRmqIvAOlgSArF48I=";
-
-  # `cargo-llvm-cov` reads these environment variables to find these binaries,
-  # which are needed to run the tests
-  LLVM_COV = "${llvm}/bin/llvm-cov";
-  LLVM_PROFDATA = "${llvm}/bin/llvm-profdata";
-
-  nativeCheckInputs = [
-    gitMinimal
-  ];
-
-  # `cargo-llvm-cov` tests rely on `git ls-files.
-  preCheck = ''
-    git init -b main
-    git add .
-  '';
-
-  meta = {
-    inherit homepage;
-    changelog = homepage + "/blob/v${version}/CHANGELOG.md";
-    description = "Cargo subcommand to easily use LLVM source-based code coverage";
-    mainProgram = "cargo-llvm-cov";
-    longDescription = ''
-      In order for this to work, you either need to run `rustup component add llvm-
-      tools-preview` or install the `llvm-tools-preview` component using your Nix
-      library (e.g. fenix or rust-overlay)
+    # Upstream doesn't include the lockfile so we need to add it back
+    postUnpack = ''
+      cp ${cargoLock} ${finalAttrs.src.name}/Cargo.lock
     '';
-    license = with lib.licenses; [
-      asl20 # or
-      mit
-    ];
-    maintainers = with lib.maintainers; [
-      wucke13
-      matthiasbeyer
-      CobaltCause
+
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-Sr56iu51WjVi8qCqSRjix/e6NNvRmqIvAOlgSArF48I=";
+
+    # `cargo-llvm-cov` reads these environment variables to find these binaries,
+    # which are needed to run the tests
+    LLVM_COV = "${llvm}/bin/llvm-cov";
+    LLVM_PROFDATA = "${llvm}/bin/llvm-profdata";
+
+    nativeCheckInputs = [
+      gitMinimal
     ];
 
-    # The profiler runtime is (currently) disabled on non-Linux platforms
-    broken = !(stdenv.hostPlatform.isLinux && !stdenv.targetPlatform.isRedox);
-  };
-})
+    # `cargo-llvm-cov` tests rely on `git ls-files.
+    preCheck = ''
+      git init -b main
+      git add .
+    '';
+
+    meta = {
+      inherit homepage;
+      changelog = homepage + "/blob/v${version}/CHANGELOG.md";
+      description = "Cargo subcommand to easily use LLVM source-based code coverage";
+      mainProgram = "cargo-llvm-cov";
+      longDescription = ''
+        In order for this to work, you either need to run `rustup component add llvm-
+        tools-preview` or install the `llvm-tools-preview` component using your Nix
+        library (e.g. fenix or rust-overlay)
+      '';
+      license = with lib.licenses; [
+        asl20 # or
+        mit
+      ];
+      maintainers = with lib.maintainers; [
+        wucke13
+        matthiasbeyer
+        CobaltCause
+      ];
+
+      # The profiler runtime is (currently) disabled on non-Linux platforms
+      broken = !(stdenv.hostPlatform.isLinux && !stdenv.targetPlatform.isRedox);
+    };
+  })

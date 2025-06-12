@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "pgraphs";
   version = "0.6.17";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/pg-format/pgraphs";
     license = lib.licenses.mit;
     mainProgram = "pgraphs";
-    maintainers = with lib.maintainers; [ luftmensch-luftmensch ];
+    maintainers = with lib.maintainers; [luftmensch-luftmensch];
   };
 }

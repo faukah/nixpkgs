@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   deepdish,
   matplotlib,
@@ -18,7 +16,6 @@
   seaborn,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "pyseries";
   version = "1.0.26";
@@ -29,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-Cq+DXt0/6Ncae8OO+kaPuTCxouh0cFPHP+T8tGVXxXo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRemoveDeps = [
     # sklearn is the old name of the scikit-learn package
@@ -49,7 +46,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "pyseries" ];
+  pythonImportsCheck = ["pyseries"];
 
   # no tests in the pypi archive
   doCheck = false;
@@ -58,6 +55,6 @@ buildPythonPackage rec {
     description = "Package for statistical analysis of time-series data";
     homepage = "https://pypi.org/project/pyseries/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

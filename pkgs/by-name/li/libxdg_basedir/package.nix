@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxdg-basedir";
   version = "1.2.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Implementation of the XDG Base Directory specification";
     homepage = "https://github.com/devnev/libxdg-basedir";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.unix;
   };
 }

@@ -11,7 +11,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rofi-calc";
   version = "2.3.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Do live calculations in rofi!";
     homepage = "https://github.com/svenstaro/rofi-calc";
     license = licenses.mit;
-    maintainers = with maintainers; [ albakham ];
+    maintainers = with maintainers; [albakham];
     platforms = with platforms; linux;
   };
 }

@@ -8,7 +8,7 @@ python3.pkgs.buildPythonPackage {
   inherit version;
   src = generator-out;
   pyproject = true;
-  pythonImportsCheck = [ "nanopb" ];
+  pythonImportsCheck = ["nanopb"];
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
     protobuf

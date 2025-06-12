@@ -1,12 +1,17 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     types
     mkOption
     setDefaultModuleLocation
     evalModules
     ;
-  inherit (types)
+  inherit
+    (types)
     deferredModule
     lazyAttrsOf
     submodule
@@ -14,20 +19,18 @@ let
     raw
     enum
     ;
-in
-{
+in {
   options = {
     deferred = mkOption {
       type = deferredModule;
     };
     result = mkOption {
-      default = (evalModules { modules = [ config.deferred ]; }).config.result;
+      default = (evalModules {modules = [config.deferred];}).config.result;
     };
   };
   config = {
-    deferred =
-      { ... }:
-      # this should be an attrset, so this fails
+    deferred = {...}:
+    # this should be an attrset, so this fails
       true;
   };
 }

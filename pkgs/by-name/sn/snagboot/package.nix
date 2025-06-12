@@ -7,7 +7,6 @@
   testers,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "snagboot";
   version = "2.2";
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   optional-dependencies = with python3Packages; {
-    gui = [ kivy ];
+    gui = [kivy];
   };
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -75,6 +74,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/bootlin/snagboot";
     description = "Generic recovery and reflashing tool for embedded platforms";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
   };
 }

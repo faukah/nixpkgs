@@ -12,7 +12,6 @@
   pytest-doctestplus,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "astropy-healpix";
   version = "1.1.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit version;
-    pname = lib.replaceStrings [ "-" ] [ "_" ] pname;
+    pname = lib.replaceStrings ["-"] ["_"] pname;
     hash = "sha256-A2cd8So27Ds1fCRNUVS2eGNi/12AdwZ1x7JIFRAQZuQ=";
   };
 
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "BSD-licensed HEALPix for Astropy";
     homepage = "https://github.com/astropy/astropy-healpix";
     license = licenses.bsd3;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
   };
 }

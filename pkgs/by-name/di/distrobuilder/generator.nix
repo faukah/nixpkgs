@@ -9,7 +9,6 @@
   gnugrep,
   systemd,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "distrobuilder-nixos-generator";
 
@@ -20,7 +19,7 @@ stdenvNoCC.mkDerivation {
   ];
 
   dontBuild = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -D -m 0555 distrobuilder/lxc.generator $out/lib/systemd/system-generators/lxc

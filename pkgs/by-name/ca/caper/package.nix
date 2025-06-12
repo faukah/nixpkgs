@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.com/niksu/caper";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ willow_ch ];
+    maintainers = with lib.maintainers; [willow_ch];
     mainProgram = "caper";
   };
 }

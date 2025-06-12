@@ -4,7 +4,6 @@
   fetchurl,
   v4l-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtv-scan-tables";
   version = "2024-03-24-7098bdd27548";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=$(out)"
   ];
 
-  allowedReferences = [ ];
+  allowedReferences = [];
 
   meta = {
     # git repo with current revision is here:
@@ -47,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
       The package delivers a collection of transponder
       tables ready to be used by software like "dvbv5-scan".
     '';
-    maintainers = with lib.maintainers; [ yarny ];
+    maintainers = with lib.maintainers; [yarny];
   };
 })

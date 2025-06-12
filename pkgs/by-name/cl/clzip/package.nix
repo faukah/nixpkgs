@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clzip";
   version = "1.15";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C language version of lzip";
     mainProgram = "clzip";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 })

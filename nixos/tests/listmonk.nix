@@ -1,33 +1,30 @@
 import ./make-test-python.nix (
-  { lib, ... }:
-  {
+  {lib, ...}: {
     name = "listmonk";
-    meta.maintainers = with lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with lib.maintainers; [raitobezarius];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.mailhog.enable = true;
-        services.listmonk = {
-          enable = true;
-          settings = {
-            admin_username = "listmonk";
-            admin_password = "hunter2";
-          };
-          database = {
-            createLocally = true;
-            # https://github.com/knadh/listmonk/blob/174a48f252a146d7e69dab42724e3329dbe25ebe/internal/messenger/email/email.go#L18-L27
-            settings.smtp = [
-              {
-                enabled = true;
-                host = "localhost";
-                port = 1025;
-                tls_type = "none";
-              }
-            ];
-          };
+    nodes.machine = {pkgs, ...}: {
+      services.mailhog.enable = true;
+      services.listmonk = {
+        enable = true;
+        settings = {
+          admin_username = "listmonk";
+          admin_password = "hunter2";
+        };
+        database = {
+          createLocally = true;
+          # https://github.com/knadh/listmonk/blob/174a48f252a146d7e69dab42724e3329dbe25ebe/internal/messenger/email/email.go#L18-L27
+          settings.smtp = [
+            {
+              enabled = true;
+              host = "localhost";
+              port = 1025;
+              tls_type = "none";
+            }
+          ];
         };
       };
+    };
 
     testScript = ''
       import json

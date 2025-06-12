@@ -6,7 +6,6 @@
   pkg-config,
   qt6,
   perl,
-
   # Cantata doesn't build with cdparanoia enabled so we disable that
   # default for now until I (or someone else) figure it out.
   withCdda ? false,
@@ -17,7 +16,6 @@
   lame,
   withMusicbrainz ? false,
   libmusicbrainz5,
-
   withTaglib ? true,
   taglib_1,
   taglib_extras,
@@ -38,7 +36,6 @@
   libvlc,
   withStreams ? true,
 }:
-
 # Inter-dependencies.
 assert withCddb -> withCdda && withTaglib;
 assert withCdda -> withCddb && withMusicbrainz;
@@ -47,12 +44,14 @@ assert withMtp -> withTaglib;
 assert withMusicbrainz -> withCdda && withTaglib;
 assert withOnlineServices -> withTaglib;
 assert withReplaygain -> withTaglib;
-assert withLibVlc -> withHttpStream;
+assert withLibVlc -> withHttpStream; let
+  fstat = x: fn: "-DENABLE_${fn}=${
+    if x
+    then "ON"
+    else "OFF"
+  }";
 
-let
-  fstat = x: fn: "-DENABLE_${fn}=${if x then "ON" else "OFF"}";
-
-  withUdisks = (withTaglib && withDevices && stdenv.hostPlatform.isLinux);
+  withUdisks = withTaglib && withDevices && stdenv.hostPlatform.isLinux;
 
   gst = with gst_all_1; [
     gstreamer
@@ -64,24 +63,24 @@ let
 
   options = [
     {
-      names = [ "CDDB" ];
+      names = ["CDDB"];
       enable = withCddb;
-      pkgs = [ libcddb ];
+      pkgs = [libcddb];
     }
     {
-      names = [ "CDPARANOIA" ];
+      names = ["CDPARANOIA"];
       enable = withCdda;
-      pkgs = [ cdparanoia ];
+      pkgs = [cdparanoia];
     }
     {
-      names = [ "DEVICES_SUPPORT" ];
+      names = ["DEVICES_SUPPORT"];
       enable = withDevices;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "DYNAMIC" ];
+      names = ["DYNAMIC"];
       enable = withDynamic;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
       names = [
@@ -97,49 +96,49 @@ let
       ];
     }
     {
-      names = [ "HTTPS_SUPPORT" ];
+      names = ["HTTPS_SUPPORT"];
       enable = true;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "HTTP_SERVER" ];
+      names = ["HTTP_SERVER"];
       enable = withHttpServer;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "HTTP_STREAM_PLAYBACK" ];
+      names = ["HTTP_STREAM_PLAYBACK"];
       enable = withHttpStream;
-      pkgs = [ qt6.qtmultimedia ];
+      pkgs = [qt6.qtmultimedia];
     }
     {
-      names = [ "LAME" ];
+      names = ["LAME"];
       enable = withLame;
-      pkgs = [ lame ];
+      pkgs = [lame];
     }
     {
-      names = [ "LIBVLC" ];
+      names = ["LIBVLC"];
       enable = withLibVlc;
-      pkgs = [ libvlc ];
+      pkgs = [libvlc];
     }
     {
-      names = [ "MTP" ];
+      names = ["MTP"];
       enable = withMtp;
-      pkgs = [ libmtp ];
+      pkgs = [libmtp];
     }
     {
-      names = [ "MUSICBRAINZ" ];
+      names = ["MUSICBRAINZ"];
       enable = withMusicbrainz;
-      pkgs = [ libmusicbrainz5 ];
+      pkgs = [libmusicbrainz5];
     }
     {
-      names = [ "ONLINE_SERVICES" ];
+      names = ["ONLINE_SERVICES"];
       enable = withOnlineServices;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
-      names = [ "STREAMS" ];
+      names = ["STREAMS"];
       enable = withStreams;
-      pkgs = [ ];
+      pkgs = [];
     }
     {
       names = [
@@ -153,64 +152,65 @@ let
       ];
     }
     {
-      names = [ "UDISKS2" ];
+      names = ["UDISKS2"];
       enable = withUdisks;
-      pkgs = [ udisks2 ];
+      pkgs = [udisks2];
     }
   ];
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "cantata";
-  version = "3.3.1";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "cantata";
+    version = "3.3.1";
 
-  src = fetchFromGitHub {
-    owner = "nullobsi";
-    repo = "cantata";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-4lkfY+87lEE2A863JogG5PtO5SyGn7Hb8shQljSqq3Q=";
-  };
+    src = fetchFromGitHub {
+      owner = "nullobsi";
+      repo = "cantata";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-4lkfY+87lEE2A863JogG5PtO5SyGn7Hb8shQljSqq3Q=";
+    };
 
-  patches = [
-    # Cantata wants to check if perl is in the PATH at runtime, but we
-    # patchShebangs the playlists scripts, making that unnecessary (perl will
-    # always be available because it's a dependency)
-    ./dont-check-for-perl-in-PATH.diff
-  ];
+    patches = [
+      # Cantata wants to check if perl is in the PATH at runtime, but we
+      # patchShebangs the playlists scripts, making that unnecessary (perl will
+      # always be available because it's a dependency)
+      ./dont-check-for-perl-in-PATH.diff
+    ];
 
-  postPatch = ''
-    patchShebangs playlists
-  '';
+    postPatch = ''
+      patchShebangs playlists
+    '';
 
-  buildInputs = [
-    qt6.qtbase
-    qt6.qtsvg
-    qt6.qtwayland
-    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
-  ] ++ lib.flatten (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
+    buildInputs =
+      [
+        qt6.qtbase
+        qt6.qtsvg
+        qt6.qtwayland
+        (perl.withPackages (ppkgs: with ppkgs; [URI]))
+      ]
+      ++ lib.flatten (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qt6.qttools
-    qt6.wrapQtAppsHook
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      qt6.qttools
+      qt6.wrapQtAppsHook
+    ];
 
-  cmakeFlags = lib.flatten (map (e: map (f: fstat e.enable f) e.names) options);
+    cmakeFlags = lib.flatten (map (e: map (f: fstat e.enable f) e.names) options);
 
-  qtWrapperArgs = lib.optionals (withHttpStream && !withLibVlc) [
-    "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}"
-  ];
+    qtWrapperArgs = lib.optionals (withHttpStream && !withLibVlc) [
+      "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}"
+    ];
 
-  meta = {
-    description = "Graphical client for MPD";
-    mainProgram = "cantata";
-    homepage = "https://github.com/nullobsi/cantata";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ peterhoeg ];
-    # Technically, Cantata should run on Darwin/Windows so if someone wants to
-    # bother figuring that one out, be my guest.
-    platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
-  };
-})
+    meta = {
+      description = "Graphical client for MPD";
+      mainProgram = "cantata";
+      homepage = "https://github.com/nullobsi/cantata";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [peterhoeg];
+      # Technically, Cantata should run on Darwin/Windows so if someone wants to
+      # bother figuring that one out, be my guest.
+      platforms = lib.platforms.unix;
+      badPlatforms = lib.platforms.darwin;
+    };
+  })

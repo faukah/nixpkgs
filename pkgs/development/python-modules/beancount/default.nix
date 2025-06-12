@@ -12,7 +12,6 @@
   python-dateutil,
   regex,
 }:
-
 buildPythonPackage rec {
   version = "3.1.0";
   pname = "beancount";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     mv beancount tests
   '';
 
-  pythonImportsCheck = [ "beancount" ];
+  pythonImportsCheck = ["beancount"];
 
   meta = {
     homepage = "https://github.com/beancount/beancount";
@@ -63,6 +62,6 @@ buildPythonPackage rec {
       generate a variety of reports from them, and provides a web interface.
     '';
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ alapshin ];
+    maintainers = with lib.maintainers; [alapshin];
   };
 }

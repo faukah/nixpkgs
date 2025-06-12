@@ -7,7 +7,6 @@
   libGL,
   libglut,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bullet";
   version = "3.25";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AGP05GoxLjHqlnW63/KkZe+TjO3IKcgBi+Qb/osQuCM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGLU
     libGL
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://bulletphysics.org";
     license = licenses.zlib;
-    maintainers = with maintainers; [ aforemny ];
+    maintainers = with maintainers; [aforemny];
     platforms = platforms.unix;
   };
 }

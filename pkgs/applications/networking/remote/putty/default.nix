@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.83";
   pname = "putty";

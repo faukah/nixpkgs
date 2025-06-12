@@ -11,7 +11,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gitify";
   version = "6.4.1";
@@ -65,25 +64,24 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     ${
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/Applications
-          cp -r dist/mac*/Gitify.app $out/Applications
-          makeWrapper $out/Applications/Gitify.app/Contents/MacOS/gitify $out/bin/gitify
-        ''
-      else
-        ''
-          mkdir -p $out/share/gitify
-          cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/share/gitify
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/Applications
+        cp -r dist/mac*/Gitify.app $out/Applications
+        makeWrapper $out/Applications/Gitify.app/Contents/MacOS/gitify $out/bin/gitify
+      ''
+      else ''
+        mkdir -p $out/share/gitify
+        cp -r dist/*-unpacked/{locales,resources{,.pak}} $out/share/gitify
 
-          mkdir -p $out/share/icons/hicolor/256x256/apps
-          magick assets/images/app-icon.ico $out/share/icons/hicolor/256x256/apps/gitify.png
+        mkdir -p $out/share/icons/hicolor/256x256/apps
+        magick assets/images/app-icon.ico $out/share/icons/hicolor/256x256/apps/gitify.png
 
-          makeWrapper ${lib.getExe electron} $out/bin/gitify \
-              --add-flags $out/share/gitify/resources/app.asar \
-              --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
-              --inherit-argv0
-        ''
+        makeWrapper ${lib.getExe electron} $out/bin/gitify \
+            --add-flags $out/share/gitify/resources/app.asar \
+            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+            --inherit-argv0
+      ''
     }
 
     runHook postInstall
@@ -96,19 +94,19 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "gitify %U";
       icon = "gitify";
       comment = "GitHub Notifications on your menu bar.";
-      categories = [ "Development" ];
+      categories = ["Development"];
       startupWMClass = "Gitify";
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://www.gitify.io/";
     changelog = "https://github.com/gitify-app/gitify/releases/tag/v${finalAttrs.version}";
     description = "GitHub Notifications on your menu bar";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
   };
 })

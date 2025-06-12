@@ -3,18 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
-  inherit (lib.attrsets)
+  inherit
+    (lib.attrsets)
     filterAttrs
     mapAttrs
     mapAttrs'
     mapAttrsToList
     nameValuePair
     ;
-  inherit (lib.lists)
+  inherit
+    (lib.lists)
     concatMap
     concatLists
     filter
@@ -27,22 +27,19 @@ let
 
   removeNulls = filterAttrs (_: v: v != null);
 
-  escapeCredentialName = input: replaceStrings [ "\\" ] [ "_" ] input;
+  escapeCredentialName = input: replaceStrings ["\\"] ["_"] input;
 
   privateKeyCredential = interfaceName: escapeCredentialName "wireguard-${interfaceName}-private-key";
-  presharedKeyCredential =
-    interfaceName: peer: escapeCredentialName "wireguard-${interfaceName}-${peer.name}-preshared-key";
+  presharedKeyCredential = interfaceName: peer: escapeCredentialName "wireguard-${interfaceName}-${peer.name}-preshared-key";
 
-  interfaceCredentials =
-    interfaceName: interface:
-    [ "${privateKeyCredential interfaceName}:${interface.privateKeyFile}" ]
+  interfaceCredentials = interfaceName: interface:
+    ["${privateKeyCredential interfaceName}:${interface.privateKeyFile}"]
     ++ pipe interface.peers [
       (filter (peer: peer.presharedKeyFile != null))
       (map (peer: "${presharedKeyCredential interfaceName peer}:${peer.presharedKeyFile}"))
     ];
 
-  generateNetdev =
-    name: interface:
+  generateNetdev = name: interface:
     nameValuePair "40-${name}" {
       netdevConfig = removeNulls {
         Kind = "wireguard";
@@ -53,18 +50,22 @@ let
         PrivateKey = "@${privateKeyCredential name}";
         ListenPort = interface.listenPort;
         FirewallMark = interface.fwMark;
-        RouteTable = if interface.allowedIPsAsRoutes then interface.table else null;
+        RouteTable =
+          if interface.allowedIPsAsRoutes
+          then interface.table
+          else null;
         RouteMetric = interface.metric;
       };
       wireguardPeers = map (generateWireguardPeer name) interface.peers;
     };
 
-  generateWireguardPeer =
-    interfaceName: peer:
+  generateWireguardPeer = interfaceName: peer:
     removeNulls {
       PublicKey = peer.publicKey;
       PresharedKey =
-        if peer.presharedKeyFile == null then null else "@${presharedKeyCredential interfaceName peer}";
+        if peer.presharedKeyFile == null
+        then null
+        else "@${presharedKeyCredential interfaceName peer}";
       AllowedIPs = peer.allowedIPs;
       Endpoint = peer.endpoint;
       PersistentKeepalive = peer.persistentKeepalive;
@@ -77,26 +78,26 @@ let
 
   cfg = config.networking.wireguard;
 
-  refreshEnabledInterfaces = filterAttrs (
-    name: interface: interface.dynamicEndpointRefreshSeconds != 0
-  ) cfg.interfaces;
+  refreshEnabledInterfaces =
+    filterAttrs (
+      name: interface: interface.dynamicEndpointRefreshSeconds != 0
+    )
+    cfg.interfaces;
 
-  generateRefreshTimer =
-    name: interface:
+  generateRefreshTimer = name: interface:
     nameValuePair "wireguard-dynamic-refresh-${name}" {
-      partOf = [ "wireguard-dynamic-refresh-${name}.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["wireguard-dynamic-refresh-${name}.service"];
+      wantedBy = ["timers.target"];
       description = "Wireguard dynamic endpoint refresh (${name}) timer";
       timerConfig.OnBootSec = interface.dynamicEndpointRefreshSeconds;
       timerConfig.OnUnitInactiveSec = interface.dynamicEndpointRefreshSeconds;
     };
 
-  generateRefreshService =
-    name: interface:
+  generateRefreshService = name: interface:
     nameValuePair "wireguard-dynamic-refresh-${name}" {
       description = "Wireguard dynamic endpoint refresh (${name})";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       path = with pkgs; [
         iproute2
         systemd
@@ -109,10 +110,8 @@ let
         networkctl reload
       '';
     };
-
-in
-{
-  meta.maintainers = [ lib.maintainers.majiir ];
+in {
+  meta.maintainers = [lib.maintainers.majiir];
 
   options.networking.wireguard = {
     useNetworkd = mkOption {
@@ -133,7 +132,6 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.useNetworkd) {
-
     # TODO: Some of these options may be possible to support in networkd.
     #
     # privateKey and presharedKey are trivial to support, but we deliberately
@@ -155,67 +153,67 @@ in
     assertions = concatLists (
       flip mapAttrsToList cfg.interfaces (
         name: interface:
-        [
-          # Interface assertions
-          {
-            assertion = interface.privateKey == null;
-            message = "networking.wireguard.interfaces.${name}.privateKey cannot be used with networkd. Use privateKeyFile instead.";
-          }
-          {
-            assertion = !interface.generatePrivateKeyFile;
-            message = "networking.wireguard.interfaces.${name}.generatePrivateKeyFile cannot be used with networkd.";
-          }
-          {
-            assertion = interface.preSetup == "";
-            message = "networking.wireguard.interfaces.${name}.preSetup cannot be used with networkd.";
-          }
-          {
-            assertion = interface.postSetup == "";
-            message = "networking.wireguard.interfaces.${name}.postSetup cannot be used with networkd.";
-          }
-          {
-            assertion = interface.preShutdown == "";
-            message = "networking.wireguard.interfaces.${name}.preShutdown cannot be used with networkd.";
-          }
-          {
-            assertion = interface.postShutdown == "";
-            message = "networking.wireguard.interfaces.${name}.postShutdown cannot be used with networkd.";
-          }
-          {
-            assertion = interface.socketNamespace == null;
-            message = "networking.wireguard.interfaces.${name}.socketNamespace cannot be used with networkd.";
-          }
-          {
-            assertion = interface.interfaceNamespace == null;
-            message = "networking.wireguard.interfaces.${name}.interfaceNamespace cannot be used with networkd.";
-          }
-          {
-            assertion = interface.type == "wireguard";
-            message = "networking.wireguard.interfaces.${name}.type value must be \"wireguard\" when used with networkd.";
-          }
-        ]
-        ++ flip concatMap interface.ips (ip: [
-          # IP assertions
-          {
-            assertion = hasInfix "/" ip;
-            message = "networking.wireguard.interfaces.${name}.ips value \"${ip}\" requires a subnet (e.g. 192.0.2.1/32) with networkd.";
-          }
-        ])
-        ++ flip concatMap interface.peers (peer: [
-          # Peer assertions
-          {
-            assertion = peer.presharedKey == null;
-            message = "networking.wireguard.interfaces.${name}.peers[].presharedKey cannot be used with networkd. Use presharedKeyFile instead.";
-          }
-          {
-            assertion = peer.dynamicEndpointRefreshSeconds == null;
-            message = "networking.wireguard.interfaces.${name}.peers[].dynamicEndpointRefreshSeconds cannot be used with networkd. Use networking.wireguard.interfaces.${name}.dynamicEndpointRefreshSeconds instead.";
-          }
-          {
-            assertion = peer.dynamicEndpointRefreshRestartSeconds == null;
-            message = "networking.wireguard.interfaces.${name}.peers[].dynamicEndpointRefreshRestartSeconds cannot be used with networkd.";
-          }
-        ])
+          [
+            # Interface assertions
+            {
+              assertion = interface.privateKey == null;
+              message = "networking.wireguard.interfaces.${name}.privateKey cannot be used with networkd. Use privateKeyFile instead.";
+            }
+            {
+              assertion = !interface.generatePrivateKeyFile;
+              message = "networking.wireguard.interfaces.${name}.generatePrivateKeyFile cannot be used with networkd.";
+            }
+            {
+              assertion = interface.preSetup == "";
+              message = "networking.wireguard.interfaces.${name}.preSetup cannot be used with networkd.";
+            }
+            {
+              assertion = interface.postSetup == "";
+              message = "networking.wireguard.interfaces.${name}.postSetup cannot be used with networkd.";
+            }
+            {
+              assertion = interface.preShutdown == "";
+              message = "networking.wireguard.interfaces.${name}.preShutdown cannot be used with networkd.";
+            }
+            {
+              assertion = interface.postShutdown == "";
+              message = "networking.wireguard.interfaces.${name}.postShutdown cannot be used with networkd.";
+            }
+            {
+              assertion = interface.socketNamespace == null;
+              message = "networking.wireguard.interfaces.${name}.socketNamespace cannot be used with networkd.";
+            }
+            {
+              assertion = interface.interfaceNamespace == null;
+              message = "networking.wireguard.interfaces.${name}.interfaceNamespace cannot be used with networkd.";
+            }
+            {
+              assertion = interface.type == "wireguard";
+              message = "networking.wireguard.interfaces.${name}.type value must be \"wireguard\" when used with networkd.";
+            }
+          ]
+          ++ flip concatMap interface.ips (ip: [
+            # IP assertions
+            {
+              assertion = hasInfix "/" ip;
+              message = "networking.wireguard.interfaces.${name}.ips value \"${ip}\" requires a subnet (e.g. 192.0.2.1/32) with networkd.";
+            }
+          ])
+          ++ flip concatMap interface.peers (peer: [
+            # Peer assertions
+            {
+              assertion = peer.presharedKey == null;
+              message = "networking.wireguard.interfaces.${name}.peers[].presharedKey cannot be used with networkd. Use presharedKeyFile instead.";
+            }
+            {
+              assertion = peer.dynamicEndpointRefreshSeconds == null;
+              message = "networking.wireguard.interfaces.${name}.peers[].dynamicEndpointRefreshSeconds cannot be used with networkd. Use networking.wireguard.interfaces.${name}.dynamicEndpointRefreshSeconds instead.";
+            }
+            {
+              assertion = peer.dynamicEndpointRefreshRestartSeconds == null;
+              message = "networking.wireguard.interfaces.${name}.peers[].dynamicEndpointRefreshRestartSeconds cannot be used with networkd.";
+            }
+          ])
       )
     );
 
@@ -226,10 +224,12 @@ in
     };
 
     systemd.timers = mapAttrs' generateRefreshTimer refreshEnabledInterfaces;
-    systemd.services = (mapAttrs' generateRefreshService refreshEnabledInterfaces) // {
-      systemd-networkd.serviceConfig.LoadCredential = flatten (
-        mapAttrsToList interfaceCredentials cfg.interfaces
-      );
-    };
+    systemd.services =
+      (mapAttrs' generateRefreshService refreshEnabledInterfaces)
+      // {
+        systemd-networkd.serviceConfig.LoadCredential = flatten (
+          mapAttrsToList interfaceCredentials cfg.interfaces
+        );
+      };
   };
 }

@@ -6,10 +6,9 @@
   qmake,
   qtmacextras,
   stdenv,
-}:
-
-let
-  inherit (pythonPackages)
+}: let
+  inherit
+    (pythonPackages)
     buildPythonPackage
     isPy3k
     python
@@ -19,68 +18,68 @@ let
     pyqt-builder
     ;
 in
-buildPythonPackage {
-  pname = "qscintilla-qt5";
-  version = qscintilla.version;
-  src = qscintilla.src;
-  format = "pyproject";
+  buildPythonPackage {
+    pname = "qscintilla-qt5";
+    version = qscintilla.version;
+    src = qscintilla.src;
+    format = "pyproject";
 
-  disabled = !isPy3k;
+    disabled = !isPy3k;
 
-  nativeBuildInputs = [
-    sip
-    qmake
-    pyqt-builder
-    qscintilla
-    pythonPackages.setuptools
-  ];
-  buildInputs = [ qtbase ];
-  propagatedBuildInputs = [ pyqt5 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ qtmacextras ];
+    nativeBuildInputs = [
+      sip
+      qmake
+      pyqt-builder
+      qscintilla
+      pythonPackages.setuptools
+    ];
+    buildInputs = [qtbase];
+    propagatedBuildInputs = [pyqt5] ++ lib.optionals stdenv.hostPlatform.isDarwin [qtmacextras];
 
-  dontWrapQtApps = true;
+    dontWrapQtApps = true;
 
-  postPatch =
-    ''
-      cd Python
-      cp pyproject-qt5.toml pyproject.toml
-      echo '[tool.sip.project]' >> pyproject.toml
-      echo 'sip-include-dirs = [ "${pyqt5}/${python.sitePackages}/PyQt5/bindings"]' \
-         >> pyproject.toml
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      substituteInPlace project.py \
-        --replace \
-        "if self.project.qsci_external_lib:
-                  if self.qsci_features_dir is not None:" \
-        "if self.project.qsci_external_lib:
-                  self.builder_settings.append('QT += widgets')
+    postPatch =
+      ''
+        cd Python
+        cp pyproject-qt5.toml pyproject.toml
+        echo '[tool.sip.project]' >> pyproject.toml
+        echo 'sip-include-dirs = [ "${pyqt5}/${python.sitePackages}/PyQt5/bindings"]' \
+           >> pyproject.toml
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        substituteInPlace project.py \
+          --replace \
+          "if self.project.qsci_external_lib:
+                    if self.qsci_features_dir is not None:" \
+          "if self.project.qsci_external_lib:
+                    self.builder_settings.append('QT += widgets')
 
-                  self.builder_settings.append('QT += printsupport')
+                    self.builder_settings.append('QT += printsupport')
 
-                  if self.qsci_features_dir is not None:"
+                    if self.qsci_features_dir is not None:"
+      '';
+
+    dontConfigure = true;
+
+    build = ''
+      sip-install --qsci-features-dir ${qscintilla}/mkspecs/features \
+      --qsci-include-dir ${qscintilla}/include \
+      --qsci-library-dir ${qscintilla}/lib --api-dir ${qscintilla}/share";
+    '';
+    postInstall = ''
+      # Needed by pythonImportsCheck to find the module
+      export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
     '';
 
-  dontConfigure = true;
+    # Checked using pythonImportsCheck
+    doCheck = false;
 
-  build = ''
-    sip-install --qsci-features-dir ${qscintilla}/mkspecs/features \
-    --qsci-include-dir ${qscintilla}/include \
-    --qsci-library-dir ${qscintilla}/lib --api-dir ${qscintilla}/share";
-  '';
-  postInstall = ''
-    # Needed by pythonImportsCheck to find the module
-    export PYTHONPATH="$out/${python.sitePackages}:$PYTHONPATH"
-  '';
+    pythonImportsCheck = ["PyQt5.Qsci"];
 
-  # Checked using pythonImportsCheck
-  doCheck = false;
-
-  pythonImportsCheck = [ "PyQt5.Qsci" ];
-
-  meta = with lib; {
-    description = "Python binding to QScintilla, Qt based text editing control";
-    license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ lsix ];
-    homepage = "https://www.riverbankcomputing.com/software/qscintilla/";
-  };
-}
+    meta = with lib; {
+      description = "Python binding to QScintilla, Qt based text editing control";
+      license = licenses.lgpl21Plus;
+      maintainers = with maintainers; [lsix];
+      homepage = "https://www.riverbankcomputing.com/software/qscintilla/";
+    };
+  }

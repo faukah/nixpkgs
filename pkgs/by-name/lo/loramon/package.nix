@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "loramon";
   version = "0.9.7";
@@ -30,6 +29,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/markqvist/LoRaMon";
     changelog = "https://github.com/markqvist/LoRaMon/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ erethon ];
+    maintainers = with lib.maintainers; [erethon];
   };
 }

@@ -1,21 +1,17 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
   makeWrapper,
   shared-mime-info,
-
   fetchpatch,
   qtbase,
   qtsvg,
   qttools,
   qtwebengine,
   qtxmlpatterns,
-
   poppler,
-
   karchive,
   kcompletion,
   kconfig,
@@ -32,9 +28,7 @@
   ktextwidgets,
   kxmlgui,
   syntax-highlighting,
-
   libspectre,
-
   # Backends. Set to null if you want to omit from the build
   withAnalitza ? true,
   analitza,
@@ -52,7 +46,6 @@
   sage,
   sage-with-env ? sage.with-env,
 }:
-
 mkDerivation {
   pname = "cantor";
 
@@ -101,9 +94,11 @@ mkDerivation {
     ++ lib.optional withR R
     ++ lib.optional withSage sage-with-env;
 
-  qtWrapperArgs = [
-    "--prefix PATH : ${placeholder "out"}/bin"
-  ] ++ lib.optional withSage "--prefix PATH : ${sage-with-env}/bin";
+  qtWrapperArgs =
+    [
+      "--prefix PATH : ${placeholder "out"}/bin"
+    ]
+    ++ lib.optional withSage "--prefix PATH : ${sage-with-env}/bin";
 
   # Causes failures on Hydra and ofborg from some reason
   enableParallelBuilding = false;
@@ -126,6 +121,6 @@ mkDerivation {
       gpl2Plus
       gpl3Only
     ];
-    maintainers = with lib.maintainers; [ hqurve ];
+    maintainers = with lib.maintainers; [hqurve];
   };
 }

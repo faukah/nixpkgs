@@ -4,7 +4,6 @@
   fetchpatch,
   buildPythonPackage,
 }:
-
 buildPythonPackage rec {
   pname = "rocket-errbot";
   version = "1.2.5";

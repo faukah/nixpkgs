@@ -4,28 +4,22 @@
   config,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   scikit-learn,
   torch,
   tqdm,
-
   # optional-dependencies
   faiss,
   tensorboard,
-
   # tests
   pytestCheckHook,
   torchvision,
   writableTmpDirAsHomeHook,
-
   cudaSupport ? config.cudaSupport,
 }:
-
 buildPythonPackage rec {
   pname = "pytorch-metric-learning";
   version = "2.8.1";
@@ -68,11 +62,13 @@ buildPythonPackage rec {
   '';
 
   # package only requires `unittest`, but use `pytest` to exclude tests
-  nativeCheckInputs = [
-    pytestCheckHook
-    torchvision
-    writableTmpDirAsHomeHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      torchvision
+      writableTmpDirAsHomeHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests =
     [
@@ -110,6 +106,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/KevinMusgrave/pytorch-metric-learning";
     changelog = "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

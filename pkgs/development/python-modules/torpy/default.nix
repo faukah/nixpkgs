@@ -7,7 +7,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "torpy";
   version = "1.1.6";
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # requires network
     "tests/integration"
   ];
 
-  pythonImportsCheck = [ "cryptography" ];
+  pythonImportsCheck = ["cryptography"];
 
   meta = with lib; {
     description = "Pure python Tor client";
     homepage = "https://github.com/torpyorg/torpy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ larsr ];
+    maintainers = with maintainers; [larsr];
   };
 }

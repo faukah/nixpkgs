@@ -6,7 +6,6 @@
   jdk11,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nifi";
   version = "1.28.1";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-YFQIV2/B+8/fBmrWPs7Q3FkqaIxBqNBP0BIkIm4M7Zo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk11 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk11];
 
   installPhase = ''
     cp -r ../$sourceRoot $out
@@ -46,8 +45,8 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     homepage = "https://nifi.apache.org";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ izorkin ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [izorkin];
   };
 }

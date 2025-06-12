@@ -10,7 +10,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dnsperf";
   version = "2.14.0";

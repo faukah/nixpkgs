@@ -18,12 +18,12 @@ mkLibretroCore {
     fetchSubmodules = true;
   };
 
-  extraNativeBuildInputs = [ cmake ];
+  extraNativeBuildInputs = [cmake];
   extraBuildInputs = [
     libGL
     libGLU
   ];
-  cmakeFlags = [ "-DLIBRETRO=ON" ];
+  cmakeFlags = ["-DLIBRETRO=ON"];
   makefile = "Makefile";
 
   meta = {

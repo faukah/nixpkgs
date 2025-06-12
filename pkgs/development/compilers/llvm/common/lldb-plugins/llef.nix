@@ -5,7 +5,6 @@
   makeWrapper,
   lldb,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "llef";
   version = "1.2.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/foundryzero/llef";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ nrabulinski ];
+    maintainers = with maintainers; [nrabulinski];
     mainProgram = "llef";
   };
 })

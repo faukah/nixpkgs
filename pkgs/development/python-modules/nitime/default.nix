@@ -15,7 +15,6 @@
   networkx,
   nibabel,
 }:
-
 buildPythonPackage rec {
   pname = "nitime";
   version = "0.11";
@@ -42,16 +41,16 @@ buildPythonPackage rec {
     nibabel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = !stdenv.hostPlatform.isDarwin; # tests hang indefinitely
 
-  pythonImportsCheck = [ "nitime" ];
+  pythonImportsCheck = ["nitime"];
 
   meta = with lib; {
     homepage = "https://nipy.org/nitime";
     description = "Algorithms and containers for time-series analysis in time and spectral domains";
     license = licenses.bsd3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

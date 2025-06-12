@@ -3,7 +3,6 @@
   xorg,
   fontDirs,
 }:
-
 stdenv.mkDerivation {
   name = "xquartz-system-fonts";
   buildInputs = [

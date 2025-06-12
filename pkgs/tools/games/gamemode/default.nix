@@ -16,7 +16,6 @@
   procps,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gamemode";
   version = "1.8.2";
@@ -43,16 +42,16 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace data/gamemoderun \
       --subst-var-by libraryPath ${
-        lib.makeLibraryPath (
-          [
-            (placeholder "lib")
-          ]
-          ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-            # Support wrapping 32bit applications on a 64bit linux system
-            libgamemode32
-          ]
-        )
-      }
+      lib.makeLibraryPath (
+        [
+          (placeholder "lib")
+        ]
+        ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
+          # Support wrapping 32bit applications on a 64bit linux system
+          libgamemode32
+        ]
+      )
+    }
   '';
 
   nativeBuildInputs = [
@@ -95,22 +94,22 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram "$out/bin/gamemodelist" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          findutils
-          gawk
-          procps
-        ]
-      }
+      lib.makeBinPath [
+        findutils
+        gawk
+        procps
+      ]
+    }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Optimise Linux system performance on demand";
     homepage = "https://feralinteractive.github.io/gamemode";
     changelog = "https://github.com/FeralInteractive/gamemode/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
     mainProgram = "gamemoderun"; # Requires NixOS module to run
   };

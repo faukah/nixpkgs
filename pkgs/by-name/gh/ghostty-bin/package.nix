@@ -5,7 +5,6 @@
   fetchurl,
   makeBinaryWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ghostty-bin";
   version = "1.1.3";
@@ -29,31 +28,31 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   /**
-     Ghostty really likes all of it's resources to be in the same directory, so link them back after we split them
+  Ghostty really likes all of it's resources to be in the same directory, so link them back after we split them
 
-     - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/os/resourcesdir.zig#L11-L52
-     - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/termio/Exec.zig#L745-L750
-     - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/termio/Exec.zig#L818-L834
+  - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/os/resourcesdir.zig#L11-L52
+  - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/termio/Exec.zig#L745-L750
+  - https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/src/termio/Exec.zig#L818-L834
 
-     terminfo and shell integration should also be installable on remote machines
+  terminfo and shell integration should also be installable on remote machines
 
-     ```nix
-     { pkgs, ... }: {
-       environment.systemPackages = [ pkgs.ghostty.terminfo ];
+  ```nix
+  { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.ghostty.terminfo ];
 
-       programs.bash = {
-         interactiveShellInit = ''
-           if [[ "$TERM" == "xterm-ghostty" ]]; then
-             builtin source ${pkgs.ghostty.shell_integration}/bash/ghostty.bash
-           fi
-         '';
-       };
-     }
-     ```
+    programs.bash = {
+      interactiveShellInit = ''
+        if [[ "$TERM" == "xterm-ghostty" ]]; then
+          builtin source ${pkgs.ghostty.shell_integration}/bash/ghostty.bash
+        fi
+      '';
+    };
+  }
+  ```
 
-     On linux we can move the original files and make symlinks to them
-     but on darwin (when using the .app bundle) we need to copy the files
-     in order to maintain signed integrity
+  On linux we can move the original files and make symlinks to them
+  but on darwin (when using the .app bundle) we need to copy the files
+  in order to maintain signed integrity
   */
   resourceDir = "${placeholder "out"}/Applications/Ghostty.app/Contents/Resources";
   postFixup = ''
@@ -91,10 +90,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://ghostty.org/";
     downloadPage = "https://ghostty.org/download";
     changelog = "https://ghostty.org/docs/install/release-notes/${
-      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["-"] finalAttrs.version
     }";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Enzime ];
+    maintainers = with lib.maintainers; [Enzime];
     mainProgram = "ghostty";
     outputsToInstall = [
       "out"
@@ -103,6 +102,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "terminfo"
     ];
     platforms = lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

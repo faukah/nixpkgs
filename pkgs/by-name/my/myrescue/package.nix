@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "myrescue";
   version = "0.9.8";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-tO9gkDpEtmySatzV2Ktw3eq5SybCUGAUmKXiSxnkwdc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   sourceRoot = "./src";
 
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Hard disk recovery tool that reads undamaged regions first";
     mainProgram = "myrescue";
     homepage = "https://myrescue.sourceforge.net";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

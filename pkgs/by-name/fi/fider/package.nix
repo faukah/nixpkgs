@@ -6,7 +6,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fider";
   version = "0.27.0";
@@ -34,7 +33,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   npmDepsHash = "sha256-c8CFMMmFcLZkJL50bfLlk2HP9B/rexNZ2WWJkV0x4Rk=";
 
   server = callPackage ./server.nix {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -42,7 +42,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       ;
   };
   frontend = callPackage ./frontend.nix {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -66,7 +67,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) fider;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
 
   pyproject = true;
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     uvicorn
@@ -33,6 +33,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/sparfenyuk/mcp-proxy";
     mainProgram = "mcp-proxy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ keyruu ];
+    maintainers = with lib.maintainers; [keyruu];
   };
 }

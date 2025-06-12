@@ -7,7 +7,6 @@
   glib,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gdbuspp";
   version = "3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = {
     description = "GDBus++ - a glib2 D-Bus wrapper for C++";
@@ -39,8 +38,8 @@ stdenv.mkDerivation rec {
     homepage = "https://codeberg.org/OpenVPN/gdbuspp";
     changelog = "https://codeberg.org/OpenVPN/gdbuspp/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
-    maintainers = [ lib.maintainers.progrm_jarvis ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
+    maintainers = [lib.maintainers.progrm_jarvis];
     platforms = lib.platforms.linux;
   };
 }

@@ -3,22 +3,19 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.oddjobd;
-in
-{
+in {
   options = {
     programs.oddjobd = {
       enable = lib.mkEnableOption "oddjob, a D-Bus service which runs odd jobs on behalf of client applications";
-      package = lib.mkPackageOption pkgs "oddjob" { };
+      package = lib.mkPackageOption pkgs "oddjob" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.oddjobd = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "dbus.service"
@@ -36,8 +33,8 @@ in
       };
     };
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ SohamG ];
+  meta.maintainers = with lib.maintainers; [SohamG];
 }

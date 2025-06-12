@@ -4,14 +4,12 @@
   fetchPypi,
   flit-core,
   unittestCheckHook,
-
   # for passthru.tests
   awsebcli,
   black,
   hatchling,
   yamllint,
 }:
-
 buildPythonPackage rec {
   pname = "pathspec";
   version = "0.12.1";
@@ -22,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-pILVFQOhqzOxxnpsOBOiaVPb3HHDHayu+ag4xOKfVxI=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  pythonImportsCheck = [ "pathspec" ];
+  pythonImportsCheck = ["pathspec"];
 
-  checkInputs = [ unittestCheckHook ];
+  checkInputs = [unittestCheckHook];
 
   passthru.tests = {
     inherit
@@ -42,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cpburnz/python-path-specification";
     changelog = "https://github.com/cpburnz/python-pathspec/blob/v${version}/CHANGES.rst";
     license = lib.licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

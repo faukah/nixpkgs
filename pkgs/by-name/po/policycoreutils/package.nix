@@ -8,7 +8,6 @@
   libsemanage,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "policycoreutils";
   version = "3.8.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     substituteInPlace newrole/Makefile --replace /usr/share /share
   '';
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
   buildInputs = [
     libsepol
     libselinux

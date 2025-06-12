@@ -1,17 +1,13 @@
 {
   lib,
   mkMesonLibrary,
-
   nix-util,
   nix-store,
   nlohmann_json,
   libgit2,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-fetchers";
   inherit version;
@@ -31,5 +27,4 @@ mkMesonLibrary (finalAttrs: {
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

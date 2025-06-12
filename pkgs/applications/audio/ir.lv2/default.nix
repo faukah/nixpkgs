@@ -10,7 +10,6 @@
   pkg-config,
   zita-convolver,
 }:
-
 stdenv.mkDerivation {
   pname = "ir.lv2";
   version = "0-unstable-2018-06-21";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     zita-convolver
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     homepage = "http://factorial.hu/plugins/lv2/ir";
     description = "Zero-latency, realtime, high performance signal convolver especially for creating reverb effects";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     mainProgram = "convert4chan";
   };

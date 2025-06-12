@@ -6,7 +6,6 @@
   anytree,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pickpack";
   version = "2.0.0";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Curses-based (and pick-based) interactive picker for the terminal. Now covering trees also";
     homepage = "https://github.com/anafvana/pickpack";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

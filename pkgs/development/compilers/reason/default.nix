@@ -13,7 +13,6 @@
   ppx_derivers,
   dune-build-info,
 }:
-
 buildDunePackage rec {
   pname = "reason";
   version = "3.15.0";
@@ -43,7 +42,7 @@ buildDunePackage rec {
   ];
 
   passthru.tests = {
-    hello = callPackage ./tests/hello { };
+    hello = callPackage ./tests/hello {};
   };
 
   meta = with lib; {
@@ -51,6 +50,6 @@ buildDunePackage rec {
     downloadPage = "https://github.com/reasonml/reason";
     description = "User-friendly programming language built on OCaml";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

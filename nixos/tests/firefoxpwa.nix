@@ -1,25 +1,21 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "firefoxpwa";
-  meta.maintainers = with lib.maintainers; [ camillemndn ];
+  meta.maintainers = with lib.maintainers; [camillemndn];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      environment.systemPackages = with pkgs; [
-        firefoxpwa
-        jq
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    environment.systemPackages = with pkgs; [
+      firefoxpwa
+      jq
+    ];
 
-      programs.firefox = {
-        enable = true;
-        nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
-      };
-
-      services.jellyfin.enable = true;
+    programs.firefox = {
+      enable = true;
+      nativeMessagingHosts.packages = [pkgs.firefoxpwa];
     };
+
+    services.jellyfin.enable = true;
+  };
 
   enableOCR = true;
 

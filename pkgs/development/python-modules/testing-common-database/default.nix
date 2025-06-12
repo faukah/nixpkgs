@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "testing.common.database";
   version = "2.0.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
       --replace-fail "collections.Callable" "collections.abc.Callable"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # There are no unit tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "utilities for testing.* packages";
     homepage = "https://github.com/tk0miya/testing.common.database";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

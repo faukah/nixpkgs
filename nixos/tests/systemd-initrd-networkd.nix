@@ -1,13 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-
-let
+with import ../lib/testing-python.nix {inherit system pkgs;}; let
   inherit (lib.maintainers) elvishjerricco;
 
   common = {
@@ -15,8 +12,8 @@ let
       enable = true;
       network.wait-online.timeout = 10;
       network.wait-online.anyInterface = true;
-      targets.network-online.requiredBy = [ "initrd.target" ];
-      services.systemd-networkd-wait-online.requiredBy = [ "network-online.target" ];
+      targets.network-online.requiredBy = ["initrd.target"];
+      services.systemd-networkd-wait-online.requiredBy = ["network-online.target"];
       initrdBin = [
         pkgs.iproute2
         pkgs.iputils
@@ -27,25 +24,24 @@ let
     boot.initrd.network.enable = true;
   };
 
-  mkFlushTest =
-    flush: script:
+  mkFlushTest = flush: script:
     makeTest {
       name = "systemd-initrd-network-${lib.optionalString (!flush) "no-"}flush";
-      meta.maintainers = [ elvishjerricco ];
+      meta.maintainers = [elvishjerricco];
 
       nodes.machine = {
-        imports = [ common ];
+        imports = [common];
 
         boot.initrd.network.flushBeforeStage2 = flush;
         systemd.services.check-flush = {
-          requiredBy = [ "multi-user.target" ];
+          requiredBy = ["multi-user.target"];
           before = [
             "network-pre.target"
             "multi-user.target"
             "shutdown.target"
           ];
-          conflicts = [ "shutdown.target" ];
-          wants = [ "network-pre.target" ];
+          conflicts = ["shutdown.target"];
+          wants = ["network-pre.target"];
           unitConfig.DefaultDependencies = false;
           serviceConfig.Type = "oneshot";
           path = [
@@ -68,12 +64,10 @@ let
         machine.wait_for_unit("multi-user.target")
       '';
     };
-
-in
-{
+in {
   basic = makeTest {
     name = "systemd-initrd-network";
-    meta.maintainers = [ elvishjerricco ];
+    meta.maintainers = [elvishjerricco];
 
     nodes.machine = common;
 

@@ -13,7 +13,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stardust";
   version = "0.1.13";
@@ -43,11 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     libGL
   ];
 
-  patches = [ ./pointer-fix.patch ];
+  patches = [./pointer-fix.patch];
 
-  installFlags = [ "bindir=${placeholder "out"}/bin" ];
+  installFlags = ["bindir=${placeholder "out"}/bin"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postConfigure = ''
     substituteInPlace config.h \

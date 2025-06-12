@@ -11,7 +11,6 @@
   xorg,
   zenity,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tacentview";
   version = "1.0.46";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     zenity
   ];
 
-  runtimeDependencies = [ libGL ];
+  runtimeDependencies = [libGL];
 
   cmakeFlags = [
     (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_TACENT" "${tacent.src}")
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bluescan/tacentview";
     changelog = "https://github.com/bluescan/tacentview/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ PopeRigby ];
+    maintainers = with lib.maintainers; [PopeRigby];
     mainProgram = "tacentview";
     platforms = with lib.platforms; linux ++ windows;
   };

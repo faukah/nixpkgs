@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nstool";
   version = "1.9.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jakcron/nstool";
     license = lib.licenses.mit;
     mainProgram = "nstool";
-    maintainers = with lib.maintainers; [ diadatp ];
+    maintainers = with lib.maintainers; [diadatp];
     platforms = lib.platforms.unix;
   };
 })

@@ -5,7 +5,6 @@
   pillow,
   svgwrite,
 }:
-
 buildPythonPackage rec {
   pname = "pixel2svg";
   version = "0.3.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     homepage = "https://florian-berger.de/en/software/pixel2svg/";
     description = "Converts pixel art to SVG - pixel by pixel";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     mainProgram = "pixel2svg.py";
   };
 }

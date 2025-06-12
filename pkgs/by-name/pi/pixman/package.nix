@@ -7,7 +7,6 @@
   pkg-config,
   libpng,
   glib, # just passthru
-
   # for passthru.tests
   cairo,
   qemu,
@@ -16,13 +15,10 @@
   wlroots_0_17,
   wlroots_0_18,
   xwayland,
-
   gitUpdater,
   testers,
-
   __flattenIncludeHackHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pixman";
   version = "0.44.2";
@@ -50,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     __flattenIncludeHackHook
   ];
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   # Default "enabled" value attempts to enable CPU features on all
   # architectures and requires used to disable them:
@@ -97,6 +93,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Low-level library for pixel manipulation";
     license = licenses.mit;
     platforms = platforms.all;
-    pkgConfigModules = [ "pixman-1" ];
+    pkgConfigModules = ["pixman-1"];
   };
 })

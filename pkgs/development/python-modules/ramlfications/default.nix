@@ -16,7 +16,6 @@
   xmltodict,
   attrs,
 }:
-
 buildPythonPackage rec {
   pname = "ramlfications";
   version = "0.2.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     mainProgram = "ramlfications";
     homepage = "https://ramlfications.readthedocs.org";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 

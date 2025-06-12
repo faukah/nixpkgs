@@ -6,7 +6,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "violet";
   version = "0.5.3";
@@ -19,11 +18,11 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = testers.testVersion { package = finalAttrs.finalPackage; };
+    updateScript = nix-update-script {};
+    tests = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/paullouisageneau/violet";
     license = lib.licenses.gpl2Only;
     mainProgram = "violet";
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
     platforms = lib.platforms.all;
   };
 })

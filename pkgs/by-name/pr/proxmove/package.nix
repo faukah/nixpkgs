@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "proxmove";
   version = "1.2";
@@ -39,6 +38,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ossobv/proxmove";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ AngryAnt ];
+    maintainers = with maintainers; [AngryAnt];
   };
 }

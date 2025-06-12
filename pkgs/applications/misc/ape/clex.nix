@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "attempto-clex";
   version = "5133afe";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
     description = "Large lexicon for APE (~100,000 entries)";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yrashk ];
+    maintainers = with maintainers; [yrashk];
   };
 }

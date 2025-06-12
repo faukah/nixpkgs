@@ -19,15 +19,16 @@
   hidapi,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmanette";
   version = "0.2.12";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/libmanette/${lib.versions.majorMinor finalAttrs.version}/libmanette-${finalAttrs.version}.tar.xz";
@@ -86,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "manette-test";
     homepage = "https://gnome.pages.gitlab.gnome.org/libmanette/";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Hid9OK91LNjLmDHam0ZlrVQopVOsqbZ+BH2rfQi5lS0=";
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
 
   ldflags = [
     "-X main.GitExactTag=${version}"

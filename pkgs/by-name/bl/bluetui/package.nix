@@ -5,7 +5,6 @@
   pkg-config,
   dbus,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bluetui";
   version = "0.6";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "TUI for managing bluetooth on Linux";
     homepage = "https://github.com/pythops/bluetui";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ donovanglover ];
+    maintainers = with lib.maintainers; [donovanglover];
     mainProgram = "bluetui";
     platforms = lib.platforms.linux;
   };

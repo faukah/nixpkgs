@@ -8,7 +8,6 @@
   alsa-lib,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "go-musicfox";
   version = "4.6.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-IO/UlOW6pLZp6JaU5P9vUJ0qx0Srvmb5vjpX1pSdaeM=";
 
-  subPackages = [ "cmd/musicfox.go" ];
+  subPackages = ["cmd/musicfox.go"];
 
   ldflags = [
     "-s"
@@ -44,7 +43,7 @@ buildGoModule rec {
       alsa-lib
     ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal netease cloud music client written in Go";

@@ -6,7 +6,6 @@
   gitUpdater,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-typify";
   version = "0.1.0";
@@ -47,13 +46,13 @@ rustPlatform.buildRustPackage rec {
       --set RUSTFMT "${lib.getExe rustfmt}"
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "JSON Schema to Rust type converter";
     mainProgram = "cargo-typify";
     homepage = "https://github.com/oxidecomputer/typify";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ david-r-cox ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [david-r-cox];
   };
 }

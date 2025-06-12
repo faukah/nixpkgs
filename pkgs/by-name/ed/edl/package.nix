@@ -5,7 +5,6 @@
   python3Packages,
   unstableGitUpdater,
 }:
-
 python3Packages.buildPythonPackage {
   pname = "edl";
   version = "3.52.1-unstable-2025-05-05";
@@ -46,7 +45,7 @@ python3Packages.buildPythonPackage {
     cp $src/Drivers/51-edl.rules $out/etc/udev/rules.d/51-edl.rules
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/bkerler/edl";

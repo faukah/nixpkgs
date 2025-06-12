@@ -1,6 +1,5 @@
 # restart using 'killall -TERM fcron; fcron -b
 # use convert-fcrontab to update fcrontab files
-
 {
   lib,
   stdenv,
@@ -9,7 +8,6 @@
   busybox,
   vim,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcron";
   version = "3.4.0";
@@ -19,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9Of8VTzdcP9LO2rJE4s7fP+rkZi4wmbZevCodQbg4bU=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  patches = [ ./relative-fcronsighup.patch ];
+  patches = [./relative-fcronsighup.patch];
 
   configureFlags = [
     "--with-sendmail=${busybox}/sbin/sendmail"
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
     "--disable-checks"
   ];
 
-  installTargets = [ "install-staged" ]; # install does also try to change permissions of /etc/* files
+  installTargets = ["install-staged"]; # install does also try to change permissions of /etc/* files
 
   # fcron tries to install pid into system directory on install
   installFlags = [

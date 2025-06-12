@@ -3,14 +3,13 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "vollkorn";
   version = "4.105";
 
   src = fetchzip {
     url = "http://vollkorn-typeface.com/download/vollkorn-${
-      builtins.replaceStrings [ "." ] [ "-" ] version
+      builtins.replaceStrings ["."] ["-"] version
     }.zip";
     stripRoot = false;
     hash = "sha256-oG79GgCwCavbMFAPakza08IPmt13Gwujrkc/NKTai7g=";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Free and healthy typeface for bread and butter use";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.schmittlauch ];
+    maintainers = [maintainers.schmittlauch];
   };
 }

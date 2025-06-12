@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bashate";
   version = "2.1.1";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-S6tul3+DBacgU1+Pk/H7QsUh/LxKbCs9PXZx9C8iH0w=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     babel
@@ -37,14 +36,14 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "bashate" ];
+  pythonImportsCheck = ["bashate"];
 
   meta = with lib; {
     description = "Style enforcement for bash programs";
     mainProgram = "bashate";
     homepage = "https://opendev.org/openstack/bashate";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
-    teams = [ teams.openstack ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
+    teams = [teams.openstack];
   };
 }

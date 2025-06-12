@@ -19,7 +19,6 @@
   pytestCheckHook,
   mesa,
 }:
-
 buildPythonPackage rec {
   pname = "pyrender";
   version = "0.1.45";
@@ -62,7 +61,7 @@ buildPythonPackage rec {
         'bm = trimesh.load("tests/data/WaterBottle.glb").geometry["WaterBottle"]'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     freetype-py
@@ -92,12 +91,12 @@ buildPythonPackage rec {
     "tests/unit/test_offscreen.py"
   ];
 
-  pythonImportsCheck = [ "pyrender" ];
+  pythonImportsCheck = ["pyrender"];
 
   meta = with lib; {
     homepage = "https://pyrender.readthedocs.io/en/latest/";
     description = "Easy-to-use glTF 2.0-compliant OpenGL renderer for visualization of 3D scenes";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

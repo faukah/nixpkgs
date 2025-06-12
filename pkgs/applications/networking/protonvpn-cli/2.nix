@@ -12,7 +12,6 @@
   iptables,
   openvpn,
 }:
-
 buildPythonApplication rec {
   pname = "protonvpn-cli_2";
   version = "2.2.12";

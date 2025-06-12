@@ -7,7 +7,6 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "termcap";
   version = "1.3.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   makeFlags = [
     "AR=${stdenv.cc.targetPrefix}ar"
@@ -60,20 +59,20 @@ stdenv.mkDerivation rec {
         impLibName = "libtermcap.dll.a";
         winImpLib = lib.optionalString stdenv.hostPlatform.isWindows "-Wl,--out-implib,${impLibName}";
       in
-      ''
-        ${stdenv.cc.targetPrefix}cc -shared -o ${libName} termcap.o tparam.o version.o ${winImpLib}
-        install -Dm644 ${libName} $out/lib
-      ''
-      + lib.optionalString stdenv.hostPlatform.isWindows ''
-        install -Dm644 ${impLibName} $out/lib
-      ''
+        ''
+          ${stdenv.cc.targetPrefix}cc -shared -o ${libName} termcap.o tparam.o version.o ${winImpLib}
+          install -Dm644 ${libName} $out/lib
+        ''
+        + lib.optionalString stdenv.hostPlatform.isWindows ''
+          install -Dm644 ${impLibName} $out/lib
+        ''
     );
 
   meta = {
     description = "Terminal feature database";
     homepage = "https://www.gnu.org/software/termutils/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.all;
   };
 }

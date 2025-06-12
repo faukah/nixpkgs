@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   django,
   djangorestframework,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "rules";
   version = "3.5.0";
@@ -24,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-8Kay2b2uwaI/ml/cPpcj9svoDQI0ptV8tyGeZ76SgZw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "rules" ];
+  pythonImportsCheck = ["rules"];
 
   nativeCheckInputs = [
     django
@@ -44,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dfunckt/django-rules";
     changelog = "https://github.com/dfunckt/django-rules/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

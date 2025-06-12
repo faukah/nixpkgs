@@ -1,5 +1,7 @@
-{ buildDotnetGlobalTool, lib }:
-
+{
+  buildDotnetGlobalTool,
+  lib,
+}:
 buildDotnetGlobalTool {
   pname = "fantomas";
   version = "7.0.2";
@@ -11,7 +13,7 @@ buildDotnetGlobalTool {
     homepage = "https://github.com/fsprojects/fantomas";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ mikaelfangel ];
+    maintainers = with maintainers; [mikaelfangel];
     mainProgram = "fantomas";
   };
 }

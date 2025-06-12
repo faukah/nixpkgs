@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pyditz";
   version = "0.11";
@@ -14,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2gNlrpBk4wxKJ1JvsNeoAv2lyGUc2mmQ0Xvn7eiaJVE=";
   };
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   dependencies = with python3Packages; [
     pyyaml
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     homepage = "https://hg.sr.ht/~zondo/pyditz";
     description = "Drop-in replacement for the Ditz distributed issue tracker";
-    maintainers = with lib.maintainers; [ ilikeavocadoes ];
+    maintainers = with lib.maintainers; [ilikeavocadoes];
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.linux;
   };

@@ -15,7 +15,6 @@
   gnome,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "pygobject";
   version = "3.50.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-jYNudbWogdRX7hYiyuSjK826KKC6ViGTrbO7tHJHIhI=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     pkg-config
@@ -43,10 +42,12 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    cairo
-    glib
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ ncurses ];
+  buildInputs =
+    [
+      cairo
+      glib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ncurses];
 
   propagatedBuildInputs = [
     pycairo
@@ -72,7 +73,7 @@ buildPythonPackage rec {
     homepage = "https://pygobject.readthedocs.io/";
     description = "Python bindings for Glib";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

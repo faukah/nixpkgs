@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "syncall";
   version = "1.8.5";
@@ -63,13 +62,13 @@ python3.pkgs.buildPythonApplication rec {
     rm $out/bin/tw_gkeep_sync
   '';
 
-  pythonImportsCheck = [ "syncall" ];
+  pythonImportsCheck = ["syncall"];
 
   meta = with lib; {
     description = "Bi-directional synchronization between services such as Taskwarrior, Google Calendar, Notion, Asana, and more";
     homepage = "https://github.com/bergercookie/syncall";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
     # Upstream issue making it practically unusable:
     # https://github.com/bergercookie/syncall/issues/99
     broken = true;

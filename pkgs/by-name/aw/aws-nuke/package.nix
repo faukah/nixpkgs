@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "aws-nuke";
   version = "3.55.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     '';
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -35,7 +34,7 @@ buildGoModule rec {
     "-X github.com/ekristen/aws-nuke/v${lib.versions.major version}/pkg/common.SUMMARY=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -58,14 +57,14 @@ buildGoModule rec {
     $out/bin/aws-nuke resource-types | grep "IAMUser"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Remove all the resources from an AWS account";
     homepage = "https://github.com/ekristen/aws-nuke";
     changelog = "https://github.com/ekristen/aws-nuke/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ grahamc ];
+    maintainers = with lib.maintainers; [grahamc];
     mainProgram = "aws-nuke";
     # fork/exec exe/mockgen: exec format error
     # resources/autoscaling_mock_test.go:1: running "../mocks/generate_mocks.sh": exit status 1

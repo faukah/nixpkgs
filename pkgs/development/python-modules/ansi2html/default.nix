@@ -7,7 +7,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "ansi2html";
   version = "1.9.2";
@@ -26,15 +25,15 @@ buildPythonPackage rec {
 
   preCheck = "export PATH=$PATH:$out/bin";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ansi2html" ];
+  pythonImportsCheck = ["ansi2html"];
 
   meta = with lib; {
     description = "Convert text with ANSI color codes to HTML";
     mainProgram = "ansi2html";
     homepage = "https://github.com/ralphbean/ansi2html";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

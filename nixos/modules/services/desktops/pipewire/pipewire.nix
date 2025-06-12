@@ -4,12 +4,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (builtins) attrNames concatMap length;
   inherit (lib) maintainers teams;
-  inherit (lib.attrsets)
+  inherit
+    (lib.attrsets)
     attrByPath
     attrsToList
     concatMapAttrs
@@ -17,31 +16,35 @@ let
     ;
   inherit (lib.lists) flatten optional optionals;
   inherit (lib.modules) mkIf mkRemovedOptionModule;
-  inherit (lib.options)
+  inherit
+    (lib.options)
     literalExpression
     mkEnableOption
     mkOption
     mkPackageOption
     ;
   inherit (lib.strings) concatMapStringsSep hasPrefix optionalString;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     bool
     listOf
     package
     ;
 
-  json = pkgs.formats.json { };
-  mapToFiles =
-    location: config:
+  json = pkgs.formats.json {};
+  mapToFiles = location: config:
     concatMapAttrs (name: value: {
       "share/pipewire/${location}.conf.d/${name}.conf" = json.generate "${name}" value;
-    }) config;
-  extraConfigPkgFromFiles =
-    locations: filesSet:
-    pkgs.runCommand "pipewire-extra-config" { } ''
+    })
+    config;
+  extraConfigPkgFromFiles = locations: filesSet:
+    pkgs.runCommand "pipewire-extra-config" {} ''
       mkdir -p ${concatMapStringsSep " " (l: "$out/share/pipewire/${l}.conf.d") locations}
-      ${concatMapStringsSep ";" ({ name, value }: "ln -s ${value} $out/${name}") (attrsToList filesSet)}
+      ${concatMapStringsSep ";" ({
+        name,
+        value,
+      }: "ln -s ${value} $out/${name}") (attrsToList filesSet)}
     '';
   cfg = config.services.pipewire;
   enable32BitAlsaPlugins =
@@ -51,14 +54,14 @@ let
   # overlays can use the outputs to replace the originals in FHS environments.
   #
   # This doesn't work in general because of missing development information.
-  jack-libs = pkgs.runCommand "jack-libs" { } ''
+  jack-libs = pkgs.runCommand "jack-libs" {} ''
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
 
   configPackages = cfg.configPackages;
 
-  extraConfigPkg = extraConfigPkgFromFiles [ "pipewire" "client" "jack" "pipewire-pulse" ] (
+  extraConfigPkg = extraConfigPkgFromFiles ["pipewire" "client" "jack" "pipewire-pulse"] (
     mapToFiles "pipewire" cfg.extraConfig.pipewire
     // mapToFiles "client" cfg.extraConfig.client
     // mapToFiles "jack" cfg.extraConfig.jack
@@ -69,30 +72,29 @@ let
     name = "pipewire-configs";
     paths =
       configPackages
-      ++ [ extraConfigPkg ]
+      ++ [extraConfigPkg]
       ++ optionals cfg.wireplumber.enable cfg.wireplumber.configPackages;
-    pathsToLink = [ "/share/pipewire" ];
+    pathsToLink = ["/share/pipewire"];
   };
 
   requiredLv2Packages = flatten (
-    concatMap (p: attrByPath [ "passthru" "requiredLv2Packages" ] [ ] p) configPackages
+    concatMap (p: attrByPath ["passthru" "requiredLv2Packages"] [] p) configPackages
   );
 
   lv2Plugins = pkgs.buildEnv {
     name = "pipewire-lv2-plugins";
     paths = cfg.extraLv2Packages ++ requiredLv2Packages;
-    pathsToLink = [ "/lib/lv2" ];
+    pathsToLink = ["/lib/lv2"];
   };
-in
-{
-  meta.maintainers = teams.freedesktop.members ++ [ maintainers.k900 ];
+in {
+  meta.maintainers = teams.freedesktop.members ++ [maintainers.k900];
 
   ###### interface
   options = {
     services.pipewire = {
       enable = mkEnableOption "PipeWire service";
 
-      package = mkPackageOption pkgs "pipewire" { };
+      package = mkPackageOption pkgs "pipewire" {};
 
       socketActivation = mkOption {
         default = true;
@@ -151,7 +153,7 @@ in
       extraConfig = {
         pipewire = mkOption {
           type = attrsOf json.type;
-          default = { };
+          default = {};
           example = {
             "10-clock-rate" = {
               "context.properties" = {
@@ -184,7 +186,7 @@ in
         };
         client = mkOption {
           type = attrsOf json.type;
-          default = { };
+          default = {};
           example = {
             "10-no-resample" = {
               "stream.properties" = {
@@ -204,7 +206,7 @@ in
         };
         jack = mkOption {
           type = attrsOf json.type;
-          default = { };
+          default = {};
           example = {
             "20-hide-midi" = {
               "jack.properties" = {
@@ -224,16 +226,16 @@ in
         };
         pipewire-pulse = mkOption {
           type = attrsOf json.type;
-          default = { };
+          default = {};
           example = {
             "15-force-s16-info" = {
               "pulse.rules" = [
                 {
                   matches = [
-                    { "application.process.binary" = "my-broken-app"; }
+                    {"application.process.binary" = "my-broken-app";}
                   ];
                   actions = {
-                    quirks = [ "force-s16-info" ];
+                    quirks = ["force-s16-info"];
                   };
                 }
               ];
@@ -257,7 +259,7 @@ in
 
       configPackages = mkOption {
         type = listOf package;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
                     (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-loopback.conf" '''
@@ -292,7 +294,7 @@ in
 
       extraLv2Packages = mkOption {
         type = listOf package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.lsp-plugins ]";
         description = ''
           List of packages that provide LV2 plugins in `lib/lv2` that should
@@ -309,15 +311,15 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "pipewire" "config" ] ''
+    (mkRemovedOptionModule ["services" "pipewire" "config"] ''
       Overriding default PipeWire configuration through NixOS options never worked correctly and is no longer supported.
       Please create drop-in configuration files via `services.pipewire.extraConfig` instead.
     '')
-    (mkRemovedOptionModule [ "services" "pipewire" "media-session" ] ''
+    (mkRemovedOptionModule ["services" "pipewire" "media-session"] ''
       pipewire-media-session is no longer supported upstream and has been removed.
       Please switch to `services.pipewire.wireplumber` instead.
     '')
-    (mkRemovedOptionModule [ "services" "pipewire" "extraConfig" "client-rt" ] ''
+    (mkRemovedOptionModule ["services" "pipewire" "extraConfig" "client-rt"] ''
       `services.pipewire.extraConfig.client-rt` is no longer applicable, as `client-rt.conf` has been
       removed upstream. Please move your customizations to `services.pipewire.extraConfig.client`.
     '')
@@ -345,19 +347,20 @@ in
             attrNames (
               filterAttrs (name: value: hasPrefix "pipewire/" name || name == "pipewire") config.environment.etc
             )
-          ) == 1;
+          )
+          == 1;
         message = "Using `environment.etc.\"pipewire<...>\"` directly is no longer supported. Use `services.pipewire.extraConfig` or `services.pipewire.configPackages` instead.";
       }
     ];
 
-    environment.systemPackages = [ cfg.package ] ++ optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [cfg.package] ++ optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
-    systemd.services.pipewire.bindsTo = [ "dbus.service" ];
-    systemd.user.services.pipewire.bindsTo = [ "dbus.service" ];
+    systemd.services.pipewire.bindsTo = ["dbus.service"];
+    systemd.user.services.pipewire.bindsTo = ["dbus.service"];
 
     # Enable either system or user units.
     systemd.sockets.pipewire.enable = cfg.systemWide;
@@ -366,9 +369,7 @@ in
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
     systemd.services.pipewire.environment.LV2_PATH = mkIf cfg.systemWide "${lv2Plugins}/lib/lv2";
-    systemd.user.services.pipewire.environment.LV2_PATH = mkIf (
-      !cfg.systemWide
-    ) "${lv2Plugins}/lib/lv2";
+    systemd.user.services.pipewire.environment.LV2_PATH = mkIf (!cfg.systemWide) "${lv2Plugins}/lib/lv2";
 
     # Mask pw-pulse if it's not wanted
     systemd.services.pipewire-pulse.enable = cfg.pulse.enable && cfg.systemWide;
@@ -376,12 +377,12 @@ in
     systemd.user.services.pipewire-pulse.enable = cfg.pulse.enable && !cfg.systemWide;
     systemd.user.sockets.pipewire-pulse.enable = cfg.pulse.enable && !cfg.systemWide;
 
-    systemd.sockets.pipewire.wantedBy = mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.sockets.pipewire-pulse.wantedBy = mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire.wantedBy = mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire-pulse.wantedBy = mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.sockets.pipewire.wantedBy = mkIf cfg.socketActivation ["sockets.target"];
+    systemd.sockets.pipewire-pulse.wantedBy = mkIf cfg.socketActivation ["sockets.target"];
+    systemd.user.sockets.pipewire.wantedBy = mkIf cfg.socketActivation ["sockets.target"];
+    systemd.user.sockets.pipewire-pulse.wantedBy = mkIf cfg.socketActivation ["sockets.target"];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     # If any paths are updated here they must also be updated in the package test.
     environment.etc = {
@@ -408,7 +409,7 @@ in
       pipewire.source = "${configs}/share/pipewire";
     };
 
-    environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.jack.enable [ "${cfg.package.jack}/lib" ];
+    environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.jack.enable ["${cfg.package.jack}/lib"];
 
     networking.firewall.allowedUDPPorts = mkIf cfg.raopOpenFirewall [
       6001
@@ -441,10 +442,12 @@ in
       users.pipewire = mkIf cfg.systemWide {
         uid = config.ids.uids.pipewire;
         group = "pipewire";
-        extraGroups = [
-          "audio"
-          "video"
-        ] ++ optional config.security.rtkit.enable "rtkit";
+        extraGroups =
+          [
+            "audio"
+            "video"
+          ]
+          ++ optional config.security.rtkit.enable "rtkit";
         description = "PipeWire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

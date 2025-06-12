@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "genann";
   version = "1.0.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/codeplea/genann";
     description = "Simple neural network library in ANSI C";
     license = licenses.zlib;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

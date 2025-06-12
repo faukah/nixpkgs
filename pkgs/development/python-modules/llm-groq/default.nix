@@ -7,7 +7,6 @@
   llm-groq,
   groq,
 }:
-
 buildPythonPackage rec {
   pname = "llm-groq";
   version = "0.8";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     llm
   ];
 
-  pythonImportsCheck = [ "llm_groq" ];
+  pythonImportsCheck = ["llm_groq"];
 
   passthru.tests = llm.mkPluginTest llm-groq;
 
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/angerman/llm-groq";
     changelog = "https://github.com/angerman/llm-groq/releases/tag/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

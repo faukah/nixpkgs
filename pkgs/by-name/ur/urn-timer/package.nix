@@ -11,7 +11,6 @@
   jansson,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "urn-timer";
   version = "0-unstable-2025-04-17";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     jansson
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/paoloose/urn.git";
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/paoloose/urn";
     description = "Split tracker / timer for speedrunning with GTK+ frontend";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "urn-gtk";
   };
 }

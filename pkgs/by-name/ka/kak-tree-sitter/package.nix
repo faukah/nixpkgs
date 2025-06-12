@@ -5,14 +5,13 @@
   tinycc,
   kak-tree-sitter-unwrapped,
 }:
-
 symlinkJoin rec {
-  pname = lib.replaceStrings [ "-unwrapped" ] [ "" ] kak-tree-sitter-unwrapped.pname;
+  pname = lib.replaceStrings ["-unwrapped"] [""] kak-tree-sitter-unwrapped.pname;
   inherit (kak-tree-sitter-unwrapped) version;
   name = "${pname}-${version}";
 
-  paths = [ kak-tree-sitter-unwrapped ];
-  nativeBuildInputs = [ makeWrapper ];
+  paths = [kak-tree-sitter-unwrapped];
+  nativeBuildInputs = [makeWrapper];
 
   # Tree-Sitter grammars are C programs that need to be compiled
   # Use tinycc as cc to reduce closure size

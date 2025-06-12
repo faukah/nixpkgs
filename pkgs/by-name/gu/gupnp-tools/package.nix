@@ -15,7 +15,6 @@
   gnome,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gupnp-tools";
   version = "0.12.2";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Set of utilities and demos to work with UPnP";
     homepage = "https://gitlab.gnome.org/GNOME/gupnp-tools";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

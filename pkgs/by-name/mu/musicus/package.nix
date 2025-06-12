@@ -19,7 +19,6 @@
   openssl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "musicus";
   version = "0.1.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     gst_all_1.gst-plugins-good
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/johrpan/musicus";
@@ -68,6 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "musicus";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

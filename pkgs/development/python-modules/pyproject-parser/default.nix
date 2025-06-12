@@ -52,16 +52,18 @@ buildPythonPackage rec {
       consolekit
       sdjson
     ];
-    readme = [
-      docutils
-      readme-renderer
-    ] ++ readme-renderer.optional-dependencies.md;
+    readme =
+      [
+        docutils
+        readme-renderer
+      ]
+      ++ readme-renderer.optional-dependencies.md;
   };
 
   meta = {
     description = "Parser for ‘pyproject.toml’";
     homepage = "https://github.com/repo-helper/pyproject-parser";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

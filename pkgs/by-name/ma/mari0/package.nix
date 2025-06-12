@@ -9,7 +9,6 @@
   strip-nondeterminism,
   zip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mari0";
   version = "1.6.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
       comment = "Crossover between Super Mario Bros. and Portal";
       desktopName = "mari0";
       genericName = "mari0";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -56,5 +55,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     downloadPage = "https://stabyourself.net/mari0/";
   };
-
 }

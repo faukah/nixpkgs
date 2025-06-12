@@ -8,7 +8,6 @@
   gtk2,
   hamlib_4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grig";
   version = "0.9.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "fillods";
     repo = "grig";
-    rev = "GRIG-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "GRIG-${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-OgIgHW9NMW/xSSti3naIR8AQWUtNSv5bYdOcObStBlM=";
   };
 

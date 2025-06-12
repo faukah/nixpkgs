@@ -5,7 +5,6 @@
   installShellFiles,
   nasm,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sic-image-cli";
   version = "0.22.4";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "sic";
   };
 }

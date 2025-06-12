@@ -8,7 +8,6 @@
   rust-bindgen,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "firecracker";
   version = "1.12.0";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       --replace-warn '(len > INT_MAX - 1)' '(len < 0 || len > INT_MAX - 1)'
   '';
 
-  buildInputs = [ libseccomp ];
+  buildInputs = [libseccomp];
 
   nativeBuildInputs = [
     cmake
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  cargoBuildFlags = [ "--workspace" ];
+  cargoBuildFlags = ["--workspace"];
   cargoTestFlags = [
     "--package"
     "firecracker"

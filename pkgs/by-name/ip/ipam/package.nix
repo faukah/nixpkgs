@@ -4,7 +4,6 @@
   fetchFromGitea,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ipam";
   version = "0.3.0-1";
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://ipam.lauka.net/";
     changelog = "https://codeberg.org/lauralani/ipam/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "ipam";
   };
 }

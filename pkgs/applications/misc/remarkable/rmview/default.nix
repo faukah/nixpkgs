@@ -4,7 +4,6 @@
   python3Packages,
   wrapQtAppsHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rmview";
   version = "3.1.3";
@@ -45,6 +44,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "rmview";
     homepage = "https://github.com/bordaigorl/rmview";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

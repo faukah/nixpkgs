@@ -6,7 +6,6 @@
   stdlib,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "gaia";
 
@@ -18,44 +17,43 @@ mkCoqDerivation {
   release."1.17".sha256 = "sha256-2VzdopXgKS/wC5Rd1/Zlr12J5bSIGINFjG1nrMjDrGE=";
   release."2.2".sha256 = "sha256-y8LlQg9d9rfPFjzS9Xu3BW/H3tPiOC+Eb/zwXJGW9d4=";
   release."2.3".sha256 = "sha256-inWJok0F3SZpVfoyMfpRXHVHn4z2aY8JjCKKhdVTnoc=";
-  releaseRev = (v: "v${v}");
+  releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.version mathcomp.version ]
-      [
-        {
-          cases = [
-            (range "8.16" "9.0")
-            (range "2.0" "2.4")
-          ];
-          out = "2.3";
-        }
-        {
-          cases = [
-            (range "8.16" "9.0")
-            (range "2.0" "2.3")
-          ];
-          out = "2.2";
-        }
-        {
-          cases = [
-            (range "8.10" "8.18")
-            (range "1.12.0" "1.18.0")
-          ];
-          out = "1.17";
-        }
-        {
-          cases = [
-            (range "8.10" "8.12")
-            "1.11.0"
-          ];
-          out = "1.11";
-        }
-      ]
-      null;
+    [coq.version mathcomp.version]
+    [
+      {
+        cases = [
+          (range "8.16" "9.0")
+          (range "2.0" "2.4")
+        ];
+        out = "2.3";
+      }
+      {
+        cases = [
+          (range "8.16" "9.0")
+          (range "2.0" "2.3")
+        ];
+        out = "2.2";
+      }
+      {
+        cases = [
+          (range "8.10" "8.18")
+          (range "1.12.0" "1.18.0")
+        ];
+        out = "1.17";
+      }
+      {
+        cases = [
+          (range "8.10" "8.12")
+          "1.11.0"
+        ];
+        out = "1.11";
+      }
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.boot
@@ -66,7 +64,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Implementation of books from Bourbaki's Elements of Mathematics in Coq";
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
     license = licenses.mit;
   };
 }

@@ -6,7 +6,6 @@
   installShellFiles,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fselect";
   version = "0.8.12";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-cLskCSeMLe1aryBVhnAQAVbdKiF0pVFRi9JqcUR1Q6I=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   postInstall = ''
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "fselect";
   };
 }

@@ -17,7 +17,6 @@
   libdrm,
   withSELinux ? false,
 }:
-
 buildDotnetModule rec {
   pname = "celeste64";
   version = "1.1.1";
@@ -33,24 +32,26 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
   nugetDeps = ./deps.json;
   strictDeps = true;
-  executables = [ "Celeste64" ];
-  nativeBuildInputs = [ copyDesktopItems ];
-  runtimeDeps = [
-    libdecor
-    libGL
-    SDL2
-    systemd
-    libpulseaudio
-    wayland
-    libdrm
-    libxkbcommon
-    xorg.libX11
-    xorg.libXfixes
-    xorg.libXext
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXrandr
-  ] ++ lib.optionals withSELinux [ libselinux ];
+  executables = ["Celeste64"];
+  nativeBuildInputs = [copyDesktopItems];
+  runtimeDeps =
+    [
+      libdecor
+      libGL
+      SDL2
+      systemd
+      libpulseaudio
+      wayland
+      libdrm
+      libxkbcommon
+      xorg.libX11
+      xorg.libXfixes
+      xorg.libXext
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXrandr
+    ]
+    ++ lib.optionals withSELinux [libselinux];
 
   postInstall = ''
     export ICON_DIR=$out/share/icons/hicolor/256x256/apps
@@ -68,7 +69,7 @@ buildDotnetModule rec {
       desktopName = "Celeste64";
       genericName = "Celeste64";
       icon = "Celeste64";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -82,7 +83,7 @@ buildDotnetModule rec {
       "aarch64-linux"
       "armv7l-linux"
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "Celeste64";
     homepage = "https://github.com/ExOK/Celeste64";
     description = "Celeste 64: Fragments of the Mountain";

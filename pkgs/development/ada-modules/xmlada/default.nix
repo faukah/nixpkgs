@@ -7,7 +7,6 @@
   # on this xmlada derivation.
   gprbuild-boot,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmlada";
   version = "25.0.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "XML/Ada: An XML parser for Ada";
     homepage = "https://github.com/AdaCore/xmlada";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     license = licenses.gpl3Plus;
     platforms = platforms.all;
   };

@@ -4,7 +4,6 @@
   fetchurl,
   zstd,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "libertinus";
   version = "7.051";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-JQZ3ySnTd1owkTZDWUN5ryZKwu8oAQNaody+MLm+I6Y=";
   };
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/alerque/libertinus";
     license = licenses.ofl;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
     platforms = platforms.all;
   };
 }

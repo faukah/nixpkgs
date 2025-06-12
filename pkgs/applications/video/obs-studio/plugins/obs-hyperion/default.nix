@@ -9,7 +9,6 @@
   qtbase,
   flatbuffers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-hyperion";
   version = "1.0.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  patches = [ ./check-state-changed.patch ];
+  patches = [./check-state-changed.patch];
 
   cmakeFlags = [
     "-DOBS_SOURCE=${obs-studio.src}"
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEM_FLATBUFFERS_LIBS=ON"
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error"];
 
   preConfigure = ''
     rm -rf external/flatbuffers
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "OBS Studio plugin to connect to a Hyperion.ng server";
     homepage = "https://github.com/hyperion-project/hyperion-obs-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ algram ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [algram];
+    platforms = ["x86_64-linux"];
   };
 }

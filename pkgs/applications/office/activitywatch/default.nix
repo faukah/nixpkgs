@@ -17,9 +17,7 @@
   xdg-utils,
   replaceVars,
   buildNpmPackage,
-}:
-
-let
+}: let
   version = "0.13.2";
   sources = fetchFromGitHub {
     owner = "ActivityWatch";
@@ -28,8 +26,7 @@ let
     sha256 = "sha256-Z3WAg3b1zN0nS00u0zIose55JXRzQ7X7qy39XMY7Snk=";
     fetchSubmodules = true;
   };
-in
-rec {
+in rec {
   aw-watcher-afk = python3Packages.buildPythonApplication {
     pname = "aw-watcher-afk";
     inherit version;
@@ -37,7 +34,7 @@ rec {
     src = "${sources}/aw-watcher-afk";
 
     pyproject = true;
-    build-system = [ python3Packages.poetry-core ];
+    build-system = [python3Packages.poetry-core];
 
     dependencies = with python3Packages; [
       aw-client
@@ -49,12 +46,12 @@ rec {
       "python-xlib"
     ];
 
-    pythonImportsCheck = [ "aw_watcher_afk" ];
+    pythonImportsCheck = ["aw_watcher_afk"];
 
     meta = with lib; {
       description = "Watches keyboard and mouse activity to determine if you are AFK or not (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-afk";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       mainProgram = "aw-watcher-afk";
       license = licenses.mpl20;
     };
@@ -67,7 +64,7 @@ rec {
     src = "${sources}/aw-watcher-window";
 
     pyproject = true;
-    build-system = [ python3Packages.poetry-core ];
+    build-system = [python3Packages.poetry-core];
 
     dependencies = with python3Packages; [
       aw-client
@@ -78,12 +75,12 @@ rec {
       "python-xlib"
     ];
 
-    pythonImportsCheck = [ "aw_watcher_window" ];
+    pythonImportsCheck = ["aw_watcher_window"];
 
     meta = with lib; {
       description = "Cross-platform window watcher (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-window";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       mainProgram = "aw-watcher-window";
       license = licenses.mpl20;
       badPlatforms = lib.platforms.darwin; # requires pyobjc-framework
@@ -118,7 +115,7 @@ rec {
     dontWrapQtApps = true;
 
     makeWrapperArgs = [
-      "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+      "--suffix PATH : ${lib.makeBinPath [xdg-utils]}"
     ];
 
     postInstall = ''
@@ -140,12 +137,12 @@ rec {
       )
     '';
 
-    pythonImportsCheck = [ "aw_qt" ];
+    pythonImportsCheck = ["aw_qt"];
 
     meta = with lib; {
       description = "Tray icon that manages ActivityWatch processes, built with Qt";
       homepage = "https://github.com/ActivityWatch/aw-qt";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       mainProgram = "aw-qt";
       license = licenses.mpl20;
       badPlatforms = lib.platforms.darwin; # requires pyobjc-framework
@@ -159,7 +156,7 @@ rec {
     src = "${sources}/aw-notify";
 
     pyproject = true;
-    build-system = [ python3Packages.poetry-core ];
+    build-system = [python3Packages.poetry-core];
 
     dependencies = with python3Packages; [
       aw-client
@@ -170,12 +167,12 @@ rec {
       "desktop-notifier"
     ];
 
-    pythonImportsCheck = [ "aw_notify" ];
+    pythonImportsCheck = ["aw_notify"];
 
     meta = with lib; {
       description = "Desktop notification service for ActivityWatch";
       homepage = "https://github.com/ActivityWatch/aw-notify";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       mainProgram = "aw-notify";
       license = licenses.mpl20;
     };
@@ -218,7 +215,7 @@ rec {
     meta = with lib; {
       description = "High-performance implementation of the ActivityWatch server, written in Rust";
       homepage = "https://github.com/ActivityWatch/aw-server-rust";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       mainProgram = "aw-server";
       platforms = platforms.linux;
       license = licenses.mpl20;
@@ -259,7 +256,7 @@ rec {
     meta = with lib; {
       description = "Web-based UI for ActivityWatch, built with Vue.js";
       homepage = "https://github.com/ActivityWatch/aw-webui/";
-      maintainers = with maintainers; [ huantian ];
+      maintainers = with maintainers; [huantian];
       license = licenses.mpl20;
     };
   };

@@ -16,11 +16,11 @@ buildPythonPackage rec {
   preBuild = "echo > README.rst";
   # setup.py uses a python3 os.path.join
   disabled = !isPy3k;
-  propagatedBuildInputs = [ pygtrie ];
+  propagatedBuildInputs = [pygtrie];
   meta = {
     homepage = "https://github.com/matgrioni/betacode";
     description = "Small python package to flexibly convert from betacode to unicode and back";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kmein ];
+    maintainers = with lib.maintainers; [kmein];
   };
 }

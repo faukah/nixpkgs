@@ -7,7 +7,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cowsay";
   version = "3.8.4";
@@ -24,11 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-m3Rndw0rnTBLhs15KqokzIOWuYl6aoPqEu2MHWpXRCs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/cowsay \
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
       command = "cowsay --version";

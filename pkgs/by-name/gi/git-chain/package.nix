@@ -7,7 +7,6 @@
   git,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-chain";
   version = "0-unstable-2025-03-25";
@@ -22,19 +21,19 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-0Ur80eIKQIsM5vyIt+9YpFufHTk97+T+KXoAkJE90Ag=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = with lib; {
     description = "Tool for rebasing a chain of local git branches";
     homepage = "https://github.com/dashed/git-chain";
     license = licenses.mit;
     mainProgram = "git-chain";
-    maintainers = with maintainers; [ bcyran ];
+    maintainers = with maintainers; [bcyran];
   };
 }

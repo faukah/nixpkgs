@@ -4,15 +4,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # tests
   pandas,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyfakefs";
   version = "5.8.0";
@@ -25,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-flRX7jzGcGnTzvbieCJ+z8gL+2HpJbwKTTsK8y0cmc4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pyfakefs" ];
+  pythonImportsCheck = ["pyfakefs"];
 
   nativeCheckInputs = [
     pandas
@@ -52,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://pyfakefs.org/";
     changelog = "https://github.com/jmcgeheeiv/pyfakefs/blob/v${version}/CHANGES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pscript";
   version = "0.7.7";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-AhVI+7FiWyH+DfAXnau4aAHJAJtsWEpmnU90ey2z35o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     rm -rf pscript_legacy
   '';
 
-  pythonImportsCheck = [ "pscript" ];
+  pythonImportsCheck = ["pscript"];
 
   disabledTests = [
     # https://github.com/flexxui/pscript/issues/69
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://pscript.readthedocs.io";
     changelog = "https://github.com/flexxui/pscript/blob/v${version}/docs/releasenotes.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

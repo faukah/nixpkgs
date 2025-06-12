@@ -9,7 +9,6 @@
   qtbase,
   qt5,
 }:
-
 mkDerivation {
   pname = "lightly-boehs";
   version = "0.4.1";
@@ -38,7 +37,7 @@ mkDerivation {
     mainProgram = "lightly-settings5";
     homepage = "https://github.com/boehs/Lightly";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.hikari ];
+    maintainers = [maintainers.hikari];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cargo-vet";
   version = "0.10.1";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-+X6DLxWPWMcGzJMVZAj3C5P5MyywIb4ml0Jsyo9/uAE=";
 
   # the test_project tests require internet access
-  checkFlags = [ "--skip=test_project" ];
+  checkFlags = ["--skip=test_project"];
 
   meta = {
     description = "Tool to help projects ensure that third-party Rust dependencies have been audited by a trusted source";

@@ -14,7 +14,6 @@
   cmake,
   withPantheon ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "touchegg";
   version = "2.0.18";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -77,6 +76,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "touchegg";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.pantheon ];
+    teams = [lib.teams.pantheon];
   };
 })

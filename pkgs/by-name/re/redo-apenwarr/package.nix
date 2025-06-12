@@ -11,7 +11,6 @@
   doCheck ? true,
 }:
 stdenv.mkDerivation rec {
-
   pname = "redo-apenwarr";
   version = "0.42d";
 

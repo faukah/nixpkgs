@@ -7,10 +7,7 @@
   nixosTests,
   libcap,
   go,
-}:
-
-let
-
+}: let
   # Note: this module is actually the source code of crypto/x509
   # taken from the Go stdlib and patcheed. So, it can't simply
   # be pinned and added to the vendor dir as everything else.
@@ -33,7 +30,7 @@ let
       })
     ];
 
-    nativeBuildInputs = [ go ];
+    nativeBuildInputs = [go];
 
     buildPhase = ''
       # Put in our own lockfiles
@@ -53,62 +50,60 @@ let
       cp -r . "$out"
     '';
   };
-
 in
+  buildGoModule {
+    pname = "ncdns";
+    version = "unstable-2024-05-18";
 
-buildGoModule {
-  pname = "ncdns";
-  version = "unstable-2024-05-18";
+    src = fetchFromGitHub {
+      owner = "namecoin";
+      repo = "ncdns";
+      rev = "8a9f7c3037384f12fae400268d0a7f79d26b5532";
+      hash = "sha256-lFpjfpOAgvYoV3ci2oSdy8ZOlQ2rWlApiFWcvOMdkyk=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "namecoin";
-    repo = "ncdns";
-    rev = "8a9f7c3037384f12fae400268d0a7f79d26b5532";
-    hash = "sha256-lFpjfpOAgvYoV3ci2oSdy8ZOlQ2rWlApiFWcvOMdkyk=";
-  };
+    # Note: to update ncdns add the following lines
+    #
+    #   chmod -R +w .
+    #   go mod tidy
+    #   cat go.mod go.sum
+    #   exit 1
+    #
+    # to the `preBuild` here and update the lock files
+    preBuild = ''
+      # Sideload the generated x509 module
+      ln -s '${x509}' x509
+    '';
 
-  # Note: to update ncdns add the following lines
-  #
-  #   chmod -R +w .
-  #   go mod tidy
-  #   cat go.mod go.sum
-  #   exit 1
-  #
-  # to the `preBuild` here and update the lock files
-  preBuild = ''
-    # Sideload the generated x509 module
-    ln -s '${x509}' x509
-  '';
+    vendorHash = "sha256-FoCK2qkhbc+6D4V77pNLiC9d68nkeYJxb7uiNYEP2Xw=";
 
-  vendorHash = "sha256-FoCK2qkhbc+6D4V77pNLiC9d68nkeYJxb7uiNYEP2Xw=";
+    buildInputs = [libcap];
 
-  buildInputs = [ libcap ];
+    patches = [./fix-tpl-path.patch];
 
-  patches = [ ./fix-tpl-path.patch ];
+    # Put in our own lockfiles
+    postPatch = ''
+      cp ${./ncdns-go.mod} go.mod
+      cp ${./ncdns-go.sum} go.sum
+    '';
 
-  # Put in our own lockfiles
-  postPatch = ''
-    cp ${./ncdns-go.mod} go.mod
-    cp ${./ncdns-go.sum} go.sum
-  '';
+    preCheck = ''
+      # needed to run the ncdns test suite
+      ln -s $PWD/vendor ../go/src
+    '';
 
-  preCheck = ''
-    # needed to run the ncdns test suite
-    ln -s $PWD/vendor ../go/src
-  '';
+    postInstall = ''
+      mkdir -p "$out/share"
+      cp -r _doc "$out/share/doc"
+      cp -r _tpl "$out/share/tpl"
+    '';
 
-  postInstall = ''
-    mkdir -p "$out/share"
-    cp -r _doc "$out/share/doc"
-    cp -r _tpl "$out/share/tpl"
-  '';
+    passthru.tests.ncdns = nixosTests.ncdns;
 
-  passthru.tests.ncdns = nixosTests.ncdns;
-
-  meta = with lib; {
-    description = "Namecoin to DNS bridge daemon";
-    homepage = "https://github.com/namecoin/ncdns";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rnhmjoj ];
-  };
-}
+    meta = with lib; {
+      description = "Namecoin to DNS bridge daemon";
+      homepage = "https://github.com/namecoin/ncdns";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [rnhmjoj];
+    };
+  }

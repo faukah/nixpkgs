@@ -13,7 +13,6 @@
   gtk3,
   lrzsz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "moserial";
   version = "3.0.21";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "moserial";
-    rev = "moserial_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "moserial_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-wfdI51ECqVNcUrIVjYBijf/yqpiwSQeMiKaVJSSma3k=";
   };
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ lrzsz ]}
+      --prefix PATH : ${lib.makeBinPath [lrzsz]}
     )
   '';
 
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Clean, friendly gtk-based serial terminal for the gnome desktop";
     homepage = "https://gitlab.gnome.org/GNOME/moserial";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     platforms = platforms.linux;
     mainProgram = "moserial";
   };

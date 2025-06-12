@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGo124Module rec {
   pname = "matrix-alertmanager-receiver";
   version = "2025.5.21";
@@ -25,7 +24,7 @@ buildGo124Module rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -33,7 +32,7 @@ buildGo124Module rec {
     homepage = "https://github.com/metio/matrix-alertmanager-receiver";
     changelog = "https://github.com/metio/matrix-alertmanager-receiver/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "matrix-alertmanager-receiver";
   };
 }

@@ -8,7 +8,6 @@
   bcc,
   libseccomp,
 }:
-
 buildGoModule rec {
   pname = "oci-seccomp-bpf-hook";
   version = "1.2.11";
@@ -59,7 +58,7 @@ buildGoModule rec {
     '';
     mainProgram = "oci-seccomp-bpf-hook";
     license = licenses.asl20;
-    maintainers = with maintainers; [ saschagrunert ];
+    maintainers = with maintainers; [saschagrunert];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-basic-ng";
   version = "1.0.0.beta2";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-MHBGIKOKhGklrx3O075LRud8NhY2hzlTWh+jalrFpko=";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinx_basic_ng" ];
+  pythonImportsCheck = ["sphinx_basic_ng"];
 
   meta = with lib; {
     description = "Modernised skeleton for Sphinx themes";
     homepage = "https://sphinx-basic-ng.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

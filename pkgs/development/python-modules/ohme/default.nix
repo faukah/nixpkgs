@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ohme";
   version = "1.5.1";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-71uehQEiTTvcBPoNLNYvsE1vgp4vn3AZgGQCYrxtuYs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "ohme" ];
+  pythonImportsCheck = ["ohme"];
 
   # Module has no tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dan-r/ohmepy";
     changelog = "https://github.com/dan-r/ohmepy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

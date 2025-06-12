@@ -5,25 +5,24 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.kubelet;
 
   cniConfig =
-    if cfg.cni.config != [ ] && cfg.cni.configDir != null then
-      throw "Verbatim CNI-config and CNI configDir cannot both be set."
-    else if cfg.cni.configDir != null then
-      cfg.cni.configDir
+    if cfg.cni.config != [] && cfg.cni.configDir != null
+    then throw "Verbatim CNI-config and CNI configDir cannot both be set."
+    else if cfg.cni.configDir != null
+    then cfg.cni.configDir
     else
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
-        paths = imap (
-          i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
-        ) cfg.cni.config;
+        paths =
+          imap (
+            i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
+          )
+          cfg.cni.config;
       });
 
   infraContainer = pkgs.dockerTools.buildImage {
@@ -31,10 +30,10 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
-      paths = [ top.package.pause ];
+      pathsToLink = ["/bin"];
+      paths = [top.package.pause];
     };
-    config.Cmd = [ "/bin/pause" ];
+    config.Cmd = ["/bin/pause"];
   };
 
   kubeconfig = top.lib.mkKubeConfig "kubelet" cfg.kubeconfig;
@@ -54,7 +53,7 @@ let
         address = cfg.address;
         port = cfg.port;
         authentication = {
-          x509 = lib.optionalAttrs (cfg.clientCaFile != null) { clientCAFile = cfg.clientCaFile; };
+          x509 = lib.optionalAttrs (cfg.clientCaFile != null) {clientCAFile = cfg.clientCaFile;};
           webhook = {
             enabled = true;
             cacheTTL = "10s";
@@ -70,21 +69,19 @@ let
         healthzPort = cfg.healthz.port;
         healthzBindAddress = cfg.healthz.bind;
       }
-      // lib.optionalAttrs (cfg.tlsCertFile != null) { tlsCertFile = cfg.tlsCertFile; }
-      // lib.optionalAttrs (cfg.tlsKeyFile != null) { tlsPrivateKeyFile = cfg.tlsKeyFile; }
-      // lib.optionalAttrs (cfg.clusterDomain != "") { clusterDomain = cfg.clusterDomain; }
-      // lib.optionalAttrs (cfg.clusterDns != [ ]) { clusterDNS = cfg.clusterDns; }
-      // lib.optionalAttrs (cfg.featureGates != { }) { featureGates = cfg.featureGates; }
-      // lib.optionalAttrs (cfg.extraConfig != { }) cfg.extraConfig
+      // lib.optionalAttrs (cfg.tlsCertFile != null) {tlsCertFile = cfg.tlsCertFile;}
+      // lib.optionalAttrs (cfg.tlsKeyFile != null) {tlsPrivateKeyFile = cfg.tlsKeyFile;}
+      // lib.optionalAttrs (cfg.clusterDomain != "") {clusterDomain = cfg.clusterDomain;}
+      // lib.optionalAttrs (cfg.clusterDns != []) {clusterDNS = cfg.clusterDns;}
+      // lib.optionalAttrs (cfg.featureGates != {}) {featureGates = cfg.featureGates;}
+      // lib.optionalAttrs (cfg.extraConfig != {}) cfg.extraConfig
     )
   );
 
   manifestPath = "kubernetes/manifests";
 
-  taintOptions =
-    with lib.types;
-    { name, ... }:
-    {
+  taintOptions = with lib.types;
+    {name, ...}: {
       options = {
         key = mkOption {
           description = "Key of taint.";
@@ -111,19 +108,17 @@ let
   taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (
     mapAttrsToList (n: v: v) cfg.taints
   );
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "applyManifests" ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "cadvisorPort" ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "allowPrivileged" ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "networkPlugin" ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "containerRuntime" ] "")
+    (mkRemovedOptionModule ["services" "kubernetes" "kubelet" "applyManifests"] "")
+    (mkRemovedOptionModule ["services" "kubernetes" "kubelet" "cadvisorPort"] "")
+    (mkRemovedOptionModule ["services" "kubernetes" "kubelet" "allowPrivileged"] "")
+    (mkRemovedOptionModule ["services" "kubernetes" "kubelet" "networkPlugin"] "")
+    (mkRemovedOptionModule ["services" "kubernetes" "kubelet" "containerRuntime"] "")
   ];
 
   ###### interface
   options.services.kubernetes.kubelet = with lib.types; {
-
     address = mkOption {
       description = "Kubernetes kubelet info server listening address.";
       default = "0.0.0.0";
@@ -132,7 +127,7 @@ in
 
     clusterDns = mkOption {
       description = "Use alternative DNS.";
-      default = [ "10.1.0.1" ];
+      default = ["10.1.0.1"];
       type = listOf str;
     };
 
@@ -154,13 +149,13 @@ in
       packages = mkOption {
         description = "List of network plugin packages to install.";
         type = listOf package;
-        default = [ ];
+        default = [];
       };
 
       config = mkOption {
         description = "Kubernetes CNI configuration.";
         type = listOf attrs;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [{
             "cniVersion": "0.3.1",
@@ -211,8 +206,8 @@ in
         See also [Set Kubelet Parameters Via A Configuration File](https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/)
         and [Kubelet Configuration](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/).
       '';
-      default = { };
-      type = attrsOf ((pkgs.formats.json { }).type);
+      default = {};
+      type = attrsOf ((pkgs.formats.json {}).type);
     };
 
     featureGates = mkOption {
@@ -247,7 +242,7 @@ in
     manifests = mkOption {
       description = "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
       type = attrsOf attrs;
-      default = { };
+      default = {};
     };
 
     nodeIp = mkOption {
@@ -270,14 +265,14 @@ in
 
     seedDockerImages = mkOption {
       description = "List of docker images to preload on system";
-      default = [ ];
+      default = [];
       type = listOf package;
     };
 
     taints = mkOption {
       description = "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
-      default = { };
-      type = attrsOf (submodule [ taintOptions ]);
+      default = {};
+      type = attrsOf (submodule [taintOptions]);
     };
 
     tlsCertFile = mkOption {
@@ -306,16 +301,14 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
   ###### implementation
   config = mkMerge [
     (mkIf cfg.enable {
-
       environment.etc."cni/net.d".source = cniConfig;
 
-      services.kubernetes.kubelet.seedDockerImages = [ infraContainer ];
+      services.kubernetes.kubelet.seedDockerImages = [infraContainer];
 
       boot.kernel.sysctl = {
         "net.bridge.bridge-nf-call-iptables" = 1;
@@ -325,14 +318,13 @@ in
 
       systemd.services.kubelet = {
         description = "Kubernetes Kubelet Service";
-        wantedBy = [ "kubernetes.target" ];
+        wantedBy = ["kubernetes.target"];
         after = [
           "containerd.service"
           "network.target"
           "kube-apiserver.service"
         ];
-        path =
-          with pkgs;
+        path = with pkgs;
           [
             gitMinimal
             openssh
@@ -350,20 +342,21 @@ in
           ++ top.path;
         preStart = ''
           ${concatMapStrings (img: ''
-            echo "Seeding container image: ${img}"
-            ${
-              if (lib.hasSuffix "gz" img) then
-                ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import -''
-              else
-                ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import -''
-            }
-          '') cfg.seedDockerImages}
+              echo "Seeding container image: ${img}"
+              ${
+                if (lib.hasSuffix "gz" img)
+                then ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import -''
+                else ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import -''
+              }
+            '')
+            cfg.seedDockerImages}
 
           rm /opt/cni/bin/* || true
           ${concatMapStrings (package: ''
-            echo "Linking cni package: ${package}"
-            ln -fs ${package}/bin/* /opt/cni/bin
-          '') cfg.cni.packages}
+              echo "Linking cni package: ${package}"
+              ln -fs ${package}/bin/* /opt/cni/bin
+            '')
+            cfg.cni.packages}
         '';
         serviceConfig = {
           Slice = "kubernetes.slice";
@@ -378,7 +371,7 @@ in
                         --kubeconfig=${kubeconfig} \
                         ${optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"} \
                         --pod-infra-container-image=pause \
-                        ${optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"} \
+                        ${optionalString (cfg.manifests != {}) "--pod-manifest-path=/etc/${manifestPath}"} \
                         ${optionalString (taints != "") "--register-with-taints=${taints}"} \
                         --root-dir=${top.dataDir} \
                         ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
@@ -409,7 +402,6 @@ in
           name = "kubelet";
           CN = top.kubelet.hostname;
           action = "systemctl restart kubelet.service";
-
         };
         kubeletClient = mkCert {
           name = "kubelet-client";
@@ -424,14 +416,16 @@ in
       services.kubernetes.kubelet.kubeconfig.server = mkDefault top.apiserverAddress;
     })
 
-    (mkIf (cfg.enable && cfg.manifests != { }) {
-      environment.etc = mapAttrs' (
-        name: manifest:
-        nameValuePair "${manifestPath}/${name}.json" {
-          text = builtins.toJSON manifest;
-          mode = "0755";
-        }
-      ) cfg.manifests;
+    (mkIf (cfg.enable && cfg.manifests != {}) {
+      environment.etc =
+        mapAttrs' (
+          name: manifest:
+            nameValuePair "${manifestPath}/${name}.json" {
+              text = builtins.toJSON manifest;
+              mode = "0755";
+            }
+        )
+        cfg.manifests;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {
@@ -440,7 +434,6 @@ in
         effect = "NoSchedule";
       };
     })
-
   ];
 
   meta.buildDocsInSandbox = false;

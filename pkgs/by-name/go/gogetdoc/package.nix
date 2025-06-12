@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gogetdoc-unstable";
   version = "2019-02-28";
@@ -26,7 +25,7 @@ buildGoModule rec {
     mainProgram = "gogetdoc";
     homepage = "https://github.com/zmb3/gogetdoc";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

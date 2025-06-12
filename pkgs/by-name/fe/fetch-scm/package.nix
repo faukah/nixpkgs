@@ -4,7 +4,6 @@
   fetchFromGitHub,
   guile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fetch-scm";
   version = "0.1.6";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KikyTokamuro/fetch.scm";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vel ];
+    maintainers = with maintainers; [vel];
     mainProgram = "fetch-scm";
   };
 }

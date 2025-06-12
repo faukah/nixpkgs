@@ -6,7 +6,6 @@
   autoreconfHook,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libfyaml";
   version = "0.9";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  configureFlags = [ "--disable-network" ];
+  configureFlags = ["--disable-network"];
 
   doCheck = true;
 
@@ -47,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pantoniou/libfyaml";
     changelog = "https://github.com/pantoniou/libfyaml/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = [ ];
-    pkgConfigModules = [ "libfyaml" ];
+    maintainers = [];
+    pkgConfigModules = ["libfyaml"];
     platforms = platforms.all;
   };
 })

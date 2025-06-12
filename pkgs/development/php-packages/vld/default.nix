@@ -5,7 +5,6 @@
   nix-update-script,
   php,
 }:
-
 buildPecl {
   pname = "vld";
   version = "0.18.0-unstable-2024-08-22";
@@ -20,13 +19,13 @@ buildPecl {
   # Tests relies on PHP 7.0
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Vulcan Logic Dumper hooks into the Zend Engine and dumps all the opcodes (execution units) of a script";
     homepage = "https://github.com/derickr/vld";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     broken = lib.versionOlder php.version "8.2";
   };
 }

@@ -11,7 +11,6 @@
   jsons,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "brother-ql";
   version = "0.11.2";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/LunarEclipse363/brother_ql_next";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ grahamc ];
+    maintainers = with maintainers; [grahamc];
     mainProgram = "brother_ql";
   };
 }

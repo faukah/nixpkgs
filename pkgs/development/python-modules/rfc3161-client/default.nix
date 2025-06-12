@@ -8,7 +8,6 @@
   pretend,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rfc3161-client";
   version = "1.0.1";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/trailofbits/rfc3161-client";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     changelog = "https://github.com/trailofbits/rfc3161-client/releases/tag/v${version}";

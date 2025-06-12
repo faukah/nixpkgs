@@ -14,7 +14,6 @@
   pango,
   cargo-make,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "open-scq30";
   version = "1.12.0";
@@ -64,7 +63,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Oppzippy/OpenSCQ30";
     changelog = "https://github.com/Oppzippy/OpenSCQ30/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "open-scq30";
   };
 }

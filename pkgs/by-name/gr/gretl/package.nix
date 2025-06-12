@@ -17,7 +17,6 @@
   pkg-config,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gretl";
   version = "2025a";
@@ -27,20 +26,22 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5B9V1Z12+Hu00x++u2ndUXWq91k/SXy723DoLOefhEQ=";
   };
 
-  buildInputs = [
-    curl
-    fftw
-    gmp
-    gnuplot
-    gtk3
-    gtksourceview3
-    json-glib
-    lapack
-    libxml2
-    mpfr
-    openblas
-    readline
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      curl
+      fftw
+      gmp
+      gnuplot
+      gtk3
+      gtksourceview3
+      json-glib
+      lapack
+      libxml2
+      mpfr
+      openblas
+      readline
+    ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   nativeBuildInputs = [
     pkg-config
@@ -62,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
       gretl is a cross-platform software package for econometric analysis,
       written in the C programming language.
     '';
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "popl";
   version = "1.3.0";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/badaix/popl";
     changelog = "https://github.com/badaix/popl/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -15,7 +15,6 @@
   enablePython ? true,
   enableUtilities ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zfp";
   version = "1.0.1";
@@ -33,15 +32,14 @@ stdenv.mkDerivation (finalAttrs: {
     ./python312.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     lib.optional enableCuda cudatoolkit
     ++ lib.optional enableFortran gfortran
     ++ lib.optional enableOpenMP llvmPackages.openmp
     ++ lib.optionals enablePython (
-      with python3Packages;
-      [
+      with python3Packages; [
         cython
         numpy
         python
@@ -66,7 +64,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
     ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
-    ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ]);
+    ++ [
+      "-DBUILD_UTILITIES=${
+        if enableUtilities
+        then "ON"
+        else "OFF"
+      }"
+    ];
 
   doCheck = true;
 
@@ -74,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://computing.llnl.gov/projects/zfp";
     description = "Library for random-access compression of floating-point arrays";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.spease ];
+    maintainers = [lib.maintainers.spease];
     # 64-bit only
     platforms = lib.platforms.aarch64 ++ lib.platforms.x86_64;
     mainProgram = "zfp";

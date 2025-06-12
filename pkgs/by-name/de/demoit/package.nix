@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "demoit";
   version = "1.0";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Live coding demos without Context Switching";
     homepage = "https://github.com/dgageot/demoit";
     license = licenses.asl20;
-    maintainers = [ maintainers.freezeboy ];
+    maintainers = [maintainers.freezeboy];
     mainProgram = "demoit";
   };
 }

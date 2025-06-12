@@ -5,7 +5,7 @@
   python3,
   testers,
   nix-update-script,
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "dooit";
@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-bI9X+2tTLnQwxfsnBmy2vBI3lJ4UX418zOy3oniVKWc=";
   };
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   pythonRelaxDeps = [
     "tzlocal"
@@ -27,8 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     "sqlalchemy"
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       pyperclip
       textual
@@ -57,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
       command = "HOME=$(mktemp -d) dooit --version";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

@@ -12,7 +12,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wlcs";
   version = "1.7.0";
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/MirServer/wlcs";
     changelog = "https://github.com/MirServer/wlcs/releases/tag/v${finalAttrs.version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.linux;
     pkgConfigModules = [
       "wlcs"

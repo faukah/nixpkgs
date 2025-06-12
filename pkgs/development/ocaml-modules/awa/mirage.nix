@@ -10,7 +10,6 @@
   duration,
   mirage-mtime,
 }:
-
 buildDunePackage {
   pname = "awa-mirage";
 

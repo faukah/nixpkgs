@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyituran";
   version = "0.1.4";
@@ -28,22 +27,22 @@ buildPythonPackage rec {
       --replace-fail 'os.environ["VERSION"]' '"${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyituran" ];
+  pythonImportsCheck = ["pyituran"];
 
   meta = {
     description = "Module to interact with the Ituran web service";
     homepage = "https://github.com/shmuelzon/pyituran";
     changelog = "https://github.com/shmuelzon/pyituran/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

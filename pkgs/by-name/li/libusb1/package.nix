@@ -5,14 +5,12 @@
   autoreconfHook,
   doxygen,
   pkg-config,
-  enableUdev ?
-    stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isStatic && !stdenv.hostPlatform.isAndroid,
+  enableUdev ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isStatic && !stdenv.hostPlatform.isAndroid,
   udev,
   withExamples ? false,
   withStatic ? false,
   withDocs ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libusb";
   version = "1.0.28";
@@ -24,15 +22,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ntfDh/+HYm5cthhO8FkAJHo4RcxvZUKmHf4AOrHLysM=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocs [ "doc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals withDocs ["doc"];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ] ++ lib.optionals withDocs [ doxygen ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      autoreconfHook
+    ]
+    ++ lib.optionals withDocs [doxygen];
   propagatedBuildInputs = lib.optional enableUdev udev;
 
   dontDisableStatic = withStatic;
@@ -42,7 +44,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional (!enableUdev) "--disable-udev"
-    ++ lib.optional (withExamples) "--enable-examples-build";
+    ++ lib.optional withExamples "--enable-examples-build";
 
   postBuild = lib.optionalString withDocs ''
     make -C doc

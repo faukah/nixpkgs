@@ -19,7 +19,6 @@
   fuse3,
   autoAddDriverRunpath,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lact";
   version = "0.7.4";
@@ -99,7 +98,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ vulkan-tools ]}"
+      --prefix PATH : "${lib.makeBinPath [vulkan-tools]}"
     )
   '';
 
@@ -117,7 +116,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   passthru.tests = {
     inherit (nixosTests) lact;
   };

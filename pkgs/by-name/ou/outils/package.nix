@@ -4,7 +4,6 @@
   fetchpatch2,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "outils";
   version = "0.13";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/leahneukirchen/outils";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

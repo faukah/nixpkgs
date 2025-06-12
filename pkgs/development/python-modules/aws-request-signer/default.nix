@@ -6,7 +6,6 @@
   requests,
   requests-toolbelt,
 }:
-
 buildPythonPackage rec {
   pname = "aws-request-signer";
   version = "1.2.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
       --replace-fail poetry.masonry.api poetry.core.masonry.api
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     requests
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Python library to sign AWS requests using AWS Signature V4.";
     homepage = "https://github.com/iksteen/aws-request-signer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

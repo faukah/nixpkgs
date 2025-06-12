@@ -10,20 +10,19 @@
 }:
 makeSetupHook {
   name = "auto-add-cuda-compat-runpath-hook";
-  propagatedBuildInputs = [ autoFixElfFiles ];
+  propagatedBuildInputs = [autoFixElfFiles];
 
   substitutions = {
     libcudaPath = "${cuda_compat}/compat";
   };
 
-  meta =
-    let
-      # Handle `null`s in pre-`cuda_compat` releases,
-      # and `badPlatform`s for `!isJetsonBuild`.
-      platforms = cuda_compat.meta.platforms or [ ];
-      badPlatforms = cuda_compat.meta.badPlatforms or platforms;
-    in
-    {
-      inherit badPlatforms platforms;
-    };
-} ./auto-add-cuda-compat-runpath.sh
+  meta = let
+    # Handle `null`s in pre-`cuda_compat` releases,
+    # and `badPlatform`s for `!isJetsonBuild`.
+    platforms = cuda_compat.meta.platforms or [];
+    badPlatforms = cuda_compat.meta.badPlatforms or platforms;
+  in {
+    inherit badPlatforms platforms;
+  };
+}
+./auto-add-cuda-compat-runpath.sh

@@ -15,7 +15,6 @@
   websocket-client,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "devolo-home-control-api";
   version = "0.19.0";
@@ -60,13 +59,13 @@ buildPythonPackage rec {
     "TestMprm"
   ];
 
-  pythonImportsCheck = [ "devolo_home_control_api" ];
+  pythonImportsCheck = ["devolo_home_control_api"];
 
   meta = with lib; {
     description = "Python library to work with devolo Home Control";
     homepage = "https://github.com/2Fake/devolo_home_control_api";
     changelog = "https://github.com/2Fake/devolo_home_control_api/blob/${src.tag}/docs/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

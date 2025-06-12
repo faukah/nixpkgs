@@ -18,22 +18,23 @@ kernel.stdenv.mkDerivation {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
-  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-  installTargets = [ "modules_install" ];
+  installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+  installTargets = ["modules_install"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     broken = !kernel.withRust;
     description = "Basic template for an out-of-tree Linux kernel module written in Rust";
     homepage = "https://github.com/Rust-for-Linux/rust-out-of-tree-module";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.blitz ];
-    platforms = [ "x86_64-linux" ] ++ lib.optional (kernel.kernelAtLeast "6.9") "aarch64-linux";
+    maintainers = [lib.maintainers.blitz];
+    platforms = ["x86_64-linux"] ++ lib.optional (kernel.kernelAtLeast "6.9") "aarch64-linux";
   };
-
 }

@@ -6,7 +6,6 @@
   pango,
   pkg-config,
 }:
-
 buildNpmPackage {
   pname = "excalidraw_export";
   version = "1.1.0";
@@ -32,13 +31,13 @@ buildNpmPackage {
     cairo
     pango
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "CLI to export Excalidraw drawings to SVG and PDF";
     homepage = "https://github.com/Timmmm/excalidraw_export";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ venikx ];
+    maintainers = with lib.maintainers; [venikx];
     mainProgram = "excalidraw_export";
   };
 }

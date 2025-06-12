@@ -1,22 +1,17 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
-
   cmake,
   ninja,
-
   gflags,
   glog,
   folly,
   fbthrift,
   fizz,
   wangle,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fb303";
   version = "2025.04.21.00";
@@ -64,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" (placeholder "dev"))
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Base Thrift service and a common set of functionality for querying stats, options, and other information from a service";

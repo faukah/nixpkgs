@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     maintainers
     types
     literalExpression
@@ -27,10 +26,10 @@ let
   jobsConfig = pkgs.writeText "mtr-exporter.conf" (
     concatMapStrings (job: ''
       ${job.name} -- ${job.schedule} -- ${concatStringsSep " " job.flags} ${job.address}
-    '') cfg.jobs
+    '')
+    cfg.jobs
   );
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -63,16 +62,16 @@ in
 
         extraFlags = mkOption {
           type = types.listOf types.str;
-          default = [ ];
-          example = [ "-flag.deprecatedMetrics" ];
+          default = [];
+          example = ["-flag.deprecatedMetrics"];
           description = ''
             Extra command line options to pass to MTR exporter.
           '';
         };
 
-        package = mkPackageOption pkgs "mtr-exporter" { };
+        package = mkPackageOption pkgs "mtr-exporter" {};
 
-        mtrPackage = mkPackageOption pkgs "mtr" { };
+        mtrPackage = mkPackageOption pkgs "mtr" {};
 
         jobs = mkOption {
           description = "List of MTR jobs. Will be added to /etc/mtr-exporter.conf";
@@ -99,8 +98,8 @@ in
 
                 flags = mkOption {
                   type = with types; listOf str;
-                  default = [ ];
-                  example = [ "-G1" ];
+                  default = [];
+                  example = ["-G1"];
                   description = "Additional flags to pass to MTR.";
                 };
               };
@@ -117,9 +116,9 @@ in
     };
 
     systemd.services.mtr-exporter = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/mtr-exporter \
@@ -130,7 +129,7 @@ in
         '';
         Restart = "on-failure";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         ProcSubset = "pid";
@@ -152,5 +151,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ jakubgs ];
+  meta.maintainers = with maintainers; [jakubgs];
 }

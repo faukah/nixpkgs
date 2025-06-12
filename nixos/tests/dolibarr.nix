@@ -1,22 +1,19 @@
-{ ... }:
-{
+{...}: {
   name = "dolibarr";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.dolibarr = {
-        enable = true;
-        domain = "localhost";
-        nginx = {
-          forceSSL = false;
-          enableACME = false;
-        };
+  nodes.machine = {...}: {
+    services.dolibarr = {
+      enable = true;
+      domain = "localhost";
+      nginx = {
+        forceSSL = false;
+        enableACME = false;
       };
-
-      networking.firewall.allowedTCPPorts = [ 80 ];
     };
+
+    networking.firewall.allowedTCPPorts = [80];
+  };
 
   testScript = ''
     from html.parser import HTMLParser

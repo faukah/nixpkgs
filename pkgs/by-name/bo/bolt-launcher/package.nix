@@ -19,8 +19,7 @@
   makeDesktopItem,
   copyDesktopItems,
   enableRS3 ? false,
-}:
-let
+}: let
   cef = cef-binary.overrideAttrs (oldAttrs: {
     version = "126.2.18";
     __intentionallyOverridingVersion = true; # `cef-binary` uses the overridden `srcHash` values in its source FOD
@@ -32,10 +31,11 @@ let
         aarch64-linux = "sha256-Ni5aEbI+WuMnbT8gPWMONN5NkTySw7xJvnM6U44Njao=";
         x86_64-linux = "sha256-YwND4zsndvmygJxwmrCvaFuxjJO704b6aDVSJqpEOKc=";
       }
-      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+      .${
+        stdenv.hostPlatform.system
+      } or (throw "unsupported system ${stdenv.hostPlatform.system}");
   });
-in
-let
+in let
   bolt = stdenv.mkDerivation (finalAttrs: {
     pname = "bolt-launcher";
     version = "0.15.0";
@@ -100,59 +100,57 @@ let
         comment = "An alternative launcher for RuneScape";
         exec = "bolt-launcher";
         icon = "bolt-launcher";
-        categories = [ "Game" ];
+        categories = ["Game"];
       })
     ];
   });
 in
-buildFHSEnv {
-  inherit (bolt) pname version;
+  buildFHSEnv {
+    inherit (bolt) pname version;
 
-  targetPkgs =
-    pkgs:
-    [ bolt ]
-    ++ (with pkgs; [
-      xorg.libSM
-      xorg.libXxf86vm
-      xorg.libX11
-      glib
-      pango
-      cairo
-      gdk-pixbuf
-      libz
-      libcap
-      libsecret
-      SDL2
-      libGL
-    ])
-    ++ lib.optionals enableRS3 (
-      with pkgs;
-      [
-        gtk2-x11
-        openssl_1_1
-      ]
-    );
+    targetPkgs = pkgs:
+      [bolt]
+      ++ (with pkgs; [
+        xorg.libSM
+        xorg.libXxf86vm
+        xorg.libX11
+        glib
+        pango
+        cairo
+        gdk-pixbuf
+        libz
+        libcap
+        libsecret
+        SDL2
+        libGL
+      ])
+      ++ lib.optionals enableRS3 (
+        with pkgs; [
+          gtk2-x11
+          openssl_1_1
+        ]
+      );
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    mkdir -p $out/share/icons/hicolor/256x256/apps
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications
+      mkdir -p $out/share/icons/hicolor/256x256/apps
 
-    ln -s ${bolt}/share/applications/*.desktop $out/share/applications/
+      ln -s ${bolt}/share/applications/*.desktop $out/share/applications/
 
-    ln -s ${bolt}/share/icons/hicolor/256x256/apps/*.png $out/share/icons/hicolor/256x256/apps/
-  '';
-
-  runScript = "${bolt.name}";
-
-  meta = {
-    homepage = "https://github.com/Adamcake/Bolt";
-    description = "Alternative launcher for RuneScape";
-    longDescription = ''
-      Bolt Launcher supports HDOS/RuneLite by default with an optional feature flag for RS3 (enableRS3).
+      ln -s ${bolt}/share/icons/hicolor/256x256/apps/*.png $out/share/icons/hicolor/256x256/apps/
     '';
-    license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ nezia ];
-    platforms = lib.platforms.linux;
-    mainProgram = "${bolt.name}";
-  };
-}
+
+    runScript = "${bolt.name}";
+
+    meta = {
+      homepage = "https://github.com/Adamcake/Bolt";
+      description = "Alternative launcher for RuneScape";
+      longDescription = ''
+        Bolt Launcher supports HDOS/RuneLite by default with an optional feature flag for RS3 (enableRS3).
+      '';
+      license = lib.licenses.agpl3Plus;
+      maintainers = with lib.maintainers; [nezia];
+      platforms = lib.platforms.linux;
+      mainProgram = "${bolt.name}";
+    };
+  }

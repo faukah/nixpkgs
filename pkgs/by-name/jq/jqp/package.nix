@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jqp";
   version = "0.7.0";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-GbY0x4BgV0+QdVMkITLF/W//oO72FbjV6lNJRm6ecys=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "TUI playground to experiment with jq";
     mainProgram = "jqp";
     homepage = "https://github.com/noahgorstein/jqp";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

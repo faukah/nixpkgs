@@ -1,21 +1,19 @@
 {
   lib,
   rustPlatform,
-}:
-
-let
+}: let
   cargo = lib.importTOML ./src/Cargo.toml;
 in
-rustPlatform.buildRustPackage {
-  pname = cargo.package.name;
-  version = cargo.package.version;
+  rustPlatform.buildRustPackage {
+    pname = cargo.package.name;
+    version = cargo.package.version;
 
-  src = ./src;
+    src = ./src;
 
-  cargoLock.lockFile = ./src/Cargo.lock;
+    cargoLock.lockFile = ./src/Cargo.lock;
 
-  meta = {
-    description = "Output a path's realpath within a chroot.";
-    maintainers = [ lib.maintainers.elvishjerricco ];
-  };
-}
+    meta = {
+      description = "Output a path's realpath within a chroot.";
+      maintainers = [lib.maintainers.elvishjerricco];
+    };
+  }

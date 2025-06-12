@@ -9,7 +9,6 @@
   sympy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "qmake2cmake";
   version = "1.0.6";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Tool to convert qmake .pro files to CMakeLists.txt";
     homepage = "https://wiki.qt.io/Qmake2cmake";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

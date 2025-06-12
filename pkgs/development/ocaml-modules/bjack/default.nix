@@ -6,7 +6,6 @@
   libsamplerate,
   libjack2,
 }:
-
 buildDunePackage rec {
   pname = "bjack";
   version = "0.1.6";
@@ -18,7 +17,7 @@ buildDunePackage rec {
     hash = "sha256-jIxxqBVWphWYyLh+24rTxk4WWfPPdGCvNdevFJEKw70=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     libsamplerate
     libjack2
@@ -28,6 +27,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-bjack";
     description = "Blocking API for the jack audio connection kit";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

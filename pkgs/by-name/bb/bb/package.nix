@@ -8,7 +8,6 @@
   xorg,
   libmikmod,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bb";
   version = "1.3rc1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ./included-files-updates.diff
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     aalib
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "http://aa-project.sourceforge.net/bb";
     description = "AA-lib demo";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.rnhmjoj ];
+    maintainers = [maintainers.rnhmjoj];
     platforms = platforms.unix;
     mainProgram = "bb";
   };

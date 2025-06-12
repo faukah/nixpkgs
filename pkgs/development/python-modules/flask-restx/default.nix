@@ -21,7 +21,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-restx";
   version = "1.3.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     hash = "sha256-CBReP/u96fsr28lMV1BfLjjdBMXEvsD03wvsxkIcteI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aniso8601
@@ -84,13 +83,13 @@ buildPythonPackage rec {
     "test_iso8601_value"
   ];
 
-  pythonImportsCheck = [ "flask_restx" ];
+  pythonImportsCheck = ["flask_restx"];
 
   meta = with lib; {
     description = "Fully featured framework for fast, easy and documented API development with Flask";
     homepage = "https://github.com/python-restx/flask-restx";
     changelog = "https://github.com/python-restx/flask-restx/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

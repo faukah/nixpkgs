@@ -9,7 +9,6 @@
   gsettings-desktop-schemas,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "inav-configurator";
   version = "5.1.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
       quadcopters, hexacopters, octocopters and fixed-wing aircraft.
     '';
     homepage = "https://github.com/iNavFlight/inav/wiki";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
     maintainers = with maintainers; [
       tilcreator

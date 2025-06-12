@@ -9,7 +9,6 @@
   borderColor ? null,
   logoColor ? null,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "breeze-hacked-cursor-theme";
   version = "unstable-2024-1-28";
@@ -50,7 +49,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/clayrisser/breeze-hacked-cursor-theme";
     description = "Breeze Hacked cursor theme";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ anomalocaris ];
+    maintainers = with maintainers; [anomalocaris];
     platforms = platforms.linux;
   };
 }

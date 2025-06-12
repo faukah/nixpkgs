@@ -13,7 +13,6 @@
   sphinxHook,
   sphinx-rtd-theme,
 }:
-
 buildPythonPackage rec {
   pname = "dropbox";
   version = "12.0.2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-9Fsh06V226vIyJhrlLkh9Xr4UGoEIISnIFCtuKqI218=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -52,7 +51,7 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner==5.2.0'," ""
   '';
 
-  pythonImportsCheck = [ "dropbox" ];
+  pythonImportsCheck = ["dropbox"];
 
   nativeBuildInputs = [
     sphinxHook
@@ -95,6 +94,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dropbox/dropbox-sdk-python";
     changelog = "https://github.com/dropbox/dropbox-sdk-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sfrijters ];
+    maintainers = with lib.maintainers; [sfrijters];
   };
 }

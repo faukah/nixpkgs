@@ -6,9 +6,7 @@
   rustfmt,
   pkg-config,
   openssl,
-}:
-
-let
+}: let
   version = "0.2.0";
 
   src = fetchFromGitHub {
@@ -21,11 +19,10 @@ let
   meta = with lib; {
     homepage = "https://github.com/talaia-labs/rust-teos";
     license = licenses.mit;
-    maintainers = with maintainers; [ seberm ];
+    maintainers = with maintainers; [seberm];
   };
   updateScript = ./update.sh;
-in
-{
+in {
   teos = rustPlatform.buildRustPackage {
     pname = "teos";
     inherit version src;
@@ -44,9 +41,11 @@ in
 
     __darwinAllowLocalNetworking = true;
 
-    meta = meta // {
-      description = "Lightning watchtower compliant with BOLT13, written in Rust";
-    };
+    meta =
+      meta
+      // {
+        description = "Lightning watchtower compliant with BOLT13, written in Rust";
+      };
   };
 
   teos-watchtower-plugin = rustPlatform.buildRustPackage {
@@ -72,9 +71,11 @@ in
 
     __darwinAllowLocalNetworking = true;
 
-    meta = meta // {
-      description = "Lightning watchtower plugin for clightning";
-      mainProgram = "watchtower-client";
-    };
+    meta =
+      meta
+      // {
+        description = "Lightning watchtower plugin for clightning";
+        mainProgram = "watchtower-client";
+      };
   };
 }

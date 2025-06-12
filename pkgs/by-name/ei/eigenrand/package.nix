@@ -6,7 +6,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eigenrand";
   version = "0.5.1";
@@ -34,19 +33,19 @@ stdenv.mkDerivation (finalAttrs: {
     rm -rf $out/bin $out/include/gmock $out/include/gtest $out/lib
   '';
 
-  nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ eigen ];
-  checkInputs = [ gtest ];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [eigen];
+  checkInputs = [gtest];
 
   doCheck = true;
 
-  cmakeFlags = [ "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;EigenRand-test" ];
+  cmakeFlags = ["-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;EigenRand-test"];
 
   meta = {
     description = "Fastest Random Distribution Generator for Eigen";
     homepage = "https://github.com/bab2min/EigenRand";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

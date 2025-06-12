@@ -13,7 +13,6 @@
   ncurses,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "verilogae";
   version = "1.0.0";
@@ -59,9 +58,9 @@ buildPythonPackage rec {
 
   cargoBuildType = "release";
 
-  pythonImportsCheck = [ "verilogae" ];
+  pythonImportsCheck = ["verilogae"];
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   meta = {
     description = "Verilog-A tool useful for compact model parameter extraction";
@@ -72,6 +71,6 @@ buildPythonPackage rec {
       jleightcap
     ];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
   };
 }

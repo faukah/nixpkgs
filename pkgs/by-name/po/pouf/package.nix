@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pouf";
   version = "0.6.3";
@@ -24,8 +23,8 @@ rustPlatform.buildRustPackage rec {
     description = "CLI program for produce fake datas";
     homepage = "https://github.com/mothsart/pouf";
     changelog = "https://github.com/mothsart/pouf/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ mothsart ];
-    license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [mothsart];
+    license = with lib.licenses; [mit];
     mainProgram = "pouf";
   };
 }

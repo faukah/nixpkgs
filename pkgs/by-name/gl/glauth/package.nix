@@ -5,7 +5,6 @@
   oath-toolkit,
   openldap,
 }:
-
 buildGoModule rec {
   pname = "glauth";
   version = "2.3.2";

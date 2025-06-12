@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xmlschema";
   version = "4.0.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-J2A1dBLo5LtO1ldRuopfTjaew38B27D4wE+y387bQvs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ elementpath ];
+  dependencies = [elementpath];
 
   nativeCheckInputs = [
     jinja2
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "test_pickling_subclassed_schema__issue_263"
   ];
 
-  pythonImportsCheck = [ "xmlschema" ];
+  pythonImportsCheck = ["xmlschema"];
 
   meta = with lib; {
     description = "XML Schema validator and data conversion library for Python";
     homepage = "https://github.com/sissaschool/xmlschema";
     changelog = "https://github.com/sissaschool/xmlschema/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

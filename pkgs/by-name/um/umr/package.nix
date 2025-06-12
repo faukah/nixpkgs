@@ -1,12 +1,9 @@
 {
   lib,
   stdenv,
-
   fetchFromGitLab,
-
   cmake,
   pkg-config,
-
   libdrm,
   libgbm,
   libpciaccess,
@@ -15,10 +12,8 @@
   ncurses,
   SDL2,
   bash-completion,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "umr";
   version = "1.0.10";
@@ -48,13 +43,13 @@ stdenv.mkDerivation rec {
     bash-completion # Tries to create bash-completions in /var/empty otherwise?
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Userspace debugging and diagnostic tool for AMD GPUs";
     homepage = "https://gitlab.freedesktop.org/tomstdenis/umr";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     platforms = platforms.linux;
   };
 }

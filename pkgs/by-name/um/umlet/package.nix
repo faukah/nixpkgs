@@ -6,7 +6,6 @@
   unzip,
   runtimeShell,
 }:
-
 stdenv.mkDerivation {
   pname = "umlet";
   version = "15.1.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-M6oVWbOmPBTygS+TFkY9PWucFfYLD33suNUuWpFLMIo=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -53,9 +52,9 @@ stdenv.mkDerivation {
       Linux.
     '';
     homepage = "https://www.umlet.com";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.all;
     mainProgram = "umlet";
   };

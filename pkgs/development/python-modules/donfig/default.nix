@@ -8,7 +8,6 @@
   cloudpickle,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "donfig";
   version = "0.8.1.post1";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytroll/donfig";
     changelog = "https://github.com/pytroll/donfig/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

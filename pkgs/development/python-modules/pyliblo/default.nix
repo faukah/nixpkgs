@@ -6,7 +6,6 @@
   liblo,
   cython_0,
 }:
-
 buildPythonPackage rec {
   pname = "pyliblo";
   version = "0.10.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ cython_0 ];
+  build-system = [cython_0];
 
-  buildInputs = [ liblo ];
+  buildInputs = [liblo];
 
   meta = with lib; {
     homepage = "https://das.nasophon.de/pyliblo/";

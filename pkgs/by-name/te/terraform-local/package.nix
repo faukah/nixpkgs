@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-3GlXR2F28jpeXhFsJAH7yrKp8vrVhCozS8Ew6oi39P4=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     python-hcl2
@@ -31,6 +31,6 @@ python3Packages.buildPythonApplication rec {
     description = "Terraform CLI wrapper to deploy your Terraform applications directly to LocalStack";
     homepage = "https://github.com/localstack/terraform-local";
     license = licenses.asl20;
-    maintainers = with maintainers; [ shivaraj-bh ];
+    maintainers = with maintainers; [shivaraj-bh];
   };
 }

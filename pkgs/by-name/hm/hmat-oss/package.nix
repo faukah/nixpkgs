@@ -7,7 +7,6 @@
   blas,
   lapack,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hmat-oss";
   version = "1.10.0";
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jeromerobert/hmat-oss";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ gdinh ];
+    maintainers = with lib.maintainers; [gdinh];
   };
 })

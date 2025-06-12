@@ -9,7 +9,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "marisa-trie";
   version = "1.2.1";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "tests/test_packaging.py"
   ];
 
-  pythonImportsCheck = [ "marisa_trie" ];
+  pythonImportsCheck = ["marisa_trie"];
 
   meta = with lib; {
     description = "Static memory-efficient Trie-like structures for Python based on marisa-trie C++ library";

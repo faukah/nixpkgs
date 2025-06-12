@@ -7,7 +7,6 @@
   pytest-cov-stub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "venusian";
   version = "3.1.1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-U0+zs1VmkoPrOVRYGTHl0dBx/OYdAp1Y8yGaXjpvDEE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Library for deferring decorator actions";
     homepage = "https://pylonsproject.org/";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

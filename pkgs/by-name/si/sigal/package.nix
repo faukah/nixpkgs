@@ -5,7 +5,6 @@
   fetchPypi,
   ffmpeg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sigal";
   version = "2.5";
@@ -49,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"
+    "--prefix PATH : ${lib.makeBinPath [ffmpeg]}"
   ];
 
   meta = with lib; {

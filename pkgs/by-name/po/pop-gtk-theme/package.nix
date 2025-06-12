@@ -13,7 +13,6 @@
   librsvg,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "pop-gtk-theme";
   version = "2021-08-19";
@@ -65,6 +64,6 @@ stdenv.mkDerivation {
       cc-by-sa-40
     ];
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.foldingathome;
 
   args =
@@ -17,22 +16,22 @@ let
       cfg.user
     ]
     ++ cfg.extraArgs;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "foldingAtHome" ] [ "services" "foldingathome" ])
-    (lib.mkRenamedOptionModule
-      [ "services" "foldingathome" "nickname" ]
-      [ "services" "foldingathome" "user" ]
+    (lib.mkRenamedOptionModule ["services" "foldingAtHome"] ["services" "foldingathome"])
+    (
+      lib.mkRenamedOptionModule
+      ["services" "foldingathome" "nickname"]
+      ["services" "foldingathome" "user"]
     )
-    (lib.mkRemovedOptionModule [ "services" "foldingathome" "config" ] ''
+    (lib.mkRemovedOptionModule ["services" "foldingathome" "config"] ''
       Use <literal>services.foldingathome.extraArgs instead<literal>
     '')
   ];
   options.services.foldingathome = {
     enable = lib.mkEnableOption "Folding@home client";
 
-    package = lib.mkPackageOption pkgs "fahclient" { };
+    package = lib.mkPackageOption pkgs "fahclient" {};
 
     user = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -65,7 +64,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra startup options for the FAHClient. Run
         `fah-client --help` to find all the available options.
@@ -76,8 +75,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.foldingathome = {
       description = "Folding@home client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script = ''
         exec ${lib.getExe cfg.package} ${lib.escapeShellArgs args}
       '';
@@ -91,6 +90,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

@@ -16,7 +16,6 @@
   termcolor,
   unicorn,
 }:
-
 buildPythonPackage rec {
   pname = "qiling";
   version = "1.4.6";
@@ -48,13 +47,13 @@ buildPythonPackage rec {
   # amongst other things)
   doCheck = false;
 
-  pythonImportsCheck = [ "qiling" ];
+  pythonImportsCheck = ["qiling"];
 
   meta = with lib; {
     description = "Qiling Advanced Binary Emulation Framework";
     homepage = "https://qiling.io/";
     changelog = "https://github.com/qilingframework/qiling/releases/tag/${version}";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

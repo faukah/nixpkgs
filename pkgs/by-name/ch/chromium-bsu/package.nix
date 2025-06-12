@@ -17,7 +17,6 @@
   pkg-config,
   quesoglc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chromium-bsu";
   version = "0.9.16.1";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Fast paced, arcade-style, top-scrolling space shooter";
     mainProgram = "chromium-bsu";
     license = licenses.artistic1;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

@@ -15,7 +15,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "buffer";
   version = "0.10.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/cheywood/buffer";
     license = lib.licenses.gpl3Plus;
     mainProgram = "buffer";
-    maintainers = with lib.maintainers; [ michaelgrahamevans ];
+    maintainers = with lib.maintainers; [michaelgrahamevans];
     platforms = lib.platforms.linux;
   };
 })

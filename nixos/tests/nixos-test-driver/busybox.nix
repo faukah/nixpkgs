@@ -3,8 +3,7 @@
 
   nodes = {
     machine = (
-      { pkgs, ... }:
-      {
+      {pkgs, ...}: {
         environment.systemPackages = [
           pkgs.busybox
         ];

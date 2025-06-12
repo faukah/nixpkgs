@@ -7,7 +7,6 @@
   openstep-parser,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pbxproj";
   version = "4.2.1";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-srtS6ggVnpffEa57LL2OzfC2mVd9uLxUL6LzxqPVLdo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
     openstep-parser
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "pbxproj"
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Python module to manipulate XCode projects ";
     homepage = "https://github.com/kronenthaler/mod-pbxproj";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ilaumjd ];
+    maintainers = with lib.maintainers; [ilaumjd];
   };
 }

@@ -6,7 +6,6 @@
   ocsigen_server,
   xml-light,
 }:
-
 buildDunePackage {
   pname = "ocsipersist-sqlite";
   inherit (ocsipersist-lib) version src;
@@ -20,7 +19,9 @@ buildDunePackage {
     xml-light
   ];
 
-  meta = ocsipersist-lib.meta // {
-    description = "Persistent key/value storage (for Ocsigen) using SQLite";
-  };
+  meta =
+    ocsipersist-lib.meta
+    // {
+      description = "Persistent key/value storage (for Ocsigen) using SQLite";
+    };
 }

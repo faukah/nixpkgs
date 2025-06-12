@@ -1,21 +1,18 @@
 # NOTE:
 # cfg.configFile contains secrets such as proxy servers' credential!
 # we dont want plaintext secrets in world-readable `/nix/store`.
-
 {
   lib,
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mihomo;
-in
-{
+in {
   options.services.mihomo = {
     enable = lib.mkEnableOption "Mihomo, A rule-based proxy in Go";
 
-    package = lib.mkPackageOption pkgs "mihomo" { };
+    package = lib.mkPackageOption pkgs "mihomo" {};
 
     configFile = lib.mkOption {
       type = lib.types.path;
@@ -58,10 +55,10 @@ in
     ### systemd service
     systemd.services."mihomo" = {
       description = "Mihomo daemon, A rule-based proxy in Go.";
-      documentation = [ "https://wiki.metacubex.one/" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://wiki.metacubex.one/"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig =
         {
           ExecStart = lib.concatStringsSep " " [
@@ -115,5 +112,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ Guanran928 ];
+  meta.maintainers = with lib.maintainers; [Guanran928];
 }

@@ -6,7 +6,6 @@
   installShellFiles,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "go-licenses";
   version = "1.6.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   allowGoReference = true;
 
@@ -56,7 +55,7 @@ buildGoModule rec {
     description = "Reports on the licenses used by a Go package and its dependencies";
     mainProgram = "go-licenses";
     homepage = "https://github.com/google/go-licenses";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ Luflosi ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

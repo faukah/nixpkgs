@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchurl,
-
   # build-system
   poetry-core,
-
   # dependencies
   cryptography,
   docx2txt,
@@ -18,16 +16,13 @@
   pyyaml,
   transformers,
   watchdog,
-
   # optional-dependencies
   python,
   huggingface-hub,
   gradio,
-
   # tests
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "private-gpt";
   version = "0.6.2";
@@ -40,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-IYTysU3W/NrtBuLe3ZJkztVSK+gzjkGIg0qcBYzB3bs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "cryptography"
@@ -52,18 +47,20 @@ buildPythonPackage rec {
     "watchdog"
   ];
 
-  dependencies = [
-    cryptography
-    docx2txt
-    fastapi
-    injector
-    llama-index-core
-    llama-index-readers-file
-    python-multipart
-    pyyaml
-    transformers
-    watchdog
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  dependencies =
+    [
+      cryptography
+      docx2txt
+      fastapi
+      injector
+      llama-index-core
+      llama-index-readers-file
+      python-multipart
+      pyyaml
+      transformers
+      watchdog
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # This is needed for running the tests and the service in offline mode,
   # See related issue at https://github.com/zylon-ai/private-gpt/issues/1870
@@ -77,24 +74,24 @@ buildPythonPackage rec {
       huggingface-hub
       llama-index-embeddings-huggingface
     ];
-    embeddings-ollama = [ llama-index-embeddings-ollama ];
-    embeddings-openai = [ llama-index-embeddings-openai ];
-    embeddings-sagemaker = [ boto3 ];
-    llms-ollama = [ llama-index-llms-ollama ];
-    llms-openai = [ llama-index-llms-openai ];
-    llms-openai-like = [ llama-index-llms-openai-like ];
-    llms-sagemaker = [ boto3 ];
-    ui = [ gradio ];
-    vector-stores-chroma = [ llama-index-vector-stores-chroma ];
-    vector-stores-postgres = [ llama-index-vector-stores-postgres ];
-    vector-stores-qdrant = [ llama-index-vector-stores-qdrant ];
+    embeddings-ollama = [llama-index-embeddings-ollama];
+    embeddings-openai = [llama-index-embeddings-openai];
+    embeddings-sagemaker = [boto3];
+    llms-ollama = [llama-index-llms-ollama];
+    llms-openai = [llama-index-llms-openai];
+    llms-openai-like = [llama-index-llms-openai-like];
+    llms-sagemaker = [boto3];
+    ui = [gradio];
+    vector-stores-chroma = [llama-index-vector-stores-chroma];
+    vector-stores-postgres = [llama-index-vector-stores-postgres];
+    vector-stores-qdrant = [llama-index-vector-stores-qdrant];
   };
 
   postInstall = ''
     cp settings*.yaml $out/${python.sitePackages}/private_gpt/
   '';
 
-  pythonImportsCheck = [ "private_gpt" ];
+  pythonImportsCheck = ["private_gpt"];
 
   passthru.tests = {
     inherit (nixosTests) private-gpt;
@@ -106,6 +103,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zylon-ai/private-gpt";
     license = lib.licenses.asl20;
     mainProgram = "private-gpt";
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

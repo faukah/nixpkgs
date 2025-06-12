@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-json-report";
   version = "1.5.0";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-hMB/atDuo7CjwhHFUOxVfgJ7Qp4AA9J428iv7hyQFcs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ pytest-metadata ];
+  dependencies = [pytest-metadata];
 
   nativeCheckInputs = [
     pytest-xdist
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_report_crash_and_traceback"
   ];
 
-  pythonImportsCheck = [ "pytest_jsonreport" ];
+  pythonImportsCheck = ["pytest_jsonreport"];
 
   meta = with lib; {
     description = "Pytest plugin to report test results as JSON";
     homepage = "https://github.com/numirias/pytest-json-report";
     changelog = "https://github.com/numirias/pytest-json-report/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

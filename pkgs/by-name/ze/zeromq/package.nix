@@ -17,7 +17,6 @@
   python3,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zeromq";
   version = "4.3.5";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     xmlto
   ];
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED" (!stdenv.hostPlatform.isStatic))
@@ -84,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
       zmqpp
       ;
     pyzmq = python3.pkgs.pyzmq;
-    ffmpeg = ffmpeg.override { withZmq = true; };
+    ffmpeg = ffmpeg.override {withZmq = true;};
     pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -94,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Intelligent Transport Layer";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ fpletz ];
-    pkgConfigModules = [ "libzmq" ];
+    maintainers = with lib.maintainers; [fpletz];
+    pkgConfigModules = ["libzmq"];
   };
 })

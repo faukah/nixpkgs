@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.vault;
   opt = options.services.vault;
 
@@ -15,16 +14,15 @@ let
       listener "tcp" {
         address = "${cfg.address}"
         ${
-          if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then
-            ''
-              tls_disable = "true"
-            ''
-          else
-            ''
-              tls_cert_file = "${cfg.tlsCertFile}"
-              tls_key_file = "${cfg.tlsKeyFile}"
-            ''
-        }
+        if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null)
+        then ''
+          tls_disable = "true"
+        ''
+        else ''
+          tls_cert_file = "${cfg.tlsCertFile}"
+          tls_key_file = "${cfg.tlsKeyFile}"
+        ''
+      }
         ${cfg.listenerExtraConfig}
       }
     ''}
@@ -40,24 +38,22 @@ let
     ${cfg.extraConfig}
   '';
 
-  allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
+  allConfigPaths = [configFile] ++ cfg.extraSettingsPaths;
   configOptions = lib.escapeShellArgs (
     lib.optional cfg.dev "-dev"
     ++ lib.optional (cfg.dev && cfg.devRootTokenID != null) "-dev-root-token-id=${cfg.devRootTokenID}"
     ++ (lib.concatMap (p: [
-      "-config"
-      p
-    ]) allConfigPaths)
+        "-config"
+        p
+      ])
+      allConfigPaths)
   );
-
-in
-
-{
+in {
   options = {
     services.vault = {
       enable = lib.mkEnableOption "Vault daemon";
 
-      package = lib.mkPackageOption pkgs "vault" { };
+      package = lib.mkPackageOption pkgs "vault" {};
 
       dev = lib.mkOption {
         type = lib.types.bool;
@@ -127,7 +123,9 @@ in
       storagePath = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default =
-          if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then "/var/lib/vault" else null;
+          if cfg.storageBackend == "file" || cfg.storageBackend == "raft"
+          then "/var/lib/vault"
+          else null;
         defaultText = lib.literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -163,7 +161,7 @@ in
 
       extraSettingsPaths = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           Configuration files to load besides the immutable one defined by the NixOS module.
           This can be used to avoid putting credentials in the Nix store, which can be read by any user.
@@ -223,7 +221,7 @@ in
     systemd.services.vault = {
       description = "Vault server daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
         [
           "network.target"
@@ -257,5 +255,4 @@ in
       unitConfig.RequiresMountsFor = lib.optional (cfg.storagePath != null) cfg.storagePath;
     };
   };
-
 }

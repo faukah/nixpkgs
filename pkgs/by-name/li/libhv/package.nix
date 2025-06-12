@@ -6,7 +6,6 @@
   curl,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libhv";
   version = "1.3.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-N2YD84eORA5nDpeeqy9jCvRx86PkRaKLzI6LF1AnHtU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     curl
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C/c++ network library for developing TCP/UDP/SSL/HTTP/WebSocket/MQTT client/server";
     homepage = "https://github.com/ithewei/libhv";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 })

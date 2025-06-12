@@ -5,7 +5,6 @@
   numpy,
   scikits-odes-core,
 }:
-
 buildPythonPackage rec {
   inherit (scikits-odes-core) version src;
   pname = "scikits-odes-daepack";
@@ -18,20 +17,22 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   dependencies = [
     numpy
     scikits-odes-core
   ];
 
-  pythonImportsCheck = [ "scikits_odes_daepack" ];
+  pythonImportsCheck = ["scikits_odes_daepack"];
 
   # no tests
   doCheck = false;
 
-  meta = scikits-odes-core.meta // {
-    description = "Wrapper around daepack";
-    homepage = "https://github.com/bmcage/odes/blob/master/packages/scikits-odes-daepack";
-  };
+  meta =
+    scikits-odes-core.meta
+    // {
+      description = "Wrapper around daepack";
+      homepage = "https://github.com/bmcage/odes/blob/master/packages/scikits-odes-daepack";
+    };
 }

@@ -11,7 +11,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tomlplusplus";
   version = "3.4.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
     };
@@ -64,8 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/marzer/tomlplusplus";
     description = "Header-only TOML config file parser and serializer for C++17";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
-    pkgConfigModules = [ "tomlplusplus" ];
+    maintainers = with maintainers; [Scrumplex];
+    pkgConfigModules = ["tomlplusplus"];
     platforms = platforms.unix;
   };
 })

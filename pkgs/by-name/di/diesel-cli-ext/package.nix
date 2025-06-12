@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "diesel-cli-ext";
   version = "0.3.13";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "diesel_ext";
-    maintainers = with maintainers; [ siph ];
+    maintainers = with maintainers; [siph];
   };
 }

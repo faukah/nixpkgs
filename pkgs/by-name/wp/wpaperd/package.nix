@@ -7,7 +7,6 @@
   wayland,
   libGL,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wpaperd";
   version = "1.2.1";

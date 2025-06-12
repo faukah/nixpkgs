@@ -6,7 +6,6 @@
   zope-proxy,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-deferredimport";
   version = "5.0";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-Orvw4YwfF2WRTs0dQbVJ5NBFshso5AZfsMHeCtc2ssM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ zope-proxy ];
+  dependencies = [zope-proxy];
 
-  pythonImportsCheck = [ "zope.deferredimport" ];
+  pythonImportsCheck = ["zope.deferredimport"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "src/zope/deferredimport" ];
+  unittestFlagsArray = ["src/zope/deferredimport"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Allows you to perform imports names that will only be resolved when used in the code";

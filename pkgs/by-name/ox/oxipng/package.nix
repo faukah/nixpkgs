@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "9.1.5";
   pname = "oxipng";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/shssoichiro/oxipng";
     description = "Multithreaded lossless PNG compression optimizer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dywedir ];
+    maintainers = with lib.maintainers; [dywedir];
     mainProgram = "oxipng";
   };
 }

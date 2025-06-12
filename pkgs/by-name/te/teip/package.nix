@@ -6,7 +6,6 @@
   perl,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "teip";
   version = "2.3.2";
@@ -21,13 +20,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-FFv/Msx6fXRJuRH8hjhBgc7XCg5EKWantNKQHwXpa4o=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   # tests are locale sensitive
   preCheck = ''
-    export LANG=${if stdenv.hostPlatform.isDarwin then "en_US.UTF-8" else "C.UTF-8"}
+    export LANG=${
+      if stdenv.hostPlatform.isDarwin
+      then "en_US.UTF-8"
+      else "C.UTF-8"
+    }
   '';
 
   postInstall = ''
@@ -44,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/greymd/teip";
     changelog = "https://github.com/greymd/teip/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

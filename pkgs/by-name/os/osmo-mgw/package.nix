@@ -8,7 +8,6 @@
   libosmo-netif,
   libosmoabis,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-mgw";
   version = "1.14.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     mainProgram = "osmo-mgw";
     homepage = "https://osmocom.org/projects/osmo-mgw";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
   };
 }

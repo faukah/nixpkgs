@@ -29,7 +29,6 @@
   sphinx,
   tox,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffold";
   version = "4.6";
@@ -72,8 +71,8 @@ buildPythonPackage rec {
       pyscaffoldext-travis
       virtualenv
     ];
-    ds = [ pyscaffoldext-dsproject ];
-    md = [ pyscaffoldext-markdown ];
+    ds = [pyscaffoldext-dsproject];
+    md = [pyscaffoldext-markdown];
     testing = [
       build
       certifi
@@ -93,13 +92,13 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffold" ];
+  pythonImportsCheck = ["pyscaffold"];
 
   meta = with lib; {
     description = "Template tool for putting up the scaffold of a Python project";
     mainProgram = "putup";
     homepage = "https://pypi.org/project/PyScaffold/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

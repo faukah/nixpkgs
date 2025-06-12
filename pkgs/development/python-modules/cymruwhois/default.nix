@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cymruwhois";
   version = "1.6";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-d9m668JYI9mxUycoVWyaDCR7SOca+ebymZxWtgSPWNU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    CACHE = [ python-memcached ];
+    CACHE = [python-memcached];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cymruwhois" ];
+  pythonImportsCheck = ["cymruwhois"];
 
   disabledTests = [
     # Tests require network access
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Python client for the whois.cymru.com service";
     homepage = "https://github.com/JustinAzoff/python-cymruwhois";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

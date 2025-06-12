@@ -1,27 +1,21 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "rebuilderd";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.rebuilderd = {
-          enable = true;
-        };
+    machine = {pkgs, ...}: {
+      services.rebuilderd = {
+        enable = true;
       };
+    };
 
-    machine_custom_config =
-      { pkgs, ... }:
-      {
-        services.rebuilderd = {
-          enable = true;
-          settings = {
-            http.bind_addr = "0.0.0.0:1234";
-          };
+    machine_custom_config = {pkgs, ...}: {
+      services.rebuilderd = {
+        enable = true;
+        settings = {
+          http.bind_addr = "0.0.0.0:1234";
         };
       };
+    };
   };
 
   testScript = ''
@@ -34,5 +28,5 @@
     machine_custom_config.wait_for_open_port(1234)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

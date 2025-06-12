@@ -7,7 +7,6 @@
   lwt,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "mirage-runtime";
   inherit (functoria-runtime) src version;
@@ -20,13 +19,13 @@ buildDunePackage {
     logs
     lwt
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://github.com/mirage/mirage";
     description = "Base MirageOS runtime library, part of every MirageOS unikernel";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

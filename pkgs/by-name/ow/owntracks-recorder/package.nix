@@ -14,7 +14,6 @@
   testers,
   owntracks-recorder,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "owntracks-recorder";
   version = "1.0.0";
@@ -80,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/owntracks/recorder/blob/master/Changelog";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gaelreyrol ];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "ot-recorder";
   };
 })

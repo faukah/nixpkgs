@@ -21,9 +21,9 @@ buildGoModule rec {
   modRoot = "./githooks";
   vendorHash = "sha256-ZcDD4Z/thtyCvXg6GzzKC/FSbh700QEaqXU8FaZaZc4=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   strictDeps = true;
 
@@ -34,20 +34,18 @@ buildGoModule rec {
 
   # We need to disable updates and other features:
   # That is done with tag `package_manager_enabled`.
-  tags = [ "package_manager_enabled" ];
+  tags = ["package_manager_enabled"];
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestGithooksCompliesWithGit" # Needs internet to download all hooks documentation.
-        "TestUpdateImages" # Needs docker/podman.
-      ];
-    in
-    [
-      "-v"
-      "-skip"
-      "(${builtins.concatStringsSep "|" skippedTests})"
+  checkFlags = let
+    skippedTests = [
+      "TestGithooksCompliesWithGit" # Needs internet to download all hooks documentation.
+      "TestUpdateImages" # Needs docker/podman.
     ];
+  in [
+    "-v"
+    "-skip"
+    "(${builtins.concatStringsSep "|" skippedTests})"
+  ];
 
   doCheck = true;
 
@@ -66,8 +64,8 @@ buildGoModule rec {
   '';
 
   postFixup = ''
-    wrapProgram "$out/bin/githooks-cli" --prefix PATH : ${lib.makeBinPath [ git ]}
-    wrapProgram "$out/bin/githooks-runner" --prefix PATH : ${lib.makeBinPath [ git ]}
+    wrapProgram "$out/bin/githooks-cli" --prefix PATH : ${lib.makeBinPath [git]}
+    wrapProgram "$out/bin/githooks-runner" --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -80,7 +78,7 @@ buildGoModule rec {
     description = "Git hooks manager with per-repo and shared Git hooks including version control";
     homepage = "https://github.com/gabyx/Githooks";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ gabyx ];
+    maintainers = with maintainers; [gabyx];
     mainProgram = "githooks-cli";
   };
 }

@@ -8,7 +8,6 @@
   efl,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ephoto";
   version = "1.6.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     efl
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Image viewer and editor written using the Enlightenment Foundation Libraries";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.smhouston.us/ephoto/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

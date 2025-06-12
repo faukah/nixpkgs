@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "morsel";
   version = "0.1.1";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "morsel";
     homepage = "https://github.com/SamLee514/morsel";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

@@ -10,7 +10,6 @@
   libXi,
   libXmu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glui";
   version = "2.37";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "User interface library using OpenGL";
     license = licenses.zlib;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

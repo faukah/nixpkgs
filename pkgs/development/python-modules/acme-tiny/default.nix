@@ -8,7 +8,6 @@
   fuse,
   openssl,
 }:
-
 buildPythonPackage rec {
   pname = "acme-tiny";
   version = "5.0.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
 
   doCheck = false; # seems to hang, not sure
 
-  pythonImportsCheck = [ "acme_tiny" ];
+  pythonImportsCheck = ["acme_tiny"];
 
   meta = with lib; {
     description = "Tiny script to issue and renew TLS certs from Let's Encrypt";

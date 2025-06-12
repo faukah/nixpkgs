@@ -1,12 +1,15 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "lighttpd";
-  meta.maintainers = with lib.maintainers; [ bjornfor ];
+  meta.maintainers = with lib.maintainers; [bjornfor];
 
   nodes = {
     server = {
       services.lighttpd.enable = true;
-      services.lighttpd.document-root = pkgs.runCommand "document-root" { } ''
+      services.lighttpd.document-root = pkgs.runCommand "document-root" {} ''
         mkdir -p "$out"
         echo "hello nixos test" > "$out/file.txt"
       '';

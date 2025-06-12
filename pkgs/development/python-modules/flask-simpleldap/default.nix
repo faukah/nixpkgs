@@ -7,7 +7,6 @@
   python-ldap,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-simpleldap";
   version = "2.0.0";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     python-ldap
   ];
 
-  pythonImportsCheck = [ "flask_simpleldap" ];
+  pythonImportsCheck = ["flask_simpleldap"];
 
   meta = with lib; {
     description = "LDAP authentication extension for Flask";
     homepage = "https://github.com/alexferl/flask-simpleldap";
     license = licenses.mit;
-    maintainers = with maintainers; [ kip93 ];
+    maintainers = with maintainers; [kip93];
   };
 }

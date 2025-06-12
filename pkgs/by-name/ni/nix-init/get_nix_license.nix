@@ -1,9 +1,10 @@
 # vendored from src/get-nix-license.nix
-
-{ lib, writeText }:
-
-let
-  inherit (lib)
+{
+  lib,
+  writeText,
+}: let
+  inherit
+    (lib)
     attrNames
     concatMapAttrs
     concatStringsSep
@@ -19,7 +20,7 @@ let
     ;
 
   licenseMap = flip concatMapAttrs licenses (
-    k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; }
+    k: v: optionalAttrs (v ? spdxId && !v.deprecated) {${v.spdxId} = k;}
   );
 
   deprecatedAliases = {
@@ -52,7 +53,10 @@ let
   };
 
   lint = flip pipe (
-    flip mapAttrsToList lints (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}")
+    flip mapAttrsToList lints (k: v:
+      if v == []
+      then id
+      else warn "${k}: ${concatStringsSep ", " v}")
   );
 
   arms = lint (
@@ -61,12 +65,11 @@ let
     )
   );
 in
-
-writeText "get-nix-license.rs" ''
-  pub fn get_nix_license(license: &str) -> Option<&'static str> {
-      match license {
-          ${arms}
-          _ => None,
-      }
-  }
-''
+  writeText "get-nix-license.rs" ''
+    pub fn get_nix_license(license: &str) -> Option<&'static str> {
+        match license {
+            ${arms}
+            _ => None,
+        }
+    }
+  ''

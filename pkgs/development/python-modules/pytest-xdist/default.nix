@@ -12,7 +12,6 @@
   psutil,
   setproctitle,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-xdist";
   version = "3.6.1";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ execnet ];
+  dependencies = [execnet];
 
   nativeCheckInputs = [
     filelock
@@ -41,8 +40,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    psutil = [ psutil ];
-    setproctitle = [ setproctitle ];
+    psutil = [psutil];
+    setproctitle = [setproctitle];
   };
 
   # pytest can already use xdist at this point
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     description = "Pytest xdist plugin for distributed testing and loop-on-failing modes";
     homepage = "https://github.com/pytest-dev/pytest-xdist";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

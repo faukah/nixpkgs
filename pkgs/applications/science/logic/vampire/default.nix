@@ -5,7 +5,6 @@
   z3,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vampire";
   version = "4.9";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     mainProgram = "vampire";
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

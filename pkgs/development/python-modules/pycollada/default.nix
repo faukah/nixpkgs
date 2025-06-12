@@ -6,7 +6,6 @@
   numpy,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "pycollada";
   version = "0.9";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "http://pycollada.github.io/";
     license = licenses.bsd3;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

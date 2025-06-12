@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-crontab";
   version = "3.2.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-QAZ9HdOa3jRgsq2FV8dlFRTNOFHe//9hxcYOEifFw2s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_07_non_posix_shell"
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     "test_20_frequency_at_year"
   ];
 
-  pythonImportsCheck = [ "crontab" ];
+  pythonImportsCheck = ["crontab"];
 
   meta = with lib; {
     description = "Python API for crontab";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://gitlab.com/doctormo/python-crontab/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

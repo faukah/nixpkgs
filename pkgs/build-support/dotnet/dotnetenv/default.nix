@@ -2,9 +2,7 @@
   lib,
   stdenv,
   dotnetfx,
-}:
-
-let
+}: let
   dotnetenv = {
     buildSolution = import ./build-solution.nix {
       inherit lib stdenv;
@@ -15,7 +13,8 @@ let
       inherit dotnetenv;
     };
 
-    inherit (dotnetfx)
+    inherit
+      (dotnetfx)
       assembly20Path
       wcfPath
       referenceAssembly30Path
@@ -23,4 +22,4 @@ let
       ;
   };
 in
-dotnetenv
+  dotnetenv

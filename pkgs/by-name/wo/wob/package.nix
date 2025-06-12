@@ -13,7 +13,6 @@
   wayland-protocols,
   libseccomp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wob";
   version = "0.16";
@@ -36,12 +35,14 @@ stdenv.mkDerivation rec {
     scdoc
     wayland-scanner
   ];
-  buildInputs = [
-    cmocka
-    inih
-    wayland
-    wayland-protocols
-  ] ++ lib.optional stdenv.hostPlatform.isLinux libseccomp;
+  buildInputs =
+    [
+      cmocka
+      inih
+      wayland
+      wayland-protocols
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libseccomp;
 
   mesonFlags = lib.optional stdenv.hostPlatform.isLinux "-Dseccomp=enabled";
 
@@ -54,7 +55,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://github.com/francma/wob/releases/tag/${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
     platforms = lib.platforms.linux;
     mainProgram = "wob";
   };

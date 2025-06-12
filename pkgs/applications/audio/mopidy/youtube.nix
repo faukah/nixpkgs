@@ -4,9 +4,8 @@
   python3,
   mopidy,
   yt-dlp,
-  extraPkgs ? pkgs: [ ],
+  extraPkgs ? pkgs: [],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mopidy-youtube";
   version = "3.7";
@@ -19,8 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-iFt7r8Ljymc+grNJiOClTHkZOeo7AcYpcNc8tLMPROk=";
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       beautifulsoup4
       cachetools
@@ -61,12 +59,12 @@ python3.pkgs.buildPythonApplication rec {
     "tests/test_youtube.py"
   ];
 
-  pythonImportsCheck = [ "mopidy_youtube" ];
+  pythonImportsCheck = ["mopidy_youtube"];
 
   meta = with lib; {
     description = "Mopidy extension for playing music from YouTube";
     homepage = "https://github.com/natumbri/mopidy-youtube";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

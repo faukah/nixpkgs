@@ -19,7 +19,6 @@
   uutf,
   xtmpl,
 }:
-
 buildDunePackage rec {
   pname = "stog";
   version = "1.0.0";
@@ -32,7 +31,7 @@ buildDunePackage rec {
     hash = "sha256-hMb6D6VSq2o2NjycwxZt3mZKy1FR+3afEwbOmTc991g=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   buildInputs = [
     fmt
     lwt_ppx
@@ -58,6 +57,6 @@ buildDunePackage rec {
     description = "XML documents and web site compiler";
     homepage = "https://www.good-eris.net/stog";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ regnat ];
+    maintainers = with maintainers; [regnat];
   };
 }

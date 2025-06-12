@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pretix-plugin-build,
   setuptools,
-
   # dependencies
   django-localflavor,
   sepaxml,
-
   # tests
   django-scopes,
   pretix,
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-sepadebit";
   version = "2.6.0";
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     description = "Plugin to receive payments via SEPA direct debit";
     homepage = "https://github.com/pretix/pretix-sepadebit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbenno ];
+    maintainers = with maintainers; [bbenno];
   };
 }

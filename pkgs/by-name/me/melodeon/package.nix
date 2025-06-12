@@ -5,7 +5,6 @@
   cmake,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "melodeon";
   version = "0.4.5";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.wrapQtAppsHook
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
   meta = {
     description = "QWebEngine wrapper for MaterialSkin on Lyrion Music Server (formerly Logitech Media Server)";
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/CDrummond/melodeon/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ edgar-vincent ];
+    maintainers = with lib.maintainers; [edgar-vincent];
   };
 })

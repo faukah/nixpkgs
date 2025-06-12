@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildNpmPackage rec {
   pname = "promptfoo";
   version = "0.79.0";
@@ -25,6 +24,6 @@ buildNpmPackage rec {
     homepage = "https://www.promptfoo.dev/";
     changelog = "https://github.com/promptfoo/promptfoo/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nathanielbrough ];
+    maintainers = [lib.maintainers.nathanielbrough];
   };
 }

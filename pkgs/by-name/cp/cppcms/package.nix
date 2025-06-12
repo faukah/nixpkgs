@@ -8,7 +8,6 @@
   python3,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cppcms";
   version = "2.0.0.beta2";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "High Performance C++ Web Framework";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

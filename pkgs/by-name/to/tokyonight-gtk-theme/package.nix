@@ -7,14 +7,12 @@
   gnome-themes-extra,
   gtk-engine-murrine,
   unstableGitUpdater,
-  colorVariants ? [ ],
-  sizeVariants ? [ ],
-  themeVariants ? [ ],
-  tweakVariants ? [ ],
-  iconVariants ? [ ],
-}:
-
-let
+  colorVariants ? [],
+  sizeVariants ? [],
+  themeVariants ? [],
+  tweakVariants ? [],
+  iconVariants ? [],
+}: let
   pname = "tokyonight-gtk-theme";
   colorVariantList = [
     "dark"
@@ -51,7 +49,7 @@ let
     "Moon"
   ];
 in
-lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib.checkListOfEnum
+  lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib.checkListOfEnum
   "${pname}: sizeVariants"
   sizeVariantList
   sizeVariants
@@ -67,7 +65,6 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
   "${pname}: iconVariants"
   iconVariantList
   iconVariants
-
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -80,17 +77,17 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
       hash = "sha256-h5k9p++zjzxGFkTK/6o/ISl/Litgf6fzy8Jf6Ikt5V8=";
     };
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     nativeBuildInputs = [
       gnome-shell
       sassc
     ];
-    buildInputs = [ gnome-themes-extra ];
+    buildInputs = [gnome-themes-extra];
 
     dontBuild = true;
 
-    passthru.updateScript = unstableGitUpdater { };
+    passthru.updateScript = unstableGitUpdater {};
 
     postPatch = ''
       patchShebangs themes/install.sh
@@ -101,13 +98,13 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
       mkdir -p $out/share/themes
       cd themes
       ./install.sh -n Tokyonight \
-      ${lib.optionalString (colorVariants != [ ]) "-c " + toString colorVariants} \
-      ${lib.optionalString (sizeVariants != [ ]) "-s " + toString sizeVariants} \
-      ${lib.optionalString (themeVariants != [ ]) "-t " + toString themeVariants} \
-      ${lib.optionalString (tweakVariants != [ ]) "--tweaks " + toString tweakVariants} \
+      ${lib.optionalString (colorVariants != []) "-c " + toString colorVariants} \
+      ${lib.optionalString (sizeVariants != []) "-s " + toString sizeVariants} \
+      ${lib.optionalString (themeVariants != []) "-t " + toString themeVariants} \
+      ${lib.optionalString (tweakVariants != []) "--tweaks " + toString tweakVariants} \
       -d "$out/share/themes"
       cd ../icons
-      ${lib.optionalString (iconVariants != [ ]) ''
+      ${lib.optionalString (iconVariants != []) ''
         mkdir -p $out/share/icons
         cp -a ${toString (map (v: "Tokyonight-${v}") iconVariants)} $out/share/icons/
       ''}

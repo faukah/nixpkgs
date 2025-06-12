@@ -55,7 +55,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.versionTest = testers.testVersion {
       package = immich-go;
       command = "immich-go --version";
@@ -72,7 +72,7 @@ buildGoModule rec {
     homepage = "https://github.com/simulot/immich-go";
     mainProgram = "immich-go";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ kai-tub ];
+    maintainers = with lib.maintainers; [kai-tub];
     changelog = "https://github.com/simulot/immich-go/releases/tag/${src.tag}";
   };
 }

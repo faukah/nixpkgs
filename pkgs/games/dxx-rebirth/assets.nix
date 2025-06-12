@@ -3,14 +3,10 @@
   stdenv,
   requireFile,
   gogUnpackHook,
-}:
-
-let
-  generic =
-    ver: source:
-    let
-      pname = "descent${toString ver}";
-    in
+}: let
+  generic = ver: source: let
+    pname = "descent${toString ver}";
+  in
     stdenv.mkDerivation rec {
       name = "${pname}-assets-${version}";
       version = "2.0.0.7";
@@ -30,7 +26,7 @@ let
         '';
       };
 
-      nativeBuildInputs = [ gogUnpackHook ];
+      nativeBuildInputs = [gogUnpackHook];
 
       dontBuild = true;
       dontFixup = true;
@@ -52,13 +48,11 @@ let
         description = "Descent ${toString ver} assets from GOG";
         homepage = "https://www.dxx-rebirth.com/";
         license = licenses.unfree;
-        maintainers = with maintainers; [ peterhoeg ];
-        hydraPlatforms = [ ];
+        maintainers = with maintainers; [peterhoeg];
+        hydraPlatforms = [];
       };
     };
-
-in
-{
+in {
   descent1-assets = generic 1 "descent";
   descent2-assets = generic 2 "descent 2";
 }

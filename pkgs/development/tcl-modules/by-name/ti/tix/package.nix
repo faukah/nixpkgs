@@ -5,7 +5,6 @@
   tcl,
   tk,
 }:
-
 tcl.mkTclDerivation {
   version = "8.4.3";
   pname = "tix";
@@ -31,7 +30,7 @@ tcl.mkTclDerivation {
       url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.6.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d";
       sha256 = "1jaz0l22xj7x1k4rb9ia6i1psnbwk4pblgq4gfvya7gg7fbb7r36";
     });
-  buildInputs = [ tk ];
+  buildInputs = [tk];
   # the configure script expects to find the location of the sources of
   # tcl and tk in {tcl,tk}Config.sh
   # In fact, it only needs some private headers. We copy them in

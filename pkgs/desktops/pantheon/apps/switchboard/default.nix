@@ -15,7 +15,6 @@
   granite7,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard";
   version = "8.0.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.settings";
   };
 }

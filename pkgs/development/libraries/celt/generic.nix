@@ -8,9 +8,7 @@
   prePatch ? "",
   ...
 }:
-
 # The celt codec has been deprecated and is now a part of the opus codec
-
 stdenv.mkDerivation {
   pname = "celt";
   inherit version;
@@ -24,7 +22,7 @@ stdenv.mkDerivation {
 
   inherit prePatch;
 
-  buildInputs = [ ] ++ lib.optional liboggSupport libogg;
+  buildInputs = [] ++ lib.optional liboggSupport libogg;
 
   doCheck = false; # fails
 

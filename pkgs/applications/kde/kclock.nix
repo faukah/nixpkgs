@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   kcoreaddons,
   kdbusaddons,
@@ -16,7 +14,6 @@
   qtmultimedia,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "kclock";
 
@@ -42,6 +39,6 @@ mkDerivation {
     description = "Clock app for plasma mobile";
     homepage = "https://invent.kde.org/plasma-mobile/kclock";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

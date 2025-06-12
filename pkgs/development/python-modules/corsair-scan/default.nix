@@ -11,7 +11,6 @@
   urllib3,
   validators,
 }:
-
 buildPythonPackage rec {
   pname = "corsair-scan";
   version = "0.2.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "corsair_scan" ];
+  pythonImportsCheck = ["corsair_scan"];
 
   disabledTests = [
     # Tests want to download Public Suffix List
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     mainProgram = "corsair";
     homepage = "https://github.com/Santandersecurityresearch/corsair_scan";
     changelog = "https://github.com/Santandersecurityresearch/corsair_scan/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

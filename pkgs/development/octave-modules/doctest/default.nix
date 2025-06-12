@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildOctavePackage rec {
   pname = "doctest";
   version = "0.8.0";
@@ -16,7 +15,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/doctest/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Find and run example code within documentation";
     longDescription = ''
       Find and run example code within documentation. Formatted blocks

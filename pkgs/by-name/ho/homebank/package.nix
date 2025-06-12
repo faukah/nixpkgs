@@ -10,7 +10,6 @@
   libsoup_3,
   adwaita-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "homebank";
   version = "5.9.2";

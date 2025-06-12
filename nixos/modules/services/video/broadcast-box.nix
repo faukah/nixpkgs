@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkPackageOption
@@ -40,12 +40,11 @@ let
     ++ optional (settings.UDP_WHEP_PORT != null) settings.UDP_WHEP_PORT
     ++ optional (settings.UDP_WHIP_PORT != null) settings.UDP_WHIP_PORT;
   tcpPorts = optional (settings.TCP_MUX_ADDRESS != null) tcpMuxPort;
-  webPorts = [ httpPort ] ++ optional httpRedirect settings.HTTPS_REDIRECT_PORT;
-in
-{
+  webPorts = [httpPort] ++ optional httpRedirect settings.HTTPS_REDIRECT_PORT;
+in {
   options.services.broadcast-box = {
     enable = mkEnableOption "Broadcast Box";
-    package = mkPackageOption pkgs "broadcast-box" { };
+    package = mkPackageOption pkgs "broadcast-box" {};
 
     web = {
       host = mkOption {
@@ -81,8 +80,7 @@ in
       visible = "shallow";
 
       type = types.submodule {
-        freeformType =
-          with types;
+        freeformType = with types;
           attrsOf (
             nullOr (oneOf [
               bool
@@ -123,7 +121,10 @@ in
 
           HTTPS_REDIRECT_PORT = mkOption {
             type = with types; nullOr port;
-            default = if settings.ENABLE_HTTP_REDIRECT then 80 else null;
+            default =
+              if settings.ENABLE_HTTP_REDIRECT
+              then 80
+              else null;
           };
         };
       };
@@ -182,86 +183,88 @@ in
       }
       {
         assertion = all (name: (match "[A-Z0-9_]+" name) != null) (attrNames settings);
-        message =
-          let
-            offenders = filter (name: (match "[A-Z0-9_]+" name) == null) (attrNames settings);
-          in
-          ''
-            Broadcast Box `settings` attribute names must be in uppercase snake
-            case. Invalid attribute name(s): `${concatStringsSep ", " offenders}`
-          '';
+        message = let
+          offenders = filter (name: (match "[A-Z0-9_]+" name) == null) (attrNames settings);
+        in ''
+          Broadcast Box `settings` attribute names must be in uppercase snake
+          case. Invalid attribute name(s): `${concatStringsSep ", " offenders}`
+        '';
       }
     ];
 
     systemd.services.broadcast-box = {
       description = "Broadcast Box";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       startLimitBurst = 3;
       startLimitIntervalSec = 180;
 
       environment =
         (mapAttrs (
-          _: value:
-          if (builtins.typeOf value == "bool") then
-            if !value then null else "true"
-          else if (builtins.typeOf value == "int") then
-            toString value
-          else
-            value
-        ) cfg.settings)
+            _: value:
+              if (builtins.typeOf value == "bool")
+              then
+                if !value
+                then null
+                else "true"
+              else if (builtins.typeOf value == "int")
+              then toString value
+              else value
+          )
+          cfg.settings)
         // {
           APP_ENV = "nixos";
           HTTP_ADDRESS = cfg.web.host + ":" + toString cfg.web.port;
         };
 
-      serviceConfig =
-        let
-          priviledgedPort = any (p: p > 0 && p < 1024) (udpPorts ++ tcpPorts ++ webPorts);
-        in
-        {
-          ExecStart = "${getExe cfg.package}";
-          Restart = "always";
-          RestartSec = "10s";
+      serviceConfig = let
+        priviledgedPort = any (p: p > 0 && p < 1024) (udpPorts ++ tcpPorts ++ webPorts);
+      in {
+        ExecStart = "${getExe cfg.package}";
+        Restart = "always";
+        RestartSec = "10s";
 
-          DynamicUser = true;
-          LockPersonality = true;
-          NoNewPrivileges = true;
-          PrivateUsers = !priviledgedPort;
-          PrivateDevices = true;
-          PrivateMounts = true;
-          PrivateTmp = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          ProtectControlGroups = true;
-          ProtectClock = true;
-          ProtectProc = "invisible";
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProcSubset = "pid";
-          RemoveIPC = true;
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-            "AF_NETLINK"
-          ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ];
-          CapabilityBoundingSet = if priviledgedPort then [ "CAP_NET_BIND_SERVICE" ] else "";
-          AmbientCapabilities = mkIf priviledgedPort [ "CAP_NET_BIND_SERVICE" ];
-          DeviceAllow = "";
-          MemoryDenyWriteExecute = true;
-          UMask = "0077";
-        };
+        DynamicUser = true;
+        LockPersonality = true;
+        NoNewPrivileges = true;
+        PrivateUsers = !priviledgedPort;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectControlGroups = true;
+        ProtectClock = true;
+        ProtectProc = "invisible";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProcSubset = "pid";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
+        CapabilityBoundingSet =
+          if priviledgedPort
+          then ["CAP_NET_BIND_SERVICE"]
+          else "";
+        AmbientCapabilities = mkIf priviledgedPort ["CAP_NET_BIND_SERVICE"];
+        DeviceAllow = "";
+        MemoryDenyWriteExecute = true;
+        UMask = "0077";
+      };
     };
 
     networking.firewall = {
@@ -270,5 +273,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ JManch ];
+  meta.maintainers = with maintainers; [JManch];
 }

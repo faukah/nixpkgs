@@ -14,7 +14,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "concessio";
   version = "0.1.10";
@@ -52,14 +51,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Understand File Permissions";
     homepage = "https://github.com/ronniedroid/concessio";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "io.github.ronniedroid.concessio";
     platforms = lib.intersectLists lib.platforms.linux gjs.meta.platforms;
   };

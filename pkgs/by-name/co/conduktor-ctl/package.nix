@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-kPCBzLU6aH6MNlKZcKKFcli99ZmdOtPV5+5gxPs5GH4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags = [ "-X github.com/conduktor/ctl/utils.version=${version}" ];
+  ldflags = ["-X github.com/conduktor/ctl/utils.version=${version}"];
 
   checkPhase = ''
     go test ./...
@@ -40,7 +40,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgram = "${placeholder "out"}/bin/conduktor";
 

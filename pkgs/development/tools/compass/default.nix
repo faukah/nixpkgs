@@ -4,7 +4,6 @@
   bundlerUpdateScript,
   ruby,
 }:
-
 bundlerEnv {
   pname = "compass";
   version = "1.0.3";

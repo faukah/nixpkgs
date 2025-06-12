@@ -12,9 +12,7 @@
   udev,
   libnotify,
   wrapGAppsHook3,
-}:
-
-let
+}: let
   pname = "vk-messenger";
   version = "5.3.2";
 
@@ -33,14 +31,16 @@ let
         sha256 = "hxK8I9sF6njfCxSs1KBCHfnG81JGKUgHKAeFLtuCNe0=";
       };
     }
-    .${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
+    .${
+      stdenv.system
+    } or (throw "Unsupported system: ${stdenv.system}");
 
   meta = with lib; {
     description = "Simple and Convenient Messaging App for VK";
     homepage = "https://vk.com/messenger";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "i686-linux"
       "x86_64-linux"
@@ -106,7 +106,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
@@ -116,4 +116,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

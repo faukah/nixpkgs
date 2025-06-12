@@ -11,8 +11,7 @@
   makeDesktopItem,
   copyDesktopItems,
   undmg,
-}:
-let
+}: let
   pname = "keymapp";
   version = "1.3.7";
 
@@ -43,34 +42,34 @@ let
       shawn8901
     ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     license = lib.licenses.unfree;
   };
-
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      undmg
-      ;
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      libusb1
-      libsoup_3
-      webkitgtk_4_1
-      autoPatchelfHook
-      wrapGAppsHook4
-      copyDesktopItems
-      makeDesktopItem
-      ;
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        undmg
+        ;
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        libusb1
+        libsoup_3
+        webkitgtk_4_1
+        autoPatchelfHook
+        wrapGAppsHook4
+        copyDesktopItems
+        makeDesktopItem
+        ;
+    }

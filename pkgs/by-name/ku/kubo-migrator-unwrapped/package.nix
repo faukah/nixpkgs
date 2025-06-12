@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubo-migrator";
   version = "2.0.2-unstable-2024-08-02";
@@ -13,7 +12,7 @@ buildGoModule rec {
     repo = "fs-repo-migrations";
     rev = "cbc31a03fb2f6aba80d577224c09472101427771";
     hash = "sha256-wgWwDuL5Yv7dSYFrBiC4OS7SuTHh1D8RSabBnOTUiZ0=";
-    sparseCheckout = [ "fs-repo-migrations" ];
+    sparseCheckout = ["fs-repo-migrations"];
   };
 
   sourceRoot = "${src.name}/fs-repo-migrations";

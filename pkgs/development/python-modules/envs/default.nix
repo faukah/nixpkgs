@@ -8,7 +8,6 @@
   poetry-core,
   terminaltables,
 }:
-
 buildPythonPackage rec {
   pname = "envs";
   version = "1.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-nYQ1xphdHN1oKZ4ExY4r24rmz2ayWWqAeeb5qT8qA5g=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     click
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     terminaltables
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "envs/tests.py" ];
+  pytestFlagsArray = ["envs/tests.py"];
 
-  disabledTests = [ "test_list_envs" ];
+  disabledTests = ["test_list_envs"];
 
-  pythonImportsCheck = [ "envs" ];
+  pythonImportsCheck = ["envs"];
 
   meta = {
     description = "Easy access to environment variables from Python";
     mainProgram = "envs";
     homepage = "https://github.com/capless/envs";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

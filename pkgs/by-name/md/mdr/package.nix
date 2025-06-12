@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "mdr";
   version = "0.2.5";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "MarkDown Renderer for the terminal";
     homepage = "https://github.com/MichaelMure/mdr";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "mdr";
   };
 }

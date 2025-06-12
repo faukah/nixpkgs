@@ -15,7 +15,6 @@
   libxml2,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuse-emulator";
   version = "1.6.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--enable-desktop-integration" ];
+  configureFlags = ["--enable-desktop-integration"];
 
   enableParallelBuilding = true;
 
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     mainProgram = "fuse";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

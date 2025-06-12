@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cronsim";
   version = "2.6";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-WJ3v2cqAKZkXp1u8xJ0aFuyHPq0gn24DRxpnq5cH/90=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cronsim" ];
+  pythonImportsCheck = ["cronsim"];
 
   meta = with lib; {
     description = "Cron expression parser and evaluator";
     homepage = "https://github.com/cuu508/cronsim";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

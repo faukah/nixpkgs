@@ -6,11 +6,12 @@
   writeText,
   dos2unix,
   dataPath ? "/var/lib/rainloop",
-}:
-let
-  common =
-    { edition, sha256 }:
-    stdenv.mkDerivation (rec {
+}: let
+  common = {
+    edition,
+    sha256,
+  }:
+    stdenv.mkDerivation rec {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";
 
@@ -69,13 +70,15 @@ let
         description = "Simple, modern & fast web-based email client";
         homepage = "https://www.rainloop.net";
         downloadPage = "https://github.com/RainLoop/rainloop-webmail/releases";
-        license = with licenses; if edition == "" then unfree else agpl3Only;
+        license = with licenses;
+          if edition == ""
+          then unfree
+          else agpl3Only;
         platforms = platforms.all;
-        maintainers = with maintainers; [ das_j ];
+        maintainers = with maintainers; [das_j];
       };
-    });
-in
-{
+    };
+in {
   rainloop-community = common {
     edition = "community";
     sha256 = "sha256-25ScQ2OwSKAuqg8GomqDhpebhzQZjCk57h6MxUNiymc=";

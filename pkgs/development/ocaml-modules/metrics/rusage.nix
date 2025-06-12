@@ -4,7 +4,6 @@
   fmt,
   logs,
 }:
-
 buildDunePackage {
   pname = "metrics-rusage";
   inherit (metrics) src version;
@@ -20,7 +19,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = metrics.meta // {
-    description = "Resource usage (getrusage) sources for the Metrics library";
-  };
+  meta =
+    metrics.meta
+    // {
+      description = "Resource usage (getrusage) sources for the Metrics library";
+    };
 }

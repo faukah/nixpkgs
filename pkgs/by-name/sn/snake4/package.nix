@@ -6,7 +6,6 @@
   shhopt,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snake4";
   version = "1.0.14";

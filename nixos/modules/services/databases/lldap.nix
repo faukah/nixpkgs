@@ -4,21 +4,18 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.lldap;
-  format = pkgs.formats.toml { };
-in
-{
+  format = pkgs.formats.toml {};
+in {
   options.services.lldap = with lib; {
     enable = mkEnableOption "lldap, a lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
 
-    package = mkPackageOption pkgs "lldap" { };
+    package = mkPackageOption pkgs "lldap" {};
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       example = {
         LLDAP_JWT_SECRET_FILE = "/run/lldap/jwt_secret";
         LLDAP_LDAP_USER_PASS_FILE = "/run/lldap/user_password";
@@ -43,7 +40,7 @@ in
         Refer to <https://github.com/lldap/lldap/blob/main/lldap_config.docker_template.toml> for supported values.
       '';
 
-      default = { };
+      default = {};
 
       type = types.submodule {
         freeformType = format.type;
@@ -110,9 +107,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.lldap = {
       description = "Lightweight LDAP server (lldap)";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       # lldap defaults to a hardcoded `jwt_secret` value if none is provided, which is bad, because
       # an attacker could create a valid admin jwt access token fairly trivially.
       # Because there are 3 different ways `jwt_secret` can be provided, we check if any one of them is present,

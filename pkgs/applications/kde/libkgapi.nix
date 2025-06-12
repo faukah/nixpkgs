@@ -10,7 +10,6 @@
   kcontacts,
   cyrus_sasl,
 }:
-
 mkDerivation {
   pname = "libkgapi";
   meta = {

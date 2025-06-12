@@ -7,7 +7,6 @@
   checkpolicy,
   withGraphics ? false,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "setools";
   version = "4.5.1";
@@ -25,15 +24,14 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  buildInputs = [ libsepol ];
+  buildInputs = [libsepol];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       libselinux
       setuptools
     ]
-    ++ lib.optionals withGraphics [ pyqt5 ];
+    ++ lib.optionals withGraphics [pyqt5];
 
   optional-dependencies = {
     analysis = with python3Packages; [
@@ -47,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     checkpolicy
   ];
 
-  setupPyBuildFlags = [ "-i" ];
+  setupPyBuildFlags = ["-i"];
 
   preBuild = ''
     export SEPOL="${lib.getLib libsepol}/lib/libsepol.a"
@@ -65,7 +63,7 @@ python3Packages.buildPythonApplication rec {
       gpl2Only
       lgpl21Plus
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

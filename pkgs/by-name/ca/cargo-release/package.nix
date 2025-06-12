@@ -9,7 +9,6 @@
   curl,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-release";
   version = "0.25.18";

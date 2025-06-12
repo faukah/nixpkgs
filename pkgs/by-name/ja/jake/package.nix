@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "jake";
   version = "10.9.1";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/jakejs/jake";
     license = lib.licenses.asl20;
     mainProgram = "jake";
-    maintainers = with lib.maintainers; [ jasoncarr ];
+    maintainers = with lib.maintainers; [jasoncarr];
   };
 }

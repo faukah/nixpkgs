@@ -14,7 +14,6 @@
   libiconv,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "darling-dmg";
   version = "1.0.4-unstable-2023-07-26";
@@ -35,16 +34,18 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    fuse
-    openssl
-    zlib
-    bzip2
-    libxml2
-    icu
-    lzfse
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs = [cmake];
+  buildInputs =
+    [
+      fuse
+      openssl
+      zlib
+      bzip2
+      libxml2
+      icu
+      lzfse
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   CXXFLAGS = [
     "-DCOMPILE_WITH_LZFSE=1"
@@ -61,6 +62,6 @@ stdenv.mkDerivation {
     mainProgram = "darling-dmg";
     platforms = platforms.unix;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -4,7 +4,6 @@
   go-rice,
   lib,
 }:
-
 buildGoModule {
   pname = "linx-server";
   version = "unstable-2021-12-24";
@@ -17,11 +16,11 @@ buildGoModule {
   };
 
   # upstream tests are broken, see zizzydizzymc/linx-server#34
-  patches = [ ./test.patch ];
+  patches = [./test.patch];
 
   vendorHash = "sha256-/N3AXrPyENp3li4X86LNXsfBYbjJulk+0EAyogPNIpc=";
 
-  nativeBuildInputs = [ go-rice ];
+  nativeBuildInputs = [go-rice];
 
   preBuild = "rice embed-go";
 
@@ -29,6 +28,6 @@ buildGoModule {
     description = "Self-hosted file/code/media sharing website";
     homepage = "https://put.icu";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

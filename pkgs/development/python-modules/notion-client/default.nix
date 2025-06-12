@@ -10,7 +10,6 @@
   pytest-asyncio,
   pytest-vcr,
 }:
-
 buildPythonPackage rec {
   pname = "notion-client";
   version = "2.3.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-oqYBT7K0px0QvShSx1fnr2181h+QXz7I8sdURsBRgWw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   # disable coverage options as they don't provide us value, and they break the default pytestCheckHook
   preCheck = ''
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pytest-vcr
   ];
 
-  pythonImportsCheck = [ "notion_client" ];
+  pythonImportsCheck = ["notion_client"];
 
   disabledTests = [
     # requires network access
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ramnes/notion-sdk-py";
     changelog = "https://github.com/ramnes/notion-sdk-py/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

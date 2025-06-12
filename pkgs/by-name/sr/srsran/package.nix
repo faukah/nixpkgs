@@ -20,7 +20,6 @@
   enableFma ? stdenv.hostPlatform.fmaSupport,
   enableAvx512 ? stdenv.hostPlatform.avx512Support,
 }:
-
 stdenv.mkDerivation rec {
   pname = "srsran";
   version = "23.11";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "srsran";
     repo = "srsran";
-    rev = "release_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "release_${builtins.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-3cQMZ75I4cyHpik2d/eBuzw7M4OgbKqroCddycw4uW8=";
   };
 
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     description = "Open-source 4G and 5G software radio suite";
     license = licenses.agpl3Plus;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ hexagonal-sun ];
+    maintainers = with maintainers; [hexagonal-sun];
   };
 }

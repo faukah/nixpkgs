@@ -8,7 +8,6 @@
   glib,
   autoPatchelfHook,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "libfprint-2-tod1-elan";
   version = "0.0.8";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation {
     '';
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     libfprint-tod
@@ -46,9 +45,9 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Elan(04f3:0c4b) driver module for libfprint-2-tod Touch OEM Driver";
     homepage = "https://support.lenovo.com/us/en/downloads/ds560939-elan-fingerprint-driver-for-ubuntu-2204-thinkpad-e14-gen-4-e15-gen-4";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ qdlmcfresh ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [qdlmcfresh];
   };
 }

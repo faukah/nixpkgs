@@ -7,7 +7,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "alistral";
   version = "0.5.10";
@@ -33,14 +32,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Wants to create config file where it s not allowed
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://rustynova016.github.io/Alistral/";
     changelog = "https://github.com/RustyNova016/Alistral/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     description = "Power tools for Listenbrainz";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
     mainProgram = "alistral";
   };
 })

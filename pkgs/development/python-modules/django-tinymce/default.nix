@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-tinymce";
   version = "4.1.0";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-AuO3DpQP0pnw++9DFa7lwYVmTh64zTlrF2ljlU5DV8k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "tinymce" ];
+  pythonImportsCheck = ["tinymce"];
 
   meta = {
     description = "Django application that contains a widget to render a form field as a TinyMCE editor";
     homepage = "https://github.com/jazzband/django-tinymce";
     changelog = "https://github.com/jazzband/django-tinymce/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

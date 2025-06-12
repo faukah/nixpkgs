@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   attrs,
   hyperlink,
@@ -15,13 +13,11 @@
   twisted,
   werkzeug,
   zope-interface,
-
   # tests
   idna,
   python,
   treq,
 }:
-
 buildPythonPackage rec {
   pname = "klein";
   version = "24.8.0";
@@ -62,13 +58,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "klein" ];
+  pythonImportsCheck = ["klein"];
 
   meta = with lib; {
     changelog = "https://github.com/twisted/klein/releases/tag/${version}";
     description = "Klein Web Micro-Framework";
     homepage = "https://github.com/twisted/klein";
     license = licenses.mit;
-    maintainers = with maintainers; [ exarkun ];
+    maintainers = with maintainers; [exarkun];
   };
 }

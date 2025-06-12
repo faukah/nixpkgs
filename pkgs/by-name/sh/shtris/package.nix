@@ -32,14 +32,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Pure shell script (sh) that implements the Tetris game following the Tetris Guideline (2009)";
     homepage = "https://github.com/ContentsViewer/shtris";
     changelog = "https://github.com/ContentsViewer/shtris/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "shtris";
   };
 })

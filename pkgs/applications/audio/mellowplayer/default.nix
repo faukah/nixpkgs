@@ -13,7 +13,6 @@
   qtwebengine,
   stdenv,
 }:
-
 mkDerivation rec {
   pname = "MellowPlayer";
   version = "3.6.8";
@@ -42,7 +41,7 @@ mkDerivation rec {
 
   doCheck = true;
 
-  cmakeFlags = [ "-DBUILD_TESTS=ON" ];
+  cmakeFlags = ["-DBUILD_TESTS=ON"];
 
   preCheck =
     ''
@@ -64,7 +63,8 @@ mkDerivation rec {
           (lib.optionalString (pkg ? qtQmlPrefix) ''
             export QML2_IMPORT_PATH="${pkg}/${pkg.qtQmlPrefix}"''${QML2_IMPORT_PATH:+':'}$QML2_IMPORT_PATH
           '')
-        ]) buildInputs
+        ])
+        buildInputs
       )
     ));
 
@@ -76,6 +76,6 @@ mkDerivation rec {
     mainProgram = "MellowPlayer";
     homepage = "https://gitlab.com/ColinDuquesnoy/MellowPlayer";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

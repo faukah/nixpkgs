@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
       ./dev-branches.txt
     ];
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/bin
@@ -30,15 +30,15 @@ stdenvNoCC.mkDerivation {
       mv "$bin" "$out/bin"
       wrapProgram "$out/bin/$bin" \
         --set PATH ${
-          lib.makeBinPath [
-            coreutils
-            codeowners
-            jq
-            curl
-            github-cli
-            gitMinimal
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        codeowners
+        jq
+        curl
+        github-cli
+        gitMinimal
+      ]
+    }
     done
   '';
 }

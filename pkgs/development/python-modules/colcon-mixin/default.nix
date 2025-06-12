@@ -9,7 +9,6 @@
   scspell,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "colcon-mixin";
   version = "0.2.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-XQpRDBTtrFOOlCRXKVImUtwrwirO0ELWifUpfQuyrrY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colcon
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Extension for colcon-core to provide mixin functionality";
     homepage = "https://github.com/colcon/colcon-mixin";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

@@ -8,14 +8,13 @@
   zookeeper,
   zookeeper_mt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zkfuse";
   inherit (zookeeper_mt) version src;
 
   sourceRoot = "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     zookeeper_mt
     log4cxx
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
 
   # c++17 (gcc-11's default) breaks the build as:
   #   zkadapter.h:616:33: error: ISO C++17 does not allow dynamic exception specifications
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ztzg ];
+    maintainers = with maintainers; [ztzg];
     license = licenses.asl20;
     mainProgram = "zkfuse";
   };

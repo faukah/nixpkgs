@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "opener";
   version = "0.1.6";
@@ -29,7 +28,7 @@ buildGoModule rec {
   __darwinAllowLocalNetworking = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -37,7 +36,7 @@ buildGoModule rec {
     homepage = "https://github.com/superbrothers/opener";
     changelog = "https://github.com/superbrothers/opener/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "opener";
   };
 }

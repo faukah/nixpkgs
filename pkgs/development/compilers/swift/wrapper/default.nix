@@ -5,7 +5,6 @@
   useSwiftDriver ? true,
   swift-driver,
 }:
-
 stdenv.mkDerivation (
   swift._wrapperParams
   // {
@@ -19,7 +18,8 @@ stdenv.mkDerivation (
 
     # Wrapper and setup hook variables.
     inherit swift;
-    inherit (swift)
+    inherit
+      (swift)
       swiftOs
       swiftArch
       swiftModuleSubdir
@@ -33,7 +33,7 @@ stdenv.mkDerivation (
       stdenv.targetPlatform.darwinMinVersion
     );
 
-    passAsFile = [ "buildCommand" ];
+    passAsFile = ["buildCommand"];
     buildCommand = ''
       mkdir -p $out/bin $out/nix-support
 
@@ -74,7 +74,8 @@ stdenv.mkDerivation (
 
     passthru = {
       inherit swift;
-      inherit (swift)
+      inherit
+        (swift)
         swiftOs
         swiftArch
         swiftModuleSubdir

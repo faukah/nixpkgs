@@ -9,7 +9,6 @@
   autoPatchelfHook,
   libredirect,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cups-brother-hll3230cdw";
   version = "1.0.2";
@@ -85,8 +84,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother HL-L3230CDW printer driver";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ aplund ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [aplund];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mallard-ducktype";
   version = "1.0.2";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-jHjzTBBRBh//bOrdnyCRmZRmpupgDaDRuZGAd75baco=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   checkPhase = ''
     runHook preCheck
@@ -27,12 +26,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "mallard" ];
+  pythonImportsCheck = ["mallard"];
 
   meta = {
     description = "Parser for the lightweight Ducktype syntax for Mallard";
     homepage = "https://github.com/projectmallard/mallard-ducktype";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

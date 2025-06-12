@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.fider;
   fiderCmd = lib.getExe cfg.package;
-in
-{
+in {
   options = {
-
     services.fider = {
       enable = lib.mkEnableOption "the Fider server";
-      package = lib.mkPackageOption pkgs "fider" { };
+      package = lib.mkPackageOption pkgs "fider" {};
 
       dataDir = lib.mkOption {
         type = lib.types.str;
@@ -38,7 +35,7 @@ in
 
       environment = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = {
           PORT = "31213";
           BASE_URL = "https://fider.example.com";
@@ -60,7 +57,7 @@ in
 
       environmentFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         example = "/run/secrets/fider.env";
         description = ''
           Files to load environment variables from. Loaded variables override
@@ -79,22 +76,26 @@ in
           ensureDBOwnership = true;
         }
       ];
-      ensureDatabases = [ "fider" ];
+      ensureDatabases = ["fider"];
     };
 
     systemd.services.fider = {
       description = "Fider server";
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-      ] ++ lib.optionals (cfg.database.url == "local") [ "postgresql.service" ];
-      requires = lib.optionals (cfg.database.url == "local") [ "postgresql.service" ];
-      environment =
-        let
-          localPostgresqlUrl = "postgres:///fider?host=/run/postgresql";
-        in
+      wantedBy = ["multi-user.target"];
+      after =
+        [
+          "network.target"
+        ]
+        ++ lib.optionals (cfg.database.url == "local") ["postgresql.service"];
+      requires = lib.optionals (cfg.database.url == "local") ["postgresql.service"];
+      environment = let
+        localPostgresqlUrl = "postgres:///fider?host=/run/postgresql";
+      in
         {
-          DATABASE_URL = if (cfg.database.url == "local") then localPostgresqlUrl else cfg.database.url;
+          DATABASE_URL =
+            if (cfg.database.url == "local")
+            then localPostgresqlUrl
+            else cfg.database.url;
           BLOB_STORAGE_FS_PATH = "${cfg.dataDir}";
         }
         // cfg.environment;

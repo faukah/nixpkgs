@@ -9,9 +9,7 @@
   testers,
   photofield,
   nix-update-script,
-}:
-
-let
+}: let
   version = "0.18.0";
 
   src = fetchFromGitHub {
@@ -35,53 +33,52 @@ let
     '';
   };
 in
+  buildGoModule {
+    pname = "photofield";
+    inherit version src;
 
-buildGoModule {
-  pname = "photofield";
-  inherit version src;
+    vendorHash = "sha256-m0RJgwDO+IcMCbtq2WZixMzZWtglHM6wpoPKOEU0CCw=";
 
-  vendorHash = "sha256-m0RJgwDO+IcMCbtq2WZixMzZWtglHM6wpoPKOEU0CCw=";
+    preBuild = ''
+      cp -r ${webui}/share/photofield-ui ui/dist
+    '';
 
-  preBuild = ''
-    cp -r ${webui}/share/photofield-ui ui/dist
-  '';
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.version=${version}"
+      "-X main.builtBy=Nix"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.builtBy=Nix"
-  ];
+    tags = ["embedui"];
 
-  tags = [ "embedui" ];
+    doCheck = false; # tries to modify filesytem
 
-  doCheck = false; # tries to modify filesytem
+    nativeBuildInputs = [makeWrapper];
 
-  nativeBuildInputs = [ makeWrapper ];
-
-  postInstall = ''
-    wrapProgram $out/bin/photofield \
-      --prefix PATH : "${
+    postInstall = ''
+      wrapProgram $out/bin/photofield \
+        --prefix PATH : "${
         lib.makeBinPath [
           exiftool
           ffmpeg
         ]
       }"
-  '';
+    '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = photofield;
-      command = "photofield -version";
+    passthru = {
+      updateScript = nix-update-script {};
+      tests.version = testers.testVersion {
+        package = photofield;
+        command = "photofield -version";
+      };
     };
-  };
 
-  meta = with lib; {
-    description = "Experimental fast photo viewer";
-    homepage = "https://github.com/SmilyOrg/photofield";
-    license = licenses.mit;
-    mainProgram = "photofield";
-    maintainers = with maintainers; [ dit7ya ];
-  };
-}
+    meta = with lib; {
+      description = "Experimental fast photo viewer";
+      homepage = "https://github.com/SmilyOrg/photofield";
+      license = licenses.mit;
+      mainProgram = "photofield";
+      maintainers = with maintainers; [dit7ya];
+    };
+  }

@@ -19,7 +19,6 @@
   json-glib,
   libnotify,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-libpinyin";
   version = "1.16.3";
@@ -49,10 +48,11 @@ stdenv.mkDerivation rec {
     sqlite
     libpinyin
     (python3.withPackages (
-      pypkgs: with pypkgs; [
-        pygobject3
-        (toPythonModule ibus)
-      ]
+      pypkgs:
+        with pypkgs; [
+          pygobject3
+          (toPythonModule ibus)
+        ]
     ))
     gtk3
     db

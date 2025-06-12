@@ -13,9 +13,7 @@
   libXrandr,
   ffmpeg,
 }:
-
 mkDerivation rec {
-
   pname = "vokoscreen";
   version = "2.5.8-beta";
 
@@ -65,7 +63,7 @@ mkDerivation rec {
       videoconferences, etc.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.league ];
+    maintainers = [maintainers.league];
     platforms = platforms.linux;
     mainProgram = "vokoscreen";
   };

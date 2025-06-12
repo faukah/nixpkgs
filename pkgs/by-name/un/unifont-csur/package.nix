@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unifont-csur";
   version = "16.0.03";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://unifoundry.com/unifont/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.qxrein ];
+    maintainers = [lib.maintainers.qxrein];
   };
 })

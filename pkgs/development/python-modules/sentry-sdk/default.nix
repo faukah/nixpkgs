@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   certifi,
   urllib3,
-
   # optional-dependencies
   aiohttp,
   anthropic,
@@ -48,7 +45,6 @@
   starlette,
   tiktoken,
   tornado,
-
   # checks
   brotli,
   jsonschema,
@@ -64,7 +60,6 @@
   responses,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "sentry-sdk";
   version = "2.25.0";
@@ -91,19 +86,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    anthropic = [ anthropic ];
+    aiohttp = [aiohttp];
+    anthropic = [anthropic];
     # TODO: arq
-    asyncpg = [ asyncpg ];
-    beam = [ apache-beam ];
-    bottle = [ bottle ];
-    celery = [ celery ];
-    celery-redbeat = [ celery-redbeat ];
-    chalice = [ chalice ];
-    clickhouse-driver = [ clickhouse-driver ];
-    django = [ django ];
-    falcon = [ falcon ];
-    fastapi = [ fastapi ];
+    asyncpg = [asyncpg];
+    beam = [apache-beam];
+    bottle = [bottle];
+    celery = [celery];
+    celery-redbeat = [celery-redbeat];
+    chalice = [chalice];
+    clickhouse-driver = [clickhouse-driver];
+    django = [django];
+    falcon = [falcon];
+    fastapi = [fastapi];
     flask = [
       blinker
       flask
@@ -113,14 +108,14 @@ buildPythonPackage rec {
       grpcio
       protobuf
     ];
-    http2 = [ httpcore ] ++ httpcore.optional-dependencies.http2;
-    httpx = [ httpx ];
-    huey = [ huey ];
-    huggingface-hub = [ huggingface-hub ];
-    langchain = [ langchain ];
+    http2 = [httpcore] ++ httpcore.optional-dependencies.http2;
+    httpx = [httpx];
+    huey = [huey];
+    huggingface-hub = [huggingface-hub];
+    langchain = [langchain];
     # TODO: launchdarkly
-    litestar = [ litestar ];
-    loguru = [ loguru ];
+    litestar = [litestar];
+    loguru = [loguru];
     openai = [
       openai
       tiktoken
@@ -133,38 +128,40 @@ buildPythonPackage rec {
       executing
       pure-eval
     ];
-    pymongo = [ pymongo ];
-    pyspark = [ pyspark ];
+    pymongo = [pymongo];
+    pyspark = [pyspark];
     quart = [
       blinker
       quart
     ];
-    rq = [ rq ];
-    sanic = [ sanic ];
-    sqlalchemy = [ sqlalchemy ];
-    starlette = [ starlette ];
+    rq = [rq];
+    sanic = [sanic];
+    sqlalchemy = [sqlalchemy];
+    starlette = [starlette];
     # TODO: starlite
     # TODO: statsig
-    tornado = [ tornado ];
+    tornado = [tornado];
     # TODO: unleash
   };
 
-  nativeCheckInputs = [
-    brotli
-    pyrsistent
-    responses
-    pysocks
-    setuptools
-    executing
-    jsonschema
-    pip
-    pytest-asyncio
-    pytest-forked
-    pytest-localserver
-    pytest-xdist
-    pytest-watch
-    pytestCheckHook
-  ] ++ optional-dependencies.http2;
+  nativeCheckInputs =
+    [
+      brotli
+      pyrsistent
+      responses
+      pysocks
+      setuptools
+      executing
+      jsonschema
+      pip
+      pytest-asyncio
+      pytest-forked
+      pytest-localserver
+      pytest-xdist
+      pytest-watch
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.http2;
 
   __darwinAllowLocalNetworking = true;
 
@@ -215,13 +212,13 @@ buildPythonPackage rec {
     "test_logs_attributes"
   ];
 
-  pythonImportsCheck = [ "sentry_sdk" ];
+  pythonImportsCheck = ["sentry_sdk"];
 
   meta = with lib; {
     description = "Official Python SDK for Sentry.io";
     homepage = "https://github.com/getsentry/sentry-python";
     changelog = "https://github.com/getsentry/sentry-python/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

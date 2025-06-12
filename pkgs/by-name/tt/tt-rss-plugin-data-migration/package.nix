@@ -3,7 +3,6 @@
   stdenv,
   fetchgit,
 }:
-
 stdenv.mkDerivation {
   pname = "tt-rss-plugin-data-migration";
   version = "0-unstable-2023-11-01";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     # this plugin doesn't have a license file
     license = lib.licenses.unfree;
     homepage = "https://git.tt-rss.org/fox/ttrss-data-migration.git/";
-    maintainers = with lib.maintainers; [ wrvsrx ];
+    maintainers = with lib.maintainers; [wrvsrx];
     platforms = lib.platforms.all;
   };
 }

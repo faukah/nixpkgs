@@ -10,7 +10,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "thermopro-ble";
   version = "0.13.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-gikNjQYE/GROUR0atBUcwrRdjH+HVL37EOKZYdvRUzo=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "thermopro_ble" ];
+  pythonImportsCheck = ["thermopro_ble"];
 
   meta = with lib; {
     description = "Library for Thermopro BLE devices";
     homepage = "https://github.com/bluetooth-devices/thermopro-ble";
     changelog = "https://github.com/Bluetooth-Devices/thermopro-ble/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,6 @@
   yojson,
   stringext,
 }:
-
 buildDunePackage rec {
   pname = "github";
   version = "4.4.1";
@@ -38,6 +37,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-github";
     description = "GitHub APIv3 OCaml library";
     license = licenses.mit;
-    maintainers = with maintainers; [ niols ];
+    maintainers = with maintainers; [niols];
   };
 }

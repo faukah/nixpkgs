@@ -11,7 +11,6 @@
   pypng,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "matplotx";
   version = "0.3.10";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       pypng
       scipy
     ];
-    contour = [ networkx ];
+    contour = [networkx];
     spy = [
       pypng
       scipy
@@ -47,13 +46,13 @@ buildPythonPackage rec {
   # Not sure of the details, but we can avoid it by changing the matplotlib backend during testing.
   env.MPLBACKEND = lib.optionalString stdenv.hostPlatform.isDarwin "Agg";
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.all;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.all;
 
   disabledTestPaths = [
     "tests/test_spy.py" # Requires meshzoo (non-free) and pytest-codeblocks (not packaged)
   ];
 
-  pythonImportsCheck = [ "matplotx" ];
+  pythonImportsCheck = ["matplotx"];
 
   meta = {
     homepage = "https://github.com/nschloe/matplotx";
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     mainProgram = "matplotx";
     changelog = "https://github.com/nschloe/matplotx/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ swflint ];
+    maintainers = with lib.maintainers; [swflint];
   };
 }

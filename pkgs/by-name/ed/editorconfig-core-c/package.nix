@@ -6,7 +6,6 @@
   pcre2,
   doxygen,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "editorconfig-core-c";
   version = "0.12.9";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
       bsd3
     ];
-    maintainers = with maintainers; [ dochang ];
+    maintainers = with maintainers; [dochang];
     platforms = platforms.unix;
     mainProgram = "editorconfig";
   };

@@ -8,7 +8,6 @@
   makeShellWrapper,
   copyDesktopItems,
 }:
-
 buildNpmPackage rec {
   pname = "zulip";
   version = "5.12.0";
@@ -29,7 +28,7 @@ buildNpmPackage rec {
   nativeBuildInputs = [
     makeShellWrapper
     copyDesktopItems
-    (python3.withPackages (ps: with ps; [ distutils ]))
+    (python3.withPackages (ps: with ps; [distutils]))
   ];
 
   dontNpmBuild = true;
@@ -80,7 +79,7 @@ buildNpmPackage rec {
     description = "Desktop client for Zulip Chat";
     homepage = "https://zulip.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     platforms = lib.platforms.linux;
     mainProgram = "zulip";
   };

@@ -5,7 +5,6 @@
   makeWrapper,
   maven,
 }:
-
 maven.buildMavenPackage rec {
   pname = "ktfmt";
   version = "0.51";
@@ -17,13 +16,13 @@ maven.buildMavenPackage rec {
     hash = "sha256-TIYV/V6vtGTTSLFf9dcKo8Ezx61e7Vvz3vQvbh0Kj/Y=";
   };
 
-  patches = [ ./pin-default-maven-plugin-versions.patch ];
+  patches = [./pin-default-maven-plugin-versions.patch];
 
   mvnHash = "sha256-f/Uwc0ynROEKl2+zsgqj5ctRu1QcNblF5suU/0+fvKw=";
 
   mvnParameters = "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/facebook/ktfmt";
     license = licenses.asl20;
     mainProgram = "ktfmt";
-    maintainers = with maintainers; [ ghostbuster91 ];
+    maintainers = with maintainers; [ghostbuster91];
     inherit (jre_headless.meta) platforms;
   };
 }

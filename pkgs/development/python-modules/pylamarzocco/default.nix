@@ -12,7 +12,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "pylamarzocco";
   version = "2.0.8";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-Fsxs3ugjzU9l3SlxqKs+Bej34kRn2mKrwzCZ94P2UGo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "pylamarzocco" ];
+  pythonImportsCheck = ["pylamarzocco"];
 
   meta = with lib; {
     description = "Library to interface with La Marzocco's cloud";
     homepage = "https://github.com/zweckj/pylamarzocco";
     changelog = "https://github.com/zweckj/pylamarzocco/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -8,7 +8,6 @@
   six,
   varint,
 }:
-
 buildPythonPackage rec {
   pname = "py-multicodec";
   version = "0.2.1";
@@ -38,14 +37,14 @@ buildPythonPackage rec {
     varint
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multicodec" ];
+  pythonImportsCheck = ["multicodec"];
 
   meta = with lib; {
     description = "Compact self-describing codecs";
     homepage = "https://github.com/multiformats/py-multicodec";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

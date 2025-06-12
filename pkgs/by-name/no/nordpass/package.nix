@@ -32,9 +32,7 @@
   harfbuzz,
   libsecret,
   buildFHSEnv,
-}:
-
-let
+}: let
   # determine these versions from
   # curl -H 'Snap-Device-Series: 16' http://api.snapcraft.io/v2/snaps/info/nordpass
   version = "5.23.13";
@@ -98,7 +96,7 @@ let
       hash = "sha256-teqeeLzqLVL/l5WsTXlRj3GM0YMHm+Z2MWy4GE8s7k8=";
     };
 
-    nativeBuildInputs = [ squashfsTools ];
+    nativeBuildInputs = [squashfsTools];
 
     dontStrip = true;
     dontPatchELF = true;
@@ -141,22 +139,21 @@ let
       description = "Secure and simple password manager for a stress-free online experience";
       license = licenses.unfree;
       mainProgram = "nordpass";
-      maintainers = with maintainers; [ coconnor ];
-      platforms = [ "x86_64-linux" ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      maintainers = with maintainers; [coconnor];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
     };
   };
 in
+  buildFHSEnv {
+    name = "nordpass";
+    targetPkgs = _: deps ++ [thisPackage];
+    runScript = "nordpass";
 
-buildFHSEnv {
-  name = "nordpass";
-  targetPkgs = _: deps ++ [ thisPackage ];
-  runScript = "nordpass";
+    extraInstallCommands = ''
+      mkdir -p "$out/share"
+      cp -r ${thisPackage}/share/* "$out/share/"
+    '';
 
-  extraInstallCommands = ''
-    mkdir -p "$out/share"
-    cp -r ${thisPackage}/share/* "$out/share/"
-  '';
-
-  inherit (thisPackage) meta;
-}
+    inherit (thisPackage) meta;
+  }

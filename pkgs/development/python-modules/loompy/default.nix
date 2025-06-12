@@ -10,8 +10,7 @@
   numpy-groupies,
   setuptools,
   pytestCheckHook,
-}:
-let
+}: let
   finalAttrs = {
     pname = "loompy";
     version = "3.0.8";
@@ -22,7 +21,7 @@ let
       hash = "sha256-wfSNC/Iaorve7iGgV3VTy6lgnZQ118MraHaGu7WGnKc=";
     };
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     dependencies = [
       h5py
@@ -33,7 +32,7 @@ let
       numpy-groupies
     ];
 
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
     # Deprecated numpy attributes access
     disabledTests = [
@@ -41,16 +40,16 @@ let
       "test_get"
     ];
 
-    pythonImportsCheck = [ "loompy" ];
+    pythonImportsCheck = ["loompy"];
 
     meta = {
       changelog = "https://github.com/linnarsson-lab/loompy/releases";
       description = "Python implementation of the Loom file format";
       homepage = "https://github.com/linnarsson-lab/loompy";
       license = lib.licenses.bsd2;
-      maintainers = with lib.maintainers; [ theobori ];
+      maintainers = with lib.maintainers; [theobori];
       mainProgram = "loompy";
     };
   };
 in
-buildPythonPackage finalAttrs
+  buildPythonPackage finalAttrs

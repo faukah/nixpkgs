@@ -24,7 +24,6 @@
   curlMinimal,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snis";
   version = "1.0.8";
@@ -75,19 +74,19 @@ stdenv.mkDerivation (finalAttrs: {
     curlMinimal
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   buildFlags = [
     "all"
     "models"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Space Nerds In Space, a multi-player spaceship bridge simulator";
     homepage = "https://smcameron.github.io/space-nerds-in-space/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pentane ];
+    maintainers = with maintainers; [pentane];
     platforms = platforms.linux;
     mainProgram = "snis_launcher";
   };

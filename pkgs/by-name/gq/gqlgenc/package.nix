@@ -4,7 +4,6 @@
   lib,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gqlgenc";
   version = "0.32.1";
@@ -20,7 +19,7 @@ buildGoModule (finalAttrs: {
     ./fix-version.patch
   ];
 
-  excludedPackages = [ "example" ];
+  excludedPackages = ["example"];
 
   vendorHash = "sha256-kBv9Kit5KdPB48V/g1OaeB0ABFd1A1I/9F5LaQDWxUE=";
 
@@ -30,7 +29,7 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   # FAIL: TestLoadConfig_LoadSchema/correct_schema
@@ -42,6 +41,6 @@ buildGoModule (finalAttrs: {
     mainProgram = "gqlgenc";
     homepage = "https://github.com/Yamashou/gqlgenc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wattmto ];
+    maintainers = with lib.maintainers; [wattmto];
   };
 })

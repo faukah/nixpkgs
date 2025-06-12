@@ -25,7 +25,6 @@
   notebook,
   pandas-datareader,
 }:
-
 buildPythonPackage rec {
   pname = "tsfresh";
   version = "0.20.3";
@@ -46,20 +45,22 @@ buildPythonPackage rec {
     ./remove-pytest-coverage-flags.patch
   ];
 
-  dependencies = [
-    requests
-    numpy
-    pandas
-    scipy
-    statsmodels
-    patsy
-    scikit-learn
-    tqdm
-    dask
-    distributed
-    stumpy
-    cloudpickle
-  ] ++ dask.optional-dependencies.dataframe;
+  dependencies =
+    [
+      requests
+      numpy
+      pandas
+      scipy
+      statsmodels
+      patsy
+      scikit-learn
+      tqdm
+      dask
+      distributed
+      stumpy
+      cloudpickle
+    ]
+    ++ dask.optional-dependencies.dataframe;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -92,7 +93,7 @@ buildPythonPackage rec {
       "test_dask_cluster_extraction_two_workers"
     ];
 
-  pythonImportsCheck = [ "tsfresh" ];
+  pythonImportsCheck = ["tsfresh"];
 
   meta = {
     description = "Automatic extraction of relevant features from time series";
@@ -100,6 +101,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/blue-yonder/tsfresh";
     changelog = "https://github.com/blue-yonder/tsfresh/blob/${src.rev}/CHANGES.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mbalatsko ];
+    maintainers = with lib.maintainers; [mbalatsko];
   };
 }

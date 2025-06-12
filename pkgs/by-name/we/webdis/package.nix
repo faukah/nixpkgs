@@ -7,7 +7,6 @@
   jansson,
   libevent,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "webdis";
   version = "0.1.23";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "webdis";
     homepage = "https://webd.is/";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ wucke13 ];
+    maintainers = with lib.maintainers; [wucke13];
     platforms = lib.platforms.unix;
   };
 })

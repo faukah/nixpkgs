@@ -12,7 +12,6 @@
   gnome-menus,
   replaceVars,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extensions";
   version = "48.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  mesonFlags = [ "-Dextension_set=all" ];
+  mesonFlags = ["-Dextension_set=all"];
 
   preFixup = ''
     # Since we do not install the schemas to central location,
@@ -64,14 +63,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-shell-extensions"; };
+    updateScript = gnome.updateScript {packageName = "gnome-shell-extensions";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-shell-extensions";
     changelog = "https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Modify and extend GNOME Shell functionality and behavior";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

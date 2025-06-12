@@ -5,7 +5,6 @@
   fetchpatch,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bviplus";
   version = "1.0";
@@ -27,9 +26,9 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-implicit-int -fgnu89-inline";
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bviplus.sourceforge.net";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "bviplus";
   };
 })

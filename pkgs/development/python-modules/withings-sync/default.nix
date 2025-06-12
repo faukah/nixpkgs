@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "withings-sync";
   version = "4.2.7";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     garth
@@ -40,14 +39,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "withings_sync" ];
+  pythonImportsCheck = ["withings_sync"];
 
   meta = with lib; {
     description = "Synchronisation of Withings weight";
     homepage = "https://github.com/jaroslawhartman/withings-sync";
     changelog = "https://github.com/jaroslawhartman/withings-sync/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "withings-sync";
   };
 }

@@ -6,7 +6,6 @@
   useMusl ? false,
   version ? "23",
 }:
-
 graalvmPackages.buildGraalvm {
   inherit useMusl version;
   src = fetchurl (import ./hashes.nix).${version}.${stdenv.system};

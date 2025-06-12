@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "args";
   version = "6.4.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IQzhbXl1CfEV164EjulKrOUdCTZNZAFgVyzxk4rTNlU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/Taywee/args/issues/108
   postPatch = ''
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "Simple header-only C++ argument parser library";
     homepage = "https://github.com/Taywee/args";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

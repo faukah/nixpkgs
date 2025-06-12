@@ -5,7 +5,6 @@
   hatchling,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "whoisdomain";
   version = "1.20250220.2";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-/f5zV0vgjOIIux4e0mXeFSfY8cNpfGkfeCs3djla2zM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  pythonImportsCheck = [ "whoisdomain" ];
+  pythonImportsCheck = ["whoisdomain"];
 
   # Tests require network access
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mboot-github/WhoisDomain";
     changelog = "https://github.com/mboot-github/WhoisDomain/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -14,7 +14,6 @@
   desktop-file-utils,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashit";
   version = "1.1.0";
@@ -48,14 +47,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Simple app for checking usual checksums - Designed for elementary OS";
     homepage = "https://github.com/artemanufrij/hashit";
     license = licenses.gpl2Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.artemanufrij.hashit";
   };

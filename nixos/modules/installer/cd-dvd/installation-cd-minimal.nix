@@ -1,9 +1,6 @@
 # This module defines a small NixOS installation CD.  It does not
 # contain any graphical stuff.
-
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     ../../profiles/minimal.nix
     ./installation-cd-base.nix

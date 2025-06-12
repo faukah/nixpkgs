@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitea,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mitra";
   version = "4.4.0";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     description = "Federated micro-blogging platform";
     homepage = "https://codeberg.org/silverpill/mitra";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ haruki7049 ];
+    maintainers = with lib.maintainers; [haruki7049];
     mainProgram = "mitra";
   };
 }

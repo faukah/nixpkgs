@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atasm";
   version = "1.29";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Commandline 6502 assembler compatible with Mac/65";
     license = lib.licenses.gpl2Plus;
     changelog = "https://github.com/CycoPH/atasm/releases/tag/V${version}";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; unix;
   };
 }

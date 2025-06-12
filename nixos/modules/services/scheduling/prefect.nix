@@ -3,11 +3,10 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prefect;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     str
     enum
@@ -17,9 +16,7 @@ let
     submodule
     port
     ;
-
-in
-{
+in {
   options.services.prefect = {
     enable = lib.mkOption {
       type = bool;
@@ -27,7 +24,7 @@ in
       description = "enable prefect server and worker services";
     };
 
-    package = lib.mkPackageOption pkgs "prefect" { };
+    package = lib.mkPackageOption pkgs "prefect" {};
 
     host = lib.mkOption {
       type = str;
@@ -111,7 +108,7 @@ in
           };
         };
       });
-      default = { };
+      default = {};
       description = ''
         define a set of worker pools with submodule config. example:
         workerPools.my-pool = {
@@ -133,8 +130,8 @@ in
       {
         "prefect-server" = {
           description = "prefect server";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
 
           serviceConfig = {
             DynamicUser = true;
@@ -149,10 +146,9 @@ in
               "PREFECT_UI_URL=${cfg.baseUrl}"
             ];
             EnvironmentFile =
-              if cfg.database == "postgres" && cfg.databasePasswordFile != null then
-                [ cfg.databasePasswordFile ]
-              else
-                [ ];
+              if cfg.database == "postgres" && cfg.databasePasswordFile != null
+              then [cfg.databasePasswordFile]
+              else [];
 
             # ReadWritePaths = [ cfg.dataDir ];
             ProtectSystem = "strict";
@@ -161,8 +157,8 @@ in
             NoNewPrivileges = true;
             MemoryDenyWriteExecute = true;
             LockPersonality = true;
-            CapabilityBoundingSet = [ ];
-            AmbientCapabilities = [ ];
+            CapabilityBoundingSet = [];
+            AmbientCapabilities = [];
             RestrictSUIDSGID = true;
             RestrictAddressFamilies = [
               "AF_INET"
@@ -186,8 +182,8 @@ in
         # return a partial attr set with one key: "prefect-worker-..."
         "prefect-worker-${poolName}" = {
           description = "prefect worker for pool '${poolName}'";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
 
           environment.systemPackages = cfg.package;
 
@@ -204,8 +200,8 @@ in
             NoNewPrivileges = true;
             MemoryDenyWriteExecute = true;
             LockPersonality = true;
-            CapabilityBoundingSet = [ ];
-            AmbientCapabilities = [ ];
+            CapabilityBoundingSet = [];
+            AmbientCapabilities = [];
             RestrictSUIDSGID = true;
             RestrictAddressFamilies = [
               "AF_INET"
@@ -227,6 +223,7 @@ in
             Restart = "always";
           };
         };
-      }) cfg.workerPools;
+      })
+      cfg.workerPools;
   };
 }

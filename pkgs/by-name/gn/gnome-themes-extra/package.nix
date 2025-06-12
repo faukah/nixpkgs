@@ -14,7 +14,6 @@
   gdk-pixbuf,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-themes-extra";
   version = "3.28";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

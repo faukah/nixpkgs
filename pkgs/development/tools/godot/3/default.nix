@@ -25,7 +25,6 @@
   yasm,
   zlib,
 }:
-
 stdenv.mkDerivation (self: {
   pname = "godot3";
   version = "3.6";
@@ -93,7 +92,10 @@ stdenv.mkDerivation (self: {
   shouldBuildTools = true;
   godotBuildTarget = "release_debug";
 
-  lto = if self.godotBuildTarget == "release" then "full" else "none";
+  lto =
+    if self.godotBuildTarget == "release"
+    then "full"
+    else "none";
 
   sconsFlags = [
     "arch=${stdenv.hostPlatform.linuxArch}"
@@ -111,12 +113,14 @@ stdenv.mkDerivation (self: {
   shouldInstallShortcut = self.shouldBuildTools && self.godotBuildPlatform != "server";
 
   outputs =
-    [ "out" ]
+    ["out"]
     ++ lib.optional self.shouldInstallManual "man"
     ++ lib.optional self.shouldBuildTools "dev";
 
   builtGodotBinNamePattern =
-    if self.godotBuildPlatform == "server" then "godot_server.*" else "godot.*";
+    if self.godotBuildPlatform == "server"
+    then "godot_server.*"
+    else "godot.*";
 
   godotBinInstallPath = "bin";
   installedGodotBinName = self.pname;

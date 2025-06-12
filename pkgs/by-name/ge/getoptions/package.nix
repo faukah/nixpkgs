@@ -9,7 +9,6 @@
   yash,
   zsh,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "getoptions";
   version = "3.3.2";
@@ -21,17 +20,19 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-hapOGPibqt2Mm6k73v63gHxrX+lifZ8xcwzj8vWbtgo=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    shellspec
-    ksh
-    mksh
-    yash
-    zsh
-  ] ++ lib.lists.optional (!stdenvNoCC.hostPlatform.isDarwin) busybox-sandbox-shell;
+  nativeCheckInputs =
+    [
+      shellspec
+      ksh
+      mksh
+      yash
+      zsh
+    ]
+    ++ lib.lists.optional (!stdenvNoCC.hostPlatform.isDarwin) busybox-sandbox-shell;
 
   # Disable checks against yash, since shellspec seems to be broken for yash>=2.54
   # (see: https://github.com/NixOS/nixpkgs/pull/218264#pullrequestreview-1434402054)
@@ -51,6 +52,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ko1nksm/getoptions";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ matrss ];
+    maintainers = with maintainers; [matrss];
   };
 }

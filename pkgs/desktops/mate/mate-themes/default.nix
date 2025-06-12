@@ -13,7 +13,6 @@
   librsvg,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-themes";
   version = "3.22.26";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Set of themes from MATE";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

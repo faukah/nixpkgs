@@ -8,7 +8,6 @@
   pytest-homeassistant-custom-component,
   pytestCheckHook,
 }:
-
 buildHomeAssistantComponent {
   owner = "wez";
   domain = "govee_lan";
@@ -44,7 +43,7 @@ buildHomeAssistantComponent {
   meta = with lib; {
     description = "Control Govee lights via the LAN API from Home Assistant";
     homepage = "https://github.com/wez/govee-lan-hass";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     license = licenses.mit;
   };
 }

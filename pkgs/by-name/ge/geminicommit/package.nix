@@ -6,7 +6,6 @@
   stdenv,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "geminicommit";
   version = "0.4.1";
@@ -24,11 +23,10 @@ buildGoModule (finalAttrs: {
     installShellFiles
   ];
 
-  postInstall =
-    let
-      cmd = finalAttrs.meta.mainProgram;
-      goDefaultCmd = finalAttrs.pname;
-    in
+  postInstall = let
+    cmd = finalAttrs.meta.mainProgram;
+    goDefaultCmd = finalAttrs.pname;
+  in
     # The official github released binary is renamed since v0.4.1,
     # see: https://github.com/tfkhdyt/geminicommit/releases/tag/v0.4.1
     # Here we link the old name (which is also the `go build` default name)
@@ -59,7 +57,7 @@ buildGoModule (finalAttrs: {
     description = "CLI that generates git commit messages with Google Gemini AI";
     homepage = "https://github.com/tfkhdyt/geminicommit";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ bryango ];
+    maintainers = with lib.maintainers; [bryango];
     mainProgram = "gmc";
   };
 })

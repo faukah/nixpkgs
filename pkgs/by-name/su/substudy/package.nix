@@ -2,11 +2,9 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-
   ffmpeg,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "substudy";
   version = "0.6.10";
@@ -21,11 +19,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-S+/Oh1Cwulw8FyakF+d2E51AioFuQBGMAOG3y27YM2Q=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ ffmpeg ];
+  nativeCheckInputs = [ffmpeg];
 
-  cargoBuildFlags = [ "-p substudy" ];
+  cargoBuildFlags = ["-p substudy"];
 
   preCheck = ''
     # That's to make sure the `test_ai_request_static`
@@ -35,7 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram "$out/bin/substudy" \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
@@ -43,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.randomhacks.net/substudy";
     license = licenses.asl20;
     mainProgram = "substudy";
-    maintainers = with maintainers; [ paveloom ];
+    maintainers = with maintainers; [paveloom];
   };
 }

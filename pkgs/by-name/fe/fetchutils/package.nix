@@ -5,7 +5,6 @@
   bash,
   scdoc,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fetchutils";
   version = "unstable-2021-03-16";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation {
     bash
   ];
 
-  installFlags = [ "PREFIX=$(out)/" ];
+  installFlags = ["PREFIX=$(out)/"];
 
   postPatch = ''
     patchShebangs --host src/*
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/lptstr/fetchutils";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

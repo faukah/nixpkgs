@@ -4,10 +4,8 @@
   fetchFromGitHub,
   buildPythonPackage,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # dependencies
   asgiref,
   httpx,
@@ -20,19 +18,16 @@
   starlette,
   typing-extensions,
   werkzeug,
-
   # optional-dependencies
   a2wsgi,
   flask,
   swagger-ui-bundle,
   uvicorn,
-
   # tests
   pytest-aiohttp,
   pytestCheckHook,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "connexion";
   version = "3.2.0";
@@ -47,7 +42,7 @@ buildPythonPackage rec {
     hash = "sha256-ruwpA2yd7FRME1FvYrZh0EOnhmQ26YVouXzpVD9ph6g=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     asgiref
@@ -68,17 +63,19 @@ buildPythonPackage rec {
       a2wsgi
       flask
     ];
-    swagger-ui = [ swagger-ui-bundle ];
-    uvicorn = [ uvicorn ];
+    swagger-ui = [swagger-ui-bundle];
+    uvicorn = [uvicorn];
   };
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-    testfixtures
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-aiohttp
+      pytestCheckHook
+      testfixtures
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "connexion" ];
+  pythonImportsCheck = ["connexion"];
 
   disabledTests =
     [
@@ -99,7 +96,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/spec-first/connexion";
     changelog = "https://github.com/spec-first/connexion/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "connexion";
   };
 }

@@ -6,7 +6,6 @@
   sphinx,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-programoutput";
   version = "0.18";
@@ -19,20 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-WI4R96G4cYYTxTwW4dKAayUNQyhVSrjhdWJyy8nZBUk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sphinxcontrib.programoutput" ];
+  pythonImportsCheck = ["sphinxcontrib.programoutput"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx extension to include program output";
     homepage = "https://github.com/NextThought/sphinxcontrib-programoutput";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

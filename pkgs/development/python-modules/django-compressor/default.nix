@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   calmjs,
   django-appconf,
   jinja2,
   rcssmin,
   rjsmin,
-
   # tests
   beautifulsoup4,
   brotli,
@@ -20,9 +17,7 @@
   django-sekizai,
   pytestCheckHook,
   pytest-django,
-
 }:
-
 buildPythonPackage rec {
   pname = "django-compressor";
   version = "4.5.1";
@@ -66,15 +61,15 @@ buildPythonPackage rec {
   # Getting error: compressor.exceptions.OfflineGenerationError: You have
   # offline compression enabled but key "..." is missing from offline manifest.
   # You may need to run "python manage.py compress"
-  disabledTestPaths = [ "compressor/tests/test_offline.py" ];
+  disabledTestPaths = ["compressor/tests/test_offline.py"];
 
-  pythonImportsCheck = [ "compressor" ];
+  pythonImportsCheck = ["compressor"];
 
   meta = with lib; {
     description = "Compresses linked and inline JavaScript or CSS into single cached files";
     homepage = "https://django-compressor.readthedocs.org/";
     changelog = "https://github.com/django-compressor/django-compressor/blob/${version}/docs/changelog.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

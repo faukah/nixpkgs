@@ -1,94 +1,82 @@
-{ pkgs, ... }:
-
-let
-  inherit (import ./ssh-keys.nix pkgs)
+{pkgs, ...}: let
+  inherit
+    (import ./ssh-keys.nix pkgs)
     snakeOilPrivateKey
     snakeOilPublicKey
     snakeOilEd25519PrivateKey
     snakeOilEd25519PublicKey
     ;
-in
-{
+in {
   name = "openssh";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ aszlig ];
+    maintainers = [aszlig];
   };
 
   nodes = {
+    server = {...}: {
+      services.openssh.enable = true;
+      security.pam.services.sshd.limits = [
+        {
+          domain = "*";
+          item = "memlock";
+          type = "-";
+          value = 1024;
+        }
+      ];
+      users.users.root.openssh.authorizedKeys.keys = [
+        snakeOilPublicKey
+      ];
+    };
 
-    server =
-      { ... }:
-
-      {
-        services.openssh.enable = true;
-        security.pam.services.sshd.limits = [
-          {
-            domain = "*";
-            item = "memlock";
-            type = "-";
-            value = 1024;
-          }
-        ];
-        users.users.root.openssh.authorizedKeys.keys = [
-          snakeOilPublicKey
-        ];
-      };
-
-    server-allowed-users =
-      { ... }:
-
-      {
-        services.openssh = {
-          enable = true;
-          settings.AllowUsers = [
-            "alice"
-            "bob"
-          ];
-        };
-        users.groups = {
-          alice = { };
-          bob = { };
-          carol = { };
-        };
-        users.users = {
-          alice = {
-            isNormalUser = true;
-            group = "alice";
-            openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-          };
-          bob = {
-            isNormalUser = true;
-            group = "bob";
-            openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-          };
-          carol = {
-            isNormalUser = true;
-            group = "carol";
-            openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-          };
-        };
-      };
-
-    server-lazy =
-      { ... }:
-
-      {
-        services.openssh = {
-          enable = true;
-          startWhenNeeded = true;
-        };
-        security.pam.services.sshd.limits = [
-          {
-            domain = "*";
-            item = "memlock";
-            type = "-";
-            value = 1024;
-          }
-        ];
-        users.users.root.openssh.authorizedKeys.keys = [
-          snakeOilPublicKey
+    server-allowed-users = {...}: {
+      services.openssh = {
+        enable = true;
+        settings.AllowUsers = [
+          "alice"
+          "bob"
         ];
       };
+      users.groups = {
+        alice = {};
+        bob = {};
+        carol = {};
+      };
+      users.users = {
+        alice = {
+          isNormalUser = true;
+          group = "alice";
+          openssh.authorizedKeys.keys = [snakeOilPublicKey];
+        };
+        bob = {
+          isNormalUser = true;
+          group = "bob";
+          openssh.authorizedKeys.keys = [snakeOilPublicKey];
+        };
+        carol = {
+          isNormalUser = true;
+          group = "carol";
+          openssh.authorizedKeys.keys = [snakeOilPublicKey];
+        };
+      };
+    };
+
+    server-lazy = {...}: {
+      services.openssh = {
+        enable = true;
+        startWhenNeeded = true;
+      };
+      security.pam.services.sshd.limits = [
+        {
+          domain = "*";
+          item = "memlock";
+          type = "-";
+          value = 1024;
+        }
+      ];
+      users.users.root.openssh.authorizedKeys.keys = [
+        snakeOilPublicKey
+      ];
+    };
 
     server-lazy-socket = {
       virtualisation.vlans = [
@@ -98,167 +86,149 @@ in
       services.openssh = {
         enable = true;
         startWhenNeeded = true;
-        ports = [ 2222 ];
-        listenAddresses = [ { addr = "0.0.0.0"; } ];
+        ports = [2222];
+        listenAddresses = [{addr = "0.0.0.0";}];
       };
       users.users.root.openssh.authorizedKeys.keys = [
         snakeOilPublicKey
       ];
     };
 
-    server-localhost-only =
-      { ... }:
-
-      {
-        services.openssh = {
-          enable = true;
-          listenAddresses = [
-            {
-              addr = "127.0.0.1";
-              port = 22;
-            }
-          ];
-        };
-      };
-
-    server-localhost-only-lazy =
-      { ... }:
-
-      {
-        services.openssh = {
-          enable = true;
-          startWhenNeeded = true;
-          listenAddresses = [
-            {
-              addr = "127.0.0.1";
-              port = 22;
-            }
-          ];
-        };
-      };
-
-    server-match-rule =
-      { ... }:
-
-      {
-        services.openssh = {
-          enable = true;
-          listenAddresses = [
-            {
-              addr = "127.0.0.1";
-              port = 22;
-            }
-            {
-              addr = "[::]";
-              port = 22;
-            }
-          ];
-          extraConfig = ''
-            # Combined test for two (predictable) Match criterias
-            Match LocalAddress 127.0.0.1 LocalPort 22
-              PermitRootLogin yes
-
-            # Separate tests for Match criterias
-            Match User root
-              PermitRootLogin yes
-            Match Group root
-              PermitRootLogin yes
-            Match Host nohost.example
-              PermitRootLogin yes
-            Match LocalAddress 127.0.0.1
-              PermitRootLogin yes
-            Match LocalPort 22
-              PermitRootLogin yes
-            Match RDomain nohost.example
-              PermitRootLogin yes
-            Match Address 127.0.0.1
-              PermitRootLogin yes
-          '';
-        };
-      };
-
-    server-no-openssl =
-      { ... }:
-      {
-        services.openssh = {
-          enable = true;
-          package = pkgs.opensshPackages.openssh.override {
-            linkOpenssl = false;
-          };
-          hostKeys = [
-            {
-              type = "ed25519";
-              path = "/etc/ssh/ssh_host_ed25519_key";
-            }
-          ];
-          settings = {
-            # Since this test is against an OpenSSH-without-OpenSSL,
-            # we have to override NixOS's defaults ciphers (which require OpenSSL)
-            # and instead set these to null, which will mean OpenSSH uses its defaults.
-            # Expectedly, OpenSSH's defaults don't require OpenSSL when it's compiled
-            # without OpenSSL.
-            Ciphers = null;
-            KexAlgorithms = null;
-            Macs = null;
-          };
-        };
-        users.users.root.openssh.authorizedKeys.keys = [
-          snakeOilEd25519PublicKey
+    server-localhost-only = {...}: {
+      services.openssh = {
+        enable = true;
+        listenAddresses = [
+          {
+            addr = "127.0.0.1";
+            port = 22;
+          }
         ];
       };
+    };
 
-    server-no-pam =
-      { pkgs, ... }:
-      {
-        services.openssh = {
-          enable = true;
-          package = pkgs.opensshPackages.openssh.override {
-            withPAM = false;
-          };
-          settings = {
-            UsePAM = false;
-          };
-        };
-        users.users.root.openssh.authorizedKeys.keys = [
-          snakeOilPublicKey
+    server-localhost-only-lazy = {...}: {
+      services.openssh = {
+        enable = true;
+        startWhenNeeded = true;
+        listenAddresses = [
+          {
+            addr = "127.0.0.1";
+            port = 22;
+          }
         ];
       };
+    };
 
-    server-sftp =
-      { pkgs, ... }:
-      {
-        services.openssh = {
-          enable = true;
-          extraConfig = ''
-            Match Group sftponly
-              ChrootDirectory /srv/sftp
-              ForceCommand internal-sftp
-          '';
-        };
-
-        users.groups = {
-          sftponly = { };
-        };
-        users.users = {
-          alice = {
-            isNormalUser = true;
-            createHome = false;
-            group = "sftponly";
-            shell = "/run/current-system/sw/bin/nologin";
-            openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-          };
-        };
-      };
-
-    client =
-      { ... }:
-      {
-        virtualisation.vlans = [
-          1
-          2
+    server-match-rule = {...}: {
+      services.openssh = {
+        enable = true;
+        listenAddresses = [
+          {
+            addr = "127.0.0.1";
+            port = 22;
+          }
+          {
+            addr = "[::]";
+            port = 22;
+          }
         ];
+        extraConfig = ''
+          # Combined test for two (predictable) Match criterias
+          Match LocalAddress 127.0.0.1 LocalPort 22
+            PermitRootLogin yes
+
+          # Separate tests for Match criterias
+          Match User root
+            PermitRootLogin yes
+          Match Group root
+            PermitRootLogin yes
+          Match Host nohost.example
+            PermitRootLogin yes
+          Match LocalAddress 127.0.0.1
+            PermitRootLogin yes
+          Match LocalPort 22
+            PermitRootLogin yes
+          Match RDomain nohost.example
+            PermitRootLogin yes
+          Match Address 127.0.0.1
+            PermitRootLogin yes
+        '';
+      };
+    };
+
+    server-no-openssl = {...}: {
+      services.openssh = {
+        enable = true;
+        package = pkgs.opensshPackages.openssh.override {
+          linkOpenssl = false;
+        };
+        hostKeys = [
+          {
+            type = "ed25519";
+            path = "/etc/ssh/ssh_host_ed25519_key";
+          }
+        ];
+        settings = {
+          # Since this test is against an OpenSSH-without-OpenSSL,
+          # we have to override NixOS's defaults ciphers (which require OpenSSL)
+          # and instead set these to null, which will mean OpenSSH uses its defaults.
+          # Expectedly, OpenSSH's defaults don't require OpenSSL when it's compiled
+          # without OpenSSL.
+          Ciphers = null;
+          KexAlgorithms = null;
+          Macs = null;
+        };
+      };
+      users.users.root.openssh.authorizedKeys.keys = [
+        snakeOilEd25519PublicKey
+      ];
+    };
+
+    server-no-pam = {pkgs, ...}: {
+      services.openssh = {
+        enable = true;
+        package = pkgs.opensshPackages.openssh.override {
+          withPAM = false;
+        };
+        settings = {
+          UsePAM = false;
+        };
+      };
+      users.users.root.openssh.authorizedKeys.keys = [
+        snakeOilPublicKey
+      ];
+    };
+
+    server-sftp = {pkgs, ...}: {
+      services.openssh = {
+        enable = true;
+        extraConfig = ''
+          Match Group sftponly
+            ChrootDirectory /srv/sftp
+            ForceCommand internal-sftp
+        '';
       };
 
+      users.groups = {
+        sftponly = {};
+      };
+      users.users = {
+        alice = {
+          isNormalUser = true;
+          createHome = false;
+          group = "sftponly";
+          shell = "/run/current-system/sw/bin/nologin";
+          openssh.authorizedKeys.keys = [snakeOilPublicKey];
+        };
+      };
+    };
+
+    client = {...}: {
+      virtualisation.vlans = [
+        1
+        2
+      ];
+    };
   };
 
   testScript = ''

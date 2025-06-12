@@ -20,7 +20,6 @@
   libical,
   libportal-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-tasks";
   version = "6.3.3";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Synced tasks and reminders on elementary OS";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.tasks";
   };
 }

@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://synthcode.com/scheme/irregex";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ knightpp ];
+    maintainers = with lib.maintainers; [knightpp];
     platforms = guile.meta.platforms;
   };
 })

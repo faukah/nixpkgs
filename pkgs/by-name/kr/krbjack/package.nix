@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "krbjack";
   version = "1.2.0";
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/almandin/krbjack";
     changelog = "https://github.com/almandin/krbjack/releases/tag/${version}}";
     license = lib.licenses.beerware;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "krbjack";
   };
 }

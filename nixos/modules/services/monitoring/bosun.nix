@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.bosun;
 
   configFile = pkgs.writeText "bosun.conf" ''
@@ -17,17 +16,12 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
-
+in {
   options = {
-
     services.bosun = {
-
       enable = lib.mkEnableOption "bosun";
 
-      package = lib.mkPackageOption pkgs "bosun" { };
+      package = lib.mkPackageOption pkgs "bosun" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -107,16 +101,13 @@ in
           <https://bosun.org/configuration.html>
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.bosun = {
       description = "bosun metrics collector (part of Bosun)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p "$(dirname "${cfg.stateFile}")";
@@ -149,7 +140,5 @@ in
     };
 
     users.groups.bosun.gid = config.ids.gids.bosun;
-
   };
-
 }

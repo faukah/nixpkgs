@@ -10,7 +10,6 @@
   libmad,
   xdelta,
 }:
-
 stdenv.mkDerivation {
   pname = "uhexen2";
   version = "1.5.9";
@@ -80,7 +79,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://uhexen2.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ xdhampus ];
+    maintainers = with maintainers; [xdhampus];
     platforms = platforms.all;
   };
 }

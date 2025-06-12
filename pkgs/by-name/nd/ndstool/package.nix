@@ -5,7 +5,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ndstool";
   version = "2.3.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/devkitPro/ndstool";
     description = "Tool to unpack and repack nds rom";
-    maintainers = [ lib.maintainers.marius851000 ];
+    maintainers = [lib.maintainers.marius851000];
     license = lib.licenses.gpl3;
     mainProgram = "ndstool";
   };

@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "face";
   version = "24.0.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-YR4poBrFlw8Ad/nFd+dG1IwIJYi0EbM6DdVcTYcpSfY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ boltons ];
+  dependencies = [boltons];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "face" ];
+  pythonImportsCheck = ["face"];
 
   disabledTests = [
     # Assertion error as we take the Python release into account
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/mahmoud/face";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

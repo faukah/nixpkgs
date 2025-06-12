@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStringsSep
     isBool
     mapAttrs
@@ -20,16 +19,19 @@ let
 
   cfg = config.services.redlib;
 
-  args = concatStringsSep " " ([
+  args = concatStringsSep " " [
     "--port ${toString cfg.port}"
     "--address ${cfg.address}"
-  ]);
+  ];
 
-  boolToString' = b: if b then "on" else "off";
-in
-{
+  boolToString' = b:
+    if b
+    then "on"
+    else "off";
+in {
   imports = [
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "libreddit"
@@ -45,7 +47,7 @@ in
     services.redlib = {
       enable = mkEnableOption "Private front-end for Reddit";
 
-      package = mkPackageOption pkgs "redlib" { };
+      package = mkPackageOption pkgs "redlib" {};
 
       address = mkOption {
         default = "0.0.0.0";
@@ -69,8 +71,7 @@ in
 
       settings = lib.mkOption {
         type = lib.types.submodule {
-          freeformType =
-            with types;
+          freeformType = with types;
             attrsOf (
               nullOr (oneOf [
                 bool
@@ -78,9 +79,9 @@ in
                 str
               ])
             );
-          options = { };
+          options = {};
         };
-        default = { };
+        default = {};
         description = ''
           See [GitHub](https://github.com/redlib-org/redlib/tree/main?tab=readme-ov-file#configuration) for available settings.
         '';
@@ -89,10 +90,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.redlib = {
-      wantedBy = [ "default.target" ];
-      environment = mapAttrs (_: v: if isBool v then boolToString' v else toString v) cfg.settings;
+      wantedBy = ["default.target"];
+      environment = mapAttrs (_: v:
+        if isBool v
+        then boolToString' v
+        else toString v)
+      cfg.settings;
       serviceConfig =
         {
           ExecStart = [
@@ -101,26 +106,25 @@ in
           ];
         }
         // (
-          if (cfg.port < 1024) then
-            {
-              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-            }
-          else
-            {
-              # A private user cannot have process capabilities on the host's user
-              # namespace and thus CAP_NET_BIND_SERVICE has no effect.
-              PrivateUsers = true;
-            }
+          if (cfg.port < 1024)
+          then {
+            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+            CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+          }
+          else {
+            # A private user cannot have process capabilities on the host's user
+            # namespace and thus CAP_NET_BIND_SERVICE has no effect.
+            PrivateUsers = true;
+          }
         );
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
   };
 }

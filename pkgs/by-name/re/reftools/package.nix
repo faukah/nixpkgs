@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "reftools";
   version = "unstable-2021-02-13";
@@ -25,6 +24,6 @@ buildGoModule {
     description = "Refactoring tools for Go";
     homepage = "https://github.com/davidrjenni/reftools";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

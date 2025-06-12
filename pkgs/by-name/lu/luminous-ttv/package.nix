@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "luminous-ttv";
   version = "0.5.8";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "luminous-ttv";
-    maintainers = with lib.maintainers; [ alex ];
+    maintainers = with lib.maintainers; [alex];
   };
 }

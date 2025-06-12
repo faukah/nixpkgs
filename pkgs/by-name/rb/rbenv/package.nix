@@ -4,12 +4,11 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rbenv";
   version = "1.3.2";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   src = fetchFromGitHub {
     owner = "rbenv";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/rbenv/rbenv";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fzakaria ];
+    maintainers = with lib.maintainers; [fzakaria];
     mainProgram = "rbenv";
     platforms = lib.platforms.all;
   };

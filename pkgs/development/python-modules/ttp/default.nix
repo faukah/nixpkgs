@@ -16,7 +16,6 @@
   ttp-templates,
   yangson,
 }:
-
 buildPythonPackage rec {
   pname = "ttp";
   version = "0.9.5";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-IWqPFspERBVkjsTYTAkOTOrugq4fD65Q140G3SCEV0w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     # https://github.com/dmulyalin/ttp/blob/master/docs/source/Installation.rst#additional-dependencies
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     yangson
   ];
 
-  pythonImportsCheck = [ "ttp" ];
+  pythonImportsCheck = ["ttp"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -97,7 +96,7 @@ buildPythonPackage rec {
     "test_ttp_templates_dir_env_variable"
   ];
 
-  pytestFlagsArray = [ "test/pytest" ];
+  pytestFlagsArray = ["test/pytest"];
 
   meta = with lib; {
     changelog = "https://github.com/dmulyalin/ttp/releases/tag/${version}";
@@ -105,6 +104,6 @@ buildPythonPackage rec {
     mainProgram = "ttp";
     homepage = "https://github.com/dmulyalin/ttp";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

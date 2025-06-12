@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.networking.modemmanager;
-in
-{
+in {
   meta = {
     maintainers = lib.teams.freedesktop.members;
   };
@@ -25,7 +23,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "modemmanager" { };
+      package = mkPackageOption pkgs "modemmanager" {};
 
       fccUnlockScripts = mkOption {
         type = types.listOf (
@@ -42,7 +40,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         example = literalExpression ''[{ id = "03f0:4e1d"; path = "''${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/03f0:4e1d"; }]'';
         description = ''
           List of FCC unlock scripts to enable on the system, behaving as described in
@@ -56,27 +54,28 @@ in
     environment.etc = builtins.listToAttrs (
       map (
         e:
-        lib.nameValuePair "ModemManager/fcc-unlock.d/${e.id}" {
-          source = e.path;
-        }
-      ) cfg.fccUnlockScripts
+          lib.nameValuePair "ModemManager/fcc-unlock.d/${e.id}" {
+            source = e.path;
+          }
+      )
+      cfg.fccUnlockScripts
     );
 
     systemd.services.ModemManager = {
-      aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
-      path = lib.optionals (cfg.fccUnlockScripts != [ ]) [
+      aliases = ["dbus-org.freedesktop.ModemManager1.service"];
+      path = lib.optionals (cfg.fccUnlockScripts != []) [
         pkgs.libqmi
         pkgs.libmbim
       ];
     };
 
     /*
-      [modem-manager]
-      Identity=unix-group:networkmanager
-      Action=org.freedesktop.ModemManager*
-      ResultAny=yes
-      ResultInactive=no
-      ResultActive=yes
+    [modem-manager]
+    Identity=unix-group:networkmanager
+    Action=org.freedesktop.ModemManager*
+    ResultAny=yes
+    ResultInactive=no
+    ResultActive=yes
     */
     security.polkit.enable = true;
     security.polkit.extraConfig = ''
@@ -89,9 +88,9 @@ in
       });
     '';
 
-    environment.systemPackages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
-    services.dbus.packages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    systemd.packages = [cfg.package];
+    services.dbus.packages = [cfg.package];
+    services.udev.packages = [cfg.package];
   };
 }

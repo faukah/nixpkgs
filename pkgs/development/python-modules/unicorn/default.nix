@@ -8,7 +8,6 @@
   setuptools,
   unicorn,
 }:
-
 buildPythonPackage rec {
   pname = "unicorn";
   version = lib.getVersion unicorn;
@@ -46,9 +45,9 @@ buildPythonPackage rec {
   ];
 
   # this test does not appear to be intended as a pytest-style test
-  disabledTests = [ "test_i386" ];
+  disabledTests = ["test_i386"];
 
-  pythonImportsCheck = [ "unicorn" ];
+  pythonImportsCheck = ["unicorn"];
 
   meta = with lib; {
     description = "Python bindings for Unicorn CPU emulator engine";

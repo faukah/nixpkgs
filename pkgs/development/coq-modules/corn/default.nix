@@ -7,38 +7,37 @@
   coq-elpi,
   version ? null,
 }:
-
 (mkCoqDerivation {
   pname = "corn";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
-        case = (range "8.18" "8.20");
+        case = range "8.18" "8.20";
         out = "8.20.0";
       }
       {
-        case = (range "8.17" "8.20");
+        case = range "8.17" "8.20";
         out = "8.19.0";
       }
       {
-        case = (range "8.14" "8.18");
+        case = range "8.14" "8.18";
         out = "8.18.0";
       }
       {
-        case = (range "8.11" "8.17");
+        case = range "8.11" "8.17";
         out = "8.16.0";
       }
       {
-        case = (range "8.7" "8.15");
+        case = range "8.7" "8.15";
         out = "8.13.0";
       }
       {
         case = "8.6";
         out = "8.8.1";
       }
-    ] null;
+    ]
+    null;
   release = {
     "8.8.1".sha256 = "0gh32j0f18vv5lmf6nb87nr5450w6ai06rhrnvlx2wwi79gv10wp";
     "8.12.0".sha256 = "0b92vhyzn1j6cs84z2182fn82hxxj0bqq7hk6cs4awwb3vc7dkhi";
@@ -63,11 +62,11 @@
     homepage = "http://c-corn.github.io/";
     license = licenses.gpl2;
     description = "Coq library for constructive analysis";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }).overrideAttrs
-  (o: {
-    propagatedBuildInputs =
-      o.propagatedBuildInputs
-      ++ lib.optional (lib.versions.isGt "8.19.0" o.version || o.version == "dev") coq-elpi;
-  })
+(o: {
+  propagatedBuildInputs =
+    o.propagatedBuildInputs
+    ++ lib.optional (lib.versions.isGt "8.19.0" o.version || o.version == "dev") coq-elpi;
+})

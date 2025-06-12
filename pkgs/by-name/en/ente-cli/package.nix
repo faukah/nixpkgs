@@ -7,7 +7,6 @@
   stdenv,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ente-cli";
   version = "0.2.3";
@@ -17,7 +16,7 @@ buildGoModule (finalAttrs: {
     repo = "ente";
     tag = "cli-v${finalAttrs.version}";
     hash = "sha256-qKMFoNtD5gH0Y+asD0LR5d3mxGpr2qVWXIUzJTSezeI=";
-    sparseCheckout = [ "cli" ];
+    sparseCheckout = ["cli"];
   };
 
   modRoot = "./cli";
@@ -32,7 +31,7 @@ buildGoModule (finalAttrs: {
     "-X main.AppVersion=cli-v${finalAttrs.version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     ''
@@ -45,18 +44,17 @@ buildGoModule (finalAttrs: {
     # also guarding with `isLinux` because ENTE_CLI_SECRETS_PATH doesn't help on darwin:
     # > error setting password in keyring: exit status 195
     #
-    +
-      lib.optionalString
-        (stdenv.buildPlatform.isLinux && stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        ''
-          export ENTE_CLI_CONFIG_PATH=$TMP
-          export ENTE_CLI_SECRETS_PATH=$TMP/secrets
+    + lib.optionalString
+    (stdenv.buildPlatform.isLinux && stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    ''
+      export ENTE_CLI_CONFIG_PATH=$TMP
+      export ENTE_CLI_SECRETS_PATH=$TMP/secrets
 
-          installShellCompletion --cmd ente \
-            --bash <($out/bin/ente completion bash) \
-            --fish <($out/bin/ente completion fish) \
-            --zsh <($out/bin/ente completion zsh)
-        '';
+      installShellCompletion --cmd ente \
+        --bash <($out/bin/ente completion bash) \
+        --fish <($out/bin/ente completion fish) \
+        --zsh <($out/bin/ente completion zsh)
+    '';
 
   passthru = {
     # only works on linux, see comment above about ENTE_CLI_SECRETS_PATH on darwin

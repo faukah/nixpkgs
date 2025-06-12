@@ -3,14 +3,12 @@
   version,
   src,
   gitSrc,
-  buildInputs ? [ ],
+  buildInputs ? [],
   homepage,
   description,
   maintainers,
-  passthru ? { },
-}:
-
-{
+  passthru ? {},
+}: {
   lib,
   stdenv,
   openssl,
@@ -31,7 +29,6 @@
   zstd,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   inherit
     pname
@@ -52,13 +49,15 @@ stdenv.mkDerivation {
       python
       wrapPython
     ]);
-  buildInputs = buildInputs ++ [
-    openssl
-    zlib
-    libxml2
-    libxslt
-    docbook_xsl
-  ];
+  buildInputs =
+    buildInputs
+    ++ [
+      openssl
+      zlib
+      libxml2
+      libxslt
+      docbook_xsl
+    ];
   pythonPath = with python3Packages; [
     pygments
     markdown
@@ -107,15 +106,15 @@ stdenv.mkDerivation {
 
     for script in $out/lib/cgit/filters/*.sh $out/lib/cgit/filters/html-converters/txt2html; do
       wrapProgram $script --prefix PATH : '${
-        lib.makeBinPath [
-          coreutils
-          gnused
-        ]
-      }'
+      lib.makeBinPath [
+        coreutils
+        gnused
+      ]
+    }'
     done
   '';
 
-  stripDebugList = [ "cgit" ];
+  stripDebugList = ["cgit"];
 
   enableParallelBuilding = true;
 
@@ -123,6 +122,6 @@ stdenv.mkDerivation {
     inherit homepage description;
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = maintainers ++ (with lib.maintainers; [ qyliss ]);
+    maintainers = maintainers ++ (with lib.maintainers; [qyliss]);
   };
 }

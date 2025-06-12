@@ -11,7 +11,6 @@
   libpulseaudio,
   xz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocenaudio";
   version = "3.15";
@@ -58,9 +57,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Cross-platform, easy to use, fast and functional audio editor";
     homepage = "https://www.ocenaudio.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ onny ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [onny];
   };
 })

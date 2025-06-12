@@ -35,20 +35,18 @@ buildGoModule rec {
   # tests expect the source files to be a build repo
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      ${emulator} $out/bin/goreleaser man > goreleaser.1
-      installManPage ./goreleaser.1
-      installShellCompletion --cmd goreleaser \
-        --bash <(${emulator} $out/bin/goreleaser completion bash) \
-        --fish <(${emulator} $out/bin/goreleaser completion fish) \
-        --zsh  <(${emulator} $out/bin/goreleaser completion zsh)
-    '';
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    ${emulator} $out/bin/goreleaser man > goreleaser.1
+    installManPage ./goreleaser.1
+    installShellCompletion --cmd goreleaser \
+      --bash <(${emulator} $out/bin/goreleaser completion bash) \
+      --fish <(${emulator} $out/bin/goreleaser completion fish) \
+      --zsh  <(${emulator} $out/bin/goreleaser completion zsh)
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = goreleaser;

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KpHhPFl+cNTQpld9LtI9yLidN9gj1zNz+jKfzF+n+sI=";
   };
 
-  nativeBuildInputs = [ gnum4 ];
+  nativeBuildInputs = [gnum4];
 
   postPatch = ''
     substituteInPlace utils.mk --replace-fail "/usr/local" "$out"

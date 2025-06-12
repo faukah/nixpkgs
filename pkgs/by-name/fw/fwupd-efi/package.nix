@@ -9,7 +9,6 @@
   python3,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fwupd-efi";
   version = "1.7";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://fwupd.org/";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

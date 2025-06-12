@@ -8,7 +8,6 @@
   pythonOlder,
   transformers,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-llms-openai-like";
   version = "0.3.5";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-1TId/2bYHYuQCMdvROlcSZFTZDUyrMhZop5xRicvrNk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     llama-index-core
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.llms.openai_like" ];
+  pythonImportsCheck = ["llama_index.llms.openai_like"];
 
   meta = with lib; {
     description = "LlamaIndex LLMS Integration for OpenAI like";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/llms/llama-index-llms-openai-like";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

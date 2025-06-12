@@ -13,7 +13,6 @@
   qtbase,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kdbg";
   version = "3.1.0";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     '';
     mainProgram = "kdbg";
     license = licenses.gpl2;
-    maintainers = [ maintainers.catern ];
+    maintainers = [maintainers.catern];
   };
 }

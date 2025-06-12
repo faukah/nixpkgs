@@ -36,7 +36,6 @@
   SDL2,
   useSDL2 ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luanti";
   version = "5.12.0";
@@ -83,7 +82,6 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "CMAKE_INSTALL_DOCDIR" "share/doc/luanti")
     (lib.cmakeFeature "CMAKE_INSTALL_MANDIR" "share/man")
     (lib.cmakeFeature "CMAKE_INSTALL_LOCALEDIR" "share/locale")
-
   ];
 
   nativeBuildInputs = [
@@ -157,6 +155,9 @@ stdenv.mkDerivation (finalAttrs: {
       fgaz
       jk
     ];
-    mainProgram = if buildClient then "luanti" else "luantiserver";
+    mainProgram =
+      if buildClient
+      then "luanti"
+      else "luantiserver";
   };
 })

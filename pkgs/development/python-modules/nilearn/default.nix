@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   joblib,
   lxml,
@@ -17,10 +15,8 @@
   scikit-learn,
   scipy,
   packaging,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nilearn";
   version = "0.11.1";
@@ -55,7 +51,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/nilearn/nilearn/issues/2608
@@ -66,13 +62,13 @@ buildPythonPackage rec {
   ];
 
   # do subset of tests which don't fetch resources
-  pytestFlagsArray = [ "nilearn/connectome/tests" ];
+  pytestFlagsArray = ["nilearn/connectome/tests"];
 
   meta = {
     description = "Module for statistical learning on neuroimaging data";
     homepage = "https://nilearn.github.io";
     changelog = "https://github.com/nilearn/nilearn/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

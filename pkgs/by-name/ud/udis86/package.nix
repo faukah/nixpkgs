@@ -6,7 +6,6 @@
   autoreconfHook,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "udis86";
   version = "unstable-2014-12-25";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://udis86.sourceforge.net";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ timor ];
+    maintainers = with maintainers; [timor];
     mainProgram = "udcli";
     description = ''
       Easy-to-use, minimalistic x86 disassembler library (libudis86)

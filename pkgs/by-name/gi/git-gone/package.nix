@@ -5,7 +5,6 @@
   installShellFiles,
   asciidoctor,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-gone";
   version = "1.2.5";

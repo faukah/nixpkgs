@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "libguestfs-appliance";
   version = "1.54.0";
@@ -29,11 +28,11 @@ stdenvNoCC.mkDerivation rec {
       gpl2Plus
       lgpl2Plus
     ];
-    maintainers = with maintainers; [ lukts30 ];
+    maintainers = with maintainers; [lukts30];
     platforms = [
       "i686-linux"
       "x86_64-linux"
     ];
-    hydraPlatforms = [ ]; # Hydra fails with "Output limit exceeded"
+    hydraPlatforms = []; # Hydra fails with "Output limit exceeded"
   };
 }

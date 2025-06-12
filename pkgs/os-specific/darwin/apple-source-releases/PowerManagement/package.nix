@@ -3,9 +3,7 @@
   apple-sdk,
   mkAppleDerivation,
   stdenvNoCC,
-}:
-
-let
+}: let
   iokitUser = apple-sdk.sourceRelease "IOKitUser";
 
   privateHeaders = stdenvNoCC.mkDerivation {
@@ -17,12 +15,12 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "PowerManagement";
+  mkAppleDerivation {
+    releaseName = "PowerManagement";
 
-  xcodeHash = "sha256-l6lm8aaiJg4H2BQVCjlFldpfhnmPAlsiMK7Cghzuh1E=";
+    xcodeHash = "sha256-l6lm8aaiJg4H2BQVCjlFldpfhnmPAlsiMK7Cghzuh1E=";
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  meta.description = "Contains the Darwin caffeinate command";
-}
+    meta.description = "Contains the Darwin caffeinate command";
+  }

@@ -7,7 +7,6 @@
   regex,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tatsu-lts";
   version = "5.13.1";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-cfGAWZDAnoD3ddhVIkOHyiv7gUDgnAWu1ZBvDEiQ2AQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
     regex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tatsu" ];
+  pythonImportsCheck = ["tatsu"];
 
   meta = {
     description = "Generates Python parsers from grammars in a variation of EBNF";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://tatsu.readthedocs.io/";
     changelog = "https://github.com/dnicolodi/TatSu-LTS/releases/tag/${src.tag}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ alapshin ];
+    maintainers = with lib.maintainers; [alapshin];
   };
 }

@@ -4,7 +4,6 @@
   nix-update-script,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dhcpm";
   version = "0.2.3";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-L6+/buzhYoLdFh7x8EmT37JyY5Pr7oFzyOGbhvgNvlw=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dhcpm is a CLI tool for constructing & sending DHCP messages";
     homepage = "https://github.com/leshow/dhcpm";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jmbaur ];
+    maintainers = [lib.maintainers.jmbaur];
     mainProgram = "dhcpm";
   };
 }

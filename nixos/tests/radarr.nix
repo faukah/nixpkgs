@@ -1,14 +1,10 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "radarr";
-  meta.maintainers = with lib.maintainers; [ etu ];
+  meta.maintainers = with lib.maintainers; [etu];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.radarr.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.radarr.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_unit("radarr.service")

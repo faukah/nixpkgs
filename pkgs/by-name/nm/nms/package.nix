@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nms";
   version = "1.0.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     "nms"
     "sneakers"
   ];
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/bartobri/no-more-secrets";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
       effect seen in the 1992 movie Sneakers.
     '';
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

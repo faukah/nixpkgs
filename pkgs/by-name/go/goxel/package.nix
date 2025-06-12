@@ -9,7 +9,6 @@
   gtk3,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "goxel";
   version = "0.15.1-unstable-2024-12-27";
@@ -35,9 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
   dontUseSconsBuild = true;
   dontUseSconsInstall = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  buildFlags = [ "release" ];
+  buildFlags = ["release"];
 
   meta = with lib; {
     description = "Open Source 3D voxel editor";

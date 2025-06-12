@@ -8,7 +8,6 @@
   gpgme,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "kraftkit";
   version = "0.11.6";
@@ -40,7 +39,7 @@ buildGoModule rec {
     "-X kraftkit.sh/internal/version.version=${version}"
   ];
 
-  subPackages = [ "cmd/kraft" ];
+  subPackages = ["cmd/kraft"];
 
   passthru = {
     updateScript = nix-update-script {

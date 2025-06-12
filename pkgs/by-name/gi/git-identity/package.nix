@@ -39,14 +39,14 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Manage your identity in Git";
     mainProgram = "git-identity";
     homepage = "https://github.com/madx/git-identity";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ mynacol ];
+    maintainers = with lib.maintainers; [mynacol];
     platforms = lib.platforms.all;
   };
 }

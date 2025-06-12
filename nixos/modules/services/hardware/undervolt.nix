@@ -3,21 +3,19 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.undervolt;
 
-  mkPLimit =
-    limit: window:
-    if (limit == null && window == null) then
-      null
+  mkPLimit = limit: window:
+    if (limit == null && window == null)
+    then null
     else
       assert lib.asserts.assertMsg (
         limit != null && window != null
-      ) "Both power limit and window must be set";
-      "${toString limit} ${toString window}";
-  cliArgs = lib.cli.toGNUCommandLine { } {
-    inherit (cfg)
+      ) "Both power limit and window must be set"; "${toString limit} ${toString window}";
+  cliArgs = lib.cli.toGNUCommandLine {} {
+    inherit
+      (cfg)
       verbose
       temp
       turbo
@@ -39,8 +37,7 @@ let
     power-limit-long = mkPLimit cfg.p1.limit cfg.p1.window;
     power-limit-short = mkPLimit cfg.p2.limit cfg.p2.window;
   };
-in
-{
+in {
   options.services.undervolt = {
     enable = lib.mkEnableOption ''
       Undervolting service for Intel CPUs.
@@ -56,7 +53,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "undervolt" { };
+    package = lib.mkPackageOption pkgs "undervolt" {};
 
     coreOffset = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
@@ -131,8 +128,7 @@ in
       '';
     };
     p1.window = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (oneOf [
           float
           int
@@ -153,8 +149,7 @@ in
       '';
     };
     p2.window = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (oneOf [
           float
           int
@@ -181,7 +176,7 @@ in
   config = lib.mkIf cfg.enable {
     hardware.cpu.x86.msr.enable = true;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.undervolt = {
       description = "Intel Undervolting Service";
@@ -191,7 +186,7 @@ in
         "multi-user.target"
         "post-resume.target"
       ];
-      after = [ "post-resume.target" ]; # Not sure why but it won't work without this
+      after = ["post-resume.target"]; # Not sure why but it won't work without this
 
       serviceConfig = {
         Type = "oneshot";
@@ -202,8 +197,8 @@ in
 
     systemd.timers.undervolt = lib.mkIf cfg.useTimer {
       description = "Undervolt timer to ensure voltage settings are always applied";
-      partOf = [ "undervolt.service" ];
-      wantedBy = [ "multi-user.target" ];
+      partOf = ["undervolt.service"];
+      wantedBy = ["multi-user.target"];
       timerConfig = {
         OnBootSec = "2min";
         OnUnitActiveSec = "30";

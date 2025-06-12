@@ -6,7 +6,6 @@
   testers,
   discordchatexporter-desktop,
 }:
-
 buildDotnetModule rec {
   pname = "discordchatexporter-desktop";
   version = "2.44.2";
@@ -25,7 +24,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
-  patches = [ ./settings-path.patch ];
+  patches = [./settings-path.patch];
 
   postFixup = ''
     ln -s $out/bin/DiscordChatExporter $out/bin/discordchatexporter
@@ -40,8 +39,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/Tyrrrz/DiscordChatExporter";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/Tyrrrz/DiscordChatExporter/blob/${version}/Changelog.md";
-    maintainers = with lib.maintainers; [ willow ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [willow];
+    platforms = ["x86_64-linux"];
     mainProgram = "discordchatexporter";
   };
 }

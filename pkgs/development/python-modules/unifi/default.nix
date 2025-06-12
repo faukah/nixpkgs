@@ -4,7 +4,6 @@
   fetchPypi,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "unifi";
   version = "1.2.5";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0prgx01hzs49prrazgxrinm7ivqzy57ch06qm2h7s1p957sazds8";
   };
 
-  propagatedBuildInputs = [ urllib3 ];
+  propagatedBuildInputs = [urllib3];
 
   # upstream has no tests
   doCheck = false;
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     description = "API towards the Ubiquity Networks UniFi controller";
     homepage = "https://pypi.python.org/pypi/unifi/";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

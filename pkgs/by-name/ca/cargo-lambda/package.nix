@@ -11,7 +11,6 @@
   zig_0_13,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-lambda";
   version = "1.8.5";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-mCD3Szbl5BXknTWJhm2xlcIV0aKczsEi8yRDA4erTYc=";
 
-  nativeCheckInputs = [ cacert ];
+  nativeCheckInputs = [cacert];
 
   nativeBuildInputs = [
     makeWrapper
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
     ];
@@ -48,13 +47,13 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-lambda --prefix PATH : ${lib.makeBinPath [ zig_0_13 ]}
+    wrapProgram $out/bin/cargo-lambda --prefix PATH : ${lib.makeBinPath [zig_0_13]}
   '';
 
   CARGO_LAMBDA_BUILD_INFO = "(nixpkgs)";
 
-  cargoBuildFlags = [ "--features=skip-build-banner" ];
-  cargoCheckFlags = [ "--features=skip-build-banner" ];
+  cargoBuildFlags = ["--features=skip-build-banner"];
+  cargoCheckFlags = ["--features=skip-build-banner"];
 
   checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     # Fails in darwin sandbox, first because of trying to listen to a port on
@@ -64,7 +63,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=test::test_download_example_with_cache"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Cargo subcommand to help you work with AWS Lambda";

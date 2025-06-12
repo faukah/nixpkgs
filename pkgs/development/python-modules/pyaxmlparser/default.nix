@@ -7,7 +7,6 @@
   pytestCheckHook,
   asn1crypto,
 }:
-
 buildPythonPackage rec {
   version = "0.3.27";
   format = "setuptools";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python3 Parser for Android XML file and get Application Name without using Androguard";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   perl,
   xkeyboard_config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ckbcomp";
   version = "1.237";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xNZsbTOXlrLveHr7LRK3/j0jYXtuBw08kng3yl9s7AU=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   patchPhase = ''
     substituteInPlace Keyboard/ckbcomp --replace "/usr/share/X11/xkb" "${xkeyboard_config}/share/X11/xkb"
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Compiles a XKB keyboard description to a keymap suitable for loadkeys";
     homepage = "https://salsa.debian.org/installer-team/console-setup";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dezgeg ];
+    maintainers = with lib.maintainers; [dezgeg];
     platforms = platforms.unix;
     mainProgram = "ckbcomp";
   };

@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phel";
   version = "0.17.0";
@@ -19,7 +18,7 @@ php.buildComposerProject2 (finalAttrs: {
   vendorHash = "sha256-lhxgL41gyHVOv1MqjwwnWQTQZz4WU2kWGCSV2EZoJrg=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -28,6 +27,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/phel-lang/phel-lang";
     license = lib.licenses.mit;
     mainProgram = "phel";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

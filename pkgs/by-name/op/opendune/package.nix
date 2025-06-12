@@ -9,12 +9,10 @@
   SDL2_image,
   SDL2_mixer,
 }:
-
 # - set the opendune configuration at ~/.config/opendune/opendune.ini:
 #     [opendune]
 #     datadir=/path/to/opendune-data
 # - download dune2 into [datadir] http://www.bestoldgames.net/eng/old-games/dune-2.php
-
 stdenv.mkDerivation rec {
   pname = "opendune";
   version = "0.9";
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec {
     "--with-pulse=${lib.getLib libpulseaudio}/lib/libpulse.so"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -57,6 +55,6 @@ stdenv.mkDerivation rec {
     mainProgram = "opendune";
     homepage = "https://github.com/OpenDUNE/OpenDUNE";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

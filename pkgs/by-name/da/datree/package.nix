@@ -6,7 +6,6 @@
   testers,
   datree,
 }:
-
 buildGoModule rec {
   pname = "datree";
   version = "1.9.19";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+PQhuIO4KjXtW/ZcS0OamuOHzK7ZL+nwOBxeCRoXuKE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -28,7 +27,7 @@ buildGoModule rec {
     "-X github.com/datreeio/datree/cmd.CliVersion=${version}"
   ];
 
-  tags = [ "main" ];
+  tags = ["main"];
 
   postInstall = ''
     installShellCompletion \

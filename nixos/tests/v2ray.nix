@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-let
-
+{
+  lib,
+  pkgs,
+  ...
+}: let
   v2rayUser = {
     # A random UUID.
     id = "a6a46834-2150-45f8-8364-0f6f6ab32384";
@@ -21,7 +23,7 @@ let
         port = 1081;
         listen = "127.0.0.1";
         protocol = "vmess";
-        settings.clients = [ v2rayUser ];
+        settings.clients = [v2rayUser];
       }
     ];
     outbounds = [
@@ -32,7 +34,7 @@ let
           {
             address = "127.0.0.1";
             port = 1081;
-            users = [ v2rayUser ];
+            users = [v2rayUser];
           }
         ];
       }
@@ -56,32 +58,28 @@ let
       # Assert assets "geoip" and "geosite" are accessible.
       {
         type = "field";
-        ip = [ "geoip:private" ];
-        domain = [ "geosite:category-ads" ];
+        ip = ["geoip:private"];
+        domain = ["geosite:category-ads"];
         outboundTag = "direct";
       }
     ];
   };
-
-in
-{
+in {
   name = "v2ray";
   meta = with lib.maintainers; {
-    maintainers = [ servalcatty ];
+    maintainers = [servalcatty];
   };
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.curl ];
-      services.v2ray = {
-        enable = true;
-        config = v2rayConfig;
-      };
-      services.httpd = {
-        enable = true;
-        adminAddr = "foo@example.org";
-      };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.curl];
+    services.v2ray = {
+      enable = true;
+      config = v2rayConfig;
     };
+    services.httpd = {
+      enable = true;
+      adminAddr = "foo@example.org";
+    };
+  };
 
   testScript = ''
     start_all()

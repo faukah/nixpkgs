@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "shellescape";
   version = "3.8.1";
@@ -17,8 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-HAe3Qf3lLeVWw/tVkW0J+CfoxSoOnCcWDR2nEWZn7HM=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "shellescape" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["shellescape"];
 
   meta = with lib; {
     description = "Shell escape a string to safely use it as a token in a shell command (backport of Python shlex.quote)";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
       mit
       psfl
     ];
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

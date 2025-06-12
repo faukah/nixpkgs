@@ -4,7 +4,6 @@
   fetchurl,
   lzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lziprecover";
   version = "1.25";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ lzip ];
+  nativeCheckInputs = [lzip];
 
   enableParallelBuilding = true;
 

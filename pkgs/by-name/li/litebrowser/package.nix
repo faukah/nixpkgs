@@ -9,7 +9,6 @@
   curl,
   gumbo, # litehtml dependency
 }:
-
 stdenv.mkDerivation {
   pname = "litebrowser";
   version = "unstable-2024-02-25";
@@ -51,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/litehtml/litebrowser-linux";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

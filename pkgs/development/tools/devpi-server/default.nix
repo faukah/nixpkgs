@@ -29,7 +29,6 @@
   devpi-server,
   nixosTests,
 }:
-
 buildPythonApplication rec {
   pname = "devpi-server";
   version = "6.14.0";
@@ -55,25 +54,27 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    appdirs
-    defusedxml
-    devpi-common
-    execnet
-    itsdangerous
-    packaging
-    passlib
-    platformdirs
-    pluggy
-    pyramid
-    repoze-lru
-    setuptools
-    strictyaml
-    waitress
-    py
-    httpx
-  ] ++ passlib.optional-dependencies.argon2;
+  propagatedBuildInputs =
+    [
+      aiohttp
+      appdirs
+      defusedxml
+      devpi-common
+      execnet
+      itsdangerous
+      packaging
+      passlib
+      platformdirs
+      pluggy
+      pyramid
+      repoze-lru
+      setuptools
+      strictyaml
+      waitress
+      py
+      httpx
+    ]
+    ++ passlib.optional-dependencies.argon2;
 
   nativeCheckInputs = [
     beautifulsoup4
@@ -129,6 +130,6 @@ buildPythonApplication rec {
     description = "Github-style pypi index server and packaging meta tool";
     changelog = "https://github.com/devpi/devpi/blob/${src.rev}/server/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

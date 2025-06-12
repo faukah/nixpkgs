@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   requests,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "hbrennhaeuser";
   domain = "ntfy";

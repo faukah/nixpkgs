@@ -10,7 +10,6 @@
   six,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-voluptuous";
   version = "1.2.0";
@@ -30,24 +29,24 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ voluptuous ];
+  dependencies = [voluptuous];
 
   nativeCheckInputs = [
     pytestCheckHook
     six
   ];
 
-  pythonImportsCheck = [ "pytest_voluptuous" ];
+  pythonImportsCheck = ["pytest_voluptuous"];
 
-  pytestFlagsArray = [ "tests/test_plugin.py" ];
+  pytestFlagsArray = ["tests/test_plugin.py"];
 
   meta = with lib; {
     description = "Pytest plugin for asserting data against voluptuous schema";
     homepage = "https://github.com/F-Secure/pytest-voluptuous";
     changelog = "https://github.com/F-Secure/pytest-voluptuous/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

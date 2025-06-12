@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbacl";
   version = "1.14";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://dbacl.sourceforge.net/";
     longDescription = "a digramic Bayesian classifier for text recognition.";
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
   };

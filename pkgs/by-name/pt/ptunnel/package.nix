@@ -5,7 +5,6 @@
   fetchpatch,
   libpcap,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ptunnel";
   version = "0.72";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.cs.uit.no/~daniels/PingTunnel";
     license = licenses.bsd3;
     mainProgram = "ptunnel";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
   };
 })

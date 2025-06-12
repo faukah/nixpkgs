@@ -8,7 +8,6 @@
   openssl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_u2f";
   version = "1.4.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pZknzqOOqNkaaDagTiD8Yp7d5CBLFggvcD9ts3jpxjQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libfido2
     pam
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Yubico/pam-u2f/raw/pam_u2f-${version}/NEWS";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ philandstuff ];
+    maintainers = with lib.maintainers; [philandstuff];
     mainProgram = "pamu2fcfg";
   };
 }

@@ -1,19 +1,15 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "orthanc";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.orthanc = {
-          enable = true;
-          settings = {
-            HttpPort = 12345;
-          };
+    machine = {pkgs, ...}: {
+      services.orthanc = {
+        enable = true;
+        settings = {
+          HttpPort = 12345;
         };
       };
+    };
   };
 
   testScript = ''
@@ -23,5 +19,5 @@
     machine.wait_for_open_port(4242)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

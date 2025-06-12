@@ -19,7 +19,6 @@
   autoPatchelfHook,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cqrlog";
   version = "2.5.2";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
 
   # Adds the possibility to change the lazarus directory,
   # otherwise, we would get error : "directory lcl not found"
-  patches = [ ./fix-makefile-lazarusdir.patch ];
+  patches = [./fix-makefile-lazarusdir.patch];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -104,7 +103,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cqrlog";
     homepage = "https://www.cqrlog.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

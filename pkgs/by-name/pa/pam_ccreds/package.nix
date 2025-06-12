@@ -6,7 +6,6 @@
   openssl,
   db,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_ccreds";
   version = "10";

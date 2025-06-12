@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "immutables";
   version = "0.21";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     rm tests/conftest.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Version mismatch
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     "tests/test_mypy.py"
   ];
 
-  pythonImportsCheck = [ "immutables" ];
+  pythonImportsCheck = ["immutables"];
 
   meta = with lib; {
     description = "Immutable mapping type";
     homepage = "https://github.com/MagicStack/immutables";
     changelog = "https://github.com/MagicStack/immutables/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ catern ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [catern];
   };
 }

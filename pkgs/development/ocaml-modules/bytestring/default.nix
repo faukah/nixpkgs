@@ -9,7 +9,6 @@
   uutf,
   qcheck,
 }:
-
 buildDunePackage rec {
   pname = "bytestring";
   version = "0.0.8";
@@ -40,6 +39,6 @@ buildDunePackage rec {
     description = "Efficient, immutable, pattern-matchable, UTF friendly byte strings";
     homepage = "https://github.com/riot-ml/riot";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

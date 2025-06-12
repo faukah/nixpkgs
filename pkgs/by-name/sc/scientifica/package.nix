@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "scientifica";
   version = "2.3";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/NerdyPepper/scientifica";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

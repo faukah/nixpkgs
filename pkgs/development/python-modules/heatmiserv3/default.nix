@@ -10,7 +10,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "heatmiserv3";
   version = "2.0.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Ia0QUMDvuvn2af52lW7ObSQ9MSPNOgWyBuFBnqfYrpM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     appdirs
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "heatmiserv3" ];
+  pythonImportsCheck = ["heatmiserv3"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Library to interact with Heatmiser Themostats using V3 protocol";
     homepage = "https://github.com/andylockran/heatmiserV3";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

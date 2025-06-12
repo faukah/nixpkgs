@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "forkstat";
   version = "0.04.00";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/forkstat";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

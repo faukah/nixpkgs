@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gcov2lcov";
   version = "1.1.1";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/jandelgado/gcov2lcov";
     changelog = "https://github.com/jandelgado/gcov2lcov/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ meain ];
+    maintainers = with maintainers; [meain];
   };
 }

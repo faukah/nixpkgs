@@ -17,7 +17,6 @@
   syrupy,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "pyenphase";
   version = "1.26.1";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-EKelQNHDaWSBrr19a8kYRI/wOYcRS9umJIo4oW9aU6k=";
   };
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     awesomeversion
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     "tests/test_retries.py"
   ];
 
-  pythonImportsCheck = [ "pyenphase" ];
+  pythonImportsCheck = ["pyenphase"];
 
   meta = with lib; {
     description = "Library to control enphase envoy";
     homepage = "https://github.com/pyenphase/pyenphase";
     changelog = "https://github.com/pyenphase/pyenphase/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   rustPlatform,
   openssl,
 }:
-
 buildPythonPackage rec {
   pname = "hf-xet";
   version = "1.1.3";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
 
   env.OPENSSL_NO_VENDOR = 1;
 
-  pythonImportsCheck = [ "hf_xet" ];
+  pythonImportsCheck = ["hf_xet"];
 
   # No tests (yet?)
   doCheck = false;
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/xet-core/tree/main/hf_xet";
     changelog = "https://github.com/huggingface/xet-core/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

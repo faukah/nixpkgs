@@ -6,7 +6,6 @@
   coreutils,
   kmod,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alsa-ucm-conf";
   version = "1.2.12";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.roastiek ];
+    maintainers = [lib.maintainers.roastiek];
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
   };
 })

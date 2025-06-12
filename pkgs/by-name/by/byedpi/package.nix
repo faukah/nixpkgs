@@ -23,14 +23,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "SOCKS proxy server implementing some DPI bypass methods";
     homepage = "https://github.com/hufrea/byedpi";
     changelog = "https://github.com/hufrea/byedpi/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ averyanalex ];
+    maintainers = with lib.maintainers; [averyanalex];
     platforms = with lib.platforms; linux ++ windows;
     mainProgram = "ciadpi";
   };

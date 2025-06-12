@@ -2,15 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # build inputs
   cacert,
   libuuid,
-
   # build inputs (darwin)
   readline,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "premake5";
   version = "5.0.0-beta4";
@@ -30,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       readline
     ];
 
-  patches = [ ./no-curl-ca.patch ];
+  patches = [./no-curl-ca.patch];
   postPatch =
     ''
       substituteInPlace contrib/curl/premake5.lua \
@@ -49,18 +46,18 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   buildPhase =
-    if stdenv.hostPlatform.isDarwin then
+    if stdenv.hostPlatform.isDarwin
+    then
       # Error compiling the builtin zlib source, but it's not used currently
       ''
         make PREMAKE_OPTS="--zlib-src=none" \
              PLATFORM="Universal" \
              -f Bootstrap.mak osx
       ''
-    else
-      ''
-        make PLATFORM=${stdenv.hostPlatform.linuxArch} \
-          -f Bootstrap.mak linux
-      '';
+    else ''
+      make PLATFORM=${stdenv.hostPlatform.linuxArch} \
+        -f Bootstrap.mak linux
+    '';
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isClang [
@@ -80,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple build configuration and project generation tool using lua";
     mainProgram = "premake5";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

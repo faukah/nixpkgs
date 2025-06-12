@@ -4,12 +4,9 @@
   buildPythonPackage,
   fetchFromGitLab,
   pytestCheckHook,
-
   setuptools,
-
   ghostscript_headless,
 }:
-
 buildPythonPackage rec {
   pname = "ghostscript";
   version = "0.7";
@@ -22,17 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-yBJuAnLK/4YDU9PBsSWPQay4pDws3bP+3rCplysq41w=";
   };
 
-  postPatch =
-    let
-      extLib = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      substituteInPlace ghostscript/__init__.py \
-        --replace-fail '__version__ = gs.__version__' '__version__ = "${version}"'
+  postPatch = let
+    extLib = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    substituteInPlace ghostscript/__init__.py \
+      --replace-fail '__version__ = gs.__version__' '__version__ = "${version}"'
 
-      substituteInPlace ghostscript/_gsprint.py \
-        --replace-fail 'cdll.LoadLibrary("libgs.so")' 'cdll.LoadLibrary("${lib.getLib ghostscript_headless}/lib/libgs${extLib}")'
-    '';
+    substituteInPlace ghostscript/_gsprint.py \
+      --replace-fail 'cdll.LoadLibrary("libgs.so")' 'cdll.LoadLibrary("${lib.getLib ghostscript_headless}/lib/libgs${extLib}")'
+  '';
 
   build-system = [
     setuptools
@@ -51,13 +46,13 @@ buildPythonPackage rec {
     "test_stdin"
   ];
 
-  pythonImportsCheck = [ "ghostscript" ];
+  pythonImportsCheck = ["ghostscript"];
 
   meta = {
     description = "Interface to the Ghostscript C-API using ctypes.";
     homepage = "https://gitlab.com/pdftools/python-ghostscript";
     changelog = "https://gitlab.com/pdftools/python-ghostscript/-/blob/v${version}/CHANGES.txt";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

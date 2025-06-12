@@ -22,7 +22,6 @@
   plasma-workspace,
   systemsettings,
 }:
-
 mkDerivation {
   pname = "plasma-disks";
   nativeBuildInputs = [

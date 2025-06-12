@@ -42,7 +42,7 @@ llvmPackages.stdenv.mkDerivation rec {
   meta = {
     homepage = "https://enzyme.mit.edu/";
     description = "High-performance automatic differentiation of LLVM and MLIR";
-    maintainers = with lib.maintainers; [ kiranshila ];
+    maintainers = with lib.maintainers; [kiranshila];
     platforms = lib.platforms.all;
     license = with lib.licenses; [
       asl20

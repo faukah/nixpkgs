@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "dleyna-server" ] [ "services" "dleyna" ])
-    (lib.mkRenamedOptionModule [ "services" "dleyna-renderer" ] [ "services" "dleyna" ])
+    (lib.mkRenamedOptionModule ["services" "dleyna-server"] ["services" "dleyna"])
+    (lib.mkRenamedOptionModule ["services" "dleyna-renderer"] ["services" "dleyna"])
   ];
 
   ###### interface
@@ -26,8 +25,8 @@
 
   ###### implementation
   config = lib.mkIf config.services.dleyna.enable {
-    environment.systemPackages = [ pkgs.dleyna ];
+    environment.systemPackages = [pkgs.dleyna];
 
-    services.dbus.packages = [ pkgs.dleyna ];
+    services.dbus.packages = [pkgs.dleyna];
   };
 }

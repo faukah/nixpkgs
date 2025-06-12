@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "elfx86exts";
   version = "0.6.2";
@@ -26,8 +25,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       perhaps PE-format ones as well. (It used to be more limited.)
     '';
     homepage = "https://github.com/pkgw/elfx86exts";
-    maintainers = with maintainers; [ rmcgibbo ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [rmcgibbo];
+    license = with licenses; [mit];
     mainProgram = "elfx86exts";
   };
 })

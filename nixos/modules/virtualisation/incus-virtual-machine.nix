@@ -3,12 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  serialDevice = if pkgs.stdenv.hostPlatform.isx86 then "ttyS0" else "ttyAMA0";
-in
-{
+}: let
+  serialDevice =
+    if pkgs.stdenv.hostPlatform.isx86
+    then "ttyS0"
+    else "ttyAMA0";
+in {
   meta = {
     maintainers = lib.teams.lxc.members;
   };

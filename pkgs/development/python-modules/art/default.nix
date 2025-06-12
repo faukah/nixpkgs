@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "art";
   version = "6.5";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-ub+hvxYRZznql/GZjA6QXrdHUbM+QCVEYiQfQ6IOJKE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "art" ];
+  pythonImportsCheck = ["art"];
 
   # TypeError: art() missing 1 required positional argument: 'artname'
   checkPhase = ''
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sepandhaghighi/art";
     changelog = "https://github.com/sepandhaghighi/art/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

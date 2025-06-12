@@ -12,7 +12,6 @@
   gnome,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gom";
   version = "0.5.3";
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gom";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

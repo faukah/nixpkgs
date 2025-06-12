@@ -4,7 +4,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 # update instructions:
 # - Check if butler version bug was fixed https://github.com/itchio/butler/issues/266
 # - if it's fixed, remove patch.
@@ -12,7 +11,6 @@
 # - manually clone butler, change go.mod's version number to 1.18 at least
 # - run `go mod tidy` in the cloned repository.
 # - generate patch with `git diff > go.mod.patch`
-
 buildGoModule rec {
   pname = "butler";
   version = "15.24.0";
@@ -24,9 +22,9 @@ buildGoModule rec {
     hash = "sha256-Gzf+8icPIXrNc8Vk8z0COPv/QA6GL6nSvQg13bAlfZM=";
   };
 
-  buildInputs = [ brotli ];
+  buildInputs = [brotli];
 
-  patches = [ ./go.mod.patch ];
+  patches = [./go.mod.patch];
 
   doCheck = false; # disabled because the tests don't work in a non-FHS compliant environment.
 
@@ -37,6 +35,6 @@ buildGoModule rec {
     changelog = "https://github.com/itchio/butler/releases/tag/v${version}/CHANGELOG.md";
     homepage = "http://itch.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ naelstrof ];
+    maintainers = with lib.maintainers; [naelstrof];
   };
 }

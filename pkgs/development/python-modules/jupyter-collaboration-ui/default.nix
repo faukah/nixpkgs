@@ -6,7 +6,6 @@
   hatch-jupyter-builder,
   jupyter-collaboration,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-collaboration-ui";
   version = "2.0.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hatch-jupyter-builder
   ];
 
-  pythonImportsCheck = [ "jupyter_collaboration_ui" ];
+  pythonImportsCheck = ["jupyter_collaboration_ui"];
 
   # no tests
   doCheck = false;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "JupyterLab/Jupyter Notebook 7+ extension providing user interface integration for real time collaboration";
     homepage = "https://github.com/jupyterlab/jupyter-collaboration/tree/main/projects/jupyter-collaboration-ui";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

@@ -8,7 +8,6 @@
   taskwarrior2,
   writeShellScriptBin,
 }:
-
 buildPythonPackage rec {
   pname = "tasklib";
   version = "2.5.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/robgolding/tasklib";
     description = "Library for interacting with taskwarrior databases";
     changelog = "https://github.com/GothenburgBitFactory/tasklib/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ arcnmx ];
+    maintainers = with lib.maintainers; [arcnmx];
     platforms = lib.platforms.all;
     license = lib.licenses.bsd3;
   };

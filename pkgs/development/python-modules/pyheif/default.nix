@@ -9,7 +9,6 @@
   pillow,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyheif";
   version = "0.8.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-7De8ekDceSkUcOgK7ppKad5W5qE0yxdS4kbgYVjxTGg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ libheif ];
+  buildInputs = [libheif];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
-  pythonImportsCheck = [ "pyheif" ];
+  pythonImportsCheck = ["pyheif"];
 
   nativeCheckInputs = [
     piexif
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/carsales/pyheif";
     description = "Python interface to libheif library";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

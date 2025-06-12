@@ -9,7 +9,6 @@
   libadwaita,
   wrapGAppsHook4,
 }:
-
 buildDotnetModule rec {
   pname = "Pinta";
   version = "3.0.1";
@@ -90,7 +89,7 @@ buildDotnetModule rec {
     description = "Drawing/editing program modeled after Paint.NET";
     changelog = "https://github.com/PintaProject/Pinta/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ thiagokokada ];
+    maintainers = with lib.maintainers; [thiagokokada];
     platforms = lib.platforms.linux;
     mainProgram = "pinta";
   };

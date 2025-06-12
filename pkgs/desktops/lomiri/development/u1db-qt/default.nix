@@ -12,7 +12,6 @@
   qtdeclarative,
   qttools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "u1db-qt";
   version = "0.1.8";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtdeclarative
   ];
 
-  nativeCheckInputs = [ dbus-test-runner ];
+  nativeCheckInputs = [dbus-test-runner];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_DOCS" true)
@@ -97,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -105,8 +104,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/u1db-qt";
     changelog = "https://gitlab.com/ubports/development/core/u1db-qt/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.lgpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "libu1db-qt5" ];
+    pkgConfigModules = ["libu1db-qt5"];
   };
 })

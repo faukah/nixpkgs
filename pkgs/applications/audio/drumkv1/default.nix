@@ -12,7 +12,6 @@
   qt6,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "drumkv1";
   version = "1.3.2";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "http://drumkv1.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.theredstonedev ];
+    maintainers = [maintainers.theredstonedev];
   };
 }

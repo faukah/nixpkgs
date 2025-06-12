@@ -15,7 +15,6 @@
   pytest-asyncio,
   async-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "plugp100";
   version = "5.1.4";
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     description = "Python library to control Tapo Plug P100 devices";
     homepage = "https://github.com/petretiandrea/plugp100";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pyle ];
+    maintainers = with maintainers; [pyle];
   };
 }

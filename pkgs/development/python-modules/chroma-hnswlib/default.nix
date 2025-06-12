@@ -9,7 +9,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "chroma-hnswlib";
   version = "0.7.6";
@@ -31,14 +30,14 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hnswlib" ];
+  pythonImportsCheck = ["hnswlib"];
 
   meta = with lib; {
     description = "Header-only C++/python library for fast approximate nearest neighbors";
     homepage = "https://github.com/chroma-core/hnswlib";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

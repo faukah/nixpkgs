@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "smpp-pdu";
   version = "unstable-2022-09-02";
@@ -19,16 +18,16 @@ buildPythonPackage {
     hash = "sha256-/icVexc2S8sbJqn4ioeIhYxyDFIENuCfsFhl0uAHa9g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "smpp.pdu" ];
+  pythonImportsCheck = ["smpp.pdu"];
 
   meta = with lib; {
     description = "Library for parsing Protocol Data Units (PDUs) in SMPP protocol";
     homepage = "https://github.com/hologram-io/smpp.pdu";
     license = licenses.asl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.digitalbitbox;
-in
-
-{
+in {
   options.hardware.digitalbitbox = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -26,6 +23,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
   };
 }

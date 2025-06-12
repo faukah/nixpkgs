@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "source-serif";
   version = "4.005";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Typeface for setting text in many sizes, weights, and languages. Designed to complement Source Sans";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

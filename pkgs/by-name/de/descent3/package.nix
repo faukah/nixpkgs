@@ -4,18 +4,19 @@
   makeBinaryWrapper,
   runCommand,
 }:
-
 runCommand "descent3-${descent3-unwrapped.version}"
-  {
-    pname = "descent3";
-    inherit (descent3-unwrapped) version;
-    nativeBuildInputs = [ makeBinaryWrapper ];
-    passthru.unwrapped = descent3-unwrapped;
+{
+  pname = "descent3";
+  inherit (descent3-unwrapped) version;
+  nativeBuildInputs = [makeBinaryWrapper];
+  passthru.unwrapped = descent3-unwrapped;
 
-    meta = descent3-unwrapped.meta // {
+  meta =
+    descent3-unwrapped.meta
+    // {
       # The code that produces the wrapper is in the Nixpkgs repo, and the
       # Nixpkgs repo is MIT Licensed.
-      license = [ lib.licenses.mit ];
+      license = [lib.licenses.mit];
       longDescription = ''
         Playing Descent 3 using the Nix package manager is a little bit awkward
         at the moment. This wrapper makes it slightly less awkward. Here’s how
@@ -48,13 +49,13 @@ runCommand "descent3-${descent3-unwrapped.version}"
             ```
       '';
     };
-  }
-  ''
-    mkdir --parents "$out/bin"
-    descent3_unwrapped=${lib.strings.escapeShellArg descent3-unwrapped}
-    makeBinaryWrapper \
-      "$descent3_unwrapped/bin/Descent3" \
-      "$out/bin/Descent3" \
-      --append-flags -additionaldir \
-      --append-flags "$descent3_unwrapped/share"
-  ''
+}
+''
+  mkdir --parents "$out/bin"
+  descent3_unwrapped=${lib.strings.escapeShellArg descent3-unwrapped}
+  makeBinaryWrapper \
+    "$descent3_unwrapped/bin/Descent3" \
+    "$out/bin/Descent3" \
+    --append-flags -additionaldir \
+    --append-flags "$descent3_unwrapped/share"
+''

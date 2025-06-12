@@ -2,26 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # nativeBuildInputs
   pkg-config,
-
   # buildInputs
   libraw,
-
   # dependencies
   numpy,
-
   # tests
   imageio,
   pytestCheckHook,
   scikit-image,
 }:
-
 buildPythonPackage rec {
   pname = "rawpy";
   version = "0.24.0";
@@ -85,6 +79,6 @@ buildPythonPackage rec {
       lgpl21Only
       mit
     ];
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

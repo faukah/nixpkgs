@@ -9,7 +9,6 @@
   stdenv,
   libtirpc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nfstrace";
   version = "0.4.3.2";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     ncurses
     libtirpc
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # To build with GCC 8+ it needs:
   CXXFLAGS = "-Wno-class-memaccess -Wno-ignored-qualifiers";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=address-of-packed-member"
     "-I${libtirpc.dev}/include/tirpc"
   ];
-  NIX_LDFLAGS = [ "-ltirpc" ];
+  NIX_LDFLAGS = ["-ltirpc"];
 
   doCheck = false; # requires network access
 

@@ -21,7 +21,6 @@
   systemd,
   wrapGAppsHook3,
 }:
-
 buildPythonApplication rec {
   pname = "cpupower-gui";
   version = "1.0.0";
@@ -93,7 +92,7 @@ buildPythonApplication rec {
   strictDeps = false;
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postFixup = ''
     wrapPythonProgramsIn $out/lib "$out $propagatedBuildInputs"
@@ -104,6 +103,6 @@ buildPythonApplication rec {
     mainProgram = "cpupower-gui";
     homepage = "https://github.com/vagnum08/cpupower-gui/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
   };
 }

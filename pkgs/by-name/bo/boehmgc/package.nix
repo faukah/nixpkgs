@@ -9,7 +9,6 @@
   enableStatic ? false,
   nixVersions,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "boehm-gc";
   version = "8.2.8";
@@ -94,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://github.com/ivmai/bdwgc/blob/v${finalAttrs.version}/ChangeLog";
     license = "https://hboehm.info/gc/license.txt"; # non-copyleft, X11-style license
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

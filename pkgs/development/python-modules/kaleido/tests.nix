@@ -5,7 +5,6 @@
   pandas,
   kaleido,
 }:
-
 runCommand "${kaleido.pname}-tests" {
   nativeBuildInputs = [
     python

@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "adax";
   version = "0.4.0";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "adax" ];
+  pythonImportsCheck = ["adax"];
 
   meta = with lib; {
     description = "Python module to communicate with Adax";
     homepage = "https://github.com/Danielhiversen/pyAdax";
     changelog = "https://github.com/Danielhiversen/pyAdax/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

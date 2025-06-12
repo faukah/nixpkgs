@@ -1,8 +1,6 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "kanboard";
-  meta.maintainers = with lib.maintainers; [ yzx9 ];
+  meta.maintainers = with lib.maintainers; [yzx9];
 
   nodes = {
     machine = {

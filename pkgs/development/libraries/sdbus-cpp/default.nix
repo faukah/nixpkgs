@@ -6,14 +6,12 @@
   expat,
   pkg-config,
   systemdLibs,
-}:
-let
-  generic =
-    {
-      version,
-      rev ? "v${version}",
-      hash,
-    }:
+}: let
+  generic = {
+    version,
+    rev ? "v${version}",
+    hash,
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "sdbus-cpp";
       inherit version;
@@ -52,13 +50,12 @@ let
           inherent design complexities and limitations.
         '';
         license = lib.licenses.lgpl2Only;
-        maintainers = [ ];
+        maintainers = [];
         platforms = lib.platforms.linux;
         mainProgram = "sdbus-c++-xml2cpp";
       };
     });
-in
-{
+in {
   sdbus-cpp = generic {
     version = "1.5.0";
     hash = "sha256-oO8QNffwNI245AEPdutOGqxj4qyusZYK3bZWLh2Lcag=";

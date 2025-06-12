@@ -15,7 +15,6 @@
   libwnck,
   xfce4-session,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfce4-session";
@@ -62,6 +61,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Session manager for Xfce";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

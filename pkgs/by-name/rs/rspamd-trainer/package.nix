@@ -7,7 +7,6 @@
   rspamd,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "rspamd-trainer";
   version = "unstable-2023-11-27";
@@ -50,13 +49,13 @@ python3Packages.buildPythonApplication {
     imapclient
   ];
 
-  passthru.tests = { inherit (nixosTests) rspamd-trainer; };
+  passthru.tests = {inherit (nixosTests) rspamd-trainer;};
 
   meta = {
     homepage = "https://gitlab.com/onlime/rspamd-trainer";
     description = "Grabs messages from a spam mailbox via IMAP and feeds them to Rspamd for training";
     mainProgram = "rspamd-trainer";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

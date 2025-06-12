@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "thumbs";
   version = "0.8.0";
@@ -18,12 +17,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xvfjWS1QZWrlwytFyWVtjOyB3EPT9leodVLt72yyM4E=";
 
-  patches = [ ./fix.patch ];
+  patches = [./fix.patch];
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";
     description = "Lightning fast version of tmux-fingers written in Rust, copy/pasting tmux like vimium/vimperator";
     license = licenses.mit;
-    maintainers = with maintainers; [ ghostbuster91 ];
+    maintainers = with maintainers; [ghostbuster91];
   };
 }

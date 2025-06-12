@@ -9,7 +9,6 @@
   opentelemetry-test-utils,
   psycopg2,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-psycopg2";
@@ -19,7 +18,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-psycopg2";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     psycopg2
@@ -33,10 +32,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.psycopg2" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.psycopg2"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-psycopg2";
-    description = "OpenTelemetry Psycopg Instrumentation";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-psycopg2";
+      description = "OpenTelemetry Psycopg Instrumentation";
+    };
 }

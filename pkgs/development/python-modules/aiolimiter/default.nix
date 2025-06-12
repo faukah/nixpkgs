@@ -10,7 +10,6 @@
   pythonOlder,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "aiolimiter";
   version = "1.2.1";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-wgHR0GzaPXlhL4ErklFqmWNFO49dvd5X5MgyYHVH4Eo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "aiolimiter" ];
+  pythonImportsCheck = ["aiolimiter"];
 
   meta = with lib; {
     description = "Implementation of a rate limiter for asyncio";
     homepage = "https://github.com/mjpieters/aiolimiter";
     changelog = "https://github.com/mjpieters/aiolimiter/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

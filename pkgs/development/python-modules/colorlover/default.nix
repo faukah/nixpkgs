@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "colorlover";
   version = "0.3.0";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jackparmer/colorlover";
     description = "Color scales in Python for humans";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

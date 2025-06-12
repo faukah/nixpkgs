@@ -6,7 +6,6 @@
   libpcap,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "mdk4";
   version = "4.2-unstable-2024-08-16";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     substituteInPlace src/Makefile --replace '/usr/local/src/mdk4' '$out'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libnl
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Tool that injects data into wireless networks";
     homepage = "https://github.com/aircrack-ng/mdk4";
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     license = lib.licenses.gpl3Plus;
     mainProgram = "mdk4";
   };

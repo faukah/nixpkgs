@@ -4,7 +4,6 @@
   fetchurl,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autoconf-archive";
   version = "2024.10.16";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   enableParallelBuilding = true;
 
-  buildInputs = [ xz ];
+  buildInputs = [xz];
 
   meta = with lib; {
     description = "Archive of autoconf m4 macros";

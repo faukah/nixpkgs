@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zellij";
   version = "0.42.2";
@@ -79,13 +78,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
         --zsh <($out/bin/zellij setup --generate-completion zsh)
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal workspace with batteries included";
     homepage = "https://zellij.dev/";
     changelog = "https://github.com/zellij-org/zellij/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       therealansh
       _0x4A6F

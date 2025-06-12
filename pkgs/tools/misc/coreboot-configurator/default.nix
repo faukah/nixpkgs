@@ -18,7 +18,6 @@
   qtsvg,
   wrapQtAppsHook,
 }:
-
 mkDerivation {
   pname = "coreboot-configurator";
   version = "unstable-2023-01-17";
@@ -66,7 +65,7 @@ mkDerivation {
     homepage = "https://support.starlabs.systems/kb/guides/coreboot-configurator";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danth ];
+    maintainers = with maintainers; [danth];
     mainProgram = "coreboot-configurator";
   };
 }

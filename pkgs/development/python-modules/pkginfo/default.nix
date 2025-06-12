@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pkginfo";
   version = "1.12.1.2";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-XNlXgkrDbxQCYJZOujxr5kQqg1m4xI9K35AhDzOgS3s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # wheel metadata version mismatch 2.1 vs 2.2
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     "test_installed_ctor_w_package"
   ];
 
-  pythonImportsCheck = [ "pkginfo" ];
+  pythonImportsCheck = ["pkginfo"];
 
   meta = {
     changelog = "https://pypi.org/project/pkginfo/#pkginfo-changelog";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
       setup.py develop).
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

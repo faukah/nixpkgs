@@ -8,7 +8,6 @@
   pkg-config,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "librecad";
   version = "2.2.1.1";
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "2D CAD package based on Qt";
     homepage = "https://librecad.org";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
     mainProgram = "librecad";
   };

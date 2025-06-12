@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aocl-utils";
   version = "5.1";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-1g5gERVxXKAeCyNR9/HheUfj+MPxJso3NzqDonvuyMo=";
   };
 
-  patches = [ ./pkg-config.patch ];
+  patches = [./pkg-config.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "AU_BUILD_STATIC_LIBS" stdenv.hostPlatform.isStatic)
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Interface to all AMD AOCL libraries to access CPU features";
     homepage = "https://github.com/amd/aocl-utils";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.markuskowa ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.markuskowa];
   };
 }

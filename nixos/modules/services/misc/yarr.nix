@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     types
     mkIf
     mkOption
@@ -16,14 +15,13 @@ let
     ;
 
   cfg = config.services.yarr;
-in
-{
-  meta.maintainers = with lib.maintainers; [ christoph-heiss ];
+in {
+  meta.maintainers = with lib.maintainers; [christoph-heiss];
 
   options.services.yarr = {
     enable = mkEnableOption "Yet another rss reader";
 
-    package = mkPackageOption pkgs "yarr" { };
+    package = mkPackageOption pkgs "yarr" {};
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
@@ -63,9 +61,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.yarr = {
       description = "Yet another rss reader";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       environment.XDG_CONFIG_HOME = "/var/lib/yarr/.config";
 

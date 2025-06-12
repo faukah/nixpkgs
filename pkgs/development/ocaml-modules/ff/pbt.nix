@@ -4,7 +4,6 @@
   ff-sig,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "ff-pbt";
   inherit (ff-sig) version src;
@@ -23,7 +22,9 @@ buildDunePackage {
     ff-sig
   ];
 
-  meta = ff-sig.meta // {
-    description = "Property based testing library for finite fields over the package ff-sig";
-  };
+  meta =
+    ff-sig.meta
+    // {
+      description = "Property based testing library for finite fields over the package ff-sig";
+    };
 }

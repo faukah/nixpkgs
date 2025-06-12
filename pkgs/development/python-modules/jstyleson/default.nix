@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "jstyleson";
   version = "0.0.2";
@@ -18,14 +17,14 @@ buildPythonPackage {
     hash = "sha256-s/0DDfy+07TuUNjHPqKRT3xMMQl6spZCacB7Dweof7A=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jstyleson" ];
+  pythonImportsCheck = ["jstyleson"];
 
   meta = with lib; {
     description = "Python library to parse JSON with js-style comments";
     homepage = "https://github.com/linjackson78/jstyleson";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

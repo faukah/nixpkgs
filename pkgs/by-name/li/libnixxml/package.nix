@@ -12,7 +12,6 @@
   nix,
   bash,
 }:
-
 stdenv.mkDerivation {
   pname = "libnixxml";
   version = "unstable-2020-06-25";
@@ -74,7 +73,7 @@ stdenv.mkDerivation {
     description = "XML-based Nix-friendly data integration library";
     homepage = "https://github.com/svanderburg/libnixxml";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
     platforms = platforms.unix;
   };
 }

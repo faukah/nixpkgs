@@ -16,7 +16,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "podofo";
   version = "0.10.4";
@@ -54,7 +53,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DPODOFO_BUILD_STATIC=${if stdenv.hostPlatform.isStatic then "ON" else "OFF"}"
+    "-DPODOFO_BUILD_STATIC=${
+      if stdenv.hostPlatform.isStatic
+      then "ON"
+      else "OFF"
+    }"
     "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
   ];
 
@@ -66,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       lgpl2Plus
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 })

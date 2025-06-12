@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flake8-quotes";
   version = "3.4.0";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Flake8 extension for checking quotes in python";
     homepage = "https://github.com/zheller/flake8-quotes/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

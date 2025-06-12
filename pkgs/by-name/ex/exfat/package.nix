@@ -6,7 +6,6 @@
   pkg-config,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exfat";
   version = "1.4.0";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   meta = with lib; {
     description = "Free exFAT file system implementation";
     inherit (src.meta) homepage;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
     platforms = platforms.unix;
   };
 }

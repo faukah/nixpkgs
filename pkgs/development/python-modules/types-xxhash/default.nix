@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-xxhash";
   version = "3.0.5.2";
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/types-xxhash";
     changelog = "https://github.com/typeshed-internal/stub_uploader/blob/main/data/changelogs/xxhash.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

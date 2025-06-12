@@ -7,7 +7,6 @@
   gtk4,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adwaita-icon-theme-legacy";
   version = "46.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy";
     changelog = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.cc-by-sa-30;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.all;
   };
 })

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nps";
   version = "0.2.9";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-MThyvhzZXRM4l0K8csLDldMVKiDxKZ5EIFATGVpGpVc=";
 
-  nativeCheckInputs = [ nix ];
+  nativeCheckInputs = [nix];
 
   meta = {
     description = "Cache the nix package list, query and sort results by relevance";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/OleMussmann/nps";
     license = lib.licenses.mit;
     mainProgram = "nps";
-    maintainers = with lib.maintainers; [ olemussmann ];
+    maintainers = with lib.maintainers; [olemussmann];
     platforms = lib.platforms.all;
   };
 }

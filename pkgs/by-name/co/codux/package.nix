@@ -2,9 +2,7 @@
   lib,
   appimageTools,
   fetchurl,
-}:
-
-let
+}: let
   pname = "codux";
   version = "15.42.0";
 
@@ -13,27 +11,26 @@ let
     hash = "sha256-rD0yXZAEUcPtxWlWuZD77gjw6JlcUvBsaDYGj+NgLss=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
+  appimageTools.wrapType2 rec {
+    inherit pname version src;
 
-appimageTools.wrapType2 rec {
-  inherit pname version src;
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      cp -r ${appimageContents}/usr/share/icons $out/share
+      substituteInPlace $out/share/applications/${pname}.desktop  --replace 'Exec=AppRun' 'Exec=${pname}'
+    '';
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    cp -r ${appimageContents}/usr/share/icons $out/share
-    substituteInPlace $out/share/applications/${pname}.desktop  --replace 'Exec=AppRun' 'Exec=${pname}'
-  '';
-
-  meta = with lib; {
-    description = "Visual IDE for React";
-    homepage = "https://www.codux.com";
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      dit7ya
-      kashw2
-    ];
-    mainProgram = "codux";
-  };
-}
+    meta = with lib; {
+      description = "Visual IDE for React";
+      homepage = "https://www.codux.com";
+      license = licenses.unfree;
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [
+        dit7ya
+        kashw2
+      ];
+      mainProgram = "codux";
+    };
+  }

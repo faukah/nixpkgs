@@ -1,5 +1,4 @@
-lib:
-{
+lib: {
   # git tag
   k3sVersion,
   # commit hash
@@ -23,8 +22,7 @@ lib:
   # run `grep github.com/kubernetes-sigs/cri-tools go.mod | head -n1 | awk '{print $4}'` in the k3s repo at the tag
   criCtlVersion,
   updateScript ? null,
-}@attrs:
-
+} @ attrs:
 # builder.nix contains a "builder" expression that, given k3s version and hash
 # variables, creates a package for that version.
 # Due to variance in k3s's build process, this builder only works for k3s 1.26+
@@ -57,9 +55,9 @@ lib:
   libseccomp,
   makeWrapper,
   nixosTests,
-  overrideBundleAttrs ? { }, # An attrSet/function to override the `k3sBundle` derivation.
-  overrideCniPluginsAttrs ? { }, # An attrSet/function to override the `k3sCNIPlugins` derivation.
-  overrideContainerdAttrs ? { }, # An attrSet/function to override the `k3sContainerd` derivation.
+  overrideBundleAttrs ? {}, # An attrSet/function to override the `k3sBundle` derivation.
+  overrideCniPluginsAttrs ? {}, # An attrSet/function to override the `k3sCNIPlugins` derivation.
+  overrideContainerdAttrs ? {}, # An attrSet/function to override the `k3sContainerd` derivation.
   pkg-config,
   pkgsBuildBuild,
   procps,
@@ -74,7 +72,6 @@ lib:
   yq-go,
   zstd,
 }:
-
 # k3s is a kinda weird derivation. One of the main points of k3s is the
 # simplicity of it being one binary that can perform several tasks.
 # However, when you have a good package manager (like nix), that doesn't
@@ -95,12 +92,11 @@ lib:
 # Those pieces of software we entirely ignore upstream's handling of, and just
 # make sure they're in the path if desired.
 let
-
   baseMeta = {
     description = "Lightweight Kubernetes distribution";
     license = lib.licenses.asl20;
     homepage = "https://k3s.io";
-    teams = [ lib.teams.k3s ];
+    teams = [lib.teams.k3s];
     platforms = lib.platforms.linux;
 
     # resolves collisions with other installations of kubectl, crictl, ctr
@@ -130,37 +126,32 @@ let
   traefikChart = fetchurl chartVersions.traefik;
   traefik-crdChart = fetchurl chartVersions.traefik-crd;
 
-  mutFirstChar =
-    f: s:
-    let
-      firstChar = f (lib.substring 0 1 s);
-      rest = lib.substring 1 (-1) s;
-    in
+  mutFirstChar = f: s: let
+    firstChar = f (lib.substring 0 1 s);
+    rest = lib.substring 1 (-1) s;
+  in
     firstChar + rest;
 
-  kebabToCamel =
-    s:
+  kebabToCamel = s:
     mutFirstChar lib.toLower (lib.concatMapStrings (mutFirstChar lib.toUpper) (lib.splitString "-" s));
 
   # finds the images archive for the desired architecture, throws in case no suitable archive is found
-  findImagesArchive =
-    arch:
-    let
-      imagesVersionsNames = builtins.attrNames imagesVersions;
-    in
+  findImagesArchive = arch: let
+    imagesVersionsNames = builtins.attrNames imagesVersions;
+  in
     lib.findFirst (
       n: lib.hasInfix arch n
-    ) (throw "k3s: no airgap images for ${arch} available") imagesVersionsNames;
+    ) (throw "k3s: no airgap images for ${arch} available")
+    imagesVersionsNames;
 
   # a shortcut that provides the images archive for the host platform. Currently only supports
   # aarch64 (arm64) and x86_64 (amd64), throws on other architectures.
   airgapImages = fetchurl (
-    if stdenv.hostPlatform.isAarch64 then
-      imagesVersions.${findImagesArchive "arm64"}
-    else if stdenv.hostPlatform.isx86_64 then
-      imagesVersions.${findImagesArchive "amd64"}
-    else
-      throw "k3s: airgap images cannot be found automatically for architecture ${stdenv.hostPlatform.linuxArch}, consider using an image archive with an explicit architecture."
+    if stdenv.hostPlatform.isAarch64
+    then imagesVersions.${findImagesArchive "arm64"}
+    else if stdenv.hostPlatform.isx86_64
+    then imagesVersions.${findImagesArchive "amd64"}
+    else throw "k3s: airgap images cannot be found automatically for architecture ${stdenv.hostPlatform.linuxArch}, consider using an image archive with an explicit architecture."
   );
 
   # so, k3s is a complicated thing to package
@@ -184,7 +175,7 @@ let
       version = k3sCNIVersion;
       vendorHash = null;
 
-      subPackages = [ "." ];
+      subPackages = ["."];
 
       src = fetchFromGitHub {
         owner = "rancher";
@@ -197,11 +188,13 @@ let
         mv $out/bin/plugins $out/bin/cni
       '';
 
-      meta = baseMeta // {
-        description = "CNI plugins, as patched by rancher for k3s";
-      };
+      meta =
+        baseMeta
+        // {
+          description = "CNI plugins, as patched by rancher for k3s";
+        };
     }).overrideAttrs
-      overrideCniPluginsAttrs;
+    overrideCniPluginsAttrs;
   # Grab this separately from a build because it's used by both stages of the
   # k3s build.
   k3sRepo = fetchgit {
@@ -212,7 +205,7 @@ let
 
   # Modify the k3s installer script so that we can let it install only
   # killall.sh
-  k3sKillallSh = runCommand "k3s-killall.sh" { } ''
+  k3sKillallSh = runCommand "k3s-killall.sh" {} ''
     # Copy the upstream k3s install script except for the last lines that
     # actually run the install process
     sed --quiet '/# --- run the install process --/q;p' ${k3sRepo}/install.sh > install.sh
@@ -275,13 +268,13 @@ let
       src = k3sRepo;
       vendorHash = k3sVendorHash;
 
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
       buildInputs = [
         libseccomp
         sqlite.dev
       ];
 
-      subPackages = [ "cmd/server" ];
+      subPackages = ["cmd/server"];
       ldflags = versionldflags;
 
       tags = [
@@ -309,11 +302,13 @@ let
         popd
       '';
 
-      meta = baseMeta // {
-        description = "Various binaries that get packaged into the final k3s binary";
-      };
+      meta =
+        baseMeta
+        // {
+          description = "Various binaries that get packaged into the final k3s binary";
+        };
     }).overrideAttrs
-      overrideBundleAttrs;
+    overrideBundleAttrs;
   # Only used for the shim since
   # https://github.com/k3s-io/k3s/blob/v1.27.2%2Bk3s1/scripts/build#L153
   k3sContainerd =
@@ -327,170 +322,169 @@ let
         sha256 = containerdSha256;
       };
       vendorHash = null;
-      buildInputs = [ btrfs-progs ];
-      subPackages = [ "cmd/containerd-shim-runc-v2" ];
+      buildInputs = [btrfs-progs];
+      subPackages = ["cmd/containerd-shim-runc-v2"];
       ldflags = versionldflags;
     }).overrideAttrs
-      overrideContainerdAttrs;
+    overrideContainerdAttrs;
 
   # TODO (#409339): remove this patch. We had to add it to avoid a mass rebuild
   # for the 25.05 release. Once the staging cycle referenced in the above PR completes,
   # switch back to plain util-linuxMinimal.
   k3sUtilLinux = util-linuxMinimal.withPatches;
 in
-buildGoModule rec {
-  pname = "k3s";
-  version = k3sVersion;
-  pos = builtins.unsafeGetAttrPos "k3sVersion" attrs;
+  buildGoModule rec {
+    pname = "k3s";
+    version = k3sVersion;
+    pos = builtins.unsafeGetAttrPos "k3sVersion" attrs;
 
-  tags = [
-    "libsqlite3"
-    "linux"
-    "ctrd"
-  ];
-  src = k3sRepo;
-  vendorHash = k3sVendorHash;
+    tags = [
+      "libsqlite3"
+      "linux"
+      "ctrd"
+    ];
+    src = k3sRepo;
+    vendorHash = k3sVendorHash;
 
-  postPatch = ''
-    # Nix prefers dynamically linked binaries over static binary.
+    postPatch = ''
+      # Nix prefers dynamically linked binaries over static binary.
 
-    substituteInPlace scripts/package-cli \
-      --replace '"$LDFLAGS $STATIC" -o' \
-                '"$LDFLAGS" -o' \
-      --replace "STATIC=\"-extldflags \'-static\'\"" \
-                ""
+      substituteInPlace scripts/package-cli \
+        --replace '"$LDFLAGS $STATIC" -o' \
+                  '"$LDFLAGS" -o' \
+        --replace "STATIC=\"-extldflags \'-static\'\"" \
+                  ""
 
-    # Upstream codegen fails with trimpath set. Removes "trimpath" for 'go generate':
+      # Upstream codegen fails with trimpath set. Removes "trimpath" for 'go generate':
 
-    substituteInPlace scripts/package-cli \
-      --replace '"''${GO}" generate' \
-                'GOFLAGS="" \
-                 GOOS="${pkgsBuildBuild.go.GOOS}" \
-                 GOARCH="${pkgsBuildBuild.go.GOARCH}" \
-                 CC="${pkgsBuildBuild.stdenv.cc}/bin/cc" \
-                 "''${GO}" generate'
-  '';
+      substituteInPlace scripts/package-cli \
+        --replace '"''${GO}" generate' \
+                  'GOFLAGS="" \
+                   GOOS="${pkgsBuildBuild.go.GOOS}" \
+                   GOARCH="${pkgsBuildBuild.go.GOARCH}" \
+                   CC="${pkgsBuildBuild.stdenv.cc}/bin/cc" \
+                   "''${GO}" generate'
+    '';
 
-  # Important utilities used by the kubelet, see
-  # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
-  # Note the list in that issue is stale and some aren't relevant for k3s.
-  k3sRuntimeDeps = [
-    kmod
-    socat
-    iptables
-    nftables
-    iproute2
-    ipset
-    bridge-utils
-    ethtool
-    k3sUtilLinux # kubelet wants 'nsenter' and 'mount' from util-linux: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-705994388
-    conntrack-tools
-    runc
-    bash
-  ];
+    # Important utilities used by the kubelet, see
+    # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
+    # Note the list in that issue is stale and some aren't relevant for k3s.
+    k3sRuntimeDeps = [
+      kmod
+      socat
+      iptables
+      nftables
+      iproute2
+      ipset
+      bridge-utils
+      ethtool
+      k3sUtilLinux # kubelet wants 'nsenter' and 'mount' from util-linux: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-705994388
+      conntrack-tools
+      runc
+      bash
+    ];
 
-  k3sKillallDeps = [
-    bash
-    systemd
-    procps
-    coreutils
-    gnugrep
-    findutils
-    gnused
-  ];
+    k3sKillallDeps = [
+      bash
+      systemd
+      procps
+      coreutils
+      gnugrep
+      findutils
+      gnused
+    ];
 
-  buildInputs = k3sRuntimeDeps;
+    buildInputs = k3sRuntimeDeps;
 
-  nativeBuildInputs = [
-    makeWrapper
-    rsync
-    yq-go
-    zstd
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      rsync
+      yq-go
+      zstd
+    ];
 
-  # embedded in the final k3s cli
-  propagatedBuildInputs = [
-    k3sCNIPlugins
-    k3sContainerd
-    k3sBundle
-  ];
+    # embedded in the final k3s cli
+    propagatedBuildInputs = [
+      k3sCNIPlugins
+      k3sContainerd
+      k3sBundle
+    ];
 
-  # We override most of buildPhase due to peculiarities in k3s's build.
-  # Specifically, it has a 'go generate' which runs part of the package. See
-  # this comment:
-  # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
-  # So, why do we use buildGoModule at all? For the `vendorHash` / `go mod download` stuff primarily.
-  buildPhase = ''
-    runHook preBuild
-    patchShebangs ./scripts/package-cli ./scripts/download ./scripts/build-upload
+    # We override most of buildPhase due to peculiarities in k3s's build.
+    # Specifically, it has a 'go generate' which runs part of the package. See
+    # this comment:
+    # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
+    # So, why do we use buildGoModule at all? For the `vendorHash` / `go mod download` stuff primarily.
+    buildPhase = ''
+      runHook preBuild
+      patchShebangs ./scripts/package-cli ./scripts/download ./scripts/build-upload
 
-    # copy needed 'go generate' inputs into place
-    mkdir -p ./bin/aux
-    rsync -a --no-perms ${k3sBundle}/bin/ ./bin/
-    ln -vsf ${k3sCNIPlugins}/bin/cni ./bin/cni
-    ln -vsf ${k3sContainerd}/bin/containerd-shim-runc-v2 ./bin
-    rsync -a --no-perms --chmod u=rwX ${k3sRoot}/etc/ ./etc/
-    mkdir -p ./build/static/charts
+      # copy needed 'go generate' inputs into place
+      mkdir -p ./bin/aux
+      rsync -a --no-perms ${k3sBundle}/bin/ ./bin/
+      ln -vsf ${k3sCNIPlugins}/bin/cni ./bin/cni
+      ln -vsf ${k3sContainerd}/bin/containerd-shim-runc-v2 ./bin
+      rsync -a --no-perms --chmod u=rwX ${k3sRoot}/etc/ ./etc/
+      mkdir -p ./build/static/charts
 
-    cp ${traefikChart} ./build/static/charts
-    cp ${traefik-crdChart} ./build/static/charts
+      cp ${traefikChart} ./build/static/charts
+      cp ${traefik-crdChart} ./build/static/charts
 
-    export ARCH=$GOARCH
-    export DRONE_TAG="v${k3sVersion}"
-    export DRONE_COMMIT="${k3sCommit}"
-    # use ./scripts/package-cli to run 'go generate' + 'go build'
+      export ARCH=$GOARCH
+      export DRONE_TAG="v${k3sVersion}"
+      export DRONE_COMMIT="${k3sCommit}"
+      # use ./scripts/package-cli to run 'go generate' + 'go build'
 
-    ./scripts/package-cli
-    mkdir -p $out/bin
-    runHook postBuild
-  '';
+      ./scripts/package-cli
+      mkdir -p $out/bin
+      runHook postBuild
+    '';
 
-  # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
-  doCheck = false;
+    # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
+    doCheck = false;
 
-  installPhase = ''
-    runHook preInstall
-    # wildcard to match the arm64 build too
-    install -m 0755 dist/artifacts/k3s* -D $out/bin/k3s
-    wrapProgram $out/bin/k3s \
-      --prefix PATH : ${lib.makeBinPath k3sRuntimeDeps} \
-      --prefix PATH : "$out/bin"
-    ln -s $out/bin/k3s $out/bin/kubectl
-    ln -s $out/bin/k3s $out/bin/crictl
-    ln -s $out/bin/k3s $out/bin/ctr
-    install -m 0755 ${k3sKillallSh} -D $out/bin/k3s-killall.sh
-    wrapProgram $out/bin/k3s-killall.sh \
-      --prefix PATH : ${lib.makeBinPath (k3sRuntimeDeps ++ k3sKillallDeps)}
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      # wildcard to match the arm64 build too
+      install -m 0755 dist/artifacts/k3s* -D $out/bin/k3s
+      wrapProgram $out/bin/k3s \
+        --prefix PATH : ${lib.makeBinPath k3sRuntimeDeps} \
+        --prefix PATH : "$out/bin"
+      ln -s $out/bin/k3s $out/bin/kubectl
+      ln -s $out/bin/k3s $out/bin/crictl
+      ln -s $out/bin/k3s $out/bin/ctr
+      install -m 0755 ${k3sKillallSh} -D $out/bin/k3s-killall.sh
+      wrapProgram $out/bin/k3s-killall.sh \
+        --prefix PATH : ${lib.makeBinPath (k3sRuntimeDeps ++ k3sKillallDeps)}
+      runHook postInstall
+    '';
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    $out/bin/k3s --version | grep -F "v${k3sVersion}" >/dev/null
-    runHook postInstallCheck
-  '';
+    doInstallCheck = true;
+    installCheckPhase = ''
+      runHook preInstallCheck
+      $out/bin/k3s --version | grep -F "v${k3sVersion}" >/dev/null
+      runHook postInstallCheck
+    '';
 
-  passthru =
-    {
-      inherit airgapImages;
-      k3sCNIPlugins = k3sCNIPlugins;
-      k3sContainerd = k3sContainerd;
-      k3sRepo = k3sRepo;
-      k3sRoot = k3sRoot;
-      k3sBundle = k3sBundle;
-      mkTests =
-        version:
-        let
-          k3s_version = "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+    passthru =
+      {
+        inherit airgapImages;
+        k3sCNIPlugins = k3sCNIPlugins;
+        k3sContainerd = k3sContainerd;
+        k3sRepo = k3sRepo;
+        k3sRoot = k3sRoot;
+        k3sBundle = k3sBundle;
+        mkTests = version: let
+          k3s_version = "k3s_" + lib.replaceStrings ["."] ["_"] (lib.versions.majorMinor version);
         in
-        lib.mapAttrs (name: value: nixosTests.k3s.${name}.${k3s_version}) nixosTests.k3s;
-      tests = passthru.mkTests k3sVersion;
-      updateScript = updateScript;
-    }
-    // (lib.mapAttrs' (
-      name: _: lib.nameValuePair (kebabToCamel name) (fetchurl imagesVersions.${name})
-    ) imagesVersions);
+          lib.mapAttrs (name: value: nixosTests.k3s.${name}.${k3s_version}) nixosTests.k3s;
+        tests = passthru.mkTests k3sVersion;
+        updateScript = updateScript;
+      }
+      // (lib.mapAttrs' (
+          name: _: lib.nameValuePair (kebabToCamel name) (fetchurl imagesVersions.${name})
+        )
+        imagesVersions);
 
-  meta = baseMeta;
-}
+    meta = baseMeta;
+  }

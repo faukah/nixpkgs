@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dstp";
   version = "0.4.23";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "dstp";
     homepage = "https://github.com/ycd/dstp";
     license = licenses.mit;
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

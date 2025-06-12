@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "filebeat";
   version = "8.18.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wBh6mWg1xuhcaDA3guWTWjs4WgSHkNGPW/6KWuZ5L7w=";
 
-  subPackages = [ "filebeat" ];
+  subPackages = ["filebeat"];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -31,7 +30,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version-regex=v(8\..*)" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version-regex=v(8\..*)"];};
   };
 
   meta = {
@@ -39,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/elastic/beats";
     changelog = "https://www.elastic.co/guide/en/beats/libbeat/${version}/release-notes-${version}.html";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ srhb ];
+    maintainers = with lib.maintainers; [srhb];
     mainProgram = "filebeat";
   };
 }

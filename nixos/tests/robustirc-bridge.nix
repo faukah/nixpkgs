@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "robustirc-bridge";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ hax404 ];
+    maintainers = [hax404];
   };
 
   nodes = {

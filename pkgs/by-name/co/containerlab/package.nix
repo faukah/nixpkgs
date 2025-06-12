@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "containerlab";
   version = "0.68.0";
@@ -54,7 +53,7 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/srl-labs/containerlab/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "containerlab";
   };
 })

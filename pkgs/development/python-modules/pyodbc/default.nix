@@ -6,7 +6,6 @@
   pythonOlder,
   unixODBC,
 }:
-
 buildPythonPackage rec {
   pname = "pyodbc";
   version = "5.2.0";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
     unixODBC # for odbc_config
   ];
 
-  buildInputs = [ unixODBC ];
+  buildInputs = [unixODBC];
 
   # Tests require a database server
   doCheck = false;
 
-  pythonImportsCheck = [ "pyodbc" ];
+  pythonImportsCheck = ["pyodbc"];
 
   meta = with lib; {
     description = "Python ODBC module to connect to almost any database";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/mkleehammer/pyodbc/releases/tag/${version}";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

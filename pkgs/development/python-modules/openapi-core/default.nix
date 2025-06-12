@@ -27,7 +27,6 @@
   webob,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "openapi-core";
   version = "0.19.5";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-Q7Z6bq8TztNm2QLL7g23rOGnXVfiTDjquHAhcSWYlC4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "werkzeug"
@@ -62,11 +61,11 @@ buildPythonPackage rec {
       aiohttp
       multidict
     ];
-    django = [ django ];
-    falcon = [ falcon ];
-    fastapi = [ fastapi ];
-    flask = [ flask ];
-    requests = [ requests ];
+    django = [django];
+    falcon = [falcon];
+    fastapi = [fastapi];
+    flask = [flask];
+    requests = [requests];
     starlette = [
       aioitertools
       starlette
@@ -75,14 +74,16 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    httpx
-    pytest-aiohttp
-    pytest-cov-stub
-    pytestCheckHook
-    responses
-    webob
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      httpx
+      pytest-aiohttp
+      pytest-cov-stub
+      pytestCheckHook
+      responses
+      webob
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTestPaths = [
     # Requires secrets and additional configuration
@@ -100,6 +101,6 @@ buildPythonPackage rec {
     description = "Client-side and server-side support for the OpenAPI Specification v3";
     homepage = "https://github.com/python-openapi/openapi-core";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

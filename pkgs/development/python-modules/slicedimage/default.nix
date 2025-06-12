@@ -12,7 +12,6 @@
   pytestCheckHook,
   tifffile,
 }:
-
 buildPythonPackage rec {
   pname = "slicedimage";
   version = "4.1.1";
@@ -36,18 +35,18 @@ buildPythonPackage rec {
     tifffile
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Ignore tests which require setup, check again if disabledTestFiles can be used
-  pytestFlagsArray = [ "--ignore tests/io_" ];
+  pytestFlagsArray = ["--ignore tests/io_"];
 
-  pythonImportsCheck = [ "slicedimage" ];
+  pythonImportsCheck = ["slicedimage"];
 
   meta = with lib; {
     description = "Library to access sliced imaging data";
     mainProgram = "slicedimage";
     homepage = "https://github.com/spacetx/slicedimage";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

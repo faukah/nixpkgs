@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.opensearch;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   configDir = cfg.dataDir + "/config";
 
@@ -21,14 +20,12 @@ let
     name = loggingConfigFilename;
     text = cfg.logging;
   };
-in
-{
-
+in {
   options.services.opensearch = {
     enable = lib.mkEnableOption "OpenSearch";
 
     package = lib.mkPackageOption pkgs "OpenSearch" {
-      default = [ "opensearch" ];
+      default = ["opensearch"];
     };
 
     settings = lib.mkOption {
@@ -88,7 +85,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = ''
         OpenSearch configuration.
@@ -147,15 +144,15 @@ in
 
     extraCmdLineOptions = lib.mkOption {
       description = "Extra command line options for the OpenSearch launcher.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
     };
 
     extraJavaOptions = lib.mkOption {
       description = "Extra command line options for Java.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
-      example = [ "-Djava.net.preferIPv4Stack=true" ];
+      example = ["-Djava.net.preferIPv4Stack=true"];
     };
 
     restartIfChanged = lib.mkOption {
@@ -173,9 +170,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.opensearch = {
       description = "OpenSearch Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.inetutils ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.inetutils];
       inherit (cfg) restartIfChanged;
       environment = {
         OPENSEARCH_HOME = cfg.dataDir;
@@ -184,67 +181,65 @@ in
       };
       serviceConfig =
         {
-          ExecStartPre =
-            let
-              startPreFullPrivileges =
-                ''
-                  set -o errexit -o pipefail -o nounset -o errtrace
-                  shopt -s inherit_errexit
-                ''
-                + (lib.optionalString (!config.boot.isContainer) ''
-                  # Only set vm.max_map_count if lower than ES required minimum
-                  # This avoids conflict if configured via boot.kernel.sysctl
-                  if [ $(${pkgs.procps}/bin/sysctl -n vm.max_map_count) -lt 262144 ]; then
-                    ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
-                  fi
-                '');
-              startPreUnprivileged = ''
+          ExecStartPre = let
+            startPreFullPrivileges =
+              ''
                 set -o errexit -o pipefail -o nounset -o errtrace
                 shopt -s inherit_errexit
-
-                # Install plugins
-
-                # remove plugins directory if it is empty.
-                if [[ -d ${cfg.dataDir}/plugins && -z "$(ls -A ${cfg.dataDir}/plugins)" ]]; then
-                  rm -r "${cfg.dataDir}/plugins"
+              ''
+              + (lib.optionalString (!config.boot.isContainer) ''
+                # Only set vm.max_map_count if lower than ES required minimum
+                # This avoids conflict if configured via boot.kernel.sysctl
+                if [ $(${pkgs.procps}/bin/sysctl -n vm.max_map_count) -lt 262144 ]; then
+                  ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
                 fi
+              '');
+            startPreUnprivileged = ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-                ln -sfT "${cfg.package}/plugins" "${cfg.dataDir}/plugins"
-                ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib
-                ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules
+              # Install plugins
 
-                # opensearch needs to create the opensearch.keystore in the config directory
-                # so this directory needs to be writable.
-                mkdir -p ${configDir}
-                chmod 0700 ${configDir}
+              # remove plugins directory if it is empty.
+              if [[ -d ${cfg.dataDir}/plugins && -z "$(ls -A ${cfg.dataDir}/plugins)" ]]; then
+                rm -r "${cfg.dataDir}/plugins"
+              fi
 
-                # Note that we copy config files from the nix store instead of symbolically linking them
-                # because otherwise X-Pack Security will raise the following exception:
-                # java.security.AccessControlException:
-                # access denied ("java.io.FilePermission" "/var/lib/opensearch/config/opensearch.yml" "read")
+              ln -sfT "${cfg.package}/plugins" "${cfg.dataDir}/plugins"
+              ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib
+              ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules
 
-                rm -f ${configDir}/opensearch.yml
-                cp ${opensearchYml} ${configDir}/opensearch.yml
+              # opensearch needs to create the opensearch.keystore in the config directory
+              # so this directory needs to be writable.
+              mkdir -p ${configDir}
+              chmod 0700 ${configDir}
 
-                # Make sure the logging configuration for old OpenSearch versions is removed:
-                rm -f "${configDir}/logging.yml"
-                rm -f ${configDir}/${loggingConfigFilename}
-                cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}
-                mkdir -p ${configDir}/scripts
+              # Note that we copy config files from the nix store instead of symbolically linking them
+              # because otherwise X-Pack Security will raise the following exception:
+              # java.security.AccessControlException:
+              # access denied ("java.io.FilePermission" "/var/lib/opensearch/config/opensearch.yml" "read")
 
-                rm -f ${configDir}/jvm.options
-                cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options
+              rm -f ${configDir}/opensearch.yml
+              cp ${opensearchYml} ${configDir}/opensearch.yml
 
-                # redirect jvm logs to the data directory
-                mkdir -p ${cfg.dataDir}/logs
-                chmod 0700 ${cfg.dataDir}/logs
-                sed -e '#logs/gc.log#${cfg.dataDir}/logs/gc.log#' -i ${configDir}/jvm.options
-              '';
-            in
-            [
-              "+${pkgs.writeShellScript "opensearch-start-pre-full-privileges" startPreFullPrivileges}"
-              "${pkgs.writeShellScript "opensearch-start-pre-unprivileged" startPreUnprivileged}"
-            ];
+              # Make sure the logging configuration for old OpenSearch versions is removed:
+              rm -f "${configDir}/logging.yml"
+              rm -f ${configDir}/${loggingConfigFilename}
+              cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}
+              mkdir -p ${configDir}/scripts
+
+              rm -f ${configDir}/jvm.options
+              cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options
+
+              # redirect jvm logs to the data directory
+              mkdir -p ${cfg.dataDir}/logs
+              chmod 0700 ${cfg.dataDir}/logs
+              sed -e '#logs/gc.log#${cfg.dataDir}/logs/gc.log#' -i ${configDir}/jvm.options
+            '';
+          in [
+            "+${pkgs.writeShellScript "opensearch-start-pre-full-privileges" startPreFullPrivileges}"
+            "${pkgs.writeShellScript "opensearch-start-pre-unprivileged" startPreUnprivileged}"
+          ];
           ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''
             set -o errexit -o pipefail -o nounset -o errtrace
             shopt -s inherit_errexit
@@ -265,12 +260,12 @@ in
           TimeoutStartSec = "infinity";
           DynamicUser = usingDefaultUserAndGroup && usingDefaultDataDir;
         }
-        // (lib.optionalAttrs (usingDefaultDataDir) {
+        // (lib.optionalAttrs usingDefaultDataDir {
           StateDirectory = "opensearch";
           StateDirectoryMode = "0700";
         });
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

@@ -12,7 +12,6 @@
   zstd,
   plugincode,
 }:
-
 buildPythonPackage rec {
   pname = "extractcode-libarchive";
   version = "21.5.31";
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     popd
   '';
 
-  propagatedBuildInputs = [ plugincode ];
+  propagatedBuildInputs = [plugincode];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "extractcode_libarchive" ];
+  pythonImportsCheck = ["extractcode_libarchive"];
 
   meta = {
     description = "ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
       asl20
       bsd2
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

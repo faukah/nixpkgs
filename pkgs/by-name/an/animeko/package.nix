@@ -76,7 +76,6 @@
   writeShellScript,
   nix-update,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "animeko";
   version = "4.11.1";
@@ -117,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.JAVA_HOME = jetbrains.jdk;
 
-  gradleFlags = [ "-Dorg.gradle.java.home=${jetbrains.jdk}" ];
+  gradleFlags = ["-Dorg.gradle.java.home=${jetbrains.jdk}"];
 
   nativeBuildInputs = [
     gradle
@@ -231,11 +230,11 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     patchelf --add-needed libGL.so.1 \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-          libvlc
-        ]
-      } $out/bin/Ani
+      lib.makeLibraryPath [
+        libGL
+        libvlc
+      ]
+    } $out/bin/Ani
   '';
 
   passthru.updateScript = writeShellScript "update-animeko" ''
@@ -248,11 +247,11 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/open-ani/animeko";
     mainProgram = "Ani";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

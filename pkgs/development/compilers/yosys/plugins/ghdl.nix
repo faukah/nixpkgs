@@ -8,7 +8,6 @@
   zlib,
   ghdl,
 }:
-
 stdenv.mkDerivation {
   pname = "yosys-ghdl";
   # This is not the latest commit, but it's the latest that builds with current stable ghdl 2.0.0
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ghdl/ghdl-yosys-plugin";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

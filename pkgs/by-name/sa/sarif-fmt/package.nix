@@ -33,18 +33,18 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_clipp"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "CLI tool to pretty print SARIF diagnostics";
     homepage = "https://psastras.github.io/sarif-rs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "sarif-fmt";
   };
 }

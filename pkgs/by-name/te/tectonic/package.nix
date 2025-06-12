@@ -7,17 +7,16 @@
   makeBinaryWrapper,
   callPackage,
 }:
-
 symlinkJoin {
   name = "${tectonic-unwrapped.pname}-wrapped-${tectonic-unwrapped.version}";
-  paths = [ tectonic-unwrapped ];
+  paths = [tectonic-unwrapped];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   passthru = {
     unwrapped = tectonic-unwrapped;
     biber = biber-for-tectonic;
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
 
     # The version locked tectonic web bundle, redirected from:
     #   https://relay.fullyjustified.net/default_bundle_v33.tar
@@ -53,11 +52,13 @@ symlinkJoin {
       ln -s $out/bin/tectonic $out/bin/nextonic
     '';
 
-  meta = tectonic-unwrapped.meta // {
-    description = "Tectonic TeX/LaTeX engine, wrapped with a compatible biber";
-    maintainers = with lib.maintainers; [
-      doronbehar
-      bryango
-    ];
-  };
+  meta =
+    tectonic-unwrapped.meta
+    // {
+      description = "Tectonic TeX/LaTeX engine, wrapped with a compatible biber";
+      maintainers = with lib.maintainers; [
+        doronbehar
+        bryango
+      ];
+    };
 }

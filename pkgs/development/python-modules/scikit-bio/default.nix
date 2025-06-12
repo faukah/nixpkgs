@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   cython,
   oldest-supported-numpy,
-
   requests,
   decorator,
   natsort,
@@ -17,11 +15,9 @@
   biom-format,
   statsmodels,
   patsy,
-
   python,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-bio";
   version = "0.6.3";
@@ -53,22 +49,22 @@ buildPythonPackage rec {
     patsy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # only the $out dir contains the built cython extensions, so we run the tests inside there
-  pytestFlagsArray = [ "${placeholder "out"}/${python.sitePackages}/skbio" ];
+  pytestFlagsArray = ["${placeholder "out"}/${python.sitePackages}/skbio"];
 
   disabledTestPaths = [
     # don't know why, but this segfaults
     "${placeholder "out"}/${python.sitePackages}/skbio/metadata/tests/test_intersection.py"
   ];
 
-  pythonImportsCheck = [ "skbio" ];
+  pythonImportsCheck = ["skbio"];
 
   meta = {
     homepage = "http://scikit-bio.org/";
     description = "Data structures, algorithms and educational resources for bioinformatics";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

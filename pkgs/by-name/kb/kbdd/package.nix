@@ -7,7 +7,6 @@
   autoreconfHook,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "kbdd";
   version = "unstable-2021-04-26";
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/qnikst/kbdd";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "kbdd";
   };
 }

@@ -11,48 +11,47 @@
   inkscape,
   fontconfig,
   ghostscript,
-
-  tex ? texliveBasic.withPackages (
-    ps: with ps; [
-      # satisfy all packages that ./configure mentions
-      epstopdf
-      anysize
-      appendix
-      changebar
-      fancybox
-      fancyvrb
-      float
-      footmisc
-      listings
-      jknapltx # for mathrsfs.sty
-      multirow
-      overpic
-      pdfpages
-      pdflscape
-      graphics
-      stmaryrd
-      subfigure
-      titlesec
-      wasysym
-      # pkgs below don't seem requested by dblatex, but our manual fails without them
-      ec
-      zapfding
-      symbol
-      eepic
-      times
-      rsfs
-      cs
-      tex4ht
-      courier
-      helvetic
-      ly1
-    ]
-  ),
+  tex ?
+    texliveBasic.withPackages (
+      ps:
+        with ps; [
+          # satisfy all packages that ./configure mentions
+          epstopdf
+          anysize
+          appendix
+          changebar
+          fancybox
+          fancyvrb
+          float
+          footmisc
+          listings
+          jknapltx # for mathrsfs.sty
+          multirow
+          overpic
+          pdfpages
+          pdflscape
+          graphics
+          stmaryrd
+          subfigure
+          titlesec
+          wasysym
+          # pkgs below don't seem requested by dblatex, but our manual fails without them
+          ec
+          zapfding
+          symbol
+          eepic
+          times
+          rsfs
+          cs
+          tex4ht
+          courier
+          helvetic
+          ly1
+        ]
+    ),
 }:
-
 # NOTE: enableAllFeatures just purifies the expression, it doesn't actually
 # enable any extra features.
-
 stdenv.mkDerivation rec {
   pname = "dblatex${lib.optionalString enableAllFeatures "-full"}";
   version = "0.3.12";
@@ -105,7 +104,7 @@ stdenv.mkDerivation rec {
     ${python311.interpreter} ./setup.py install --prefix="$out" --use-python-path --verbose
   '';
 
-  passthru = { inherit tex; };
+  passthru = {inherit tex;};
 
   meta = {
     description = "Program to convert DocBook to DVI, PostScript or PDF via LaTeX or ConTeXt";

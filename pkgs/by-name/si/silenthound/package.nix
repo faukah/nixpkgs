@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "silenthound";
   version = "0-unstable-2022-12-14";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to enumerate an Active Directory Domain";
     homepage = "https://github.com/layer8secure/SilentHound";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "silenthound";
   };
 }

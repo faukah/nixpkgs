@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "syn2mas";
   version = "0.15.0";
@@ -25,7 +24,7 @@ buildNpmPackage rec {
     description = "Tool to help with the migration of a Matrix Synapse installation to the Matrix Authentication Service";
     homepage = "https://github.com/element-hq/matrix-authentication-service/tree/main/tools/syn2mas";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ teutat3s ];
+    maintainers = with lib.maintainers; [teutat3s];
     mainProgram = "syn2mas";
   };
 }

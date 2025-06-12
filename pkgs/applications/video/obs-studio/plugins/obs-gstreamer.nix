@@ -8,7 +8,6 @@
   ninja,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-gstreamer";
   version = "0.4.1";
@@ -41,18 +40,16 @@ stdenv.mkDerivation rec {
   # - Without gst-plugins-bad it won't find element "h264parse";
   # - gst-plugins-ugly adds "x264" to "Encoder type";
   # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
-  passthru.obsWrapperArguments =
-    let
-      gstreamerHook =
-        package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
-    in
+  passthru.obsWrapperArguments = let
+    gstreamerHook = package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
+  in
     with gst_all_1;
-    builtins.map gstreamerHook [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      gst-plugins-ugly
-    ];
+      builtins.map gstreamerHook [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-bad
+        gst-plugins-ugly
+      ];
 
   # Fix output directory
   postInstall = ''

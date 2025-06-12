@@ -9,7 +9,6 @@
   hwloc,
   donateLevel ? 0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmrig";
   version = "6.22.3";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   # https://github.com/NixOS/nixpkgs/issues/245534
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     description = "Monero (XMR) CPU miner";
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     mainProgram = "xmrig";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kim0 ];
+    maintainers = with maintainers; [kim0];
   };
 }

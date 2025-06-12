@@ -9,7 +9,6 @@
   python-jose,
   requests,
 }:
-
 buildPythonPackage {
   pname = "warrant";
   version = "0.6.1";
@@ -37,7 +36,7 @@ buildPythonPackage {
       --replace "python-jose-cryptodome>=1.3.2" "python-jose>=2.0.0"
   '';
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   propagatedBuildInputs = [
     boto3
@@ -53,6 +52,6 @@ buildPythonPackage {
     description = "Python library for using AWS Cognito with support for SRP";
     homepage = "https://github.com/capless/warrant";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

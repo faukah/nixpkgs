@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   fsspec,
   numpy,
@@ -18,7 +16,6 @@
   tqdm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "torchtnt";
   version = "0.2.4";
@@ -66,6 +63,6 @@ buildPythonPackage rec {
     description = "Lightweight library for PyTorch training tools and utilities";
     homepage = "https://github.com/pytorch/tnt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

@@ -11,7 +11,6 @@
   darwin,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hatch";
   version = "1.14.1";
@@ -24,14 +23,14 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-101R5x4jAfMYrdE3OWWqGmkPWRI9rSMYr+Lye9NCbA4=";
   };
 
-  patches = [ (replaceVars ./paths.patch { uv = lib.getExe python3Packages.uv; }) ];
+  patches = [(replaceVars ./paths.patch {uv = lib.getExe python3Packages.uv;})];
 
   build-system = with python3Packages; [
     hatchling
     hatch-vcs
   ];
 
-  pythonRemoveDeps = [ "uv" ];
+  pythonRemoveDeps = ["uv"];
 
   dependencies = with python3Packages; [
     click
@@ -51,8 +50,7 @@ python3Packages.buildPythonApplication rec {
     zstandard
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       binary
       git
@@ -145,7 +143,7 @@ python3Packages.buildPythonApplication rec {
       "test_features"
       "test_sync_dynamic_dependencies"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "test_resolve" ];
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 ["test_resolve"];
 
   disabledTestPaths =
     [
@@ -177,7 +175,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://hatch.pypa.io/latest/";
     changelog = "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history/hatch.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     mainProgram = "hatch";
   };
 }

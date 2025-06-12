@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "whisper";
   version = "2.0.1";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Short read sequence mapper";
     license = licenses.gpl3;
     homepage = "https://github.com/refresh-bio/whisper";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

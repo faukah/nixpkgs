@@ -8,7 +8,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wdfs-fuse";
   version = "1.4.2";

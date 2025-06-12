@@ -5,7 +5,6 @@
   gfortran,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "json-fortran";
   version = "9.0.3";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jacobwilliams/json-fortran";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

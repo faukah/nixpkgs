@@ -4,9 +4,7 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "tracefilegen";
   version = "unstable-2017-05-13";
 
@@ -17,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "1gsx18ksgz5gwl3v62vgrmhxc0wc99i74qwhpn0h57zllk41drjc";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  patches = [ ./gcc7.patch ];
+  patches = [./gcc7.patch];
 
   installPhase = ''
     install -Dm755 TraceFileGen $out/bin/TraceFileGen
@@ -31,9 +29,8 @@ stdenv.mkDerivation rec {
     description = "Automatically generate all types of basic memory management operations and write into trace files";
     mainProgram = "TraceFileGen";
     homepage = "https://github.com/GarCoSim";
-    maintainers = [ maintainers.cmcdragonkai ];
+    maintainers = [maintainers.cmcdragonkai];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };
-
 }

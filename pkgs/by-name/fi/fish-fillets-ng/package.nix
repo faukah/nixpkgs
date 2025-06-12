@@ -11,7 +11,6 @@
   SDL_image,
   SDL_ttf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fish-fillets-ng";
   version = "1.0.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Puzzle game";
     mainProgram = "fillets";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://fillets.sourceforge.net/";
   };

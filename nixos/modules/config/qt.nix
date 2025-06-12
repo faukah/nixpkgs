@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.qt;
 
   platformPackages = with pkgs; {
@@ -42,16 +41,16 @@ let
   };
 
   stylePackages = with pkgs; {
-    bb10bright = [ libsForQt5.qtstyleplugins ];
-    bb10dark = [ libsForQt5.qtstyleplugins ];
-    cde = [ libsForQt5.qtstyleplugins ];
-    cleanlooks = [ libsForQt5.qtstyleplugins ];
+    bb10bright = [libsForQt5.qtstyleplugins];
+    bb10dark = [libsForQt5.qtstyleplugins];
+    cde = [libsForQt5.qtstyleplugins];
+    cleanlooks = [libsForQt5.qtstyleplugins];
     gtk2 = [
       libsForQt5.qtstyleplugins
       qt6Packages.qt6gtk2
     ];
-    motif = [ libsForQt5.qtstyleplugins ];
-    plastique = [ libsForQt5.qtstyleplugins ];
+    motif = [libsForQt5.qtstyleplugins];
+    plastique = [libsForQt5.qtstyleplugins];
 
     adwaita = [
       adwaita-qt
@@ -80,29 +79,30 @@ let
       qt6Packages.qtstyleplugin-kvantum
     ];
   };
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [
     romildo
     thiagokokada
   ];
 
   imports = [
-    (lib.mkRenamedOptionModule [ "qt5" "enable" ] [ "qt" "enable" ])
-    (lib.mkRenamedOptionModule [ "qt5" "platformTheme" ] [ "qt" "platformTheme" ])
-    (lib.mkRenamedOptionModule [ "qt5" "style" ] [ "qt" "style" ])
+    (lib.mkRenamedOptionModule ["qt5" "enable"] ["qt" "enable"])
+    (lib.mkRenamedOptionModule ["qt5" "platformTheme"] ["qt" "platformTheme"])
+    (lib.mkRenamedOptionModule ["qt5" "style"] ["qt" "style"])
   ];
 
   options = {
     qt = {
-      enable = lib.mkEnableOption "" // {
-        description = ''
-          Whether to enable Qt configuration, including theming.
+      enable =
+        lib.mkEnableOption ""
+        // {
+          description = ''
+            Whether to enable Qt configuration, including theming.
 
-          Enabling this option is necessary for Qt plugins to work in the
-          installed profiles (e.g.: `nix-env -i` or `environment.systemPackages`).
-        '';
-      };
+            Enabling this option is necessary for Qt plugins to work in the
+            installed profiles (e.g.: `nix-env -i` or `environment.systemPackages`).
+          '';
+        };
 
       platformTheme = lib.mkOption {
         type = with lib.types; nullOr (enum (lib.attrNames platformPackages));
@@ -215,44 +215,40 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions =
-      let
-        gnomeStyles = [
-          "adwaita"
-          "adwaita-dark"
-          "adwaita-highcontrast"
-          "adwaita-highcontrastinverse"
-          "breeze"
-        ];
-      in
-      [
-        {
-          assertion = cfg.platformTheme == "gnome" -> (builtins.elem cfg.style gnomeStyles);
-          message = ''
-            `qt.platformTheme` "gnome" must have `qt.style` set to a theme that supports both Qt and Gtk,
-            for example: ${lib.concatStringsSep ", " gnomeStyles}.
-          '';
-        }
+    assertions = let
+      gnomeStyles = [
+        "adwaita"
+        "adwaita-dark"
+        "adwaita-highcontrast"
+        "adwaita-highcontrastinverse"
+        "breeze"
       ];
+    in [
+      {
+        assertion = cfg.platformTheme == "gnome" -> (builtins.elem cfg.style gnomeStyles);
+        message = ''
+          `qt.platformTheme` "gnome" must have `qt.style` set to a theme that supports both Qt and Gtk,
+          for example: ${lib.concatStringsSep ", " gnomeStyles}.
+        '';
+      }
+    ];
 
     environment.variables = {
       QT_QPA_PLATFORMTHEME =
         lib.mkIf (cfg.platformTheme != null)
-          styleNames.${cfg.platformTheme} or cfg.platformTheme;
+        styleNames.${cfg.platformTheme} or cfg.platformTheme;
       QT_STYLE_OVERRIDE = lib.mkIf (cfg.style != null) cfg.style;
     };
 
-    environment.profileRelativeSessionVariables =
-      let
-        qtVersions = with pkgs; [
-          qt5
-          qt6
-        ];
-      in
-      {
-        QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
-        QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
-      };
+    environment.profileRelativeSessionVariables = let
+      qtVersions = with pkgs; [
+        qt5
+        qt6
+      ];
+    in {
+      QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
+      QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
+    };
 
     environment.systemPackages =
       lib.optionals (cfg.platformTheme != null) (platformPackages.${cfg.platformTheme})

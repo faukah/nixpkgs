@@ -85,10 +85,10 @@ python3Packages.buildPythonApplication rec {
 
     runHook postInstallCheck
   '';
-  versionCheckProgramArg = [ "--version" ];
+  versionCheckProgramArg = ["--version"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

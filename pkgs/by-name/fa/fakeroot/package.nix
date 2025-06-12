@@ -12,7 +12,6 @@
   autoreconfHook,
   po4a,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.37.1.2";
   pname = "fakeroot";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Give a fake root environment through LD_PRELOAD";
     mainProgram = "fakeroot";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

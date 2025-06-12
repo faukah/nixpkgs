@@ -11,7 +11,6 @@
   libjpeg,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qosmic";
   version = "1.6.0";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
     mainProgram = "qosmic";
     homepage = "https://github.com/bitsed/qosmic";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
     platforms = platforms.unix;
   };
 }

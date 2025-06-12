@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nflz";
   version = "1.0.2";
@@ -30,8 +29,8 @@ rustPlatform.buildRustPackage rec {
       belong to a set of ordered files. An example are photos from a camera.
     '';
     homepage = "https://github.com/phip1611/nflz";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ phip1611 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [phip1611];
     mainProgram = "nflz";
   };
 }

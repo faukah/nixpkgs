@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   exampleScript = pkgs.writeTextFile {
     name = "example.sh";
     text = ''
@@ -27,28 +25,29 @@ let
       WantedBy=multi-user.target
     '';
   };
-in
-{
+in {
   name = "systemd-misc";
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
-      boot.extraSystemdUnitPaths = [ "/etc/systemd-rw/system" ];
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    boot.extraSystemdUnitPaths = ["/etc/systemd-rw/system"];
 
-      users.users.limited = {
-        isNormalUser = true;
-        uid = 1000;
-      };
-
-      systemd.units."user-1000.slice.d/limits.conf" = {
-        text = ''
-          [Slice]
-          TasksAccounting=yes
-          TasksMax=100
-        '';
-      };
+    users.users.limited = {
+      isNormalUser = true;
+      uid = 1000;
     };
+
+    systemd.units."user-1000.slice.d/limits.conf" = {
+      text = ''
+        [Slice]
+        TasksAccounting=yes
+        TasksMax=100
+      '';
+    };
+  };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

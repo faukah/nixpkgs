@@ -6,7 +6,6 @@
   sqlite,
   xdg-utils,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "anup";
   version = "0.4.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Acizza/anup";
     description = "Anime tracker for AniList featuring a TUI";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ natto1784 ];
+    maintainers = with lib.maintainers; [natto1784];
     mainProgram = "anup";
   };
 }

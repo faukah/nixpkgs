@@ -9,7 +9,6 @@
   motif,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snd";
   version = "25.4";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ccrma.stanford.edu/software/snd/";
     platforms = platforms.unix;
     license = licenses.free;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "snd";
   };
 }

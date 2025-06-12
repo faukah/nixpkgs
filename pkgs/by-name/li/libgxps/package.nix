@@ -15,7 +15,6 @@
   gnome,
   lcms2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgxps";
   version = "0.3.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     libtiff
     lcms2
   ];
-  propagatedBuildInputs = [ libarchive ];
+  propagatedBuildInputs = [libarchive];
 
   mesonFlags =
     [
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "GObject based library for handling and rendering XPS documents";
     homepage = "https://gitlab.gnome.org/GNOME/libgxps";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

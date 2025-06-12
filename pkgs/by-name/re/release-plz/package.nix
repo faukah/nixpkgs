@@ -8,7 +8,6 @@
   perl,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "release-plz";
   version = "0.3.135";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     perl
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   buildAndTestSubdir = "crates/release_plz";
 
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ dannixon ];
+    maintainers = with lib.maintainers; [dannixon];
     mainProgram = "release-plz";
     broken = stdenv.hostPlatform.isDarwin;
   };

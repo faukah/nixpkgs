@@ -10,7 +10,6 @@
   bash,
   debug ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "badvpn";
   version = "1.999.130";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Set of network-related (mostly VPN-related) tools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

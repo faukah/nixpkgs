@@ -6,7 +6,6 @@
   stdenv,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "chit";
   version = "0.1.15";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     openssl
@@ -49,6 +48,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/peterheesterman/chit";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

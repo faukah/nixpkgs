@@ -1,16 +1,17 @@
-{ runCommand, cctools }:
 {
+  runCommand,
+  cctools,
+}: {
   haskellPackages,
   src,
-  deps ? p: [ ],
+  deps ? p: [],
   name,
-}:
-let
+}: let
   inherit (haskellPackages) ghc ghcWithPackages;
   with-env = ghcWithPackages deps;
   ghcName = "${ghc.targetPrefix}ghc";
 in
-runCommand name
+  runCommand name
   {
     buildInputs = [
       with-env

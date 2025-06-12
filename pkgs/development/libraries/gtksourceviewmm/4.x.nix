@@ -8,7 +8,6 @@
   gtksourceview4,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtksourceviewmm";
   version = "3.91.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     glibmm
     gtkmm3
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceviewmm";
     description = "C++ wrapper for gtksourceview";
     license = licenses.lgpl2;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

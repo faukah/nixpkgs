@@ -13,7 +13,6 @@
 # fixes.
 #
 # ^1 https://github.com/NixOS/nixpkgs/issues/69338
-
 {
   # Build dependencies
   appimageTools,
@@ -22,7 +21,6 @@
   fetchzip,
   lib,
   stdenv,
-
   # Runtime dependencies;
   # A few additional ones (e.g. Node) are already shipped together with the
   # AppImage, so we don't have to duplicate them here.
@@ -35,9 +33,7 @@
   libXdamage,
   nss,
   udev,
-}:
-
-let
+}: let
   pname = "pcloud";
   version = "1.14.12";
   code = "XZcIVb5ZhHzMumagTOBxWWhbjhyv0bN7oPKk";
@@ -52,79 +48,78 @@ let
     inherit pname version;
     src = "${src}/pcloud";
   };
-
 in
-stdenv.mkDerivation {
-  inherit pname version;
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  src = appimageContents;
+    src = appimageContents;
 
-  dontConfigure = true;
-  dontBuild = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    patchelfUnstable
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      patchelfUnstable
+    ];
 
-  buildInputs = [
-    alsa-lib
-    dbus-glib
-    fuse
-    gtk3
-    libdbusmenu-gtk2
-    libXdamage
-    nss
-    udev
-  ];
+    buildInputs = [
+      alsa-lib
+      dbus-glib
+      fuse
+      gtk3
+      libdbusmenu-gtk2
+      libXdamage
+      nss
+      udev
+    ];
 
-  installPhase = ''
-    mkdir "$out"
-    cp -ar . "$out/app"
-    cd "$out"
+    installPhase = ''
+      mkdir "$out"
+      cp -ar . "$out/app"
+      cd "$out"
 
-    # Remove the AppImage runner, since users are not supposed to use it; the
-    # actual entry point is the `pcloud` binary
-    rm app/AppRun
+      # Remove the AppImage runner, since users are not supposed to use it; the
+      # actual entry point is the `pcloud` binary
+      rm app/AppRun
 
-    # Adjust directory structure, so that the `.desktop` etc. files are
-    # properly detected
-    mkdir bin
-    mv app/usr/share .
-    mv app/usr/lib .
+      # Adjust directory structure, so that the `.desktop` etc. files are
+      # properly detected
+      mkdir bin
+      mv app/usr/share .
+      mv app/usr/lib .
 
-    # Adjust the `.desktop` file
-    mkdir share/applications
+      # Adjust the `.desktop` file
+      mkdir share/applications
 
-    substitute \
-      app/pcloud.desktop \
-      share/applications/pcloud.desktop \
-      --replace 'Name=pcloud' 'Name=pCloud' \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
+      substitute \
+        app/pcloud.desktop \
+        share/applications/pcloud.desktop \
+        --replace 'Name=pcloud' 'Name=pCloud' \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
 
-    # Build the main executable
-    cat > bin/pcloud <<EOF
-    #! $SHELL -e
+      # Build the main executable
+      cat > bin/pcloud <<EOF
+      #! $SHELL -e
 
-    # This is required for the file picker dialog - otherwise pcloud just
-    # crashes
-    export XDG_DATA_DIRS="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
+      # This is required for the file picker dialog - otherwise pcloud just
+      # crashes
+      export XDG_DATA_DIRS="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
 
-    exec "$out/app/pcloud"
-    EOF
+      exec "$out/app/pcloud"
+      EOF
 
-    chmod +x bin/pcloud
+      chmod +x bin/pcloud
 
-    ln -snf $out/share/icons/hicolor/512x512/apps/pcloud.png $out/app/pcloud.png
-  '';
+      ln -snf $out/share/icons/hicolor/512x512/apps/pcloud.png $out/app/pcloud.png
+    '';
 
-  meta = with lib; {
-    description = "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition";
-    homepage = "https://www.pcloud.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ patryk27 ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "pcloud";
-  };
-}
+    meta = with lib; {
+      description = "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition";
+      homepage = "https://www.pcloud.com/";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = with maintainers; [patryk27];
+      platforms = ["x86_64-linux"];
+      mainProgram = "pcloud";
+    };
+  }

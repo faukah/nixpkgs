@@ -7,7 +7,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnfc";
   version = "1.8.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Library for Near Field Communication (NFC)";
     homepage = "https://github.com/nfc-tools/libnfc";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

@@ -4,26 +4,24 @@
   lua,
   buildEnv,
   makeWrapper,
-  extraLibs ? [ ],
-  extraOutputsToInstall ? [ ],
+  extraLibs ? [],
+  extraOutputsToInstall ? [],
   postBuild ? "",
   ignoreCollisions ? false,
   requiredLuaModules,
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
 }:
-
 # Create a lua executable that knows about additional packages.
 let
-  env =
-    let
-      paths = [ lua ] ++ requiredLuaModules extraLibs;
-    in
+  env = let
+    paths = [lua] ++ requiredLuaModules extraLibs;
+  in
     buildEnv {
       name = "${lua.name}-env";
 
       inherit paths;
       inherit ignoreCollisions;
-      extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
+      extraOutputsToInstall = ["out"] ++ extraOutputsToInstall;
 
       nativeBuildInputs = [
         makeWrapper
@@ -66,23 +64,25 @@ let
 
       inherit (lua) meta;
 
-      passthru = lua.passthru // {
-        interpreter = "${env}/bin/lua";
-        inherit lua;
-        luaPath = lua.pkgs.luaLib.genLuaPathAbsStr env;
-        luaCpath = lua.pkgs.luaLib.genLuaCPathAbsStr env;
-        env = stdenv.mkDerivation {
-          name = "interactive-${lua.name}-environment";
-          nativeBuildInputs = [ env ];
+      passthru =
+        lua.passthru
+        // {
+          interpreter = "${env}/bin/lua";
+          inherit lua;
+          luaPath = lua.pkgs.luaLib.genLuaPathAbsStr env;
+          luaCpath = lua.pkgs.luaLib.genLuaCPathAbsStr env;
+          env = stdenv.mkDerivation {
+            name = "interactive-${lua.name}-environment";
+            nativeBuildInputs = [env];
 
-          buildCommand = ''
-            echo >&2 ""
-            echo >&2 "*** lua 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-            echo >&2 ""
-            exit 1
-          '';
+            buildCommand = ''
+              echo >&2 ""
+              echo >&2 "*** lua 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+              echo >&2 ""
+              exit 1
+            '';
+          };
         };
-      };
     };
 in
-env
+  env

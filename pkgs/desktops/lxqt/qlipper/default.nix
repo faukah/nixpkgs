@@ -8,7 +8,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qlipper";
   version = "5.1.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Cross-platform clipboard history applet";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pvanek/qlipper";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

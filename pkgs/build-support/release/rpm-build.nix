@@ -1,6 +1,5 @@
 # This function builds an RPM from a source tarball that contains a
 # RPM spec file (i.e., one that can be built using `rpmbuild -ta').
-
 {
   name ? "rpm-build",
   diskImage,
@@ -8,52 +7,49 @@
   lib,
   vmTools,
   ...
-}@args:
-
+} @ args:
 vmTools.buildRPM (
+  removeAttrs args ["vmTools"]
+  // {
+    name = name + "-" + diskImage.name + (lib.optionalString (src ? version) "-${src.version}");
 
-  removeAttrs args [ "vmTools" ]
-  //
+    preBuild = ''
+      . ${./functions.sh}
+      propagateImageName
+      src=$(findTarball $src)
+    '';
 
-    {
-      name = name + "-" + diskImage.name + (lib.optionalString (src ? version) "-${src.version}");
+    postInstall = ''
+      declare -a rpms rpmNames
+      for i in $out/rpms/*/*.rpm; do
+        if echo $i | grep -vq "\.src\.rpm$"; then
+          echo "file rpm $i" >> $out/nix-support/hydra-build-products
+          rpms+=($i)
+          rpmNames+=("$(rpm -qp "$i")")
+        fi
+      done
 
-      preBuild = ''
-        . ${./functions.sh}
-        propagateImageName
-        src=$(findTarball $src)
-      '';
+      echo "installing ''${rpms[*]}..."
+      rpm -Up ''${rpms[*]} --excludepath /nix/store
 
-      postInstall = ''
-        declare -a rpms rpmNames
-        for i in $out/rpms/*/*.rpm; do
-          if echo $i | grep -vq "\.src\.rpm$"; then
-            echo "file rpm $i" >> $out/nix-support/hydra-build-products
-            rpms+=($i)
-            rpmNames+=("$(rpm -qp "$i")")
-          fi
-        done
+      eval "$postRPMInstall"
 
-        echo "installing ''${rpms[*]}..."
-        rpm -Up ''${rpms[*]} --excludepath /nix/store
+      echo "uninstalling ''${rpmNames[*]}..."
+      rpm -e ''${rpmNames[*]} --nodeps
 
-        eval "$postRPMInstall"
+      for i in $out/rpms/*/*.src.rpm; do
+        echo "file srpm $i" >> $out/nix-support/hydra-build-products
+      done
 
-        echo "uninstalling ''${rpmNames[*]}..."
-        rpm -e ''${rpmNames[*]} --nodeps
+      for rpmdir in $extraRPMs ; do
+        echo "file rpm-extra $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)" >> $out/nix-support/hydra-build-products
+      done
+    '';
 
-        for i in $out/rpms/*/*.src.rpm; do
-          echo "file srpm $i" >> $out/nix-support/hydra-build-products
-        done
-
-        for rpmdir in $extraRPMs ; do
-          echo "file rpm-extra $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)" >> $out/nix-support/hydra-build-products
-        done
-      '';
-
-      meta = (lib.optionalAttrs (args ? meta) args.meta) // {
+    meta =
+      (lib.optionalAttrs (args ? meta) args.meta)
+      // {
         description = "RPM package for ${diskImage.fullName}";
       };
-    }
-
+  }
 )

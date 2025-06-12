@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   pyyaml,
-
   # tests
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jsondiff";
   version = "2.2.1";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ pyyaml ];
+  dependencies = [pyyaml];
 
   nativeCheckInputs = [
     hypothesis

@@ -3,19 +3,15 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   more-itertools,
   typeguard,
-
   # checks
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "inflect";
   version = "7.5.0";
@@ -40,20 +36,20 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://errors.pydantic.dev/2.5/v/string_too_short
     "inflect.engine.compare"
   ];
 
-  pythonImportsCheck = [ "inflect" ];
+  pythonImportsCheck = ["inflect"];
 
   meta = {
     description = "Correctly generate plurals, singular nouns, ordinals, indefinite articles";
     homepage = "https://github.com/jaraco/inflect";
     changelog = "https://github.com/jaraco/inflect/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.mit;
-    teams = [ lib.teams.tts ];
+    teams = [lib.teams.tts];
   };
 }

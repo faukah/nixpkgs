@@ -8,7 +8,6 @@
   py-bip39-bindings,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "py-sr25519-bindings";
   version = "0.2.2";
@@ -31,16 +30,16 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   nativeCheckInputs = [
     pytestCheckHook
     py-bip39-bindings
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "sr25519" ];
+  pythonImportsCheck = ["sr25519"];
 
   meta = with lib; {
     description = "Python bindings for sr25519 library";

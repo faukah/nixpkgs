@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
   versioneer,
-
   # dependencies
   bidsschematools,
 }:
-
 buildPythonPackage rec {
   pname = "bids-validator";
   version = "1.14.7.post0";
@@ -34,13 +31,13 @@ buildPythonPackage rec {
     bidsschematools
   ];
 
-  pythonImportsCheck = [ "bids_validator" ];
+  pythonImportsCheck = ["bids_validator"];
 
   meta = {
     description = "Validator for the Brain Imaging Data Structure";
     homepage = "https://github.com/bids-standard/bids-validator";
     changelog = "https://github.com/bids-standard/bids-validator/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

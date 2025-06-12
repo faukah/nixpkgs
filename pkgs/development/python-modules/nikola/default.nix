@@ -40,7 +40,6 @@
   watchdog,
   yapsy,
 }:
-
 buildPythonPackage rec {
   pname = "nikola";
   version = "8.3.1";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
       --replace-fail "--cov nikola --cov-report term-missing" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -112,7 +111,7 @@ buildPythonPackage rec {
     "test_format_date_locale_variants"
   ];
 
-  pythonImportsCheck = [ "nikola" ];
+  pythonImportsCheck = ["nikola"];
 
   meta = with lib; {
     description = "Static website and blog generator";
@@ -120,6 +119,6 @@ buildPythonPackage rec {
     homepage = "https://getnikola.com/";
     changelog = "https://github.com/getnikola/nikola/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

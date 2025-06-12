@@ -15,7 +15,6 @@
   libyaml,
   rust-jemalloc-sys-unprefixed,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rubyfmt";
   version = "0.10.0";
@@ -75,7 +74,7 @@ rustPlatform.buildRustPackage rec {
     description = "Ruby autoformatter";
     homepage = "https://github.com/fables-tales/rubyfmt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bobvanderlinden ];
+    maintainers = with lib.maintainers; [bobvanderlinden];
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "rubyfmt";
   };

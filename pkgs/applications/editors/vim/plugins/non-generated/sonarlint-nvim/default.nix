@@ -16,13 +16,13 @@ vimUtils.buildVimPlugin {
   };
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     homepage = "https://gitlab.com/schrieveslaach/sonarlint.nvim";
     description = "Extensions for the built-in Language Server Protocol support in Neovim for sonarlint-language-server";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.sinics ];
+    maintainers = [lib.maintainers.sinics];
   };
 }

@@ -6,7 +6,6 @@
   jinja2,
   sphinxcontrib-serializinghtml,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-websupport";
   version = "2.0.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-C3Nn07rGRUsfl+QqqMTU1KG3VtUl/HJuu+VXHgM+ec0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     jinja2
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   dontCheckRuntimeDeps = true;
   doCheck = false;
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = {
     description = "Sphinx API for Web Apps";

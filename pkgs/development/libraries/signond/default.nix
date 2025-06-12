@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   doxygen,
 }:
-
 stdenv.mkDerivation {
   pname = "signond";
   version = "8.61-unstable-2023-11-24";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   preConfigure = ''
     substituteInPlace src/signond/signond.pro \
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://gitlab.com/accounts-sso/signond";
     description = "Signon Daemon for Qt";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.linux;
   };
 }

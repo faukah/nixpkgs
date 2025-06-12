@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mmv-go";
   version = "0.1.6";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/itchyny/mmv";
     description = "Rename multiple files using your $EDITOR";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "mmv";
   };
 }

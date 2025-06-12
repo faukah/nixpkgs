@@ -4,7 +4,6 @@
   fetchFromGitHub,
   runtimeShell,
 }:
-
 buildGoModule rec {
   pname = "hivemind";
   version = "1.1.0";
@@ -25,8 +24,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/DarthSim/";
     description = "Process manager for Procfile-based applications";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.sveitser ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.sveitser];
     mainProgram = "hivemind";
   };
 }

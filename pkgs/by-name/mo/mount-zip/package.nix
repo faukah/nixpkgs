@@ -11,7 +11,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mount-zip";
   version = "1.8";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     libzip
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {

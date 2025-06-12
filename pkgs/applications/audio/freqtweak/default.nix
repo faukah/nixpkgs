@@ -11,7 +11,6 @@
   libxml2,
   wxGTK,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freqtweak";
   version = "unstable-2019-08-03";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://essej.net/freqtweak/";
     description = "Realtime audio frequency spectral manipulation";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     mainProgram = "freqtweak";

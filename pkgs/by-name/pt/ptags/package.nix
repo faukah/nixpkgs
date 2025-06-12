@@ -5,7 +5,6 @@
   makeWrapper,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ptags";
   version = "0.3.5";
@@ -20,12 +19,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-zzbGyfuzJXB/Rf/cm4JTVfjx2rWz1iTnELokie6qBrw=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     # `ctags` must be accessible in `PATH` for `ptags` to work.
     wrapProgram "$out/bin/ptags" \
-      --prefix PATH : "${lib.makeBinPath [ ctags ]}"
+      --prefix PATH : "${lib.makeBinPath [ctags]}"
   '';
 
   # Sanity check.
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Parallel universal-ctags wrapper for git repository";
     mainProgram = "ptags";
     homepage = "https://github.com/dalance/ptags";
-    maintainers = with maintainers; [ pamplemousse ];
+    maintainers = with maintainers; [pamplemousse];
     license = licenses.mit;
   };
 }

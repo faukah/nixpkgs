@@ -5,7 +5,6 @@
   kernel,
   bc,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl8723ds";
   version = "${kernel.version}-unstable-2023-11-14";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-SszvDuWN9opkXyVQAOLjnNtPp93qrKgnGvzK0y7Y9b0=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  nativeBuildInputs = [ bc ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [bc] ++ kernel.moduleBuildDependencies;
 
   makeFlags =
     [
@@ -47,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/lwfinger/rtl8723ds";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
   };
 }

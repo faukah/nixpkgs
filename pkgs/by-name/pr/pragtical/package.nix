@@ -17,7 +17,6 @@
   SDL2,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pragtical";
   version = "3.5.2";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
   # workaround for `libmbedx509.so.1, libmbedcrypto.so.7: error adding symbols: DSO missing from command line`
   env.NIX_LDFLAGS = "-lmbedx509 -lmbedcrypto";
 
-  mesonFlags = [ "-Duse_system_lua=true" ];
+  mesonFlags = ["-Duse_system_lua=true"];
 
   meta = {
     changelog = "https://github.com/pragtical/pragtical/blob/${finalAttrs.src.rev}/changelog.md";

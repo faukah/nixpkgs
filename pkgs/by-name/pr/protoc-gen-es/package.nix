@@ -4,7 +4,6 @@
   fetchFromGitHub,
   npm-lockfile-fix,
 }:
-
 buildNpmPackage rec {
   pname = "protoc-gen-es";
   version = "2.5.1";

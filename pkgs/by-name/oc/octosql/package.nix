@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "octosql";
   version = "0.13.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "Commandline tool for joining, analyzing and transforming data from multiple databases and file formats using SQL";
     homepage = "https://github.com/cube2222/octosql";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "octosql";
   };
 }

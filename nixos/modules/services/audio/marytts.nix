@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.marytts;
-  format = pkgs.formats.javaProperties { };
-in
-{
+  format = pkgs.formats.javaProperties {};
+in {
   options.services.marytts = {
     enable = lib.mkEnableOption "MaryTTS";
 
@@ -16,7 +14,7 @@ in
       type = lib.types.submodule {
         freeformType = format.type;
       };
-      default = { };
+      default = {};
       description = ''
         Settings for MaryTTS.
 
@@ -25,7 +23,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "marytts" { };
+    package = lib.mkPackageOption pkgs "marytts" {};
 
     basePath = lib.mkOption {
       type = lib.types.path;
@@ -54,7 +52,7 @@ in
 
     voices = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           (pkgs.fetchzip {
@@ -73,7 +71,7 @@ in
 
     userDictionaries = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           (pkgs.writeTextFile {
@@ -97,12 +95,12 @@ in
       "socket.port" = lib.mkDefault cfg.port;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.marytts = {
       description = "MaryTTS server instance";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       # FIXME: MaryTTS's config loading mechanism appears to be horrendously broken
       # and it doesn't seem to actually read config files outside of precompiled JAR files.
@@ -166,19 +164,19 @@ in
         name = "marytts-lib";
 
         # Put user paths before default ones so that user ones have priority
-        paths = cfg.voices ++ [ "${cfg.package}/lib" ];
+        paths = cfg.voices ++ ["${cfg.package}/lib"];
       }}";
 
       "${cfg.basePath}/user-dictionaries"."L+".argument = "${pkgs.symlinkJoin {
         name = "marytts-user-dictionaries";
 
         # Put user paths before default ones so that user ones have priority
-        paths = cfg.userDictionaries ++ [ "${cfg.package}/user-dictionaries" ];
+        paths = cfg.userDictionaries ++ ["${cfg.package}/user-dictionaries"];
       }}";
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

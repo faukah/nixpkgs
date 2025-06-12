@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   einx,
   einops,
   loguru,
   packaging,
   torch,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "x-transformers";
   version = "2.3.5";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-doMAq55c12xLpTaWptfNclnGoCnvdtz90XUI3m1rzPA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     einx
@@ -39,9 +35,9 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "x_transformers" ];
+  pythonImportsCheck = ["x_transformers"];
 
   meta = {
     description = "Concise but fully-featured transformer";
@@ -50,6 +46,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/lucidrains/x-transformers";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ByteSudoer ];
+    maintainers = with lib.maintainers; [ByteSudoer];
   };
 }

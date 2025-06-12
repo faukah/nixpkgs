@@ -8,7 +8,6 @@
   plasma-framework,
   plasma-workspace,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nordic";
   version = "2.2.0-unstable-2025-05-05";
@@ -86,9 +85,9 @@ stdenvNoCC.mkDerivation rec {
     "sddm"
   ];
 
-  nativeBuildInputs = [ jdupes ];
+  nativeBuildInputs = [jdupes];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontWrapQtApps = true;
 
@@ -165,6 +164,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/EliverLara/Nordic";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

@@ -11,7 +11,6 @@
   pythonOlder,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "update-dotdee";
   version = "6.0";
@@ -35,14 +34,14 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace tox.ini \
       --replace " --cov --showlocals --verbose" ""
   '';
 
-  pythonImportsCheck = [ "update_dotdee" ];
+  pythonImportsCheck = ["update_dotdee"];
 
   disabledTests = [
     # TypeError: %o format: an integer is required, not str
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     mainProgram = "update-dotdee";
     homepage = "https://github.com/xolox/python-update-dotdee";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

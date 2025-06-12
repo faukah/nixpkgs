@@ -7,7 +7,6 @@
   dune-configurator,
   ocplib-endian,
 }:
-
 buildDunePackage rec {
   pname = "lwt";
   version = "5.9.1";
@@ -21,8 +20,8 @@ buildDunePackage rec {
     hash = "sha256-oPYLFugMTI3a+hmnwgUcoMgn5l88NP1Roq0agLhH/vI=";
   };
 
-  nativeBuildInputs = [ cppo ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [cppo];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     libev
     ocplib-endian
@@ -31,7 +30,7 @@ buildDunePackage rec {
   meta = {
     homepage = "https://ocsigen.org/lwt/";
     description = "Cooperative threads library for OCaml";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.mit;
   };
 }

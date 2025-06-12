@@ -5,7 +5,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dj-email-url";
   version = "1.0.6";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Use an URL to configure email backend settings in your Django Application";
     homepage = "https://github.com/migonzalvar/dj-email-url";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

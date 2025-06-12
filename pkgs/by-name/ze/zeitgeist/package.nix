@@ -18,17 +18,18 @@
   pythonSupport ? true,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zeitgeist";
   version = "1.0.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "man"
-  ] ++ lib.optional pythonSupport "py";
+  outputs =
+    [
+      "out"
+      "lib"
+      "dev"
+      "man"
+    ]
+    ++ lib.optional pythonSupport "py";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -80,7 +81,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Service which logs the users’s activities and events";
     homepage = "https://zeitgeist.freedesktop.org/";
-    teams = [ teams.freedesktop ];
+    teams = [teams.freedesktop];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

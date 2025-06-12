@@ -9,7 +9,6 @@
   nix-update-script,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "espflash";
   version = "3.3.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       udev
     ];
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       --fish <($out/bin/espflash completions fish)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Serial flasher utility for Espressif SoCs and modules based on esptool.py";
@@ -59,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 }

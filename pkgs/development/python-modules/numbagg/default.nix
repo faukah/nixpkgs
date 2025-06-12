@@ -2,15 +2,12 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numba,
   numpy,
-
   # tests
   pytestCheckHook,
   bottleneck,
@@ -19,7 +16,6 @@
   pytest-benchmark,
   tabulate,
 }:
-
 buildPythonPackage rec {
   version = "0.9.0";
   pname = "numbagg";
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     numba
   ];
 
-  pythonImportsCheck = [ "numbagg" ];
+  pythonImportsCheck = ["numbagg"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/numbagg/numbagg";
     changelog = "https://github.com/numbagg/numbagg/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

@@ -21,7 +21,6 @@
   swiftclient,
   xattr,
 }:
-
 buildPythonPackage rec {
   pname = "swift";
   version = "2.35.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-x8RPQAPOERJShgYPy4uiezkHHSaxhftslEWqD7ShO40=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   build-system = [
     pbr
@@ -75,12 +74,12 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "swift" ];
+  pythonImportsCheck = ["swift"];
 
   meta = with lib; {
     description = "OpenStack Object Storage";
     homepage = "https://github.com/openstack/swift";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

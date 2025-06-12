@@ -15,7 +15,6 @@
   nftablesCompat ? true,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.8.11";
   pname = "iptables";
@@ -47,13 +46,15 @@ stdenv.mkDerivation rec {
     libpcap
   ];
 
-  configureFlags = [
-    "--enable-bpf-compiler"
-    "--enable-devel"
-    "--enable-libipq"
-    "--enable-nfsynproxy"
-    "--enable-shared"
-  ] ++ lib.optional (!nftablesCompat) "--disable-nftables";
+  configureFlags =
+    [
+      "--enable-bpf-compiler"
+      "--enable-devel"
+      "--enable-libipq"
+      "--enable-nfsynproxy"
+      "--enable-shared"
+    ]
+    ++ lib.optional (!nftablesCompat) "--disable-nftables";
 
   enableParallelBuilding = true;
 
@@ -79,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netfilter.org/projects/iptables/index.html";
     platforms = platforms.linux;
     mainProgram = "iptables";
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.gpl2Plus;
     downloadPage = "https://www.netfilter.org/projects/iptables/files/";
   };

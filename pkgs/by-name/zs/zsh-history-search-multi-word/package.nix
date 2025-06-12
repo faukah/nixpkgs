@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-history-search-multi-word";
   version = "unstable-2021-11-13";

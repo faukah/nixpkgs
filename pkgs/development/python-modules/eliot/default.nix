@@ -3,16 +3,13 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   boltons,
   orjson,
   pyrsistent,
   zope-interface,
-
   # tests
   addBinToPathHook,
   dask,
@@ -24,7 +21,6 @@
   twisted,
   daemontools,
 }:
-
 buildPythonPackage rec {
   pname = "eliot";
   version = "1.17.5";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-x6zonKL6Ys1fyUjyOgVgucAN64Dt6dCzdBrxRZa+VDQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boltons
@@ -46,20 +42,22 @@ buildPythonPackage rec {
     zope-interface
   ];
 
-  nativeCheckInputs = [
-    addBinToPathHook
-    dask
-    distributed
-    hypothesis
-    pandas
-    pytestCheckHook
-    testtools
-    twisted
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ daemontools ];
+  nativeCheckInputs =
+    [
+      addBinToPathHook
+      dask
+      distributed
+      hypothesis
+      pandas
+      pytestCheckHook
+      testtools
+      twisted
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [daemontools];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "eliot" ];
+  pythonImportsCheck = ["eliot"];
 
   meta = {
     description = "Logging library that tells you why it happened";
@@ -67,6 +65,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/itamarst/eliot/blob/${version}/docs/source/news.rst";
     mainProgram = "eliot-prettyprint";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dpausp ];
+    maintainers = with lib.maintainers; [dpausp];
   };
 }

@@ -16,7 +16,6 @@
   numpy,
   pybind11,
 }:
-
 toPythonModule (
   stdenv.mkDerivation rec {
     pname = "pygmo";
@@ -29,9 +28,9 @@ toPythonModule (
       hash = "sha256-279KNnP11f5ob2senIVmbnlmhRp2p3RoZLsQRE6yJ5Q=";
     };
 
-    cmakeFlags = [ "-DPYGMO_INSTALL_PATH=${placeholder "out"}/${python.sitePackages}" ];
+    cmakeFlags = ["-DPYGMO_INSTALL_PATH=${placeholder "out"}/${python.sitePackages}"];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     propagatedBuildInputs = [
       cloudpickle
@@ -56,7 +55,7 @@ toPythonModule (
       description = "Parallel optimisation for Python";
       homepage = "https://github.com/esa/pygmo2";
       license = licenses.gpl3Plus;
-      maintainers = [ ];
+      maintainers = [];
     };
   }
 )

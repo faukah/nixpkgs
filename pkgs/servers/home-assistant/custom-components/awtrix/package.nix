@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   requests,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "10der";
   domain = "awtrix";
@@ -25,7 +24,7 @@ buildHomeAssistantComponent rec {
   meta = with lib; {
     description = "Home-assistant integration for awtrix";
     homepage = "https://github.com/10der/homeassistant-custom_components-awtrix";
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
     license = licenses.mit;
   };
 }

@@ -9,7 +9,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libetpan";
   version = "1.9.4";
@@ -102,7 +101,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   configureScript = "./autogen.sh";
 
@@ -110,7 +109,7 @@ stdenv.mkDerivation rec {
     description = "Mail Framework for the C Language";
     homepage = "https://www.etpan.org/libetpan.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.unix;
   };
 }

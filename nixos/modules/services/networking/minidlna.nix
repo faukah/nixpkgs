@@ -3,28 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.minidlna;
-  format = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
+  format = pkgs.formats.keyValue {listsAsDuplicateKeys = true;};
   cfgfile = format.generate "minidlna.conf" cfg.settings;
-
-in
-{
+in {
   options.services.minidlna.enable = lib.mkEnableOption "MiniDLNA, a simple DLNA server. Consider adding `openFirewall = true` into your config";
   options.services.minidlna.openFirewall = lib.mkEnableOption "opening HTTP (TCP) and SSDP (UDP) ports in the firewall";
-  options.services.minidlna.package = lib.mkPackageOption pkgs "minidlna" { };
+  options.services.minidlna.package = lib.mkPackageOption pkgs "minidlna" {};
 
   options.services.minidlna.settings = lib.mkOption {
-    default = { };
+    default = {};
     description = "Configuration for {manpage}`minidlna.conf(5)`.";
     type = lib.types.submodule {
       freeformType = format.type;
 
       options.media_dir = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "/data/media"
           "V,/home/alice/video"
@@ -111,8 +107,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.port ];
-    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [ 1900 ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.settings.port];
+    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [1900];
 
     users.groups.minidlna.gid = config.ids.gids.minidlna;
     users.users.minidlna = {
@@ -123,8 +119,8 @@ in
 
     systemd.services.minidlna = {
       description = "MiniDLNA Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "minidlna";

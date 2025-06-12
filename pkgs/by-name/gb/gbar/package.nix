@@ -16,7 +16,6 @@
   libpulseaudio,
   wayland,
 }:
-
 stdenv.mkDerivation {
   pname = "gbar";
   version = "unstable-2024-12-17";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     description = "Blazingly fast status bar written with GTK";
     homepage = "https://github.com/scorpion-26/gBar";
     license = licenses.mit;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
     mainProgram = "gBar";
     platforms = platforms.linux;
   };

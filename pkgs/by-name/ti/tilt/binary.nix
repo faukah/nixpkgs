@@ -7,23 +7,22 @@
   stdenv,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tilt";
   /*
-    Do not use "dev" as a version. If you do, Tilt will consider itself
-    running in development environment and try to serve assets from the
-    source tree, which is not there once build completes.
+  Do not use "dev" as a version. If you do, Tilt will consider itself
+  running in development environment and try to serve assets from the
+  source tree, which is not there once build completes.
   */
   inherit src version;
 
   vendorHash = null;
 
-  subPackages = [ "cmd/tilt" ];
+  subPackages = ["cmd/tilt"];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd tilt \
@@ -42,6 +41,6 @@ buildGoModule rec {
     mainProgram = "tilt";
     homepage = "https://tilt.dev/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ anton-dessiatov ];
+    maintainers = with lib.maintainers; [anton-dessiatov];
   };
 }

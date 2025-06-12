@@ -6,7 +6,6 @@
   readline,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mujs";
   version = "1.3.6";
@@ -16,13 +15,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-fPOl5iLP9BkD7/8DNFGPyUrwYyVnUsOLpGGKUZHkTxg=";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  installFlags = [ "install-shared" ];
+  installFlags = ["install-shared"];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to track releases
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mujs.com/";
     description = "Lightweight, embeddable Javascript interpreter";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     license = licenses.isc;
   };
 }

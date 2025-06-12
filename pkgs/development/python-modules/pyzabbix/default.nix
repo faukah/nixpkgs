@@ -7,7 +7,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyzabbix";
   version = "1.3.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-2yCbxPUlbTrtjD9eKmkw0fKnjiwPzmjIo5vKGv4aerU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     packaging
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Tests require a running Zabbix instance
   doCheck = false;
 
-  pythonImportsCheck = [ "pyzabbix" ];
+  pythonImportsCheck = ["pyzabbix"];
 
   meta = with lib; {
     description = "Module to interact with the Zabbix API";
     homepage = "https://github.com/lukecyca/pyzabbix";
     changelog = "https://github.com/lukecyca/pyzabbix/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

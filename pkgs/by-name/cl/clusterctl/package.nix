@@ -6,7 +6,6 @@
   testers,
   clusterctl,
 }:
-
 buildGoModule rec {
   pname = "clusterctl";
   version = "1.10.2";
@@ -20,19 +19,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-x5JPlvwBdegO9Ei2e+iAp1E0fBTWOAh+F1yZdP/y9Uk=";
 
-  subPackages = [ "cmd/clusterctl" ];
+  subPackages = ["cmd/clusterctl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags =
-    let
-      t = "sigs.k8s.io/cluster-api/version";
-    in
-    [
-      "-X ${t}.gitMajor=${lib.versions.major version}"
-      "-X ${t}.gitMinor=${lib.versions.minor version}"
-      "-X ${t}.gitVersion=v${version}"
-    ];
+  ldflags = let
+    t = "sigs.k8s.io/cluster-api/version";
+  in [
+    "-X ${t}.gitMajor=${lib.versions.major version}"
+    "-X ${t}.gitMinor=${lib.versions.minor version}"
+    "-X ${t}.gitVersion=v${version}"
+  ];
 
   postInstall = ''
     # errors attempting to write config to read-only $HOME
@@ -56,6 +53,6 @@ buildGoModule rec {
     mainProgram = "clusterctl";
     homepage = "https://cluster-api.sigs.k8s.io/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ qjoly ];
+    maintainers = with lib.maintainers; [qjoly];
   };
 }

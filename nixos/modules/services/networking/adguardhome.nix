@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.adguardhome;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   args = lib.concatStringsSep " " (
     [
@@ -19,27 +18,25 @@ let
   );
 
   settings =
-    if (cfg.settings != null) then
+    if (cfg.settings != null)
+    then
       cfg.settings
       // (
-        if cfg.settings.schema_version < 23 then
-          {
-            bind_host = cfg.host;
-            bind_port = cfg.port;
-          }
-        else
-          {
-            http.address = "${cfg.host}:${toString cfg.port}";
-          }
+        if cfg.settings.schema_version < 23
+        then {
+          bind_host = cfg.host;
+          bind_port = cfg.port;
+        }
+        else {
+          http.address = "${cfg.host}:${toString cfg.port}";
+        }
       )
-    else
-      null;
+    else null;
 
   configFile = (settingsFormat.generate "AdGuardHome.yaml" settings).overrideAttrs (_: {
     checkPhase = "${cfg.package}/bin/AdGuardHome -c $out --check-config";
   });
-in
-{
+in {
   options.services.adguardhome = with lib.types; {
     enable = lib.mkEnableOption "AdGuard Home network-wide ad blocker";
 
@@ -134,7 +131,7 @@ in
     };
 
     extraArgs = lib.mkOption {
-      default = [ ];
+      default = [];
       type = listOf str;
       description = ''
         Extra command line parameters to be passed to the adguardhome binary.
@@ -145,32 +142,32 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings != null -> !(lib.hasAttrByPath [ "bind_host" ] cfg.settings);
+        assertion = cfg.settings != null -> !(lib.hasAttrByPath ["bind_host"] cfg.settings);
         message = "AdGuard option `settings.bind_host' has been superseded by `services.adguardhome.host'";
       }
       {
-        assertion = cfg.settings != null -> !(lib.hasAttrByPath [ "bind_port" ] cfg.settings);
+        assertion = cfg.settings != null -> !(lib.hasAttrByPath ["bind_port"] cfg.settings);
         message = "AdGuard option `settings.bind_port' has been superseded by `services.adguardhome.port'";
       }
       {
         assertion =
-          settings != null -> cfg.mutableSettings || lib.hasAttrByPath [ "dns" "bootstrap_dns" ] settings;
+          settings != null -> cfg.mutableSettings || lib.hasAttrByPath ["dns" "bootstrap_dns"] settings;
         message = "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }
       {
         assertion =
-          settings != null
-          ->
-            cfg.mutableSettings
-            || lib.hasAttrByPath [ "dns" "bootstrap_dns" ] settings && lib.isList settings.dns.bootstrap_dns;
+          settings
+          != null
+          -> cfg.mutableSettings
+          || lib.hasAttrByPath ["dns" "bootstrap_dns"] settings && lib.isList settings.dns.bootstrap_dns;
         message = "AdGuard setting dns.bootstrap_dns needs to be a list";
       }
     ];
 
     systemd.services.adguardhome = {
       description = "AdGuard Home: Network-level blocker";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         StartLimitIntervalSec = 5;
         StartLimitBurst = 10;
@@ -196,7 +193,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package} ${args}";
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ] ++ lib.optionals cfg.allowDHCP [ "CAP_NET_RAW" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"] ++ lib.optionals cfg.allowDHCP ["CAP_NET_RAW"];
         Restart = "always";
         RestartSec = 10;
         RuntimeDirectory = "AdGuardHome";
@@ -204,6 +201,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
   };
 }

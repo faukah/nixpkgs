@@ -3,11 +3,9 @@
   fetchFromGitHub,
   python3,
   runCommand,
-
   # passthru
   octodns,
-}:
-let
+}: let
   # Export `python` with `octodns` as a module for `octodns-providers`.
   python = python3.override {
     self = python;
@@ -17,63 +15,61 @@ let
   };
   python3Packages = python.pkgs;
 in
-python3Packages.buildPythonApplication rec {
-  pname = "octodns";
-  version = "1.11.0";
-  pyproject = true;
+  python3Packages.buildPythonApplication rec {
+    pname = "octodns";
+    version = "1.11.0";
+    pyproject = true;
 
-  disabled = python.pythonOlder "3.9";
+    disabled = python.pythonOlder "3.9";
 
-  src = fetchFromGitHub {
-    owner = "octodns";
-    repo = "octodns";
-    tag = "v${version}";
-    hash = "sha256-zCEfg6AAyclDBzSVQiGrE8Ol/9C7STq0VChepBt73GQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "octodns";
+      repo = "octodns";
+      tag = "v${version}";
+      hash = "sha256-zCEfg6AAyclDBzSVQiGrE8Ol/9C7STq0VChepBt73GQ=";
+    };
 
-  build-system = with python3Packages; [
-    setuptools
-  ];
+    build-system = with python3Packages; [
+      setuptools
+    ];
 
-  dependencies = with python3Packages; [
-    dnspython
-    fqdn
-    idna
-    natsort
-    python-dateutil
-    pyyaml
-  ];
+    dependencies = with python3Packages; [
+      dnspython
+      fqdn
+      idna
+      natsort
+      python-dateutil
+      pyyaml
+    ];
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+    nativeCheckInputs = with python3Packages; [
+      pytestCheckHook
+    ];
 
-  pythonImportsCheck = [ "octodns" ];
+    pythonImportsCheck = ["octodns"];
 
-  passthru = {
-    providers = lib.recurseIntoAttrs (
-      lib.packagesFromDirectoryRecursive {
-        inherit (python3Packages) callPackage;
-        directory = ./providers;
-      }
-    );
+    passthru = {
+      providers = lib.recurseIntoAttrs (
+        lib.packagesFromDirectoryRecursive {
+          inherit (python3Packages) callPackage;
+          directory = ./providers;
+        }
+      );
 
-    withProviders =
-      ps:
-      let
+      withProviders = ps: let
         pyEnv = python.withPackages ps;
       in
-      runCommand "octodns-with-providers" { } ''
-        mkdir -p $out/bin
-        ln -st $out/bin ${pyEnv}/bin/octodns-*
-      '';
-  };
+        runCommand "octodns-with-providers" {} ''
+          mkdir -p $out/bin
+          ln -st $out/bin ${pyEnv}/bin/octodns-*
+        '';
+    };
 
-  meta = {
-    description = "Tools for managing DNS across multiple providers";
-    homepage = "https://github.com/octodns/octodns";
-    changelog = "https://github.com/octodns/octodns/blob/${src.rev}/CHANGELOG.md";
-    license = lib.licenses.mit;
-    teams = [ lib.teams.octodns ];
-  };
-}
+    meta = {
+      description = "Tools for managing DNS across multiple providers";
+      homepage = "https://github.com/octodns/octodns";
+      changelog = "https://github.com/octodns/octodns/blob/${src.rev}/CHANGELOG.md";
+      license = lib.licenses.mit;
+      teams = [lib.teams.octodns];
+    };
+  }

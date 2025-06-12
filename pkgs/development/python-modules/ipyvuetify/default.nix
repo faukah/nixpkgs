@@ -6,7 +6,6 @@
   setuptools,
   ipyvue,
 }:
-
 buildPythonPackage rec {
   pname = "ipyvuetify";
   version = "1.11.2";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
       --replace-fail '"pynpm"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ipyvue ];
+  dependencies = [ipyvue];
 
   doCheck = false; # no tests on PyPi/GitHub
-  pythonImportsCheck = [ "ipyvuetify" ];
+  pythonImportsCheck = ["ipyvuetify"];
 
   meta = with lib; {
     description = "Jupyter widgets based on Vuetify UI Components";
     homepage = "https://github.com/mariobuikhuizen/ipyvuetify";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

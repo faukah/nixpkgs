@@ -6,7 +6,6 @@
   kdePackages,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rssguard";
   version = "4.8.5";

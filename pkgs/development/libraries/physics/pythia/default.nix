@@ -10,19 +10,18 @@
   rsync,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pythia";
   version = "8.313";
 
   src = fetchurl {
     url = "https://pythia.org/download/pythia83/pythia${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.tgz";
     sha256 = "sha256-0H6AFQHE3LdtlI3GMoU3X1l0U8HW7GXnEodgPcd2cYw=";
   };
 
-  nativeBuildInputs = [ rsync ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [rsync] ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
   buildInputs = [
     boost
     fastjet
@@ -37,14 +36,13 @@ stdenv.mkDerivation rec {
       "--with-lhapdf6=${lhapdf}"
     ]
     ++ (
-      if lib.versions.major hepmc.version == "3" then
-        [
-          "--with-hepmc3=${hepmc}"
-        ]
-      else
-        [
-          "--with-hepmc2=${hepmc}"
-        ]
+      if lib.versions.major hepmc.version == "3"
+      then [
+        "--with-hepmc3=${hepmc}"
+      ]
+      else [
+        "--with-hepmc2=${hepmc}"
+      ]
     );
 
   enableParallelBuilding = true;
@@ -55,6 +53,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     homepage = "https://pythia.org";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

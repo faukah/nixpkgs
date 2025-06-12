@@ -5,7 +5,6 @@
   qtlocation,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "maplibre-native-qt";
   version = "3.0.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3
       lgpl3
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.all;
   };
 })

@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mechanize";
   version = "0.4.10";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-HeqUf5vn6gq2EPe7xKTja0XWv9/O6imtPTiaiKGVfd8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ html5lib ];
+  dependencies = [html5lib];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mechanize" ];
+  pythonImportsCheck = ["mechanize"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-mechanize/mechanize";
     changelog = "https://github.com/python-mechanize/mechanize/blob/v${version}/ChangeLog";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

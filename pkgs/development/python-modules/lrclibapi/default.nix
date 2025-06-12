@@ -41,6 +41,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/Dr-Blank/lrclibapi/releases/tag/v${version}";
     description = "Python wrapper for downloading synced lyrics from the lrclib.net api";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DataHearth ];
+    maintainers = with lib.maintainers; [DataHearth];
   };
 }

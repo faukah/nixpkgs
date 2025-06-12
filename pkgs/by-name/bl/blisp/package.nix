@@ -8,7 +8,6 @@
   pkg-config,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blisp";
   version = "0.0.4";
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "blisp";
     homepage = "https://github.com/pine64/blisp";
     platforms = platforms.unix;
-    maintainers = [ maintainers.bdd ];
+    maintainers = [maintainers.bdd];
   };
 })

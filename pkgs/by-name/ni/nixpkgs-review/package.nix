@@ -2,7 +2,6 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-
   installShellFiles,
   bubblewrap,
   nix-output-monitor,
@@ -10,12 +9,10 @@
   git,
   nix,
   versionCheckHook,
-
   withAutocomplete ? true,
   withSandboxSupport ? false,
   withNom ? false,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nixpkgs-review";
   version = "3.3.0";
@@ -49,22 +46,20 @@ python3Packages.buildPythonApplication rec {
   ];
   versionCheckProgramArg = "--version";
 
-  makeWrapperArgs =
-    let
-      binPath =
-        [
-          nix
-          git
-        ]
-        ++ lib.optional withSandboxSupport bubblewrap
-        ++ lib.optional withNom nix-output-monitor;
-    in
-    [
-      "--prefix PATH : ${lib.makeBinPath binPath}"
-      "--set-default NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
-      # we don't have any runtime deps but nixpkgs-review shells might inject unwanted dependencies
-      "--unset PYTHONPATH"
-    ];
+  makeWrapperArgs = let
+    binPath =
+      [
+        nix
+        git
+      ]
+      ++ lib.optional withSandboxSupport bubblewrap
+      ++ lib.optional withNom nix-output-monitor;
+  in [
+    "--prefix PATH : ${lib.makeBinPath binPath}"
+    "--set-default NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
+    # we don't have any runtime deps but nixpkgs-review shells might inject unwanted dependencies
+    "--unset PYTHONPATH"
+  ];
 
   postInstall = lib.optionalString withAutocomplete ''
     for cmd in nix-review nixpkgs-review; do

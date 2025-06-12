@@ -15,7 +15,6 @@
   libgee,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-bluetooth";
   version = "8.0.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-bluetooth";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

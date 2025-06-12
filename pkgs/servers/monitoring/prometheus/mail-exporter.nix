@@ -5,7 +5,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 buildGoModule {
   pname = "mailexporter";
   version = "2020-07-16";
@@ -19,14 +18,14 @@ buildGoModule {
 
   vendorHash = "sha256-QOOf00uCdC8fl7V/+Q8X90yQ7xc0Tb6M9dXisdGEisM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage $src/man/mailexporter.1
     installManPage $src/man/mailexporter.conf.5
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) mail; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) mail;};
 
   meta = with lib; {
     description = "Export Prometheus-style metrics about mail server functionality";

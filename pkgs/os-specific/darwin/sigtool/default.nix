@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sigtool";
   version = "0.1.3";
@@ -17,10 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K3VSFaqcZEomF7kROJz+AwxdW1MmxxEFDaRnWnzcw54=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Tool for working with embedded signatures in Mach-O files";

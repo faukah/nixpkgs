@@ -10,7 +10,6 @@
   # De facto, option minimal seems to be the default. See the README.
   minimal ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-extlib";
   version = "1.7.7";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Enhancements to the OCaml Standard Library modules";
     license = lib.licenses.lgpl21Only;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     broken = lib.versionAtLeast ocaml.version "4.12";
   };
 }

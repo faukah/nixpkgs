@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pps-tools";
   version = "1.0.3";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "http://linuxpps.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "beancount-language-server";
   version = "1.3.7";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language Server Protocol (LSP) for beancount files";
     mainProgram = "beancount-language-server";
     homepage = "https://github.com/polarmutex/beancount-language-server";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ polarmutex ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [polarmutex];
   };
 }

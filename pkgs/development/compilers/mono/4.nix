@@ -4,11 +4,10 @@
   lib,
   fetchurl,
 }:
-
 callPackage ./generic.nix rec {
   version = "4.8.1.0";
   enableParallelBuilding = false; # #32386, https://hydra.nixos.org/build/65600645
-  extraPatches = lib.optionals stdenv.hostPlatform.isLinux [ ./mono4-glibc.patch ];
+  extraPatches = lib.optionals stdenv.hostPlatform.isLinux [./mono4-glibc.patch];
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=implicit-function-declaration"
     "-Wno-error=implicit-int"

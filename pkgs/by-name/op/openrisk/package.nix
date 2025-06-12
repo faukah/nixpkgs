@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "openrisk";
   version = "0.0.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-s"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/openrisk";
     changelog = "https://github.com/projectdiscovery/openrisk/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "openrisk";
   };
 }

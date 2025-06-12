@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shadowsocks-rust";
   version = "1.23.4";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-E4vhgaUtUTNt+tRrLxDNXICMIH8N3EL+mkC9Ga+lI70=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   buildFeatures = [
     "trust-dns"
@@ -58,6 +57,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/shadowsocks/shadowsocks-rust";
     changelog = "https://github.com/shadowsocks/shadowsocks-rust/raw/v${version}/debian/changelog";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -16,7 +16,6 @@
   polkit,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mousepad";
   version = "0.6.5";
@@ -53,16 +52,16 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   # Use the GSettings keyfile backend rather than the default
-  mesonFlags = [ "-Dkeyfile-settings=true" ];
+  mesonFlags = ["-Dkeyfile-settings=true"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "mousepad-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "mousepad-";};
 
   meta = {
     description = "Simple text editor for Xfce";
     homepage = "https://gitlab.xfce.org/apps/mousepad";
     license = lib.licenses.gpl2Plus;
     mainProgram = "mousepad";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

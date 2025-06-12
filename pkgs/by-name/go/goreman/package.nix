@@ -5,7 +5,6 @@
   testers,
   goreman,
 }:
-
 buildGoModule rec {
   pname = "goreman";
   version = "0.3.16";
@@ -34,6 +33,6 @@ buildGoModule rec {
     mainProgram = "goreman";
     homepage = "https://github.com/mattn/goreman";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

@@ -8,7 +8,6 @@
   qmake,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qwt";
   version = "6.3.0";
@@ -28,13 +27,13 @@ stdenv.mkDerivation rec {
     qtsvg
     qttools
   ];
-  nativeBuildInputs = [ qmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [qmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   postPatch = ''
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
   '';
 
-  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${version}" ];
+  qmakeFlags = ["-after doc.path=$out/share/doc/qwt-${version}"];
 
   dontWrapQtApps = true;
 
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     # LGPL 2.1 plus a few exceptions (more liberal)
     license = lib.licenses.qwt;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

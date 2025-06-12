@@ -27,7 +27,6 @@
   SDL2,
   SDL2_mixer,
 }:
-
 buildDotnetModule rec {
   pname = "ryubing";
   version = "1.2.86";
@@ -80,7 +79,7 @@ buildDotnetModule rec {
       udev
       pulseaudio
     ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin [ moltenvk ];
+    ++ lib.optional stdenv.hostPlatform.isDarwin [moltenvk];
 
   projectFile = "Ryujinx.sln";
   testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";

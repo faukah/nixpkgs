@@ -5,7 +5,6 @@
   pkg-config,
   systemd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qmk_hid";
   version = "0.1.12";
@@ -36,8 +35,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Commandline tool for interactng with QMK devices over HID";
     homepage = "https://github.com/FrameworkComputer/qmk_hid";
-    license = with licenses; [ bsd3 ];
-    maintainers = [ ];
+    license = with licenses; [bsd3];
+    maintainers = [];
     mainProgram = "qmk_hid";
   };
 }

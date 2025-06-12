@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "hachimarupop";
   version = "unstable-2022-07-11";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/noriokanisawa/HachiMaruPop";
     description = "Cute, Japanese font";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

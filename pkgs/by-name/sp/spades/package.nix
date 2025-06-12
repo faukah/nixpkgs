@@ -8,7 +8,6 @@
   python3,
   readline,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spades";
   version = "4.2.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     echo "" > CMakeListsInternal.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     bzip2
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://ablab.github.io/spades";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bzizou ];
+    maintainers = with lib.maintainers; [bzizou];
     broken = stdenv.hostPlatform.isMusl;
   };
 })

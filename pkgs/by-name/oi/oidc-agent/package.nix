@@ -12,7 +12,6 @@
   help2man,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oidc-agent";
   version = "5.2.3";
@@ -59,12 +58,12 @@ stdenv.mkDerivation rec {
     make install_man PREFIX=$out MAN_PATH=$out/share/man PROMPT_MAN_PATH=$out/share/man
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Manage OpenID Connect tokens on the command line";
     homepage = "https://github.com/indigo-dc/oidc-agent";
-    maintainers = with maintainers; [ xinyangli ];
+    maintainers = with maintainers; [xinyangli];
     license = licenses.mit;
   };
 }

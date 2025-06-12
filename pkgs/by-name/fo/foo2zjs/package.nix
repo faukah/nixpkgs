@@ -9,7 +9,6 @@
   vim,
   time,
 }:
-
 stdenv.mkDerivation rec {
   pname = "foo2zjs";
   version = "20210116";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     "MODEL=$(out)/share/cups/model"
   ];
 
-  installFlags = [ "install-hotplug" ];
+  installFlags = ["install-hotplug"];
 
   postPatch = ''
     touch all-test
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     sed -e "/PRINTERID=/s@=.*@=$out/bin/usb_printerid@" -i hplj1000
   '';
 
-  nativeCheckInputs = [ time ];
+  nativeCheckInputs = [time];
   doCheck = false; # fails to find its own binary. Also says "Tests will pass only if you are using ghostscript-8.71-16.fc14".
 
   preInstall = ''

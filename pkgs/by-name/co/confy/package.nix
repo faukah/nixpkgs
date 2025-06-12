@@ -14,7 +14,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "confy";
   version = "0.8.0";
@@ -41,10 +40,11 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
     libnotify
     (python3.withPackages (
-      ps: with ps; [
-        icalendar
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          icalendar
+          pygobject3
+        ]
     ))
   ];
 
@@ -54,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://confy.kirgroup.net/";
     license = licenses.gpl3Plus;
     mainProgram = "confy";
-    maintainers = with maintainers; [ michaelgrahamevans ];
+    maintainers = with maintainers; [michaelgrahamevans];
   };
 })

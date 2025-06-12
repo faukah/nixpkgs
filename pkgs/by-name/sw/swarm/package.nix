@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "swarm";
   version = "unstable-2019-03-11";
@@ -26,6 +25,6 @@ stdenv.mkDerivation {
     homepage = "http://spinroot.com/";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

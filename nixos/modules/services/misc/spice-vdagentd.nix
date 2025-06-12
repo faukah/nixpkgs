@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.spice-vdagentd;
-in
-{
+in {
   options = {
     services.spice-vdagentd = {
       enable = lib.mkEnableOption "Spice guest vdagent daemon";
@@ -15,12 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.spice-vdagent ];
+    environment.systemPackages = [pkgs.spice-vdagent];
 
     systemd.services.spice-vdagentd = {
       description = "spice-vdagent daemon";
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
       preStart = ''
         mkdir -p "/run/spice-vdagentd/"
       '';

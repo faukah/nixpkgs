@@ -7,7 +7,6 @@
   gnutls,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "livepeer";
   version = "0.8.5";
@@ -37,7 +36,7 @@ buildGoModule rec {
     rm -rf test/e2e # Require docker
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Official Go implementation of the Livepeer protocol";

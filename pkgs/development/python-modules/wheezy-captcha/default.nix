@@ -4,7 +4,6 @@
   fetchPypi,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "wheezy.captcha";
   version = "3.2.0";
@@ -15,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-UtTpgrPK5eRr7sq97jptjdJyvAyrM2oU07+GZr2Ad7s=";
   };
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
-  pythonImportsCheck = [ "wheezy.captcha" ];
+  pythonImportsCheck = ["wheezy.captcha"];
 
   meta = with lib; {
     homepage = "https://wheezycaptcha.readthedocs.io/en/latest/";
     description = "Lightweight CAPTCHA library";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

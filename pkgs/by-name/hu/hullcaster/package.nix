@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hullcaster";
   version = "0.1.2";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     description = "Terminal-based podcast manager built in Rust";
     homepage = "https://github.com/gilcu3/hullcaster";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ kiara ];
+    maintainers = with lib.maintainers; [kiara];
   };
 }

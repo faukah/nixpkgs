@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "snowflake-cli";
   version = "3.7.2";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     pip
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dependencies = with python3Packages; [
     jinja2
@@ -108,7 +107,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://docs.snowflake.com/en/developer-guide/snowflake-cli-v2/index";
     description = "Command-line tool explicitly designed for developer-centric workloads in addition to SQL operations";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ vtimofeenko ];
+    maintainers = with lib.maintainers; [vtimofeenko];
     mainProgram = "snow";
   };
 }

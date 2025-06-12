@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shellclear";
   version = "0.4.8";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rusty-ferris-club/shellclear";
     changelog = "https://github.com/rusty-ferris-club/shellclear/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

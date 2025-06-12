@@ -10,7 +10,6 @@
   conf ? null,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xprompt";
   version = "2.5.0";
@@ -36,9 +35,11 @@ stdenv.mkDerivation rec {
     + (
       let
         configFile =
-          if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
+          if lib.isDerivation conf || builtins.isPath conf
+          then conf
+          else writeText "config.h" conf;
       in
-      lib.optionalString (conf != null) "cp ${configFile} config.h"
+        lib.optionalString (conf != null) "cp ${configFile} config.h"
     );
 
   makeFlags = [
@@ -46,7 +47,7 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Dmenu rip-off with contextual completion";
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phillbush/xprompt";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "xprompt";
   };

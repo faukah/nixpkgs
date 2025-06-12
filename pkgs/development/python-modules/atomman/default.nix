@@ -18,7 +18,6 @@
   toolz,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "atomman";
   version = "1.5.0";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonRelaxDeps = [ "atomman" ];
+  pythonRelaxDeps = ["atomman"];
 
   preCheck = ''
     # By default, pytestCheckHook imports atomman from the current directory
@@ -71,13 +70,13 @@ buildPythonPackage rec {
     "test_unique_shifts_prototype" # needs network access to download database files
   ];
 
-  pythonImportsCheck = [ "atomman" ];
+  pythonImportsCheck = ["atomman"];
 
   meta = with lib; {
     changelog = "https://github.com/usnistgov/atomman/blob/${src.rev}/UPDATES.rst";
     description = "Atomistic Manipulation Toolkit";
     homepage = "https://github.com/usnistgov/atomman/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

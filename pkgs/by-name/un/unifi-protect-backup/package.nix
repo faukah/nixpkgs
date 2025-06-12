@@ -4,7 +4,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "unifi-protect-backup";
   version = "0.11.0";
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     "uiprotect"
   ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiocron
@@ -48,14 +47,14 @@ python3.pkgs.buildPythonApplication rec {
     uiprotect
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   meta = {
     description = "Python tool to backup unifi event clips in realtime";
     homepage = "https://github.com/ep1cman/unifi-protect-backup";
     changelog = "https://github.com/ep1cman/unifi-protect-backup/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.helsinki-systems ];
+    teams = [lib.teams.helsinki-systems];
     mainProgram = "unifi-protect-backup";
   };
 }

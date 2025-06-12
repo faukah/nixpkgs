@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.watchdogd;
 
   mkPluginOpts = plugin: defWarn: defCrit: {
@@ -38,25 +37,22 @@ let
       '';
     };
   };
-in
-{
+in {
   options.services.watchdogd = {
     enable = lib.mkEnableOption "watchdogd, an advanced system & process supervisor";
-    package = lib.mkPackageOption pkgs "watchdogd" { };
+    package = lib.mkPackageOption pkgs "watchdogd" {};
 
     settings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         submodule {
-          freeformType =
-            let
-              valueType = oneOf [
-                bool
-                int
-                float
-                str
-              ];
-            in
+          freeformType = let
+            valueType = oneOf [
+              bool
+              int
+              float
+              str
+            ];
+          in
             attrsOf (either valueType (attrsOf valueType));
 
           options = {
@@ -91,7 +87,7 @@ in
             meminfo = mkPluginOpts "meminfo" 0.9 0.95;
           };
         };
-      default = { };
+      default = {};
       description = ''
         Configuration to put in {file}`watchdogd.conf`.
         See {manpage}`watchdogd.conf(5)` for more details.
@@ -99,45 +95,43 @@ in
     };
   };
 
-  config =
-    let
-      toConfig = attrs: lib.concatStringsSep "\n" (lib.mapAttrsToList toValue attrs);
+  config = let
+    toConfig = attrs: lib.concatStringsSep "\n" (lib.mapAttrsToList toValue attrs);
 
-      toValue =
-        name: value:
-        if lib.isAttrs value then
-          lib.pipe value [
-            (lib.mapAttrsToList toValue)
-            (map (s: "  ${s}"))
-            (lib.concatStringsSep "\n")
-            (s: "${name} {\n${s}\n}")
-          ]
-        else if lib.isBool value then
-          "${name} = ${lib.boolToString value}"
-        else if
-          lib.any (f: f value) [
-            lib.isString
-            lib.isInt
-            lib.isFloat
-          ]
-        then
-          "${name} = ${toString value}"
-        else
-          throw ''
-            Found invalid type in `services.watchdogd.settings`: '${lib.typeOf value}'
-          '';
+    toValue = name: value:
+      if lib.isAttrs value
+      then
+        lib.pipe value [
+          (lib.mapAttrsToList toValue)
+          (map (s: "  ${s}"))
+          (lib.concatStringsSep "\n")
+          (s: "${name} {\n${s}\n}")
+        ]
+      else if lib.isBool value
+      then "${name} = ${lib.boolToString value}"
+      else if
+        lib.any (f: f value) [
+          lib.isString
+          lib.isInt
+          lib.isFloat
+        ]
+      then "${name} = ${toString value}"
+      else
+        throw ''
+          Found invalid type in `services.watchdogd.settings`: '${lib.typeOf value}'
+        '';
 
-      watchdogdConf = pkgs.writeText "watchdogd.conf" (toConfig cfg.settings);
-    in
+    watchdogdConf = pkgs.writeText "watchdogd.conf" (toConfig cfg.settings);
+  in
     lib.mkIf cfg.enable {
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       systemd.services.watchdogd = {
         documentation = [
           "man:watchdogd(8)"
           "man:watchdogd.conf(5)"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "Advanced system & process supervisor";
         serviceConfig = {
           Type = "simple";
@@ -146,5 +140,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ vifino ];
+  meta.maintainers = with lib.maintainers; [vifino];
 }

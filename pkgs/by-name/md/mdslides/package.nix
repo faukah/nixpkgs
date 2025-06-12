@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "mdslides";
   version = "unstable-2022-12-15";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication {
     longDescription = "Using markdown, write simple but beautiful presentations with math, animations and media, which can be visualized in a web browser or exported to PDF.";
     homepage = "https://github.com/dadoomer/markdown-slides";
     license = licenses.mit;
-    maintainers = [ maintainers.qjoly ];
+    maintainers = [maintainers.qjoly];
     mainProgram = "mdslides";
   };
 }

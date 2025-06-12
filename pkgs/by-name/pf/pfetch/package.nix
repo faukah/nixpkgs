@@ -5,7 +5,6 @@
   gitUpdater,
   versionCheckHook,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "pfetch";
   version = "1.9.0";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {

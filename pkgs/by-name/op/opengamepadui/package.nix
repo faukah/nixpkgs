@@ -20,12 +20,14 @@
   xorg,
   withDebug ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opengamepadui";
   version = "0.39.2";
 
-  buildType = if withDebug then "debug" else "release";
+  buildType =
+    if withDebug
+    then "debug"
+    else "release";
 
   src = fetchFromGitHub {
     owner = "ShadowBlip";
@@ -49,21 +51,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontStrip = withDebug;
 
-  env =
-    let
-      versionAndRelease = lib.splitString "-" godot_4_4.version;
-    in
-    {
-      GODOT = lib.getExe godot_4_4;
-      GODOT_VERSION = lib.elemAt versionAndRelease 0;
-      GODOT_RELEASE = lib.elemAt versionAndRelease 1;
-      EXPORT_TEMPLATE = "${godot_4_4.export-template}/share/godot/export_templates";
-      BUILD_TYPE = "${finalAttrs.buildType}";
-    };
+  env = let
+    versionAndRelease = lib.splitString "-" godot_4_4.version;
+  in {
+    GODOT = lib.getExe godot_4_4;
+    GODOT_VERSION = lib.elemAt versionAndRelease 0;
+    GODOT_RELEASE = lib.elemAt versionAndRelease 1;
+    EXPORT_TEMPLATE = "${godot_4_4.export-template}/share/godot/export_templates";
+    BUILD_TYPE = "${finalAttrs.buildType}";
+  };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  buildFlags = [ "build" ];
+  buildFlags = ["build"];
 
   preBuild = ''
     # Godot looks for export templates in HOME
@@ -72,32 +72,30 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s "$EXPORT_TEMPLATE" "$HOME"/.local/share/godot/
   '';
 
-  postInstall =
-    let
-      runtimeDependencies = [
-        gamescope
-        hwdata
-        mesa-demos
-        udev
-        upower
-      ];
-    in
-    ''
-      # The Godot binary looks in "../lib" for gdextensions
-      mkdir -p $out/share/lib
-      mv $out/share/opengamepadui/*.so $out/share/lib
-      patchelf --add-rpath ${lib.makeLibraryPath runtimeDependencies} $out/share/lib/*.so
-    '';
+  postInstall = let
+    runtimeDependencies = [
+      gamescope
+      hwdata
+      mesa-demos
+      udev
+      upower
+    ];
+  in ''
+    # The Godot binary looks in "../lib" for gdextensions
+    mkdir -p $out/share/lib
+    mv $out/share/opengamepadui/*.so $out/share/lib
+    patchelf --add-rpath ${lib.makeLibraryPath runtimeDependencies} $out/share/lib/*.so
+  '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Open source gamepad-native game launcher and overlay";
     homepage = "https://github.com/ShadowBlip/OpenGamepadUI";
     license = lib.licenses.gpl3Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     changelog = "https://github.com/ShadowBlip/OpenGamepadUI/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ shadowapex ];
+    maintainers = with lib.maintainers; [shadowapex];
     mainProgram = "opengamepadui";
   };
 })

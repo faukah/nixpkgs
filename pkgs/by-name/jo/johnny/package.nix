@@ -8,7 +8,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "johnny";
   version = "2.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -D ${pname} $out/bin/${pname}
     wrapProgram $out/bin/${pname} \
-      --prefix PATH : ${lib.makeBinPath [ john ]}
+      --prefix PATH : ${lib.makeBinPath [john]}
     install -D README $out/share/doc/${pname}/README
     install -D LICENSE $out/share/licenses/${pname}/LICENSE
     install -D resources/icons/${pname}_128.png $out/share/pixmaps/${pname}.png
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Open Source GUI frontend for John the Ripper";
     mainProgram = "johnny";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ Misaka13514 ];
+    maintainers = with maintainers; [Misaka13514];
     platforms = platforms.linux;
   };
 }

@@ -9,7 +9,6 @@
   pygments,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "smartypants";
   version = "2.0.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     docutils
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/leohemsted/smartypants.py";
     changelog = "https://github.com/leohemsted/smartypants.py/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "smartypants";
   };
 }

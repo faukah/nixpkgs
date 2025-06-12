@@ -3,17 +3,13 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.authelia;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
-  autheliaOpts =
-    with lib;
-    { name, ... }:
-    {
+  autheliaOpts = with lib;
+    {name, ...}: {
       options = {
         enable = mkEnableOption "Authelia instance";
 
@@ -27,7 +23,7 @@ let
           '';
         };
 
-        package = mkPackageOption pkgs "authelia" { };
+        package = mkPackageOption pkgs "authelia" {};
 
         user = mkOption {
           default = "authelia-${name}";
@@ -50,7 +46,7 @@ let
 
             https://www.authelia.com/configuration/methods/secrets/
           '';
-          default = { };
+          default = {};
           type = types.submodule {
             options = {
               manual = mkOption {
@@ -119,7 +115,7 @@ let
             If you provide the raw secret rather than the location of a secret file that secret will be preserved in the nix store.
             For more details: https://www.authelia.com/configuration/methods/secrets/
           '';
-          default = { };
+          default = {};
         };
 
         settings = mkOption {
@@ -130,7 +126,7 @@ let
 
             https://github.com/authelia/authelia/blob/master/config.template.yml
           '';
-          default = { };
+          default = {};
           example = ''
             {
               theme = "light";
@@ -239,7 +235,7 @@ let
 
         settingsFiles = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           example = [
             "/etc/authelia/config.yml"
             "/etc/authelia/access-control.yml"
@@ -254,8 +250,7 @@ let
       };
     };
 
-  writeOidcJwksConfigFile =
-    oidcIssuerPrivateKeyFile:
+  writeOidcJwksConfigFile = oidcIssuerPrivateKeyFile:
     pkgs.writeText "oidc-jwks.yaml" ''
       identity_providers:
         oidc:
@@ -265,20 +260,18 @@ let
 
   # Remove an attribute in a nested set
   # https://discourse.nixos.org/t/modify-an-attrset-in-nix/29919/5
-  removeAttrByPath =
-    set: pathList:
+  removeAttrByPath = set: pathList:
     lib.updateManyAttrsByPath [
       {
         path = lib.init pathList;
         update = old: lib.filterAttrs (n: v: n != (lib.last pathList)) old;
       }
-    ] set;
-in
-{
-  options.services.authelia.instances =
-    with lib;
+    ]
+    set;
+in {
+  options.services.authelia.instances = with lib;
     mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.submodule autheliaOpts);
       description = ''
         Multi-domain protection currently requires multiple instances of Authelia.
@@ -319,163 +312,158 @@ in
       '';
     };
 
-  config =
-    let
-      mkInstanceServiceConfig =
-        instance:
-        let
-          cleanedSettings =
-            if
-              (
-                instance.settings.server ? host
-                || instance.settings.server ? port
-                || instance.settings.server ? path
-              )
-            then
-              # Old settings are used: display a warning and remove the default value of server.address
-              # as authelia does not allow both old and new settings to be set
-              lib.warn
-                "Please replace services.authelia.instances.${instance.name}.settings.{host,port,path} with services.authelia.instances.${instance.name}.settings.address, before release 5.0.0"
-                (
-                  removeAttrByPath instance.settings [
-                    "server"
-                    "address"
-                  ]
-                )
-            else
-              instance.settings;
+  config = let
+    mkInstanceServiceConfig = instance: let
+      cleanedSettings =
+        if
+          (
+            instance.settings.server ? host
+            || instance.settings.server ? port
+            || instance.settings.server ? path
+          )
+        then
+          # Old settings are used: display a warning and remove the default value of server.address
+          # as authelia does not allow both old and new settings to be set
+          lib.warn
+          "Please replace services.authelia.instances.${instance.name}.settings.{host,port,path} with services.authelia.instances.${instance.name}.settings.address, before release 5.0.0"
+          (
+            removeAttrByPath instance.settings [
+              "server"
+              "address"
+            ]
+          )
+        else instance.settings;
 
-          execCommand = "${instance.package}/bin/authelia";
-          configFile = format.generate "config.yml" cleanedSettings;
-          oidcJwksConfigFile = lib.optional (instance.secrets.oidcIssuerPrivateKeyFile != null) (
-            writeOidcJwksConfigFile instance.secrets.oidcIssuerPrivateKeyFile
-          );
-          configArg = "--config ${
-            builtins.concatStringsSep "," (
-              lib.concatLists [
-                [ configFile ]
-                instance.settingsFiles
-                oidcJwksConfigFile
-              ]
-            )
-          }";
-        in
-        {
-          description = "Authelia authentication and authorization server";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network-online.target" ]; # Checks SMTP notifier creds during startup
-          wants = [ "network-online.target" ];
-          environment =
-            (lib.filterAttrs (_: v: v != null) {
-              X_AUTHELIA_CONFIG_FILTERS = lib.mkIf (oidcJwksConfigFile != [ ]) "template";
-              AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
-              AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = instance.secrets.storageEncryptionKeyFile;
-              AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = instance.secrets.oidcHmacSecretFile;
-            })
-            // instance.environmentVariables;
-
-          preStart = "${execCommand} ${configArg} validate-config";
-          serviceConfig = {
-            User = instance.user;
-            Group = instance.group;
-            ExecStart = "${execCommand} ${configArg}";
-            Restart = "always";
-            RestartSec = "5s";
-            StateDirectory = "authelia-${instance.name}";
-            StateDirectoryMode = "0700";
-
-            # Security options:
-            AmbientCapabilities = "";
-            CapabilityBoundingSet = "";
-            DeviceAllow = "";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-
-            PrivateTmp = true;
-            PrivateDevices = true;
-            PrivateUsers = true;
-
-            ProtectClock = true;
-            ProtectControlGroups = true;
-            ProtectHome = "read-only";
-            ProtectHostname = true;
-            ProtectKernelLogs = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectProc = "noaccess";
-            ProtectSystem = "strict";
-
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-              "AF_UNIX"
-            ];
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-
-            SystemCallArchitectures = "native";
-            SystemCallErrorNumber = "EPERM";
-            SystemCallFilter = [
-              "@system-service"
-              "~@cpu-emulation"
-              "~@debug"
-              "~@keyring"
-              "~@memlock"
-              "~@obsolete"
-              "~@privileged"
-              "~@setuid"
-            ];
-          };
-        };
-      mkInstanceUsersConfig = instance: {
-        groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") {
-          name = "authelia-${instance.name}";
-        };
-        users."authelia-${instance.name}" = lib.mkIf (instance.user == "authelia-${instance.name}") {
-          name = "authelia-${instance.name}";
-          isSystemUser = true;
-          group = instance.group;
-        };
-      };
-      instances = lib.attrValues cfg.instances;
-    in
-    {
-      assertions = lib.flatten (
-        lib.flip lib.mapAttrsToList cfg.instances (
-          name: instance: [
-            {
-              assertion =
-                instance.secrets.manual
-                || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
-              message = ''
-                Authelia requires a JWT Secret and a Storage Encryption Key to work.
-                Either set them like so:
-                services.authelia.${name}.secrets.jwtSecretFile = /my/path/to/jwtsecret;
-                services.authelia.${name}.secrets.storageEncryptionKeyFile = /my/path/to/encryptionkey;
-                Or set services.authelia.${name}.secrets.manual = true and provide them yourself via
-                environmentVariables or settingsFiles.
-                Do not include raw secrets in nix settings.
-              '';
-            }
+      execCommand = "${instance.package}/bin/authelia";
+      configFile = format.generate "config.yml" cleanedSettings;
+      oidcJwksConfigFile = lib.optional (instance.secrets.oidcIssuerPrivateKeyFile != null) (
+        writeOidcJwksConfigFile instance.secrets.oidcIssuerPrivateKeyFile
+      );
+      configArg = "--config ${
+        builtins.concatStringsSep "," (
+          lib.concatLists [
+            [configFile]
+            instance.settingsFiles
+            oidcJwksConfigFile
           ]
         )
-      );
+      }";
+    in {
+      description = "Authelia authentication and authorization server";
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"]; # Checks SMTP notifier creds during startup
+      wants = ["network-online.target"];
+      environment =
+        (lib.filterAttrs (_: v: v != null) {
+          X_AUTHELIA_CONFIG_FILTERS = lib.mkIf (oidcJwksConfigFile != []) "template";
+          AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
+          AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = instance.secrets.storageEncryptionKeyFile;
+          AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
+          AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = instance.secrets.oidcHmacSecretFile;
+        })
+        // instance.environmentVariables;
 
-      systemd.services = lib.mkMerge (
-        map (
-          instance:
+      preStart = "${execCommand} ${configArg} validate-config";
+      serviceConfig = {
+        User = instance.user;
+        Group = instance.group;
+        ExecStart = "${execCommand} ${configArg}";
+        Restart = "always";
+        RestartSec = "5s";
+        StateDirectory = "authelia-${instance.name}";
+        StateDirectoryMode = "0700";
+
+        # Security options:
+        AmbientCapabilities = "";
+        CapabilityBoundingSet = "";
+        DeviceAllow = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+
+        PrivateTmp = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = "read-only";
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "noaccess";
+        ProtectSystem = "strict";
+
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+
+        SystemCallArchitectures = "native";
+        SystemCallErrorNumber = "EPERM";
+        SystemCallFilter = [
+          "@system-service"
+          "~@cpu-emulation"
+          "~@debug"
+          "~@keyring"
+          "~@memlock"
+          "~@obsolete"
+          "~@privileged"
+          "~@setuid"
+        ];
+      };
+    };
+    mkInstanceUsersConfig = instance: {
+      groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") {
+        name = "authelia-${instance.name}";
+      };
+      users."authelia-${instance.name}" = lib.mkIf (instance.user == "authelia-${instance.name}") {
+        name = "authelia-${instance.name}";
+        isSystemUser = true;
+        group = instance.group;
+      };
+    };
+    instances = lib.attrValues cfg.instances;
+  in {
+    assertions = lib.flatten (
+      lib.flip lib.mapAttrsToList cfg.instances (
+        name: instance: [
+          {
+            assertion =
+              instance.secrets.manual
+              || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
+            message = ''
+              Authelia requires a JWT Secret and a Storage Encryption Key to work.
+              Either set them like so:
+              services.authelia.${name}.secrets.jwtSecretFile = /my/path/to/jwtsecret;
+              services.authelia.${name}.secrets.storageEncryptionKeyFile = /my/path/to/encryptionkey;
+              Or set services.authelia.${name}.secrets.manual = true and provide them yourself via
+              environmentVariables or settingsFiles.
+              Do not include raw secrets in nix settings.
+            '';
+          }
+        ]
+      )
+    );
+
+    systemd.services = lib.mkMerge (
+      map (
+        instance:
           lib.mkIf instance.enable {
             "authelia-${instance.name}" = mkInstanceServiceConfig instance;
           }
-        ) instances
-      );
-      users = lib.mkMerge (
-        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)) instances
-      );
-    };
+      )
+      instances
+    );
+    users = lib.mkMerge (
+      map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)) instances
+    );
+  };
 
   meta.maintainers = with lib.maintainers; [
     jk

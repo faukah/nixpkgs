@@ -6,7 +6,6 @@
   pytestCheckHook,
   mock,
   pyyaml,
-
   # for passthru.tests
   asgi-csrf,
   connexion,
@@ -14,7 +13,6 @@
   gradio,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "python-multipart";
   version = "0.0.20";
@@ -27,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-y8wLGRvc7xSmkSyK77Tl5V6mMneS+dtmqBLZOhvmRSY=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonImportsCheck = [ "python_multipart" ];
+  pythonImportsCheck = ["python_multipart"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,6 +50,6 @@ buildPythonPackage rec {
     description = "Streaming multipart parser for Python";
     homepage = "https://github.com/Kludex/python-multipart";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

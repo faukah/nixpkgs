@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "subjs";
   version = "1.0.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
       secrets and more.
     '';
     homepage = "https://github.com/lc/subjs";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

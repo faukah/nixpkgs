@@ -7,7 +7,6 @@
   cython ? null,
   numpy ? null,
 }:
-
 buildPythonPackage {
   pname = "purepng";
   version = "0.2.0";
@@ -34,10 +33,10 @@ buildPythonPackage {
   ];
 
   # cython is optional - if not supplied, the "pure python" implementation will be used
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   # numpy is optional - if not supplied, tests simply have less coverage
-  nativeCheckInputs = [ numpy ];
+  nativeCheckInputs = [numpy];
 
   postPatch = ''
     substituteInPlace code/test_png.py \
@@ -58,6 +57,6 @@ buildPythonPackage {
     description = "Pure Python library for PNG image encoding/decoding";
     homepage = "https://github.com/scondo/purepng";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

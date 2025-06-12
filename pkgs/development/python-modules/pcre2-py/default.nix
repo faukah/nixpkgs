@@ -19,7 +19,6 @@
   readline,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pcre2-py";
   version = "0.5.2";
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     gitpython
   ];
 
-  pythonImportsCheck = [ "pcre2" ];
+  pythonImportsCheck = ["pcre2"];
 
   postCheck = ''
     cd $out
@@ -85,6 +84,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/grtetrault/pcre2.py";
     changelog = "https://github.com/grtetrault/pcre2.py/releases/tag/v{version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
   };
 }

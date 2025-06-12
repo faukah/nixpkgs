@@ -13,7 +13,6 @@
   python,
   apple-sdk_14,
 }:
-
 buildPythonPackage rec {
   pname = "materialx";
   version = "1.38.10";
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     ))
   ];
 
-  pythonImportsCheck = [ "MaterialX" ];
+  pythonImportsCheck = ["MaterialX"];
 
   postInstall = ''
     # Make python lib properly accessible
@@ -77,7 +76,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/AcademySoftwareFoundation/MaterialX/blob/${src.rev}/CHANGELOG.md";
     description = "Open standard for representing rich material and look-development content in computer graphics";
     homepage = "https://materialx.org";
-    maintainers = [ lib.maintainers.gador ];
+    maintainers = [lib.maintainers.gador];
     platforms = lib.platforms.unix;
     license = lib.licenses.mpl20;
   };

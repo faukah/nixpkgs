@@ -3,11 +3,11 @@
   installShellFiles,
   jq,
 }:
-
 makeSetupHook {
   name = "nodejs-install-manuals";
-  propagatedBuildInputs = [ installShellFiles ];
+  propagatedBuildInputs = [installShellFiles];
   substitutions = {
     jq = "${jq}/bin/jq";
   };
-} ./hook.sh
+}
+./hook.sh

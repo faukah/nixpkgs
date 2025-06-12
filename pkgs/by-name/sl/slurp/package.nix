@@ -13,7 +13,6 @@
   wayland-scanner,
   buildDocs ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "slurp";
   version = "1.5.0";
@@ -25,14 +24,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2M8f3kN6tihwKlUCp2Qowv5xD6Ufb71AURXqwQShlXI=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ] ++ lib.optional buildDocs scdoc;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      wayland-scanner
+    ]
+    ++ lib.optional buildDocs scdoc;
 
   buildInputs = [
     cairo
@@ -43,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  mesonFlags = [ (lib.mesonEnable "man-pages" buildDocs) ];
+  mesonFlags = [(lib.mesonEnable "man-pages" buildDocs)];
 
   meta = {
     changelog = "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
@@ -52,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/emersion/slurp";
     license = lib.licenses.mit;
     mainProgram = "slurp";
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 })

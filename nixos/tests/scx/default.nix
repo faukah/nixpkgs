@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "scx_full";
   meta = {
     inherit (pkgs.scx.full.meta) maintainers;

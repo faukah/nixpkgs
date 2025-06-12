@@ -16,7 +16,6 @@
   samba,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-commander";
   version = "1.18.2";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gcmd.github.io";
     license = lib.licenses.gpl2Plus;
     mainProgram = "gnome-commander";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

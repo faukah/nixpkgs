@@ -6,7 +6,6 @@
   libpcap,
   xorg,
 }:
-
 buildGoModule rec {
   pname = "gapcast";
   version = "1.0.3";
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/ANDRVV/gapcast";
     changelog = "https://github.com/ANDRVV/gapcast/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gapcast";
     broken = stdenv.hostPlatform.isDarwin;
   };

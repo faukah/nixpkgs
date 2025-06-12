@@ -16,9 +16,7 @@
   stdenv,
   xz,
   zlib,
-}:
-
-let
+}: let
   # Bcftools needs perl
   runtime = [
     bcftools
@@ -27,8 +25,8 @@ let
     perl
     samtools
   ];
-  my-python-packages =
-    p: with p; [
+  my-python-packages = p:
+    with p; [
       bx-python
       pysam
       pandas
@@ -37,56 +35,56 @@ let
     ];
   my-python = python3.withPackages my-python-packages;
 in
-stdenv.mkDerivation rec {
-  pname = "hap.py";
-  version = "0.3.15";
+  stdenv.mkDerivation rec {
+    pname = "hap.py";
+    version = "0.3.15";
 
-  src = fetchFromGitHub {
-    owner = "Illumina";
-    repo = "hap.py";
-    rev = "v${version}";
-    hash = "sha256-K8XXhioMGMHw56MKvp0Eo8S6R36JczBzGRaBz035zRQ=";
-  };
-  # For illumina script
-  BOOST_ROOT = "${boost.out}";
-  ZLIBSTATIC = "${zlib.static}";
-  # For cmake : boost lib and includedir are in different location
-  BOOST_LIBRARYDIR = "${boost.out}/lib";
-  BOOST_INCLUDEDIR = "${boost.dev}/include";
+    src = fetchFromGitHub {
+      owner = "Illumina";
+      repo = "hap.py";
+      rev = "v${version}";
+      hash = "sha256-K8XXhioMGMHw56MKvp0Eo8S6R36JczBzGRaBz035zRQ=";
+    };
+    # For illumina script
+    BOOST_ROOT = "${boost.out}";
+    ZLIBSTATIC = "${zlib.static}";
+    # For cmake : boost lib and includedir are in different location
+    BOOST_LIBRARYDIR = "${boost.out}/lib";
+    BOOST_INCLUDEDIR = "${boost.dev}/include";
 
-  patches = [
-    # Compatibility with nix for boost and library flags : zlib, bzip2, curl, crypto, lzma
-    ./boost-library-flags.patch
-    # Update to python3
-    ./python3.patch
-  ];
-  nativeBuildInputs = [
-    autoconf
-    cmake
-    makeWrapper
-  ];
-  buildInputs = [
-    boost
-    bzip2
-    curl
-    htslib
-    my-python
-    rtg-tools
-    xz
-    zlib
-  ];
+    patches = [
+      # Compatibility with nix for boost and library flags : zlib, bzip2, curl, crypto, lzma
+      ./boost-library-flags.patch
+      # Update to python3
+      ./python3.patch
+    ];
+    nativeBuildInputs = [
+      autoconf
+      cmake
+      makeWrapper
+    ];
+    buildInputs = [
+      boost
+      bzip2
+      curl
+      htslib
+      my-python
+      rtg-tools
+      xz
+      zlib
+    ];
 
-  postFixup = ''
-    wrapProgram $out/bin/hap.py \
-       --set PATH ${lib.makeBinPath runtime} \
-       --add-flags "--engine-vcfeval-path=${rtg-tools}/bin/rtg"
-  '';
+    postFixup = ''
+      wrapProgram $out/bin/hap.py \
+         --set PATH ${lib.makeBinPath runtime} \
+         --add-flags "--engine-vcfeval-path=${rtg-tools}/bin/rtg"
+    '';
 
-  meta = with lib; {
-    description = "Compare genetics variants against a gold dataset";
-    homepage = "https://github.com/Illumina/hap.py";
-    license = licenses.bsd2;
-    maintainers = with maintainers; [ apraga ];
-    mainProgram = "hap.py";
-  };
-}
+    meta = with lib; {
+      description = "Compare genetics variants against a gold dataset";
+      homepage = "https://github.com/Illumina/hap.py";
+      license = licenses.bsd2;
+      maintainers = with maintainers; [apraga];
+      mainProgram = "hap.py";
+    };
+  }

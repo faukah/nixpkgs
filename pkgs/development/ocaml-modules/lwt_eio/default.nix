@@ -25,6 +25,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-multicore/${pname}";
     changelog = "https://github.com/ocaml-multicore/${pname}/raw/v${version}/CHANGES.md";
     description = "Use Lwt libraries from within Eio";
-    license = with lib.licenses; [ isc ];
+    license = with lib.licenses; [isc];
   };
 }

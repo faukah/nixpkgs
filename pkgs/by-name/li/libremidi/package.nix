@@ -5,7 +5,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libremidi";
   version = "4.5.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # PipeWire support currently disabled. Enabling it requires packaging:
   # https://github.com/cameron314/readerwriterqueue
-  cmakeFlags = [ "-DLIBREMIDI_NO_PIPEWIRE=ON" ];
+  cmakeFlags = ["-DLIBREMIDI_NO_PIPEWIRE=ON"];
 
   postInstall = ''
     cp -r $src/include $out
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jcelerier/libremidi";
     description = "Modern C++ MIDI real-time & file I/O library";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

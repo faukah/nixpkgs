@@ -4,13 +4,10 @@
   fetchFromGitHub,
   cmake,
   callPackage,
-
   # Linux deps
   libGL,
   xorg,
-
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lobster";
   version = "2025.2";
@@ -22,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-F6py2zhNk88PUGxjWim+LHVTOpYHViV7d70LV77QgdU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     libGL
     xorg.libX11
@@ -33,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     cd dev
   '';
 
-  passthru.tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix { };
+  passthru.tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix {};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -46,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       friendly and terse syntax, by doing most of the heavy lifting for you.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 })

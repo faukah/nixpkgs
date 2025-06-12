@@ -8,7 +8,6 @@
   testers,
   fd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fd";
   version = "10.2.0";
@@ -23,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-0LzraGDujLMs60/Ytq2hcG/3RYbo8sJkurYVhRpa2D8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ rust-jemalloc-sys ];
+  buildInputs = [rust-jemalloc-sys];
 
   # skip flaky test
   checkFlags = [

@@ -23,6 +23,6 @@ buildNpmPackage rec {
     mainProgram = "stylelint";
     homepage = "https://stylelint.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ momeemt ];
+    maintainers = with lib.maintainers; [momeemt];
   };
 }

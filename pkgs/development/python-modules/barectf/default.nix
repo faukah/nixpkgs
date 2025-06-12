@@ -10,7 +10,6 @@
   jinja2,
   termcolor,
 }:
-
 buildPythonPackage rec {
   pname = "barectf";
   version = "3.1.2";
@@ -41,15 +40,15 @@ buildPythonPackage rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "barectf" ];
+  pythonImportsCheck = ["barectf"];
 
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [pytest7CheckHook];
 
   meta = with lib; {
     description = "Generator of ANSI C tracers which output CTF data streams";
     mainProgram = "barectf";
     homepage = "https://github.com/efficios/barectf";
     license = licenses.mit;
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
   };
 }

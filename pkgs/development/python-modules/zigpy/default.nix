@@ -22,7 +22,6 @@
   typing-extensions,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "zigpy";
   version = "0.79.0";
@@ -41,20 +40,22 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    attrs
-    aiohttp
-    aiosqlite
-    crccheck
-    cryptography
-    frozendict
-    jsonschema
-    pyserial-asyncio
-    typing-extensions
-    voluptuous
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies =
+    [
+      attrs
+      aiohttp
+      aiosqlite
+      crccheck
+      cryptography
+      frozendict
+      jsonschema
+      pyserial-asyncio
+      typing-extensions
+      voluptuous
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     aioresponses
@@ -91,7 +92,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/zigpy/zigpy";
     changelog = "https://github.com/zigpy/zigpy/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

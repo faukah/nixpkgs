@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
@@ -38,8 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
       icu
       smlnj
     ];
-    maintainers = [ ];
-    pkgConfigModules = [ "xbitmaps" ];
+    maintainers = [];
+    pkgConfigModules = ["xbitmaps"];
     platforms = lib.platforms.unix;
   };
 })

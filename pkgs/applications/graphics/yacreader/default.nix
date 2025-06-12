@@ -7,7 +7,6 @@
   libsForQt5,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yacreader";
   version = "9.15.0";
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.yacreader.com";
     license = lib.licenses.gpl3;
     mainProgram = "YACReader";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

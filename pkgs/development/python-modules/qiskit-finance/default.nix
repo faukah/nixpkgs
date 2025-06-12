@@ -3,10 +3,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # Python Inputs
   fastdtw,
   numpy,
@@ -24,7 +22,6 @@
   pytest-timeout,
   qiskit-aer,
 }:
-
 buildPythonPackage rec {
   pname = "qiskit-finance";
   version = "0.4.1";
@@ -43,7 +40,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "pandas<1.4.0" "pandas"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     fastdtw
@@ -65,7 +62,7 @@ buildPythonPackage rec {
     qiskit-aer
   ];
 
-  pythonImportsCheck = [ "qiskit_finance" ];
+  pythonImportsCheck = ["qiskit_finance"];
   disabledTests = [
     # Fail due to approximation error, ~1-2%
     "test_application"
@@ -75,7 +72,7 @@ buildPythonPackage rec {
     "test_yahoo"
     "test_wikipedia"
   ];
-  pytestFlagsArray = [ "--durations=10" ];
+  pytestFlagsArray = ["--durations=10"];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";
@@ -83,6 +80,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit-optimization/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

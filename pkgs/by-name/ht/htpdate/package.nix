@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.0.0";
   pname = "htpdate";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/twekkel/htpdate";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ julienmalka ];
+    maintainers = with maintainers; [julienmalka];
     mainProgram = "htpdate";
   };
 }

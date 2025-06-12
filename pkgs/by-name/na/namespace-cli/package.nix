@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "namespace-cli";
   version = "0.0.416";
@@ -31,7 +30,7 @@ buildGoModule rec {
 
   meta = {
     mainProgram = "nsc";
-    maintainers = with lib.maintainers; [ techknowlogick ];
+    maintainers = with lib.maintainers; [techknowlogick];
     license = lib.licenses.asl20;
     changelog = "https://github.com/namespacelabs/foundation/releases/tag/v${version}";
     homepage = "https://github.com/namespacelabs/foundation";

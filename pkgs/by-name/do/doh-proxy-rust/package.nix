@@ -6,7 +6,6 @@
   libiconv,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "doh-proxy-rust";
   version = "0.9.11";
@@ -24,13 +23,13 @@ rustPlatform.buildRustPackage rec {
     libiconv
   ];
 
-  passthru.tests = { inherit (nixosTests) doh-proxy-rust; };
+  passthru.tests = {inherit (nixosTests) doh-proxy-rust;};
 
   meta = with lib; {
     homepage = "https://github.com/jedisct1/doh-server";
     description = "Fast, mature, secure DoH server proxy written in Rust";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ stephank ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [stephank];
     mainProgram = "doh-proxy";
   };
 }

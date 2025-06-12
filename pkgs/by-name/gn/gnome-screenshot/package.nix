@@ -20,7 +20,6 @@
   adwaita-icon-theme,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-screenshot";
   version = "41.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-screenshot";
     description = "Utility used in the GNOME desktop environment for taking screenshots";
     mainProgram = "gnome-screenshot";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

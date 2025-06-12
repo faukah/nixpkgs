@@ -4,10 +4,8 @@
   fetchFromGitHub,
   installShellFiles,
   versionCheckHook,
-
   lspSupport ? true,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "vectorcode";
   version = "0.6.10";
@@ -24,8 +22,7 @@ python3Packages.buildPythonApplication rec {
     pdm-backend
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       chromadb_0
       colorlog
@@ -70,7 +67,7 @@ python3Packages.buildPythonApplication rec {
     installShellCompletion vectorcode.{bash,zsh}
   '';
 
-  pythonImportsCheck = [ "vectorcode" ];
+  pythonImportsCheck = ["vectorcode"];
 
   nativeCheckInputs =
     [
@@ -97,7 +94,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Davidyz/VectorCode";
     changelog = "https://github.com/Davidyz/VectorCode/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "vectorcode";
   };
 }

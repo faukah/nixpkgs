@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pwncat";
   version = "0.1.2";
@@ -14,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-x/h53zpYuuFTtzCEioiw4yTIt/jG2qFG5nz0WmxzYIg=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   # Tests requires to start containers
   doCheck = false;
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://pwncat.org/";
     changelog = "https://github.com/cytopia/pwncat/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "pwncat";
   };
 }

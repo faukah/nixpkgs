@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "aactivator";
   version = "2.0.0";
@@ -36,6 +35,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Yelp/aactivator";
     license = lib.licenses.mit;
     mainProgram = "aactivator";
-    maintainers = with lib.maintainers; [ keller00 ];
+    maintainers = with lib.maintainers; [keller00];
   };
 }

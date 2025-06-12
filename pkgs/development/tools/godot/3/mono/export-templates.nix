@@ -1,5 +1,4 @@
-{ godot3-mono }:
-
+{godot3-mono}:
 godot3-mono.overrideAttrs (
   self: base: {
     pname = "godot3-mono-export-templates";
@@ -21,10 +20,12 @@ godot3-mono.overrideAttrs (
     # This also impacts the size of the exported games.
     # This is added explicitly here because mkDerivation does not automatically
     # strip binaries in the template directory.
-    stripAllList = (base.stripAllList or [ ]) ++ [ "share/godot/templates" ];
+    stripAllList = (base.stripAllList or []) ++ ["share/godot/templates"];
 
-    meta = base.meta // {
-      homepage = "https://docs.godotengine.org/en/stable/development/compiling/compiling_with_mono.html#export-templates";
-    };
+    meta =
+      base.meta
+      // {
+        homepage = "https://docs.godotengine.org/en/stable/development/compiling/compiling_with_mono.html#export-templates";
+      };
   }
 )

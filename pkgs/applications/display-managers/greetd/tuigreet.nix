@@ -2,7 +2,6 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   installShellFiles,
   scdoc,
 }:
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/apognu/tuigreet";
     changelog = "https://github.com/apognu/tuigreet/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     mainProgram = "tuigreet";
   };

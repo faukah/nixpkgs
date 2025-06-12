@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nbench-byte";
   version = "2.2.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     stdenv.cc.libc.static
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.math.utah.edu/~mayer/linux/bmark.html";
     description = "Synthetic computing benchmark program";
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ bennofs ];
+    maintainers = with lib.maintainers; [bennofs];
     mainProgram = "nbench";
   };
 }

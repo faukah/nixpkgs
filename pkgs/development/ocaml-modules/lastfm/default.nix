@@ -5,7 +5,6 @@
   re,
   xmlplaylist,
 }:
-
 buildDunePackage rec {
   pname = "lastfm";
   version = "0.3.4";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-lastfm";
     description = "OCaml API to lastfm radio and audioscrobbler";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

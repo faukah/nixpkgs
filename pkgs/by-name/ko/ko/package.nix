@@ -5,7 +5,6 @@
   gitMinimal,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ko";
   version = "0.18.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-R+vGG2u/unXffD/9Aq065zR7Xq9KEWZl4llYFxR0HLU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Pin so that we don't build the several other development tools
   subPackages = ".";
@@ -37,7 +36,7 @@ buildGoModule rec {
     "-skip=(TestNewPublisherCanPublish|TestDebugger)"
   ];
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
   preCheck = ''
     # Feed in all the tests for testing
     # This is because subPackages above limits what is built to just what we

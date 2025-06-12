@@ -4,7 +4,6 @@
   fetchurl,
   DBDmysql,
 }:
-
 buildPerlPackage {
   pname = "maatkit";
   version = "7540";
@@ -14,9 +13,9 @@ buildPerlPackage {
     sha256 = "1a7rxrddkrsfxb2wj01ha91ld0vapfkqcy8j9p08l76zz2l8p2v1";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  buildInputs = [ DBDmysql ];
+  buildInputs = [DBDmysql];
 
   preConfigure = ''
     find . | while read fn; do

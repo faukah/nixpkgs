@@ -6,7 +6,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "system76-power";
   version = "1.2.4";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-SHGfs3ZokPOM2nkd/8F/5zjxh9sPXVBtHWkCbmKwEMo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     libusb1

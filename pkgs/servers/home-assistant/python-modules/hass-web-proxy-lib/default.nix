@@ -3,13 +3,10 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch2,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiohttp,
-
   # tests
   home-assistant,
   pytest-aiohttp,
@@ -17,11 +14,9 @@
   pytest-homeassistant-custom-component,
   pytest-timeout,
   pytestCheckHook,
-
   # reverse dependencies
   home-assistant-custom-components,
 }:
-
 buildPythonPackage rec {
   pname = "hass-web-proxy-lib";
   version = "0.0.7";
@@ -42,9 +37,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     home-assistant

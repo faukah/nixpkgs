@@ -9,7 +9,6 @@
   scdoc,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "maddy";
   version = "0.8.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-YbXhxcRDTkNDdlCAKtQS2G8fwRIrRGpouIYx+5RG2lY=";
 
-  tags = [ "libpam" ];
+  tags = ["libpam"];
 
   ldflags = [
     "-s"
@@ -31,9 +30,9 @@ buildGoModule rec {
     "-X github.com/foxcpp/maddy.Version=${version}"
   ];
 
-  subPackages = [ "cmd/maddy" ];
+  subPackages = ["cmd/maddy"];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   nativeBuildInputs = [
     installShellFiles
@@ -68,6 +67,6 @@ buildGoModule rec {
     description = "Composable all-in-one mail server";
     homepage = "https://maddy.email";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

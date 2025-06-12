@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-seasurf";
   version = "2.0.0";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-ajQiDizNaF0em9CVeaHEuJEeSaYraJh9YgvhvBPTIsk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flask ];
+  dependencies = [flask];
 
   nativeCheckInputs = [
     pytestCheckHook
     mock
   ];
 
-  pythonImportsCheck = [ "flask_seasurf" ];
+  pythonImportsCheck = ["flask_seasurf"];
 
   meta = {
     description = "Flask extension for preventing cross-site request forgery";
     homepage = "https://github.com/maxcountryman/flask-seasurf";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ zhaofengli ];
+    maintainers = with lib.maintainers; [zhaofengli];
   };
 }

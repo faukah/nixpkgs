@@ -6,7 +6,6 @@
   ncurses,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmatrix";
   version = "2.0";
@@ -18,10 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dWlVWSRIE1fPa6R2N3ONL9QJlDQEqxfdYIgWTSr5MsE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [ncurses];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-V";
   doInstallCheck = true;
 
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/abishekvashok/cmatrix/releases/tag/v${finalAttrs.version}";
     platforms = ncurses.meta.platforms;
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Tert0 ];
+    maintainers = with lib.maintainers; [Tert0];
     mainProgram = "cmatrix";
   };
 })

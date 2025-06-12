@@ -16,7 +16,6 @@
   qttools,
   sonnet,
 }:
-
 mkDerivation {
   pname = "kdesignerplugin";
   nativeBuildInputs = [
@@ -37,5 +36,5 @@ mkDerivation {
     kxmlgui
     sonnet
   ];
-  propagatedBuildInputs = [ qttools ];
+  propagatedBuildInputs = [qttools];
 }

@@ -12,7 +12,6 @@
   voluptuous,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "zigpy-zboss";
   version = "1.2.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-T2R291GeFIsnDRI1tAydTlLamA3LF5tKxKFhPtcEUus=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     zigpy
   ];
 
-  pythonImportsCheck = [ "zigpy_zboss" ];
+  pythonImportsCheck = ["zigpy_zboss"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     description = "Library for zigpy which communicates with Nordic nRF52 radios";
     homepage = "https://github.com/kardia-as/zigpy-zboss";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -4,7 +4,6 @@
   fetchbzr,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xwinwrap";
   version = "4";
@@ -22,16 +21,15 @@ stdenv.mkDerivation rec {
   ];
 
   buildPhase =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      ''
-        make all64
-      ''
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      ''
-        make all32
-      ''
-    else
-      throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}";
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then ''
+      make all64
+    ''
+    else if stdenv.hostPlatform.system == "i686-linux"
+    then ''
+      make all32
+    ''
+    else throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -59,7 +57,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.hpnd;
     homepage = "https://shantanugoel.com/2008/09/03/shantz-xwinwrap/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "xwinwrap";
   };

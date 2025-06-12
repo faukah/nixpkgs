@@ -2,23 +2,18 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   pyocd,
   pyocd-pemicro,
   spsdk,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
-
   # passthru
   spsdk-pyocd,
 }:
-
 buildPythonPackage rec {
   pname = "spsdk-pyocd";
   version = "0.3.2";
@@ -56,7 +51,7 @@ buildPythonPackage rec {
 
   passthru.tests = {
     pytest = spsdk-pyocd.overridePythonAttrs {
-      pythonImportsCheck = [ "spsdk_pyocd" ];
+      pythonImportsCheck = ["spsdk_pyocd"];
 
       doCheck = true;
     };
@@ -66,6 +61,6 @@ buildPythonPackage rec {
     description = "Debugger probe plugin for SPSDK";
     homepage = "https://pypi.org/project/spsdk-pyocd";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

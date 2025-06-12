@@ -5,9 +5,7 @@
   fetchpatch,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation {
-
   pname = "acgtk";
   version = "2.1.0";
 
@@ -71,6 +69,6 @@ stdenv.mkDerivation {
     description = "Toolkit for developing ACG signatures and lexicon";
     license = licenses.cecill20;
     inherit (ocamlPackages.ocaml.meta) platforms;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

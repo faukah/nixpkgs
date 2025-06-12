@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.passSecretService;
-in
-{
+in {
   options.services.passSecretService = {
     enable = lib.mkEnableOption "pass secret service";
 
@@ -17,9 +15,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
-    services.dbus.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
+    services.dbus.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ aidalgol ];
+  meta.maintainers = with lib.maintainers; [aidalgol];
 }

@@ -12,7 +12,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-linkplay";
   version = "0.2.10";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-mXCeMz7j6fyotKIwAq2M82U92Yvu+VFFacptMtw28qU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     deprecated
   ];
 
-  pythonImportsCheck = [ "linkplay" ];
+  pythonImportsCheck = ["linkplay"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Python Library for Seamless LinkPlay Device Control";
     homepage = "https://github.com/Velleman/python-linkplay";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

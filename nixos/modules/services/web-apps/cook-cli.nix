@@ -3,11 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.cook-cli;
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkPackageOption
@@ -15,13 +14,12 @@ let
     getExe
     types
     ;
-in
-{
+in {
   options = {
     services.cook-cli = {
       enable = lib.mkEnableOption "cook-cli";
 
-      package = lib.mkPackageOption pkgs "cook-cli" { };
+      package = lib.mkPackageOption pkgs "cook-cli" {};
 
       autoStart = lib.mkOption {
         type = lib.types.bool;
@@ -58,7 +56,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d ${cfg.basePath} 0770 cook-cli users"
@@ -81,8 +79,8 @@ in
         User = "cook-cli";
         Group = "cook-cli";
         # Hardening options
-        CapabilityBoundingSet = [ "CAP_SYS_NICE" ];
-        AmbientCapabilities = [ "CAP_SYS_NICE" ];
+        CapabilityBoundingSet = ["CAP_SYS_NICE"];
+        AmbientCapabilities = ["CAP_SYS_NICE"];
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateTmp = true;
@@ -97,12 +95,12 @@ in
         Restart = "on-failure";
         RestartSec = 5;
       };
-      wantedBy = mkIf cfg.autoStart [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      wantedBy = mkIf cfg.autoStart ["multi-user.target"];
+      wants = ["network.target"];
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 

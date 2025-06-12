@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-janitor";
   version = "0.3.2";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-t4TZkwWIp/VYj4tMd5CdYuAQt3GquMRZ3wyAK3oic5k=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash fish zsh; do
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/nobbz/nix-janitor";
@@ -39,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "janitor";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nobbz ];
+    maintainers = [lib.maintainers.nobbz];
   };
 }

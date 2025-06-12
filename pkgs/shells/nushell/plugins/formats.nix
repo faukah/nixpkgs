@@ -6,14 +6,13 @@
   pkg-config,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nushell_plugin_formats";
   inherit (nushell) version src cargoHash;
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.cc.isClang [ rustPlatform.bindgenHook ];
-  cargoBuildFlags = [ "--package nu_plugin_formats" ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.cc.isClang [rustPlatform.bindgenHook];
+  cargoBuildFlags = ["--package nu_plugin_formats"];
 
   checkPhase = ''
     cargo test --manifest-path crates/nu_plugin_formats/Cargo.toml
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru.updateScript = nix-update-script {
     # Skip the version check and only check the hash because we inherit version from nushell.
-    extraArgs = [ "--version=skip" ];
+    extraArgs = ["--version=skip"];
   };
 
   meta = with lib; {

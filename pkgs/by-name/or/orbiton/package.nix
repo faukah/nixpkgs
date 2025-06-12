@@ -9,7 +9,6 @@
   withGui ? true,
   vte,
 }:
-
 buildGoModule rec {
   pname = "orbiton";
   version = "2.69.0";
@@ -52,7 +51,7 @@ buildGoModule rec {
     description = "Config-free text editor and IDE limited to VT100";
     homepage = "https://roboticoverlords.org/orbiton/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "o";
   };
 }

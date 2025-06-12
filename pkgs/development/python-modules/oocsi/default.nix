@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "oocsi";
   version = "0.4.3";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Tests are not shipped
   doCheck = false;
 
-  pythonImportsCheck = [ "oocsi" ];
+  pythonImportsCheck = ["oocsi"];
 
   meta = with lib; {
     description = "OOCSI library for Python";
     homepage = "https://github.com/iddi/oocsi-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

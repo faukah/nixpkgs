@@ -16,7 +16,6 @@
   vharfbuzz,
   youseedee,
 }:
-
 buildPythonPackage rec {
   pname = "shaperglot";
   version = "0.6.4";
@@ -55,16 +54,16 @@ buildPythonPackage rec {
     youseedee
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "shaperglot" ];
+  pythonImportsCheck = ["shaperglot"];
 
   meta = with lib; {
     description = "Tool to test OpenType fonts for language support";
     homepage = "https://github.com/googlefonts/shaperglot";
     changelog = "https://github.com/googlefonts/shaperglot/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
     mainProgram = "shaperglot";
   };
 }

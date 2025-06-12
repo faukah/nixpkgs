@@ -8,7 +8,6 @@
   lua5_4,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cadzinho";
   version = "0.6.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     lua5_4
   ];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Minimalist computer aided design (CAD) software";
     homepage = "https://github.com/zecruel/CadZinho";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
     mainProgram = "cadzinho";
   };

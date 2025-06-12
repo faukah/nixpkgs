@@ -12,7 +12,6 @@
   cctools,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "moreutils";
   version = "0.70";

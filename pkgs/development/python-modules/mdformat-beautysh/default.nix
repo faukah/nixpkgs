@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-beautysh";
   version = "0.1.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-mH9PN6QsPmnIzh/0vxa+5mYLzANUHRruXC0ql4h8myw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     beautysh
@@ -34,14 +33,14 @@ buildPythonPackage rec {
     mdit-py-plugins
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdformat_beautysh" ];
+  pythonImportsCheck = ["mdformat_beautysh"];
 
   meta = with lib; {
     description = "Mdformat plugin to beautify Bash scripts";
     homepage = "https://github.com/hukkin/mdformat-beautysh";
     license = licenses.mit;
-    maintainers = with maintainers; [ aldoborrero ];
+    maintainers = with maintainers; [aldoborrero];
   };
 }

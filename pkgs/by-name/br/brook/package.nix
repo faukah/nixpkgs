@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "brook";
   version = "20240606";
@@ -20,8 +19,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/txthinking/brook";
     description = "Cross-platform Proxy/VPN software";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ xrelkd ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "brook";
   };
 }

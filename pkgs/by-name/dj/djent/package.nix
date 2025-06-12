@@ -4,7 +4,6 @@
   fetchFromGitHub,
   mpfr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "djent";
   version = "1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-inMh7l/6LlrVnIin+L+fj+4Lchk0Xvt09ngVrCuvphE=";
   };
 
-  buildInputs = [ mpfr ];
+  buildInputs = [mpfr];
 
   preBuild =
     ''
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
       sed -i s/-m64//g Makefile
     '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall

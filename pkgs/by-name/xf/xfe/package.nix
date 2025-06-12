@@ -14,7 +14,6 @@
   libpng,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfe";
   version = "2.1.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/xfe/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "npyscreen";
   version = "4.10.5";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Framework for developing console applications using Python and curses";
     homepage = "https://www.npcole.com/npyscreen/";
-    maintainers = with maintainers; [ dump_stack ];
+    maintainers = with maintainers; [dump_stack];
     license = licenses.bsd3;
   };
 }

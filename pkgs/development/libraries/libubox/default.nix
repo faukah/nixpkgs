@@ -10,7 +10,6 @@
   with_ustream_ssl ? false,
   ustream-ssl,
 }:
-
 stdenv.mkDerivation {
   pname = "libubox";
   version = "0-unstable-2024-12-19";
@@ -23,7 +22,11 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES=OFF"
-    (if with_lua then "-DLUAPATH=${placeholder "out"}/lib/lua" else "-DBUILD_LUA=OFF")
+    (
+      if with_lua
+      then "-DLUAPATH=${placeholder "out"}/lib/lua"
+      else "-DBUILD_LUA=OFF"
+    )
   ];
 
   nativeBuildInputs = [
@@ -31,7 +34,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
   buildInputs =
-    [ json_c ] ++ lib.optional with_lua lua5_1 ++ lib.optional with_ustream_ssl ustream-ssl;
+    [json_c] ++ lib.optional with_lua lua5_1 ++ lib.optional with_ustream_ssl ustream-ssl;
 
   postInstall = lib.optionalString with_ustream_ssl ''
     for fin in $(find ${ustream-ssl} -type f); do

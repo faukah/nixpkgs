@@ -28,7 +28,6 @@
   pkg-config,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openvas-scanner";
   version = "23.20.1";
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/greenbone/openvas-scanner";
     changelog = "https://github.com/greenbone/openvas-scanner/blob/${src.rev}/changelog.toml";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "openvas-scanner";
     platforms = platforms.all;
   };

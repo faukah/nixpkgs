@@ -20,7 +20,6 @@
   fixDarwinDylibNames,
   autoSignDarwinBinariesHook,
 }:
-
 buildDotnetModule rec {
   pname = "avalonia-ilspy";
   version = "7.2-rc";
@@ -90,7 +89,7 @@ buildDotnetModule rec {
 
   projectFile = "ILSpy/ILSpy.csproj";
   nugetDeps = ./deps.json;
-  executables = [ "ILSpy" ];
+  executables = ["ILSpy"];
 
   desktopItems = [
     (makeDesktopItem {

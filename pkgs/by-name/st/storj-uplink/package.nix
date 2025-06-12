@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "storj-uplink";
   version = "1.130.6";
@@ -15,7 +14,7 @@ buildGoModule rec {
     hash = "sha256-5IFMIiDP+HmR/yc7OQjs23lO5Cw12lZBsD8oIo2CaLE=";
   };
 
-  subPackages = [ "cmd/uplink" ];
+  subPackages = ["cmd/uplink"];
 
   vendorHash = "sha256-PnRnnl3uFs889eYQbD+oNvDtJgNepNIJ90KTjnGthI8=";
 
@@ -29,6 +28,6 @@ buildGoModule rec {
     homepage = "https://storj.io";
     license = licenses.agpl3Only;
     mainProgram = "uplink";
-    maintainers = with maintainers; [ felipeqq2 ];
+    maintainers = with maintainers; [felipeqq2];
   };
 }

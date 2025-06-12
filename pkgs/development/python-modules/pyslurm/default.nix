@@ -7,7 +7,6 @@
   cython,
   slurm,
 }:
-
 buildPythonPackage rec {
   pname = "pyslurm";
   version = "24.11.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Uko4fgi080XWSseOBijzvzi0YtjuRIvH8qSKEWrpFG0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   buildInputs = [
     cython
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/PySlurm/pyslurm";
     description = "Python bindings to Slurm";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
     platforms = platforms.linux;
   };
 }

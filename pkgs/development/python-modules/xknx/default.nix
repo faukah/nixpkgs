@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xknx";
   version = "3.8.0";
@@ -26,12 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-iuub8ZO5XN5PWTDGlo/8U7A7+1NpSVGFtG+EmJR9VfM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    cryptography
-    ifaddr
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies =
+    [
+      cryptography
+      ifaddr
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     freezegun
@@ -39,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "xknx" ];
+  pythonImportsCheck = ["xknx"];
 
   disabledTests = [
     # Test requires network access
@@ -68,7 +69,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/XKNX/xknx";
     changelog = "https://github.com/XKNX/xknx/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

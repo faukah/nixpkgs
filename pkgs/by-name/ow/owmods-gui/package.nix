@@ -53,38 +53,36 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = lib.optionalString wrapWithMono "gappsWrapperArgs+=(--prefix PATH : '${mono}/bin')";
 
-  postPatch =
-    let
-      frontend = buildNpmPackage {
-        inherit version;
+  postPatch = let
+    frontend = buildNpmPackage {
+      inherit version;
 
-        env.VITE_VERSION_SUFFIX = "-nix";
+      env.VITE_VERSION_SUFFIX = "-nix";
 
-        pname = "owmods-gui-ui";
-        src = "${src}/owmods_gui/frontend";
+      pname = "owmods-gui-ui";
+      src = "${src}/owmods_gui/frontend";
 
-        packageJSON = "${src}/owmods_gui/frontend/package.json";
-        npmDepsHash = "sha256-h6e+hQzd52G3XtufioEYlBuXNu6I+ZTQcNgJaQdaAck=";
+      packageJSON = "${src}/owmods_gui/frontend/package.json";
+      npmDepsHash = "sha256-h6e+hQzd52G3XtufioEYlBuXNu6I+ZTQcNgJaQdaAck=";
 
-        postBuild = ''
-          cp -r ../dist/ $out
-        '';
-        distPhase = "true";
-        dontInstall = true;
-        installInPlace = true;
-        distDir = "../dist";
+      postBuild = ''
+        cp -r ../dist/ $out
+      '';
+      distPhase = "true";
+      dontInstall = true;
+      installInPlace = true;
+      distDir = "../dist";
 
-        meta = {
-          description = "Web frontend for the Outer Wilds Mod Manager";
-          homepage = "https://github.com/ow-mods/ow-mod-man/tree/main/owmods_gui/frontend";
-          license = lib.licenses.gpl3Plus;
-        };
+      meta = {
+        description = "Web frontend for the Outer Wilds Mod Manager";
+        homepage = "https://github.com/ow-mods/ow-mod-man/tree/main/owmods_gui/frontend";
+        license = lib.licenses.gpl3Plus;
       };
-    in
-    ''
-      substituteInPlace owmods_gui/backend/tauri.conf.json \
-        --replace-fail '"frontendDist": "../dist"' '"frontendDist": "${frontend}"'
-    '';
+    };
+  in ''
+    substituteInPlace owmods_gui/backend/tauri.conf.json \
+      --replace-fail '"frontendDist": "../dist"' '"frontendDist": "${frontend}"'
+  '';
 
   postInstall = ''
     install -DT owmods_gui/backend/icons/128x128@2x.png $out/share/icons/hicolor/256x256@2/apps/outer-wilds-mod-manager.png
@@ -100,9 +98,9 @@ rustPlatform.buildRustPackage rec {
       exec = "outer-wilds-mod-manager %u";
       icon = "outer-wilds-mod-manager";
       desktopName = "Outer Wilds Mod Manager";
-      categories = [ "Game" ];
+      categories = ["Game"];
       comment = "Manage Outer Wilds Mods";
-      mimeTypes = [ "x-scheme-handler/owmods" ];
+      mimeTypes = ["x-scheme-handler/owmods"];
     })
   ];
 

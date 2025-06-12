@@ -25,7 +25,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "compliance-trestle";
   version = "3.8.1";
@@ -95,14 +94,14 @@ buildPythonPackage rec {
     "tests/trestle/core/remote"
   ];
 
-  pythonImportsCheck = [ "trestle" ];
+  pythonImportsCheck = ["trestle"];
 
   meta = {
     description = "An opinionated tooling platform for managing compliance as code, using continuous integration and NIST's OSCAL standard";
     homepage = "https://github.com/oscal-compass/compliance-trestle";
     changelog = "https://github.com/oscal-compass/compliance-trestle/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "trestle";
   };
 }

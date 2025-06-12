@@ -12,7 +12,6 @@
   requests,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "canals";
   version = "0.11.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-xoJqj/zPBPPCheBxA+8EFRJqUnlP+4aWLEh42q1X1mM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     networkx
@@ -43,9 +42,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTestPaths = [
     # Test requires internet connection to mermaid.ink
@@ -57,13 +58,13 @@ buildPythonPackage rec {
     "test_draw_pygraphviz"
   ];
 
-  pythonImportsCheck = [ "canals" ];
+  pythonImportsCheck = ["canals"];
 
   meta = with lib; {
     description = "Component orchestration engine";
     homepage = "https://github.com/deepset-ai/canals";
     changelog = "https://github.com/deepset-ai/canals/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

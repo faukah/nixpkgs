@@ -3,7 +3,6 @@
   fetchFromGitLab,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gitlab-clippy";
   version = "1.0.3";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     description = "Convert clippy warnings into GitLab Code Quality report";
     mainProgram = "gitlab-clippy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wucke13 ];
+    maintainers = with lib.maintainers; [wucke13];
   };
 }

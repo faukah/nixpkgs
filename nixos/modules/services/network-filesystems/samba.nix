@@ -3,39 +3,36 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.samba;
 
   settingsFormat = pkgs.formats.ini {
-    listToValue = lib.concatMapStringsSep " " (lib.generators.mkValueStringDefault { });
+    listToValue = lib.concatMapStringsSep " " (lib.generators.mkValueStringDefault {});
   };
   # Ensure the global section is always first
-  globalConfigFile = settingsFormat.generate "smb-global.conf" { global = cfg.settings.global; };
+  globalConfigFile = settingsFormat.generate "smb-global.conf" {global = cfg.settings.global;};
   sharesConfigFile = settingsFormat.generate "smb-shares.conf" (
-    lib.removeAttrs cfg.settings [ "global" ]
+    lib.removeAttrs cfg.settings ["global"]
   );
 
   configFile = pkgs.concatText "smb.conf" [
     globalConfigFile
     sharesConfigFile
   ];
-
-in
-
-{
+in {
   meta = {
     doc = ./samba.md;
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "samba" "defaultShare" ] "")
-    (lib.mkRemovedOptionModule [ "services" "samba" "syncPasswordsByPam" ]
+    (lib.mkRemovedOptionModule ["services" "samba" "defaultShare"] "")
+    (
+      lib.mkRemovedOptionModule ["services" "samba" "syncPasswordsByPam"]
       "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10"
     )
 
-    (lib.mkRemovedOptionModule [ "services" "samba" "configText" ] ''
+    (lib.mkRemovedOptionModule ["services" "samba" "configText"] ''
       Use services.samba.settings instead.
 
       This is part of the general move to use structured settings instead of raw
@@ -47,23 +44,27 @@ in
       "samba"
       "extraConfig"
     ] "Use services.samba.settings instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "samba" "invalidUsers" ]
-      [ "services" "samba" "settings" "global" "invalid users" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "samba" "invalidUsers"]
+      ["services" "samba" "settings" "global" "invalid users"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "samba" "securityType" ]
-      [ "services" "samba" "settings" "global" "security" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "samba" "securityType"]
+      ["services" "samba" "settings" "global" "security"]
     )
-    (lib.mkRenamedOptionModule [ "services" "samba" "shares" ] [ "services" "samba" "settings" ])
+    (lib.mkRenamedOptionModule ["services" "samba" "shares"] ["services" "samba" "settings"])
 
-    (lib.mkRenamedOptionModule
-      [ "services" "samba" "enableWinbindd" ]
-      [ "services" "samba" "winbindd" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "samba" "enableWinbindd"]
+      ["services" "samba" "winbindd" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "samba" "enableNmbd" ]
-      [ "services" "samba" "nmbd" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "samba" "enableNmbd"]
+      ["services" "samba" "nmbd" "enable"]
     )
   ];
 
@@ -88,7 +89,7 @@ in
 
         extraArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
+          default = [];
           description = "Extra arguments to pass to the smbd service.";
         };
       };
@@ -106,7 +107,7 @@ in
 
         extraArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
+          default = [];
           description = "Extra arguments to pass to the nmbd service.";
         };
       };
@@ -124,7 +125,7 @@ in
 
         extraArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
+          default = [];
           description = "Extra arguments to pass to the winbindd service.";
         };
       };
@@ -165,7 +166,7 @@ in
             };
             global."invalid users" = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [ "root" ];
+              default = ["root"];
               description = "List of users who are denied to login via Samba.";
             };
             global."passwd program" = lib.mkOption {
@@ -179,14 +180,14 @@ in
           "global" = {
             "security" = "user";
             "passwd program" = "/run/wrappers/bin/passwd %u";
-            "invalid users" = [ "root" ];
+            "invalid users" = ["root"];
           };
         };
         example = {
           "global" = {
             "security" = "user";
             "passwd program" = "/run/wrappers/bin/passwd %u";
-            "invalid users" = [ "root" ];
+            "invalid users" = ["root"];
           };
           "public" = {
             "path" = "/srv/public";
@@ -231,9 +232,9 @@ in
         };
         targets.samba = {
           description = "Samba Server";
-          after = [ "network.target" ];
-          wants = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wants = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
         };
         tmpfiles.rules = [
           "d /var/lock/samba - - - - -"
@@ -243,8 +244,8 @@ in
         ];
       };
 
-      security.pam.services.samba = { };
-      environment.systemPackages = [ cfg.package ];
+      security.pam.services.samba = {};
+      environment.systemPackages = [cfg.package];
       # Like other mount* related commands that need the setuid bit, this is
       # required too.
       security.wrappers."mount.cifs" = {
@@ -279,9 +280,9 @@ in
           "network-online.target"
         ];
 
-        partOf = [ "samba.target" ];
-        wantedBy = [ "samba.target" ];
-        wants = [ "network-online.target" ];
+        partOf = ["samba.target"];
+        wantedBy = ["samba.target"];
+        wants = ["network-online.target"];
 
         environment.LD_LIBRARY_PATH = config.system.nssModules.path;
 
@@ -296,7 +297,7 @@ in
 
         unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-        restartTriggers = [ configFile ];
+        restartTriggers = [configFile];
       };
     })
 
@@ -321,9 +322,9 @@ in
             "samba-winbindd.service"
           ];
 
-        partOf = [ "samba.target" ];
-        wantedBy = [ "samba.target" ];
-        wants = [ "network-online.target" ];
+        partOf = ["samba.target"];
+        wantedBy = ["samba.target"];
+        wants = ["network-online.target"];
 
         environment.LD_LIBRARY_PATH = config.system.nssModules.path;
 
@@ -339,7 +340,7 @@ in
 
         unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-        restartTriggers = [ configFile ];
+        restartTriggers = [configFile];
       };
     })
 
@@ -360,8 +361,8 @@ in
             "samba-nmbd.service"
           ];
 
-        partOf = [ "samba.target" ];
-        wantedBy = [ "samba.target" ];
+        partOf = ["samba.target"];
+        wantedBy = ["samba.target"];
 
         environment.LD_LIBRARY_PATH = config.system.nssModules.path;
 
@@ -376,12 +377,12 @@ in
 
         unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-        restartTriggers = [ configFile ];
+        restartTriggers = [configFile];
       };
     })
 
     (lib.mkIf (cfg.enable && cfg.usershares.enable) {
-      users.groups.${cfg.usershares.group} = { };
+      users.groups.${cfg.usershares.group} = {};
 
       systemd.tmpfiles.settings."50-samba-usershares"."/var/lib/samba/usershares".d = {
         user = "root";

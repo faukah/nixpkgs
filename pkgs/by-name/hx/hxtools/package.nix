@@ -8,7 +8,6 @@
   perl,
   bash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hxtools";
   version = "20250309";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = with lib.maintainers; [ meator ];
+    maintainers = with lib.maintainers; [meator];
     platforms = lib.platforms.all;
   };
 })

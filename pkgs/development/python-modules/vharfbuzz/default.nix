@@ -7,7 +7,6 @@
   fonttools,
   uharfbuzz,
 }:
-
 buildPythonPackage rec {
   pname = "vharfbuzz";
   version = "0.3.1";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # Package has no tests.
   doCheck = false;
 
-  pythonImportsCheck = [ "vharfbuzz" ];
+  pythonImportsCheck = ["vharfbuzz"];
 
   meta = with lib; {
     description = "Utility for removing hinting data from TrueType and OpenType fonts";
     homepage = "https://github.com/source-foundry/dehinter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

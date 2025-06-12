@@ -10,15 +10,14 @@
   imagemagick,
   jre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mars-mips";
   version = "4.5";
 
   src = fetchurl {
     url = "https://courses.missouristate.edu/KenVollmar/MARS/MARS_${
-      lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
-    }_Aug2014/Mars${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}.jar";
+      lib.replaceStrings ["."] ["_"] finalAttrs.version
+    }_Aug2014/Mars${lib.replaceStrings ["."] ["_"] finalAttrs.version}.jar";
     hash = "sha256-rDQLZ2uitiJGud935i+BrURHvP0ymrU5cWvNCZULcJY=";
   };
 
@@ -71,9 +70,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "IDE for programming in MIPS assembly language intended for educational-level use";
     mainProgram = "Mars";
     homepage = "https://courses.missouristate.edu/KenVollmar/MARS/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.all;
   };
 })

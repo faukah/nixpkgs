@@ -4,7 +4,6 @@
   installShellFiles,
   lib,
 }:
-
 buildGoModule rec {
   pname = "dapr-cli";
   version = "1.15.1";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preCheck = ''
     export HOME=$(mktemp -d)

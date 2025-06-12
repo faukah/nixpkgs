@@ -13,10 +13,9 @@
   gawk,
   util-linux,
 }:
-
 builtins.mapAttrs
-  (
-    pname: attrs:
+(
+  pname: attrs:
     buildGoModule (
       attrs
       // rec {
@@ -60,56 +59,56 @@ builtins.mapAttrs
         };
       }
     )
-  )
-  {
-    ivpn = {
-      modRoot = "cli";
-      vendorHash = "sha256-STbkFchrmxwWnSgEJ7RGKN3jGaCC0npL80YjlwUcs1g=";
-    };
-    ivpn-service = {
-      modRoot = "daemon";
-      vendorHash = "sha256-REIY3XPyMA2Loxo1mKzJMJwZrf9dQMOtnQOUEgN5LP8=";
-      nativeBuildInputs = [ makeWrapper ];
+)
+{
+  ivpn = {
+    modRoot = "cli";
+    vendorHash = "sha256-STbkFchrmxwWnSgEJ7RGKN3jGaCC0npL80YjlwUcs1g=";
+  };
+  ivpn-service = {
+    modRoot = "daemon";
+    vendorHash = "sha256-REIY3XPyMA2Loxo1mKzJMJwZrf9dQMOtnQOUEgN5LP8=";
+    nativeBuildInputs = [makeWrapper];
 
-      patches = [ ./permissions.patch ];
-      postPatch = ''
-        substituteInPlace daemon/service/platform/platform_linux.go \
-          --replace 'openVpnBinaryPath = "/usr/sbin/openvpn"' \
-          'openVpnBinaryPath = "${openvpn}/bin/openvpn"' \
-          --replace 'routeCommand = "/sbin/ip route"' \
-          'routeCommand = "${iproute2}/bin/ip route"'
+    patches = [./permissions.patch];
+    postPatch = ''
+      substituteInPlace daemon/service/platform/platform_linux.go \
+        --replace 'openVpnBinaryPath = "/usr/sbin/openvpn"' \
+        'openVpnBinaryPath = "${openvpn}/bin/openvpn"' \
+        --replace 'routeCommand = "/sbin/ip route"' \
+        'routeCommand = "${iproute2}/bin/ip route"'
 
-        substituteInPlace daemon/netinfo/netinfo_linux.go \
-          --replace 'retErr := shell.ExecAndProcessOutput(log, outParse, "", "/sbin/ip", "route")' \
-          'retErr := shell.ExecAndProcessOutput(log, outParse, "", "${iproute2}/bin/ip", "route")'
+      substituteInPlace daemon/netinfo/netinfo_linux.go \
+        --replace 'retErr := shell.ExecAndProcessOutput(log, outParse, "", "/sbin/ip", "route")' \
+        'retErr := shell.ExecAndProcessOutput(log, outParse, "", "${iproute2}/bin/ip", "route")'
 
-        substituteInPlace daemon/service/platform/platform_linux_release.go \
-          --replace 'installDir := "/opt/ivpn"' "installDir := \"$out\"" \
-          --replace 'obfsproxyStartScript = path.Join(installDir, "obfsproxy/obfs4proxy")' \
-          'obfsproxyStartScript = "${lib.getExe obfs4}"' \
-          --replace 'wgBinaryPath = path.Join(installDir, "wireguard-tools/wg-quick")' \
-          'wgBinaryPath = "${wireguard-tools}/bin/wg-quick"' \
-          --replace 'wgToolBinaryPath = path.Join(installDir, "wireguard-tools/wg")' \
-          'wgToolBinaryPath = "${wireguard-tools}/bin/wg"' \
-          --replace 'dnscryptproxyBinPath = path.Join(installDir, "dnscrypt-proxy/dnscrypt-proxy")' \
-          'dnscryptproxyBinPath = "${dnscrypt-proxy}/bin/dnscrypt-proxy"'
-      '';
+      substituteInPlace daemon/service/platform/platform_linux_release.go \
+        --replace 'installDir := "/opt/ivpn"' "installDir := \"$out\"" \
+        --replace 'obfsproxyStartScript = path.Join(installDir, "obfsproxy/obfs4proxy")' \
+        'obfsproxyStartScript = "${lib.getExe obfs4}"' \
+        --replace 'wgBinaryPath = path.Join(installDir, "wireguard-tools/wg-quick")' \
+        'wgBinaryPath = "${wireguard-tools}/bin/wg-quick"' \
+        --replace 'wgToolBinaryPath = path.Join(installDir, "wireguard-tools/wg")' \
+        'wgToolBinaryPath = "${wireguard-tools}/bin/wg"' \
+        --replace 'dnscryptproxyBinPath = path.Join(installDir, "dnscrypt-proxy/dnscrypt-proxy")' \
+        'dnscryptproxyBinPath = "${dnscrypt-proxy}/bin/dnscrypt-proxy"'
+    '';
 
-      postFixup = ''
-        mkdir -p $out/etc
-        cp -r $src/daemon/References/Linux/etc/* $out/etc/
-        cp -r $src/daemon/References/common/etc/* $out/etc/
+    postFixup = ''
+      mkdir -p $out/etc
+      cp -r $src/daemon/References/Linux/etc/* $out/etc/
+      cp -r $src/daemon/References/common/etc/* $out/etc/
 
-        patchShebangs --build $out/etc/firewall.sh $out/etc/splittun.sh $out/etc/client.down $out/etc/client.up
+      patchShebangs --build $out/etc/firewall.sh $out/etc/splittun.sh $out/etc/client.down $out/etc/client.up
 
-        wrapProgram "$out/bin/ivpn-service" \
-          --suffix PATH : ${
-            lib.makeBinPath [
-              iptables
-              gawk
-              util-linux
-            ]
-          }
-      '';
-    };
-  }
+      wrapProgram "$out/bin/ivpn-service" \
+        --suffix PATH : ${
+        lib.makeBinPath [
+          iptables
+          gawk
+          util-linux
+        ]
+      }
+    '';
+  };
+}

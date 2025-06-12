@@ -11,9 +11,8 @@
   libXtst,
   layout ? "mobile-intl",
   conf ? null,
-  patches ? [ ],
+  patches ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "svkbd";
   version = "0.4.2";
@@ -25,11 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   inherit patches;
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || lib.isPath conf then conf else writeText "config.def.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || lib.isPath conf
+      then conf
+      else writeText "config.def.h" conf;
+  in
     lib.optionalString (conf != null) ''
       cp ${configFile} config.def.h
     '';
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tools.suckless.org/x/svkbd/";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     mainProgram = "svkbd-${layout}";
   };
 })

@@ -16,7 +16,6 @@
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "impacket";
   version = "0.12.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-iVh9G4NqUiDXSEjJNHV5YrOCiG3KixtKDETWk/JgBkM=";
   };
 
-  pythonRelaxDeps = [ "pyopenssl" ];
+  pythonRelaxDeps = ["pyopenssl"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     charset-normalizer
@@ -47,9 +46,9 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "impacket" ];
+  pythonImportsCheck = ["impacket"];
 
   disabledTestPaths = [
     # Skip all RPC related tests
@@ -62,9 +61,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/SecureAuthCorp/impacket";
     changelog =
       "https://github.com/fortra/impacket/releases/tag/impacket_"
-      + replaceStrings [ "." ] [ "_" ] version;
+      + replaceStrings ["."] ["_"] version;
     # Modified Apache Software License, Version 1.1
     license = licenses.free;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

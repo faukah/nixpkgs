@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "pb";
   version = "0.6.0";
@@ -23,7 +22,7 @@ buildGoModule (finalAttrs: {
     "-X main.Version=${finalAttrs.version}"
   ];
 
-  tags = [ "kqueue" ];
+  tags = ["kqueue"];
 
   # Version test has been removed since it requires network access.
 
@@ -32,7 +31,7 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/parseablehq/pb/releases/tag/v${finalAttrs.version}";
     description = "CLI client for Parseable server";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "pb";
   };
 })

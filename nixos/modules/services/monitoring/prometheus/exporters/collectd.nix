@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.collectd;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     types
@@ -16,8 +15,7 @@ let
     concatStringsSep
     escapeShellArg
     ;
-in
-{
+in {
   port = 9103;
   extraOpts = {
     collectdBinary = {
@@ -82,23 +80,21 @@ in
       '';
     };
   };
-  serviceOpts =
-    let
-      collectSettingsArgs = optionalString (cfg.collectdBinary.enable) ''
-        --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${toString cfg.collectdBinary.port} \
-        --collectd.security-level ${cfg.collectdBinary.securityLevel} \
+  serviceOpts = let
+    collectSettingsArgs = optionalString (cfg.collectdBinary.enable) ''
+      --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${toString cfg.collectdBinary.port} \
+      --collectd.security-level ${cfg.collectdBinary.securityLevel} \
+    '';
+  in {
+    serviceConfig = {
+      ExecStart = ''
+        ${pkgs.prometheus-collectd-exporter}/bin/collectd_exporter \
+          --log.format ${escapeShellArg cfg.logFormat} \
+          --log.level ${cfg.logLevel} \
+          --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
+          ${collectSettingsArgs} \
+          ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-    in
-    {
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.prometheus-collectd-exporter}/bin/collectd_exporter \
-            --log.format ${escapeShellArg cfg.logFormat} \
-            --log.level ${cfg.logLevel} \
-            --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
-            ${collectSettingsArgs} \
-            ${concatStringsSep " \\\n  " cfg.extraFlags}
-        '';
-      };
     };
+  };
 }

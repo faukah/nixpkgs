@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "binary2strings";
   version = "0.1.13";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "binary2strings" ];
+  pythonImportsCheck = ["binary2strings"];
 
-  pytestFlagsArray = [ "tests/test.py" ];
+  pytestFlagsArray = ["tests/test.py"];
 
   meta = with lib; {
     description = "Module to extract Ascii, Utf8, and Unicode strings from binary data";
     homepage = "https://github.com/glmcdona/binary2strings";
     changelog = "https://github.com/glmcdona/binary2strings/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   sedlex,
   xtmpl,
 }:
-
 buildDunePackage rec {
   pname = "higlo";
   version = "0.10.0";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     description = "OCaml library for syntax highlighting";
     inherit (src.meta) homepage;
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ regnat ];
+    maintainers = with maintainers; [regnat];
   };
 }

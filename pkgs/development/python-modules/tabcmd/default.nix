@@ -22,7 +22,6 @@
   types-setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "tabcmd";
   version = "2.0.18";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     "urllib3"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     appdirs
@@ -87,14 +86,14 @@ buildPythonPackage rec {
     chmod +x $out/bin/tabcmd
   '';
 
-  pythonImportsCheck = [ "tabcmd" ];
+  pythonImportsCheck = ["tabcmd"];
 
   meta = with lib; {
     description = "Command line client for working with Tableau Server";
     homepage = "https://github.com/tableau/tabcmd";
     changelog = "https://github.com/tableau/tabcmd/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "tabcmd";
   };
 }

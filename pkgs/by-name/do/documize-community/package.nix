@@ -6,7 +6,6 @@
   go-bindata-assetfs,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "documize-community";
   version = "3.9.0";
@@ -32,9 +31,9 @@ buildGoModule rec {
   # literally cding into this folder.
   preBuild = "cd edition";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  passthru.tests = { inherit (nixosTests) documize; };
+  passthru.tests = {inherit (nixosTests) documize;};
 
   postInstall = ''
     mv $out/bin/edition $out/bin/documize
@@ -43,7 +42,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Open source Confluence alternative for internal & external docs built with Golang + EmberJS";
     license = licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "documize";
     homepage = "https://www.documize.com/";
   };

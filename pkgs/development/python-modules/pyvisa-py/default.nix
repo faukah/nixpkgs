@@ -14,7 +14,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyvisa-py";
   version = "0.7.2";
@@ -40,21 +39,21 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    gpib-ctypes = [ gpib-ctypes ];
-    serial = [ pyserial ];
-    usb = [ pyusb ];
-    psutil = [ psutil ];
-    hislip-discovery = [ zeroconf ];
+    gpib-ctypes = [gpib-ctypes];
+    serial = [pyserial];
+    usb = [pyusb];
+    psutil = [psutil];
+    hislip-discovery = [zeroconf];
     # vicp = [ pyvicp zeroconf ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Module that implements the Virtual Instrument Software Architecture";
     homepage = "https://github.com/pyvisa/pyvisa-py";
     changelog = "https://github.com/pyvisa/pyvisa-py/blob/${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
   };
 }

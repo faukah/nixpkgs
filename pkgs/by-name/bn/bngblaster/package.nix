@@ -10,7 +10,6 @@
   ncurses,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bngblaster";
   version = "0.9.15";
@@ -22,18 +21,24 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HqwyqUkLYoXTjx01pB8sL3hBXwLqe441M+LTqBhaZ58=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [
-    libdict
-    ncurses
-    jansson
-    openssl
-    cmocka
-  ] ++ lib.optionals finalAttrs.finalPackage.doCheck [ libpcap ];
+  buildInputs =
+    [
+      libdict
+      ncurses
+      jansson
+      openssl
+      cmocka
+    ]
+    ++ lib.optionals finalAttrs.finalPackage.doCheck [libpcap];
 
   cmakeFlags = [
-    "-DBNGBLASTER_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+    "-DBNGBLASTER_TESTS=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
     "-DBNGBLASTER_VERSION=${finalAttrs.version}"
   ];
 
@@ -44,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rtbrick/bngblaster/";
     changelog = "https://github.com/rtbrick/bngblaster/releases/tag/${finalAttrs.version}";
     license = licenses.bsd3;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
     badPlatforms = platforms.darwin;
   };
 })

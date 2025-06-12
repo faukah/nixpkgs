@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "linearicons-free";
   version = "1.0.0";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://linearicons.com/free";
     license = lib.licenses.cc-by-sa-40;
-    maintainers = [ lib.maintainers.CardboardTurkey ];
+    maintainers = [lib.maintainers.CardboardTurkey];
     platforms = lib.platforms.all;
   };
 })

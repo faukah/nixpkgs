@@ -12,7 +12,6 @@
   requests,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "pywemo";
   version = "1.4.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-XpCRrCJYHv1so5/aHoGrtkgp3RX1NUKPUawJqK/FaG0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     ifaddr
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pywemo" ];
+  pythonImportsCheck = ["pywemo"];
 
   meta = with lib; {
     description = "Python module to discover and control WeMo devices";
     homepage = "https://github.com/pywemo/pywemo";
     changelog = "https://github.com/pywemo/pywemo/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

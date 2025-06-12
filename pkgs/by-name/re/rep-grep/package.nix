@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "rep-grep";
   version = "0-unstable-2024-02-06";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Command-line utility that takes grep-formatted lines and performs a find-and-replace on them";
     homepage = "https://github.com/robenkleene/rep-grep";
     license = licenses.mit;
-    maintainers = with maintainers; [ philiptaron ];
+    maintainers = with maintainers; [philiptaron];
     mainProgram = "rep";
   };
 }

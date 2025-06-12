@@ -7,7 +7,6 @@
   libusb-compat-0_1,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openobex";
   version = "1.7.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     libusb-compat-0_1
   ];
 
-  configureFlags = [ "--enable-apps" ];
+  configureFlags = ["--enable-apps"];
 
   patchPhase = ''
     sed -i "s!/lib/udev!$out/lib/udev!" udev/CMakeLists.txt

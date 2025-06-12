@@ -6,7 +6,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "megahit";
   version = "1.2.9";
@@ -28,8 +27,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zlib];
 
   cmakeFlags = lib.optionals stdenv.hostPlatform.isStatic [
     "-DSTATIC_BUILD=ON"
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
     license = licenses.gpl3;
     homepage = "https://github.com/voutcn/megahit";
-    maintainers = with maintainers; [ luispedro ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [luispedro];
+    platforms = ["x86_64-linux"];
   };
 }

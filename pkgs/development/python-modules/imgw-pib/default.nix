@@ -10,7 +10,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "imgw-pib";
   version = "1.0.10";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-Jp7ValBP/upUWUIyIHeHd6l3awBdv+Mgf458eUICNko=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "imgw_pib" ];
+  pythonImportsCheck = ["imgw_pib"];
 
   nativeCheckInputs = [
     aioresponses
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Python async wrapper for IMGW-PIB API";
     homepage = "https://github.com/bieniu/imgw-pib";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

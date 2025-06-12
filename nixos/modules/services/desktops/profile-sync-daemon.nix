@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.psd;
-in
-{
+in {
   options.services.psd = with lib.types; {
     enable = lib.mkOption {
       type = bool;
@@ -37,8 +35,8 @@ in
           psd = {
             enable = true;
             description = "Profile Sync daemon";
-            wants = [ "psd-resync.service" ];
-            wantedBy = [ "default.target" ];
+            wants = ["psd-resync.service"];
+            wantedBy = ["default.target"];
             path = with pkgs; [
               rsync
               kmod
@@ -48,7 +46,7 @@ in
               profile-sync-daemon
             ];
             unitConfig = {
-              RequiresMountsFor = [ "/home/" ];
+              RequiresMountsFor = ["/home/"];
             };
             serviceConfig = {
               Type = "oneshot";
@@ -61,10 +59,10 @@ in
           psd-resync = {
             enable = true;
             description = "Timed profile resync";
-            after = [ "psd.service" ];
-            wants = [ "psd-resync.timer" ];
-            partOf = [ "psd.service" ];
-            wantedBy = [ "default.target" ];
+            after = ["psd.service"];
+            wants = ["psd-resync.timer"];
+            partOf = ["psd.service"];
+            wantedBy = ["default.target"];
             path = with pkgs; [
               rsync
               kmod

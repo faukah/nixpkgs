@@ -5,7 +5,6 @@
   ronn,
   shocco,
 }:
-
 stdenv.mkDerivation rec {
   pname = "roundup";
   version = "0.0.6";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Unit testing tool for running test plans which are written in any POSIX shell";
     homepage = "http://bmizerany.github.io/roundup/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.all;
     mainProgram = "roundup";
   };

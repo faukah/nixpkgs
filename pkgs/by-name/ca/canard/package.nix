@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "canard";
   version = "0.0.2-unstable-2024-04-22";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Command line TUI client for the journalist RSS aggregator";
     homepage = "https://github.com/mrusme/canard";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "canard";
   };
 }

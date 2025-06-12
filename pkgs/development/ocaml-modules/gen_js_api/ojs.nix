@@ -3,13 +3,12 @@
   gen_js_api,
   js_of_ocaml-compiler,
 }:
-
 buildDunePackage {
   pname = "ojs";
 
   inherit (gen_js_api) version src;
 
-  propagatedBuildInputs = [ js_of_ocaml-compiler ];
+  propagatedBuildInputs = [js_of_ocaml-compiler];
 
   doCheck = false; # checks depend on gen_js_api, which is a cycle
 

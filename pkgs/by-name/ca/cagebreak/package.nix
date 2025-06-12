@@ -25,7 +25,6 @@
   xwayland,
   wlroots_0_18,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cagebreak";
   version = "3.0.0";
@@ -80,14 +79,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = lib.optionalString withXwayland ''
     wrapProgram $out/bin/cagebreak \
-      --prefix PATH : "${lib.makeBinPath [ xwayland ]}"
+      --prefix PATH : "${lib.makeBinPath [xwayland]}"
   '';
 
   meta = {
     homepage = "https://github.com/project-repo/cagebreak";
     description = "Wayland tiling compositor inspired by ratpoison";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     changelog = "https://github.com/project-repo/cagebreak/blob/${finalAttrs.version}/Changelog.md";
     mainProgram = "cagebreak";

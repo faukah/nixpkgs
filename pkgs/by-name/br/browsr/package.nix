@@ -2,9 +2,8 @@
   lib,
   python3,
   fetchFromGitHub,
-  extras ? [ "all" ],
+  extras ? ["all"],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "browsr";
   version = "1.21.0";
@@ -21,8 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     hatchling
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       art
       click
@@ -91,6 +89,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://juftin.com/browsr";
     changelog = "https://github.com/juftin/browsr/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

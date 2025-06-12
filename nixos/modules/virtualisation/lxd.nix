@@ -1,17 +1,13 @@
 # Systemd services for lxd.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.lxd;
-  preseedFormat = pkgs.formats.yaml { };
-in
-{
+  preseedFormat = pkgs.formats.yaml {};
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "virtualisation"
@@ -39,7 +35,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "lxd-lts" { };
+      package = lib.mkPackageOption pkgs "lxd-lts" {};
 
       lxcPackage = lib.mkOption {
         type = lib.types.package;
@@ -148,22 +144,22 @@ in
       ui = {
         enable = lib.mkEnableOption "(experimental) LXD UI";
 
-        package = lib.mkPackageOption pkgs [ "lxd-ui" ] { };
+        package = lib.mkPackageOption pkgs ["lxd-ui"] {};
       };
     };
   };
 
   ###### implementation
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Note: the following options are also declared in virtualisation.lxc, but
     # the latter can't be simply enabled to reuse the formers, because it
     # does a bunch of unrelated things.
-    systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/lxc/rootfs 0755 root root -"];
 
     security.apparmor = {
-      packages = [ cfg.lxcPackage ];
+      packages = [cfg.lxcPackage];
       policies = {
         "bin.lxc-start".profile = ''
           include ${cfg.lxcPackage}/etc/apparmor.d/usr.bin.lxc-start
@@ -176,7 +172,7 @@ in
 
     systemd.sockets.lxd = {
       description = "LXD UNIX socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
 
       socketConfig = {
         ListenStream = "/var/lib/lxd/unix.socket";
@@ -189,7 +185,7 @@ in
     systemd.services.lxd = {
       description = "LXD Container Management Daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         (lib.mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
@@ -199,9 +195,9 @@ in
         "lxd.socket"
         (lib.mkIf config.virtualisation.lxc.lxcfs.enable "lxcfs.service")
       ];
-      documentation = [ "man:lxd(1)" ];
+      documentation = ["man:lxd(1)"];
 
-      path = [ pkgs.util-linux ] ++ lib.optional cfg.zfsSupport config.boot.zfs.package;
+      path = [pkgs.util-linux] ++ lib.optional cfg.zfsSupport config.boot.zfs.package;
 
       environment = lib.mkIf (cfg.ui.enable) {
         "LXD_UI" = cfg.ui.package;
@@ -230,9 +226,9 @@ in
 
     systemd.services.lxd-preseed = lib.mkIf (cfg.preseed != null) {
       description = "LXD initialization with preseed file";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "lxd.service" ];
-      after = [ "lxd.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["lxd.service"];
+      after = ["lxd.service"];
 
       script = ''
         ${pkgs.coreutils}/bin/cat ${preseedFormat.generate "lxd-preseed.yaml" cfg.preseed} | ${cfg.package}/bin/lxd init --preseed
@@ -243,7 +239,7 @@ in
       };
     };
 
-    users.groups.lxd = { };
+    users.groups.lxd = {};
 
     users.users.root = {
       subUidRanges = [
@@ -271,12 +267,14 @@ in
       "kernel.keys.maxkeys" = 2000;
     };
 
-    boot.kernelModules = [
-      "veth"
-      "xt_comment"
-      "xt_CHECKSUM"
-      "xt_MASQUERADE"
-      "vhost_vsock"
-    ] ++ lib.optionals (!config.networking.nftables.enable) [ "iptable_mangle" ];
+    boot.kernelModules =
+      [
+        "veth"
+        "xt_comment"
+        "xt_CHECKSUM"
+        "xt_MASQUERADE"
+        "vhost_vsock"
+      ]
+      ++ lib.optionals (!config.networking.nftables.enable) ["iptable_mangle"];
   };
 }

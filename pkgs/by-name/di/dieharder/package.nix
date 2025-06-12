@@ -5,7 +5,6 @@
   gsl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dieharder";
   version = "3.31.1";
@@ -25,10 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
   #     include/dieharder/parse.h:21: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ gsl ];
+  buildInputs = [gsl];
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "dieharder";
     homepage = "https://webhome.phy.duke.edu/~rgb/General/dieharder.php";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
     platforms = platforms.unix;
   };
 })

@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       xz
     ];
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   patches = [
     (replaceVars ./0001-dynamically-patchelf-binaries.patch {

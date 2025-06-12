@@ -5,7 +5,6 @@
   testers,
   yaegi,
 }:
-
 buildGoModule rec {
   pname = "yaegi";
   version = "0.16.1";
@@ -42,6 +41,6 @@ buildGoModule rec {
     homepage = "https://github.com/traefik/yaegi";
     changelog = "https://github.com/traefik/yaegi/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

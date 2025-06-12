@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.owamp;
-in
-{
-
+in {
   ###### interface
 
   options = {
@@ -27,11 +22,11 @@ in
       isSystemUser = true;
     };
 
-    users.groups.owamp = { };
+    users.groups.owamp = {};
 
     systemd.services.owamp = {
       description = "Owamp server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.owamp}/bin/owampd -R /run/owamp -d /run/owamp -v -Z ";

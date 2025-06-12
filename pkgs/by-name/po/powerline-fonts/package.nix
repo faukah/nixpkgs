@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "powerline-fonts";
   version = "unstable-2018-11-11";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation {
       ofl
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ malyn ];
+    maintainers = with maintainers; [malyn];
   };
 }

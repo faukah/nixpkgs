@@ -7,7 +7,6 @@
   zlib,
   isocodes,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tagparser";
   version = "12.5.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Xu6pvqyBWew3xD0nD5k7QKUOEpDchF1FiuSN7oHfYME=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     cpp-utilities
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Martchus/tagparser";
     description = "C++ library for reading and writing MP4/M4A/AAC (iTunes), ID3, Vorbis, Opus, FLAC and Matroska tags";
     license = licenses.gpl2;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.all;
   };
 }

@@ -17,7 +17,6 @@
   jq,
   gst_all_1,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "readest";
   version = "0.9.55";
@@ -97,7 +96,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern, feature-rich ebook reader";
@@ -105,7 +104,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/readest/readest/releases/tag/v${finalAttrs.version}";
     mainProgram = "readest";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
     platforms = lib.platforms.linux;
   };
 })

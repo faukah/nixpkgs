@@ -4,22 +4,20 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.xautolock;
-in
-{
+in {
   options = {
     services.xserver.xautolock = {
       enable = mkEnableOption "xautolock";
-      enableNotifier = mkEnableOption "xautolock.notify" // {
-        description = ''
-          Whether to enable the notifier feature of xautolock.
-          This publishes a notification before the autolock.
-        '';
-      };
+      enableNotifier =
+        mkEnableOption "xautolock.notify"
+        // {
+          description = ''
+            Whether to enable the notifier feature of xautolock.
+            This publishes a notification before the autolock.
+          '';
+        };
 
       time = mkOption {
         default = 15;
@@ -92,8 +90,8 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-detectsleep" ];
+        default = [];
+        example = ["-detectsleep"];
         description = ''
           Additional command-line arguments to pass to
           {command}`xautolock`.
@@ -103,11 +101,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ xautolock ];
+    environment.systemPackages = with pkgs; [xautolock];
     systemd.user.services.xautolock = {
       description = "xautolock service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = with lib; {
         ExecStart = strings.concatStringsSep " " (
           [
@@ -143,7 +141,7 @@ in
           message = "killtime has to be at least 10 minutes according to `man xautolock`";
         }
       ]
-      ++ (lib.forEach [ "locker" "notifier" "nowlocker" "killer" ] (option: {
+      ++ (lib.forEach ["locker" "notifier" "nowlocker" "killer"] (option: {
         assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
         message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
       }));

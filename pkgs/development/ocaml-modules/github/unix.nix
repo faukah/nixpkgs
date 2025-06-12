@@ -7,7 +7,6 @@
   cmdliner,
   lwt,
 }:
-
 buildDunePackage {
   pname = "github-unix";
   inherit (github) version src;
@@ -25,7 +24,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = github.meta // {
-    description = "GitHub APIv3 Unix library";
-  };
+  meta =
+    github.meta
+    // {
+      description = "GitHub APIv3 Unix library";
+    };
 }

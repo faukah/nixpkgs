@@ -11,7 +11,6 @@
   poetry-core,
   xmlsec,
 }:
-
 buildPythonPackage rec {
   pname = "python3-saml";
   version = "1.16.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     isodate
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "onelogin.saml2" ];
+  pythonImportsCheck = ["onelogin.saml2"];
 
   disabledTests = [
     # Tests require network access or additions files
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/onelogin/python3-saml";
     changelog = "https://github.com/SAML-Toolkits/python3-saml/blob/v${version}/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

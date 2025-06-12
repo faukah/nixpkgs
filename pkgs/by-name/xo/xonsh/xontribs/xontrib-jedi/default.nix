@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   poetry-core,
   jedi,
   writableTmpDirAsHomeHook,
@@ -10,7 +9,6 @@
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-jedi";
   version = "0.1.1";
@@ -47,13 +45,13 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Xonsh Python mode completions using jedi";
     homepage = "https://github.com/xonsh/xontrib-jedi";
     changelog = "https://github.com/xonsh/xontrib-jedi.releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

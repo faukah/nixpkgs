@@ -19,7 +19,6 @@
   json-glib,
   libunistring,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libratbag";
   version = "0.18";
@@ -51,10 +50,11 @@ stdenv.mkDerivation rec {
     json-glib
     libunistring
     (python3.withPackages (
-      ps: with ps; [
-        evdev
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          evdev
+          pygobject3
+        ]
     ))
   ];
 
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Configuration library for gaming mice";
     homepage = "https://github.com/libratbag/libratbag";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mvnetbiz ];
+    maintainers = with lib.maintainers; [mvnetbiz];
     platforms = lib.platforms.linux;
   };
 }

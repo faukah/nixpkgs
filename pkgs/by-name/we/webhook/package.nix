@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "webhook";
   version = "2.8.2";
@@ -18,17 +17,17 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) webhook; };
+  passthru.tests = {inherit (nixosTests) webhook;};
 
   meta = with lib; {
     description = "Incoming webhook server that executes shell commands";
     mainProgram = "webhook";
     homepage = "https://github.com/adnanh/webhook";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

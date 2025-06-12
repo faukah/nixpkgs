@@ -9,7 +9,6 @@
   xdg,
   dyn,
 }:
-
 buildDunePackage {
   pname = "dune-rpc";
   inherit (dune_3) src version;
@@ -34,7 +33,7 @@ buildDunePackage {
   meta = with lib; {
     description = "Library to connect and control a running dune instance";
     inherit (dune_3.meta) homepage;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

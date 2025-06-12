@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "flux";
   version = "2013-09-20";

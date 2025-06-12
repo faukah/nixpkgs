@@ -7,40 +7,38 @@
   bintools,
   hello,
   debian-devscripts,
-}:
-
-let
+}: let
   # writeCBin from trivial-builders won't let us choose
   # our own stdenv
-  writeCBinWithStdenv =
-    codePath: stdenv': env:
+  writeCBinWithStdenv = codePath: stdenv': env:
     runCommandWith
-      {
-        name = "test-bin";
-        stdenv = stdenv';
-        derivationArgs = {
+    {
+      name = "test-bin";
+      stdenv = stdenv';
+      derivationArgs =
+        {
           inherit codePath;
           preferLocalBuild = true;
           allowSubstitutes = false;
-        } // env;
-      }
-      ''
-        [ -n "$postConfigure" ] && eval "$postConfigure"
-        [ -n "$preBuild" ] && eval "$preBuild"
-        n=$out/bin/test-bin
-        mkdir -p "$(dirname "$n")"
-        cp "$codePath" code.c
-        NIX_DEBUG=1 $CC -x c code.c -O1 $TEST_EXTRA_FLAGS -o "$n"
-      '';
+        }
+        // env;
+    }
+    ''
+      [ -n "$postConfigure" ] && eval "$postConfigure"
+      [ -n "$preBuild" ] && eval "$preBuild"
+      n=$out/bin/test-bin
+      mkdir -p "$(dirname "$n")"
+      cp "$codePath" code.c
+      NIX_DEBUG=1 $CC -x c code.c -O1 $TEST_EXTRA_FLAGS -o "$n"
+    '';
 
   f1exampleWithStdEnv = writeCBinWithStdenv ./fortify1-example.c;
   f2exampleWithStdEnv = writeCBinWithStdenv ./fortify2-example.c;
   f3exampleWithStdEnv = writeCBinWithStdenv ./fortify3-example.c;
 
   # for when we need a slightly more complicated program
-  helloWithStdEnv =
-    stdenv': env:
-    (hello.override { stdenv = stdenv'; }).overrideAttrs (
+  helloWithStdEnv = stdenv': env:
+    (hello.override {stdenv = stdenv';}).overrideAttrs (
       {
         preBuild = ''
           export CFLAGS="$TEST_EXTRA_FLAGS"
@@ -53,8 +51,7 @@ let
       // env
     );
 
-  stdenvUnsupport =
-    additionalUnsupported:
+  stdenvUnsupport = additionalUnsupported:
     stdenv.override {
       cc = stdenv.cc.override {
         cc = (
@@ -68,77 +65,73 @@ let
             hardeningUnsupportedFlagsByTargetPlatform = _: hardeningUnsupportedFlags;
             hardeningUnsupportedFlags =
               (
-                if stdenv.cc.cc ? hardeningUnsupportedFlagsByTargetPlatform then
-                  stdenv.cc.cc.hardeningUnsupportedFlagsByTargetPlatform stdenv.targetPlatform
-                else
-                  (stdenv.cc.cc.hardeningUnsupportedFlags or [ ])
+                if stdenv.cc.cc ? hardeningUnsupportedFlagsByTargetPlatform
+                then stdenv.cc.cc.hardeningUnsupportedFlagsByTargetPlatform stdenv.targetPlatform
+                else (stdenv.cc.cc.hardeningUnsupportedFlags or [])
               )
               ++ additionalUnsupported;
-          } stdenv.cc.cc
+          }
+          stdenv.cc.cc
         );
       };
       allowedRequisites = null;
     };
 
-  checkTestBin =
-    testBin:
-    {
-      # can only test flags that are detectable by hardening-check
-      ignoreBindNow ? true,
-      ignoreFortify ? true,
-      ignorePie ? true,
-      ignoreRelRO ? true,
-      ignoreStackProtector ? true,
-      ignoreStackClashProtection ? true,
-      expectFailure ? false,
-    }:
-    let
-      stackClashStr = "Stack clash protection: yes";
-      expectFailureClause = lib.optionalString expectFailure " && echo 'ERROR: Expected hardening-check to fail, but it passed!' >&2 && false";
-    in
+  checkTestBin = testBin: {
+    # can only test flags that are detectable by hardening-check
+    ignoreBindNow ? true,
+    ignoreFortify ? true,
+    ignorePie ? true,
+    ignoreRelRO ? true,
+    ignoreStackProtector ? true,
+    ignoreStackClashProtection ? true,
+    expectFailure ? false,
+  }: let
+    stackClashStr = "Stack clash protection: yes";
+    expectFailureClause = lib.optionalString expectFailure " && echo 'ERROR: Expected hardening-check to fail, but it passed!' >&2 && false";
+  in
     runCommandCC "check-test-bin"
-      {
-        nativeBuildInputs = [ debian-devscripts ];
-        buildInputs = [ testBin ];
-        meta.platforms =
-          if ignoreStackClashProtection then
-            lib.platforms.linux # ELF-reliant
-          else
-            [ "x86_64-linux" ]; # stackclashprotection test looks for x86-specific instructions
-      }
-      (
-        ''
-          if ${lib.optionalString (!expectFailure) "!"} {
-            hardening-check --nocfprotection \
-              ${lib.optionalString ignoreBindNow "--nobindnow"} \
-              ${lib.optionalString ignoreFortify "--nofortify"} \
-              ${lib.optionalString ignorePie "--nopie"} \
-              ${lib.optionalString ignoreRelRO "--norelro"} \
-              ${lib.optionalString ignoreStackProtector "--nostackprotector"} \
-              $(PATH=$HOST_PATH type -P test-bin) | tee $out
-        ''
-        + lib.optionalString (!ignoreStackClashProtection) ''
-          # stack clash protection doesn't actually affect the exit code of
-          # hardening-check (likely authors think false negatives too common)
-          { grep -F '${stackClashStr}' $out || { echo "Didn't find '${stackClashStr}' in output" && false ;} ;}
-        ''
-        + ''
-          } ; then
-        ''
-        + lib.optionalString expectFailure ''
-          echo 'ERROR: Expected hardening-check to fail, but it passed!' >&2
-        ''
-        + ''
-            exit 2
-          fi
-        ''
-      );
+    {
+      nativeBuildInputs = [debian-devscripts];
+      buildInputs = [testBin];
+      meta.platforms =
+        if ignoreStackClashProtection
+        then lib.platforms.linux # ELF-reliant
+        else ["x86_64-linux"]; # stackclashprotection test looks for x86-specific instructions
+    }
+    (
+      ''
+        if ${lib.optionalString (!expectFailure) "!"} {
+          hardening-check --nocfprotection \
+            ${lib.optionalString ignoreBindNow "--nobindnow"} \
+            ${lib.optionalString ignoreFortify "--nofortify"} \
+            ${lib.optionalString ignorePie "--nopie"} \
+            ${lib.optionalString ignoreRelRO "--norelro"} \
+            ${lib.optionalString ignoreStackProtector "--nostackprotector"} \
+            $(PATH=$HOST_PATH type -P test-bin) | tee $out
+      ''
+      + lib.optionalString (!ignoreStackClashProtection) ''
+        # stack clash protection doesn't actually affect the exit code of
+        # hardening-check (likely authors think false negatives too common)
+        { grep -F '${stackClashStr}' $out || { echo "Didn't find '${stackClashStr}' in output" && false ;} ;}
+      ''
+      + ''
+        } ; then
+      ''
+      + lib.optionalString expectFailure ''
+        echo 'ERROR: Expected hardening-check to fail, but it passed!' >&2
+      ''
+      + ''
+          exit 2
+        fi
+      ''
+    );
 
   nameDrvAfterAttrName = builtins.mapAttrs (
     name: drv:
-    drv.overrideAttrs (_: {
-      name = "test-${name}";
-    })
+      drv.overrideAttrs (_: {
+        name = "test-${name}";
+      })
   );
 
   # returning a specific exit code when aborting due to a fortify
@@ -146,346 +139,351 @@ let
   # nonzero exit code is returned when we go a single byte beyond
   # the buffer, with the example programs being designed to be
   # unlikely to genuinely segfault for such a small overflow.
-  fortifyExecTest =
-    testBin:
+  fortifyExecTest = testBin:
     runCommand "exec-test"
-      {
-        buildInputs = [
-          testBin
-        ];
-        meta.broken = !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
-      }
-      ''
-        (
-          export PATH=$HOST_PATH
-          echo "Saturated buffer:" # check program isn't completly broken
-          test-bin 012345 7
-          echo "One byte too far:" # eighth byte being the null terminator
-          (! test-bin 0123456 7) || (echo 'Expected failure, but succeeded!' && exit 1)
-        )
-        echo "Expected behaviour observed"
-        touch $out
-      '';
+    {
+      buildInputs = [
+        testBin
+      ];
+      meta.broken = !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
+    }
+    ''
+      (
+        export PATH=$HOST_PATH
+        echo "Saturated buffer:" # check program isn't completly broken
+        test-bin 012345 7
+        echo "One byte too far:" # eighth byte being the null terminator
+        (! test-bin 0123456 7) || (echo 'Expected failure, but succeeded!' && exit 1)
+      )
+      echo "Expected behaviour observed"
+      touch $out
+    '';
 
-  brokenIf =
-    cond: drv:
-    if cond then
+  brokenIf = cond: drv:
+    if cond
+    then
       drv.overrideAttrs (old: {
-        meta = old.meta or { } // {
-          broken = true;
-        };
+        meta =
+          old.meta or {}
+          // {
+            broken = true;
+          };
       })
-    else
-      drv;
-  overridePlatforms =
-    platforms: drv:
+    else drv;
+  overridePlatforms = platforms: drv:
     drv.overrideAttrs (old: {
-      meta = old.meta or { } // {
-        inherit platforms;
-      };
+      meta =
+        old.meta or {}
+        // {
+          inherit platforms;
+        };
     });
 
-  instructionPresenceTest =
-    label: mnemonicPattern: testBin: expectFailure:
+  instructionPresenceTest = label: mnemonicPattern: testBin: expectFailure:
     runCommand "${label}-instr-test"
-      {
-        nativeBuildInputs = [
-          bintools
-        ];
-        buildInputs = [
-          testBin
-        ];
-      }
-      ''
-        touch $out
-        if $OBJDUMP -d \
-          --no-addresses \
-          --no-show-raw-insn \
-          "$(PATH=$HOST_PATH type -P test-bin)" \
-          | grep -E '${mnemonicPattern}' > /dev/null ; then
-          echo "Found ${label} instructions" >&2
-          ${lib.optionalString expectFailure "exit 1"}
-        else
-          echo "Did not find ${label} instructions" >&2
-          ${lib.optionalString (!expectFailure) "exit 1"}
-        fi
-      '';
+    {
+      nativeBuildInputs = [
+        bintools
+      ];
+      buildInputs = [
+        testBin
+      ];
+    }
+    ''
+      touch $out
+      if $OBJDUMP -d \
+        --no-addresses \
+        --no-show-raw-insn \
+        "$(PATH=$HOST_PATH type -P test-bin)" \
+        | grep -E '${mnemonicPattern}' > /dev/null ; then
+        echo "Found ${label} instructions" >&2
+        ${lib.optionalString expectFailure "exit 1"}
+      else
+        echo "Did not find ${label} instructions" >&2
+        ${lib.optionalString (!expectFailure) "exit 1"}
+      fi
+    '';
 
-  pacRetTest =
-    testBin: expectFailure:
-    overridePlatforms [ "aarch64-linux" ] (
+  pacRetTest = testBin: expectFailure:
+    overridePlatforms ["aarch64-linux"] (
       instructionPresenceTest "pacret" "\\bpaciasp\\b" testBin expectFailure
     );
 
-  elfNoteTest =
-    label: pattern: testBin: expectFailure:
+  elfNoteTest = label: pattern: testBin: expectFailure:
     runCommand "${label}-elf-note-test"
-      {
-        nativeBuildInputs = [
-          bintools
-        ];
-        buildInputs = [
-          testBin
-        ];
-      }
-      ''
-        touch $out
-        if $READELF -n "$(PATH=$HOST_PATH type -P test-bin)" \
-          | grep -E '${pattern}' > /dev/null ; then
-          echo "Found ${label} note" >&2
-          ${lib.optionalString expectFailure "exit 1"}
-        else
-          echo "Did not find ${label} note" >&2
-          ${lib.optionalString (!expectFailure) "exit 1"}
-        fi
-      '';
+    {
+      nativeBuildInputs = [
+        bintools
+      ];
+      buildInputs = [
+        testBin
+      ];
+    }
+    ''
+      touch $out
+      if $READELF -n "$(PATH=$HOST_PATH type -P test-bin)" \
+        | grep -E '${pattern}' > /dev/null ; then
+        echo "Found ${label} note" >&2
+        ${lib.optionalString expectFailure "exit 1"}
+      else
+        echo "Did not find ${label} note" >&2
+        ${lib.optionalString (!expectFailure) "exit 1"}
+      fi
+    '';
 
-  shadowStackTest =
-    testBin: expectFailure:
+  shadowStackTest = testBin: expectFailure:
     brokenIf stdenv.hostPlatform.isMusl (
-      overridePlatforms [ "x86_64-linux" ] (elfNoteTest "shadowstack" "\\bSHSTK\\b" testBin expectFailure)
+      overridePlatforms ["x86_64-linux"] (elfNoteTest "shadowstack" "\\bSHSTK\\b" testBin expectFailure)
     );
-
 in
-nameDrvAfterAttrName (
-  {
-    bindNowExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin
+  nameDrvAfterAttrName (
+    {
+      bindNowExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "bindnow" ];
+          hardeningEnable = ["bindnow"];
         })
         {
           ignoreBindNow = false;
         }
-    );
+      );
 
-    # musl implementation undetectable by this means even if present
-    fortifyExplicitEnabled = brokenIf stdenv.hostPlatform.isMusl (
-      checkTestBin
+      # musl implementation undetectable by this means even if present
+      fortifyExplicitEnabled = brokenIf stdenv.hostPlatform.isMusl (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "fortify" ];
+          hardeningEnable = ["fortify"];
         })
         {
           ignoreFortify = false;
         }
-    );
+      );
 
-    fortify1ExplicitEnabledExecTest = fortifyExecTest (
-      f1exampleWithStdEnv stdenv {
-        hardeningEnable = [ "fortify" ];
-      }
-    );
+      fortify1ExplicitEnabledExecTest = fortifyExecTest (
+        f1exampleWithStdEnv stdenv {
+          hardeningEnable = ["fortify"];
+        }
+      );
 
-    # musl implementation is effectively FORTIFY_SOURCE=1-only,
-    # clang-on-glibc also only appears to support FORTIFY_SOURCE=1 (!)
-    fortifyExplicitEnabledExecTest =
-      brokenIf (stdenv.hostPlatform.isMusl || (stdenv.cc.isClang && stdenv.hostPlatform.libc == "glibc"))
+      # musl implementation is effectively FORTIFY_SOURCE=1-only,
+      # clang-on-glibc also only appears to support FORTIFY_SOURCE=1 (!)
+      fortifyExplicitEnabledExecTest =
+        brokenIf (stdenv.hostPlatform.isMusl || (stdenv.cc.isClang && stdenv.hostPlatform.libc == "glibc"))
         (
           fortifyExecTest (
             f2exampleWithStdEnv stdenv {
-              hardeningEnable = [ "fortify" ];
+              hardeningEnable = ["fortify"];
             }
           )
         );
 
-    fortify3ExplicitEnabled =
-      brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
+      fortify3ExplicitEnabled =
+        brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
         (
           checkTestBin
-            (f3exampleWithStdEnv stdenv {
-              hardeningEnable = [ "fortify3" ];
-            })
-            {
-              ignoreFortify = false;
-            }
+          (f3exampleWithStdEnv stdenv {
+            hardeningEnable = ["fortify3"];
+          })
+          {
+            ignoreFortify = false;
+          }
         );
 
-    # musl implementation is effectively FORTIFY_SOURCE=1-only
-    fortify3ExplicitEnabledExecTest =
-      brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
+      # musl implementation is effectively FORTIFY_SOURCE=1-only
+      fortify3ExplicitEnabledExecTest =
+        brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
         (
           fortifyExecTest (
             f3exampleWithStdEnv stdenv {
-              hardeningEnable = [ "fortify3" ];
+              hardeningEnable = ["fortify3"];
             }
           )
         );
 
-    pieExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin
+      pieExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "pie" ];
+          hardeningEnable = ["pie"];
         })
         {
           ignorePie = false;
         }
-    );
+      );
 
-    pieExplicitEnabledStructuredAttrs = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin
+      pieExplicitEnabledStructuredAttrs = brokenIf stdenv.hostPlatform.isStatic (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "pie" ];
+          hardeningEnable = ["pie"];
           __structuredAttrs = true;
         })
         {
           ignorePie = false;
         }
-    );
+      );
 
-    relROExplicitEnabled =
-      checkTestBin
+      relROExplicitEnabled =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "relro" ];
+          hardeningEnable = ["relro"];
         })
         {
           ignoreRelRO = false;
         };
 
-    stackProtectorExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin
+      stackProtectorExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "stackprotector" ];
+          hardeningEnable = ["stackprotector"];
         })
         {
           ignoreStackProtector = false;
         }
-    );
+      );
 
-    # protection patterns generated by clang not detectable?
-    stackClashProtectionExplicitEnabled = brokenIf stdenv.cc.isClang (
-      checkTestBin
+      # protection patterns generated by clang not detectable?
+      stackClashProtectionExplicitEnabled = brokenIf stdenv.cc.isClang (
+        checkTestBin
         (helloWithStdEnv stdenv {
-          hardeningEnable = [ "stackclashprotection" ];
+          hardeningEnable = ["stackclashprotection"];
         })
         {
           ignoreStackClashProtection = false;
         }
-    );
+      );
 
-    pacRetExplicitEnabled = pacRetTest (helloWithStdEnv stdenv {
-      hardeningEnable = [ "pacret" ];
-    }) false;
+      pacRetExplicitEnabled =
+        pacRetTest (helloWithStdEnv stdenv {
+          hardeningEnable = ["pacret"];
+        })
+        false;
 
-    shadowStackExplicitEnabled = shadowStackTest (f1exampleWithStdEnv stdenv {
-      hardeningEnable = [ "shadowstack" ];
-    }) false;
+      shadowStackExplicitEnabled =
+        shadowStackTest (f1exampleWithStdEnv stdenv {
+          hardeningEnable = ["shadowstack"];
+        })
+        false;
 
-    bindNowExplicitDisabled =
-      checkTestBin
+      bindNowExplicitDisabled =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "bindnow" ];
+          hardeningDisable = ["bindnow"];
         })
         {
           ignoreBindNow = false;
           expectFailure = true;
         };
 
-    fortifyExplicitDisabled =
-      checkTestBin
+      fortifyExplicitDisabled =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "fortify" ];
+          hardeningDisable = ["fortify"];
         })
         {
           ignoreFortify = false;
           expectFailure = true;
         };
 
-    fortify3ExplicitDisabled =
-      checkTestBin
+      fortify3ExplicitDisabled =
+        checkTestBin
         (f3exampleWithStdEnv stdenv {
-          hardeningDisable = [ "fortify3" ];
+          hardeningDisable = ["fortify3"];
         })
         {
           ignoreFortify = false;
           expectFailure = true;
         };
 
-    fortifyExplicitDisabledDisablesFortify3 =
-      checkTestBin
+      fortifyExplicitDisabledDisablesFortify3 =
+        checkTestBin
         (f3exampleWithStdEnv stdenv {
-          hardeningEnable = [ "fortify3" ];
-          hardeningDisable = [ "fortify" ];
+          hardeningEnable = ["fortify3"];
+          hardeningDisable = ["fortify"];
         })
         {
           ignoreFortify = false;
           expectFailure = true;
         };
 
-    fortify3ExplicitDisabledDoesntDisableFortify =
-      checkTestBin
+      fortify3ExplicitDisabledDoesntDisableFortify =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "fortify" ];
-          hardeningDisable = [ "fortify3" ];
+          hardeningEnable = ["fortify"];
+          hardeningDisable = ["fortify3"];
         })
         {
           ignoreFortify = false;
         };
 
-    pieExplicitDisabled = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
-      checkTestBin
+      pieExplicitDisabled = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "pie" ];
+          hardeningDisable = ["pie"];
         })
         {
           ignorePie = false;
           expectFailure = true;
         }
-    );
+      );
 
-    # can't force-disable ("partial"?) relro
-    relROExplicitDisabled = brokenIf true (
-      checkTestBin
+      # can't force-disable ("partial"?) relro
+      relROExplicitDisabled = brokenIf true (
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "pie" ];
+          hardeningDisable = ["pie"];
         })
         {
           ignoreRelRO = false;
           expectFailure = true;
         }
-    );
+      );
 
-    stackProtectorExplicitDisabled =
-      checkTestBin
+      stackProtectorExplicitDisabled =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "stackprotector" ];
+          hardeningDisable = ["stackprotector"];
         })
         {
           ignoreStackProtector = false;
           expectFailure = true;
         };
 
-    stackClashProtectionExplicitDisabled =
-      checkTestBin
+      stackClashProtectionExplicitDisabled =
+        checkTestBin
         (helloWithStdEnv stdenv {
-          hardeningDisable = [ "stackclashprotection" ];
+          hardeningDisable = ["stackclashprotection"];
         })
         {
           ignoreStackClashProtection = false;
           expectFailure = true;
         };
 
-    pacRetExplicitDisabled = pacRetTest (helloWithStdEnv stdenv {
-      hardeningDisable = [ "pacret" ];
-    }) true;
+      pacRetExplicitDisabled =
+        pacRetTest (helloWithStdEnv stdenv {
+          hardeningDisable = ["pacret"];
+        })
+        true;
 
-    shadowStackExplicitDisabled = shadowStackTest (f1exampleWithStdEnv stdenv {
-      hardeningDisable = [ "shadowstack" ];
-    }) true;
+      shadowStackExplicitDisabled =
+        shadowStackTest (f1exampleWithStdEnv stdenv {
+          hardeningDisable = ["shadowstack"];
+        })
+        true;
 
-    # most flags can't be "unsupported" by compiler alone and
-    # binutils doesn't have an accessible hardeningUnsupportedFlags
-    # mechanism, so can only test a couple of flags through altered
-    # stdenv trickery
+      # most flags can't be "unsupported" by compiler alone and
+      # binutils doesn't have an accessible hardeningUnsupportedFlags
+      # mechanism, so can only test a couple of flags through altered
+      # stdenv trickery
 
-    fortifyStdenvUnsupp =
-      checkTestBin
-        (f2exampleWithStdEnv
+      fortifyStdenvUnsupp =
+        checkTestBin
+        (
+          f2exampleWithStdEnv
           (stdenvUnsupport [
             "fortify"
             "fortify3"
           ])
           {
-            hardeningEnable = [ "fortify" ];
+            hardeningEnable = ["fortify"];
           }
         )
         {
@@ -493,70 +491,70 @@ nameDrvAfterAttrName (
           expectFailure = true;
         };
 
-    fortify3StdenvUnsupp =
-      checkTestBin
-        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
-          hardeningEnable = [ "fortify3" ];
+      fortify3StdenvUnsupp =
+        checkTestBin
+        (f3exampleWithStdEnv (stdenvUnsupport ["fortify3"]) {
+          hardeningEnable = ["fortify3"];
         })
         {
           ignoreFortify = false;
           expectFailure = true;
         };
 
-    fortifyStdenvUnsuppUnsupportsFortify3 =
-      checkTestBin
-        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify" ]) {
-          hardeningEnable = [ "fortify3" ];
+      fortifyStdenvUnsuppUnsupportsFortify3 =
+        checkTestBin
+        (f3exampleWithStdEnv (stdenvUnsupport ["fortify"]) {
+          hardeningEnable = ["fortify3"];
         })
         {
           ignoreFortify = false;
           expectFailure = true;
         };
 
-    # musl implementation undetectable by this means even if present
-    fortify3StdenvUnsuppDoesntUnsuppFortify1 = brokenIf stdenv.hostPlatform.isMusl (
-      checkTestBin
-        (f1exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
-          hardeningEnable = [ "fortify" ];
+      # musl implementation undetectable by this means even if present
+      fortify3StdenvUnsuppDoesntUnsuppFortify1 = brokenIf stdenv.hostPlatform.isMusl (
+        checkTestBin
+        (f1exampleWithStdEnv (stdenvUnsupport ["fortify3"]) {
+          hardeningEnable = ["fortify"];
         })
         {
           ignoreFortify = false;
         }
-    );
+      );
 
-    fortify3StdenvUnsuppDoesntUnsuppFortify1ExecTest = fortifyExecTest (
-      f1exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
-        hardeningEnable = [ "fortify" ];
-      }
-    );
+      fortify3StdenvUnsuppDoesntUnsuppFortify1ExecTest = fortifyExecTest (
+        f1exampleWithStdEnv (stdenvUnsupport ["fortify3"]) {
+          hardeningEnable = ["fortify"];
+        }
+      );
 
-    stackProtectorStdenvUnsupp =
-      checkTestBin
-        (f2exampleWithStdEnv (stdenvUnsupport [ "stackprotector" ]) {
-          hardeningEnable = [ "stackprotector" ];
+      stackProtectorStdenvUnsupp =
+        checkTestBin
+        (f2exampleWithStdEnv (stdenvUnsupport ["stackprotector"]) {
+          hardeningEnable = ["stackprotector"];
         })
         {
           ignoreStackProtector = false;
           expectFailure = true;
         };
 
-    stackClashProtectionStdenvUnsupp =
-      checkTestBin
-        (helloWithStdEnv (stdenvUnsupport [ "stackclashprotection" ]) {
-          hardeningEnable = [ "stackclashprotection" ];
+      stackClashProtectionStdenvUnsupp =
+        checkTestBin
+        (helloWithStdEnv (stdenvUnsupport ["stackclashprotection"]) {
+          hardeningEnable = ["stackclashprotection"];
         })
         {
           ignoreStackClashProtection = false;
           expectFailure = true;
         };
 
-    # NIX_HARDENING_ENABLE set in the shell overrides hardeningDisable
-    # and hardeningEnable
+      # NIX_HARDENING_ENABLE set in the shell overrides hardeningDisable
+      # and hardeningEnable
 
-    stackProtectorReenabledEnv =
-      checkTestBin
+      stackProtectorReenabledEnv =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "stackprotector" ];
+          hardeningDisable = ["stackprotector"];
           postConfigure = ''
             export NIX_HARDENING_ENABLE="stackprotector"
           '';
@@ -565,10 +563,10 @@ nameDrvAfterAttrName (
           ignoreStackProtector = false;
         };
 
-    stackProtectorReenabledFromAllEnv =
-      checkTestBin
+      stackProtectorReenabledFromAllEnv =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningDisable = [ "all" ];
+          hardeningDisable = ["all"];
           postConfigure = ''
             export NIX_HARDENING_ENABLE="stackprotector"
           '';
@@ -577,10 +575,10 @@ nameDrvAfterAttrName (
           ignoreStackProtector = false;
         };
 
-    stackProtectorRedisabledEnv =
-      checkTestBin
+      stackProtectorRedisabledEnv =
+        checkTestBin
         (f2exampleWithStdEnv stdenv {
-          hardeningEnable = [ "stackprotector" ];
+          hardeningEnable = ["stackprotector"];
           postConfigure = ''
             export NIX_HARDENING_ENABLE=""
           '';
@@ -590,9 +588,9 @@ nameDrvAfterAttrName (
           expectFailure = true;
         };
 
-    # musl implementation undetectable by this means even if present
-    fortify3EnabledEnvEnablesFortify1 = brokenIf stdenv.hostPlatform.isMusl (
-      checkTestBin
+      # musl implementation undetectable by this means even if present
+      fortify3EnabledEnvEnablesFortify1 = brokenIf stdenv.hostPlatform.isMusl (
+        checkTestBin
         (f1exampleWithStdEnv stdenv {
           hardeningDisable = [
             "fortify"
@@ -605,22 +603,22 @@ nameDrvAfterAttrName (
         {
           ignoreFortify = false;
         }
-    );
+      );
 
-    fortify3EnabledEnvEnablesFortify1ExecTest = fortifyExecTest (
-      f1exampleWithStdEnv stdenv {
-        hardeningDisable = [
-          "fortify"
-          "fortify3"
-        ];
-        postConfigure = ''
-          export NIX_HARDENING_ENABLE="fortify3"
-        '';
-      }
-    );
+      fortify3EnabledEnvEnablesFortify1ExecTest = fortifyExecTest (
+        f1exampleWithStdEnv stdenv {
+          hardeningDisable = [
+            "fortify"
+            "fortify3"
+          ];
+          postConfigure = ''
+            export NIX_HARDENING_ENABLE="fortify3"
+          '';
+        }
+      );
 
-    fortifyEnabledEnvDoesntEnableFortify3 =
-      checkTestBin
+      fortifyEnabledEnvDoesntEnableFortify3 =
+        checkTestBin
         (f3exampleWithStdEnv stdenv {
           hardeningDisable = [
             "fortify"
@@ -635,10 +633,10 @@ nameDrvAfterAttrName (
           expectFailure = true;
         };
 
-    # NIX_HARDENING_ENABLE can't enable an unsupported feature
-    stackProtectorUnsupportedEnabledEnv =
-      checkTestBin
-        (f2exampleWithStdEnv (stdenvUnsupport [ "stackprotector" ]) {
+      # NIX_HARDENING_ENABLE can't enable an unsupported feature
+      stackProtectorUnsupportedEnabledEnv =
+        checkTestBin
+        (f2exampleWithStdEnv (stdenvUnsupport ["stackprotector"]) {
           postConfigure = ''
             export NIX_HARDENING_ENABLE="stackprotector"
           '';
@@ -648,14 +646,14 @@ nameDrvAfterAttrName (
           expectFailure = true;
         };
 
-    # current implementation prevents the command-line from disabling
-    # fortify if cc-wrapper is enabling it.
+      # current implementation prevents the command-line from disabling
+      # fortify if cc-wrapper is enabling it.
 
-    # undetectable by this means on static even if present
-    fortify1ExplicitEnabledCmdlineDisabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin
+      # undetectable by this means on static even if present
+      fortify1ExplicitEnabledCmdlineDisabled = brokenIf stdenv.hostPlatform.isStatic (
+        checkTestBin
         (f1exampleWithStdEnv stdenv {
-          hardeningEnable = [ "fortify" ];
+          hardeningEnable = ["fortify"];
           postConfigure = ''
             export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=0'
           '';
@@ -664,98 +662,99 @@ nameDrvAfterAttrName (
           ignoreFortify = false;
           expectFailure = false;
         }
-    );
+      );
 
-    # current implementation doesn't force-disable fortify if
-    # command-line enables it even if we use hardeningDisable.
+      # current implementation doesn't force-disable fortify if
+      # command-line enables it even if we use hardeningDisable.
 
-    # musl implementation undetectable by this means even if present
-    fortify1ExplicitDisabledCmdlineEnabled =
-      brokenIf (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isStatic)
+      # musl implementation undetectable by this means even if present
+      fortify1ExplicitDisabledCmdlineEnabled =
+        brokenIf (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isStatic)
         (
           checkTestBin
-            (f1exampleWithStdEnv stdenv {
-              hardeningDisable = [ "fortify" ];
-              postConfigure = ''
-                export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=1'
-              '';
-            })
-            {
-              ignoreFortify = false;
-            }
+          (f1exampleWithStdEnv stdenv {
+            hardeningDisable = ["fortify"];
+            postConfigure = ''
+              export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=1'
+            '';
+          })
+          {
+            ignoreFortify = false;
+          }
         );
 
-    fortify1ExplicitDisabledCmdlineEnabledExecTest = fortifyExecTest (
-      f1exampleWithStdEnv stdenv {
-        hardeningDisable = [ "fortify" ];
+      fortify1ExplicitDisabledCmdlineEnabledExecTest = fortifyExecTest (
+        f1exampleWithStdEnv stdenv {
+          hardeningDisable = ["fortify"];
+          postConfigure = ''
+            export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=1'
+          '';
+        }
+      );
+
+      fortify1ExplicitEnabledCmdlineDisabledNoWarn = f1exampleWithStdEnv stdenv {
+        hardeningEnable = ["fortify"];
         postConfigure = ''
-          export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=1'
+          export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=0 -Werror'
         '';
-      }
-    );
-
-    fortify1ExplicitEnabledCmdlineDisabledNoWarn = f1exampleWithStdEnv stdenv {
-      hardeningEnable = [ "fortify" ];
-      postConfigure = ''
-        export TEST_EXTRA_FLAGS='-D_FORTIFY_SOURCE=0 -Werror'
-      '';
-    };
-
-  }
-  // (
-    let
-      tb = f2exampleWithStdEnv stdenv {
-        hardeningDisable = [ "all" ];
-        hardeningEnable = [
-          "fortify"
-          "pie"
-        ];
       };
-    in
-    {
-
-      allExplicitDisabledBindNow = checkTestBin tb {
-        ignoreBindNow = false;
-        expectFailure = true;
-      };
-
-      allExplicitDisabledFortify = checkTestBin tb {
-        ignoreFortify = false;
-        expectFailure = true;
-      };
-
-      allExplicitDisabledPie = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
-        checkTestBin tb {
-          ignorePie = false;
-          expectFailure = true;
-        }
-      );
-
-      # can't force-disable ("partial"?) relro
-      allExplicitDisabledRelRO = brokenIf true (
-        checkTestBin tb {
-          ignoreRelRO = false;
-          expectFailure = true;
-        }
-      );
-
-      allExplicitDisabledStackProtector = checkTestBin tb {
-        ignoreStackProtector = false;
-        expectFailure = true;
-      };
-
-      allExplicitDisabledStackClashProtection = checkTestBin tb {
-        ignoreStackClashProtection = false;
-        expectFailure = true;
-      };
-
-      allExplicitDisabledPacRet = pacRetTest (helloWithStdEnv stdenv {
-        hardeningDisable = [ "all" ];
-      }) true;
-
-      allExplicitDisabledShadowStack = shadowStackTest (f1exampleWithStdEnv stdenv {
-        hardeningDisable = [ "all" ];
-      }) true;
     }
+    // (
+      let
+        tb = f2exampleWithStdEnv stdenv {
+          hardeningDisable = ["all"];
+          hardeningEnable = [
+            "fortify"
+            "pie"
+          ];
+        };
+      in {
+        allExplicitDisabledBindNow = checkTestBin tb {
+          ignoreBindNow = false;
+          expectFailure = true;
+        };
+
+        allExplicitDisabledFortify = checkTestBin tb {
+          ignoreFortify = false;
+          expectFailure = true;
+        };
+
+        allExplicitDisabledPie = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
+          checkTestBin tb {
+            ignorePie = false;
+            expectFailure = true;
+          }
+        );
+
+        # can't force-disable ("partial"?) relro
+        allExplicitDisabledRelRO = brokenIf true (
+          checkTestBin tb {
+            ignoreRelRO = false;
+            expectFailure = true;
+          }
+        );
+
+        allExplicitDisabledStackProtector = checkTestBin tb {
+          ignoreStackProtector = false;
+          expectFailure = true;
+        };
+
+        allExplicitDisabledStackClashProtection = checkTestBin tb {
+          ignoreStackClashProtection = false;
+          expectFailure = true;
+        };
+
+        allExplicitDisabledPacRet =
+          pacRetTest (helloWithStdEnv stdenv {
+            hardeningDisable = ["all"];
+          })
+          true;
+
+        allExplicitDisabledShadowStack =
+          shadowStackTest (f1exampleWithStdEnv stdenv {
+            hardeningDisable = ["all"];
+          })
+          true;
+      }
+    )
   )
-)

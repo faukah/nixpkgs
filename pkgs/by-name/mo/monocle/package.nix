@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "monocle";
   version = "0.8.0";
@@ -31,16 +30,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "See through all BGP data with a monocle";
     homepage = "https://github.com/bgpkit/monocle";
     changelog = "https://github.com/bgpkit/monocle/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stepbrobd ];
+    maintainers = with lib.maintainers; [stepbrobd];
     mainProgram = "monocle";
   };
 })

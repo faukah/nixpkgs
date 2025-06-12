@@ -10,7 +10,6 @@
   pcre-cpp,
   adwaita-icon-theme,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gsmartcontrol";
   version = "2.0.2";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ smartmontools ]}"
+      --prefix PATH : "${lib.makeBinPath [smartmontools]}"
     )
   '';
 
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gsmartcontrol.shaduri.dev";
     mainProgram = "gsmartcontrol";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
     platforms = lib.platforms.linux;
   };
 })

@@ -43,7 +43,7 @@ buildNpmPackage rec {
       antora-lunr-extension-test = true;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,7 +57,7 @@ buildNpmPackage rec {
       key](https://docs.antora.org/antora/3.1/extend/enable-extension).
     '';
 
-    maintainers = [ lib.maintainers.naho ];
+    maintainers = [lib.maintainers.naho];
     platforms = lib.platforms.all;
   };
 }

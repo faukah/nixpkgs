@@ -12,7 +12,6 @@
   libxml2,
   openbox,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obconf";
   version = "unstable-2015-02-13";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-qwm66VA/ueRMFtSUcrmuObNkz+KYgWRnmR7TnQwpxiE=";
   };
 
-  patches = [ ./fix-implicit-declarations.patch ];
+  patches = [./fix-implicit-declarations.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://openbox.org/wiki/ObConf";
     changelog = "http://openbox.org/wiki/ObConf:Changelog";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.sfrijters ];
+    maintainers = [lib.maintainers.sfrijters];
     platforms = lib.platforms.linux;
     mainProgram = "obconf";
   };

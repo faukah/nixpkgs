@@ -9,7 +9,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "netapp-ontap";
   version = "9.16.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-r55lK9dSmo/pVsvhtM0T48TdjgjlQjmQ2zVnenxQGlE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     marshmallow
@@ -35,13 +34,13 @@ buildPythonPackage rec {
   # No tests in sdist and no other download available
   doCheck = false;
 
-  pythonImportsCheck = [ "netapp_ontap" ];
+  pythonImportsCheck = ["netapp_ontap"];
 
   meta = with lib; {
     description = "Library for working with ONTAP's REST APIs simply in Python";
     homepage = "https://library.netapp.com/ecmdocs/ECMLP3331665/html/index.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "ontap-cli";
   };
 }

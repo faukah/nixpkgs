@@ -11,7 +11,6 @@
   textlint,
   textlint-rule-prh,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "textlint-rule-prh";
   version = "6.0.0";
@@ -43,13 +42,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.tests = {
     "textlint-rule-prh-test" =
       runCommand "textlint-rule-prh-test"
-        { nativeBuildInputs = [ (textlint.withPackages [ textlint-rule-prh ]) ]; }
-        ''
-          substitute ${./textlintrc} .textlintrc \
-            --subst-var-by textlint_rule_prh "${textlint-rule-prh}"
+      {nativeBuildInputs = [(textlint.withPackages [textlint-rule-prh])];}
+      ''
+        substitute ${./textlintrc} .textlintrc \
+          --subst-var-by textlint_rule_prh "${textlint-rule-prh}"
 
-          grep prh <(textlint ${./test.md}) > $out
-        '';
+        grep prh <(textlint ${./test.md}) > $out
+      '';
   };
 
   meta = {
@@ -57,7 +56,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-rule/textlint-rule-prh";
     changelog = "https://github.com/textlint-rule/textlint-rule-prh/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

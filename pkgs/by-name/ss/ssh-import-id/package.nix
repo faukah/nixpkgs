@@ -1,12 +1,11 @@
 {
   lib,
-  extraHandlers ? [ ],
+  extraHandlers ? [],
   fetchgit,
   installShellFiles,
   makeWrapper,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ssh-import-id";
   version = "5.11";
@@ -23,15 +22,14 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "long_description_content_type='markdown'" "long_description_content_type='text/markdown'"
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   nativeBuildInputs = [
     makeWrapper
     installShellFiles
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       requests
       distro

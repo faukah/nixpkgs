@@ -14,7 +14,6 @@
   wrapGAppsHook3,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-power-manager";
   version = "43.0";
@@ -44,14 +43,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-power-manager"; };
+    updateScript = gnome.updateScript {packageName = "gnome-power-manager";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-power-manager";
     description = "View battery and power statistics provided by UPower";
     mainProgram = "gnome-power-statistics";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

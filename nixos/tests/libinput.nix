@@ -1,28 +1,24 @@
-{ ... }:
-
-{
+{...}: {
   name = "libinput";
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [
-        ./common/x11.nix
-        ./common/user-account.nix
-      ];
+  nodes.machine = {...}: {
+    imports = [
+      ./common/x11.nix
+      ./common/user-account.nix
+    ];
 
-      test-support.displayManager.auto.user = "alice";
+    test-support.displayManager.auto.user = "alice";
 
-      services.libinput = {
-        enable = true;
-        mouse = {
-          naturalScrolling = true;
-          leftHanded = true;
-          middleEmulation = false;
-          horizontalScrolling = false;
-        };
+    services.libinput = {
+      enable = true;
+      mouse = {
+        naturalScrolling = true;
+        leftHanded = true;
+        middleEmulation = false;
+        horizontalScrolling = false;
       };
     };
+  };
 
   testScript = ''
     def expect_xserver_option(option, value):

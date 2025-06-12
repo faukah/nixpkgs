@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kwok";
   version = "0.7.0";
@@ -24,6 +23,6 @@ buildGoModule rec {
     homepage = "https://kwok.sigs.k8s.io";
     changelog = "https://github.com/kubernetes-sigs/kwok/releases/tag/v${version}";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

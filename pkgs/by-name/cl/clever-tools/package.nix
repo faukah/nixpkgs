@@ -7,7 +7,6 @@
   makeWrapper,
   stdenv,
 }:
-
 buildNpmPackage rec {
   pname = "clever-tools";
 
@@ -52,6 +51,6 @@ buildNpmPackage rec {
     description = "Deploy on Clever Cloud and control your applications, add-ons, services from command line";
     license = lib.licenses.asl20;
     mainProgram = "clever";
-    teams = [ lib.teams.clevercloud ];
+    teams = [lib.teams.clevercloud];
   };
 }

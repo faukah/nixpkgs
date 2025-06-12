@@ -9,7 +9,6 @@
   pyyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dparse";
   version = "0.6.4";
@@ -24,20 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-LnsmJtWLjV3xoSjacfR9sUwPlOjQTRBWirJVtIJSE8A=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies = [packaging] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
     # FIXME pipenv = [ pipenv ];
-    conda = [ pyyaml ];
+    conda = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "dparse" ];
+  pythonImportsCheck = ["dparse"];
 
   disabledTests = [
     # requires unpackaged dependency pipenv
@@ -49,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyupio/dparse";
     changelog = "https://github.com/pyupio/dparse/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ thomasdesr ];
+    maintainers = with maintainers; [thomasdesr];
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "pyecoforest";
   version = "0.4.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
       --replace-fail "--cov=pyecoforest --cov-report=term-missing:skip-covered" ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "test_turn"
   ];
 
-  pythonImportsCheck = [ "pyecoforest" ];
+  pythonImportsCheck = ["pyecoforest"];
 
   meta = with lib; {
     description = "Module for interacting with Ecoforest devices";
     homepage = "https://github.com/pjanuario/pyecoforest";
     changelog = "https://github.com/pjanuario/pyecoforest/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

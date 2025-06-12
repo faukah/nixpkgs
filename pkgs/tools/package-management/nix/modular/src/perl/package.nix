@@ -11,7 +11,6 @@
   bzip2,
   libsodium,
 }:
-
 perl.pkgs.toPerlModule (
   mkMesonDerivation (finalAttrs: {
     pname = "nix-perl";
@@ -25,9 +24,11 @@ perl.pkgs.toPerlModule (
       curl
     ];
 
-    buildInputs = [
-      nix-store
-    ] ++ finalAttrs.passthru.externalBuildInputs;
+    buildInputs =
+      [
+        nix-store
+      ]
+      ++ finalAttrs.passthru.externalBuildInputs;
 
     # Hack for sake of the dev shell
     passthru.externalBuildInputs = [

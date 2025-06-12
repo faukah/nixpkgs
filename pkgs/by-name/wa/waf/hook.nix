@@ -2,7 +2,6 @@
   makeSetupHook,
   waf,
 }:
-
 makeSetupHook {
   name = "waf-setup-hook";
 
@@ -17,4 +16,5 @@ makeSetupHook {
     description = "Setup hook for using Waf in Nixpkgs";
     inherit (waf.meta) maintainers platforms broken;
   };
-} ./setup-hook.sh
+}
+./setup-hook.sh

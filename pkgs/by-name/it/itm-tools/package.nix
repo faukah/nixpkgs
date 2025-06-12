@@ -4,7 +4,6 @@
   rustPlatform,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "itm-tools";
   version = "unstable-2019-11-15";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock

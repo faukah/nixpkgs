@@ -10,7 +10,6 @@
   simsimd,
   stringzilla,
 }:
-
 buildPythonPackage rec {
   pname = "albucore";
   version = "0.0.24";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-frVMPW3au/6vPRY89GIt7chCPkUMl13DpPqCPqIjz/o=";
   };
 
-  pythonRelaxDeps = [ "opencv-python" ];
+  pythonRelaxDeps = ["opencv-python"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     stringzilla
   ];
 
-  pythonImportsCheck = [ "albucore" ];
+  pythonImportsCheck = ["albucore"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "High-performance image processing library to optimize and extend Albumentations with specialized functions for image transformations";
     homepage = "https://github.com/albumentations-team/albucore";
     changelog = "https://github.com/albumentations-team/albucore/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

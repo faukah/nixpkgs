@@ -32,7 +32,6 @@
   requests,
   flaky,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-server";
   version = "2.15.0";
@@ -72,9 +71,9 @@ buildPythonPackage rec {
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/299427
-  stripExclude = lib.optionals stdenv.hostPlatform.isDarwin [ "favicon.ico" ];
+  stripExclude = lib.optionals stdenv.hostPlatform.isDarwin ["favicon.ico"];
 
-  pythonImportsCheck = [ "jupyter_server" ];
+  pythonImportsCheck = ["jupyter_server"];
 
   nativeCheckInputs = [
     ipykernel
@@ -140,6 +139,6 @@ buildPythonPackage rec {
     mainProgram = "jupyter-server";
     homepage = "https://github.com/jupyter-server/jupyter_server";
     license = lib.licenses.bsdOriginal;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

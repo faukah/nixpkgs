@@ -10,7 +10,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waon";
   version = "0.11";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xmq8d2rj58xbp4rnyav95y1vnz3r9s9db7xxfa2rd0ilq0ps4y7";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fftw
     gtk2
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Wave-to-Notes transcriber";
     homepage = "https://kichiki.github.io/WaoN/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.puckipedia ];
+    maintainers = [maintainers.puckipedia];
     platforms = platforms.all;
   };
 }

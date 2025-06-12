@@ -9,7 +9,6 @@
   xorg ? null,
   libGL ? null,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rx";
   version = "0.5.2";
@@ -31,8 +30,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux (
-    with xorg;
-    [
+    with xorg; [
       # glfw-sys dependencies:
       libX11
       libXrandr
@@ -61,6 +59,6 @@ rustPlatform.buildRustPackage rec {
       minijackson
       Br1ght0ne
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

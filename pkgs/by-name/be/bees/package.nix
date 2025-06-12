@@ -3,7 +3,6 @@
   fetchFromGitHub,
   makeWrapper,
   nixosTests,
-
   stdenv,
   # Build inputs
   btrfs-progs,
@@ -13,7 +12,6 @@
   bash,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bees";
   version = "0.10";
@@ -47,13 +45,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     makeWrapper ${./bees-service-wrapper} "$out"/bin/bees-service-wrapper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bash
-          coreutils
-          util-linux
-          btrfs-progs
-        ]
-      } \
+      lib.makeBinPath [
+        bash
+        coreutils
+        util-linux
+        btrfs-progs
+      ]
+    } \
       --set beesd_bin "$out"/lib/bees/bees
   '';
 
@@ -79,6 +77,6 @@ stdenv.mkDerivation rec {
     longDescription = "Best-Effort Extent-Same: bees finds not just identical files, but also identical extents within files that differ";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ chaduffy ];
+    maintainers = with maintainers; [chaduffy];
   };
 }

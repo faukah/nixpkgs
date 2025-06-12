@@ -15,7 +15,6 @@
   bos,
   mirage-vnetif,
 }:
-
 buildDunePackage rec {
   pname = "arp";
   version = "4.0.0";
@@ -50,6 +49,6 @@ buildDunePackage rec {
     description = "Address Resolution Protocol purely in OCaml";
     homepage = "https://github.com/mirage/arp";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

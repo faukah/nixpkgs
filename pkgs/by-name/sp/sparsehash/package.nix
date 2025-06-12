@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sparsehash";
   version = "2.0.4";
@@ -20,6 +19,6 @@ stdenv.mkDerivation rec {
     description = "Extremely memory-efficient hash_map implementation";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "djangosaml2";
   version = "1.11.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-AkyXxWcckBVWUZAhjuUru2b1/t4iwoCKxmTvvqSziV0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -32,9 +31,9 @@ buildPythonPackage rec {
   ];
 
   # Falsely complains that 'defusedxml>=0.4.1 not satisfied by version 0.8.0rc2'
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
-  pythonImportsCheck = [ "djangosaml2" ];
+  pythonImportsCheck = ["djangosaml2"];
 
   checkPhase = ''
     runHook preCheck
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/IdentityPython/djangosaml2";
     changelog = "https://github.com/IdentityPython/djangosaml2/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ melvyn2 ];
+    maintainers = with lib.maintainers; [melvyn2];
   };
 }

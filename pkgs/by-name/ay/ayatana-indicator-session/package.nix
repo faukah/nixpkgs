@@ -19,7 +19,6 @@
   systemd,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ayatana-indicator-session";
   version = "24.5.1";
@@ -62,9 +61,9 @@ stdenv.mkDerivation (finalAttrs: {
     mate.mate-settings-daemon
   ];
 
-  nativeCheckInputs = [ dbus ];
+  nativeCheckInputs = [dbus];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   cmakeFlags = [
     (lib.cmakeBool "ENABLE_TESTS" finalAttrs.finalPackage.doCheck)
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       startup = nixosTests.ayatana-indicators;
       lomiri = nixosTests.lomiri.desktop-ayatana-indicator-session;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -104,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AyatanaIndicators/ayatana-indicator-session";
     changelog = "https://github.com/AyatanaIndicators/ayatana-indicator-session/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

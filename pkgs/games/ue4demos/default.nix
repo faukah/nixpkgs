@@ -6,17 +6,17 @@
   patchelf,
   xorg,
   openal,
-}:
-
-let
+}: let
   urls = file: [
     # Untrusted mirrors - do not update hashes
     "https://ludios.org/mirror/ue4demos/${file}"
     "https://web.archive.org/web/20140824192039/http://ue4linux.raxxy.com/${file}"
   ];
 
-  buildDemo =
-    { name, src }:
+  buildDemo = {
+    name,
+    src,
+  }:
     stdenv.mkDerivation rec {
       inherit name src;
 
@@ -32,7 +32,7 @@ let
           openal
         ]
         + ":"
-        + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+        + lib.makeSearchPathOutput "lib" "lib64" [stdenv.cc.cc];
 
       buildCommand = ''
         mkdir -p "$out"
@@ -66,13 +66,11 @@ let
       meta = {
         description = "Unreal Engine 4 Linux demos";
         homepage = "https://wiki.unrealengine.com/Linux_Demos";
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
         license = lib.licenses.unfree;
       };
     };
-
-in
-{
+in {
   tappy_chicken = buildDemo {
     name = "ue4demos-tappy_chicken";
     src = fetchurl {

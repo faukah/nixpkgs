@@ -8,7 +8,6 @@
   pythonOlder,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "jsonschema-rs";
   version = "0.30.0";
@@ -39,15 +38,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jsonschema_rs" ];
+  pythonImportsCheck = ["jsonschema_rs"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "High-performance JSON Schema validator for Python";
     homepage = "https://github.com/Stranger6667/jsonschema/tree/master/crates/jsonschema-py";
     changelog = "https://github.com/Stranger6667/jsonschema/blob/python-v${version}/crates/jsonschema-py/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.apm ];
+    teams = [lib.teams.apm];
   };
 }

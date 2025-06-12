@@ -7,7 +7,6 @@
   jq,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hedgedoc-cli";
   version = "1.0-unstable-2025-05-01";
@@ -28,12 +27,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper $src/bin/codimd $out/bin/hedgedoc-cli \
       --prefix PATH : ${
-        lib.makeBinPath [
-          jq
-          wget
-          curl
-        ]
-      }
+      lib.makeBinPath [
+        jq
+        wget
+        curl
+      ]
+    }
 
     runHook postInstall
   '';
@@ -51,6 +50,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hedgedoc/cli";
     license = lib.licenses.agpl3Only;
     mainProgram = "hedgedoc-cli";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

@@ -29,7 +29,6 @@
   python3,
   argp-standalone,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zbar";
   version = "0.23.93";
@@ -121,26 +120,24 @@ stdenv.mkDerivation rec {
       "--without-python"
     ]
     ++ (
-      if enableDbus then
-        [
-          "--with-dbusconfdir=${placeholder "out"}/share"
-        ]
-      else
-        [
-          "--without-dbus"
-        ]
+      if enableDbus
+      then [
+        "--with-dbusconfdir=${placeholder "out"}/share"
+      ]
+      else [
+        "--without-dbus"
+      ]
     )
     ++ (
-      if enableVideo then
-        [
-          "--with-gtk=gtk3"
-        ]
-      else
-        [
-          "--disable-video"
-          "--without-gtk"
-          "--without-qt"
-        ]
+      if enableVideo
+      then [
+        "--with-gtk=gtk3"
+      ]
+      else [
+        "--disable-video"
+        "--without-gtk"
+        "--without-qt"
+      ]
     );
 
   doCheck = true;
@@ -168,7 +165,7 @@ stdenv.mkDerivation rec {
       EAN-13/UPC-A, UPC-E, EAN-8, Code 128, Code 39, Interleaved 2 of 5 and QR
       Code.
     '';
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.lgpl21;
     homepage = "https://github.com/mchehab/zbar";

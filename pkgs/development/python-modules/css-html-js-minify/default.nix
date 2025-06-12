@@ -6,7 +6,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "css-html-js-minify";
   version = "2.5.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
   # Tests are useless and broken
   doCheck = false;
 
-  pythonImportsCheck = [ "css_html_js_minify" ];
+  pythonImportsCheck = ["css_html_js_minify"];
 
   meta = with lib; {
     description = "StandAlone Async cross-platform Minifier for the Web";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       lgpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
     mainProgram = "css-html-js-minify";
   };
 }

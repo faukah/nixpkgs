@@ -1,6 +1,7 @@
 # TODO: remove this file. There is lib.maybeEnv now
-name: default:
-let
+name: default: let
   value = builtins.getEnv name;
 in
-if value == "" then default else value
+  if value == ""
+  then default
+  else value

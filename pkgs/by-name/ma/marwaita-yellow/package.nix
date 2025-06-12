@@ -8,7 +8,6 @@
   librsvg,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "marwaita-yellow";
   version = "23";
@@ -39,13 +38,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Marwaita GTK theme with Pop_os Linux style";
     homepage = "https://www.pling.com/p/1377894/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

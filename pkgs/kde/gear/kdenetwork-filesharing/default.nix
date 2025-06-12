@@ -19,10 +19,10 @@ mkKdeDerivation {
     ./samba-hint.patch
   ];
 
-  extraBuildInputs = [ qtdeclarative ];
+  extraBuildInputs = [qtdeclarative];
 
   # We can't actually install samba via PackageKit, so let's not confuse users any more than we have to
-  extraCmakeFlags = [ "-DSAMBA_INSTALL=OFF" ];
+  extraCmakeFlags = ["-DSAMBA_INSTALL=OFF"];
 
   # Hardcoded as QStrings, which are UTF-16 so Nix can't pick these up automatically
   postFixup = ''

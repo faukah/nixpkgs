@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-resource";
   version = "23.3.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-/E8f2Laq0j+K9O0fkT319ckt8RdEncNU/qaAKigp/qQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-mgmt-common
@@ -35,9 +34,9 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.resource" ];
+  pythonImportsCheck = ["azure.mgmt.resource"];
 
   meta = with lib; {
     description = "Microsoft Azure SDK for Python";

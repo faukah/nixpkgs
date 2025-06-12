@@ -6,7 +6,6 @@
   libpng,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pngnq";
   version = "1.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=incompatible-pointer-types"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pngnq.sourceforge.net/";
     description = "PNG quantizer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wasmer-pack";
   version = "0.7.1";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-PZudXmdPz6fG7NDC/yN7qG+RQFSzNynXo6SpYJEku9A=";
 
-  cargoBuildFlags = [ "-p=wasmer-pack-cli" ];
+  cargoBuildFlags = ["-p=wasmer-pack-cli"];
 
   # requires internet access
   doCheck = false;
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/wasmerio/wasmer-pack";
     changelog = "https://github.com/wasmerio/wasmer-pack/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

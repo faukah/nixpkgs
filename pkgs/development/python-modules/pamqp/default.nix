@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "3.3.0";
   pname = "pamqp";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-0vjiPBLd8afnATjmV2sINsBd4j7L544u5DA3jLiLSsY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "pamqp.base"
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "RabbitMQ Focused AMQP low-level library";
     homepage = "https://github.com/gmr/pamqp";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

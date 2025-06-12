@@ -11,7 +11,6 @@
   libtiff,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "afterstep";
   version = "2.2.12";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
       improving aestetics, and efficient use of system resources.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "afterstep";
     platforms = lib.platforms.linux;
   };

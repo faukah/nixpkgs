@@ -8,7 +8,6 @@
   perl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
   version = "1.7.5";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     autoreconfHook
     # For patchShebangs in postInstall
@@ -59,12 +58,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   __structuredAttrs = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Library to generate text, XML, JSON, and HTML";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.reckenrode ];
+    maintainers = [lib.maintainers.reckenrode];
     platforms = lib.platforms.unix;
   };
 })

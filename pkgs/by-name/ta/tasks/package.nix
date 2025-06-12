@@ -10,7 +10,6 @@
   sqlite,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tasks";
   version = "0.2.0";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

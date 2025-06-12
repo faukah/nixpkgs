@@ -32,7 +32,6 @@
   kaddressbook,
   discount,
 }:
-
 mkDerivation {
   pname = "kdepim-addons";
   meta = {

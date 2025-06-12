@@ -14,7 +14,6 @@
   libXft,
   cups,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fox";
   version = "1.7.81";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "C++ based class library for building Graphical User Interfaces";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://fox-toolkit.org";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -9,7 +9,6 @@
   nixosTests,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "starship";
   version = "1.23.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-5Euhbuu1uiJ5HJNlPs9sUoGcc5QWqXqNmEH0jpfGLlc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
     writableTmpDirAsHomeHook
@@ -36,8 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     + lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
       let
         emulator = stdenv.hostPlatform.emulator buildPackages;
-      in
-      ''
+      in ''
         installShellCompletion --cmd starship \
           --bash <(${emulator} $out/bin/starship completions bash) \
           --fish <(${emulator} $out/bin/starship completions fish) \

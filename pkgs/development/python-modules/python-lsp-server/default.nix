@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   docstring-to-markdown,
   jedi,
@@ -13,7 +11,6 @@
   python-lsp-jsonrpc,
   setuptools,
   ujson,
-
   # optional-dependencies
   autopep8,
   flake8,
@@ -26,7 +23,6 @@
   toml,
   whatthepatch,
   yapf,
-
   # tests
   flaky,
   matplotlib,
@@ -38,7 +34,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-lsp-server";
   version = "1.12.2";
@@ -60,7 +55,7 @@ buildPythonPackage rec {
     "pyflakes"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     docstring-to-markdown
@@ -85,31 +80,33 @@ buildPythonPackage rec {
       whatthepatch
       yapf
     ];
-    autopep8 = [ autopep8 ];
-    flake8 = [ flake8 ];
-    mccabe = [ mccabe ];
-    pycodestyle = [ pycodestyle ];
-    pydocstyle = [ pydocstyle ];
-    pyflakes = [ pyflakes ];
-    pylint = [ pylint ];
-    rope = [ rope ];
+    autopep8 = [autopep8];
+    flake8 = [flake8];
+    mccabe = [mccabe];
+    pycodestyle = [pycodestyle];
+    pydocstyle = [pydocstyle];
+    pyflakes = [pyflakes];
+    pylint = [pylint];
+    rope = [rope];
     yapf = [
       whatthepatch
       yapf
     ];
-    websockets = [ websockets ];
+    websockets = [websockets];
   };
 
-  nativeCheckInputs = [
-    flaky
-    matplotlib
-    numpy
-    pandas
-    pytest-cov-stub
-    pytestCheckHook
-    versionCheckHook
-    writableTmpDirAsHomeHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      flaky
+      matplotlib
+      numpy
+      pandas
+      pytest-cov-stub
+      pytestCheckHook
+      versionCheckHook
+      writableTmpDirAsHomeHook
+    ]
+    ++ optional-dependencies.all;
   versionCheckProgram = "${placeholder "out"}/bin/pylsp";
   versionCheckProgramArg = "--version";
 
@@ -128,7 +125,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-lsp/python-lsp-server";
     changelog = "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "pylsp";
   };
 }

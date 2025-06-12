@@ -13,7 +13,6 @@
   webkitgtk_4_1,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "minigalaxy";
   version = "1.3.1";
@@ -76,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://github.com/sharkwouter/minigalaxy/releases";
     description = "Simple GOG client for Linux";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

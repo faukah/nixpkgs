@@ -9,7 +9,6 @@
   libid3tag,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grip";
   version = "4.2.4";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/grip/";
     license = lib.licenses.gpl2Plus;
 
-    maintainers = with lib.maintainers; [ marcweber ];
+    maintainers = with lib.maintainers; [marcweber];
     platforms = lib.platforms.linux;
     mainProgram = "grip";
   };

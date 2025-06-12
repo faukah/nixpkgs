@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rpg-cli";
   version = "1.2.0";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "rpg-cli";
     homepage = "https://github.com/facundoolano/rpg-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
   };
 }

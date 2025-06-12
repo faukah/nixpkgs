@@ -15,7 +15,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sfrotz";
   version = "2.54";
@@ -41,10 +40,10 @@ stdenv.mkDerivation rec {
     SDL2_mixer
     zlib
   ];
-  nativeBuildInputs = [ pkg-config ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  nativeBuildInputs = [pkg-config];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
   buildPhase = "make sdl";
-  installTargets = [ "install_sfrotz" ];
+  installTargets = ["install_sfrotz"];
 
   meta = {
     description = "Interpreter for Infocom and other Z-Machine games (SDL interface)";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://davidgriffith.gitlab.io/frotz/";
     changelog = "https://gitlab.com/DavidGriffith/frotz/-/raw/${version}/NEWS";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ddelabru ];
+    maintainers = with lib.maintainers; [ddelabru];
     platforms = lib.platforms.linux;
   };
 }

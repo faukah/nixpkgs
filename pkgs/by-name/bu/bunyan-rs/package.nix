@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bunyan-rs";
   version = "0.1.9";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
     mainProgram = "bunyan";
   };
 }

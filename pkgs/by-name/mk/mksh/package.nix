@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mksh";
   version = "59c";

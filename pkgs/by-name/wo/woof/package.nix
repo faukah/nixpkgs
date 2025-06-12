@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "woof";
   version = "2022-01-13";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-tk55q2Ew2mZkQtkxjWCuNgt9t+UbjH4llIJ42IruqGY=";
   };
 
-  propagatedBuildInputs = [ python3 ];
+  propagatedBuildInputs = [python3];
 
   installPhase = ''
     runHook preInstall
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Web Offer One File - Command-line utility to easily exchange files over a local network";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     mainProgram = "woof";
   };
 }

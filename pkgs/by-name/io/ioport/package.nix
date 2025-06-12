@@ -4,7 +4,6 @@
   perl,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ioport";
   version = "1.2";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1h4d5g78y7kla0zl25jgyrk43wy3m3bygqg0blki357bc55irb3z";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "Direct access to I/O ports from the command line";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ maintainers.cleverca22 ];
+    maintainers = [maintainers.cleverca22];
   };
 }

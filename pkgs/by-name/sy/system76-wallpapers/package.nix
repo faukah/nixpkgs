@@ -5,7 +5,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "system76-wallpapers";
   version = "0-unstable-2024-04-26";
@@ -23,11 +22,11 @@ stdenvNoCC.mkDerivation {
     cp ${./Makefile} Makefile
   '';
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Wallpapers for System76 products";
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation {
     license = with lib.licenses; [
       unfree # No license specified
     ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
     platforms = lib.platforms.all;
   };
 }

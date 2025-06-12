@@ -6,7 +6,6 @@
   pkg-config,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nbsdgames";
   version = "5-unstable-2023-03-13";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Package of 18 text-based modern games";
     homepage = "https://github.com/abakh/nbsdgames";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ sarcasticadmin ];
+    maintainers = with lib.maintainers; [sarcasticadmin];
     mainProgram = "nbsdgames";
     platforms = lib.platforms.all;
   };

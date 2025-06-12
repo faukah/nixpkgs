@@ -5,7 +5,6 @@
   rustPlatform,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cxx-rs";
   version = "1.0.131";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     cargo doc --release
   '';
 
-  cargoTestFlags = [ "--workspace" ];
+  cargoTestFlags = ["--workspace"];
 
   outputs = [
     "out"
@@ -60,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cxxbridge";
     homepage = "https://github.com/dtolnay/cxx";
     license = licenses.mit;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

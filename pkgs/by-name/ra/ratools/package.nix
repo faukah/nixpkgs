@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ratools";
   version = "0.6.2";
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/danrl/ratools";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

@@ -11,7 +11,6 @@
   readline,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensmt";
   version = "2.7.0";
@@ -28,10 +27,12 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [
-    libedit
-    gmpxx
-  ] ++ lib.optional enableReadline readline;
+  buildInputs =
+    [
+      libedit
+      gmpxx
+    ]
+    ++ lib.optional enableReadline readline;
 
   preConfigure = ''
     substituteInPlace test/CMakeLists.txt \
@@ -43,12 +44,15 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Satisfiability modulo theory (SMT) solver";
     mainProgram = "opensmt";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
-    license = if enableReadline then licenses.gpl2Plus else licenses.mit;
+    license =
+      if enableReadline
+      then licenses.gpl2Plus
+      else licenses.mit;
     homepage = "https://github.com/usi-verification-and-security/opensmt";
   };
 }

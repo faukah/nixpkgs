@@ -8,7 +8,6 @@
   libxml2,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmlstarlet";
   version = "1.6.1";

@@ -4,7 +4,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "tt-rss-plugin-auth-ldap";
   version = "unstable-2022-11-30";
@@ -21,14 +20,14 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) tt-rss; };
+    tests = {inherit (nixosTests) tt-rss;};
   };
 
   meta = with lib; {
     description = "Plugin for TT-RSS to authenticate users via ldap";
     license = licenses.asl20;
     homepage = "https://github.com/hydrian/TTRSS-Auth-LDAP";
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.all;
   };
 }

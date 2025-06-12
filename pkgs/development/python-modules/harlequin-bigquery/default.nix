@@ -6,7 +6,6 @@
   google-cloud-bigquery,
   google-cloud-bigquery-storage,
 }:
-
 buildPythonPackage rec {
   pname = "harlequin-bigquery";
   version = "1.0.3";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "A Harlequin adapter for Google BigQuery";
     homepage = "https://pypi.org/project/harlequin-bigquery/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "benthos";
   version = "4.51.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     "-X github.com/redpanda-data/benthos/v4/internal/cli.Version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fancy stream processing made operationally mundane";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://www.benthos.dev";
     changelog = "https://github.com/benthosdev/benthos/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sagikazarmark ];
+    maintainers = with lib.maintainers; [sagikazarmark];
   };
 }

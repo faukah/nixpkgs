@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   xfce,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfce4-dockbarx-plugin";
   version = "0.7.2";
@@ -37,12 +36,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    keybinder3
-    python3Packages.python
-    xfce.xfce4-panel
-    xfce.xfconf
-  ] ++ pythonPath;
+  buildInputs =
+    [
+      keybinder3
+      python3Packages.python
+      xfce.xfce4-panel
+      xfce.xfconf
+    ]
+    ++ pythonPath;
 
   postPatch = ''
     # We execute the wrapped xfce4-panel-plug directly.
@@ -66,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Plugins to embed DockbarX into xfce4-panel";
     license = licenses.mit;
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

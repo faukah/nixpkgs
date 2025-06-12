@@ -10,7 +10,6 @@
   fzf,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "navi";
   version = "2.24.0";
@@ -25,14 +24,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-tQCm8KMVWo6KiKVOMDitHtDXwYGM7INXcT+7fEEiIiI=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   postInstall = ''
     wrapProgram $out/bin/navi \
       --prefix PATH : "$out/bin" \
-      --prefix PATH : ${lib.makeBinPath ([ wget ] ++ lib.optionals withFzf [ fzf ])}
+      --prefix PATH : ${lib.makeBinPath ([wget] ++ lib.optionals withFzf [fzf])}
   '';
 
   checkFlags = [
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_parse_variable_line"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interactive cheatsheet tool for the command-line and application launchers";
@@ -48,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     mainProgram = "navi";
-    maintainers = with lib.maintainers; [ cust0dian ];
+    maintainers = with lib.maintainers; [cust0dian];
   };
 }

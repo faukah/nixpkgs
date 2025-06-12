@@ -5,7 +5,6 @@
   testers,
   aws-rotate-key,
 }:
-
 buildGoModule rec {
   pname = "aws-rotate-key";
   version = "1.2.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Easily rotate your AWS key";
     homepage = "https://github.com/Fullscreen/aws-rotate-key";
     license = licenses.mit;
-    maintainers = [ maintainers.mbode ];
+    maintainers = [maintainers.mbode];
     mainProgram = "aws-rotate-key";
   };
 }

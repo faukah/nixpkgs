@@ -6,7 +6,6 @@
   coreutils,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pipes";
   version = "1.3.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-856OWlnNiGB20571TJg7Ayzcz4r6NqdW5DMDiim09mc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir $out -p
@@ -26,18 +25,18 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/pipes.sh \
       --set PATH "${
-        lib.makeBinPath [
-          coreutils
-          ncurses
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils
+        ncurses
+      ]
+    }"
   '';
 
   meta = with lib; {
     description = "Animated pipes terminal screensaver";
     homepage = "https://github.com/pipeseroni/pipes.sh";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     mainProgram = "pipes.sh";
     platforms = platforms.unix;
   };

@@ -10,7 +10,6 @@
   python-dateutil,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "flipr-api";
   version = "1.6.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-/px8NuBwukAPMxdXvHdyfO/j/a9UatKbdrjDNuT0f4k=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     python-dateutil
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     FLIPR_PASSWORD = "secret";
   };
 
-  pythonImportsCheck = [ "flipr_api" ];
+  pythonImportsCheck = ["flipr_api"];
 
   meta = with lib; {
     description = "Python client for Flipr API";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cnico/flipr-api";
     changelog = "https://github.com/cnico/flipr-api/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

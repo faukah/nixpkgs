@@ -15,7 +15,6 @@
   xdg-utils,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "catfish";
   version = "4.20.1";
@@ -54,10 +53,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     # For xdg-mime and xdg-open.
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ xdg-utils ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [xdg-utils]}")
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "catfish-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "catfish-";};
 
   meta = with lib; {
     homepage = "https://docs.xfce.org/apps/catfish/start";
@@ -71,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 })

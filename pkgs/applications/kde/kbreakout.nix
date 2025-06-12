@@ -10,7 +10,6 @@
   kxmlgui,
   libkdegames,
 }:
-
 mkDerivation {
   pname = "kbreakout";
   meta = {

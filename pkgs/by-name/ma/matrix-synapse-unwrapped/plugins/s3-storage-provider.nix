@@ -10,7 +10,6 @@
   twisted,
   psycopg2,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-synapse-s3-storage-provider";
   version = "1.5.0";
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/matrix-org/synapse-s3-storage-provider";
     changelog = "https://github.com/matrix-org/synapse-s3-storage-provider/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rust-cbindgen,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "orz";
   version = "1.6.2-unstable-2024-11-08";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage {
     description = "High performance, general purpose data compressor written in rust";
     homepage = "https://github.com/richox/orz";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "orz";
   };
 }

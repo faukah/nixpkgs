@@ -5,7 +5,6 @@
   dpkg,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sslmate-agent";
   version = "1.99.11";
@@ -36,8 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Daemon for managing SSL/TLS certificates on a server";
     homepage = "https://sslmate.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -15,7 +15,6 @@
   websockets,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "mozart-api";
   version = "4.1.1.116.6";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-0TZHH/EXemsSysgfCzg66x5QhAEDUqRyg+qoK/3YuQA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aenum
@@ -47,13 +46,13 @@ buildPythonPackage rec {
   # Package has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mozart_api" ];
+  pythonImportsCheck = ["mozart_api"];
 
   meta = {
     description = "REST API for the Bang & Olufsen Mozart platform";
     homepage = "https://github.com/bang-olufsen/mozart-open-api";
     changelog = "https://github.com/bang-olufsen/mozart-open-api/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

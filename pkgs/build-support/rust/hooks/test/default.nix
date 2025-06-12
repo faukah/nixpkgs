@@ -2,12 +2,11 @@
   rustPlatform,
   stdenv,
   cargo,
-}:
-{
+}: {
   /*
-    test each hook individually, to make sure that:
-      - each hook works properly outside of buildRustPackage
-      - each hook is usable independently from each other
+  test each hook individually, to make sure that:
+    - each hook works properly outside of buildRustPackage
+    - each hook is usable independently from each other
   */
   cargoSetupHook = stdenv.mkDerivation {
     name = "test-cargoSetupHook";
@@ -30,8 +29,7 @@
     name = "test-cargoBuildHook";
     src = ./example-rust-project;
     cargoBuildType = "release";
-    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" =
-      "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
     nativeBuildInputs = [
       rustPlatform.cargoBuildHook
       cargo
@@ -46,8 +44,7 @@
     name = "test-cargoInstallHook";
     src = ./example-rust-project;
     cargoBuildType = "release";
-    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" =
-      "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
     nativeBuildInputs = [
       rustPlatform.cargoInstallHook
       cargo
@@ -62,8 +59,7 @@
     name = "test-cargoCheckHook";
     src = ./example-rust-project;
     cargoBuildType = "release";
-    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" =
-      "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
     nativeBuildInputs = [
       rustPlatform.cargoCheckHook
       cargo
@@ -84,8 +80,7 @@
     name = "test-cargoNextestHook";
     src = ./example-rust-project;
     cargoBuildType = "release";
-    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" =
-      "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+    "CARGO_TARGET_${stdenv.hostPlatform.rust.cargoEnvVarTarget}_LINKER" = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
     nativeBuildInputs = [
       rustPlatform.cargoNextestHook
       cargo

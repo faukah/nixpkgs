@@ -26,7 +26,6 @@
   protozero,
   sparsehash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapnik";
   version = "4.1.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   postPatch = ''
     substituteInPlace configure \
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # a distinct dev output makes python-mapnik fail
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   patches = [
     # Account for full paths when generating libmapnik.pc
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     cairo
     freetype
     gdal
-    (harfbuzz.override { withIcu = true; })
+    (harfbuzz.override {withIcu = true;})
     icu
     libjpeg
     libpng
@@ -127,7 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
       hrdinka
       hummeltech
     ];
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.all;
   };

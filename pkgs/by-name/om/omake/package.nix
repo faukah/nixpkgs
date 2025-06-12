@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ocaml,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "omake";
   version = "0.10.7";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   meta = {
     description = "Build system designed for scalability and portability";

@@ -7,7 +7,6 @@
   rustPlatform,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oo7";
   version = "0.4.3";
@@ -26,12 +25,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-VNgbdvX5ttW+/V2Zzkd3rGIjVe1ENRE6WLg7M48ij7o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
-    tests.testVersion = testers.testVersion { package = oo7; };
+    tests.testVersion = testers.testVersion {package = oo7;};
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

@@ -9,7 +9,6 @@
   testers,
   rustdesk-server,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustdesk-server";
   version = "1.1.14";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       inherit version;
       package = rustdesk-server;

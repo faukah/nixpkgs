@@ -8,7 +8,6 @@
   ncurses5,
   taskwarrior2,
 }:
-
 stdenv.mkDerivation rec {
   version = "2020-12-17";
   pname = "tasknc";
@@ -35,11 +34,11 @@ stdenv.mkDerivation rec {
     perl # For generating the man pages with pod2man
   ];
 
-  buildInputs = [ ncurses5 ];
+  buildInputs = [ncurses5];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  buildFlags = [ "VERSION=${version}" ];
+  buildFlags = ["VERSION=${version}"];
 
   installPhase = ''
     mkdir -p $out/bin/
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lharding/tasknc";
     description = "Ncurses wrapper around taskwarrior";
     mainProgram = "tasknc";
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.linux; # Cannot test others
     license = licenses.mit;
   };

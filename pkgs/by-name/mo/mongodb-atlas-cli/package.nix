@@ -7,7 +7,6 @@
   testers,
   mongodb-atlas-cli,
 }:
-
 buildGoModule rec {
   pname = "mongodb-atlas-cli";
   version = "1.43.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
     sha256 = "sha256-Xb/6kgqee38DqbLPLkel8NhXxdjq4UYX4E/y3xUW7og=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -39,7 +38,7 @@ buildGoModule rec {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--version-regex=atlascli/v(.+)" ];
+      extraArgs = ["--version-regex=atlascli/v(.+)"];
     };
     tests.version = testers.testVersion {
       package = mongodb-atlas-cli;
@@ -50,7 +49,7 @@ buildGoModule rec {
   meta = {
     homepage = "https://www.mongodb.com/try/download/shell";
     description = "CLI utility to manage MongoDB Atlas from the terminal";
-    maintainers = with lib.maintainers; [ aduh95 ];
+    maintainers = with lib.maintainers; [aduh95];
     license = lib.licenses.asl20;
     mainProgram = "atlas";
   };

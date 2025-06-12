@@ -8,7 +8,6 @@
   wafHook,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mda-lv2";
   version = "1.2.6";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "http://drobilla.net/software/mda-lv2.html";
     description = "LV2 port of the MDA plugins by Paul Kellett";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

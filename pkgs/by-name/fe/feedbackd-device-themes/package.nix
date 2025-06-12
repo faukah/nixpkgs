@@ -8,7 +8,6 @@
   feedbackd,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "feedbackd-device-themes";
   version = "0.8.3";
@@ -32,13 +31,17 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   mesonFlags = [
-    (lib.mesonOption "validate" (if finalAttrs.doCheck then "enabled" else "disabled"))
+    (lib.mesonOption "validate" (
+      if finalAttrs.doCheck
+      then "enabled"
+      else "disabled"
+    ))
   ];
 
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   strictDeps = true;

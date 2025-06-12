@@ -4,20 +4,20 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.userborn;
   userCfg = config.users;
 
   userbornConfig = {
-    groups = lib.mapAttrsToList (username: opts: {
-      inherit (opts) name gid members;
-    }) config.users.groups;
+    groups =
+      lib.mapAttrsToList (username: opts: {
+        inherit (opts) name gid members;
+      })
+      config.users.groups;
 
     users = lib.mapAttrsToList (username: opts: {
-      inherit (opts)
+      inherit
+        (opts)
         name
         uid
         group
@@ -43,19 +43,18 @@ let
     "passwd"
     "shadow"
   ];
-
-in
-{
-
+in {
   options.services.userborn = {
-
     enable = lib.mkEnableOption "userborn";
 
-    package = lib.mkPackageOption pkgs "userborn" { };
+    package = lib.mkPackageOption pkgs "userborn" {};
 
     passwordFilesLocation = lib.mkOption {
       type = lib.types.str;
-      default = if immutableEtc then "/var/lib/nixos" else "/etc";
+      default =
+        if immutableEtc
+        then "/var/lib/nixos"
+        else "/etc";
       defaultText = lib.literalExpression ''if immutableEtc then "/var/lib/nixos" else "/etc"'';
       description = ''
         The location of the original password files.
@@ -68,11 +67,9 @@ in
         However this an also serve other use cases, e.g. when `/etc` is on a `tmpfs`.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !(config.systemd.sysusers.enable && cfg.enable);
@@ -92,13 +89,12 @@ in
     system.activationScripts.hashes = lib.mkForce "";
 
     systemd = {
-
       # Create home directories, do not create /var/empty even if that's a user's
       # home.
       tmpfiles.settings.home-directories =
         lib.mapAttrs'
-          (
-            username: opts:
+        (
+          username: opts:
             lib.nameValuePair (toString opts.home) {
               d = {
                 mode = opts.homeMode;
@@ -106,16 +102,17 @@ in
                 inherit (opts) group;
               };
             }
+        )
+        (
+          lib.filterAttrs (
+            _username: opts: opts.enable && opts.createHome && opts.home != "/var/empty"
           )
-          (
-            lib.filterAttrs (
-              _username: opts: opts.enable && opts.createHome && opts.home != "/var/empty"
-            ) userCfg.users
-          );
+          userCfg.users
+        );
 
       services.userborn = {
-        wantedBy = [ "sysinit.target" ];
-        requiredBy = [ "sysinit-reactivation.target" ];
+        wantedBy = ["sysinit.target"];
+        requiredBy = ["sysinit-reactivation.target"];
         after = [
           "systemd-remount-fs.service"
           "systemd-tmpfiles-setup-dev-early.service"
@@ -126,14 +123,14 @@ in
           "shutdown.target"
           "sysinit-reactivation.target"
         ];
-        conflicts = [ "shutdown.target" ];
+        conflicts = ["shutdown.target"];
         restartTriggers = [
           userbornConfigJson
           cfg.passwordFilesLocation
         ];
         # This way we don't have to re-declare all the dependencies to other
         # services again.
-        aliases = [ "systemd-sysusers.service" ];
+        aliases = ["systemd-sysusers.service"];
 
         unitConfig = {
           Description = "Manage Users and Groups";
@@ -161,9 +158,9 @@ in
           # Make the source files read-only after userborn has finished.
           ExecStartPost = lib.mkIf (!userCfg.mutableUsers) (
             lib.map (
-              file:
-              "${pkgs.util-linux}/bin/mount --bind -o ro ${cfg.passwordFilesLocation}/${file} ${cfg.passwordFilesLocation}/${file}"
-            ) passwordFiles
+              file: "${pkgs.util-linux}/bin/mount --bind -o ro ${cfg.passwordFilesLocation}/${file} ${cfg.passwordFilesLocation}/${file}"
+            )
+            passwordFiles
           );
         };
       };
@@ -176,15 +173,15 @@ in
       lib.listToAttrs (
         lib.map (
           file:
-          lib.nameValuePair file {
-            source = "${cfg.passwordFilesLocation}/${file}";
-            mode = "direct-symlink";
-          }
-        ) passwordFiles
+            lib.nameValuePair file {
+              source = "${cfg.passwordFilesLocation}/${file}";
+              mode = "direct-symlink";
+            }
+        )
+        passwordFiles
       )
     );
   };
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
-
+  meta.maintainers = with lib.maintainers; [nikstur];
 }

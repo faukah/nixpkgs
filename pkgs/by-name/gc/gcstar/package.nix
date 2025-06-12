@@ -5,7 +5,6 @@
   perlPackages,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcstar";
   version = "1.8.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-37yjKI4l/nUzDnra1AGxDQxNafMsLi1bSifG6pz33zg=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   buildInputs = with perlPackages; [
     perl
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
       You may also search and filter your collections by many criteria.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dasj19 ];
+    maintainers = with maintainers; [dasj19];
     platforms = platforms.all;
   };
 }

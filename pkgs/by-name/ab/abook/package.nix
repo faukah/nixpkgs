@@ -8,7 +8,6 @@
   readline,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abook";
   version = "0.6.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "http://abook.sourceforge.net/";
     description = "Text-based addressbook program designed to use with mutt mail client";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.edwtjo ];
+    maintainers = [lib.maintainers.edwtjo];
     platforms = with lib.platforms; unix;
     mainProgram = "abook";
   };

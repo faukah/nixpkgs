@@ -15,7 +15,6 @@
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "gmpy2";
   version = "2.2.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-wrMN3kqLnjItoybKYeo4Pp2M0uma7Kg0JEQM8lr6OI0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     gmp
@@ -62,7 +61,7 @@ buildPythonPackage rec {
       "test_mpq_from_Decimal"
     ];
 
-  pythonImportsCheck = [ "gmpy2" ];
+  pythonImportsCheck = ["gmpy2"];
 
   passthru.tests = {
     inherit sage;
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     description = "Interface to GMP, MPFR, and MPC for Python 3.7+";
     homepage = "https://github.com/aleaxit/gmpy/";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

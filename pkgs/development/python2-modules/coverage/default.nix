@@ -4,7 +4,6 @@
   fetchPypi,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "coverage";
   version = "5.5";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
 
   # No tests in archive
   doCheck = false;
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   meta = {
     description = "Code coverage measurement for python";

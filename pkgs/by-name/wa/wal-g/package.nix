@@ -6,7 +6,6 @@
   libsodium,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "wal-g";
   version = "3.0.7";
@@ -20,14 +19,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-TwYl3B/VS24clUv1ge/RroULIY/04xTxc11qPNGhnfs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     brotli
     libsodium
   ];
 
-  subPackages = [ "main/pg" ];
+  subPackages = ["main/pg"];
 
   tags = [
     "brotli"
@@ -53,6 +52,6 @@ buildGoModule rec {
     license = licenses.asl20;
     description = "Archival restoration tool for PostgreSQL";
     mainProgram = "wal-g";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

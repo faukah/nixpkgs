@@ -6,7 +6,6 @@
   git,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "git-machete";
   version = "3.36.0";
@@ -18,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-iSuOiQC+dKqcDCS4nTPMrNFpo3ipPUQhfoofM11UInI=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs =
     [
@@ -46,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Git repository organizer and rebase/merge workflow automation tool";
     changelog = "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ blitz ];
+    maintainers = with lib.maintainers; [blitz];
     mainProgram = "git-machete";
   };
 }

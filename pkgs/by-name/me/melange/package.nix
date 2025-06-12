@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "melange";
   version = "0.26.6";
@@ -28,9 +27,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-AOlMb39c+S4kDTXpDorXjG6iO1dct9x5kLbboRJSzv4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -69,6 +68,6 @@ buildGoModule rec {
     description = "Build APKs from source code";
     mainProgram = "melange";
     license = licenses.asl20;
-    maintainers = with maintainers; [ developer-guy ];
+    maintainers = with maintainers; [developer-guy];
   };
 }

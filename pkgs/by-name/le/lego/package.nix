@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "lego";
   version = "4.23.1";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/lego" ];
+  subPackages = ["cmd/lego"];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "Let's Encrypt client and ACME library written in Go";
     license = licenses.mit;
     homepage = "https://go-acme.github.io/lego/";
-    teams = [ teams.acme ];
+    teams = [teams.acme];
     mainProgram = "lego";
   };
 

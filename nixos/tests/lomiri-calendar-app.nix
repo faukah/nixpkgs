@@ -1,37 +1,41 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "lomiri-calendar-app-standalone";
   meta.maintainers = lib.teams.lomiri.members;
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./common/x11.nix];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      environment = {
-        systemPackages =
-          with pkgs;
-          [
-            xdotool # mouse movement
-          ]
-          ++ (with pkgs.lomiri; [
-            suru-icon-theme
-            lomiri-calendar-app
-          ]);
-        variables = {
-          UITK_ICON_THEME = "suru";
-        };
+    environment = {
+      systemPackages = with pkgs;
+        [
+          xdotool # mouse movement
+        ]
+        ++ (with pkgs.lomiri; [
+          suru-icon-theme
+          lomiri-calendar-app
+        ]);
+      variables = {
+        UITK_ICON_THEME = "suru";
       };
-
-      i18n.supportedLocales = [ "all" ];
-
-      fonts.packages = with pkgs; [
-        # Intended font & helps with OCR
-        ubuntu-classic
-      ];
     };
+
+    i18n.supportedLocales = ["all"];
+
+    fonts.packages = with pkgs; [
+      # Intended font & helps with OCR
+      ubuntu-classic
+    ];
+  };
 
   enableOCR = true;
 

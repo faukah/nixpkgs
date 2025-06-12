@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.restic.server;
-in
-{
-  meta.maintainers = [ lib.maintainers.bachp ];
+in {
+  meta.maintainers = [lib.maintainers.bachp];
 
   options.services.restic.server = {
     enable = lib.mkEnableOption "Restic REST Server";
@@ -59,13 +57,13 @@ in
 
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra commandline options to pass to Restic REST server.
       '';
     };
 
-    package = lib.mkPackageOption pkgs "restic-rest-server" { };
+    package = lib.mkPackageOption pkgs "restic-rest-server" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -84,8 +82,8 @@ in
         "network.target"
         "restic-rest-server.socket"
       ];
-      requires = [ "restic-rest-server.socket" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["restic-rest-server.socket"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/rest-server \
@@ -118,7 +116,7 @@ in
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         PrivateDevices = true;
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [cfg.dataDir];
         ReadOnlyPaths = lib.optional (cfg.htpasswd-file != null) cfg.htpasswd-file;
         RemoveIPC = true;
         RestrictAddressFamilies = "none";
@@ -132,8 +130,8 @@ in
     };
 
     systemd.sockets.restic-rest-server = {
-      listenStreams = [ cfg.listenAddress ];
-      wantedBy = [ "sockets.target" ];
+      listenStreams = [cfg.listenAddress];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.tmpfiles.rules = lib.mkIf cfg.privateRepos [

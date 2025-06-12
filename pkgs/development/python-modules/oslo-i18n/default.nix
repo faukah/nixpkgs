@@ -8,7 +8,6 @@
   testscenarios,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-i18n";
   version = "6.5.1";
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "oslo_i18n" ];
+  pythonImportsCheck = ["oslo_i18n"];
 
   meta = with lib; {
     description = "Oslo i18n library";
     homepage = "https://github.com/openstack/oslo.i18n";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -6,7 +6,6 @@
   scdoc,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "soju";
   version = "0.9.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     make doc/soju.1 doc/sojuctl.1
   '';
 
-  checkFlags = [ "-skip TestPostgresMigrations" ];
+  checkFlags = ["-skip TestPostgresMigrations"];
 
   postInstall = ''
     installManPage doc/soju.1 doc/sojuctl.1

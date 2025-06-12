@@ -7,7 +7,6 @@
   openssl,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-udeps";
   version = "0.1.56";
@@ -22,11 +21,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ttIzCro9/oiF0ycRG/UzvgMT+3kXhkVAdkNCIVjIc2g=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # TODO figure out how to use provided curl instead of compiling curl from curl-sys
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];

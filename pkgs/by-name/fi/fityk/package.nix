@@ -13,7 +13,6 @@
   gnuplot,
   swig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fityk";
   version = "1.3.2";

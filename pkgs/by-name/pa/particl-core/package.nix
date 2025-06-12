@@ -15,7 +15,6 @@
   unixtools,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "particl-core";
   version = "23.2.7.0";
@@ -66,14 +65,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Privacy-Focused Marketplace & Decentralized Application Platform";
     longDescription = ''
       An open source, decentralized privacy platform built for global person to person eCommerce.
       RPC daemon and CLI client only.
     '';
     homepage = "https://particl.io/";
-    maintainers = with maintainers; [ demyanrogozhin ];
+    maintainers = with maintainers; [demyanrogozhin];
     license = licenses.mit;
     platforms = platforms.unix;
   };

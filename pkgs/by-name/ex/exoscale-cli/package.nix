@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "exoscale-cli";
   version = "1.84.1";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  excludedPackages = [ "internal/integ" ];
+  excludedPackages = ["internal/integ"];
 
   ldflags = [
     "-s"
@@ -52,7 +51,7 @@ buildGoModule rec {
     description = "Command-line tool for everything at Exoscale: compute, storage, dns";
     homepage = "https://github.com/exoscale/cli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
     mainProgram = "exo";
   };
 }

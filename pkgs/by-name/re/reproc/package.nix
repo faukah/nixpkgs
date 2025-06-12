@@ -5,7 +5,6 @@
   cmake,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "reproc";
   version = "14.2.4";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"

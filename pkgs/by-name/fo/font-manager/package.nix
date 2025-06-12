@@ -28,7 +28,6 @@
   libsoup_3,
   webkitgtk_6_0,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "font-manager";
   version = "0.9.4";
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonBool "webkit" withWebkit)
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://fontmanager.github.io/";
@@ -103,6 +102,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 })

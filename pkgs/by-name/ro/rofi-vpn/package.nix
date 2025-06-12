@@ -6,7 +6,6 @@
   networkmanager,
   rofi-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rofi-vpn";
   version = "0.2.0";
@@ -25,22 +24,22 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/rofi-vpn \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          rofi-unwrapped
-          networkmanager
-        ]
-      }
+      lib.makeBinPath [
+        rofi-unwrapped
+        networkmanager
+      ]
+    }
 
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   meta = with lib; {
     description = "Rofi-based interface to enable VPN connections with NetworkManager";
     homepage = "https://gitlab.com/DamienCassou/rofi-vpn";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     platforms = platforms.linux;
     mainProgram = "rofi-vpn";
   };

@@ -17,7 +17,6 @@
   SDL2_ttf,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "domino-chain";
   version = "1.1";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Rearrange dominoes on different platforms to start a chain reaction";
     homepage = "https://domino-chain.gitlab.io/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "domino-chain";
     platforms = lib.platforms.all;
   };

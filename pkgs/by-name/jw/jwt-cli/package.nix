@@ -6,7 +6,6 @@
   installShellFiles,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jwt-cli";
   version = "6.2.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-lp2I5+zvFM46TmejtNn/qgVlAaL+xL9slZHduccO/5Q=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd jwt \
@@ -38,14 +37,14 @@ rustPlatform.buildRustPackage rec {
       | grep -q 'John Doe'
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Super fast CLI tool to decode and encode JWTs";
     homepage = "https://github.com/mike-engel/jwt-cli";
     changelog = "https://github.com/mike-engel/jwt-cli/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rycee ];
+    maintainers = with lib.maintainers; [rycee];
     mainProgram = "jwt";
   };
 }

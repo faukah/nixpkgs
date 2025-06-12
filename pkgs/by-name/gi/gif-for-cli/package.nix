@@ -7,7 +7,6 @@
   zlib,
   libjpeg,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "gif-for-cli";
   version = "1.1.2";
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication {
     longDescription = "Takes in a GIF, short video, or a query to the Tenor GIF API and converts it to animated ASCII art.";
     homepage = "https://github.com/google/gif-for-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
     mainProgram = "gif-for-cli";
   };
 }

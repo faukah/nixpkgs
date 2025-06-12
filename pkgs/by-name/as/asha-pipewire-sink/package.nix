@@ -8,7 +8,6 @@
   bluez,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "asha-pipewire-sink";
   version = "0-unstable-2024-10-22";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/thewierdnut/asha_pipewire_sink";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     mainProgram = "asha_pipewire_sink";
   };
 }

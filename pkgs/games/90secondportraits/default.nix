@@ -6,9 +6,7 @@
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
-}:
-
-let
+}: let
   pname = "90secondportraits";
 
   icon = fetchurl {
@@ -24,48 +22,46 @@ let
       comment = "A silly speed painting game";
       desktopName = "90 Second Portraits";
       genericName = "90secondportraits";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
-
 in
-stdenv.mkDerivation rec {
-  inherit pname desktopItems;
-  version = "1.01b";
+  stdenv.mkDerivation rec {
+    inherit pname desktopItems;
+    version = "1.01b";
 
-  src = fetchurl {
-    url = "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
-    sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
-  };
+    src = fetchurl {
+      url = "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
+      sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
+    };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
-
-  dontUnpack = true;
-
-  installPhase = ''
-    runHook preInstall
-    install -Dm444 $src $out/share/games/lovegames/${pname}.love
-    makeWrapper ${love}/bin/love $out/bin/${pname} \
-      --add-flags $out/share/games/lovegames/${pname}.love
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Silly speed painting game";
-    mainProgram = "90secondportraits";
-    maintainers = with maintainers; [ leenaars ];
-    platforms = platforms.linux;
-    license = with licenses; [
-      zlib
-      cc-by-sa-40
-      cc-by-sa-30 # vendored
-      x11
-      mit
+    nativeBuildInputs = [
+      makeWrapper
+      copyDesktopItems
     ];
-    downloadPage = "http://tangramgames.dk/games/90secondportraits";
-  };
 
-}
+    dontUnpack = true;
+
+    installPhase = ''
+      runHook preInstall
+      install -Dm444 $src $out/share/games/lovegames/${pname}.love
+      makeWrapper ${love}/bin/love $out/bin/${pname} \
+        --add-flags $out/share/games/lovegames/${pname}.love
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Silly speed painting game";
+      mainProgram = "90secondportraits";
+      maintainers = with maintainers; [leenaars];
+      platforms = platforms.linux;
+      license = with licenses; [
+        zlib
+        cc-by-sa-40
+        cc-by-sa-30 # vendored
+        x11
+        mit
+      ];
+      downloadPage = "http://tangramgames.dk/games/90secondportraits";
+    };
+  }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "zigpy-cli";
   version = "1.1.0";
@@ -56,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/zigpy/zigpy-cli";
     changelog = "https://github.com/zigpy/zigpy-cli/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     platforms = platforms.linux;
   };
 }

@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.archisteamfarm;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   configFile = format.generate "ASF.json" (
     cfg.settings
@@ -26,12 +24,14 @@ let
 
   ipc-config = format.generate "IPC.config" cfg.ipcSettings;
 
-  mkBot =
-    n: c:
+  mkBot = n: c:
     format.generate "${n}.json" (
       c.settings
       // {
-        SteamLogin = if c.username == "" then n else c.username;
+        SteamLogin =
+          if c.username == ""
+          then n
+          else c.username;
         Enabled = c.enabled;
       }
       // lib.optionalAttrs (c.passwordFile != null) {
@@ -40,8 +40,7 @@ let
         PasswordFormat = 4;
       }
     );
-in
-{
+in {
   options.services.archisteamfarm = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -56,11 +55,13 @@ in
     web-ui = lib.mkOption {
       type = lib.types.submodule {
         options = {
-          enable = lib.mkEnableOption "" // {
-            description = "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
-          };
+          enable =
+            lib.mkEnableOption ""
+            // {
+              description = "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
+            };
 
-          package = lib.mkPackageOption pkgs [ "ArchiSteamFarm" "ui" ] {
+          package = lib.mkPackageOption pkgs ["ArchiSteamFarm" "ui"] {
             extraDescription = ''
               ::: {.note}
               Contents must be in lib/dist
@@ -106,7 +107,7 @@ in
       example = {
         Statistics = false;
       };
-      default = { };
+      default = {};
     };
 
     ipcPasswordFile = lib.mkOption {
@@ -130,7 +131,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
 
     bots = lib.mkOption {
@@ -160,7 +161,7 @@ in
               description = ''
                 Additional settings that are documented [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#bot-config).
               '';
-              default = { };
+              default = {};
             };
           };
         }
@@ -177,7 +178,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
   };
 
@@ -189,14 +190,14 @@ in
         group = "archisteamfarm";
         description = "Archis-Steam-Farm service user";
       };
-      groups.archisteamfarm = { };
+      groups.archisteamfarm = {};
     };
 
     systemd.services = {
       archisteamfarm = {
         description = "Archis-Steam-Farm Service";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = lib.mkMerge [
           (lib.mkIf (lib.hasPrefix "/var/lib/" cfg.dataDir) {
@@ -248,54 +249,52 @@ in
           }
         ];
 
-        preStart =
-          let
-            createBotsScript =
-              pkgs.runCommand "ASF-bots"
-                {
-                  preferLocalBuild = true;
-                }
-                ''
-                  mkdir -p $out
-                  # clean potential removed bots
-                  rm -rf $out/*.json
-                  for i in ${
-                    lib.concatStringsSep " " (map (x: "${lib.getName x},${x}") (lib.mapAttrsToList mkBot cfg.bots))
-                  }; do IFS=",";
-                    set -- $i
-                    ln -fs $2 $out/$1
-                  done
-                '';
-            replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-          in
-          ''
-            mkdir -p config
+        preStart = let
+          createBotsScript =
+            pkgs.runCommand "ASF-bots"
+            {
+              preferLocalBuild = true;
+            }
+            ''
+              mkdir -p $out
+              # clean potential removed bots
+              rm -rf $out/*.json
+              for i in ${
+                lib.concatStringsSep " " (map (x: "${lib.getName x},${x}") (lib.mapAttrsToList mkBot cfg.bots))
+              }; do IFS=",";
+                set -- $i
+                ln -fs $2 $out/$1
+              done
+            '';
+          replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
+        in ''
+          mkdir -p config
 
-            cp --no-preserve=mode ${configFile} config/ASF.json
+          cp --no-preserve=mode ${configFile} config/ASF.json
 
-            ${lib.optionalString (cfg.ipcPasswordFile != null) ''
-              ${replaceSecretBin} '#ipcPassword#' '${cfg.ipcPasswordFile}' config/ASF.json
-            ''}
+          ${lib.optionalString (cfg.ipcPasswordFile != null) ''
+            ${replaceSecretBin} '#ipcPassword#' '${cfg.ipcPasswordFile}' config/ASF.json
+          ''}
 
-            ${lib.optionalString (cfg.ipcSettings != { }) ''
-              ln -fs ${ipc-config} config/IPC.config
-            ''}
+          ${lib.optionalString (cfg.ipcSettings != {}) ''
+            ln -fs ${ipc-config} config/IPC.config
+          ''}
 
-            ${lib.optionalString (cfg.bots != { }) ''
-              ln -fs ${createBotsScript}/* config/
-            ''}
+          ${lib.optionalString (cfg.bots != {}) ''
+            ln -fs ${createBotsScript}/* config/
+          ''}
 
-            rm -f www
-            ${lib.optionalString cfg.web-ui.enable ''
-              ln -s ${cfg.web-ui.package}/ www
-            ''}
-          '';
+          rm -f www
+          ${lib.optionalString cfg.web-ui.enable ''
+            ln -s ${cfg.web-ui.package}/ www
+          ''}
+        '';
       };
     };
   };
 
   meta = {
     buildDocsInSandbox = false;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

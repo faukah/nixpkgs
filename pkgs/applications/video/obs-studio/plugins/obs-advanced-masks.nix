@@ -5,7 +5,6 @@
   obs-studio,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-advanced-masks";
   version = "1.1.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Advanced Masking Plugin for OBS";
     homepage = "https://github.com/FiniteSingularity/obs-advanced-masks";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ rytswd ];
+    maintainers = with lib.maintainers; [rytswd];
     mainProgram = "obs-advanced-masks";
     platforms = lib.platforms.linux;
   };

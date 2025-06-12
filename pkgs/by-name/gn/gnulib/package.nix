@@ -5,7 +5,6 @@
   python3,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "gnulib";
   version = "20241001";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     --replace-fail 'exec perl' 'exec ${lib.getExe perl}'
   '';
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin

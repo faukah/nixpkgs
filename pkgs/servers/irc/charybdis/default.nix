@@ -8,7 +8,6 @@
   openssl,
   gnutls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "charybdis";
   version = "4.1.2";
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
     description = "IRCv3 server designed to be highly scalable";
     homepage = "https://github.com/charybdis-ircd/charybdis";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
     platforms = platforms.unix;
   };
-
 }

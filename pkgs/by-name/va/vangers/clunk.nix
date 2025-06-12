@@ -5,7 +5,6 @@
   cmake,
   SDL2,
 }:
-
 stdenv.mkDerivation {
   pname = "clunk";
   version = "1.0-unstable-2020-06-25";
@@ -17,15 +16,14 @@ stdenv.mkDerivation {
     hash = "sha256-cz6v7rQYIoLf53Od7THmDPmBfhn8DBP7+uOIZRF0gc8=";
   };
 
-  buildInputs = [ SDL2 ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [SDL2];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Clunk - real-time binaural sound generation library. Versions for Vangers game. Porting to SDL2 and fix some errors";
     homepage = "https://github.com/stalkerg/clunk";
     platforms = lib.platforms.all;
-    license = with lib.licenses; [ lgpl21Plus ];
-    maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
+    license = with lib.licenses; [lgpl21Plus];
+    maintainers = with lib.maintainers; [_3JlOy-PYCCKUi];
   };
-
 }

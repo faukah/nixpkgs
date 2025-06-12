@@ -6,7 +6,6 @@
   pkg-config,
   qtbase,
 }:
-
 mkDerivation {
   pname = "ofono-phonesim";
   version = "unstable-2019-11-18";
@@ -35,7 +34,7 @@ mkDerivation {
     mainProgram = "phonesim";
     homepage = "https://01.org/ofono";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

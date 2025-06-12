@@ -7,7 +7,6 @@
   gitMinimal,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lon";
   version = "0.7.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-i+DAVtXAYQ254Y7jechjOcwe3nT/0O4AzxBH5QkK9aM=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/lon --prefix PATH : ${
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

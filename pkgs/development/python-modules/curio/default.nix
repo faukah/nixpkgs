@@ -8,7 +8,6 @@
   stdenv,
   unstableGitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "curio";
   version = "1.6-unstable-2024-04-11";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-WLu7XF5wiVzBRQH1KRdAbhluTvGE7VvnRQUS0c3SUDk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,16 +44,16 @@ buildPythonPackage rec {
       "test_create_bad_connection"
     ];
 
-  pythonImportsCheck = [ "curio" ];
+  pythonImportsCheck = ["curio"];
 
   # curio does not package new releaseas any more
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Library for performing concurrent I/O with coroutines in Python";
     homepage = "https://github.com/dabeaz/curio";
     changelog = "https://github.com/dabeaz/curio/raw/${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = [ maintainers.pbsds ];
+    maintainers = [maintainers.pbsds];
   };
 }

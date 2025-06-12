@@ -7,7 +7,6 @@
   unzip,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit pname version meta;
 

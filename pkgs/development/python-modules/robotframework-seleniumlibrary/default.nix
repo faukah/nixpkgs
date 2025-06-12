@@ -12,7 +12,6 @@
   pytestCheckHook,
   robotstatuschecker,
 }:
-
 buildPythonPackage rec {
   pname = "robotframework-seleniumlibrary";
   version = "6.7.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-pKAOVycckUCe93wMk9kql1lY6WeUTiS4lk/skDAfKCY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Web testing library for Robot Framework";
     homepage = "https://github.com/robotframework/SeleniumLibrary";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

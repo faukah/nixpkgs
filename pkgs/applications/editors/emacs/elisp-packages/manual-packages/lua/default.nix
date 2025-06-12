@@ -6,7 +6,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "lua";
   version = "0-unstable-2025-01-27";
@@ -22,18 +21,18 @@ melpaBuild {
     make LUA_VERSION=${lua.luaversion} CC=$CC LD=$CC
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ lua ];
+  buildInputs = [lua];
 
   files = ''(:defaults "lua-core.so")'';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/syohex/emacs-lua";
     description = "Lua engine from Emacs Lisp";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nagy ];
+    maintainers = with maintainers; [nagy];
   };
 }

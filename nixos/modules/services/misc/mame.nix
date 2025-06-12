@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mame;
   mame = "mame${lib.optionalString pkgs.stdenv.hostPlatform.is64bit "64"}";
-in
-{
+in {
   options = {
     services.mame = {
       enable = lib.mkOption {
@@ -44,7 +42,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.mame ];
+    environment.systemPackages = [pkgs.mame];
 
     security.wrappers."${mame}" = {
       owner = "root";
@@ -55,9 +53,9 @@ in
 
     systemd.services.mame = {
       description = "MAME TUN/TAP Ethernet interface";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.iproute2 ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.iproute2];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -67,5 +65,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

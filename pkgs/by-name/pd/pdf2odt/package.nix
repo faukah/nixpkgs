@@ -13,7 +13,6 @@
   runtimeShell,
   findutils,
 }:
-
 resholve.mkDerivation {
   pname = "pdf2odt";
   version = "20220827";
@@ -37,7 +36,7 @@ resholve.mkDerivation {
   '';
 
   solutions.default = {
-    scripts = [ "bin/pdf2odt" ];
+    scripts = ["bin/pdf2odt"];
     interpreter = runtimeShell;
     inputs = [
       bc
@@ -61,6 +60,6 @@ resholve.mkDerivation {
     homepage = "https://github.com/gutschke/pdf2odt";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

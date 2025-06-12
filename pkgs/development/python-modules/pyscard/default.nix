@@ -9,7 +9,6 @@
   stdenv,
   swig,
 }:
-
 buildPythonPackage rec {
   pname = "pyscard";
   version = "2.2.1";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-RXCz6Npb/MrykHxtUsYlghCPeTwjDC6s9258iLA7OKs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ swig ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ pkg-config ];
+  nativeBuildInputs = [swig] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [pkg-config];
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ pcsclite ];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [pcsclite];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch =
     ''
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://pyscard.sourceforge.io/";
     changelog = "https://github.com/LudovicRousseau/pyscard/releases/tag/${version}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ layus ];
+    maintainers = with lib.maintainers; [layus];
   };
 }

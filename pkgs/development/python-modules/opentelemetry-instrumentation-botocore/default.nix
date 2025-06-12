@@ -12,7 +12,6 @@
   pytestCheckHook,
   aws-xray-sdk,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-botocore";
@@ -20,7 +19,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-botocore";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-api
@@ -40,13 +39,15 @@ buildPythonPackage {
   ];
 
   optional-dependencies = {
-    instruments = [ botocore ];
+    instruments = [botocore];
   };
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.botocore" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.botocore"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-botocore";
-    description = "Botocore instrumentation for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-botocore";
+      description = "Botocore instrumentation for OpenTelemetry";
+    };
 }

@@ -8,7 +8,6 @@
   replaceVars,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cosmopolitan";
   version = "2.2";
@@ -56,17 +55,16 @@ stdenv.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontFixup = true;
 
-  preCheck =
-    let
-      failingTests = [
-        # some syscall tests fail because we're in a sandbox
-        "test/libc/calls/sched_setscheduler_test.c"
-        "test/libc/thread/pthread_create_test.c"
-        "test/libc/calls/getgroups_test.c"
-        # fails
-        "test/libc/stdio/posix_spawn_test.c"
-      ];
-    in
+  preCheck = let
+    failingTests = [
+      # some syscall tests fail because we're in a sandbox
+      "test/libc/calls/sched_setscheduler_test.c"
+      "test/libc/thread/pthread_create_test.c"
+      "test/libc/calls/getgroups_test.c"
+      # fails
+      "test/libc/stdio/posix_spawn_test.c"
+    ];
+  in
     lib.concatStringsSep ";\n" (map (t: "rm -v ${t}") failingTests);
 
   installPhase = ''
@@ -90,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://justine.lol/cosmopolitan/";
     description = "Your build-once run-anywhere c library";
     license = lib.licenses.isc;
-    teams = [ lib.teams.cosmopolitan ];
+    teams = [lib.teams.cosmopolitan];
     platforms = lib.platforms.x86_64;
     badPlatforms = lib.platforms.darwin;
   };

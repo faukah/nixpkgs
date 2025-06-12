@@ -13,7 +13,6 @@
   six,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "pypugjs";
   version = "5.12.0";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestCheckFlags = [ "pypugjs/testsuite" ];
+  pytestCheckFlags = ["pypugjs/testsuite"];
 
   pythonImportsCheck = [
     "pypugjs"
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     mainProgram = "pypugjs";
     homepage = "https://github.com/kakulukia/pypugjs";
     license = licenses.mit;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

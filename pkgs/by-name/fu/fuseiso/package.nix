@@ -9,7 +9,6 @@
   glib,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuseiso";
   version = "20070708";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "icingaweb2-thirdparty";
   version = "0.12.1";
@@ -21,13 +20,13 @@ stdenvNoCC.mkDerivation rec {
     cp -r * "$out"
   '';
 
-  passthru.tests = { inherit (nixosTests) icingaweb2; };
+  passthru.tests = {inherit (nixosTests) icingaweb2;};
 
   meta = {
     description = "Third party dependencies for Icingaweb 2";
     homepage = "https://github.com/Icinga/icinga-php-thirdparty";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    teams = [ lib.teams.helsinki-systems ];
+    teams = [lib.teams.helsinki-systems];
   };
 }

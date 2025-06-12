@@ -7,7 +7,6 @@
   numactl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-ocl";
   version = "5.0-63503";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  buildInputs = [ rpmextract ];
+  buildInputs = [rpmextract];
 
   sourceRoot = ".";
 
@@ -80,8 +79,8 @@ stdenv.mkDerivation rec {
     description = "Official OpenCL runtime for Intel CPUs";
     homepage = "https://software.intel.com/en-us/articles/opencl-drivers";
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

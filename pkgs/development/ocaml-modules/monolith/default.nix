@@ -6,7 +6,6 @@
   pprint,
   version ? "20250314",
 }:
-
 buildDunePackage {
   pname = "monolith";
   inherit version;
@@ -31,6 +30,6 @@ buildDunePackage {
     homepage = "https://cambium.inria.fr/~fpottier/monolith/doc/monolith/Monolith/index.html";
     changelog = "https://gitlab.inria.fr/fpottier/monolith/-/raw/${version}/CHANGES.md";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

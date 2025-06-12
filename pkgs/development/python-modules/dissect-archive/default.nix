@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-archive";
   version = "1.6";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  pythonImportsCheck = [ "dissect.archive" ];
+  pythonImportsCheck = ["dissect.archive"];
 
   meta = with lib; {
     description = "Dissect module implementing parsers for various archive and backup formats";
     homepage = "https://github.com/fox-it/dissect.archive";
     changelog = "https://github.com/fox-it/dissect.archive/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

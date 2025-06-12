@@ -20,6 +20,6 @@ buildGoModule rec {
     description = "Command line tool for creating and applying UPS patch files";
     homepage = "https://github.com/rameshvarun/ups";
     license = licenses.mit;
-    maintainers = with maintainers; [ ruby0b ];
+    maintainers = with maintainers; [ruby0b];
   };
 }

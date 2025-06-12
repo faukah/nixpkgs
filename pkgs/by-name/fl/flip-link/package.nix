@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flip-link";
   version = "0.1.10";

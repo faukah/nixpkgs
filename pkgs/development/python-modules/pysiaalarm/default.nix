@@ -12,7 +12,6 @@
   pytestCheckHook,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "pysiaalarm";
   version = "3.1.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace "==" ">="
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   propagatedBuildInputs = [
     dataclasses-json
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/eavanvalkenburg/pysiaalarm";
     changelog = "https://github.com/eavanvalkenburg/pysiaalarm/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -7,7 +7,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmrss";
   version = "0.19.4";
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C library for parsing, writing and creating RSS/ATOM files or streams";
     license = lib.licenses.lgpl2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 })

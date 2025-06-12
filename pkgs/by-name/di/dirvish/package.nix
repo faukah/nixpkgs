@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dirvish";
   version = "1.2.1";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "6b7f29c3541448db3d317607bda3eb9bac9fb3c51f970611ffe27e9d63507dcd";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ perl ]
+    [perl]
     ++ (with perlPackages; [
       GetoptLong
       TimeParseDate
@@ -83,6 +82,6 @@ stdenv.mkDerivation rec {
     homepage = "http://dirvish.org/";
     license = lib.licenses.osl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.winpat ];
+    maintainers = [maintainers.winpat];
   };
 }

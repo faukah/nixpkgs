@@ -38,7 +38,6 @@
   wildmidi,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easyrpg-player";
   # liblcf needs to be updated before this.
@@ -125,7 +124,7 @@ stdenv.mkDerivation rec {
     description = "RPG Maker 2000/2003 and EasyRPG games interpreter";
     homepage = "https://easyrpg.org/";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = lib.optionalString stdenv.hostPlatform.isDarwin "EasyRPG Player";
   };

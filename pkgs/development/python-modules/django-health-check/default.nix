@@ -15,7 +15,6 @@
   setuptools-scm,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "django-health-check";
   version = "3.18.3";
@@ -28,14 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-+6+YxB/x4JdKUCwxxe+YIc+r1YAzngFUHiS6atupWM8=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   buildInputs = [
     sphinx
     django
   ];
 
-  nativeBuildInputs = [ gitMinimal ];
+  nativeBuildInputs = [gitMinimal];
 
   nativeCheckInputs = [
     boto3
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "test_command_with_non_existence_subset"
   ];
 
-  pythonImportsCheck = [ "health_check" ];
+  pythonImportsCheck = ["health_check"];
 
   meta = with lib; {
     description = "Pluggable app that runs a full check on the deployment";
     homepage = "https://github.com/KristianOellegaard/django-health-check";
     changelog = "https://github.com/revsys/django-health-check/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

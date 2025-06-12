@@ -15,14 +15,13 @@
   curl,
   gettext,
   writeShellScriptBin,
-
-  data ? fetchsvn {
-    url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
-    rev = "1446";
-    sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
-  },
-}:
-let
+  data ?
+    fetchsvn {
+      url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
+      rev = "1446";
+      sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
+    },
+}: let
   version = "unstable-2021-09-05";
   bin = stdenv.mkDerivation {
     pname = "vdrift";
@@ -75,21 +74,23 @@ let
       mainProgram = "vdrift";
       homepage = "https://vdrift.net/";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ ];
+      maintainers = [];
       platforms = lib.platforms.linux;
     };
   };
   wrappedName = "vdrift-${version}-with-data-${toString data.rev}";
 in
-(writeShellScriptBin "vdrift" ''
-  export VDRIFT_DATA_DIRECTORY="${data}"
-  exec ${bin}/bin/vdrift "$@"
-'').overrideAttrs
+  (writeShellScriptBin "vdrift" ''
+    export VDRIFT_DATA_DIRECTORY="${data}"
+    exec ${bin}/bin/vdrift "$@"
+  '').overrideAttrs
   (_: {
     name = wrappedName;
-    meta = bin.meta // {
-      hydraPlatforms = [ ];
-    };
+    meta =
+      bin.meta
+      // {
+        hydraPlatforms = [];
+      };
     unwrapped = bin;
     inherit bin data;
   })

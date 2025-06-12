@@ -3,35 +3,29 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   ninja,
   pybind11,
   setuptools,
-
   # buildInputs
   SDL2,
   opencv,
   zlib,
-
   # dependencies
   importlib-resources,
   numpy,
   typing-extensions,
   jax,
-
   # tests
   gymnasium,
   opencv-python,
   pytestCheckHook,
-
   # Whether to enable recently added vector environments:
   # https://github.com/Farama-Foundation/Arcade-Learning-Environment/blob/v0.11.0/docs/vector-environment.md
   # FIXME: Disabled by default as it mysteriously causes stable-baselines3's tests to hang indefinitely.
   withVectorEnv ? false,
 }:
-
 buildPythonPackage rec {
   pname = "ale-py";
   version = "0.11.1";
@@ -88,7 +82,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "ale_py" ];
+  pythonImportsCheck = ["ale_py"];
 
   doCheck = false;
 
@@ -121,7 +115,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mgbellemare/Arcade-Learning-Environment";
     changelog = "https://github.com/Farama-Foundation/Arcade-Learning-Environment/releases/tag/v${version}";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ billhuang ];
+    maintainers = with lib.maintainers; [billhuang];
     badPlatforms = [
       # FAILED: src/ale/libale.a
       # /bin/sh: CMAKE_CXX_COMPILER_AR-NOTFOUND: command not found

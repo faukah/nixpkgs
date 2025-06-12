@@ -17,17 +17,17 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-UoWK53B1DNmKwNLFwJW1ZEm9dwMOvQeO03+RoMl6M0Q=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  nativeBuildInputs = with python3Packages; [setuptools];
 
-  propagatedBuildInputs = [ slurp ];
+  propagatedBuildInputs = [slurp];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/tmccombs/swaytools";
     description = "Collection of simple tools for sway (and i3)";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ atila ];
+    maintainers = with lib.maintainers; [atila];
     platforms = lib.platforms.linux;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chsrc";
   version = "0.2.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yZjza4BSgRCOwc719iNdG17WVuLPUBJjZb6Yz4FsTcA=";
   };
 
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Plus
       mit
     ];
-    maintainers = with lib.maintainers; [ cryo ];
+    maintainers = with lib.maintainers; [cryo];
     platforms = lib.platforms.all;
     mainProgram = "chsrc";
   };

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkIf
@@ -16,8 +15,7 @@ let
     ;
 
   cfg = config.services.meme-bingo-web;
-in
-{
+in {
   options = {
     services.meme-bingo-web = {
       enable = mkEnableOption ''
@@ -26,7 +24,7 @@ in
         Note: The application's author suppose to run meme-bingo-web behind a reverse proxy for SSL and HTTP/3
       '';
 
-      package = mkPackageOption pkgs "meme-bingo-web" { };
+      package = mkPackageOption pkgs "meme-bingo-web" {};
 
       baseUrl = mkOption {
         description = ''
@@ -59,18 +57,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     systemd.services.meme-bingo-web = {
       description = "A web app for playing meme bingos";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         MEME_BINGO_BASE = cfg.baseUrl;
         MEME_BINGO_ADDRESS = cfg.address;
         MEME_BINGO_PORT = toString cfg.port;
       };
-      path = [ cfg.package ];
+      path = [cfg.package];
 
       serviceConfig = {
         User = "meme-bingo-web";
@@ -84,8 +82,8 @@ in
         RestartSec = 1;
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "/dev/random" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = ["/dev/random"];
         InaccessiblePaths = [
           "/dev/shm"
           "/sys"
@@ -127,8 +125,8 @@ in
         RemoveIPC = true;
         NoNewPrivileges = true;
         MemoryDenyWriteExecute = true;
-        ExecPaths = [ "/nix/store" ];
-        NoExecPaths = [ "/" ];
+        ExecPaths = ["/nix/store"];
+        NoExecPaths = ["/"];
       };
     };
   };

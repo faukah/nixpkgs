@@ -27,7 +27,7 @@ buildGoModule rec {
 
   # gonvml and go-dcgm do not work with ELF BIND_NOW hardening because not all
   # symbols are available on startup.
-  hardeningDisable = [ "bindnow" ];
+  hardeningDisable = ["bindnow"];
 
   vendorHash = "sha256-b7GyPsmSGHx7hK0pDa88FKA+ZKJES2cdAGjT2aAfX/A=";
 
@@ -46,7 +46,7 @@ buildGoModule rec {
     description = "NVIDIA GPU metrics exporter for Prometheus leveraging DCGM";
     homepage = "https://github.com/NVIDIA/dcgm-exporter";
     license = licenses.asl20;
-    teams = [ teams.deshaw ];
+    teams = [teams.deshaw];
     mainProgram = "dcgm-exporter";
     platforms = platforms.linux;
   };

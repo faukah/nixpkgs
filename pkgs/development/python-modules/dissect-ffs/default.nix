@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-ffs";
   version = "3.11";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.ffs" ];
+  pythonImportsCheck = ["dissect.ffs"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the FFS file system";
     homepage = "https://github.com/fox-it/dissect.ffs";
     changelog = "https://github.com/fox-it/dissect.ffs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

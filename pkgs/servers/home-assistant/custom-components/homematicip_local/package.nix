@@ -5,7 +5,6 @@
   hahomematic,
   home-assistant,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "SukramJ";
   domain = "homematicip_local";
@@ -33,7 +32,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/SukramJ/custom_homematic/blob/${src.tag}/changelog.md";
     description = "Custom Home Assistant Component for HomeMatic";
     homepage = "https://github.com/SukramJ/custom_homematic";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     license = lib.licenses.mit;
   };
 }

@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   imports = [
     ../profiles/docker-container.nix # FIXME, shouldn't include something from profiles/
   ];
@@ -16,7 +14,6 @@
   # Socket activated ssh presents problem in Docker.
   services.openssh.startWhenNeeded = false;
 }
-
 # Example usage:
 #
 ## default.nix
@@ -54,3 +51,4 @@
 # $ docker run --privileged -it nixos-docker /init
 # Log into the container
 # $ docker exec -it <container-name> /run/current-system/sw/bin/bash
+

@@ -8,7 +8,6 @@
   elastix,
   itk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "simpleitk";
   version = "2.5.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.simpleitk.org";
     description = "Simplified interface to ITK";
     changelog = "https://github.com/SimpleITK/SimpleITK/releases/tag/v${finalAttrs.version}";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.linux;
     license = licenses.asl20;
   };

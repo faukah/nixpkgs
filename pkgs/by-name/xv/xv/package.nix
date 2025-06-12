@@ -9,7 +9,6 @@
   libtiff,
   jasper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xv";
   version = "6.0.3";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-508P88Kac1W0xwjNblOjkYJri36ReZkjzrNzrrSBZjg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     xorg.libX11
     xorg.libXt
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
       url = "https://github.com/jasper-software/xv/blob/main/src/README";
       free = false;
     };
-    maintainers = with lib.maintainers; [ galen ];
+    maintainers = with lib.maintainers; [galen];
   };
 }

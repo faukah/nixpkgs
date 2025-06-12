@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "pisces";
   version = "0.7.0";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "Paired symbols in the command line";
     homepage = "https://github.com/laughedelic/pisces";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ vanilla ];
+    maintainers = with maintainers; [vanilla];
   };
 }

@@ -9,7 +9,6 @@
   xorg,
   qt6Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qt6platform-plugins";
   version = "6.0.33";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/qt6platform-plugins";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitea,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "harmonist";
   version = "0.6.1";
@@ -36,6 +35,6 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://harmonist.tuxfamily.org/";
     license = lib.licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

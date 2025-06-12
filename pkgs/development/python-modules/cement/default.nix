@@ -18,7 +18,6 @@
   tabulate,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "cement";
   version = "3.0.14";
@@ -33,32 +32,34 @@ buildPythonPackage rec {
     hash = "sha256-hZ9kKQmMomjy5nnHKQ2RWB+6vIID8XMn3qutg0wCBq8=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   optional-dependencies = {
-    colorlog = [ colorlog ];
-    jinja2 = [ jinja2 ];
-    mustache = [ pystache ];
-    generate = [ pyyaml ];
-    redis = [ redis ];
-    memcached = [ pylibmc ];
-    tabulate = [ tabulate ];
-    watchdog = [ watchdog ];
-    yaml = [ pyyaml ];
+    colorlog = [colorlog];
+    jinja2 = [jinja2];
+    mustache = [pystache];
+    generate = [pyyaml];
+    redis = [redis];
+    memcached = [pylibmc];
+    tabulate = [tabulate];
+    watchdog = [watchdog];
+    yaml = [pyyaml];
     cli = [
       jinja2
       pyyaml
     ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytest-cov-stub
-    pytestCheckHook
-    requests
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytest-cov-stub
+      pytestCheckHook
+      requests
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "cement" ];
+  pythonImportsCheck = ["cement"];
 
   # Tests are failing on Darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -80,7 +81,7 @@ buildPythonPackage rec {
     homepage = "https://builtoncement.com/";
     changelog = "https://github.com/datafolklabs/cement/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ eqyiel ];
+    maintainers = with maintainers; [eqyiel];
     mainProgram = "cement";
   };
 }

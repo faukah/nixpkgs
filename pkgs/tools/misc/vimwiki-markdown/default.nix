@@ -5,7 +5,6 @@
   markdown,
   pygments,
 }:
-
 buildPythonApplication rec {
   version = "0.4.1";
   pname = "vimwiki-markdown";
@@ -24,7 +23,7 @@ buildPythonApplication rec {
     description = "Vimwiki markdown plugin";
     homepage = "https://github.com/WnP/vimwiki_markdown";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     mainProgram = "vimwiki_markdown";
   };
 }

@@ -7,7 +7,6 @@
   openssl,
   python3Packages,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mitm-cache";
   version = "0.1.2";
@@ -27,13 +26,13 @@ rustPlatform.buildRustPackage rec {
     ephemeral_port_reserve = python3Packages.ephemeral-port-reserve;
   };
 
-  passthru.fetch = callPackage ./fetch.nix { };
+  passthru.fetch = callPackage ./fetch.nix {};
 
   meta = with lib; {
     description = "MITM caching proxy for use in nixpkgs";
     homepage = "https://github.com/chayleaf/mitm-cache#readme";
     license = licenses.mit;
-    maintainers = with maintainers; [ chayleaf ];
+    maintainers = with maintainers; [chayleaf];
     mainProgram = "mitm-cache";
   };
 }

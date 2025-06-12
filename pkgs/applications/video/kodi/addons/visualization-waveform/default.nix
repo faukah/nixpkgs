@@ -7,7 +7,6 @@
   glm,
   libGL,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "visualization-waveform";
   namespace = "visualization.waveform";
@@ -25,12 +24,12 @@ buildKodiBinaryAddon rec {
     libGL
   ];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
   meta = with lib; {
     homepage = "https://github.com/xbmc/visualization.waveform";
     description = "Waveform visualization for kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

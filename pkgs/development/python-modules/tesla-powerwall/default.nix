@@ -10,7 +10,6 @@
   aresponses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tesla-powerwall";
   version = "0.5.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-cAsJKFM0i0e7w2T4HP4a5ybJGuDvBAGCGmPEKFzNFAY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -43,15 +42,15 @@ buildPythonPackage rec {
     "test_parse_endpoint"
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "tesla_powerwall" ];
+  pythonImportsCheck = ["tesla_powerwall"];
 
   meta = with lib; {
     description = "API for Tesla Powerwall";
     homepage = "https://github.com/jrester/tesla_powerwall";
     changelog = "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

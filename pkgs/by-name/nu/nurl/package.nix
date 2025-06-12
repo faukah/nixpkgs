@@ -8,7 +8,6 @@
   mercurial,
   nixForLinking,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nurl";
   version = "0.3.13";
@@ -34,12 +33,12 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     wrapProgram $out/bin/nurl \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gitMinimal
-          mercurial
-          nixForLinking
-        ]
-      }
+      lib.makeBinPath [
+        gitMinimal
+        mercurial
+        nixForLinking
+      ]
+    }
     installManPage artifacts/nurl.1
     installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
   '';
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/nurl";
     changelog = "https://github.com/nix-community/nurl/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "nurl";
   };
 }

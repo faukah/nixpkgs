@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "rars";
   version = "1.6";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -32,9 +31,9 @@ stdenvNoCC.mkDerivation rec {
     description = "RISC-V Assembler and Runtime Simulator";
     mainProgram = "rars";
     homepage = "https://github.com/TheThirdOne/rars";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ athas ];
+    maintainers = with maintainers; [athas];
     platforms = platforms.all;
   };
 }

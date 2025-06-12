@@ -10,7 +10,6 @@
   copyDesktopItems,
   tmx2lua,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hawkthorne-journey";
   version = "1.1.0";
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://projecthawkthorne.com";
     changelog = "https://github.com/hawkthorne/hawkthorne-journey/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "hawkthorne";
   };
 })

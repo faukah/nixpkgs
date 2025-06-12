@@ -13,7 +13,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildNpmPackage rec {
   pname = "basedpyright";
   version = "1.29.2";
@@ -39,7 +38,7 @@ buildNpmPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   postInstall = ''
     mv "$out/bin/pyright" "$out/bin/basedpyright"
@@ -48,12 +47,12 @@ buildNpmPackage rec {
     find -L $out -type l -print -delete
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       # We are expecting 4 errors. Any other amount would indicate not working
       # stub files, for instance.
@@ -64,33 +63,33 @@ buildNpmPackage rec {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [
-                jq
-                basedpyright
-              ];
-              base = writeText "test.py" ''
-                import sys
-                from time import tzset
+          {
+            nativeBuildInputs = [
+              jq
+              basedpyright
+            ];
+            base = writeText "test.py" ''
+              import sys
+              from time import tzset
 
-                def print_string(a_string: str):
-                    a_string += 42
-                    print(a_string)
+              def print_string(a_string: str):
+                  a_string += 42
+                  print(a_string)
 
-                if sys.platform == "win32":
-                    print_string(69)
-                    this_function_does_not_exist("nice!")
-                else:
-                    result_of_tzset_is_None: str = tzset()
-              '';
-              configFile = writeText "pyproject.toml" ''
-                [tool.pyright]
-                typeCheckingMode = "strict"
-              '';
-            }
-            ''
-              (basedpyright --outputjson $base || true) | jq -r .summary.errorCount > $out
+              if sys.platform == "win32":
+                  print_string(69)
+                  this_function_does_not_exist("nice!")
+              else:
+                  result_of_tzset_is_None: str = tzset()
             '';
+            configFile = writeText "pyproject.toml" ''
+              [tool.pyright]
+              typeCheckingMode = "strict"
+            '';
+          }
+          ''
+            (basedpyright --outputjson $base || true) | jq -r .summary.errorCount > $out
+          '';
       };
     };
   };

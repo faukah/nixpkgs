@@ -3,14 +3,12 @@
   stdenv,
   fetchurl,
   autoreconfHook,
-
   # for passthru.tests
   git,
   libguestfs,
   nixosTests,
   rpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpio";
   version = "2.15";
@@ -20,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-k3YQuXwymh7JJoVT+3gAN7z/8Nz/6XJevE/ZwaqQdds=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   separateDebugInfo = true;
 

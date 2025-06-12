@@ -6,7 +6,6 @@
   makeWrapper,
   electron,
 }:
-
 stdenv.mkDerivation rec {
   pname = "headset";
   version = "4.2.1";
@@ -41,8 +40,8 @@ stdenv.mkDerivation rec {
     description = "Simple music player for YouTube and Reddit";
     homepage = "https://headsetapp.co/";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ muscaln ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [muscaln];
     mainProgram = "headset";
   };
 }

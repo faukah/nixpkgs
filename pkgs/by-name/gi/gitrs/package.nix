@@ -8,7 +8,6 @@
   rustPlatform,
   libz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gitrs";
   version = "v0.3.6";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl.dev ]
+    [openssl.dev]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
       libz
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple, opinionated, tool, written in Rust, for declaratively managing Git repos on your machine";
     homepage = "https://github.com/mccurdyc/gitrs";
     license = licenses.mit;
-    maintainers = with maintainers; [ mccurdyc ];
+    maintainers = with maintainers; [mccurdyc];
     mainProgram = "gitrs";
   };
 }

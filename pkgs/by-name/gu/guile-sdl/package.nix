@@ -11,7 +11,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-sdl";
   version = "0.6.1";
@@ -40,16 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
     guile
   ];
 
-  makeFlags =
-    let
-      sdl-env = buildEnv {
-        name = "sdl-env";
-        paths = finalAttrs.buildInputs;
-      };
-    in
-    [
-      "SDLMINUSI=-I${sdl-env}/include/SDL"
-    ];
+  makeFlags = let
+    sdl-env = buildEnv {
+      name = "sdl-env";
+      paths = finalAttrs.buildInputs;
+    };
+  in [
+    "SDLMINUSI=-I${sdl-env}/include/SDL"
+  ];
 
   strictDeps = true;
 
@@ -59,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gnu.org/software/guile-sdl/";
     description = "Guile bindings for SDL";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     inherit (guile.meta) platforms;
   };
 })

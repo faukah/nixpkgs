@@ -7,7 +7,6 @@
   curl,
   ruby,
 }:
-
 stdenv.mkDerivation rec {
   pname = "leatherman";
   version = "1.12.13";
@@ -19,11 +18,11 @@ stdenv.mkDerivation rec {
     owner = "puppetlabs";
   };
 
-  cmakeFlags = [ "-DLEATHERMAN_ENABLE_TESTING=OFF" ];
+  cmakeFlags = ["-DLEATHERMAN_ENABLE_TESTING=OFF"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     curl
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/puppetlabs/leatherman/";
     description = "Collection of C++ and CMake utility libraries";
     license = licenses.asl20;
-    maintainers = [ maintainers.womfoo ];
+    maintainers = [maintainers.womfoo];
     platforms = platforms.unix;
   };
-
 }

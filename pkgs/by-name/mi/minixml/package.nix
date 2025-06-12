@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mxml";
   version = "3.3.1";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.msweet.org/mxml/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

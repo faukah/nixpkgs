@@ -11,7 +11,6 @@
   libsixel,
   mpv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "youtube-tui";
   version = "0.8.3";
@@ -42,14 +41,14 @@ rustPlatform.buildRustPackage rec {
   # sixel-sys is dynamically linked to libsixel
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     wrapProgram $out/bin/youtube-tui \
-      --prefix DYLD_LIBRARY_PATH : "${lib.makeLibraryPath [ libsixel ]}"
+      --prefix DYLD_LIBRARY_PATH : "${lib.makeLibraryPath [libsixel]}"
   '';
 
   meta = with lib; {
     description = "Aesthetically pleasing YouTube TUI written in Rust";
     homepage = "https://siriusmart.github.io/youtube-tui";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Ruixi-rebirth ];
+    maintainers = with maintainers; [Ruixi-rebirth];
     mainProgram = "youtube-tui";
   };
 }

@@ -23,7 +23,6 @@
   gnuradioOlder,
   gnuradioAtLeast,
 }:
-
 mkDerivation {
   pname = "gr-fosphor";
   version = "unstable-2024-03-23";
@@ -87,7 +86,7 @@ mkDerivation {
     '';
     homepage = "https://projects.osmocom.org/projects/sdr/wiki/Fosphor";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-d2";
   version = "0.3.4";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/danieleades/mdbook-d2";
     changelog = "https://github.com/danieleades/mdbook-d2/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

@@ -8,7 +8,6 @@
   pythonOlder,
   pyjwt,
 }:
-
 buildPythonPackage rec {
   pname = "apple-weatherkit";
   version = "1.1.3";
@@ -23,24 +22,26 @@ buildPythonPackage rec {
     hash = "sha256-JvN8GmlTxz9VGttIFVG6q//c+BhP2pt1tBOhnJhNwJg=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    aiohttp
-    aiohttp-retry
-    pyjwt
-  ] ++ pyjwt.optional-dependencies.crypto;
+  dependencies =
+    [
+      aiohttp
+      aiohttp-retry
+      pyjwt
+    ]
+    ++ pyjwt.optional-dependencies.crypto;
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "apple_weatherkit" ];
+  pythonImportsCheck = ["apple_weatherkit"];
 
   meta = with lib; {
     description = "Python library for Apple WeatherKit";
     homepage = "https://github.com/tjhorner/python-weatherkit";
     changelog = "https://github.com/tjhorner/python-weatherkit/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

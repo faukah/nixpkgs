@@ -4,7 +4,6 @@
   fetchFromGitea,
   runtimeShell,
 }:
-
 stdenv.mkDerivation {
   pname = "ngn-k";
   version = "0-unstable-2025-01-04";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  makeFlags = [ "-e" ];
+  makeFlags = ["-e"];
   buildFlags = [
     "k"
     "libk.so"
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
     description = "Simple fast vector programming language";
     homepage = "https://codeberg.org/ngn/k";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     platforms = [
       "x86_64-linux"
       "x86_64-freebsd"

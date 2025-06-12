@@ -7,30 +7,29 @@
   gemConfig,
   makeBinaryWrapper,
 }:
-
 /*
-  Example usage:
-  nix-shell -E "(import <nixpkgs> {}).ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"
+Example usage:
+nix-shell -E "(import <nixpkgs> {}).ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"
 
-  You can also use this for writing ruby scripts that run anywhere that has nix
-  using a nix-shell shebang:
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i ruby -p "ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"
+You can also use this for writing ruby scripts that run anywhere that has nix
+using a nix-shell shebang:
+  #!/usr/bin/env nix-shell
+  #!nix-shell -i ruby -p "ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"
 
-  Run the following in the nixpkgs root directory to update the ruby-packages.nix:
-  ./maintainers/scripts/update-ruby-packages
+Run the following in the nixpkgs root directory to update the ruby-packages.nix:
+./maintainers/scripts/update-ruby-packages
 */
-
 let
-  functions = import ../bundled-common/functions.nix { inherit lib gemConfig; };
+  functions = import ../bundled-common/functions.nix {inherit lib gemConfig;};
 
-  buildGems =
-    gemset:
-    let
-      realGemset = if builtins.isAttrs gemset then gemset else import gemset;
-      builtGems = lib.mapAttrs (
-        name: initialAttrs:
-        let
+  buildGems = gemset: let
+    realGemset =
+      if builtins.isAttrs gemset
+      then gemset
+      else import gemset;
+    builtGems =
+      lib.mapAttrs (
+        name: initialAttrs: let
           attrs = functions.applyGemConfigs (
             {
               inherit ruby;
@@ -39,43 +38,41 @@ let
             // initialAttrs
           );
         in
-        buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
-      ) realGemset;
-    in
+          buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
+      )
+      realGemset;
+  in
     builtGems;
 
   gems = buildGems (import ../../../top-level/ruby-packages.nix);
 
-  withPackages =
-    selector:
-    let
-      selected = selector gems;
+  withPackages = selector: let
+    selected = selector gems;
 
-      gemEnv = buildEnv {
-        name = "ruby-gems";
-        paths = selected;
-        pathsToLink = [
-          "/lib"
-          "/bin"
-          "/nix-support"
-        ];
-      };
+    gemEnv = buildEnv {
+      name = "ruby-gems";
+      paths = selected;
+      pathsToLink = [
+        "/lib"
+        "/bin"
+        "/nix-support"
+      ];
+    };
 
-      wrappedRuby = stdenv.mkDerivation {
-        name = "wrapped-${ruby.name}";
-        nativeBuildInputs = [ makeBinaryWrapper ];
-        buildCommand = ''
-          mkdir -p $out/bin
-          for i in ${ruby}/bin/*; do
-            makeWrapper "$i" $out/bin/$(basename "$i") --set GEM_PATH ${gemEnv}/${ruby.gemPath}
-          done
-        '';
-      };
-
-    in
+    wrappedRuby = stdenv.mkDerivation {
+      name = "wrapped-${ruby.name}";
+      nativeBuildInputs = [makeBinaryWrapper];
+      buildCommand = ''
+        mkdir -p $out/bin
+        for i in ${ruby}/bin/*; do
+          makeWrapper "$i" $out/bin/$(basename "$i") --set GEM_PATH ${gemEnv}/${ruby.gemPath}
+        done
+      '';
+    };
+  in
     stdenv.mkDerivation {
       name = "${ruby.name}-with-packages";
-      nativeBuildInputs = [ makeBinaryWrapper ];
+      nativeBuildInputs = [makeBinaryWrapper];
       buildInputs = [
         selected
         ruby
@@ -97,8 +94,6 @@ let
         gems = selected;
       };
     };
-
-in
-{
+in {
   inherit withPackages gems buildGems;
 }

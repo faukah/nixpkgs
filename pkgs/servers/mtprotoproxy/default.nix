@@ -8,7 +8,6 @@
   uvloop,
   wrapPython,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mtprotoproxy";
   version = "1.1.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tQ6e1Y25V4qAqBvhhKdirSCYzeALfH+PhNtcHTuBurs=";
   };
 
-  nativeBuildInputs = [ wrapPython ];
+  nativeBuildInputs = [wrapPython];
   pythonPath = [
     pyaes
     pycrypto
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/alexbers/mtprotoproxy";
     platforms = python.meta.platforms;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "mtprotoproxy";
   };
 }

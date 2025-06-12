@@ -19,7 +19,6 @@
   openssl,
   xxHash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lms";
   version = "3.66.1";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "lms";
-    maintainers = with lib.maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [mksafavi];
   };
 }

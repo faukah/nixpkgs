@@ -5,17 +5,13 @@
   fetchFromGitHub,
   isPyPy,
   replaceVars,
-
   # build-system
   setuptools,
-
   # native dependencies
   libGL,
-
   # dependencies
   numpy,
   pillow,
-
   # optional-dependencies
   astropy,
   av,
@@ -23,12 +19,10 @@
   pillow-heif,
   psutil,
   tifffile,
-
   # tests
   pytestCheckHook,
   fsspec,
 }:
-
 buildPythonPackage rec {
   pname = "imageio";
   version = "2.37.0";
@@ -47,7 +41,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -55,24 +49,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    bsdf = [ ];
-    dicom = [ ];
-    feisem = [ ];
+    bsdf = [];
+    dicom = [];
+    feisem = [];
     ffmpeg = [
       imageio-ffmpeg
       psutil
     ];
-    fits = lib.optionals (!isPyPy) [ astropy ];
-    freeimage = [ ];
-    lytro = [ ];
-    numpy = [ ];
-    pillow = [ ];
-    simpleitk = [ ];
-    spe = [ ];
-    swf = [ ];
-    tifffile = [ tifffile ];
-    pyav = [ av ];
-    heif = [ pillow-heif ];
+    fits = lib.optionals (!isPyPy) [astropy];
+    freeimage = [];
+    lytro = [];
+    numpy = [];
+    pillow = [];
+    simpleitk = [];
+    spe = [];
+    swf = [];
+    tifffile = [tifffile];
+    pyav = [av];
+    heif = [pillow-heif];
   };
 
   nativeCheckInputs =
@@ -84,7 +78,7 @@ buildPythonPackage rec {
     ++ fsspec.optional-dependencies.github
     ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pytestFlagsArray = [ "-m 'not needs_internet'" ];
+  pytestFlagsArray = ["-m 'not needs_internet'"];
 
   preCheck = ''
     export IMAGEIO_USERDIR=$(mktemp -d)
@@ -96,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://imageio.readthedocs.io";
     changelog = "https://github.com/imageio/imageio/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

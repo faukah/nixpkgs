@@ -6,7 +6,6 @@
   installShellFiles,
   pandoc,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gobble";
   version = "1.3";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-DnIZTeRyxhmVK2uB21ScPiEyL4k9kAWfVoLNIAM9P68=";
 
-  buildInputs = [ xorg.libxcb ];
+  buildInputs = [xorg.libxcb];
   nativeBuildInputs = [
     pandoc
     installShellFiles
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "gobbles your terminal";
     homepage = "https://github.com/EmperorPenguin18/gobble";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ vuimuich ];
+    maintainers = with lib.maintainers; [vuimuich];
     platforms = lib.platforms.linux;
     mainProgram = "gobble";
   };

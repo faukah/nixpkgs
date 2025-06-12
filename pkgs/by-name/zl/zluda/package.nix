@@ -13,7 +13,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zluda";
   version = "4-unstable-2025-01-28";

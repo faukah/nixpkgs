@@ -8,7 +8,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-rerunfailures";
   version = "15.0";
@@ -21,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-LZrHuvWfTBOscwtH9vqA51XRugWB2kXOMLcvs1QrRHQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Pytest plugin to re-run tests to eliminate flaky failures";
     homepage = "https://github.com/pytest-dev/pytest-rerunfailures";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ das-g ];
+    maintainers = with maintainers; [das-g];
   };
 }

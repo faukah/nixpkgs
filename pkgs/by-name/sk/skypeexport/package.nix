@@ -6,7 +6,6 @@
   cmake,
   boost,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "skypeexport";
   version = "1.4.0";
@@ -35,8 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
         '.filename()'
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
 
   preConfigure = "cd src/SkypeExport/_gccbuild/linux";
   installPhase = "install -Dt $out/bin SkypeExport";
@@ -47,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Temptin/SkypeExport";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

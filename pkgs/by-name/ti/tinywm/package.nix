@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinywm";
   version = "1.1-unstable-2014-04-22";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-q2DEMTxIp/nwTBTGEZMHEAqQs99iJwQgimHS0YQj+eg=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   strictDeps = true;
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.publicDomain;
     mainProgram = "tinywm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

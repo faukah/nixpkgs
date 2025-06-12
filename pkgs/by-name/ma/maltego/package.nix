@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "maltego";
   version = "4.9.3";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper $out/share/maltego/bin/maltego $out/bin/maltego \
       --set JAVA_HOME ${jre} \
-      --prefix PATH : ${lib.makeBinPath [ jre ]}
+      --prefix PATH : ${lib.makeBinPath [jre]}
 
     runHook postInstall
   '';
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
       d3vil0p3r
     ];
     platforms = platforms.unix;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
   };
 })

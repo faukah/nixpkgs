@@ -2,28 +2,23 @@
   pkgs,
   makeTest,
   genTests,
-}:
-
-let
+}: let
   inherit (pkgs) lib;
 
-  makeTestFor =
-    package:
+  makeTestFor = package:
     makeTest {
       name = "postgresql_anonymizer-${package.name}";
       meta.maintainers = lib.teams.flyingcircus.members;
 
-      nodes.machine =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.pg-dump-anon ];
-          services.postgresql = {
-            inherit package;
-            enable = true;
-            extensions = ps: [ ps.anonymizer ];
-            settings.shared_preload_libraries = [ "anon" ];
-          };
+      nodes.machine = {pkgs, ...}: {
+        environment.systemPackages = [pkgs.pg-dump-anon];
+        services.postgresql = {
+          inherit package;
+          enable = true;
+          extensions = ps: [ps.anonymizer];
+          settings.shared_preload_libraries = ["anon"];
         };
+      };
 
       testScript = ''
         start_all()
@@ -34,14 +29,14 @@ let
             machine.succeed("sudo -u postgres psql --command 'create database demo'")
             machine.succeed(
                 "sudo -u postgres psql -d demo -f ${pkgs.writeText "init.sql" ''
-                  create extension anon cascade;
-                  select anon.init();
-                  create table player(id serial, name text, points int);
-                  insert into player(id,name,points) values (1,'Foo', 23);
-                  insert into player(id,name,points) values (2,'Bar',42);
-                  security label for anon on column player.name is 'MASKED WITH FUNCTION anon.fake_last_name();';
-                  security label for anon on column player.points is 'MASKED WITH VALUE NULL';
-                ''}"
+          create extension anon cascade;
+          select anon.init();
+          create table player(id serial, name text, points int);
+          insert into player(id,name,points) values (1,'Foo', 23);
+          insert into player(id,name,points) values (2,'Bar',42);
+          security label for anon on column player.name is 'MASKED WITH FUNCTION anon.fake_last_name();';
+          security label for anon on column player.points is 'MASKED WITH VALUE NULL';
+        ''}"
             )
 
         def get_player_table_contents():
@@ -107,7 +102,7 @@ let
       '';
     };
 in
-genTests {
-  inherit makeTestFor;
-  filter = _: p: !p.pkgs.anonymizer.meta.broken;
-}
+  genTests {
+    inherit makeTestFor;
+    filter = _: p: !p.pkgs.anonymizer.meta.broken;
+  }

@@ -19,7 +19,6 @@
   librsvg,
   libX11,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ulauncher";
   version = "5.15.7";
@@ -106,14 +105,14 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
      "''${gappsWrapperArgs[@]}"
-     --prefix PATH : "${lib.makeBinPath [ wmctrl ]}"
-     --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libX11 ]}"
+     --prefix PATH : "${lib.makeBinPath [wmctrl]}"
+     --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libX11]}"
      --prefix WEBKIT_DISABLE_COMPOSITING_MODE : "1"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

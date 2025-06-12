@@ -9,7 +9,6 @@
   cups,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.2.6";
   pname = "cups-pk-helper";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freedesktop.org/wiki/Software/cups-pk-helper/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

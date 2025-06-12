@@ -8,7 +8,6 @@
   scdoc,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poweralertd";
   version = "0.3.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~kennylevinsen/poweralertd";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thibautmarty ];
+    maintainers = with maintainers; [thibautmarty];
     mainProgram = "poweralertd";
   };
 }

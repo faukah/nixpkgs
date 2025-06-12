@@ -1,39 +1,34 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "samba";
 
-  meta.maintainers = [ lib.maintainers.anthonyroussel ];
+  meta.maintainers = [lib.maintainers.anthonyroussel];
 
   nodes = {
-    client =
-      { ... }:
-      {
-        virtualisation.fileSystems = {
-          "/public" = {
-            fsType = "cifs";
-            device = "//server/public";
-            options = [ "guest" ];
-          };
+    client = {...}: {
+      virtualisation.fileSystems = {
+        "/public" = {
+          fsType = "cifs";
+          device = "//server/public";
+          options = ["guest"];
         };
       };
+    };
 
-    server =
-      { ... }:
-      {
-        services.samba = {
-          enable = true;
-          openFirewall = true;
-          settings = {
-            "public" = {
-              "path" = "/public";
-              "read only" = true;
-              "browseable" = "yes";
-              "guest ok" = "yes";
-              "comment" = "Public samba share.";
-            };
+    server = {...}: {
+      services.samba = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          "public" = {
+            "path" = "/public";
+            "read only" = true;
+            "browseable" = "yes";
+            "guest ok" = "yes";
+            "comment" = "Public samba share.";
           };
         };
       };
+    };
   };
 
   testScript = ''

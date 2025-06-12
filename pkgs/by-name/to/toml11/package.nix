@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "toml11";
   version = "3.7.1";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
         and Windows.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix ++ platforms.windows;
   };
 })

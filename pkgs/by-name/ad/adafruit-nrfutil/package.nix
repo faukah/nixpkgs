@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "adafruit-nrfutil";
   version = "0.5.3.post17";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     click
@@ -60,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "adafruit-nrfutil";
     # https://github.com/adafruit/Adafruit_nRF52_nrfutil/issues/41
     license = lib.licenses.unfreeRedistributable;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
   };
 }

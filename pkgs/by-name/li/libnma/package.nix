@@ -26,7 +26,6 @@
   _experimental-update-script-combinators,
   makeHardcodeGsettingsPatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnma";
   version = "1.10.6";
@@ -100,14 +99,13 @@ stdenv.mkDerivation rec {
       };
       inherit src;
     };
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "libnma";
-          versionPolicy = "odd-unstable";
-        };
-        updateGsettingsPatch = _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-      in
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "libnma";
+        versionPolicy = "odd-unstable";
+      };
+      updateGsettingsPatch = _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateGsettingsPatch
@@ -118,7 +116,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/libnma";
     description = "NetworkManager UI utilities (libnm version)";
     license = licenses.gpl2Plus; # Mix of GPL and LPGL 2+
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

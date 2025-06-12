@@ -16,7 +16,6 @@
   libgee,
   libhandy,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnonograms";
   version = "2.1.2";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
       * Generate random puzzles of chosen difficulty
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/jeremypw/gnonograms";
     platforms = platforms.all;
   };

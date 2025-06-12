@@ -22,7 +22,7 @@ vimUtils.buildVimPlugin rec {
     "rainbow-delimiters._test.highlight"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rainbow delimiters for Neovim with Tree-sitter";

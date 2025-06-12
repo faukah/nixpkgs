@@ -16,7 +16,6 @@
   unzip,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pianobooster";
   version = "1.0.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     qtWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ unzip ]}"
+      --prefix PATH : "${lib.makeBinPath [unzip]}"
     )
   '';
 
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pianobooster/PianoBooster";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

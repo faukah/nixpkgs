@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ copyDesktopItems ]
+    [copyDesktopItems]
     ++ (with libsForQt5.qt5; [
       qmake
       qttools
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       qtscript
     ]);
 
-  qmakeFlags = [ "./SQLiteStudio3" ];
+  qmakeFlags = ["./SQLiteStudio3"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       comment = "Database manager for SQLite";
       terminal = false;
       startupNotify = false;
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3;
     mainProgram = "sqlitestudio";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ asterismono ];
+    maintainers = with lib.maintainers; [asterismono];
   };
 }

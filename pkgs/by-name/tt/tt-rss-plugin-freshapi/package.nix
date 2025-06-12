@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "tt-rss-plugin-freshapi";
   version = "0-unstable-2024-11-14";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "FreshRSS / Google Reader API Plugin for Tiny-Tiny RSS";
     license = lib.licenses.agpl3Only;
     homepage = "https://github.com/eric-pierce/freshapi";
-    maintainers = with lib.maintainers; [ wrvsrx ];
+    maintainers = with lib.maintainers; [wrvsrx];
     platforms = lib.platforms.all;
   };
 }

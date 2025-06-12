@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "snitun";
   version = "0.40.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-wit0GVuWFMl1u+VC7Aw+dPcvqLGyviSz/DVUKXvSvAs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -74,14 +73,14 @@ buildPythonPackage rec {
       "test_init_dual_peer_with_multiplexer"
     ];
 
-  pythonImportsCheck = [ "snitun" ];
+  pythonImportsCheck = ["snitun"];
 
   meta = with lib; {
     description = "SNI proxy with TCP multiplexer";
     changelog = "https://github.com/NabuCasa/snitun/releases/tag/${src.tag}";
     homepage = "https://github.com/nabucasa/snitun";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
     platforms = platforms.linux;
   };
 }

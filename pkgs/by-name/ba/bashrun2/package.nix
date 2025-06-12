@@ -13,7 +13,6 @@
   xterm,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bashrun2";
   version = "0.2.6";
@@ -66,22 +65,22 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/bashrun2 \
       --prefix PATH : "$out/bin:${
-        lib.makeBinPath [
-          ncurses
-          coreutils
-          gnused
-          gnugrep
-          glibc
-          bashInteractive
-          xterm
-          util-linux
-        ]
-      }" \
+      lib.makeBinPath [
+        ncurses
+        coreutils
+        gnused
+        gnugrep
+        glibc
+        bashInteractive
+        xterm
+        util-linux
+      ]
+    }" \
       --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ dopplerian ];
+    maintainers = with lib.maintainers; [dopplerian];
     mainProgram = "bashrun2";
     homepage = "http://henning-liebenau.de/bashrun2/";
     license = lib.licenses.gpl2Plus;

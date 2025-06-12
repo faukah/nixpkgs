@@ -9,7 +9,6 @@
   perlPackages,
   gnuplot,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tsung";
   version = "1.8.0";
@@ -40,8 +39,8 @@ stdenv.mkDerivation rec {
 
     # Add Template Toolkit and gnuplot to tsung_stats.pl
     wrapProgram $out/bin/tsung_stats.pl \
-        --prefix PATH : ${lib.makeBinPath [ gnuplot ]} \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]}"
+        --prefix PATH : ${lib.makeBinPath [gnuplot]} \
+        --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.TemplateToolkit]}"
   '';
 
   meta = {
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
       AMQP, MQTT, LDAP and Jabber/XMPP servers.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ uskudnik ];
+    maintainers = with lib.maintainers; [uskudnik];
     platforms = lib.platforms.unix;
   };
 }

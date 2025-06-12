@@ -14,7 +14,6 @@
   setuptools,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "daphne";
   version = "4.1.2";
@@ -43,13 +42,15 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    asgiref
-    autobahn
-    twisted
-  ] ++ twisted.optional-dependencies.tls;
+  dependencies =
+    [
+      asgiref
+      autobahn
+      twisted
+    ]
+    ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     django
@@ -61,14 +62,14 @@ buildPythonPackage rec {
   # Most tests fail on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "daphne" ];
+  pythonImportsCheck = ["daphne"];
 
   meta = with lib; {
     description = "Django ASGI (HTTP/WebSocket) server";
     homepage = "https://github.com/django/daphne";
     changelog = "https://github.com/django/daphne/blob/${version}/CHANGELOG.txt";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "daphne";
   };
 }

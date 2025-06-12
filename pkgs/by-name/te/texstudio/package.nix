@@ -9,7 +9,6 @@
   zlib,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "texstudio";
   version = "4.8.7";

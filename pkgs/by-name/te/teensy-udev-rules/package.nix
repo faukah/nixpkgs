@@ -3,7 +3,6 @@
   stdenv,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   pname = "teensy-udev-rules";
   version = "2022-05-15";
@@ -13,7 +12,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  runtimeDeps = [ coreutils ];
+  runtimeDeps = [coreutils];
 
   installPhase = ''
     install -D $src $out/etc/udev/rules.d/70-teensy.rules
@@ -34,6 +33,6 @@ stdenv.mkDerivation {
     '';
     platforms = platforms.linux;
     license = licenses.unfree; # No license specified.
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
   };
 }

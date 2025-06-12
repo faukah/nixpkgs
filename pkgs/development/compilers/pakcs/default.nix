@@ -16,9 +16,7 @@
   gnutar,
   coreutils,
   sqlite,
-}:
-
-let
+}: let
   pname = "pakcs";
   version = "3.7.2";
 
@@ -32,13 +30,14 @@ let
   curry-frontend =
     (haskellPackages.override {
       overrides = self: super: {
-        curry-frontend = lib.pipe (super.callPackage ./curry-frontend.nix { }) [
+        curry-frontend = lib.pipe (super.callPackage ./curry-frontend.nix {}) [
           haskell.lib.doJailbreak
           (haskell.lib.compose.overrideCabal (drv: {
             inherit src;
             postUnpack = "sourceRoot+=/frontend";
           }))
-          (haskell.lib.compose.appendPatch
+          (
+            haskell.lib.compose.appendPatch
             # mtl 2.3 compatibility has been fixed upstream but it's not in
             # the release yet
             (
@@ -52,56 +51,55 @@ let
         ];
       };
     }).curry-frontend;
-
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  buildInputs = [ swi-prolog ];
-  nativeBuildInputs = [
-    which
-    makeWrapper
-  ];
+    buildInputs = [swi-prolog];
+    nativeBuildInputs = [
+      which
+      makeWrapper
+    ];
 
-  makeFlags = [
-    "CURRYFRONTEND=${curry-frontend}/bin/curry-frontend"
-    "DISTPKGINSTALL=yes"
-    # Not needed, just to make script pass
-    "CURRYTOOLSDIR=0"
-    "CURRYLIBSDIR=0"
-  ];
+    makeFlags = [
+      "CURRYFRONTEND=${curry-frontend}/bin/curry-frontend"
+      "DISTPKGINSTALL=yes"
+      # Not needed, just to make script pass
+      "CURRYTOOLSDIR=0"
+      "CURRYLIBSDIR=0"
+    ];
 
-  preConfigure = ''
-    for file in examples/test.sh             \
-                currytools/optimize/Makefile \
-                testsuite/test.sh            \
-                scripts/cleancurry.sh        \
-                scripts/compile-all-libs.sh; do
-        substituteInPlace $file --replace "/bin/rm" "rm"
-    done
-  '';
+    preConfigure = ''
+      for file in examples/test.sh             \
+                  currytools/optimize/Makefile \
+                  testsuite/test.sh            \
+                  scripts/cleancurry.sh        \
+                  scripts/compile-all-libs.sh; do
+          substituteInPlace $file --replace "/bin/rm" "rm"
+      done
+    '';
 
-  preBuild = ''
-    mkdir -p $out/pakcs
-    cp -r * $out/pakcs
-    cd $out/pakcs
-  '';
+    preBuild = ''
+      mkdir -p $out/pakcs
+      cp -r * $out/pakcs
+      cd $out/pakcs
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    ln -s $out/pakcs/bin $out
+      ln -s $out/pakcs/bin $out
 
-    mkdir -p $out/share/emacs/site-lisp
-    ln -s $out/pakcs/tools/emacs $out/share/emacs/site-lisp/curry-pakcs
+      mkdir -p $out/share/emacs/site-lisp
+      ln -s $out/pakcs/tools/emacs $out/share/emacs/site-lisp/curry-pakcs
 
-    wrapProgram $out/pakcs/bin/pakcs \
-      --prefix PATH ":" "${rlwrap}/bin" \
-      --prefix PATH ":" "${tk}/bin"
+      wrapProgram $out/pakcs/bin/pakcs \
+        --prefix PATH ":" "${rlwrap}/bin" \
+        --prefix PATH ":" "${tk}/bin"
 
-    # List of dependencies from currytools/cpm/src/CPM/Main.curry
-    wrapProgram $out/pakcs/bin/cypm \
-      --prefix PATH ":" "${
+      # List of dependencies from currytools/cpm/src/CPM/Main.curry
+      wrapProgram $out/pakcs/bin/cypm \
+        --prefix PATH ":" "${
         lib.makeBinPath [
           curl
           git
@@ -112,27 +110,27 @@ stdenv.mkDerivation {
         ]
       }"
 
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    homepage = "http://www.informatik.uni-kiel.de/~pakcs/";
-    description = "Implementation of the multi-paradigm declarative language Curry";
-    license = licenses.bsd3;
-
-    longDescription = ''
-      PAKCS is an implementation of the multi-paradigm declarative language
-      Curry jointly developed by the Portland State University, the Aachen
-      University of Technology, and the University of Kiel. Although this is
-      not a highly optimized implementation but based on a high-level
-      compilation of Curry programs into Prolog programs, it is not a toy
-      implementation but has been used for a variety of applications (e.g.,
-      graphical programming environments, an object-oriented front-end for
-      Curry, partial evaluators, database applications, HTML programming
-      with dynamic web pages, prototyping embedded systems).
+      runHook postInstall
     '';
 
-    maintainers = with maintainers; [ t4ccer ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      homepage = "http://www.informatik.uni-kiel.de/~pakcs/";
+      description = "Implementation of the multi-paradigm declarative language Curry";
+      license = licenses.bsd3;
+
+      longDescription = ''
+        PAKCS is an implementation of the multi-paradigm declarative language
+        Curry jointly developed by the Portland State University, the Aachen
+        University of Technology, and the University of Kiel. Although this is
+        not a highly optimized implementation but based on a high-level
+        compilation of Curry programs into Prolog programs, it is not a toy
+        implementation but has been used for a variety of applications (e.g.,
+        graphical programming environments, an object-oriented front-end for
+        Curry, partial evaluators, database applications, HTML programming
+        with dynamic web pages, prototyping embedded systems).
+      '';
+
+      maintainers = with maintainers; [t4ccer];
+      platforms = platforms.linux;
+    };
+  }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rshijack";
   version = "0.5.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "TCP connection hijacker";
     homepage = "https://github.com/kpcyrd/rshijack";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     platforms = platforms.unix;
     mainProgram = "rshijack";
   };

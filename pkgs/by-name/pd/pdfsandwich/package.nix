@@ -11,7 +11,6 @@
   tesseract,
   unpaper,
 }:
-
 stdenv.mkDerivation {
   version = "0.1.7";
   pname = "pdfsandwich";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     description = "OCR tool for scanned PDFs";
     homepage = "http://www.tobias-elze.de/pdfsandwich/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.rps ];
+    maintainers = [maintainers.rps];
     platforms = platforms.linux;
     mainProgram = "pdfsandwich";
   };

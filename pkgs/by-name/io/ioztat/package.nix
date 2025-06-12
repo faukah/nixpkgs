@@ -5,7 +5,6 @@
   installShellFiles,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ioztat";
   version = "2.0.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8svMijgVxSuquPFO2Q2HeqGLdMkwhiujS1DSxC/LRRk=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [installShellFiles];
+  buildInputs = [python3];
 
   prePatch = ''
     patchShebangs .
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd2;
     platforms = with platforms; linux ++ freebsd;
-    maintainers = with maintainers; [ numinit ];
+    maintainers = with maintainers; [numinit];
     mainProgram = "ioztat";
   };
 }

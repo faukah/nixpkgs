@@ -21,7 +21,6 @@
   wrapGAppsHook3,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "squeekboard";
   version = "1.43.1";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "Virtual keyboard supporting Wayland";
     homepage = "https://gitlab.gnome.org/World/Phosh/squeekboard";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.linux;
   };
 }

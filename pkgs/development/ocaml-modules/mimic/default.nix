@@ -11,7 +11,6 @@
   alcotest-lwt,
   bigstringaf,
 }:
-
 buildDunePackage rec {
   pname = "mimic";
   version = "0.0.9";
@@ -42,6 +41,6 @@ buildDunePackage rec {
     description = "Simple protocol dispatcher";
     license = licenses.isc;
     homepage = "https://github.com/mirage/ocaml-git";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

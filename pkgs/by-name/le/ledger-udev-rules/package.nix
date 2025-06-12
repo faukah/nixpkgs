@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "ledger-udev-rules";
   version = "0-unstable-2024-02-12";

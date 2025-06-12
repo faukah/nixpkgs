@@ -5,7 +5,6 @@
   fetchFromGitHub,
   gopass,
 }:
-
 buildGoModule rec {
   pname = "gopass-summon-provider";
   version = "1.15.16";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-FE4ZZjXOWx4swj5FMNN7keZjK2BHkGF0deegbZaBak0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/gopass-summon-provider \
-      --prefix PATH : "${lib.makeBinPath [ gopass ]}"
+      --prefix PATH : "${lib.makeBinPath [gopass]}"
   '';
 
   meta = with lib; {
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://github.com/gopasspw/gopass-summon-provider";
     changelog = "https://github.com/gopasspw/gopass-summon-provider/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "gopass-summon-provider";
   };
 }

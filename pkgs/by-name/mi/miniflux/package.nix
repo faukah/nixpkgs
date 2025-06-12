@@ -6,7 +6,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "miniflux";
   version = "2.2.9";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-6tgZdwr9g/VCnLUEmwAl8vzOzQu6SEGV9PhTp47eXds=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  checkFlags = [ "-skip=TestClient" ]; # skip client tests as they require network access
+  checkFlags = ["-skip=TestClient"]; # skip client tests as they require network access
 
   ldflags = [
     "-s"
@@ -37,7 +36,7 @@ buildGoModule rec {
 
   passthru = {
     tests = nixosTests.miniflux;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

@@ -22,7 +22,6 @@
   libfprint,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fprintd";
   version = "1.94.5";
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
   PKG_CONFIG_DBUS_1_DATADIR = "${placeholder "out"}/share";
 
   # FIXME: Ugly hack for tests to find libpam_wrapper.so
-  LIBRARY_PATH = lib.makeLibraryPath [ python3.pkgs.pypamtest ];
+  LIBRARY_PATH = lib.makeLibraryPath [python3.pkgs.pypamtest];
 
   mesonCheckFlags = [
     # PAM related checks are timing out
@@ -117,6 +116,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "D-Bus daemon that offers libfprint functionality over the D-Bus interprocess communication bus";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 })

@@ -6,7 +6,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpac";
   version = "2.4.0";

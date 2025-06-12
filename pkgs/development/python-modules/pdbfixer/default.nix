@@ -8,7 +8,6 @@
   openmm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pdbfixer";
   version = "1.10";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     openmm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -50,14 +49,14 @@ buildPythonPackage rec {
     "test_url"
   ];
 
-  pythonImportsCheck = [ "pdbfixer" ];
+  pythonImportsCheck = ["pdbfixer"];
 
   meta = with lib; {
     description = "PDBFixer fixes problems in PDB files";
     homepage = "https://github.com/openmm/pdbfixer";
     changelog = "https://github.com/openmm/pdbfixer/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "pdbfixer";
   };
 }

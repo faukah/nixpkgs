@@ -9,7 +9,6 @@
   scipy,
   rtree,
 }:
-
 buildPythonPackage rec {
   pname = "gerbonara";
   version = "1.4.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   format = "setuptools";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     click
@@ -38,18 +37,18 @@ buildPythonPackage rec {
                 "version='${version}',"
   '';
 
-  pythonImportsCheck = [ "gerbonara" ];
+  pythonImportsCheck = ["gerbonara"];
 
   # Test environment is exceptionally tricky to get set up, so skip for now.
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Pythonic library for reading/modifying/writing Gerber/Excellon/IPC-356 files";
     mainProgram = "gerbonara";
     homepage = "https://github.com/jaseg/gerbonara";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ wulfsta ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [wulfsta];
   };
 }

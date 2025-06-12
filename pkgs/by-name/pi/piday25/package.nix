@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "piday25";
   version = "0-unstable-2025-03-13";
@@ -30,13 +29,13 @@ rustPlatform.buildRustPackage {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=main" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch=main"];};
 
   meta = {
     description = "Multithreaded implementation of the Chudnovsky algorithm to calculate Pi";
     homepage = "https://github.com/elkasztano/piday25";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "piday25";
   };
 }

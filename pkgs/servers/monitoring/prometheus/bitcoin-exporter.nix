@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bitcoin-prometheus-exporter";
   version = "0.7.0";
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "bitcoind-monitor.py";
     homepage = "https://github.com/jvstein/bitcoin-prometheus-exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
     platforms = platforms.all;
   };
 }

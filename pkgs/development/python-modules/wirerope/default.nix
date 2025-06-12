@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "wirerope";
   version = "1.0.0";
@@ -21,24 +20,24 @@ buildPythonPackage rec {
     hash = "sha256-oojnv+2+nwL/TJhN+QZ5eiV6WGHC3SCxBQrCri0aHQc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  pythonImportsCheck = [ "wirerope" ];
+  pythonImportsCheck = ["wirerope"];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-cov-stub
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Wrappers for class callables";
     homepage = "https://github.com/youknowone/wirerope";
     changelog = "https://github.com/youknowone/wirerope/releases/tag/${version}";
     license = licenses.bsd2WithViews;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

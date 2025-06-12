@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "screeninfo";
   version = "0.8.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TEy4wff0eRRkX98yK9054d33Tm6G6qWrd9Iv+ITcFmA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace screeninfo/enumerators/xinerama.py \
@@ -36,20 +35,20 @@ buildPythonPackage rec {
       --replace 'load_library("Xrandr")' 'ctypes.cdll.LoadLibrary("${libXrandr}/lib/libXrandr.so")'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # We don't have a screen
     "tests/test_screeninfo.py"
   ];
 
-  pythonImportsCheck = [ "screeninfo" ];
+  pythonImportsCheck = ["screeninfo"];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Fetch location and size of physical screens";
     homepage = "https://github.com/rr-/screeninfo";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
   };
 }

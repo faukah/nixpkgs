@@ -13,7 +13,6 @@
   vulkan-loader,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencomposite";
   version = "1.0.1521";
@@ -55,13 +54,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Reimplementation of OpenVR, translating calls to OpenXR";
     homepage = "https://gitlab.com/znixian/OpenOVR";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [Scrumplex];
     # This can realistically only work on systems that support OpenXR Loader
     inherit (openxr-loader.meta) platforms;
   };

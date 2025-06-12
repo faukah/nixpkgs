@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "readability-cli";
   version = "2.4.5";
@@ -29,7 +28,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-9sN1TgyOjgGLQsAlnI/fVbez7Oy2r6QwfaUTKyLQRVc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontNpmBuild = true;
 
@@ -40,13 +39,13 @@ buildNpmPackage (finalAttrs: {
       --zsh <(SHELL=zsh $out/bin/readable --completion)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Firefox Reader Mode in your terminal - get useful text from a web page using Mozilla's Readability library";
     homepage = "https://gitlab.com/gardenappl/readability-cli";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ juliusfreudenberger ];
+    maintainers = with lib.maintainers; [juliusfreudenberger];
     mainProgram = "readable";
   };
 })

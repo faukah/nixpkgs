@@ -5,7 +5,6 @@
   m4,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtool";
   version = "1.5.26";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "029ggq5kri1gjn6nfqmgw4w920gyfzscjjxbsxxidal5zqsawd8w";
   };
 
-  nativeBuildInputs = [ m4 ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [m4];
+  buildInputs = [perl];
 
   # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
   # "fixed" path in generated files!

@@ -2,7 +2,6 @@
   lib,
   mkDerivation,
 }:
-
 mkDerivation {
   path = "gnu/lib/libexecinfo";
   extraPaths = [

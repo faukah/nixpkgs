@@ -29,9 +29,7 @@
   logs,
   mtime,
   lwt,
-}:
-
-let
+}: let
   mirage-crypto-rng-lwt = buildDunePackage rec {
     pname = "mirage-crypto-rng-lwt";
     version = "1.2.0";
@@ -49,43 +47,44 @@ let
     ];
   };
 in
+  buildDunePackage {
+    pname = "dream";
 
-buildDunePackage {
-  pname = "dream";
+    inherit (dream-pure) version src;
 
-  inherit (dream-pure) version src;
+    # Compatibility with httpun 0.2.0 and h2 0.13
+    patches = [./httpun.patch];
 
-  # Compatibility with httpun 0.2.0 and h2 0.13
-  patches = [ ./httpun.patch ];
+    buildInputs = [lwt_ppx];
 
-  buildInputs = [ lwt_ppx ];
+    propagatedBuildInputs = [
+      camlp-streams
+      caqti-lwt
+      cstruct
+      digestif
+      dream-httpaf
+      dream-pure
+      graphql-lwt
+      h2-lwt-unix
+      httpun-lwt-unix
+      httpun-ws
+      lambdasoup
+      lwt_ssl
+      magic-mime
+      markup
+      mirage-clock
+      mirage-crypto-rng
+      mirage-crypto-rng-lwt
+      multipart_form-lwt
+      ssl
+      unstrctrd
+      uri
+      yojson
+    ];
 
-  propagatedBuildInputs = [
-    camlp-streams
-    caqti-lwt
-    cstruct
-    digestif
-    dream-httpaf
-    dream-pure
-    graphql-lwt
-    h2-lwt-unix
-    httpun-lwt-unix
-    httpun-ws
-    lambdasoup
-    lwt_ssl
-    magic-mime
-    markup
-    mirage-clock
-    mirage-crypto-rng
-    mirage-crypto-rng-lwt
-    multipart_form-lwt
-    ssl
-    unstrctrd
-    uri
-    yojson
-  ];
-
-  meta = dream-pure.meta // {
-    description = "Tidy, feature-complete Web framework";
-  };
-}
+    meta =
+      dream-pure.meta
+      // {
+        description = "Tidy, feature-complete Web framework";
+      };
+  }

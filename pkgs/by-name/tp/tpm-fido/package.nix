@@ -4,7 +4,6 @@
   buildGoModule,
   pinentry-tty,
 }:
-
 buildGoModule {
   pname = "tpm-fido";
   version = "0-unstable-2024-10-30";
@@ -31,7 +30,7 @@ buildGoModule {
     description = "WebAuthn/U2F token protected by a TPM";
     homepage = "https://github.com/psanford/tpm-fido";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "tpm-fido";
   };
 }

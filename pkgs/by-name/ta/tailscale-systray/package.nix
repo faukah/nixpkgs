@@ -19,7 +19,7 @@ buildGoModule {
 
   vendorHash = "sha256-YJ74SeZAMS+dXyoPhPTJ3L+5uL5bF8gumhMOqfvmlms=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     libayatana-appindicator
@@ -31,7 +31,7 @@ buildGoModule {
     description = "Tailscale systray";
     homepage = "https://github.com/mattn/tailscale-systray";
     license = licenses.mit;
-    maintainers = with maintainers; [ qbit ];
+    maintainers = with maintainers; [qbit];
     mainProgram = "tailscale-systray";
   };
 }

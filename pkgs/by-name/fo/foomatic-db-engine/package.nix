@@ -15,7 +15,6 @@
   file,
   makeWrapper,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "foomatic-db-engine";
   version = "0-unstable-2024-02-10";
@@ -29,7 +28,7 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-qM12qtGotf9C0cjO9IkmzlW9GWCkT2Um+6dU3mZm3DU=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   propagatedBuildInputs = [
     perlPackages.Clone
@@ -38,7 +37,7 @@ perlPackages.buildPerlPackage rec {
   ];
 
   buildInputs =
-    [ curl ]
+    [curl]
     # provide some "cups-*" commands to `foomatic-{configure,printjob}`
     # so that they can manage a local cups server (add queues, add jobs...)
     ++ lib.optionals withCupsAccess [
@@ -93,7 +92,7 @@ perlPackages.buildPerlPackage rec {
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     longDescription = ''
       Foomatic's database engine generates PPD files
       from the data in Foomatic's XML database.

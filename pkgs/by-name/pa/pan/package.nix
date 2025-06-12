@@ -20,7 +20,6 @@
   libsecret,
   gcr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pan";
   version = "0.163";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       libnotify
       gnutls
     ]
-    ++ lib.optionals spellChecking [ gspell ]
+    ++ lib.optionals spellChecking [gspell]
     ++ lib.optionals gnomeSupport [
       libsecret
       gcr
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ gnupg ]})
+    gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [gnupg]})
   '';
 
   meta = {

@@ -8,7 +8,6 @@
   unzip,
   jdk8,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dirbuster";
   version = "1.0-RC1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "dirbuster";
       icon = "dirbuster";
       comment = "Web Application Brute Forcing";
-      categories = [ "Network" ];
+      categories = ["Network"];
     })
   ];
 
@@ -66,8 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://wiki.owasp.org/index.php/Category:OWASP_DirBuster_Project";
     license = lib.licenses.lgpl21Only;
     mainProgram = "dirbuster";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 })

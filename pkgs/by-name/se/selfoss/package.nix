@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "selfoss";
   version = "2.19";

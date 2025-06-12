@@ -13,7 +13,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "univers";
   version = "30.12.1";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
 
   dontConfigure = true; # ./configure tries to setup virtualenv and downloads dependencies
 
-  pythonImportsCheck = [ "univers" ];
+  pythonImportsCheck = ["univers"];
 
   disabledTests = [
     # No value for us

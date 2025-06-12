@@ -9,7 +9,6 @@
   twine,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "hatch-jupyter-builder";
   version = "0.9.1";
@@ -22,15 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-QDWHVdjtexUNGRL+dVehdBwahSW2HmNkZKkQyuOghyI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ hatchling ];
+  dependencies = [hatchling];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    twine
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeCheckInputs =
+    [
+      pytest-mock
+      pytestCheckHook
+      twine
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   disabledTests = [
     # tests pip install, which unsurprisingly fails
@@ -43,6 +44,6 @@ buildPythonPackage rec {
     mainProgram = "hatch-jupyter-builder";
     homepage = "https://github.com/jupyterlab/hatch-jupyter-builder";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

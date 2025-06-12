@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   numpy,
-
   # optional-dependencies
   ipython,
   jax,
   palettable,
-
   # tests
   absl-py,
   jaxlib,
@@ -22,7 +18,6 @@
   pytestCheckHook,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "treescope";
   version = "0.1.9";
@@ -35,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-rLrsG7psY3xkuvNtdRULiMWKzIiWZpJ7TVJhwTNGXRQ=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   optional-dependencies = {
     notebook = [
@@ -47,7 +42,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "treescope" ];
+  pythonImportsCheck = ["treescope"];
 
   nativeCheckInputs = [
     absl-py
@@ -64,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google-deepmind/treescope";
     changelog = "https://github.com/google-deepmind/treescope/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

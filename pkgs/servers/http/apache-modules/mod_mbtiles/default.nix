@@ -5,7 +5,6 @@
   apacheHttpd,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_mbtiles";
   version = "unstable-2022-05-25";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/systemed/mod_mbtiles";
     description = "Serve tiles with Apache directly from an .mbtiles file";
     license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

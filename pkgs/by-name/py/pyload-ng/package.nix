@@ -4,7 +4,6 @@
   nixosTests,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   version = "0.5.0b3.dev87";
   pname = "pyload-ng";
@@ -66,7 +65,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Free and open-source download manager with support for 1-click-hosting sites";
     homepage = "https://github.com/pyload/pyload";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ ruby0b ];
+    maintainers = with lib.maintainers; [ruby0b];
     mainProgram = "pyload";
   };
 }

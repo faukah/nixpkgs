@@ -8,7 +8,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "django-pwa";
   version = "2.0.1";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  pythonImportsCheck = [ "pwa" ];
+  pythonImportsCheck = ["pwa"];
 
   checkPhase = ''
     runHook preCheck
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/silviolleite/django-pwa";
     changelog = "https://github.com/silviolleite/django-pwa/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

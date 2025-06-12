@@ -4,7 +4,6 @@
   fetchFromGitHub,
   terraform,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "atmos";
   version = "1.178.0";
@@ -24,7 +23,7 @@ buildGoModule (finalAttrs: {
     "-X github.com/cloudposse/atmos/cmd.Version=v${finalAttrs.version}"
   ];
 
-  nativeCheckInputs = [ terraform ];
+  nativeCheckInputs = [terraform];
 
   preCheck = ''
     # Remove tests that depend on a network connection.
@@ -54,6 +53,6 @@ buildGoModule (finalAttrs: {
     description = "Universal Tool for DevOps and Cloud Automation (works with terraform, helm, helmfile, etc)";
     mainProgram = "atmos";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.cloudposse ];
+    teams = [lib.teams.cloudposse];
   };
 })

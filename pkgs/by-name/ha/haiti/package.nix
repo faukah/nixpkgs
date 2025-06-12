@@ -6,7 +6,6 @@
   stdenv,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "haiti";
   version = "3.0.0";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     changelog = "https://github.com/noraj/haiti/releases/tag/v${finalAttrs.version}";
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/noraj/haiti";
     license = lib.licenses.mit;
     mainProgram = "haiti";
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     platforms = lib.platforms.unix;
   };
 })

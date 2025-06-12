@@ -21,12 +21,11 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-zQpK13iudyWDZbpAN8zm9kKmz8qy3yt8JxT4lwq4YF0=";
 
   passthru = {
-    generate-config =
-      shell:
-      runCommand "nix-your-shell-config" { } ''
+    generate-config = shell:
+      runCommand "nix-your-shell-config" {} ''
         ${lib.getExe nix-your-shell} ${lib.escapeShellArg shell} >> "$out"
       '';
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "`nix` and `nix-shell` wrapper for shells other than `bash`";
     homepage = "https://github.com/MercuryTechnologies/nix-your-shell";
     changelog = "https://github.com/MercuryTechnologies/nix-your-shell/releases/tags/v${version}";
-    license = [ lib.licenses.mit ];
-    maintainers = with lib.maintainers; [ _9999years ];
+    license = [lib.licenses.mit];
+    maintainers = with lib.maintainers; [_9999years];
   };
 }

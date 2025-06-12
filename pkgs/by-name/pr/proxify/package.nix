@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "proxify";
   version = "0.0.15";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/proxify";
     changelog = "https://github.com/projectdiscovery/proxify/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

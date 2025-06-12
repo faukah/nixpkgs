@@ -9,7 +9,6 @@
   setuptools,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "beacontools";
   version = "2.1.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-3a/HDssOqIfReSijRvmiXwuZjvWLJfDaDyUdA2vv/jA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "ahocorapy"
@@ -34,10 +33,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    scan = lib.optionals stdenv.hostPlatform.isLinux [ pybluez ];
+    scan = lib.optionals stdenv.hostPlatform.isLinux [pybluez];
   };
 
-  pythonImportsCheck = [ "beacontools" ];
+  pythonImportsCheck = ["beacontools"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Python library for working with various types of Bluetooth LE Beacons";
     homepage = "https://github.com/citruz/beacontools";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

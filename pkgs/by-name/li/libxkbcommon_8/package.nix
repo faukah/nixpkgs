@@ -21,7 +21,6 @@
   wayland-scanner,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxkbcommon";
   version = "1.8.1";
@@ -44,15 +43,17 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    bison
-    doxygen
-    xorg.xvfb
-  ] ++ lib.optional withWaylandTools wayland-scanner;
+  depsBuildBuild = [pkg-config];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      bison
+      doxygen
+      xorg.xvfb
+    ]
+    ++ lib.optional withWaylandTools wayland-scanner;
   buildInputs =
     [
       xkeyboard_config
@@ -63,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
       wayland
       wayland-protocols
     ];
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   mesonFlags = [
     "-Dxkb-config-root=${xkeyboard_config}/etc/X11/xkb"

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "hcloud";
   version = "1.51.0";
@@ -24,9 +23,9 @@ buildGoModule rec {
     "-X=github.com/hetznercloud/cli/internal/version.Version=${version}"
   ];
 
-  subPackages = [ "cmd/hcloud" ];
+  subPackages = ["cmd/hcloud"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash fish zsh; do

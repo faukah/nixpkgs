@@ -11,7 +11,6 @@
   libyaml,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liblouis";
   version = "3.33.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
       "doc"
     ]
     # configure: WARNING: cannot generate manual pages while cross compiling
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "man" ];
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["man"];
 
   src = fetchFromGitHub {
     owner = "liblouis";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Plus # library
       gpl3Plus # tools
     ];
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 })

@@ -7,7 +7,6 @@
   gtk3,
   libthai,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-libthai";
   version = "0.1.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-egAxttjwuKiDoIuJluoOTJdotFZJe6ZOmJgdiFCAwx0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Thai input method engine for IBus";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

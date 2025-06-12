@@ -11,7 +11,6 @@
   scdoc,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "postprocessd";
   version = "0.3.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.sr.ht/~martijnbraam/postprocessd";
     changelog = "https://git.sr.ht/~martijnbraam/postprocessd/refs/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
     platforms = lib.platforms.linux;
     mainProgram = "postprocess-single";
   };

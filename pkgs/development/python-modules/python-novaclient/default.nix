@@ -19,7 +19,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "python-novaclient";
   version = "18.9.0";
@@ -39,9 +38,9 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     iso8601
@@ -71,13 +70,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "novaclient" ];
+  pythonImportsCheck = ["novaclient"];
 
   meta = with lib; {
     description = "Client library for OpenStack Compute API";
     mainProgram = "nova";
     homepage = "https://github.com/openstack/python-novaclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

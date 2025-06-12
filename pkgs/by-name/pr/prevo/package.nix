@@ -6,18 +6,17 @@
   prevo-data,
   makeWrapper,
 }:
-
 symlinkJoin rec {
   name = "prevo-${version}";
   inherit (prevo-tools) version;
 
-  paths = [ prevo-tools ];
+  paths = [prevo-tools];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/prevo \
-      --prefix PATH ":" "${lib.makeBinPath [ man ]}" \
+      --prefix PATH ":" "${lib.makeBinPath [man]}" \
       --suffix XDG_DATA_DIRS : "${prevo-data}/share" \
 
   '';

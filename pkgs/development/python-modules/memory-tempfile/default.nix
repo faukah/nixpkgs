@@ -5,7 +5,6 @@
   fetchpatch2,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "memory-tempfile";
   version = "2.2.3";
@@ -28,16 +27,16 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   doCheck = false; # constrained selection of memory backed filesystems due to build sandbox
 
-  pythonImportsCheck = [ "memory_tempfile" ];
+  pythonImportsCheck = ["memory_tempfile"];
 
   meta = with lib; {
     description = "Create temporary files and temporary dirs in memory-based filesystems on Linux";
     homepage = "https://github.com/mbello/memory-tempfile";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

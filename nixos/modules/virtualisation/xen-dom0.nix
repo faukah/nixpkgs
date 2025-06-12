@@ -1,22 +1,21 @@
 # Xen Project Hypervisor (Dom0) support.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (builtins) readFile;
   inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule mkIf;
-  inherit (lib.options)
+  inherit
+    (lib.options)
     mkOption
     mkEnableOption
     literalExpression
     mkPackageOption
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     listOf
     str
     ints
@@ -52,8 +51,7 @@ let
         jq
       ])
       ++ optionals (cfg.efi.bootBuilderVerbosity == "info") (
-        with pkgs;
-        [
+        with pkgs; [
           bat
           diffutils
         ]
@@ -63,15 +61,14 @@ let
     };
 
     # We disable SC2016 because we don't want to expand the regexes in the sed commands.
-    excludeShellChecks = [ "SC2016" ];
+    excludeShellChecks = ["SC2016"];
 
     text = readFile ./xen-boot-builder.sh;
   };
-in
-
-{
+in {
   imports = [
-    (mkRemovedOptionModule
+    (
+      mkRemovedOptionModule
       [
         "virtualisation"
         "xen"
@@ -80,7 +77,8 @@ in
       ]
       "The Xen Network Bridge options are currently unavailable. Please set up your own bridge manually."
     )
-    (mkRemovedOptionModule
+    (
+      mkRemovedOptionModule
       [
         "virtualisation"
         "xen"
@@ -89,7 +87,8 @@ in
       ]
       "The Xen Network Bridge options are currently unavailable. Please set up your own bridge manually."
     )
-    (mkRemovedOptionModule
+    (
+      mkRemovedOptionModule
       [
         "virtualisation"
         "xen"
@@ -98,7 +97,8 @@ in
       ]
       "The Xen Network Bridge options are currently unavailable. Please set up your own bridge manually."
     )
-    (mkRemovedOptionModule
+    (
+      mkRemovedOptionModule
       [
         "virtualisation"
         "xen"
@@ -107,7 +107,8 @@ in
       ]
       "The Xen Network Bridge options are currently unavailable. Please set up your own bridge manually."
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "virtualisation"
         "xen"
@@ -120,7 +121,8 @@ in
         "package"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "virtualisation"
         "xen"
@@ -133,7 +135,8 @@ in
         "package"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "virtualisation"
         "xen"
@@ -151,7 +154,6 @@ in
   ## Interface ##
 
   options.virtualisation.xen = {
-
     enable = mkEnableOption "the Xen Project Hypervisor, a virtualisation technology defined as a *type-1 hypervisor*, which allows multiple virtual machines, known as *domains*, to run concurrently on the physical machine. NixOS runs as the privileged *Domain 0*. This option requires a reboot into a Xen kernel to take effect";
 
     debug = mkEnableOption "Xen debug features for Domain 0. This option enables some hidden debugging tests and features, and should not be used in production";
@@ -164,11 +166,11 @@ in
       description = "Whether to enable Xen debug tracing and logging for Domain 0.";
     };
 
-    package = mkPackageOption pkgs "Xen Hypervisor" { default = [ "xen" ]; };
+    package = mkPackageOption pkgs "Xen Hypervisor" {default = ["xen"];};
 
     qemu = {
       package = mkPackageOption pkgs "QEMU (with Xen Hypervisor support)" {
-        default = [ "qemu_xen" ];
+        default = ["qemu_xen"];
       };
       pidFile = mkOption {
         type = path;
@@ -179,7 +181,7 @@ in
     };
 
     bootParams = mkOption {
-      default = [ ];
+      default = [];
       example = ''
         [
           "iommu=force:true,qinval:true,debug:true"
@@ -307,13 +309,16 @@ in
           "c"
           "ocaml"
         ];
-        default = if (hasSuffix "oxenstored" cfg.store.path) then "ocaml" else "c";
+        default =
+          if (hasSuffix "oxenstored" cfg.store.path)
+          then "ocaml"
+          else "c";
         internal = true;
         readOnly = true;
         description = "Helper internal option that determines the type of the Xen Store Daemon based on cfg.store.path.";
       };
       settings = mkOption {
-        default = { };
+        default = {};
         example = {
           enableMerge = false;
           quota.maxWatchEvents = 2048;
@@ -375,7 +380,7 @@ in
               maxHistorySeconds = mkOption {
                 default = 5.0e-2;
                 example = 1.0;
-                type = addCheck (float // { description = "nonnegative floating point number, meaning >=0"; }) (
+                type = addCheck (float // {description = "nonnegative floating point number, meaning >=0";}) (
                   n: n >= 0
                 );
                 description = ''
@@ -505,7 +510,10 @@ in
                   description = "Path to the Xen Store log file.";
                 };
                 level = mkOption {
-                  default = if cfg.trace then "debug" else null;
+                  default =
+                    if cfg.trace
+                    then "debug"
+                    else null;
                   defaultText = literalExpression "if (config.virtualisation.xen.trace == true) then \"debug\" else null";
                   example = "error";
                   type = nullOr (enum [
@@ -644,13 +652,12 @@ in
         "loglvl=all"
         "guest_loglvl=all"
       ]
-      ++
-        optional (cfg.dom0Resources.memory != 0)
-          "dom0_mem=${toString cfg.dom0Resources.memory}M${
-            optionalString (
-              cfg.dom0Resources.memory != cfg.dom0Resources.maxMemory
-            ) ",max:${toString cfg.dom0Resources.maxMemory}M"
-          }"
+      ++ optional (cfg.dom0Resources.memory != 0)
+      "dom0_mem=${toString cfg.dom0Resources.memory}M${
+        optionalString (
+          cfg.dom0Resources.memory != cfg.dom0Resources.maxMemory
+        ) ",max:${toString cfg.dom0Resources.maxMemory}M"
+      }"
       ++ optional (
         cfg.dom0Resources.maxVCPUs != 0
       ) "dom0_max_vcpus=${toString cfg.dom0Resources.maxVCPUs}";
@@ -682,7 +689,7 @@ in
       ];
 
       # The xenfs module is needed to mount /proc/xen.
-      initrd.kernelModules = [ "xenfs" ];
+      initrd.kernelModules = ["xenfs"];
 
       # Increase the number of loopback devices from the default (8),
       # which is way too small because every VM virtual disk requires a
@@ -779,10 +786,9 @@ in
             persistent = ${boolToString cfg.store.settings.persistent}
             xenstored-log-file = ${cfg.store.settings.xenstored.log.file}
             xenstored-log-level = ${
-              if isNull cfg.store.settings.xenstored.log.level then
-                "null"
-              else
-                cfg.store.settings.xenstored.log.level
+              if isNull cfg.store.settings.xenstored.log.level
+              then "null"
+              else cfg.store.settings.xenstored.log.level
             }
             xenstored-log-nb-files = ${toString cfg.store.settings.xenstored.log.nbFiles}
             access-log-file = ${cfg.store.settings.xenstored.accessLog.file}
@@ -797,11 +803,11 @@ in
     };
 
     # Xen provides udev rules.
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     systemd = {
       # Xen provides systemd units.
-      packages = [ cfg.package ];
+      packages = [cfg.package];
 
       mounts = [
         {
@@ -817,12 +823,11 @@ in
       ];
 
       services = {
-
         # While this service is installed by the `xen` package, it shouldn't be used in dom0.
         xendriverdomain.enable = false;
 
         xenstored = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           preStart = ''
             export XENSTORED_ROOTDIR="/var/lib/xenstored"
             rm -f "$XENSTORED_ROOTDIR"/tdb* &>/dev/null
@@ -832,11 +837,11 @@ in
 
         xen-init-dom0 = {
           restartIfChanged = false;
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
 
         xen-qemu-dom0-disk-backend = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             PIDFile = cfg.qemu.pidFile;
             ExecStart = ''
@@ -849,10 +854,10 @@ in
           };
         };
 
-        xenconsoled.wantedBy = [ "multi-user.target" ];
+        xenconsoled.wantedBy = ["multi-user.target"];
 
         xen-watchdog = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             RestartSec = "1";
             Restart = "on-failure";
@@ -866,7 +871,7 @@ in
             cfg.qemu.package
           ];
           preStart = "mkdir -p /var/lock/subsys -m 755";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
       };
     };

@@ -6,7 +6,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libusb-compat";
   version = "0.1.8";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   # without this, libusb-compat is unable to find libusb1
   postFixup = ''

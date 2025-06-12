@@ -5,12 +5,11 @@
   lwt,
   sexplib0,
 }:
-
 buildDunePackage {
   pname = "conduit-lwt";
   inherit (conduit) version src;
 
-  buildInputs = [ ppx_sexp_conv ];
+  buildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     conduit
@@ -18,7 +17,9 @@ buildDunePackage {
     sexplib0
   ];
 
-  meta = conduit.meta // {
-    description = "Network connection establishment library for Lwt";
-  };
+  meta =
+    conduit.meta
+    // {
+      description = "Network connection establishment library for Lwt";
+    };
 }

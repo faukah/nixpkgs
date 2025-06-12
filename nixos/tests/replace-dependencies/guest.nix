@@ -1,16 +1,16 @@
 # This needs to be run in a NixOS test, because Hydra cannot do IFD.
 let
-  pkgs = import ../../.. { };
-  inherit (pkgs)
+  pkgs = import ../../.. {};
+  inherit
+    (pkgs)
     runCommand
     writeShellScriptBin
     replaceDependency
     replaceDependencies
     ;
   inherit (pkgs.lib) escapeShellArg;
-  mkCheckOutput =
-    name: test: output:
-    runCommand name { } ''
+  mkCheckOutput = name: test: output:
+    runCommand name {} ''
       actualOutput="$(${escapeShellArg "${test}/bin/test"})"
       if [ "$(${escapeShellArg "${test}/bin/test"})" != ${escapeShellArg output} ]; then
         echo >&2 "mismatched output: expected \""${escapeShellArg output}"\", got \"$actualOutput\""
@@ -21,11 +21,11 @@ let
   oldDependency = writeShellScriptBin "dependency" ''
     echo "got old dependency"
   '';
-  oldDependency-ca = oldDependency.overrideAttrs { __contentAddressed = true; };
+  oldDependency-ca = oldDependency.overrideAttrs {__contentAddressed = true;};
   newDependency = writeShellScriptBin "dependency" ''
     echo "got new dependency"
   '';
-  newDependency-ca = newDependency.overrideAttrs { __contentAddressed = true; };
+  newDependency-ca = newDependency.overrideAttrs {__contentAddressed = true;};
   basic = writeShellScriptBin "test" ''
     ${oldDependency}/bin/dependency
   '';
@@ -56,8 +56,7 @@ let
   deep = writeShellScriptBin "test" ''
     ${oldDependency2}/bin/dependency2
   '';
-in
-{
+in {
   replacedependency-basic = mkCheckOutput "replacedependency-basic" (replaceDependency {
     drv = basic;
     inherit oldDependency newDependency;
@@ -82,20 +81,21 @@ in
 
   replacedependency-weird =
     mkCheckOutput "replacedependency-weird"
-      (replaceDependency {
-        drv = basic;
-        inherit oldDependency;
-        newDependency = weirdDependency;
-      })
-      ''
-        got weird dependency
-        got old dependency'';
+    (replaceDependency {
+      drv = basic;
+      inherit oldDependency;
+      newDependency = weirdDependency;
+    })
+    ''
+      got weird dependency
+      got old dependency'';
 
-  replacedependencies-precedence = mkCheckOutput "replacedependencies-precedence" (replaceDependencies
+  replacedependencies-precedence = mkCheckOutput "replacedependencies-precedence" (
+    replaceDependencies
     {
       drv = basic;
-      replacements = [ { inherit oldDependency newDependency; } ];
-      cutoffPackages = [ oldDependency ];
+      replacements = [{inherit oldDependency newDependency;}];
+      cutoffPackages = [oldDependency];
     }
   ) "got new dependency";
 
@@ -111,39 +111,39 @@ in
 
   replacedependencies-deep-order1 =
     mkCheckOutput "replacedependencies-deep-order1"
-      (replaceDependencies {
-        drv = deep;
-        replacements = [
-          {
-            oldDependency = oldDependency1;
-            newDependency = newDependency1;
-          }
-          {
-            oldDependency = oldDependency2;
-            newDependency = newDependency2;
-          }
-        ];
-      })
-      ''
-        got new dependency 1
-        got new dependency 2'';
+    (replaceDependencies {
+      drv = deep;
+      replacements = [
+        {
+          oldDependency = oldDependency1;
+          newDependency = newDependency1;
+        }
+        {
+          oldDependency = oldDependency2;
+          newDependency = newDependency2;
+        }
+      ];
+    })
+    ''
+      got new dependency 1
+      got new dependency 2'';
 
   replacedependencies-deep-order2 =
     mkCheckOutput "replacedependencies-deep-order2"
-      (replaceDependencies {
-        drv = deep;
-        replacements = [
-          {
-            oldDependency = oldDependency2;
-            newDependency = newDependency2;
-          }
-          {
-            oldDependency = oldDependency1;
-            newDependency = newDependency1;
-          }
-        ];
-      })
-      ''
-        got new dependency 1
-        got new dependency 2'';
+    (replaceDependencies {
+      drv = deep;
+      replacements = [
+        {
+          oldDependency = oldDependency2;
+          newDependency = newDependency2;
+        }
+        {
+          oldDependency = oldDependency1;
+          newDependency = newDependency1;
+        }
+      ];
+    })
+    ''
+      got new dependency 1
+      got new dependency 2'';
 }

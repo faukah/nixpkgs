@@ -7,7 +7,6 @@
   libX11,
   lv2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bchoppr";
   version = "1.12.6";
@@ -20,21 +19,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     libX11
     lv2
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     homepage = "https://github.com/sjaehn/BChoppr";
     description = "Audio stream chopping LV2 plugin";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

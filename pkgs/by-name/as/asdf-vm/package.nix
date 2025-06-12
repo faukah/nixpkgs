@@ -8,9 +8,7 @@
   curl,
   git,
   writeScript,
-}:
-
-let
+}: let
   asdfReshimFile = writeScript "asdf-reshim" ''
     #!/usr/bin/env bash
 
@@ -46,52 +44,52 @@ let
     ${asdfReshimFile}
   '';
 in
-stdenv.mkDerivation rec {
-  pname = "asdf-vm";
-  version = "0.15.0";
+  stdenv.mkDerivation rec {
+    pname = "asdf-vm";
+    version = "0.15.0";
 
-  src = fetchFromGitHub {
-    owner = "asdf-vm";
-    repo = "asdf";
-    rev = "v${version}";
-    sha256 = "sha256-quDgoYi+3hZUEAzXWTHuL5UK1T+4o7+G67w0UzZOjJA=";
-  };
+    src = fetchFromGitHub {
+      owner = "asdf-vm";
+      repo = "asdf";
+      rev = "v${version}";
+      sha256 = "sha256-quDgoYi+3hZUEAzXWTHuL5UK1T+4o7+G67w0UzZOjJA=";
+    };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      installShellFiles
+    ];
 
-  buildInputs = [
-    bash
-    curl
-    git
-  ];
+    buildInputs = [
+      bash
+      curl
+      git
+    ];
 
-  installPhase = ''
-    mkdir -p $out/share/asdf-vm
-    cp -r . $out/share/asdf-vm
+    installPhase = ''
+      mkdir -p $out/share/asdf-vm
+      cp -r . $out/share/asdf-vm
 
-    mkdir -p $out/etc/profile.d
-    substitute ${asdfPrepareFile} $out/etc/profile.d/asdf-prepare.sh \
-      --replace "@asdfDir@" "$out/share/asdf-vm"
+      mkdir -p $out/etc/profile.d
+      substitute ${asdfPrepareFile} $out/etc/profile.d/asdf-prepare.sh \
+        --replace "@asdfDir@" "$out/share/asdf-vm"
 
-    mkdir -p $out/bin
-    makeWrapper $out/share/asdf-vm/bin/asdf $out/bin/asdf \
-      --set ASDF_DIR $out/share/asdf-vm
+      mkdir -p $out/bin
+      makeWrapper $out/share/asdf-vm/bin/asdf $out/bin/asdf \
+        --set ASDF_DIR $out/share/asdf-vm
 
-    installShellCompletion --cmd asdf \
-      --zsh completions/_asdf \
-      --fish completions/asdf.fish \
-      --bash completions/asdf.bash
-  '';
+      installShellCompletion --cmd asdf \
+        --zsh completions/_asdf \
+        --fish completions/asdf.fish \
+        --bash completions/asdf.bash
+    '';
 
-  meta = with lib; {
-    description = "Extendable version manager with support for Ruby, Node.js, Erlang & more";
-    homepage = "https://asdf-vm.com/";
-    license = licenses.mit;
-    maintainers = [ maintainers.c4605 ];
-    mainProgram = "asdf";
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      description = "Extendable version manager with support for Ruby, Node.js, Erlang & more";
+      homepage = "https://asdf-vm.com/";
+      license = licenses.mit;
+      maintainers = [maintainers.c4605];
+      mainProgram = "asdf";
+      platforms = platforms.unix;
+    };
+  }

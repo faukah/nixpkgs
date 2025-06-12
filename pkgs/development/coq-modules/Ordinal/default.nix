@@ -8,14 +8,14 @@ mkCoqDerivation {
   pname = "Ordinal";
   owner = "snu-sf";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = range "8.12" "8.18";
         out = "0.5.3";
       }
-    ] null;
+    ]
+    null;
   release = {
     "0.5.3".sha256 = "sha256-Myxwy749ZCBpqia6bf91cMTyJn0nRzXskD7Ue8kc37c=";
     "0.5.2".sha256 = "sha256-jf16EyLAnKm+42K+gTTHVFJqeOVQfIY2ozbxIs5x5DE=";
@@ -30,6 +30,6 @@ mkCoqDerivation {
     homepage = "https://github.com/snu-sf/Ordinal";
     description = "Ordinal Numbers in Coq";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ damhiya ];
+    maintainers = with lib.maintainers; [damhiya];
   };
 }

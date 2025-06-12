@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "aprx";
   version = "2.9.1-unstable-2021-09-21";
@@ -16,13 +15,13 @@ stdenv.mkDerivation {
     hash = "sha256-01PB7FaG8GmPm1U15/3g1CfQwdYmf3ThZFdVh2zUAl4=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  env.NIX_CFLAGS_COMPILE = toString ([
+  env.NIX_CFLAGS_COMPILE = toString [
     "-fcommon"
     "-O2"
     "-Wno-implicit-int" # clang, gcc 14
-  ]);
+  ];
 
   configureFlags = [
     "--with-erlangstorage"
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     "--mandir=$(out)/share/man"
   ];
 
-  makeFlags = [ "INSTALL=install" ];
+  makeFlags = ["INSTALL=install"];
 
   preInstall = ''
     mkdir -p $out/bin $out/share/man/man8 $out/etc
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     description = "Multitalented APRS i-gate / digipeater";
     homepage = "http://thelifeofkenneth.com/aprx";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
     mainProgram = "aprx";
     platforms = platforms.unix;
   };

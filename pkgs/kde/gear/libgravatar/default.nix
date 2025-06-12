@@ -1,6 +1,9 @@
-{ mkKdeDerivation, pimcommon }:
+{
+  mkKdeDerivation,
+  pimcommon,
+}:
 mkKdeDerivation {
   pname = "libgravatar";
 
-  extraBuildInputs = [ pimcommon ];
+  extraBuildInputs = [pimcommon];
 }

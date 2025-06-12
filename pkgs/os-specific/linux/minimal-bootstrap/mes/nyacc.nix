@@ -3,8 +3,7 @@
   fetchurl,
   kaem,
   nyacc,
-}:
-let
+}: let
   pname = "nyacc";
   # NYACC is a tightly coupled dependency of mes. This version is known to work
   # with mes 0.25.
@@ -16,7 +15,7 @@ let
     sha256 = "065ksalfllbdrzl12dz9d9dcxrv97wqxblslngsc6kajvnvlyvpk";
   };
 in
-kaem.runCommand "${pname}-${version}"
+  kaem.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -30,7 +29,7 @@ kaem.runCommand "${pname}-${version}"
       '';
       homepage = "https://savannah.nongnu.org/projects/nyacc";
       license = licenses.lgpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.all;
     };
   }

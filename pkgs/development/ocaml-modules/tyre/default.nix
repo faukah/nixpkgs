@@ -7,7 +7,6 @@
   seq,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "tyre";
   version = "0.5";
@@ -36,6 +35,6 @@ buildDunePackage rec {
     homepage = "https://github.com/Drup/tyre";
     changelog = "https://github.com/Drup/tyre/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

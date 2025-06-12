@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-mqtt-datasource";
   version = "1.1.0-beta.3";
@@ -12,7 +14,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The MQTT data source plugin allows you to visualize streaming MQTT data from within Grafana.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

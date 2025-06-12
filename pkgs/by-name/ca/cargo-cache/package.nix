@@ -5,7 +5,6 @@
   rustPlatform,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-cache";
   version = "0.8.3";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  checkFlags = [ "offline_tests" ];
+  checkFlags = ["offline_tests"];
 
   meta = with lib; {
     description = "Manage cargo cache (\${CARGO_HOME}, ~/.cargo/), print sizes of dirs and remove dirs selectively";

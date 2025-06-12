@@ -12,7 +12,6 @@
   pydantic,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "quart-schema";
   version = "0.21.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-FpjnhSTkjskCxT874ABrD3Zew4g4R977xaYvJhVTDxw=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     pyhumps
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Create subcommand-based CLI programs with docopt";
     homepage = "https://github.com/abingham/docopt-subcommands";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

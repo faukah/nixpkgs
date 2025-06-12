@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "brill";
   version = "4.000.073";
@@ -37,6 +36,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://brill.com/page/419382";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ trespaul ];
+    maintainers = with maintainers; [trespaul];
   };
 })

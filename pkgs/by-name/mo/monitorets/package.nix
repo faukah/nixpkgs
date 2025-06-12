@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "monitorets";
   version = "0.10.1";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   dependencies = with python3Packages; [
     pygobject3
@@ -55,7 +54,7 @@ python3Packages.buildPythonApplication rec {
       cc0
     ];
     mainProgram = "monitorets";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

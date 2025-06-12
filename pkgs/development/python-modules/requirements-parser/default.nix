@@ -8,7 +8,6 @@
   setuptools,
   types-setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "requirements-parser";
   version = "0.11.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-o9IriQXa2Pd7s16IENqcWgi73XZQoXsbXU471V1CFaI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     setuptools
     types-setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "requirements" ];
+  pythonImportsCheck = ["requirements"];
 
   meta = with lib; {
     description = "Pip requirements file parser";
     homepage = "https://github.com/davidfischer/requirements-parser";
     changelog = "https://github.com/madpah/requirements-parser/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

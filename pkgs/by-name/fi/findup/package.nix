@@ -16,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EjfKNIYJBXjlKFNV4dJpOaXCfB5PUdeMjl4k1jFRfG0=";
   };
 
-  nativeBuildInputs = [ zig.hook ];
+  nativeBuildInputs = [zig.hook];
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     # Doesn't support zig 0.12 or newer, last commit was 2 years ago.
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/booniepepper/findup";
     description = "Search parent directories for sentinel files";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booniepepper ];
+    maintainers = with lib.maintainers; [booniepepper];
     mainProgram = "findup";
   };
 })

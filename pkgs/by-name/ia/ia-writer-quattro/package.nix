@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "ia-writer-quattro";
   version = "unstable-2023-06-16";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/iaolo/iA-Fonts";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.x0ba ];
+    maintainers = [maintainers.x0ba];
   };
 }

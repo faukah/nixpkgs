@@ -8,7 +8,6 @@
   libXext,
   libXmu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "larswm";
   version = "7.5.3";

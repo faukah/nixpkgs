@@ -9,7 +9,6 @@
   just,
   pandoc,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "dogdns";
   version = "unstable-2021-10-07";
@@ -27,12 +26,14 @@ rustPlatform.buildRustPackage {
     ./remove-date-info.patch
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    just
-    pandoc
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+      just
+      pandoc
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   outputs = [
     "out"
@@ -68,7 +69,7 @@ rustPlatform.buildRustPackage {
     description = "Command-line DNS client";
     homepage = "https://dns.lookup.dog";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "dog";
   };
 }

@@ -14,7 +14,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "distroshelf";
   version = "1.0.8";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/ranfdev/DistroShelf";
@@ -55,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "distroshelf";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

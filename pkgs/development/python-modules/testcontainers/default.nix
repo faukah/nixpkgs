@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   docker,
   python-dotenv,
@@ -13,7 +11,6 @@
   urllib3,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "testcontainers";
   version = "4.10.0";
@@ -30,7 +27,7 @@ buildPythonPackage rec {
     echo "${version}" > VERSION
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     docker
@@ -53,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/testcontainers/testcontainers-python";
     changelog = "https://github.com/testcontainers/testcontainers-python/releases/tag/testcontainers-v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

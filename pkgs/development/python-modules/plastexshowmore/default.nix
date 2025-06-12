@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   plasTeX,
 }:
-
 buildPythonPackage {
   pname = "plastexshowmore";
   version = "0.0.2";
@@ -22,14 +19,14 @@ buildPythonPackage {
     hash = "sha256-b45VHHEwFA41FaInDteix56O7KYDzyKiRRSl7heHqEA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ plasTeX ];
+  dependencies = [plasTeX];
 
   meta = {
     description = "PlasTeX plugin for adding navigation buttons";
     homepage = "https://github.com/PatrickMassot/plastexshowmore";
-    maintainers = with lib.maintainers; [ niklashh ];
+    maintainers = with lib.maintainers; [niklashh];
     license = lib.licenses.asl20;
   };
 }

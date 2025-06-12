@@ -6,7 +6,6 @@
   wheel,
   redis,
 }:
-
 buildPythonPackage rec {
   pname = "huey";
   version = "2.5.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ redis ];
+  propagatedBuildInputs = [redis];
 
   # connects to redis
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Little task queue for python";
     homepage = "https://github.com/coleifer/huey";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

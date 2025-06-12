@@ -12,7 +12,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pynamodb";
   version = "6.0.1";
@@ -27,22 +26,24 @@ buildPythonPackage rec {
     hash = "sha256-OcrES+1F95KjhRXpEukzbuDfTXU4hyJqxGjD1xMcdKE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ botocore ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  dependencies = [botocore] ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   optional-dependencies = {
-    signal = [ blinker ];
+    signal = [blinker];
   };
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-env
-    pytest-mock
-    pytestCheckHook
-  ] ++ optional-dependencies.signal;
+  nativeCheckInputs =
+    [
+      freezegun
+      pytest-env
+      pytest-mock
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.signal;
 
-  pythonImportsCheck = [ "pynamodb" ];
+  pythonImportsCheck = ["pynamodb"];
 
   disabledTests = [
     # Tests requires credentials or network access
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     homepage = "http://jlafon.io/pynamodb.html";
     changelog = "https://github.com/pynamodb/PynamoDB/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

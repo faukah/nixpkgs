@@ -9,7 +9,6 @@
   pytest-mock,
   ffmpeg,
 }:
-
 buildPythonPackage {
   pname = "ffmpeg-python";
   version = "0.2.0-unstable-2022-07-11";
@@ -23,7 +22,7 @@ buildPythonPackage {
   };
 
   patches = [
-    (replaceVars ./ffmpeg-location.patch { inherit ffmpeg; })
+    (replaceVars ./ffmpeg-location.patch {inherit ffmpeg;})
 
     # Remove dependency on `future`
     # https://github.com/kkroening/ffmpeg-python/pull/795
@@ -47,19 +46,19 @@ buildPythonPackage {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "ffmpeg" ];
+  pythonImportsCheck = ["ffmpeg"];
 
   meta = {
     description = "Python bindings for FFmpeg - with complex filtering support";
     homepage = "https://github.com/kkroening/ffmpeg-python";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.emily ];
+    maintainers = [lib.maintainers.emily];
   };
 }

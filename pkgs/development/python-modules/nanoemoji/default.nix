@@ -20,7 +20,6 @@
   ufolib2,
   zopfli,
 }:
-
 buildPythonPackage rec {
   pname = "nanoemoji";
   version = "0.15.3";
@@ -94,6 +93,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googlefonts/nanoemoji";
     changelog = "https://github.com/googlefonts/nanoemoji/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ _999eagle ];
+    maintainers = with lib.maintainers; [_999eagle];
   };
 }

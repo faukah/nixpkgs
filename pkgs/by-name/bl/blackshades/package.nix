@@ -10,7 +10,6 @@
   zig_0_14,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blackshades";
   version = "2.5.2-unstable-2025-03-12";
@@ -26,28 +25,28 @@ stdenv.mkDerivation (finalAttrs: {
   postUnpack = ''
     ln -s ${
       runCommand "${finalAttrs.finalPackage.name}-zig-deps"
-        {
-          inherit (finalAttrs) src;
+      {
+        inherit (finalAttrs) src;
 
-          nativeBuildInputs = [ zig_0_14 ];
+        nativeBuildInputs = [zig_0_14];
 
-          outputHashAlgo = null;
-          outputHashMode = "recursive";
-          outputHash = "sha256-wBIfLeaKtTow2Z7gjEgIFmqcTGWgpRWI+k0t294BslM=";
-        }
-        ''
-          export ZIG_GLOBAL_CACHE_DIR=$(mktemp -d)
+        outputHashAlgo = null;
+        outputHashMode = "recursive";
+        outputHash = "sha256-wBIfLeaKtTow2Z7gjEgIFmqcTGWgpRWI+k0t294BslM=";
+      }
+      ''
+        export ZIG_GLOBAL_CACHE_DIR=$(mktemp -d)
 
-          runHook unpackPhase
-          cd $sourceRoot
+        runHook unpackPhase
+        cd $sourceRoot
 
-          zig build --fetch
-          mv $ZIG_GLOBAL_CACHE_DIR/p $out
-        ''
+        zig build --fetch
+        mv $ZIG_GLOBAL_CACHE_DIR/p $out
+      ''
     } $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
-  nativeBuildInputs = [ zig_0_14.hook ];
+  nativeBuildInputs = [zig_0_14.hook];
 
   buildInputs = [
     glfw
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://git.sr.ht/~cnx/blackshades/refs/${finalAttrs.version}";
     mainProgram = "blackshades";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ McSinyx ];
+    maintainers = with lib.maintainers; [McSinyx];
     platforms = lib.platforms.linux;
   };
 })

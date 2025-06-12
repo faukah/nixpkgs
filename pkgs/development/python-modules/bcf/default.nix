@@ -43,7 +43,7 @@ buildPythonPackage rec {
     schema
   ];
 
-  pythonImportsCheck = [ "bcf" ];
+  pythonImportsCheck = ["bcf"];
   doCheck = false; # Project provides no tests
 
   meta = with lib; {
@@ -52,6 +52,6 @@ buildPythonPackage rec {
     mainProgram = "bcf";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

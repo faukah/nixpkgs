@@ -6,7 +6,6 @@
   git,
   fzf,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "git-toolbelt";
   version = "1.9.3";
@@ -18,7 +17,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-ANqv/iIDUyy2G4pKSw+2sutMEA0WhPN3OKfPTm5lwDU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     git
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Suite of useful Git commands that aid with scripting or every day command line usage";
     homepage = "https://github.com/nvie/git-toolbelt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.all;
   };
 })

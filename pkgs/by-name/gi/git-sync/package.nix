@@ -10,7 +10,6 @@
   inotify-tools,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-sync";
   version = "0-unstable-2024-11-30";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t1NVgp+ELmTMK0N1fFFJCoKQd8mSYSMAIDG9+kNs3Ok=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
       gnugrep
       gnused
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ inotify-tools ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [inotify-tools]
   );
 
   postFixup = ''
@@ -53,13 +52,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Script to automatically synchronize a git repository";
     homepage = "https://github.com/simonthum/git-sync";
-    maintainers = with lib.maintainers; [ imalison ];
+    maintainers = with lib.maintainers; [imalison];
     license = lib.licenses.cc0;
     platforms = with lib.platforms; unix;
   };

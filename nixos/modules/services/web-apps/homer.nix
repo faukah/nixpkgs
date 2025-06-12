@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.homer;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "homer-config.yml" cfg.settings;
-in
-{
+in {
   options.services.homer = {
     enable = lib.mkEnableOption ''
       A dead simple static HOMepage for your servER to keep your services on hand, from a simple yaml configuration file.
@@ -36,10 +34,10 @@ in
       };
     };
 
-    package = lib.mkPackageOption pkgs "homer" { };
+    package = lib.mkPackageOption pkgs "homer" {};
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Settings serialized into `config.yml` before build.
         If left empty, the default configuration shipped with the package will be used instead.
@@ -148,7 +146,7 @@ in
         }
 
       '';
-      inherit (pkgs.formats.yaml { }) type;
+      inherit (pkgs.formats.yaml {}) type;
     };
   };
 

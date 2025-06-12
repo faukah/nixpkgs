@@ -13,7 +13,6 @@
   pip,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pipdeptree";
   version = "2.26.1";
@@ -46,17 +45,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    graphviz = [ graphviz ];
+    graphviz = [graphviz];
   };
 
-  nativeCheckInputs = [
-    diff-cover
-    pytest-mock
-    pytestCheckHook
-    virtualenv
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      diff-cover
+      pytest-mock
+      pytestCheckHook
+      virtualenv
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pipdeptree" ];
+  pythonImportsCheck = ["pipdeptree"];
 
   disabledTests = [
     # Don't run console tests
@@ -68,7 +69,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/tox-dev/pipdeptree";
     changelog = "https://github.com/tox-dev/pipdeptree/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ charlesbaynham ];
+    maintainers = with maintainers; [charlesbaynham];
     mainProgram = "pipdeptree";
   };
 }

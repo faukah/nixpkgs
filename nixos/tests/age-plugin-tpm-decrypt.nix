@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "age-plugin-tpm-decrypt";
   meta = with lib.maintainers; {
     maintainers = [
@@ -8,15 +11,13 @@
     ];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.tpm.enable = true;
-      environment.systemPackages = with pkgs; [
-        age
-        age-plugin-tpm
-      ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    virtualisation.tpm.enable = true;
+    environment.systemPackages = with pkgs; [
+      age
+      age-plugin-tpm
+    ];
+  };
 
   testScript = ''
     machine.start()

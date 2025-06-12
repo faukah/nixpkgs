@@ -16,7 +16,6 @@
   enableLibusb ? true,
   libusb-compat-0_1,
 }:
-
 stdenv.mkDerivation {
   pname = "pilot-link";
   version = "0.13.0-unstable-2022-09-26";
@@ -36,26 +35,28 @@ stdenv.mkDerivation {
       ./configure-checks.patch
       ./incompatible-pointer-type.patch
     ]
-    ++ lib.optionals enableConduits [ ./format-string-literals.patch ]
-    ++ lib.optionals enableLibpng [ ./pilot-link-png14.patch ];
+    ++ lib.optionals enableConduits [./format-string-literals.patch]
+    ++ lib.optionals enableLibpng [./pilot-link-png14.patch];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ lib.optionals enableConduits [ bison ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ]
+    ++ lib.optionals enableConduits [bison];
 
   buildInputs =
-    [ popt ]
-    ++ lib.optionals bluezSupport [ bluez ]
-    ++ lib.optionals enableLibpng [ libpng ]
-    ++ lib.optionals enableLibusb [ libusb-compat-0_1 ]
-    ++ lib.optionals readlineSupport [ readline ];
+    [popt]
+    ++ lib.optionals bluezSupport [bluez]
+    ++ lib.optionals enableLibpng [libpng]
+    ++ lib.optionals enableLibusb [libusb-compat-0_1]
+    ++ lib.optionals readlineSupport [readline];
 
   configureFlags =
-    [ "--with-libiconv" ]
-    ++ lib.optionals enableConduits [ "--enable-conduits" ]
-    ++ lib.optionals enableLibpng [ "--enable-libpng" ]
-    ++ lib.optionals enableLibusb [ "--enable-libusb" ];
+    ["--with-libiconv"]
+    ++ lib.optionals enableConduits ["--enable-conduits"]
+    ++ lib.optionals enableLibpng ["--enable-libpng"]
+    ++ lib.optionals enableLibusb ["--enable-libusb"];
 
   enableParallelBuilding = true;
 
@@ -63,6 +64,6 @@ stdenv.mkDerivation {
     description = "Suite of tools for connecting to PalmOS handheld devices";
     homepage = "https://github.com/desrod/pilot-link";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ PapayaJackal ];
+    maintainers = with lib.maintainers; [PapayaJackal];
   };
 }

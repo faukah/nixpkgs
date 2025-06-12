@@ -4,8 +4,7 @@
   callPackage,
   fetchurl,
   stdenv,
-}:
-let
+}: let
   pname = "immersed";
   version = "10.6.0";
 
@@ -36,25 +35,25 @@ let
       pandapip1
     ];
     platforms = builtins.attrNames sources;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
-
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+    }

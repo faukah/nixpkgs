@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "clairvoyance";
   version = "2.5.3";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-CVXa2HvX7M0cwqnTeZVETg07j324ATQuMNreEgAC2QA=";
   };
 
-  pythonRelaxDeps = [ "rich" ];
+  pythonRelaxDeps = ["rich"];
 
   nativeBuildInputs = with python3.pkgs; [
     poetry-core
@@ -51,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "clairvoyance";
     homepage = "https://github.com/nikitastupin/clairvoyance";
     changelog = "https://github.com/nikitastupin/clairvoyance/releases/tag/v${version}";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [fab];
   };
 }

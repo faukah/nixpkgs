@@ -8,7 +8,6 @@
   lib,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "OpenIPMI";
   version = "2.0.37";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
       lgpl2Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arezvov ];
-    teams = [ teams.c3d2 ];
+    maintainers = with maintainers; [arezvov];
+    teams = [teams.c3d2];
   };
 }

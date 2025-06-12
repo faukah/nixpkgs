@@ -3,13 +3,9 @@
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.appimage;
-in
-
-{
+in {
   options.programs.appimage = {
     enable = lib.mkEnableOption "appimage-run wrapper script for executing appimages on NixOS";
     binfmt = lib.mkEnableOption "binfmt registration to run appimages via appimage-run seamlessly";
@@ -32,17 +28,20 @@ in
           offset = 0;
           mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
         };
-      in
-      {
-        appimage_type_1 = appimage_common // {
-          magicOrExtension = ''\x7fELF....AI\x01'';
-        };
-        appimage_type_2 = appimage_common // {
-          magicOrExtension = ''\x7fELF....AI\x02'';
-        };
+      in {
+        appimage_type_1 =
+          appimage_common
+          // {
+            magicOrExtension = ''\x7fELF....AI\x01'';
+          };
+        appimage_type_2 =
+          appimage_common
+          // {
+            magicOrExtension = ''\x7fELF....AI\x02'';
+          };
       }
     );
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
   meta.maintainers = with lib.maintainers; [

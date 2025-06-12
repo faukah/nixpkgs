@@ -4,7 +4,6 @@
   fetchzip,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "11.14";
   pname = "monkeys-audio";
@@ -29,6 +28,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.linux;
     mainProgram = "mac";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 })

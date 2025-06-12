@@ -23,7 +23,6 @@
   cargo,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clamav";
   version = "1.4.2";
@@ -49,20 +48,22 @@ stdenv.mkDerivation rec {
     cargo
     python3
   ];
-  buildInputs = [
-    zlib
-    bzip2
-    libxml2
-    openssl
-    ncurses
-    curl
-    libiconv
-    libmilter
-    pcre2
-    libmspack
-    json_c
-    check
-  ] ++ lib.optional stdenv.hostPlatform.isLinux systemd;
+  buildInputs =
+    [
+      zlib
+      bzip2
+      libxml2
+      openssl
+      ncurses
+      curl
+      libiconv
+      libmilter
+      pcre2
+      libmspack
+      json_c
+      check
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux systemd;
 
   cmakeFlags = [
     "-DSYSTEMD_UNIT_DIR=${placeholder "out"}/lib/systemd"

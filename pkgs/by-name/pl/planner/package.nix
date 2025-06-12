@@ -15,7 +15,6 @@
   pkg-config,
   shared-mime-info,
 }:
-
 stdenv.mkDerivation rec {
   pname = "planner";
   version = "0.14.92";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     mainProgram = "planner";
     homepage = "https://gitlab.gnome.org/World/planner";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ amiloradovsky ];
+    maintainers = with lib.maintainers; [amiloradovsky];
     platforms = lib.platforms.unix;
   };
 }

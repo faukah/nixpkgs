@@ -3,7 +3,6 @@
   copyfile,
   mkAppleDerivation,
 }:
-
 mkAppleDerivation {
   releaseName = "libutil";
 
@@ -21,7 +20,7 @@ mkAppleDerivation {
   ];
 
   buildInputs = [
-    (apple-sdk_14.override { enableBootstrap = true; })
+    (apple-sdk_14.override {enableBootstrap = true;})
     copyfile
   ];
 

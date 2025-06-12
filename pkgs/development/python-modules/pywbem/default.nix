@@ -22,7 +22,6 @@
   testfixtures,
   yamlloader,
 }:
-
 buildPythonPackage rec {
   pname = "pywbem";
   version = "1.7.3";
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  pythonImportsCheck = [ "pywbem" ];
+  pythonImportsCheck = ["pywbem"];
 
   meta = with lib; {
     description = "Support for the WBEM standard for systems management";
     homepage = "https://pywbem.github.io";
     changelog = "https://github.com/pywbem/pywbem/blob/${version}/docs/changes.rst";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

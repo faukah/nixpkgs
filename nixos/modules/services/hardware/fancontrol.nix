@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.fancontrol;
   configFile = pkgs.writeText "fancontrol.conf" cfg.config;
-
-in
-{
+in {
   options.hardware.fancontrol = {
     enable = lib.mkEnableOption "software fan control (requires fancontrol.config)";
 
@@ -32,12 +29,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.fancontrol = {
-      documentation = [ "man:fancontrol(8)" ];
+      documentation = ["man:fancontrol(8)"];
       description = "software fan control";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "lm_sensors.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["lm_sensors.service"];
 
       serviceConfig = {
         Restart = "on-failure";
@@ -50,8 +46,7 @@ in
     powerManagement.resumeCommands = ''
       systemctl restart fancontrol.service
     '';
-
   };
 
-  meta.maintainers = [ lib.maintainers.evils ];
+  meta.maintainers = [lib.maintainers.evils];
 }

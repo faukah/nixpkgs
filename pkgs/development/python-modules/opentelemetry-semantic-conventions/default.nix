@@ -6,7 +6,6 @@
   opentelemetry-instrumentation,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) src;
   pname = "opentelemetry-semantic-conventions";
@@ -19,16 +18,18 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/opentelemetry-semantic-conventions";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ opentelemetry-api ];
+  dependencies = [opentelemetry-api];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "opentelemetry.semconv" ];
+  pythonImportsCheck = ["opentelemetry.semconv"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-semantic-conventions";
-    description = "OpenTelemetry Semantic Conventions";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-semantic-conventions";
+      description = "OpenTelemetry Semantic Conventions";
+    };
 }

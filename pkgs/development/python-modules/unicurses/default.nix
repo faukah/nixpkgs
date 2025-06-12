@@ -5,7 +5,6 @@
   ncurses,
   x256,
 }:
-
 buildPythonPackage rec {
   pname = "unicurses";
   version = "3.1.2";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-M4mjdmy2NSf5KiTVYznPy86bVgZB5u1vDi6GIH1Frc4=";
   };
 
-  propagatedBuildInputs = [ x256 ];
+  propagatedBuildInputs = [x256];
 
   # Necessary because ctypes.util.find_library does not find the ncurses libraries
   postPatch = ''
@@ -26,12 +25,12 @@ buildPythonPackage rec {
       --replace-fail "find_library('panelw')" '"${ncurses}/lib/libpanelw.so.6"'
   '';
 
-  pythonImportsCheck = [ "unicurses" ];
+  pythonImportsCheck = ["unicurses"];
 
   meta = with lib; {
     description = "Unified Curses Wrapper for Python";
     homepage = "https://github.com/unicurses/unicurses";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ michaelBelsanti ];
+    maintainers = with maintainers; [michaelBelsanti];
   };
 }

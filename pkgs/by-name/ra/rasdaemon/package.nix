@@ -13,7 +13,6 @@
   enableDmidecode ? stdenv.hostPlatform.isx86_64,
   dmidecode,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rasdaemon";
   version = "0.8.2";
@@ -38,9 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
     [
       libtraceevent
       (perl.withPackages (
-        ps: with ps; [
-          DBDSQLite
-        ]
+        ps:
+          with ps; [
+            DBDSQLite
+          ]
       ))
       sqlite
     ]
@@ -104,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = nixosTests.rasdaemon;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = ''
@@ -121,6 +121,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     changelog = "${finalAttrs.meta.homepage}/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ evils ];
+    maintainers = with lib.maintainers; [evils];
   };
 })

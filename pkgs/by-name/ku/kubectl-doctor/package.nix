@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "kubectl-doctor";
   version = "0.3.1";
@@ -37,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/emirozer/kubectl-doctor";
     changelog = "https://github.com/emirozer/kubectl-doctor/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.zimbatm ];
+    maintainers = [lib.maintainers.zimbatm];
   };
 }

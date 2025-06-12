@@ -12,7 +12,6 @@
   stdenv,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shipments";
   version = "0.3.0";
@@ -37,10 +36,11 @@ stdenv.mkDerivation rec {
     gtk3
     libhandy
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-        requests
-      ]
+      ps:
+        with ps; [
+          pygobject3
+          requests
+        ]
     ))
   ];
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sr.ht/~martijnbraam/shipments/";
     changelog = "https://git.sr.ht/~martijnbraam/shipments/refs/${version}";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ michaelgrahamevans ];
+    maintainers = with lib.maintainers; [michaelgrahamevans];
   };
 }

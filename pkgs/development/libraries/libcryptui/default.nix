@@ -13,7 +13,6 @@
   dbus-glib,
   libgnome-keyring,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcryptui";
   version = "3.12.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     dbus-glib
     libgnome-keyring
   ];
-  propagatedBuildInputs = [ dbus-glib ];
+  propagatedBuildInputs = [dbus-glib];
 
   env.GNUPG = lib.getExe gnupg;
   env.GPGME_CONFIG = lib.getExe' (lib.getDev gpgme) "gpgme-config";

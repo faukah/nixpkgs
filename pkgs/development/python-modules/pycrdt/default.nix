@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # nativeBuildInputs
   rustPlatform,
-
   # tests
   anyio,
   objsize,
@@ -13,10 +11,8 @@
   pytestCheckHook,
   trio,
   y-py,
-
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "pycrdt";
   version = "0.12.20";
@@ -33,16 +29,16 @@ buildPythonPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
     rustPlatform.maturinBuildHook
   ];
 
-  dependencies = [ anyio ];
+  dependencies = [anyio];
 
-  pythonImportsCheck = [ "pycrdt" ];
+  pythonImportsCheck = ["pycrdt"];
 
   nativeCheckInputs = [
     anyio
@@ -58,13 +54,13 @@ buildPythonPackage rec {
     "ignore::pytest.PytestUnknownMarkWarning" # requires unpackaged pytest-mypy-testing
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
 
   meta = {
     description = "CRDTs based on Yrs";
     homepage = "https://github.com/jupyter-server/pycrdt";
     changelog = "https://github.com/jupyter-server/pycrdt/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

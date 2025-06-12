@@ -14,7 +14,6 @@
   xfce4-panel,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-time-out-plugin";
   version = "1.2.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfce4-panel
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-time-out-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-time-out-plugin-";};
 
   meta = {
     description = "Panel plug-in to take periodical breaks from the computer";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-time-out-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

@@ -8,7 +8,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wlr-randr";
   version = "0.5.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
     wayland-scanner
   ];
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
   depsBuildBuild = [
     pkg-config
   ];
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Xrandr clone for wlroots compositors";
     homepage = "https://gitlab.freedesktop.org/emersion/wlr-randr";
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
     mainProgram = "wlr-randr";
   };

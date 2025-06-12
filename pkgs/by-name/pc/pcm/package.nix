@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcm";
   version = "202502";
@@ -16,14 +15,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-U6V3LX+JlVL9MRFBP3xpYwPQ6Y7pnJ4F/7dpKG3Eyuw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Processor counter monitor";
     homepage = "https://www.intel.com/software/pcm";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ roosemberth ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [roosemberth];
+    platforms = ["x86_64-linux"];
   };
 }

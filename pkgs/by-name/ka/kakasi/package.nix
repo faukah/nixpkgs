@@ -6,13 +6,12 @@
   autoreconfHook,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kakasi";
   version = "2.3.6";
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   meta = with lib; {
     description = "Kanji Kana Simple Inverter";
@@ -46,5 +45,4 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = false; # fails 1 of 6 tests
-
 }

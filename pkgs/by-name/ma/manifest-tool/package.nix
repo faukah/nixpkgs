@@ -7,7 +7,6 @@
   testers,
   manifest-tool,
 }:
-
 buildGoModule rec {
   pname = "manifest-tool";
   version = "2.2.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   ldflags =
     [
@@ -61,6 +60,6 @@ buildGoModule rec {
     mainProgram = "manifest-tool";
     homepage = "https://github.com/estesp/manifest-tool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tricktron ];
+    maintainers = with maintainers; [tricktron];
   };
 }

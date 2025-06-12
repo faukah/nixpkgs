@@ -8,7 +8,6 @@
   gorm,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "projectcenter";
   version = "0.7.0";
@@ -16,11 +15,11 @@ clangStdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gnustep";
     repo = "apps-projectcenter";
-    rev = "projectcenter-${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "projectcenter-${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-uXT2UUvMZNc6Fqi2BUXQimbZk8b3IqXzB+A2btBOmms=";
   };
 
-  nativeBuildInputs = [ wrapGNUstepAppsHook ];
+  nativeBuildInputs = [wrapGNUstepAppsHook];
 
   # NOTE: need a patch for ProjectCenter to help it locate some necessary tools:
   # 1. Framework/PCProjectLauncher.m, locate gdb (say among NIX_GNUSTEP_SYSTEM_TOOLS)

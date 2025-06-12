@@ -3,7 +3,6 @@
   fetchCrate,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-gra";
   version = "0.6.2";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "gtk-rust-app cli for building flatpak apps with ease";
     homepage = "https://gitlab.com/floers/gtk-stuff/cargo-gra/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
   };
 }

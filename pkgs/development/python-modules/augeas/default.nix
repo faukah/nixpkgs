@@ -20,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-Lq8ckra3sqN38zo1d5JsEq6U5TtLKRmqysoWNwR9J9A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     augeas
     pkgs.libxml2
   ];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "augeas" ];
+  pythonImportsCheck = ["augeas"];
 
   meta = with lib; {
     changelog = "https://github.com/hercules-team/python-augeas/releases/tag/v${version}";

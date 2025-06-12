@@ -9,7 +9,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "webdavclient3";
   version = "3.14.6";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-vtZTBfq3PVrapv3ivYc18+71y7SPpJ+Mwk5qGe/DdTM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "webdav3.client" ];
+  pythonImportsCheck = ["webdav3.client"];
 
   disabledTestPaths = [
     # Tests require a local WebDAV instance
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     description = "Easy to use WebDAV Client for Python 3.x";
     homepage = "https://github.com/ezhov-evgeny/webdav-client-python-3";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "wdc";
   };
 }

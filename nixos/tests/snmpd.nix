@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "snmpd";
 
   nodes.snmpd = {
@@ -20,5 +23,4 @@
     machine.wait_for_unit("snmpd.service")
     machine.succeed("snmpwalk -v 2c -c public localhost | grep SNMPv2-MIB::sysName.0");
   '';
-
 }

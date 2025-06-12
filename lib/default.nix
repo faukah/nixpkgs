@@ -1,54 +1,50 @@
 /*
-  Library of low-level helper functions for nix expressions.
+Library of low-level helper functions for nix expressions.
 
-  Please implement (mostly) exhaustive unit tests
-  for new functions in `./tests.nix`.
+Please implement (mostly) exhaustive unit tests
+for new functions in `./tests.nix`.
 */
 let
-
   # A copy of `lib.makeExtensible'` in order to document `extend`.
   # It has been leading to some trouble, so we have to document it specially.
-  makeExtensible' =
-    rattrs:
-    let
-      self = rattrs self // {
+  makeExtensible' = rattrs: let
+    self =
+      rattrs self
+      // {
         /**
-          Patch the Nixpkgs library
+        Patch the Nixpkgs library
 
-          A function that applies patches onto the nixpkgs library.
-          Usage is discouraged for most scenarios.
+        A function that applies patches onto the nixpkgs library.
+        Usage is discouraged for most scenarios.
 
-          :::{.note}
-          The name `extends` is a bit misleading, as it doesn't actually extend the library, but rather patches it.
-          It is merely a consequence of being implemented by `makeExtensible`.
-          :::
+        :::{.note}
+        The name `extends` is a bit misleading, as it doesn't actually extend the library, but rather patches it.
+        It is merely a consequence of being implemented by `makeExtensible`.
+        :::
 
-          # Inputs
+        # Inputs
 
-          - An "extension function" `f` that returns attributes that will be updated in the returned Nixpkgs library.
+        - An "extension function" `f` that returns attributes that will be updated in the returned Nixpkgs library.
 
-          # Output
+        # Output
 
-          A patched Nixpkgs library.
+        A patched Nixpkgs library.
 
-          :::{.warning}
-          This functionality is intended as an escape hatch for when the provided version of the Nixpkgs library has a flaw.
+        :::{.warning}
+        This functionality is intended as an escape hatch for when the provided version of the Nixpkgs library has a flaw.
 
-          If you were to use it to add new functionality, you will run into compatibility and interoperability issues.
-          :::
+        If you were to use it to add new functionality, you will run into compatibility and interoperability issues.
+        :::
         */
         extend = f: lib.makeExtensible (lib.extends f rattrs);
       };
-    in
+  in
     self;
 
   lib = makeExtensible' (
-    self:
-    let
-      callLibs = file: import file { lib = self; };
-    in
-    {
-
+    self: let
+      callLibs = file: import file {lib = self;};
+    in {
       # often used, or depending on very little
       trivial = callLibs ./trivial.nix;
       fixedPoints = callLibs ./fixed-points.nix;
@@ -107,14 +103,16 @@ let
 
       # TODO: For consistency, all builtins should also be available from a sub-library;
       # these are the only ones that are currently not
-      inherit (builtins)
+      inherit
+        (builtins)
         addErrorContext
         isPath
         trace
         typeOf
         unsafeGetAttrPos
         ;
-      inherit (self.trivial)
+      inherit
+        (self.trivial)
         id
         const
         pipe
@@ -172,7 +170,8 @@ let
         genericClosure
         readFile
         ;
-      inherit (self.fixedPoints)
+      inherit
+        (self.fixedPoints)
         fix
         fix'
         converge
@@ -183,7 +182,8 @@ let
         makeExtensibleWithCustomName
         toExtension
         ;
-      inherit (self.attrsets)
+      inherit
+        (self.attrsets)
         attrByPath
         hasAttrByPath
         setAttrByPath
@@ -243,7 +243,8 @@ let
         intersectAttrs
         removeAttrs
         ;
-      inherit (self.lists)
+      inherit
+        (self.lists)
         singleton
         forEach
         map
@@ -302,7 +303,8 @@ let
         elemAt
         isList
         ;
-      inherit (self.strings)
+      inherit
+        (self.strings)
         concatStrings
         concatMapStrings
         concatImapStrings
@@ -377,7 +379,8 @@ let
         readPathsFromFile
         fileContents
         ;
-      inherit (self.stringsWithDeps)
+      inherit
+        (self.stringsWithDeps)
         textClosureList
         textClosureMap
         noDepEntry
@@ -385,7 +388,8 @@ let
         packEntry
         stringAfter
         ;
-      inherit (self.customisation)
+      inherit
+        (self.customisation)
         overrideDerivation
         makeOverridable
         callPackageWith
@@ -399,7 +403,8 @@ let
         ;
       inherit (self.derivations) lazyDerivation optionalDrvAttr warnOnInstantiate;
       inherit (self.generators) mkLuaInline;
-      inherit (self.meta)
+      inherit
+        (self.meta)
         addMetaAttrs
         dontDistribute
         setName
@@ -417,13 +422,15 @@ let
         getExe
         getExe'
         ;
-      inherit (self.filesystem)
+      inherit
+        (self.filesystem)
         pathType
         pathIsDirectory
         pathIsRegularFile
         packagesFromDirectoryRecursive
         ;
-      inherit (self.sources)
+      inherit
+        (self.sources)
         cleanSourceFilter
         cleanSource
         sourceByRegex
@@ -436,7 +443,8 @@ let
         revOrTag
         repoRevToName
         ;
-      inherit (self.modules)
+      inherit
+        (self.modules)
         evalModules
         setDefaultModuleLocation
         unifyModuleSyntax
@@ -478,7 +486,8 @@ let
         mkAliasOptionModuleMD
         ;
       evalOptionValue = lib.warn "External use of `lib.evalOptionValue` is deprecated. If your use case isn't covered by non-deprecated functions, we'd like to know more and perhaps support your use case well, instead of providing access to these low level functions. In this case please open an issue in https://github.com/nixos/nixpkgs/issues/." self.modules.evalOptionValue;
-      inherit (self.options)
+      inherit
+        (self.options)
         isOption
         mkEnableOption
         mkSinkUndeclaredOptions
@@ -502,7 +511,8 @@ let
         mkPackageOptionMD
         literalMD
         ;
-      inherit (self.types)
+      inherit
+        (self.types)
         isType
         setType
         defaultTypeMerge
@@ -510,11 +520,13 @@ let
         isOptionType
         mkOptionType
         ;
-      inherit (self.asserts)
+      inherit
+        (self.asserts)
         assertMsg
         assertOneOf
         ;
-      inherit (self.debug)
+      inherit
+        (self.debug)
         traceIf
         traceVal
         traceValFn
@@ -528,7 +540,8 @@ let
         runTests
         testAllTrue
         ;
-      inherit (self.misc)
+      inherit
+        (self.misc)
         maybeEnv
         defaultMergeArg
         defaultMerge
@@ -564,10 +577,11 @@ let
         nixType
         imap
         ;
-      inherit (self.versions)
+      inherit
+        (self.versions)
         splitVersion
         ;
     }
   );
 in
-lib
+  lib

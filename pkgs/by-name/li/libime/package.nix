@@ -9,9 +9,7 @@
   python3,
   fcitx5,
   zstd,
-}:
-
-let
+}: let
   tableVer = "20240108";
   table = fetchurl {
     url = "https://download.fcitx-im.org/data/table-${tableVer}.tar.zst";
@@ -28,41 +26,41 @@ let
     hash = "sha256-0zE7iKaGIKI7yNX5VkzxtniEjcevVBxPXwIZjlo2hr8=";
   };
 in
-stdenv.mkDerivation rec {
-  pname = "libime";
-  version = "1.1.10";
+  stdenv.mkDerivation rec {
+    pname = "libime";
+    version = "1.1.10";
 
-  src = fetchFromGitHub {
-    owner = "fcitx";
-    repo = "libime";
-    rev = version;
-    hash = "sha256-liVJEBUYcVYjjJCMW68xXbEHKQpAgTLCPm2yIdWG3IQ=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "fcitx";
+      repo = "libime";
+      rev = version;
+      hash = "sha256-liVJEBUYcVYjjJCMW68xXbEHKQpAgTLCPm2yIdWG3IQ=";
+      fetchSubmodules = true;
+    };
 
-  prePatch = ''
-    ln -s ${table} data/$(stripHash ${table})
-    ln -s ${arpa} data/$(stripHash ${arpa})
-    ln -s ${dict} data/$(stripHash ${dict})
-  '';
+    prePatch = ''
+      ln -s ${table} data/$(stripHash ${table})
+      ln -s ${arpa} data/$(stripHash ${arpa})
+      ln -s ${dict} data/$(stripHash ${dict})
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    python3
-  ];
+    nativeBuildInputs = [
+      cmake
+      extra-cmake-modules
+      python3
+    ];
 
-  buildInputs = [
-    zstd
-    boost
-    fcitx5
-  ];
+    buildInputs = [
+      zstd
+      boost
+      fcitx5
+    ];
 
-  meta = with lib; {
-    description = "Library to support generic input method implementation";
-    homepage = "https://github.com/fcitx/libime";
-    license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Library to support generic input method implementation";
+      homepage = "https://github.com/fcitx/libime";
+      license = licenses.lgpl21Plus;
+      maintainers = with maintainers; [poscat];
+      platforms = platforms.linux;
+    };
+  }

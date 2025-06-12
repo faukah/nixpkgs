@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pgbouncer-exporter";
   version = "0.10.2";
@@ -22,7 +21,7 @@ buildGoModule rec {
     mainProgram = "pgbouncer_exporter";
     homepage = "https://github.com/prometheus-community/pgbouncer_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.linux;
   };
 }

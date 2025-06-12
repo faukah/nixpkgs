@@ -5,7 +5,6 @@
   unstableGitUpdater,
   gtk3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "candy-icons";
   version = "0-unstable-2025-05-24";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-gy58GQMoYOFXbvXoKELUydg/X/B8BJ6hIbcOl5com1E=";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   dontDropIconThemeCache = true;
 
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/EliverLara/candy-icons";

@@ -5,7 +5,6 @@
   coreutils,
   libffi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "txr";
   version = "299";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-naDhL2ttucQmLpIhSGPJD4nNQOT6i16sK5g79lGUESo=";
   };
 
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   enableParallelBuilding = true;
 
@@ -29,18 +28,16 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace tests/018/process.tl --replace /usr/bin/env ${lib.getBin coreutils}/bin/env
   '';
 
-  preCheck =
-    let
-      disabledTests = lib.concatStringsSep " " [
-        # - tries to set sticky bits
-        "tests/018/chmod.tl"
-        # - warning: unbound function crypt
-        "tests/018/crypt.tl"
-      ];
-    in
-    ''
-      rm ${disabledTests}
-    '';
+  preCheck = let
+    disabledTests = lib.concatStringsSep " " [
+      # - tries to set sticky bits
+      "tests/018/chmod.tl"
+      # - warning: unbound function crypt
+      "tests/018/crypt.tl"
+    ];
+  in ''
+    rm ${disabledTests}
+  '';
 
   postInstall = ''
     mkdir -p $out/share/vim-plugins/txr/{syntax,ftdetect}

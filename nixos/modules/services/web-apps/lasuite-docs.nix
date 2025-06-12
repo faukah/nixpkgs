@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mapAttrs
     match
@@ -21,19 +21,23 @@ let
 
   cfg = config.services.lasuite-docs;
 
-  pythonEnvironment = mapAttrs (
-    _: value:
-    if value == null then
-      "None"
-    else if value == true then
-      "True"
-    else if value == false then
-      "False"
-    else
-      toString value
-  ) cfg.settings;
+  pythonEnvironment =
+    mapAttrs (
+      _: value:
+        if value == null
+        then "None"
+        else if value == true
+        then "True"
+        else if value == false
+        then "False"
+        else toString value
+    )
+    cfg.settings;
 
-  proxySuffix = if match "unix:.*" cfg.bind != null then ":" else "";
+  proxySuffix =
+    if match "unix:.*" cfg.bind != null
+    then ":"
+    else "";
 
   commonServiceConfig = {
     RuntimeDirectory = "lasuite-docs";
@@ -47,7 +51,7 @@ let
     ];
     # hardening
     AmbientCapabilities = "";
-    CapabilityBoundingSet = [ "" ];
+    CapabilityBoundingSet = [""];
     DevicePolicy = "closed";
     LockPersonality = true;
     NoNewPrivileges = true;
@@ -76,14 +80,13 @@ let
     SystemCallArchitectures = "native";
     UMask = "0077";
   };
-in
-{
+in {
   options.services.lasuite-docs = {
     enable = mkEnableOption "SuiteNumérique Docs";
 
-    backendPackage = mkPackageOption pkgs "lasuite-docs" { };
+    backendPackage = mkPackageOption pkgs "lasuite-docs" {};
 
-    frontendPackage = mkPackageOption pkgs "lasuite-docs-frontend" { };
+    frontendPackage = mkPackageOption pkgs "lasuite-docs-frontend" {};
 
     bind = mkOption {
       type = types.str;
@@ -96,9 +99,11 @@ in
       '';
     };
 
-    enableNginx = mkEnableOption "enable and configure Nginx for reverse proxying" // {
-      default = true;
-    };
+    enableNginx =
+      mkEnableOption "enable and configure Nginx for reverse proxying"
+      // {
+        default = true;
+      };
 
     secretKeyPath = mkOption {
       type = types.nullOr types.path;
@@ -143,7 +148,7 @@ in
     };
 
     collaborationServer = {
-      package = mkPackageOption pkgs "lasuite-docs-collaboration-server" { };
+      package = mkPackageOption pkgs "lasuite-docs-collaboration-server" {};
 
       port = mkOption {
         type = types.port;
@@ -185,7 +190,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = ''
           {
             COLLABORATION_LOGGING = true;
@@ -215,7 +220,7 @@ in
     celery = {
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra arguments to pass to the celery process.
         '';
@@ -260,7 +265,9 @@ in
           DJANGO_SECRET_KEY_FILE = mkOption {
             type = types.path;
             default =
-              if cfg.secretKeyPath == null then "/var/lib/lasuite-docs/django_secret_key" else cfg.secretKeyPath;
+              if cfg.secretKeyPath == null
+              then "/var/lib/lasuite-docs/django_secret_key"
+              else cfg.secretKeyPath;
             description = "The path to the file containing Django's secret key";
           };
 
@@ -272,7 +279,10 @@ in
 
           DJANGO_ALLOWED_HOSTS = mkOption {
             type = types.str;
-            default = if cfg.enableNginx then "localhost,127.0.0.1,${cfg.domain}" else "";
+            default =
+              if cfg.enableNginx
+              then "localhost,127.0.0.1,${cfg.domain}"
+              else "";
             defaultText = lib.literalExpression ''
               if cfg.enableNginx then "localhost,127.0.0.1,''${cfg.domain}" else ""
             '';
@@ -293,32 +303,33 @@ in
 
           DB_HOST = mkOption {
             type = types.nullOr types.str;
-            default = if cfg.postgresql.createLocally then "/run/postgresql" else null;
+            default =
+              if cfg.postgresql.createLocally
+              then "/run/postgresql"
+              else null;
             description = "Host of the database";
           };
 
           REDIS_URL = mkOption {
             type = types.nullOr types.str;
             default =
-              if cfg.redis.createLocally then
-                "unix://${config.services.redis.servers.lasuite-docs.unixSocket}?db=0"
-              else
-                null;
+              if cfg.redis.createLocally
+              then "unix://${config.services.redis.servers.lasuite-docs.unixSocket}?db=0"
+              else null;
             description = "URL of the redis backend";
           };
 
           CELERY_BROKER_URL = mkOption {
             type = types.nullOr types.str;
             default =
-              if cfg.redis.createLocally then
-                "redis+socket://${config.services.redis.servers.lasuite-docs.unixSocket}?db=1"
-              else
-                null;
+              if cfg.redis.createLocally
+              then "redis+socket://${config.services.redis.servers.lasuite-docs.unixSocket}?db=1"
+              else null;
             description = "URL of the redis backend for celery";
           };
         };
       };
-      default = { };
+      default = {};
       example = ''
         {
           DJANGO_ALLOWED_HOSTS = "*";
@@ -349,13 +360,13 @@ in
     systemd.services.lasuite-docs = {
       description = "Docs from SuiteNumérique";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ (optional cfg.postgresql.createLocally "postgresql.service")
         ++ (optional cfg.redis.createLocally "redis-lasuite-docs.service");
       wants =
         (optional cfg.postgresql.createLocally "postgresql.service")
         ++ (optional cfg.redis.createLocally "redis-lasuite-docs.service");
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         if [ ! -f .version ]; then
@@ -378,66 +389,72 @@ in
 
       environment = pythonEnvironment;
 
-      serviceConfig = {
-        BindReadOnlyPaths = "${cfg.backendPackage}/share/static:/var/lib/lasuite-docs/static";
+      serviceConfig =
+        {
+          BindReadOnlyPaths = "${cfg.backendPackage}/share/static:/var/lib/lasuite-docs/static";
 
-        ExecStart = utils.escapeSystemdExecArgs (
-          [
-            (lib.getExe' cfg.backendPackage "gunicorn")
-            "--bind=${cfg.bind}"
-          ]
-          ++ cfg.gunicorn.extraArgs
-          ++ [ "impress.wsgi:application" ]
-        );
-        EnvironmentFile = optional (cfg.environmentFile != null) cfg.environmentFile;
-        MemoryDenyWriteExecute = true;
-      } // commonServiceConfig;
+          ExecStart = utils.escapeSystemdExecArgs (
+            [
+              (lib.getExe' cfg.backendPackage "gunicorn")
+              "--bind=${cfg.bind}"
+            ]
+            ++ cfg.gunicorn.extraArgs
+            ++ ["impress.wsgi:application"]
+          );
+          EnvironmentFile = optional (cfg.environmentFile != null) cfg.environmentFile;
+          MemoryDenyWriteExecute = true;
+        }
+        // commonServiceConfig;
     };
 
     systemd.services.lasuite-docs-celery = {
       description = "Docs Celery broker from SuiteNumérique";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ (optional cfg.postgresql.createLocally "postgresql.service")
         ++ (optional cfg.redis.createLocally "redis-lasuite-docs.service");
       wants =
         (optional cfg.postgresql.createLocally "postgresql.service")
         ++ (optional cfg.redis.createLocally "redis-lasuite-docs.service");
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = pythonEnvironment;
 
-      serviceConfig = {
-        ExecStart = utils.escapeSystemdExecArgs (
-          [
-            (lib.getExe' cfg.backendPackage "celery")
-          ]
-          ++ cfg.celery.extraArgs
-          ++ [
-            "--app=impress.celery_app"
-            "worker"
-          ]
-        );
-        EnvironmentFile = optional (cfg.environmentFile != null) cfg.environmentFile;
-        MemoryDenyWriteExecute = true;
-      } // commonServiceConfig;
+      serviceConfig =
+        {
+          ExecStart = utils.escapeSystemdExecArgs (
+            [
+              (lib.getExe' cfg.backendPackage "celery")
+            ]
+            ++ cfg.celery.extraArgs
+            ++ [
+              "--app=impress.celery_app"
+              "worker"
+            ]
+          );
+          EnvironmentFile = optional (cfg.environmentFile != null) cfg.environmentFile;
+          MemoryDenyWriteExecute = true;
+        }
+        // commonServiceConfig;
     };
 
     systemd.services.lasuite-docs-collaboration-server = {
       description = "Docs Collaboration Server from SuiteNumérique";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = cfg.collaborationServer.settings;
 
-      serviceConfig = {
-        ExecStart = getExe cfg.collaborationServer.package;
-      } // commonServiceConfig;
+      serviceConfig =
+        {
+          ExecStart = getExe cfg.collaborationServer.package;
+        }
+        // commonServiceConfig;
     };
 
     services.postgresql = mkIf cfg.postgresql.createLocally {
       enable = true;
-      ensureDatabases = [ "lasuite-docs" ];
+      ensureDatabases = ["lasuite-docs"];
       ensureUsers = [
         {
           name = "lasuite-docs";
@@ -446,7 +463,7 @@ in
       ];
     };
 
-    services.redis.servers.lasuite-docs = mkIf cfg.redis.createLocally { enable = true; };
+    services.redis.servers.lasuite-docs = mkIf cfg.redis.createLocally {enable = true;};
 
     services.nginx = mkIf cfg.enableNginx {
       enable = true;
@@ -517,6 +534,6 @@ in
 
   meta = {
     buildDocsInSandbox = false;
-    maintainers = [ lib.maintainers.soyouzpanda ];
+    maintainers = [lib.maintainers.soyouzpanda];
   };
 }

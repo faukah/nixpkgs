@@ -6,7 +6,6 @@
   gcc,
   gcc-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.0";
   pname = "messer-slim";
@@ -32,8 +31,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Evolutionary simulation framework";
     homepage = "https://messerlab.org/slim/";
-    license = with lib.licenses; [ gpl3 ];
-    maintainers = with lib.maintainers; [ bzizou ];
+    license = with lib.licenses; [gpl3];
+    maintainers = with lib.maintainers; [bzizou];
     platforms = lib.platforms.all;
   };
 }

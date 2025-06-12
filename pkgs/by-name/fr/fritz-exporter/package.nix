@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fritz-exporter";
   version = "2.5.2";
@@ -49,6 +48,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/pdreker/fritz_exporter";
     license = lib.licenses.asl20;
     mainProgram = "fritzexporter";
-    maintainers = with lib.maintainers; [ marie ];
+    maintainers = with lib.maintainers; [marie];
   };
 }

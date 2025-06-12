@@ -9,7 +9,6 @@
   msrestazure,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   version = "0.20.0";
   format = "setuptools";

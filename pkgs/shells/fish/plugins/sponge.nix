@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "sponge";
   version = "1.1.0";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "keeps your fish shell history clean from typos, incorrectly used commands and everything you don't want to store due to privacy reasons";
     homepage = "https://github.com/meaningful-ooo/sponge";
     license = licenses.mit;
-    maintainers = with maintainers; [ quantenzitrone ];
+    maintainers = with maintainers; [quantenzitrone];
   };
 }

@@ -3,25 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.opensnitch;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   predefinedRules = lib.flip lib.mapAttrs cfg.rules (
     name: cfg: {
       file = pkgs.writeText "rule" (builtins.toJSON cfg);
     }
   );
-
-in
-{
+in {
   options = {
     services.opensnitch = {
       enable = lib.mkEnableOption "Opensnitch application firewall";
 
       rules = lib.mkOption {
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             "tor" = {
@@ -58,7 +55,6 @@ in
 
           options = {
             Server = {
-
               Address = lib.mkOption {
                 type = lib.types.str;
                 description = ''
@@ -74,7 +70,6 @@ in
                   output).
                 '';
               };
-
             };
 
             DefaultAction = lib.mkOption {
@@ -132,7 +127,6 @@ in
             };
 
             Stats = {
-
               MaxEvents = lib.mkOption {
                 type = lib.types.int;
                 description = ''
@@ -146,16 +140,14 @@ in
                   Max stats per item to keep in backlog.
                 '';
               };
-
             };
 
             Ebpf.ModulesPath = lib.mkOption {
               type = lib.types.nullOr lib.types.path;
               default =
-                if cfg.settings.ProcMonitorMethod == "ebpf" then
-                  "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd"
-                else
-                  null;
+                if cfg.settings.ProcMonitorMethod == "ebpf"
+                then "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd"
+                else null;
               defaultText = lib.literalExpression ''
                 if cfg.settings.ProcMonitorMethod == "ebpf" then
                   "\\$\\{config.boot.kernelPackages.opensnitch-ebpf\\}/etc/opensnitchd"
@@ -175,7 +167,6 @@ in
                 get stored by the NixOS module.
               '';
             };
-
           };
         };
         description = ''
@@ -187,7 +178,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
     services.opensnitch.settings = lib.mapAttrs (_: v: lib.mkDefault v) (
       builtins.fromJSON (
@@ -198,22 +188,20 @@ in
     );
 
     systemd = {
-      packages = [ pkgs.opensnitch ];
+      packages = [pkgs.opensnitch];
       services.opensnitchd = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
-          ExecStart =
-            let
-              preparedSettings = removeAttrs cfg.settings (
-                lib.optional (cfg.settings.ProcMonitorMethod != "ebpf") "Ebpf"
-              );
-            in
-            [
-              ""
-              "${pkgs.opensnitch}/bin/opensnitchd --config-file ${format.generate "default-config.json" preparedSettings}"
-            ];
+          ExecStart = let
+            preparedSettings = removeAttrs cfg.settings (
+              lib.optional (cfg.settings.ProcMonitorMethod != "ebpf") "Ebpf"
+            );
+          in [
+            ""
+            "${pkgs.opensnitch}/bin/opensnitchd --config-file ${format.generate "default-config.json" preparedSettings}"
+          ];
         };
-        preStart = lib.mkIf (cfg.rules != { }) (
+        preStart = lib.mkIf (cfg.rules != {}) (
           let
             rules = lib.flip lib.mapAttrsToList predefinedRules (
               file: content: {
@@ -221,25 +209,27 @@ in
                 local = "${cfg.settings.Rules.Path}/${file}.json";
               }
             );
-          in
-          ''
+          in ''
             # Remove all firewall rules from rules path (configured with
             # cfg.settings.Rules.Path) that are symlinks to a store-path, but aren't
             # declared in `cfg.rules` (i.e. all networks that were "removed" from
             # `cfg.rules`).
             find ${cfg.settings.Rules.Path} -type l -lname '${builtins.storeDir}/*' ${
-              lib.optionalString (rules != { }) ''
+              lib.optionalString (rules != {}) ''
                 -not \( ${
-                  lib.concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules
+                  lib.concatMapStringsSep " -o " ({local, ...}: "-name '${baseNameOf local}*'") rules
                 } \) \
               ''
             } -delete
             ${lib.concatMapStrings (
-              { file, local }:
-              ''
-                ln -sf '${file}' "${local}"
-              ''
-            ) rules}
+                {
+                  file,
+                  local,
+                }: ''
+                  ln -sf '${file}' "${local}"
+                ''
+              )
+              rules}
           ''
         );
       };
@@ -248,8 +238,7 @@ in
         "L+ /etc/opensnitchd/system-fw.json - - - - ${pkgs.opensnitch}/etc/opensnitchd/system-fw.json"
       ];
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
+  meta.maintainers = with lib.maintainers; [onny];
 }

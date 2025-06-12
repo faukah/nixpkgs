@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyflakes";
   version = "3.3.2";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-nNug9EZ0coI095/QJu/eK1Ozlt01INT+mLlYdqrJuzE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals isPyPy [
     # https://github.com/PyCQA/pyflakes/issues/779
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "test_multilineSyntaxError"
   ];
 
-  pythonImportsCheck = [ "pyflakes" ];
+  pythonImportsCheck = ["pyflakes"];
 
   meta = with lib; {
     homepage = "https://github.com/PyCQA/pyflakes";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Simple program which checks Python source files for errors";
     mainProgram = "pyflakes";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

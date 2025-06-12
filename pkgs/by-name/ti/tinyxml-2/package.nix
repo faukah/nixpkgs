@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinyxml2";
   version = "11.0.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rYVQSvxA0nxlZFHwGcOWkxcXZWEvTxR9P+d8E7CSm6U=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # the cmake package does not handle absolute CMAKE_INSTALL_INCLUDEDIR
@@ -31,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple, small, efficient, C++ XML parser";
     homepage = "https://github.com/leethomason/tinyxml2";
     changelog = "https://github.com/leethomason/tinyxml2/releases/tag/${finalAttrs.src.rev}";
-    license = with lib.licenses; [ zlib ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [zlib];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

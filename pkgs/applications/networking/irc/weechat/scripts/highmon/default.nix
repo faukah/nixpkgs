@@ -4,7 +4,6 @@
   fetchurl,
   weechat,
 }:
-
 stdenv.mkDerivation {
   pname = "highmon";
   version = "2.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  passthru.scripts = [ "highmon.pl" ];
+  passthru.scripts = ["highmon.pl"];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +30,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/KenjiE20/highmon/";
     description = "highmon.pl is a weechat script that adds 'Highlight Monitor'";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ govanify ];
+    maintainers = with maintainers; [govanify];
   };
 }

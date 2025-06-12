@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
     sub = {
       nixos = lib.mkOption {
@@ -9,7 +8,7 @@
             ./expose-module-class.nix
           ];
         };
-        default = { };
+        default = {};
       };
 
       conditionalImportAsNixos = lib.mkOption {
@@ -19,7 +18,7 @@
             ./polymorphic-module.nix
           ];
         };
-        default = { };
+        default = {};
       };
 
       conditionalImportAsDarwin = lib.mkOption {
@@ -29,7 +28,7 @@
             ./polymorphic-module.nix
           ];
         };
-        default = { };
+        default = {};
       };
     };
   };
@@ -38,17 +37,17 @@
 
     nixos = lib.evalModules {
       class = "nixos";
-      modules = [ ./expose-module-class.nix ];
+      modules = [./expose-module-class.nix];
     };
 
     conditionalImportAsNixos = lib.evalModules {
       class = "nixos";
-      modules = [ ./polymorphic-module.nix ];
+      modules = [./polymorphic-module.nix];
     };
 
     conditionalImportAsDarwin = lib.evalModules {
       class = "darwin";
-      modules = [ ./polymorphic-module.nix ];
+      modules = [./polymorphic-module.nix];
     };
   };
 }

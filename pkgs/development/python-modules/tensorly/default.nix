@@ -8,7 +8,6 @@
   scipy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tensorly";
   version = "0.9.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-A6Zlp8fa7XFgf4qpg7SEtNLlYSNtDGLuRUEfzD+crQc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "tensorly"
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "tensorly.contrib"
   ];
 
-  pytestFlagsArray = [ "tensorly" ];
+  pytestFlagsArray = ["tensorly"];
 
   disabledTests = [
     # this can fail on hydra and other peoples machines, check with others before re-enabling
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://tensorly.org/";
     changelog = "https://github.com/tensorly/tensorly/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

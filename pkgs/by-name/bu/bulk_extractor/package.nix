@@ -13,7 +13,6 @@
   python310,
   re2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bulk_extractor";
   version = "2.1.1";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/simsong/bulk_extractor";
     downloadPage = "http://downloads.digitalcorpora.org/downloads/bulk_extractor/";
     changelog = "https://github.com/simsong/bulk_extractor/blob/${finalAttrs.src.rev}/ChangeLog";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = with platforms; unix ++ windows;
     license = with licenses; [
       mit

@@ -5,7 +5,6 @@
   nasm,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation {
   pname = "x264";
   version = "0-unstable-2025-01-03";
@@ -66,6 +65,6 @@ stdenv.mkDerivation {
     homepage = "http://www.videolan.org/developers/x264.html";
     license = licenses.gpl2Plus;
     platforms = platforms.unix ++ platforms.windows;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   pytestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "swagger-spec-validator";
   version = "2.7.4";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "swagger_spec_validator" ];
+  pythonImportsCheck = ["swagger_spec_validator"];
 
   meta = with lib; {
     homepage = "https://github.com/Yelp/swagger_spec_validator";
     license = licenses.asl20;
     description = "Validation of Swagger specifications";
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

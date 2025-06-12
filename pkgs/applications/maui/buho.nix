@@ -16,7 +16,6 @@
   qtmultimedia,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "buho";
 
@@ -45,6 +44,6 @@ mkDerivation {
     mainProgram = "buho";
     homepage = "https://invent.kde.org/maui/buho";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

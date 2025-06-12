@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.confd;
 
   confdConfig = ''
@@ -16,9 +15,7 @@ let
     log-level = "${cfg.logLevel}"
     watch = ${lib.boolToString cfg.watch}
   '';
-
-in
-{
+in {
   options.services.confd = {
     enable = lib.mkEnableOption "confd, a service to manage local application configuration files using templates and data from etcd/consul/redis/zookeeper";
 
@@ -41,7 +38,7 @@ in
 
     nodes = lib.mkOption {
       description = "Confd list of nodes to connect to.";
-      default = [ "http://127.0.0.1:2379" ];
+      default = ["http://127.0.0.1:2379"];
       type = lib.types.listOf lib.types.str;
     };
 
@@ -72,14 +69,14 @@ in
       type = lib.types.path;
     };
 
-    package = lib.mkPackageOption pkgs "confd" { };
+    package = lib.mkPackageOption pkgs "confd" {};
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.confd = {
       description = "Confd Service.";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/confd";
       };
@@ -89,7 +86,7 @@ in
       "confd/confd.toml".text = confdConfig;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.etcd.enable = lib.mkIf (cfg.backend == "etcd") (lib.mkDefault true);
   };

@@ -24,7 +24,7 @@ tracee.overrideAttrs (oa: {
       substituteInPlace tests/testutils/tracee.go \
         --replace-fail "../../dist/tracee" "${lib.getExe tracee}"
     '';
-  nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
+  nativeBuildInputs = oa.nativeBuildInputs or [] ++ [makeWrapper];
   buildPhase = ''
     runHook preBuild
     # copy existing built object to dist
@@ -46,8 +46,10 @@ tracee.overrideAttrs (oa: {
   '';
   doInstallCheck = false;
 
-  outputs = [ "out" ];
-  meta = oa.meta // {
-    outputsToInstall = [ "out" ];
-  };
+  outputs = ["out"];
+  meta =
+    oa.meta
+    // {
+      outputsToInstall = ["out"];
+    };
 })

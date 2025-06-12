@@ -13,7 +13,6 @@
   pytestCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "mrsqm";
   version = "0.0.7";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-5K6vCU0HExnmYNThZNDCbEtII9bUGauxDtKkJXe/85Q=";
   };
 
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   dependencies = [
     pandas
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     "tests/mrsqm"
   ];
 
-  pythonImportsCheck = [ "mrsqm" ];
+  pythonImportsCheck = ["mrsqm"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/mrsqm";
     changelog = "https://github.com/mlgig/mrsqm/releases/tag/v.${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ mbalatsko ];
+    maintainers = with lib.maintainers; [mbalatsko];
   };
 }

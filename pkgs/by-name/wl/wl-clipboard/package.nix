@@ -11,7 +11,6 @@
   xdg-utils,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wl-clipboard";
   version = "2.2.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   # Fix for https://github.com/NixOS/nixpkgs/issues/251261
   postInstall = lib.optionalString (!xdg-utils.meta.broken) ''
     wrapProgram $out/bin/wl-copy \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
   meta = with lib; {

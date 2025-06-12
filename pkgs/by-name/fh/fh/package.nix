@@ -7,7 +7,6 @@
   gcc,
   cacert,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fh";
   version = "0.1.24";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  checkInputs = [ cacert ];
+  checkInputs = [cacert];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     gcc.cc.lib
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/DeterminateSystems/fh";
     changelog = "https://github.com/DeterminateSystems/fh/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "fh";
   };
 }

@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.uwsgi;
 
   isEmperor = cfg.instance.type == "emperor";
@@ -23,70 +20,66 @@ let
     "CAP_CHOWN"
   ];
 
-  buildCfg =
-    name: c:
-    let
-      plugins' =
-        if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
-          throw "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
-        else
-          c.plugins or cfg.plugins;
-      plugins = unique plugins';
+  buildCfg = name: c: let
+    plugins' =
+      if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [])
+      then throw "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
+      else c.plugins or cfg.plugins;
+    plugins = unique plugins';
 
-      hasPython3 = filter (n: n == "python3") plugins != [ ];
-      python = if hasPython3 then cfg.package.python3 else null;
+    hasPython3 = filter (n: n == "python3") plugins != [];
+    python =
+      if hasPython3
+      then cfg.package.python3
+      else null;
 
-      pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
+    pythonEnv = python.withPackages (c.pythonPackages or (self: []));
 
-      uwsgiCfg = {
-        uwsgi =
-          if c.type == "normal" then
-            {
-              inherit plugins;
-            }
-            // removeAttrs c [
-              "type"
-              "pythonPackages"
-            ]
-            // optionalAttrs (python != null) {
-              pyhome = "${pythonEnv}";
-              env =
-                # Argh, uwsgi expects list of key-values there instead of a dictionary.
-                let
-                  envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
-                  paths = oldPaths ++ [ "${pythonEnv}/bin" ];
-                in
-                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
-            }
-          else if isEmperor then
-            {
-              emperor =
-                if builtins.typeOf c.vassals != "set" then
-                  c.vassals
-                else
-                  pkgs.buildEnv {
-                    name = "vassals";
-                    paths = mapAttrsToList buildCfg c.vassals;
-                  };
-            }
-            // removeAttrs c [
-              "type"
-              "vassals"
-            ]
-          else
-            throw "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
-      };
-
-    in
+    uwsgiCfg = {
+      uwsgi =
+        if c.type == "normal"
+        then
+          {
+            inherit plugins;
+          }
+          // removeAttrs c [
+            "type"
+            "pythonPackages"
+          ]
+          // optionalAttrs (python != null) {
+            pyhome = "${pythonEnv}";
+            env =
+              # Argh, uwsgi expects list of key-values there instead of a dictionary.
+              let
+                envs = partition (hasPrefix "PATH=") (c.env or []);
+                oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
+                paths = oldPaths ++ ["${pythonEnv}/bin"];
+              in
+                ["PATH=${concatStringsSep ":" paths}"] ++ envs.wrong;
+          }
+        else if isEmperor
+        then
+          {
+            emperor =
+              if builtins.typeOf c.vassals != "set"
+              then c.vassals
+              else
+                pkgs.buildEnv {
+                  name = "vassals";
+                  paths = mapAttrsToList buildCfg c.vassals;
+                };
+          }
+          // removeAttrs c [
+            "type"
+            "vassals"
+          ]
+        else throw "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
+    };
+  in
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
-
-in
-{
-
+in {
   options = {
     services.uwsgi = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -105,29 +98,27 @@ in
       };
 
       instance = mkOption {
-        type =
-          with types;
-          let
-            valueType =
-              nullOr (oneOf [
-                bool
-                int
-                float
-                str
-                (lazyAttrsOf valueType)
-                (listOf valueType)
-                (mkOptionType {
-                  name = "function";
-                  description = "function";
-                  check = x: isFunction x;
-                  merge = mergeOneOption;
-                })
-              ])
-              // {
-                description = "Json value or lambda";
-                emptyValue.value = { };
-              };
-          in
+        type = with types; let
+          valueType =
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+              (lazyAttrsOf valueType)
+              (listOf valueType)
+              (mkOptionType {
+                name = "function";
+                description = "function";
+                check = x: isFunction x;
+                merge = mergeOneOption;
+              })
+            ])
+            // {
+              description = "Json value or lambda";
+              emptyValue.value = {};
+            };
+        in
           valueType;
         default = {
           type = "normal";
@@ -161,7 +152,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Plugins used with uWSGI";
       };
 
@@ -180,7 +171,7 @@ in
       capabilities = mkOption {
         type = types.listOf types.str;
         apply = caps: caps ++ optionals isEmperor imperialPowers;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "CAP_NET_BIND_SERVICE" # bind on ports <1024
@@ -212,7 +203,7 @@ in
     '';
 
     systemd.services.uwsgi = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

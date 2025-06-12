@@ -6,7 +6,6 @@
   fmt,
   glaze,
 }:
-
 stdenv.mkDerivation {
   pname = "termbench-pro";
   version = "unstable-2025-01-01";
@@ -19,9 +18,9 @@ stdenv.mkDerivation {
   };
 
   # don't fetch glaze from CMakeLists.txt
-  patches = [ ./dont-fetchcontent.diff ];
+  patches = [./dont-fetchcontent.diff];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     fmt
     glaze
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     mainProgram = "tb";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

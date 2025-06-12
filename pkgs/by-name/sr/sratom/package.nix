@@ -10,7 +10,6 @@
   sord,
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sratom";
   version = "0.6.18";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://drobilla.net/software/sratom";
     description = "Library for serialising LV2 atoms to/from RDF";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

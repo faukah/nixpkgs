@@ -4,22 +4,17 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.boot.initrd.network;
 
   dhcpInterfaces = lib.attrNames (
-    lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or { })
+    lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or {})
   );
-  doDhcp = cfg.udhcpc.enable || dhcpInterfaces != [ ];
+  doDhcp = cfg.udhcpc.enable || dhcpInterfaces != [];
   dhcpIfShellExpr =
-    if config.networking.useDHCP || cfg.udhcpc.enable then
-      "$(ls /sys/class/net/ | grep -v ^lo$)"
-    else
-      lib.concatMapStringsSep " " lib.escapeShellArg dhcpInterfaces;
+    if config.networking.useDHCP || cfg.udhcpc.enable
+    then "$(ls /sys/class/net/ | grep -v ^lo$)"
+    else lib.concatMapStringsSep " " lib.escapeShellArg dhcpInterfaces;
 
   udhcpcScript = pkgs.writeScript "udhcp-script" ''
     #! /bin/sh
@@ -48,13 +43,8 @@ let
   '';
 
   udhcpcArgs = toString cfg.udhcpc.extraArgs;
-
-in
-
-{
-
+in {
   options = {
-
     boot.initrd.network.enable = mkOption {
       type = types.bool;
       default = false;
@@ -99,7 +89,7 @@ in
     };
 
     boot.initrd.network.udhcpc.extraArgs = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = ''
         Additional command-line arguments passed verbatim to
@@ -116,12 +106,10 @@ in
         boot has initialised the network.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
-    boot.initrd.kernelModules = [ "af_packet" ];
+    boot.initrd.kernelModules = ["af_packet"];
 
     boot.initrd.extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
       copy_bin_and_libs ${pkgs.klibc}/lib/klibc/bin.static/ipconfig
@@ -140,7 +128,6 @@ in
             esac
           done
         ''
-
         # Otherwise, use DHCP.
         + optionalString doDhcp ''
           # Bring up all interfaces.
@@ -155,20 +142,17 @@ in
             udhcpc --quit --now -i $iface -O staticroutes --script ${udhcpcScript} ${udhcpcArgs}
           done
         ''
-
         + cfg.postCommands
       )
     );
 
     boot.initrd.postMountCommands =
       mkIf (cfg.flushBeforeStage2 && !config.boot.initrd.systemd.enable)
-        ''
-          for iface in $ifaces; do
-            ip address flush dev "$iface"
-            ip link set dev "$iface" down
-          done
-        '';
-
+      ''
+        for iface in $ifaces; do
+          ip address flush dev "$iface"
+          ip link set dev "$iface" down
+        done
+      '';
   };
-
 }

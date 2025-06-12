@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gat";
   version = "0.24.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Cat alternative written in Go";
     license = licenses.mit;
     homepage = "https://github.com/koki-develop/gat";
-    maintainers = with maintainers; [ themaxmur ];
+    maintainers = with maintainers; [themaxmur];
     mainProgram = "gat";
   };
 }

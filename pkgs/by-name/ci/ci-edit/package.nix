@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "ci-edit";
   version = "51-unstable-2023-04-11";
@@ -28,13 +27,13 @@ python3.pkgs.buildPythonApplication {
     install -Dm644 $src/app/*.words $out/${python3.sitePackages}/app/
   '';
 
-  pythonImportsCheck = [ "app" ];
+  pythonImportsCheck = ["app"];
 
   meta = with lib; {
     description = "Terminal text editor with mouse support and ctrl+Q to quit";
     homepage = "https://github.com/google/ci_edit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ katexochen ];
+    maintainers = with maintainers; [katexochen];
     mainProgram = "ci_edit";
     platforms = platforms.unix;
   };

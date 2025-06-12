@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "trdsql";
   version = "1.1.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-version";
   installCheckPhase = ''
     runHook preInstallCheck
@@ -49,14 +48,14 @@ buildGoModule rec {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool for execute SQL queries on CSV, LTSV, JSON, YAML and TBLN with various output formats";
     homepage = "https://github.com/noborus/trdsql";
     changelog = "https://github.com/noborus/trdsql/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "trdsql";
   };
 }

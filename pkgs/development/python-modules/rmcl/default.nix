@@ -8,7 +8,6 @@
   trio,
   xdg,
 }:
-
 buildPythonPackage rec {
   pname = "rmcl";
   version = "0.4.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace '= "^' '= ">='
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     asks
@@ -38,12 +37,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rmcl" ];
+  pythonImportsCheck = ["rmcl"];
 
   meta = {
     description = "ReMarkable Cloud Library";
     homepage = "https://github.com/rschroll/rmcl";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

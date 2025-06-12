@@ -5,7 +5,6 @@
   ledger,
   hledger,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ledger-autosync";
   version = "1.2.0";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-bbFjDdxYr85OPjdvY3JYtCe/8Epwi+8JN60PKVKbqe0=";
   };
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
   dependencies = with python3Packages; [
     ofxclient
@@ -38,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/egh/ledger-autosync/releases/tag/v${version}";
     description = "OFX/CSV autosync for ledger and hledger";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ eamsden ];
+    maintainers = with lib.maintainers; [eamsden];
   };
 }

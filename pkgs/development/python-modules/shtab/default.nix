@@ -9,7 +9,6 @@
   setuptools-scm,
   bashInteractive,
 }:
-
 buildPythonPackage rec {
   pname = "shtab";
   version = "1.7.1";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "shtab" ];
+  pythonImportsCheck = ["shtab"];
 
   meta = with lib; {
     description = "Module for shell tab completion of Python CLI applications";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://docs.iterative.ai/shtab/";
     changelog = "https://github.com/iterative/shtab/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

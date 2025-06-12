@@ -9,7 +9,6 @@
   requests,
   unicode-character-database,
 }:
-
 buildPythonPackage rec {
   pname = "youseedee";
   version = "0.6.0";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Python library for querying the Unicode Character Database";
     homepage = "https://github.com/simoncozens/youseedee";
     license = licenses.mit;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

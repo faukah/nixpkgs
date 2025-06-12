@@ -30,7 +30,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cinnamon-settings-daemon";
   version = "6.4.3";
@@ -105,6 +104,6 @@ stdenv.mkDerivation rec {
     description = "Settings daemon for the Cinnamon desktop";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

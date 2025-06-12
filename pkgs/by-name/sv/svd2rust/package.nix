@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "svd2rust";
   version = "0.36.1";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ newam ];
+    maintainers = with lib.maintainers; [newam];
   };
 }

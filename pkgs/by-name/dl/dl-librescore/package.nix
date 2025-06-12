@@ -6,7 +6,6 @@
   python3,
   cctools,
 }:
-
 buildNpmPackage rec {
   pname = "dl-librescore";
   version = "0.35.29";
@@ -42,6 +41,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/LibreScore/dl-librescore";
     license = lib.licenses.mit;
     mainProgram = "dl-librescore";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

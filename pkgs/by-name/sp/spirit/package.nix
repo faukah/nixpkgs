@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "spirit";
   version = "0.8.0";
@@ -17,7 +16,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-87WUqUjyfprpY63kEKCAx/AU6TN73W7oMdOaKfl8xt4=";
 
-  subPackages = [ "cmd/spirit" ];
+  subPackages = ["cmd/spirit"];
 
   ldflags = [
     "-s"
@@ -28,7 +27,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/cashapp/spirit";
     description = "Online schema change tool for MySQL";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "spirit";
   };
 })

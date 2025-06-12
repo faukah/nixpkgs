@@ -3,7 +3,6 @@
   craftos-pc,
   gnugrep,
 }:
-
 stdenv.mkDerivation {
   name = "craftos-pc-test-eval-hello-world";
   meta.timeout = 60;

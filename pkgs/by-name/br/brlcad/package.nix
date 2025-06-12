@@ -10,7 +10,6 @@
   freetype,
   libgbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brlcad";
   version = "7.38.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "BRL-CAD";
     repo = "brlcad";
-    rev = "refs/tags/rel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "refs/tags/rel-${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-23UTeH4gY2x/QGYZ64glAkf6LmsXBAppIOHgoUdxgpo=";
   };
 
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
       lgpl21
       bsd2
     ];
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     platforms = platforms.linux;
     # error Exactly one of ON_LITTLE_ENDIAN or ON_BIG_ENDIAN should be defined.
     broken = stdenv.system == "aarch64-linux";

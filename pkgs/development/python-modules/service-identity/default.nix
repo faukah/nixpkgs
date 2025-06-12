@@ -14,7 +14,6 @@
   pythonOlder,
   pyopenssl,
 }:
-
 buildPythonPackage rec {
   pname = "service-identity";
   version = "24.2.0";
@@ -43,17 +42,17 @@ buildPythonPackage rec {
     pyasn1-modules
   ];
 
-  checkInputs = [ pyopenssl ];
+  checkInputs = [pyopenssl];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "service_identity" ];
+  pythonImportsCheck = ["service_identity"];
 
   meta = with lib; {
     description = "Service identity verification for pyOpenSSL";
     homepage = "https://service-identity.readthedocs.io";
     changelog = "https://github.com/pyca/service-identity/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

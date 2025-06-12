@@ -5,7 +5,6 @@
   pkg-config,
   bzip2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-epub";
   version = "0.4.37";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-3R81PJCOFc22QDHH2BqGB9jjvEcMc1axoySSJLJD3wI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
 
   meta = {
     description = "mdbook backend for generating an e-book in the EPUB format";

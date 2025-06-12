@@ -27,7 +27,6 @@
   wcwidth,
   yamale,
 }:
-
 buildPythonPackage rec {
   pname = "python-fx";
   version = "0.3.2";
@@ -50,9 +49,9 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ antlr4 ];
+  nativeBuildInputs = [antlr4];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
@@ -83,14 +82,14 @@ buildPythonPackage rec {
   # FAILED tests/test_event_loops.py::TwistedEventLoopTest::test_run - AssertionError: 'callback called with future outcome: True' not found in ['...
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "pyfx" ];
+  pythonImportsCheck = ["pyfx"];
 
   meta = with lib; {
     description = "Module to view JSON in a TUI";
     homepage = "https://github.com/cielong/pyfx";
     changelog = "https://github.com/cielong/pyfx/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "pyfx";
   };
 }

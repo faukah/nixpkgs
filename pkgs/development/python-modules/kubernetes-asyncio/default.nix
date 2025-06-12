@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   coreutils,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   certifi,
@@ -14,11 +12,9 @@
   pyyaml,
   six,
   urllib3,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "kubernetes-asyncio";
   version = "32.3.0";
@@ -64,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tomplus/kubernetes_asyncio";
     changelog = "https://github.com/tomplus/kubernetes_asyncio/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

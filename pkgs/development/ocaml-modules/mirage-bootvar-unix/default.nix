@@ -5,7 +5,6 @@
   lwt,
   parse-argv,
 }:
-
 buildDunePackage rec {
   pname = "mirage-bootvar-unix";
   version = "0.1.0";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     description = "Unix implementation of MirageOS Bootvar interface";
     homepage = "https://github.com/mirage/mirage-bootvar-unix";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

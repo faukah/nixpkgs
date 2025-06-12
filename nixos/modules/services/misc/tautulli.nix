@@ -3,13 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.tautulli;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "plexpy" ] [ "services" "tautulli" ])
+    (lib.mkRenamedOptionModule ["services" "plexpy"] ["services" "tautulli"])
   ];
 
   options = {
@@ -52,7 +50,7 @@ in
         description = "Group under which Tautulli runs.";
       };
 
-      package = lib.mkPackageOption pkgs "tautulli" { };
+      package = lib.mkPackageOption pkgs "tautulli" {};
     };
   };
 
@@ -63,8 +61,8 @@ in
 
     systemd.services.tautulli = {
       description = "Tautulli Plex Monitor";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         User = cfg.user;
@@ -75,7 +73,7 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
 
     users.users = lib.mkIf (cfg.user == "plexpy") {
       plexpy = {

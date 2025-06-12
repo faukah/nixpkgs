@@ -13,7 +13,6 @@
   libGL,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "windecor";
   version = "0.8.0";
@@ -46,13 +45,13 @@ stdenv.mkDerivation (finalAttrs: {
     xcbutilwm
   ];
 
-  mesonFlags = [ "--sysconfdir=/etc" ];
+  mesonFlags = ["--sysconfdir=/etc"];
 
   meta = {
     homepage = "https://gitlab.com/wayfireplugins/windecor";
     description = "Window decoration plugin for wayfire";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
     inherit (wayfire.meta) platforms;
   };
 })

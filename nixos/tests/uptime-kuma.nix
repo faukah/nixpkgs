@@ -1,14 +1,10 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "uptime-kuma";
-  meta.maintainers = with lib.maintainers; [ julienmalka ];
+  meta.maintainers = with lib.maintainers; [julienmalka];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.uptime-kuma.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.uptime-kuma.enable = true;
+  };
 
   testScript = ''
     machine.start()

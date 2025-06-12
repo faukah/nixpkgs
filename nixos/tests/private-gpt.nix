@@ -1,21 +1,21 @@
-{ pkgs, lib, ... }:
-let
-  mainPort = "8001";
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  mainPort = "8001";
+in {
   name = "private-gpt";
   meta = with lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.private-gpt = {
-          enable = true;
-        };
+    machine = {...}: {
+      services.private-gpt = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''

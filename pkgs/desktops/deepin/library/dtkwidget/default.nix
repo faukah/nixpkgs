@@ -12,7 +12,6 @@
   libstartup_notification,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtkwidget";
   version = "5.6.31";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     xorg.libXdmcp
   ];
 
-  propagatedBuildInputs = [ dtkgui ];
+  propagatedBuildInputs = [dtkgui];
 
   cmakeFlags = [
     "-DDTK_VERSION=${version}"
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtkwidget";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

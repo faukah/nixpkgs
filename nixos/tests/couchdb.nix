@@ -1,32 +1,29 @@
 let
-  makeNode =
-    couchpkg: user: passwd:
-    { pkgs, ... }:
-
-    {
-      environment.systemPackages = [ pkgs.jq ];
-      services.couchdb.enable = true;
-      services.couchdb.package = couchpkg;
-      services.couchdb.adminUser = user;
-      services.couchdb.adminPass = passwd;
-    };
+  makeNode = couchpkg: user: passwd: {pkgs, ...}: {
+    environment.systemPackages = [pkgs.jq];
+    services.couchdb.enable = true;
+    services.couchdb.package = couchpkg;
+    services.couchdb.adminUser = user;
+    services.couchdb.adminPass = passwd;
+  };
   testuser = "testadmin";
   testpass = "cowabunga";
   testlogin = "${testuser}:${testpass}@";
 in
-{ pkgs, lib, ... }:
-{
-  name = "couchdb";
-  meta.maintainers = [ ];
+  {
+    pkgs,
+    lib,
+    ...
+  }: {
+    name = "couchdb";
+    meta.maintainers = [];
 
-  nodes = {
-    couchdb3 = makeNode pkgs.couchdb3 testuser testpass;
-  };
+    nodes = {
+      couchdb3 = makeNode pkgs.couchdb3 testuser testpass;
+    };
 
-  testScript =
-    let
-      curlJqCheck =
-        login: action: path: jqexpr: result:
+    testScript = let
+      curlJqCheck = login: action: path: jqexpr: result:
         pkgs.writeScript "curl-jq-check-${action}-${path}.sh" ''
           RESULT=$(curl -X ${action} http://${login}127.0.0.1:5984/${path} | jq -r '${jqexpr}')
           echo $RESULT >&2
@@ -34,8 +31,7 @@ in
             exit 1
           fi
         '';
-    in
-    ''
+    in ''
       start_all()
 
       couchdb3.wait_for_unit("couchdb.service")
@@ -59,4 +55,4 @@ in
           "${curlJqCheck testlogin "GET" "_node/couchdb@127.0.0.1" ".couchdb" "Welcome"}"
       )
     '';
-}
+  }

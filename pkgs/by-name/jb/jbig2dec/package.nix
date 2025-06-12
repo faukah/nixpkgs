@@ -7,7 +7,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jbig2dec";
   version = "0.20";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   # by `configure` (like `--host`) are passed to `autogen.sh`.
   configureScript = "./autogen.sh";
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   doCheck = true;
 
   meta = {

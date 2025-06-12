@@ -8,7 +8,6 @@
   makeWrapper,
   sox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "multimon-ng";
   version = "1.4.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/multimon-ng --prefix PATH : "${lib.makeBinPath [ sox ]}"
+    wrapProgram $out/bin/multimon-ng --prefix PATH : "${lib.makeBinPath [sox]}"
   '';
 
   meta = with lib; {
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/EliasOenal/multimon-ng";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

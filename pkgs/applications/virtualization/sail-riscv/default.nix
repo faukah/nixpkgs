@@ -10,7 +10,6 @@
   zlib,
   z3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sail-riscv";
   version = "0.7";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/riscv/sail-riscv";
     description = "Formal specification of the RISC-V architecture, written in Sail";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd2;
   };
 }

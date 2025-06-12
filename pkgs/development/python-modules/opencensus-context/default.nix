@@ -3,7 +3,6 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "opencensus-context";
   version = "0.1.3";
@@ -14,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-oDEIw8ENjIC7Xd9cih8DMWH6YZcqmRf5ubOhhRfwCIw=";
   };
 
-  pythonNamespaces = [ "opencensus.common" ];
+  pythonNamespaces = ["opencensus.common"];
 
   doCheck = false; # No tests in archive
 
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "OpenCensus Runtime Context";
     homepage = "https://github.com/census-instrumentation/opencensus-python/tree/master/context/opencensus-context";
     license = licenses.asl20;
-    maintainers = with maintainers; [ billhuang ];
+    maintainers = with maintainers; [billhuang];
   };
 }

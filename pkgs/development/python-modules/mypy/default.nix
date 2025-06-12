@@ -7,22 +7,18 @@
   pythonAtLeast,
   pythonOlder,
   isPyPy,
-
   # build-system
   setuptools,
   types-psutil,
   types-setuptools,
   wheel,
-
   # propagates
   mypy-extensions,
   tomli,
   typing-extensions,
-
   # optionals
   lxml,
   psutil,
-
   # tests
   attrs,
   filelock,
@@ -30,7 +26,6 @@
   pytestCheckHook,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "mypy";
   version = "1.15.0";
@@ -50,23 +45,27 @@ buildPythonPackage rec {
     rev-prefix = "v";
   };
 
-  build-system = [
-    mypy-extensions
-    setuptools
-    types-psutil
-    types-setuptools
-    typing-extensions
-    wheel
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  build-system =
+    [
+      mypy-extensions
+      setuptools
+      types-psutil
+      types-setuptools
+      typing-extensions
+      wheel
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  dependencies = [
-    mypy-extensions
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      mypy-extensions
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
-    dmypy = [ psutil ];
-    reports = [ lxml ];
+    dmypy = [psutil];
+    reports = [lxml];
   };
 
   # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
@@ -91,14 +90,16 @@ buildPythonPackage rec {
       "mypy.report"
     ];
 
-  nativeCheckInputs = [
-    attrs
-    filelock
-    pytest-xdist
-    pytestCheckHook
-    setuptools
-    tomli
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      attrs
+      filelock
+      pytest-xdist
+      pytestCheckHook
+      setuptools
+      tomli
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests =
     [
@@ -137,6 +138,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/python/mypy/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "mypy";
-    maintainers = with lib.maintainers; [ lnl7 ];
+    maintainers = with lib.maintainers; [lnl7];
   };
 }

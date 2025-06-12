@@ -8,10 +8,8 @@
   nodejs,
   tailwindcss_3,
   esbuild,
-
   mixReleaseName ? "domain", # "domain" "web" or "api"
 }:
-
 beamPackages.mixRelease rec {
   pname = "firezone-server-${mixReleaseName}";
   version = "0-unstable-2025-03-15";

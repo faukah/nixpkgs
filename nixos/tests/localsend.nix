@@ -1,13 +1,10 @@
-{ ... }:
-{
+{...}: {
   name = "localsend";
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      programs.localsend.enable = true;
-    };
+  nodes.machine = {...}: {
+    imports = [./common/x11.nix];
+    programs.localsend.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_x()

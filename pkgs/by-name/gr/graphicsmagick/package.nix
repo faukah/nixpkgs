@@ -25,7 +25,6 @@
   xz,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "graphicsmagick";
   version = "1.3.45";
@@ -40,26 +39,30 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  buildInputs = [
-    bzip2
-    freetype
-    ghostscript
-    graphviz
-    libX11
-    libjpeg
-    libpng
-    libtiff
-    libtool
-    libwebp
-    libxml2
-    zlib
-  ] ++ lib.optionals libheifSupport [ libheif ];
+  buildInputs =
+    [
+      bzip2
+      freetype
+      ghostscript
+      graphviz
+      libX11
+      libjpeg
+      libpng
+      libtiff
+      libtool
+      libwebp
+      libxml2
+      zlib
+    ]
+    ++ lib.optionals libheifSupport [libheif];
 
-  nativeBuildInputs = [
-    nukeReferences
-    pkg-config
-    xz
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      nukeReferences
+      pkg-config
+      xz
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   configureFlags = [
     # specify delegates explicitly otherwise `gm` will invoke the build
@@ -89,12 +92,12 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       issue-157920 =
         runCommand "issue-157920-regression-test"
-          {
-            buildInputs = [ finalAttrs.finalPackage ];
-          }
-          ''
-            gm convert ${graphviz}/share/doc/graphviz/neatoguide.pdf jpg:$out
-          '';
+        {
+          buildInputs = [finalAttrs.finalPackage];
+        }
+        ''
+          gm convert ${graphviz}/share/doc/graphviz/neatoguide.pdf jpg:$out
+        '';
     };
   };
 
@@ -108,8 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
       including important formats like DPX, GIF, JPEG, JPEG-2000, JXL, PNG, PDF,
       PNM, TIFF, and WebP.
     '';
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [];
     mainProgram = "gm";
     platforms = lib.platforms.all;
   };

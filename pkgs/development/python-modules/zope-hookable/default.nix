@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-hookable";
   version = "7.0";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
       --replace-fail "setuptools<74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zope.hookable" ];
+  pythonImportsCheck = ["zope.hookable"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "src/zope/hookable/tests" ];
+  unittestFlagsArray = ["src/zope/hookable/tests"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = with lib; {
     description = "Supports the efficient creation of “hookable” objects";

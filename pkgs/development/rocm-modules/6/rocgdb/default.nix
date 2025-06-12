@@ -20,7 +20,6 @@
   babeltrace,
   sourceHighlight,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocgdb";
   version = "6.3.3";
@@ -111,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "ROCm source-level debugger for Linux, based on GDB";
     homepage = "https://github.com/ROCm/ROCgdb";
     license = licenses.gpl3Plus;
-    teams = [ teams.rocm ];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

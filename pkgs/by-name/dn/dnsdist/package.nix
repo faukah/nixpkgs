@@ -17,7 +17,6 @@
   nghttp2,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dnsdist";
   version = "1.9.10";
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     mainProgram = "dnsdist";
     homepage = "https://dnsdist.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

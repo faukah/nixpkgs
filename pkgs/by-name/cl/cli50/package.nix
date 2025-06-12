@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cli50";
   version = "8.0.1";
@@ -28,9 +27,9 @@ python3Packages.buildPythonApplication rec {
     tzlocal
   ];
 
-  pythonImportsCheck = [ "cli50" ];
+  pythonImportsCheck = ["cli50"];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no python tests
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/cs50/cli50/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "cli50";
   };
 }

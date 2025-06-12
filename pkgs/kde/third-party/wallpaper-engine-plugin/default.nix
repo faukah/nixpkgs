@@ -27,12 +27,12 @@ mkKdeDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [ ./nix-plugin.patch ];
+  patches = [./nix-plugin.patch];
 
   extraNativeBuildInputs = [
     kpackage
     pkg-config
-    (python3.withPackages (ps: with ps; [ websockets ]))
+    (python3.withPackages (ps: with ps; [websockets]))
   ];
 
   extraBuildInputs = [
@@ -67,7 +67,7 @@ mkKdeDerivation {
     description = "KDE wallpaper plugin integrating Wallpaper Engine";
     homepage = "https://github.com/catsout/wallpaper-engine-kde-plugin";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ macronova ];
-    teams = [ ];
+    maintainers = with maintainers; [macronova];
+    teams = [];
   };
 }

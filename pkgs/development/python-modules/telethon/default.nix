@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "telethon";
   version = "1.37.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cryptg = [ cryptg ];
+    cryptg = [cryptg];
   };
 
   nativeCheckInputs = [
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/LonamiWebs/Telethon";
     description = "Full-featured Telegram client library for Python 3";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nyanloutre ];
+    maintainers = with lib.maintainers; [nyanloutre];
   };
 }

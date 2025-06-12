@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pgcenter";
   version = "0.9.2";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-9hYiyZ34atmSL7JvuXyiGU7HR4E6qN7bGZlyU+hP+FU=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   ldflags = [
     "-w"
@@ -38,7 +37,7 @@ buildGoModule rec {
     changelog = "https://github.com/lesovsky/pgcenter/raw/v${version}/doc/Changelog";
     description = "Command-line admin tool for observing and troubleshooting PostgreSQL";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "pgcenter";
   };
 }

@@ -6,7 +6,6 @@
   python,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "asynctest";
   version = "0.13.0";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Enhance the standard unittest package with features for testing asyncio libraries";
     homepage = "https://github.com/Martiusweb/asynctest";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

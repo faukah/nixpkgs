@@ -2,11 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   unittestCheckHook,
-
   setuptools,
-
   unicodecsv,
   pyyaml,
   regex,
@@ -15,7 +12,6 @@
   munkres,
   levenshtein,
 }:
-
 buildPythonPackage rec {
   pname = "panphon";
   version = "0.22.0";
@@ -26,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-iSdCZjzeZhxsrkaRYHpg60evmo9g09a9Fwr0I5WWd1A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     unicodecsv
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     levenshtein # need for align_wordlists.py script
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     description = "Tools for using the International Phonetic Alphabet with phonological features";
     homepage = "https://github.com/dmort27/panphon";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-principal";
   version = "0.4.0";
@@ -20,23 +19,23 @@ buildPythonPackage rec {
     hash = "sha256-E9urzZc7/QtzAohSNAJsQtykrplb+MC189VGZI5kmEE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
     blinker
   ];
 
-  pythonImportsCheck = [ "flask_principal" ];
+  pythonImportsCheck = ["flask_principal"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test_principal.py" ];
+  pytestFlagsArray = ["test_principal.py"];
 
   meta = with lib; {
     homepage = "http://packages.python.org/Flask-Principal/";
     description = "Identity management for flask";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

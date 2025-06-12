@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "quake-injector";
       comment = finalAttrs.meta.description;
       desktopName = "Quake Injector";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hrehfeld/QuakeInjector";
     changelog = "https://github.com/hrehfeld/QuakeInjector/releases";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     mainProgram = "quake-injector";
     platforms = jdk.meta.platforms;
     sourceProvenance = with lib.sourceTypes; [

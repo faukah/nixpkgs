@@ -5,7 +5,6 @@
   rustPlatform,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rover";
   version = "0.24.0";

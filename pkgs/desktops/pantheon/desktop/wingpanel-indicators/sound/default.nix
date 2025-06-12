@@ -17,7 +17,6 @@
   libgee,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-sound";
   version = "8.0.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-sound";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

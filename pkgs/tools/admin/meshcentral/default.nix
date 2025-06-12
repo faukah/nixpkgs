@@ -6,7 +6,6 @@
   nodejs_20,
   dos2unix,
 }:
-
 yarn2nix-moretea.mkYarnPackage {
   version = "1.1.45";
 
@@ -28,7 +27,7 @@ yarn2nix-moretea.mkYarnPackage {
   };
 
   # Tarball has CRLF line endings. This makes patching difficult, so let's convert them.
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
   prePatch = ''
     find . -name '*.js' -exec dos2unix {} +
     ln -snf meshcentral.js bin/meshcentral
@@ -41,14 +40,14 @@ yarn2nix-moretea.mkYarnPackage {
     ln -s $out/libexec/meshcentral/deps/meshcentral/meshcentral.js $out/bin/meshcentral
   '';
 
-  publishBinsFor = [ ];
+  publishBinsFor = [];
 
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "Computer management web app";
     homepage = "https://meshcentral.com/";
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     license = licenses.asl20;
     mainProgram = "meshcentral";
   };

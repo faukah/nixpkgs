@@ -7,7 +7,6 @@
   libxml2,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libglade";
   version = "2.6.4";
@@ -28,8 +27,8 @@ stdenv.mkDerivation rec {
     pkg-config
     gettext
   ];
-  buildInputs = [ gtk2 ];
-  propagatedBuildInputs = [ libxml2 ];
+  buildInputs = [gtk2];
+  propagatedBuildInputs = [libxml2];
 
   postPatch = ''
     # uses pkg-config in some places and uses the correct $PKG_CONFIG in some

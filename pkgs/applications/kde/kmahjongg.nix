@@ -8,7 +8,6 @@
   libkdegames,
   libkmahjongg,
 }:
-
 mkDerivation {
   pname = "kmahjongg";
   nativeBuildInputs = [
@@ -25,7 +24,7 @@ mkDerivation {
     description = "Mahjongg solitaire";
     mainProgram = "kmahjongg";
     homepage = "https://apps.kde.org/kmahjongg/";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
 }

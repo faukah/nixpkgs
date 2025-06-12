@@ -6,19 +6,14 @@
   findlib,
   topkg,
   ocamlbuild,
-}:
-
-let
+}: let
   homepage = "https://erratique.ch/software/gg";
   version = "1.0.0";
 in
-
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
+  lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
   "gg is not available for OCaml ${ocaml.version}"
-
   stdenv.mkDerivation
   {
-
     pname = "ocaml${ocaml.version}-gg";
     inherit version;
 
@@ -35,7 +30,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     inherit (topkg) buildPhase installPhase;
 
@@ -50,6 +45,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       inherit homepage;
       inherit (ocaml.meta) platforms;
       license = licenses.bsd3;
-      maintainers = [ maintainers.jirkamarsik ];
+      maintainers = [maintainers.jirkamarsik];
     };
   }

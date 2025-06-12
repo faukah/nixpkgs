@@ -27,7 +27,6 @@
   vala,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ayatana-indicator-sound";
   version = "24.5.2";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [
     dbus
-    (python3.withPackages (ps: with ps; [ python-dbusmock ]))
+    (python3.withPackages (ps: with ps; [python-dbusmock]))
   ];
 
   checkInputs = [
@@ -119,7 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
       startup = nixosTests.ayatana-indicators;
       lomiri = nixosTests.lomiri.desktop-ayatana-indicator-sound;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -131,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AyatanaIndicators/ayatana-indicator-sound";
     changelog = "https://github.com/AyatanaIndicators/ayatana-indicator-sound/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

@@ -4,7 +4,6 @@
   buildDotnetModule,
   dotnetCorePackages,
 }:
-
 buildDotnetModule {
   pname = "imewlconverter";
   version = "3.2.0";
@@ -25,7 +24,7 @@ buildDotnetModule {
     mainProgram = "ImeWlConverterCmd";
     description = "FOSS program for converting IME dictionaries";
     homepage = "https://github.com/studyzy/imewlconverter";
-    maintainers = with lib.maintainers; [ xddxdd ];
+    maintainers = with lib.maintainers; [xddxdd];
     license = lib.licenses.gpl3Only;
   };
 }

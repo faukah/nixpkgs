@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jwasm";
   version = "2.19";
@@ -23,7 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
   dontConfigure = true;
 
   preBuild = ''
-    cp ${if stdenv.cc.isClang then "CLUnix.mak" else "GccUnix.mak"} Makefile
+    cp ${
+      if stdenv.cc.isClang
+      then "CLUnix.mak"
+      else "GccUnix.mak"
+    } Makefile
     substituteInPlace Makefile \
       --replace "/usr/local/bin" "${placeholder "out"}/bin"
   '';
@@ -45,9 +48,10 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Baron-von-Riedesel/JWasm/releases/tag/${finalAttrs.src.rev}";
     mainProgram = "jwasm";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };
 })
 # TODO: generalize for Windows builds
+

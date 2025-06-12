@@ -18,7 +18,6 @@
   tabulate,
   tldextract,
 }:
-
 buildPythonPackage rec {
   pname = "faraday-plugins";
   version = "1.24.1";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace-fail "version=version," "version='${version}',"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     tldextract
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # faraday itself is currently not available
@@ -71,14 +70,14 @@ buildPythonPackage rec {
     "test_process_report_tags"
   ];
 
-  pythonImportsCheck = [ "faraday_plugins" ];
+  pythonImportsCheck = ["faraday_plugins"];
 
   meta = with lib; {
     description = "Security tools report parsers for Faraday";
     homepage = "https://github.com/infobyte/faraday_plugins";
     changelog = "https://github.com/infobyte/faraday_plugins/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "faraday-plugins";
   };
 }

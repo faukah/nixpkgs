@@ -12,7 +12,6 @@
   wxGTK32,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tqsl";
   version = "2.8.1";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.arrl.org/tqsl-download";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.dpflug ];
+    maintainers = [maintainers.dpflug];
   };
 }

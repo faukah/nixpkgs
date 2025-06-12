@@ -7,7 +7,6 @@
   fftwFloat,
   libsamplerate,
 }:
-
 stdenv.mkDerivation rec {
   pname = "csdr";
   version = "0.18.2";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
   };
 }

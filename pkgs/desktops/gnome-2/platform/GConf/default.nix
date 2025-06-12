@@ -11,7 +11,6 @@
   python3,
   intltool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gconf";
   version = "3.2.6";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     # fixes the "libgconfbackend-oldxml.so is not portable" error on darwin
-    lib.optionals stdenv.hostPlatform.isDarwin [ "--enable-static" ];
+    lib.optionals stdenv.hostPlatform.isDarwin ["--enable-static"];
 
   postPatch = ''
     2to3 --write --nobackup gsettings/gsettings-schema-convert

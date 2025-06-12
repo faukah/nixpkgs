@@ -7,7 +7,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "typesystem";
   version = "0.4.1";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "typesystem" ];
+  pythonImportsCheck = ["typesystem"];
 
   meta = with lib; {
     description = "Type system library for Python";
     homepage = "https://github.com/encode/typesystem";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

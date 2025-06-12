@@ -19,7 +19,6 @@
   pytest-mypy,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "multiscale-spatial-image";
   version = "2.0.2";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-aJp9RrCy88XFpM5GU7jADHQZFNZgXvlqSsCbmay3gww=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     dask
@@ -46,7 +45,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    dask-image = [ dask-image ];
+    dask-image = [dask-image];
     #itk = [
     #  itk-filtering # not in nixpkgs yet
     #];
@@ -63,17 +62,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.test;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.test;
 
   doCheck = false; # all test files try to download data
 
-  pythonImportsCheck = [ "multiscale_spatial_image" ];
+  pythonImportsCheck = ["multiscale_spatial_image"];
 
   meta = {
     description = "Generate a multiscale, chunked, multi-dimensional spatial image data structure that can serialized to OME-NGFF";
     homepage = "https://github.com/spatial-image/multiscale-spatial-image";
     changelog = "https://github.com/spatial-image/multiscale-spatial-image/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

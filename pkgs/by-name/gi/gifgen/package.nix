@@ -5,7 +5,6 @@
   ffmpeg,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gifgen";
   version = "1.2.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
     install -Dm755 gifgen $out/bin/gifgen
     wrapProgram $out/bin/gifgen \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
     runHook postInstall
   '';
 
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Simple high quality GIF encoding";
     homepage = "https://github.com/lukechilds/gifgen";
     license = licenses.mit;
-    maintainers = with maintainers; [ snowflake ];
+    maintainers = with maintainers; [snowflake];
     mainProgram = "gifgen";
     platforms = platforms.all;
   };

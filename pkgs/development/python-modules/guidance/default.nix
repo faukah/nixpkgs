@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pybind11,
   setuptools,
-
   # dependencies
   diskcache,
   guidance-stitch,
@@ -19,13 +17,11 @@
   referencing,
   requests,
   tiktoken,
-
   # optional-dependencies
   openai,
   jsonschema,
   fastapi,
   uvicorn,
-
   # tests
   huggingface-hub,
   pytestCheckHook,
@@ -33,7 +29,6 @@
   torch,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "guidance";
   version = "0.2.1";
@@ -70,24 +65,26 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    azureai = [ openai ];
-    openai = [ openai ];
-    schemas = [ jsonschema ];
+    azureai = [openai];
+    openai = [openai];
+    schemas = [jsonschema];
     server = [
       fastapi
       uvicorn
     ];
   };
 
-  nativeCheckInputs = [
-    huggingface-hub
-    pytestCheckHook
-    tokenizers
-    torch
-    writableTmpDirAsHomeHook
-  ] ++ optional-dependencies.schemas;
+  nativeCheckInputs =
+    [
+      huggingface-hub
+      pytestCheckHook
+      tokenizers
+      torch
+      writableTmpDirAsHomeHook
+    ]
+    ++ optional-dependencies.schemas;
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # require network access
@@ -111,7 +108,7 @@ buildPythonPackage rec {
     rm tests/conftest.py
   '';
 
-  pythonImportsCheck = [ "guidance" ];
+  pythonImportsCheck = ["guidance"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -120,6 +117,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/guidance-ai/guidance";
     changelog = "https://github.com/guidance-ai/guidance/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

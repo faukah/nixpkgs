@@ -4,7 +4,6 @@
   fetchurl,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enscript";
   version = "1.6.6";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
        __private_extern__  '__attribute__ ((visibility ("hidden")))'
   '';
 
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   doCheck = true;
 
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/enscript/";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
     mainProgram = "enscript";
   };

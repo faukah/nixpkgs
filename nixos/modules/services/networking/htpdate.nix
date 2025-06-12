@@ -3,21 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (pkgs) htpdate;
 
   cfg = config.services.htpdate;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.htpdate = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -36,7 +30,7 @@ in
 
       servers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "www.google.com" ];
+        default = ["www.google.com"];
         description = ''
           HTTP servers to use for time synchronization.
         '';
@@ -50,18 +44,15 @@ in
           HTTP proxy used for requests.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.htpdate = {
       description = "htpdate daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/htpdate.pid";
@@ -76,7 +67,5 @@ in
         ];
       };
     };
-
   };
-
 }

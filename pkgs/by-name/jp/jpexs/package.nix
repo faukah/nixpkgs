@@ -6,7 +6,6 @@
   makeDesktopItem,
   jdk8,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jpexs";
   version = "22.0.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       texts or fonts.
     '';
     homepage = "https://github.com/jindrapetrik/jpexs-decompiler";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
     platforms = jdk8.meta.platforms;
     maintainers = with lib.maintainers; [

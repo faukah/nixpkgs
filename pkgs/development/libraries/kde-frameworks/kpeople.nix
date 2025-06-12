@@ -9,10 +9,9 @@
   qtbase,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "kpeople";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     ki18n
@@ -21,5 +20,5 @@ mkDerivation {
     kwidgetsaddons
     qtdeclarative
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

@@ -7,7 +7,6 @@
   stdenv,
   flac,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_audiolib";
   # don't update to latest master as it will break some sounds in devilutionx
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Audio decoding, resampling and mixing library for SDL";
     homepage = "https://github.com/realnc/SDL_audiolib";
     license = lib.licenses.lgpl3Plus;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     inherit (SDL2.meta) platforms;
   };
 })

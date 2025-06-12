@@ -6,7 +6,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "libtsm";
   version = "4.0.2-unstable-2023-12-24";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-Rug3OWSbbiIivItULPNNptClIZ/PrXdQeUypAAxrUY8=";
   };
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
 
   nativeBuildInputs = [
     cmake
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Terminal-emulator State Machine";
     homepage = "https://www.freedesktop.org/wiki/Software/kmscon/libtsm/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

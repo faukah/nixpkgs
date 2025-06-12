@@ -3,17 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   pcmciaUtils = pkgs.pcmciaUtils.overrideAttrs {
     inherit (config.hardware.pcmcia) firmware config;
   };
-in
-
-{
+in {
   ###### interface
   options = {
-
     hardware.pcmcia = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -25,7 +21,7 @@ in
 
       firmware = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           List of firmware used to handle specific PCMCIA card.
         '';
@@ -45,13 +41,10 @@ in
   ###### implementation
 
   config = lib.mkIf config.hardware.pcmcia.enable {
+    boot.kernelModules = ["pcmcia"];
 
-    boot.kernelModules = [ "pcmcia" ];
+    services.udev.packages = [pcmciaUtils];
 
-    services.udev.packages = [ pcmciaUtils ];
-
-    environment.systemPackages = [ pcmciaUtils ];
-
+    environment.systemPackages = [pcmciaUtils];
   };
-
 }

@@ -8,7 +8,6 @@
   python,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "magic-wormhole-transit-relay";
   version = "0.4.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       'reactor.spawnProcess(proto, exe, args, None)'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     autobahn
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "wormhole_transit_relay" ];
+  pythonImportsCheck = ["wormhole_transit_relay"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/magic-wormhole/magic-wormhole-transit-relay";
     changelog = "https://github.com/magic-wormhole/magic-wormhole-transit-relay/blob/${version}/NEWS.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.mjoerg ];
+    maintainers = [lib.maintainers.mjoerg];
   };
 }

@@ -6,7 +6,6 @@
   ninja,
   libgcc,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "fastcov";
   version = "1.16";
@@ -67,7 +66,7 @@ python3Packages.buildPythonPackage rec {
     description = "Massively parallelized gcov wrapper";
     homepage = "https://github.com/RPGillespie6/fastcov";
     changelog = "https://github.com/RPGillespie6/fastcov/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
     mainProgram = "fastcov";

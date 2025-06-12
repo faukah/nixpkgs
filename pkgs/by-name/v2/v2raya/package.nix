@@ -5,18 +5,15 @@
   fetchFromGitHub,
   fetchYarnDeps,
   symlinkJoin,
-
   yarnConfigHook,
   yarnBuildHook,
   nodejs,
-
   makeWrapper,
   v2ray,
   v2ray-geoip,
   v2ray-domain-list-community,
   nix-update-script,
-}:
-let
+}: let
   pname = "v2raya";
   version = "2.2.6.7";
 
@@ -54,56 +51,55 @@ let
       v2ray-domain-list-community
     ];
   };
-
 in
-buildGoModule {
-  inherit pname version src;
+  buildGoModule {
+    inherit pname version src;
 
-  sourceRoot = "${src.name}/service";
+    sourceRoot = "${src.name}/service";
 
-  vendorHash = "sha256-uiURsB1V4IB77YKLu5gdaqw9Fuja6fC5adWYDE3OE+Q=";
+    vendorHash = "sha256-uiURsB1V4IB77YKLu5gdaqw9Fuja6fC5adWYDE3OE+Q=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
+    ];
 
-  subPackages = [ "." ];
+    subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  preBuild = ''
-    cp -a ${web} server/router/web
-  '';
+    preBuild = ''
+      cp -a ${web} server/router/web
+    '';
 
-  postInstall = ''
-    install -Dm 444 ../install/universal/v2raya.desktop -t $out/share/applications
-    install -Dm 444 ../install/universal/v2raya.png -t $out/share/icons/hicolor/512x512/apps
-    substituteInPlace $out/share/applications/v2raya.desktop \
-      --replace-fail 'Icon=/usr/share/icons/hicolor/512x512/apps/v2raya.png' 'Icon=v2raya'
+    postInstall = ''
+      install -Dm 444 ../install/universal/v2raya.desktop -t $out/share/applications
+      install -Dm 444 ../install/universal/v2raya.png -t $out/share/icons/hicolor/512x512/apps
+      substituteInPlace $out/share/applications/v2raya.desktop \
+        --replace-fail 'Icon=/usr/share/icons/hicolor/512x512/apps/v2raya.png' 'Icon=v2raya'
 
-    wrapProgram $out/bin/v2rayA \
-      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}" \
-      --prefix XDG_DATA_DIRS ":" ${assetsDir}/share
-  '';
+      wrapProgram $out/bin/v2rayA \
+        --prefix PATH ":" "${lib.makeBinPath [v2ray]}" \
+        --prefix XDG_DATA_DIRS ":" ${assetsDir}/share
+    '';
 
-  passthru = {
-    inherit web;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "web"
-      ];
+    passthru = {
+      inherit web;
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "web"
+        ];
+      };
     };
-  };
 
-  meta = {
-    description = "Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
-    homepage = "https://github.com/v2rayA/v2rayA";
-    mainProgram = "v2rayA";
-    license = lib.licenses.agpl3Only;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ChaosAttractor ];
-  };
-}
+    meta = {
+      description = "Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
+      homepage = "https://github.com/v2rayA/v2rayA";
+      mainProgram = "v2rayA";
+      license = lib.licenses.agpl3Only;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [ChaosAttractor];
+    };
+  }

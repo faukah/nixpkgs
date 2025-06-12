@@ -3,22 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.blocky;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yaml" cfg.settings;
-in
-{
+in {
   options.services.blocky = {
     enable = lib.mkEnableOption "blocky, a fast and lightweight DNS proxy as ad-blocker for local network with many features";
 
-    package = lib.mkPackageOption pkgs "blocky" { };
+    package = lib.mkPackageOption pkgs "blocky" {};
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Blocky configuration. Refer to
         <https://0xerr0r.github.io/blocky/configuration/>
@@ -41,8 +39,8 @@ in
         "multi-user.target"
       ];
       serviceConfig = {
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package} --config ${configFile}";
         LockPersonality = true;
@@ -81,5 +79,5 @@ in
       };
     };
   };
-  meta.maintainers = with lib.maintainers; [ paepcke ];
+  meta.maintainers = with lib.maintainers; [paepcke];
 }

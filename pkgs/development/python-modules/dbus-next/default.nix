@@ -10,7 +10,6 @@
   pytest-asyncio,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "dbus-next";
   version = "0.2.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-EKEQZFRUe+E65Z6DNCJFL5uCI5kbXrN7Tzd4O0X5Cqo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     dbus
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/altdesktop/python-dbus-next";
     changelog = "https://github.com/altdesktop/python-dbus-next/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -7,7 +7,6 @@
   rustPlatform,
   zstd,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "kepler";
   version = "unstable-2023-07-19";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage {
     description = "NIST-based CVE lookup store and API powered by Rust";
     homepage = "https://github.com/Exein-io/kepler";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "kepler";
   };
 }

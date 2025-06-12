@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib.options) mkEnableOption mkPackageOption;
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
 
   cfg = config.programs.television;
-in
-{
+in {
   options.programs.television = {
     enable = mkEnableOption "Blazingly fast general purpose fuzzy finder TUI";
-    package = mkPackageOption pkgs "television" { };
+    package = mkPackageOption pkgs "television" {};
 
     enableBashIntegration = mkEnableOption "Bash integration";
     enableZshIntegration = mkEnableOption "Zsh integration";
@@ -22,7 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     programs = {
       zsh.interactiveShellInit = mkIf cfg.enableZshIntegration ''
@@ -35,8 +33,7 @@ in
         ${getExe cfg.package} init fish | source
       '';
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ pbek ];
+  meta.maintainers = with lib.maintainers; [pbek];
 }

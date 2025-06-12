@@ -7,7 +7,6 @@
   pkg-config,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tile-downloader";
   version = "0.1.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-jKNp+YJKZ3qpaDzwi3DvFaZAipRhm1+sTtKBtQEj7qI=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs = [
@@ -34,13 +33,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Multi-threaded raster tile downloader, primarily designed for downloading OSM tiles for usage offline";
     mainProgram = "tile-downloader";
     homepage = "https://gitlab.scd31.com/stephen/tile-downloader";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scd31 ];
+    maintainers = with lib.maintainers; [scd31];
   };
 })

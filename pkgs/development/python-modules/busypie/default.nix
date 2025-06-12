@@ -9,7 +9,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "busypie";
   version = "0.5.1";
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "busypie" ];
+  pythonImportsCheck = ["busypie"];
 
   meta = with lib; {
     description = "Expressive busy wait for Python";
     homepage = "https://github.com/rockem/busypie";
     changelog = "https://github.com/rockem/busypie/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

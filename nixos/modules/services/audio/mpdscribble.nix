@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mpdscribble;
   mpdCfg = config.services.mpd;
   mpdOpt = options.services.mpd;
@@ -61,8 +60,7 @@ let
 
   cfgFile = "/run/mpdscribble/mpdscribble.conf";
 
-  replaceSecret =
-    secretFile: placeholder: targetFile:
+  replaceSecret = secretFile: placeholder: targetFile:
     lib.optionalString (
       secretFile != null
     ) ''${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' '';
@@ -73,18 +71,16 @@ let
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList (
         secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile
-      ) cfg.endpoints
+      )
+      cfg.endpoints
     )}
   '';
 
-  localMpd = (cfg.host == "localhost" || cfg.host == "127.0.0.1");
-
-in
-{
+  localMpd = cfg.host == "localhost" || cfg.host == "127.0.0.1";
+in {
   ###### interface
 
   options.services.mpdscribble = {
-
     enable = lib.mkEnableOption "mpdscribble, an MPD client which submits info about tracks being played to Last.fm (formerly AudioScrobbler)";
 
     proxy = lib.mkOption {
@@ -114,7 +110,9 @@ in
 
     host = lib.mkOption {
       default = (
-        if mpdCfg.network.listenAddress != "any" then mpdCfg.network.listenAddress else "localhost"
+        if mpdCfg.network.listenAddress != "any"
+        then mpdCfg.network.listenAddress
+        else "localhost"
       );
       defaultText = lib.literalExpression ''
         if config.${mpdOpt.network.listenAddress} != "any"
@@ -129,12 +127,13 @@ in
 
     passwordFile = lib.mkOption {
       default =
-        if localMpd then
+        if localMpd
+        then
           (lib.findFirst (c: lib.any (x: x == "read") c.permissions) {
-            passwordFile = null;
-          } mpdCfg.credentials).passwordFile
-        else
-          null;
+              passwordFile = null;
+            }
+            mpdCfg.credentials).passwordFile
+        else null;
       defaultText = lib.literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.
@@ -159,31 +158,29 @@ in
     endpoints = lib.mkOption {
       type = (
         let
-          endpoint =
-            { name, ... }:
-            {
-              options = {
-                url = lib.mkOption {
-                  type = lib.types.str;
-                  default = endpointUrls.${name} or "";
-                  description = "The url endpoint where the scrobble API is listening.";
-                };
-                username = lib.mkOption {
-                  type = lib.types.str;
-                  description = ''
-                    Username for the scrobble service.
-                  '';
-                };
-                passwordFile = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  description = "File containing the password, either as MD5SUM or cleartext.";
-                };
+          endpoint = {name, ...}: {
+            options = {
+              url = lib.mkOption {
+                type = lib.types.str;
+                default = endpointUrls.${name} or "";
+                description = "The url endpoint where the scrobble API is listening.";
+              };
+              username = lib.mkOption {
+                type = lib.types.str;
+                description = ''
+                  Username for the scrobble service.
+                '';
+              };
+              passwordFile = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                description = "File containing the password, either as MD5SUM or cleartext.";
               };
             };
+          };
         in
-        lib.types.attrsOf (lib.types.submodule endpoint)
+          lib.types.attrsOf (lib.types.submodule endpoint)
       );
-      default = { };
+      default = {};
       example = {
         "last.fm" = {
           username = "foo";
@@ -195,16 +192,15 @@ in
         If the endpoint is one of "${lib.concatStringsSep "\", \"" (lib.attrNames endpointUrls)}" the url is set automatically.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
     systemd.services.mpdscribble = {
-      after = [ "network.target" ] ++ (lib.optional localMpd "mpd.service");
+      after = ["network.target"] ++ (lib.optional localMpd "mpd.service");
       description = "mpdscribble mpd scrobble client";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "mpdscribble";
@@ -216,5 +212,4 @@ in
       };
     };
   };
-
 }

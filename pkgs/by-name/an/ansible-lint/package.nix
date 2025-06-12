@@ -5,7 +5,6 @@
   ansible,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ansible-lint";
   version = "25.5.0";
@@ -45,13 +44,12 @@ python3Packages.buildPythonApplication rec {
     yamllint
   ];
 
-  pythonRelaxDeps = [ "ruamel.yaml" ];
+  pythonRelaxDeps = ["ruamel.yaml"];
 
   # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       flaky
       pytest-xdist
@@ -87,7 +85,7 @@ python3Packages.buildPythonApplication rec {
     "test_discover_lintables_umlaut"
   ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ansible ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [ansible]}"];
 
   meta = {
     description = "Best practices checker for Ansible";
@@ -95,6 +93,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ansible/ansible-lint";
     changelog = "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sengaya ];
+    maintainers = with lib.maintainers; [sengaya];
   };
 }

@@ -14,7 +14,6 @@
   nasm,
   vulkan-loader,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mupen64plus";
   version = "2.6.0";
@@ -56,8 +55,8 @@ stdenv.mkDerivation rec {
     description = "Nintendo 64 Emulator";
     license = licenses.gpl2Plus;
     homepage = "http://www.mupen64plus.org/";
-    maintainers = [ maintainers.sander ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.sander];
+    platforms = ["x86_64-linux"];
     mainProgram = "mupen64plus";
   };
 }

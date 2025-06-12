@@ -1,5 +1,4 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   # Forward SSH and WebUI ports to host machine
   #
   # Connect with: ssh root@localhost -p <hostPort>
@@ -7,12 +6,11 @@ let
   #
   # NOTE: This is only accessible from an interactive test, for example:
   # $ eval $(nix-build -A nixosTests.taler.basic.driver)/bin/nixos-test-driver
-  mkNode =
-    {
-      sshPort ? 0,
-      webuiPort ? 0,
-      nodeSettings ? { },
-    }:
+  mkNode = {
+    sshPort ? 0,
+    webuiPort ? 0,
+    nodeSettings ? {},
+  }:
     lib.recursiveUpdate {
       services.openssh = {
         enable = true;
@@ -37,15 +35,18 @@ let
             guest.port = webuiPort;
           }
         ]);
-    } nodeSettings;
-in
-rec {
+    }
+    nodeSettings;
+in rec {
   CURRENCY = "KUDOS";
   FIAT_CURRENCY = "CHF";
 
   nodes = {
-    exchange =
-      { config, lib, ... }:
+    exchange = {
+      config,
+      lib,
+      ...
+    }:
       mkNode {
         sshPort = 1111;
         webuiPort = 8081;
@@ -83,8 +84,7 @@ rec {
         };
       };
 
-    bank =
-      { config, ... }:
+    bank = {config, ...}:
       mkNode {
         sshPort = 2222;
         webuiPort = 8082;
@@ -169,8 +169,7 @@ rec {
         };
       };
 
-    merchant =
-      { config, ... }:
+    merchant = {config, ...}:
       mkNode {
         sshPort = 3333;
         webuiPort = 8083;
@@ -194,15 +193,13 @@ rec {
         };
       };
 
-    client =
-      { pkgs, ... }:
+    client = {pkgs, ...}:
       mkNode {
         sshPort = 4444;
 
         nodeSettings = {
-          environment.systemPackages = [ pkgs.taler-wallet-core ];
+          environment.systemPackages = [pkgs.taler-wallet-core];
         };
       };
   };
-
 }

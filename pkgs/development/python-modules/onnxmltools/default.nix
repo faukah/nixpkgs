@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   onnx,
   skl2onnx,
-
   # tests
   pytestCheckHook,
   pandas,
@@ -20,7 +17,6 @@
   pyspark,
   lightgbm,
 }:
-
 buildPythonPackage rec {
   pname = "onnxmltools";
   version = "1.13";
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     skl2onnx
   ];
 
-  pythonImportsCheck = [ "onnxmltools" ];
+  pythonImportsCheck = ["onnxmltools"];
 
   # there are still some dependencies that need to be packaged for the tests to run
   doCheck = false;
@@ -73,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/onnx/onnxmltools";
     changelog = "https://github.com/onnx/onnxmltools/blob/v${version}/CHANGELOGS.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

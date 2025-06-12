@@ -6,7 +6,6 @@
   findutils,
   git,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gibo";
   version = "1.0.6";

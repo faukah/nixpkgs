@@ -4,7 +4,6 @@
   buildNpmPackage,
   ArchiSteamFarm,
 }:
-
 buildNpmPackage rec {
   pname = "asf-ui";
   version = "9920764dafb0a7a87c355d9c87aff285e41494be";

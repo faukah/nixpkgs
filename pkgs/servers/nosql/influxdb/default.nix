@@ -8,9 +8,7 @@
   libiconv,
   fetchpatch,
   nixosTests,
-}:
-
-let
+}: let
   libflux_version = "0.194.5";
 
   # This is copied from influxdb2 with the required flux version
@@ -30,7 +28,7 @@ let
         url = "https://github.com/influxdata/flux/commit/68c831c40b396f0274f6a9f97d77707c39970b02.patch";
         stripLen = 2;
         extraPrefix = "";
-        excludes = [ ];
+        excludes = [];
         hash = "sha256-6LOTgbOCfETNTmshyXgtDZf9y4t/2iqRuVPkz9dYPHc=";
       })
       ../influxdb2/fix-unsigned-char.patch
@@ -45,7 +43,7 @@ let
     sourceRoot = "${src.name}/libflux";
     useFetchCargoVendor = true;
     cargoHash = "sha256-wJVvpjaBUae3FK3lQaQov4t0UEsH86tB8B8bsSFGGBU=";
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
     buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
     pkgcfg = ''
       Name: flux
@@ -54,7 +52,7 @@ let
       Cflags: -I/out/include
       Libs: -L/out/lib -lflux -lpthread
     '';
-    passAsFile = [ "pkgcfg" ];
+    passAsFile = ["pkgcfg"];
     postInstall =
       ''
         mkdir -p $out/include $out/pkgconfig
@@ -67,53 +65,53 @@ let
       '';
   };
 in
-buildGoModule rec {
-  pname = "influxdb";
-  version = "1.10.7";
+  buildGoModule rec {
+    pname = "influxdb";
+    version = "1.10.7";
 
-  src = fetchFromGitHub {
-    owner = "influxdata";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-Aibu3yG/D1501Hr2F2qsGvjig14tbEAI+MBfqbxlpg8=";
-  };
+    src = fetchFromGitHub {
+      owner = "influxdata";
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-Aibu3yG/D1501Hr2F2qsGvjig14tbEAI+MBfqbxlpg8=";
+    };
 
-  vendorHash = "sha256-AA6uj7PgXjC+IK2ZSwRnYpHS4MFScOROO1BpP+s33IU=";
+    vendorHash = "sha256-AA6uj7PgXjC+IK2ZSwRnYpHS4MFScOROO1BpP+s33IU=";
 
-  nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
-  PKG_CONFIG_PATH = "${flux}/pkgconfig";
+    PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
-  # Check that libflux is at the right version
-  preBuild = ''
-    flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
-    if [ "$flux_ver" != "v${libflux_version}" ]; then
-      echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
-      exit 1
-    fi
-  '';
+    # Check that libflux is at the right version
+    preBuild = ''
+      flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
+      if [ "$flux_ver" != "v${libflux_version}" ]; then
+        echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
+        exit 1
+      fi
+    '';
 
-  doCheck = false;
+    doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
-
-  excludedPackages = "test";
-
-  passthru.tests = {
-    inherit (nixosTests) influxdb;
-  };
-
-  meta = with lib; {
-    description = "Open-source distributed time series database";
-    license = licenses.mit;
-    homepage = "https://influxdata.com/";
-    maintainers = with maintainers; [
-      offline
-      zimbatm
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.version=${version}"
     ];
-  };
-}
+
+    excludedPackages = "test";
+
+    passthru.tests = {
+      inherit (nixosTests) influxdb;
+    };
+
+    meta = with lib; {
+      description = "Open-source distributed time series database";
+      license = licenses.mit;
+      homepage = "https://influxdata.com/";
+      maintainers = with maintainers; [
+        offline
+        zimbatm
+      ];
+    };
+  }

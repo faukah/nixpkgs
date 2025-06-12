@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "erosmb";
   version = "0.1.5";
@@ -43,8 +42,8 @@ python3.pkgs.buildPythonApplication rec {
     description = "SMB network scanner";
     homepage = "https://github.com/viktor02/EroSmb";
     changelog = "https://github.com/viktor02/EroSmb/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "erosmb";
   };
 }

@@ -7,7 +7,6 @@
   curl,
   fftw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libofa";
   version = "0.9.3";

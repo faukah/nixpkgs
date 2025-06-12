@@ -5,7 +5,6 @@
   alcotest,
   domain_shims,
 }:
-
 buildDunePackage rec {
   pname = "multicore-magic";
   version = "2.3.0";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     description = "Low-level multicore utilities for OCaml";
     license = lib.licenses.isc;
     homepage = "https://github.com/ocaml-multicore/multicore-magic";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

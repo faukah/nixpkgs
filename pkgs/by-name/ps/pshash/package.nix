@@ -36,6 +36,6 @@ haskellPackages.mkDerivation rec {
   license = lib.licenses.mit;
   description = "Functional pseudo-hash password creation tool";
   homepage = "https://github.com/thornoar/pshash";
-  maintainers = with lib.maintainers; [ thornoar ];
+  maintainers = with lib.maintainers; [thornoar];
   mainProgram = "pshash";
 }

@@ -5,7 +5,6 @@
   unittestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "justbases";
   version = "0.15.2";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mulkieran/justbases";
     changelog = "https://github.com/mulkieran/justbases/blob/v${version}/CHANGES.txt";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

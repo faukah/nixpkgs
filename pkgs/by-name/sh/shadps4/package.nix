@@ -36,7 +36,6 @@
   zlib-ng,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shadps4";
   version = "0.9.0";

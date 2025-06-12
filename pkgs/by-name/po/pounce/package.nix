@@ -6,7 +6,6 @@
   pkg-config,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pounce";
   version = "3.1";
@@ -21,9 +20,9 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Simple multi-client TLS-only IRC bouncer";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ edef ];
+    maintainers = with maintainers; [edef];
   };
 }

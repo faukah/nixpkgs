@@ -1,51 +1,51 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   ocrContent = "Feed";
   videoFile = "test.webm";
-in
-{
+in {
   name = "lomiri-mediaplayer-app-standalone";
   meta.maintainers = lib.teams.lomiri.members;
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./common/x11.nix];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      environment = {
-        # Setup video
-        etc."${videoFile}".source =
-          pkgs.runCommand videoFile
-            {
-              nativeBuildInputs = with pkgs; [
-                ffmpeg # produce video for OCR
-                (imagemagick.override { ghostscriptSupport = true; }) # produce OCR-able image
-              ];
-            }
-            ''
-              magick -size 600x600 canvas:white -pointsize 20 -fill black -annotate +100+100 '${ocrContent}' output.png
-              ffmpeg -re -loop 1 -i output.png -c:v libvpx -b:v 200K -t 120 $out -loglevel fatal
-            '';
-        systemPackages = with pkgs.lomiri; [
-          suru-icon-theme
-          lomiri-mediaplayer-app
-        ];
-        variables = {
-          UITK_ICON_THEME = "suru";
-        };
-      };
-
-      i18n.supportedLocales = [ "all" ];
-
-      fonts = {
-        packages = with pkgs; [
-          # Intended font & helps with OCR
-          ubuntu-classic
-        ];
+    environment = {
+      # Setup video
+      etc."${videoFile}".source =
+        pkgs.runCommand videoFile
+        {
+          nativeBuildInputs = with pkgs; [
+            ffmpeg # produce video for OCR
+            (imagemagick.override {ghostscriptSupport = true;}) # produce OCR-able image
+          ];
+        }
+        ''
+          magick -size 600x600 canvas:white -pointsize 20 -fill black -annotate +100+100 '${ocrContent}' output.png
+          ffmpeg -re -loop 1 -i output.png -c:v libvpx -b:v 200K -t 120 $out -loglevel fatal
+        '';
+      systemPackages = with pkgs.lomiri; [
+        suru-icon-theme
+        lomiri-mediaplayer-app
+      ];
+      variables = {
+        UITK_ICON_THEME = "suru";
       };
     };
+
+    i18n.supportedLocales = ["all"];
+
+    fonts = {
+      packages = with pkgs; [
+        # Intended font & helps with OCR
+        ubuntu-classic
+      ];
+    };
+  };
 
   enableOCR = true;
 

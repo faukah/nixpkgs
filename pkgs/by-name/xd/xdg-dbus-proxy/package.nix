@@ -11,7 +11,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-dbus-proxy";
   version = "0.1.6";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/flatpak/xdg-dbus-proxy";
     license = lib.licenses.lgpl21Plus;
     mainProgram = "xdg-dbus-proxy";
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     platforms = lib.platforms.linux;
   };
 })

@@ -9,7 +9,6 @@
   libGL,
   libGLU,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "structuresynth";
   version = "1.5.1";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Generate 3D structures by specifying a design grammar";
     homepage = "https://github.com/alemuntoni/StructureSynth";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 })

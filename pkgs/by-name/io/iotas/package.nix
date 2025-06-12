@@ -17,7 +17,6 @@
   gtksourceview5,
   webkitgtk_6_0,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "iotas";
   version = "0.11.0";
@@ -75,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "iotas";
-    maintainers = with lib.maintainers; [ zendo ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [zendo];
+    teams = [lib.teams.gnome-circle];
   };
 }

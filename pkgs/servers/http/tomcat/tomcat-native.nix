@@ -6,7 +6,6 @@
   jdk,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tomcat-native";
   version = "2.0.9";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tomcat.apache.org/native-doc/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
   };
 }

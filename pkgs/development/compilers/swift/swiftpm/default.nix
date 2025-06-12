@@ -19,24 +19,21 @@
   DarwinTools, # sw_vers
   cctools, # vtool
   xcbuild,
-}:
-
-let
-
+}: let
   inherit (swift) swiftOs swiftModuleSubdir swiftStaticModuleSubdir;
   sharedLibraryExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
   generated = swiftpm2nix.helpers ./generated;
-  cmakeGlue = callPackage ./cmake-glue.nix { };
+  cmakeGlue = callPackage ./cmake-glue.nix {};
 
   # Common attributes for the bootstrap swiftpm and the final swiftpm.
   commonAttrs = {
     inherit (sources) version;
     src = sources.swift-package-manager;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     # Required at run-time for the host platform to build package manifests.
-    propagatedBuildInputs = [ Foundation ];
+    propagatedBuildInputs = [Foundation];
     patches = [
       ./patches/cmake-disable-rpath.patch
       ./patches/cmake-fix-quoting.patch
@@ -79,7 +76,7 @@ let
 
   # Tools invoked by swiftpm at run-time.
   runtimeDeps =
-    [ git ]
+    [git]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       xcbuild.xcrun
       # These tools are part of cctools, but adding that as a build input puts
@@ -87,7 +84,7 @@ let
       # exposes just the tools we need:
       # - vtool is used to determine a minimum deployment target.
       # - libtool is used to build static libraries.
-      (runCommandLocal "swiftpm-cctools" { } ''
+      (runCommandLocal "swiftpm-cctools" {} ''
         mkdir -p $out/bin
         ln -s ${cctools}/bin/vtool $out/bin/vtool
         ln -s ${cctools}/bin/libtool $out/bin/libtool
@@ -95,21 +92,20 @@ let
     ];
 
   # Common attributes for the bootstrap derivations.
-  mkBootstrapDerivation =
-    attrs:
+  mkBootstrapDerivation = attrs:
     stdenv.mkDerivation (
       attrs
       // {
         nativeBuildInputs =
-          (attrs.nativeBuildInputs or [ ])
+          (attrs.nativeBuildInputs or [])
           ++ [
             cmake
             ninja
             swift
           ]
-          ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ];
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [DarwinTools];
 
-        buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
+        buildInputs = (attrs.buildInputs or []) ++ [Foundation];
 
         postPatch =
           (attrs.postPatch or "")
@@ -138,12 +134,14 @@ let
             done
           '';
 
-        cmakeFlags = (attrs.cmakeFlags or [ ]) ++ [
-          # Some builds link to libraries within the same build. Make sure these
-          # create references to $out. None of our builds run their own products,
-          # so we don't have to account for that scenario.
-          "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-        ];
+        cmakeFlags =
+          (attrs.cmakeFlags or [])
+          ++ [
+            # Some builds link to libraries within the same build. Make sure these
+            # create references to $out. None of our builds run their own products,
+            # so we don't have to account for that scenario.
+            "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+          ];
       }
     );
 
@@ -151,7 +149,10 @@ let
   # are part of libsystem. Adding its headers to the search path causes strange
   # mixing and errors.
   # TODO: Find a better way to prevent this conflict.
-  ncursesInput = if stdenv.hostPlatform.isDarwin then ncurses.out else ncurses;
+  ncursesInput =
+    if stdenv.hostPlatform.isDarwin
+    then ncurses.out
+    else ncurses;
 
   # Derivations for bootstrapping dependencies using CMake.
   # This is based on the `swiftpm/Utilities/bootstrap` script.
@@ -207,7 +208,7 @@ let
   swift-tools-support-core-glibc-fix = fetchpatch {
     url = "https://github.com/apple/swift-tools-support-core/commit/990afca47e75cce136d2f59e464577e68a164035.patch";
     hash = "sha256-PLzWsp+syiUBHhEFS8+WyUcSae5p0Lhk7SSRdNvfouE=";
-    includes = [ "Sources/TSCBasic/FileSystem.swift" ];
+    includes = ["Sources/TSCBasic/FileSystem.swift"];
   };
 
   swift-tools-support-core = mkBootstrapDerivation {
@@ -396,91 +397,92 @@ let
       '';
     }
   );
-
 in
-# Build the final swiftpm with the bootstrapping swiftpm.
-stdenv.mkDerivation (
-  commonAttrs
-  // {
-    pname = "swiftpm";
+  # Build the final swiftpm with the bootstrapping swiftpm.
+  stdenv.mkDerivation (
+    commonAttrs
+    // {
+      pname = "swiftpm";
 
-    nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
-      pkg-config
-      swift
-      swiftpm-bootstrap
-    ];
-    buildInputs = [
-      ncursesInput
-      sqlite
-      XCTest
-    ];
+      nativeBuildInputs =
+        commonAttrs.nativeBuildInputs
+        ++ [
+          pkg-config
+          swift
+          swiftpm-bootstrap
+        ];
+      buildInputs = [
+        ncursesInput
+        sqlite
+        XCTest
+      ];
 
-    configurePhase =
-      generated.configure
-      + ''
-        # Functionality provided by Xcode XCTest, but not available in
-        # swift-corelibs-xctest.
-        swiftpmMakeMutable swift-tools-support-core
-        substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
-          --replace 'canImport(Darwin)' 'false'
-        patch -p1 -d .build/checkouts/swift-tools-support-core -i ${swift-tools-support-core-glibc-fix}
+      configurePhase =
+        generated.configure
+        + ''
+          # Functionality provided by Xcode XCTest, but not available in
+          # swift-corelibs-xctest.
+          swiftpmMakeMutable swift-tools-support-core
+          substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
+            --replace 'canImport(Darwin)' 'false'
+          patch -p1 -d .build/checkouts/swift-tools-support-core -i ${swift-tools-support-core-glibc-fix}
 
-        # Prevent a warning about SDK directories we don't have.
-        swiftpmMakeMutable swift-driver
-        patch -p1 -d .build/checkouts/swift-driver -i ${
-          replaceVars ../swift-driver/patches/prevent-sdk-dirs-warnings.patch {
-            inherit (builtins) storeDir;
+          # Prevent a warning about SDK directories we don't have.
+          swiftpmMakeMutable swift-driver
+          patch -p1 -d .build/checkouts/swift-driver -i ${
+            replaceVars ../swift-driver/patches/prevent-sdk-dirs-warnings.patch {
+              inherit (builtins) storeDir;
+            }
           }
-        }
+        '';
+
+      buildPhase = ''
+        TERM=dumb swift-build -c release
       '';
 
-    buildPhase = ''
-      TERM=dumb swift-build -c release
-    '';
+      # TODO: Tests depend on indexstore-db being provided by an existing Swift
+      # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
+      #doCheck = true;
+      #checkPhase = ''
+      #  TERM=dumb swift-test -c release
+      #'';
 
-    # TODO: Tests depend on indexstore-db being provided by an existing Swift
-    # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
-    #doCheck = true;
-    #checkPhase = ''
-    #  TERM=dumb swift-test -c release
-    #'';
+      # The following is derived from Utilities/bootstrap, see install_swiftpm.
+      installPhase = ''
+        binPath="$(swift-build --show-bin-path -c release)"
 
-    # The following is derived from Utilities/bootstrap, see install_swiftpm.
-    installPhase = ''
-      binPath="$(swift-build --show-bin-path -c release)"
+        mkdir -p $out/bin $out/lib/swift
 
-      mkdir -p $out/bin $out/lib/swift
+        cp $binPath/swift-package-manager $out/bin/swift-package
+        wrapProgram $out/bin/swift-package \
+          --prefix PATH : ${lib.makeBinPath runtimeDeps}
+        for tool in swift-build swift-test swift-run swift-package-collection swift-experimental-destination; do
+          ln -s $out/bin/swift-package $out/bin/$tool
+        done
 
-      cp $binPath/swift-package-manager $out/bin/swift-package
-      wrapProgram $out/bin/swift-package \
-        --prefix PATH : ${lib.makeBinPath runtimeDeps}
-      for tool in swift-build swift-test swift-run swift-package-collection swift-experimental-destination; do
-        ln -s $out/bin/swift-package $out/bin/$tool
-      done
+        installSwiftpmModule() {
+          mkdir -p $out/lib/swift/pm/$2
+          cp $binPath/lib$1${sharedLibraryExt} $out/lib/swift/pm/$2/
 
-      installSwiftpmModule() {
-        mkdir -p $out/lib/swift/pm/$2
-        cp $binPath/lib$1${sharedLibraryExt} $out/lib/swift/pm/$2/
+          if [[ -f $binPath/$1.swiftinterface ]]; then
+            cp $binPath/$1.swiftinterface $out/lib/swift/pm/$2/
+          else
+            cp -r $binPath/$1.swiftmodule $out/lib/swift/pm/$2/
+          fi
+          cp $binPath/$1.swiftdoc $out/lib/swift/pm/$2/
+        }
+        installSwiftpmModule PackageDescription ManifestAPI
+        installSwiftpmModule PackagePlugin PluginAPI
+      '';
 
-        if [[ -f $binPath/$1.swiftinterface ]]; then
-          cp $binPath/$1.swiftinterface $out/lib/swift/pm/$2/
-        else
-          cp -r $binPath/$1.swiftmodule $out/lib/swift/pm/$2/
-        fi
-        cp $binPath/$1.swiftdoc $out/lib/swift/pm/$2/
-      }
-      installSwiftpmModule PackageDescription ManifestAPI
-      installSwiftpmModule PackagePlugin PluginAPI
-    '';
+      setupHook = ./setup-hook.sh;
 
-    setupHook = ./setup-hook.sh;
-
-    meta = {
-      description = "Package Manager for the Swift Programming Language";
-      homepage = "https://github.com/apple/swift-package-manager";
-      platforms = with lib.platforms; linux ++ darwin;
-      license = lib.licenses.asl20;
-      teams = [ lib.teams.swift ];
-    };
-  }
-)
+      meta = {
+        description = "Package Manager for the Swift Programming Language";
+        homepage = "https://github.com/apple/swift-package-manager";
+        platforms = with lib.platforms; linux ++ darwin;
+        license = lib.licenses.asl20;
+        teams = [lib.teams.swift];
+      };
+    }
+  )

@@ -18,7 +18,6 @@
   setuptools-scm,
   xyzservices,
 }:
-
 buildPythonPackage rec {
   pname = "folium";
   version = "0.19.5";
@@ -73,13 +72,13 @@ buildPythonPackage rec {
     "tests/selenium"
   ];
 
-  pythonImportsCheck = [ "folium" ];
+  pythonImportsCheck = ["folium"];
 
   meta = {
     description = "Make beautiful maps with Leaflet.js & Python";
     homepage = "https://github.com/python-visualization/folium";
     changelog = "https://github.com/python-visualization/folium/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    teams = [ lib.teams.geospatial ];
+    license = with lib.licenses; [mit];
+    teams = [lib.teams.geospatial];
   };
 }

@@ -21,7 +21,6 @@
   enableExamples ? false,
   enableDocs ? false,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.1";
   pname = "openmvg";
@@ -59,15 +58,25 @@ stdenv.mkDerivation rec {
   ];
 
   # flann is missing because the lz4 dependency isn't propagated: https://github.com/openMVG/openMVG/issues/1265
-  cmakeFlags = [
-    "-DOpenMVG_BUILD_EXAMPLES=${if enableExamples then "ON" else "OFF"}"
-    "-DOpenMVG_BUILD_DOC=${if enableDocs then "ON" else "OFF"}"
-    "-DTARGET_ARCHITECTURE=generic"
-    "-DCLP_INCLUDE_DIR_HINTS=${lib.getDev clp}/include"
-    "-DCOINUTILS_INCLUDE_DIR_HINTS=${lib.getDev coin-utils}/include"
-    "-DLEMON_INCLUDE_DIR_HINTS=${lib.getDev lemon-graph}/include"
-    "-DOSI_INCLUDE_DIR_HINTS=${lib.getDev osi}/include"
-  ] ++ lib.optional enableShared "-DOpenMVG_BUILD_SHARED=ON";
+  cmakeFlags =
+    [
+      "-DOpenMVG_BUILD_EXAMPLES=${
+        if enableExamples
+        then "ON"
+        else "OFF"
+      }"
+      "-DOpenMVG_BUILD_DOC=${
+        if enableDocs
+        then "ON"
+        else "OFF"
+      }"
+      "-DTARGET_ARCHITECTURE=generic"
+      "-DCLP_INCLUDE_DIR_HINTS=${lib.getDev clp}/include"
+      "-DCOINUTILS_INCLUDE_DIR_HINTS=${lib.getDev coin-utils}/include"
+      "-DLEMON_INCLUDE_DIR_HINTS=${lib.getDev lemon-graph}/include"
+      "-DOSI_INCLUDE_DIR_HINTS=${lib.getDev osi}/include"
+    ]
+    ++ lib.optional enableShared "-DOpenMVG_BUILD_SHARED=ON";
 
   cmakeDir = "./src";
 
@@ -77,9 +86,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;

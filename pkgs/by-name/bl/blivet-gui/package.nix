@@ -3,7 +3,6 @@
 #    and we can't use nixpkgs polkit due to lack of setuid bit)
 # 2. You must prefix the blivet-gui command with "SHELL=/bin/bash"
 #    (otherwise your system polkit will reject the SHEL Lfrom nixpkgs).
-
 {
   lib,
   python3,
@@ -18,7 +17,6 @@
   testers,
   blivet-gui,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "blivet-gui";
   version = "2.6.0";
@@ -43,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   dependencies = [
     python3.pkgs.blivet
@@ -60,14 +58,14 @@ python3.pkgs.buildPythonApplication rec {
     )
   '';
 
-  passthru.tests.version = testers.testVersion { package = blivet-gui; };
+  passthru.tests.version = testers.testVersion {package = blivet-gui;};
 
   meta = {
     description = "GUI tool for storage configuration using blivet library";
     homepage = "https://fedoraproject.org/wiki/Blivet";
     license = lib.licenses.gpl2Plus;
     mainProgram = "blivet-gui";
-    maintainers = with lib.maintainers; [ cybershadow ];
+    maintainers = with lib.maintainers; [cybershadow];
     platforms = lib.platforms.linux;
   };
 }

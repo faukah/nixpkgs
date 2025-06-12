@@ -5,7 +5,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "nali";
   version = "0.8.1";
@@ -18,9 +17,9 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-wIp/ShUddz+RIcsEuKWUfxsV/wNB2X1jZtIltBZ0ROM=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = 0;
   ldflags = [

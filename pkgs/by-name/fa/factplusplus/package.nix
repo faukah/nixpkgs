@@ -4,7 +4,6 @@
   fetchFromBitbucket,
   jdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "factplusplus";
   version = "1.6.5";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "wzK1QJsNN0Q73NM+vjaE/vLuGf8J1Zu5ZPAkZNiKnME=";
   };
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   configurePhase = ''
     runHook preConfigure
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tableaux-based reasoner for expressive Description Logics (DL)";
     homepage = "http://owl.cs.manchester.ac.uk/tools/fact/";
-    maintainers = [ maintainers.mgttlinger ];
+    maintainers = [maintainers.mgttlinger];
     license = licenses.gpl2Plus;
     platforms = with platforms; linux ++ darwin ++ windows;
     broken = !stdenv.hostPlatform.isLinux;

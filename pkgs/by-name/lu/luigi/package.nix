@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "luigi";
   version = "3.6.0";
@@ -14,9 +13,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-QbFIUCI8YZ2QBrMKzacz51a4g/x+YIFCBVdmRxkMluM=";
   };
 
-  build-system = [ python3.pkgs.setuptools ];
+  build-system = [python3.pkgs.setuptools];
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
   dependencies = with python3.pkgs; [
     python-dateutil
@@ -25,13 +24,13 @@ python3.pkgs.buildPythonApplication rec {
     tenacity
   ];
 
-  pythonImportsCheck = [ "luigi" ];
+  pythonImportsCheck = ["luigi"];
 
   # Requires tox, hadoop, and google cloud
   doCheck = false;
 
   # This enables accessing modules stored in cwd
-  makeWrapperArgs = [ "--prefix PYTHONPATH . :" ];
+  makeWrapperArgs = ["--prefix PYTHONPATH . :"];
 
   meta = {
     description = "Python package that helps you build complex pipelines of batch jobs";
@@ -41,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/spotify/luigi";
     changelog = "https://github.com/spotify/luigi/releases/tag/${version}";
-    license = [ lib.licenses.asl20 ];
-    maintainers = [ lib.maintainers.bhipple ];
+    license = [lib.licenses.asl20];
+    maintainers = [lib.maintainers.bhipple];
   };
 }

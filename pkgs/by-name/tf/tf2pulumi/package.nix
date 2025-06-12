@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tf2pulumi";
   version = "0.12.0";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-X=github.com/pulumi/tf2pulumi/version.Version=${src.rev}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Convert Terraform projects to Pulumi TypeScript programs";
     mainProgram = "tf2pulumi";
     homepage = "https://www.pulumi.com/tf2pulumi/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

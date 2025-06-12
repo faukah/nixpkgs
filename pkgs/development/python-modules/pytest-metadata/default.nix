@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-metadata";
   version = "3.1.1";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Plugin for accessing test session metadata";
     homepage = "https://github.com/pytest-dev/pytest-metadata";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ mpoquet ];
+    maintainers = with maintainers; [mpoquet];
   };
 }

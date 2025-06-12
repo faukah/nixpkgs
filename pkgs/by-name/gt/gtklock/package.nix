@@ -12,7 +12,6 @@
   gtk-session-lock,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtklock";
   # Must run nixpkgs-review between version changes
@@ -41,9 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.testModule =
-    module:
-    runCommand "${module.name}-test.sh" { } ''
+  passthru.testModule = module:
+    runCommand "${module.name}-test.sh" {} ''
       MODULE_PATH=$(find ${module}/lib/gtklock -maxdepth 1 -name '*.so')
       echo -e "[main]\nmodules=''${MODULE_PATH}" >./config.ini
       ${finalAttrs.finalPackage}/bin/gtklock --config ./config.ini >./log 2>&1 || true

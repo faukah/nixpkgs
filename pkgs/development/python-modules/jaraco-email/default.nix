@@ -11,7 +11,6 @@
   keyring,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-email";
   version = "3.1.1";
@@ -39,15 +38,15 @@ buildPythonPackage rec {
     keyring
   ];
 
-  pythonImportsCheck = [ "jaraco.email" ];
+  pythonImportsCheck = ["jaraco.email"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/jaraco/jaraco.email/blob/${src.rev}/CHANGES.rst";
     description = "E-mail facilities by jaraco";
     homepage = "https://github.com/jaraco/jaraco.email";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

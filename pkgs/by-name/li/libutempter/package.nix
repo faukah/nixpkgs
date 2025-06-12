@@ -4,7 +4,6 @@
   lib,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libutempter";
   version = "1.2.1";
@@ -14,11 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ln/vNy85HeUBhDrYdXDGz12r2WUfAPF4MJD7wSsqNMs=";
   };
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  patches = [ ./exec_path.patch ];
+  patches = [./exec_path.patch];
 
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   prePatch = ''
     substituteInPlace Makefile --replace 2711 0711
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

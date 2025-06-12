@@ -18,7 +18,6 @@
   crystal2nix,
   writeShellScript,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "Collision";
   version = "3.10.0";
@@ -84,24 +83,24 @@ crystal.buildCrystalPackage rec {
 
   passthru = {
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "collision.shardLock" "./shard.lock")
       {
         command = [
           (writeShellScript "update-lock" "cd $1; ${lib.getExe crystal2nix}")
           ./.
         ];
-        supportedFeatures = [ "silent" ];
+        supportedFeatures = ["silent"];
       }
       {
         command = [
           "rm"
           "./shard.lock"
         ];
-        supportedFeatures = [ "silent" ];
+        supportedFeatures = ["silent"];
       }
     ];
-    shardLock = runCommand "shard.lock" { inherit src; } ''
+    shardLock = runCommand "shard.lock" {inherit src;} ''
       cp $src/shard.lock $out
     '';
   };
@@ -111,7 +110,7 @@ crystal.buildCrystalPackage rec {
     homepage = "https://github.com/GeopJr/Collision";
     license = licenses.bsd2;
     mainProgram = "collision";
-    maintainers = with maintainers; [ sund3RRR ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [sund3RRR];
+    teams = [teams.gnome-circle];
   };
 }

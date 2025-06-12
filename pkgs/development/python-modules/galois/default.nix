@@ -10,7 +10,6 @@
   numba,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "galois";
   version = "0.4.6";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "numba"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     numpy
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  pythonImportsCheck = [ "galois" ];
+  pythonImportsCheck = ["galois"];
 
   meta = with lib; {
     description = "Python package that extends NumPy arrays to operate over finite fields";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/mhostetter/galois/releases/tag/${src.tag}";
     downloadPage = "https://github.com/mhostetter/galois/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ chrispattison ];
+    maintainers = with maintainers; [chrispattison];
   };
 }

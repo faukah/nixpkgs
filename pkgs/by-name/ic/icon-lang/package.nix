@@ -6,7 +6,6 @@
   libXt,
   withGraphics ? true,
 }:
-
 stdenv.mkDerivation {
   pname = "icon-lang";
   version = "unstable-2020-02-05";
@@ -22,24 +21,24 @@ stdenv.mkDerivation {
     libXt
   ];
 
-  configurePhase =
-    let
-      target = if withGraphics then "X-Configure" else "Configure";
-      platform =
-        if stdenv.hostPlatform.isLinux then
-          "linux"
-        else if stdenv.hostPlatform.isDarwin then
-          "macintosh"
-        else if stdenv.hostPlatform.isBSD then
-          "bsd"
-        else if stdenv.hostPlatform.isCygwin then
-          "cygwin"
-        else if stdenv.hostPlatform.isSunOS then
-          "solaris"
-        else
-          throw "unsupported system";
-    in
-    "make ${target} name=${platform}";
+  configurePhase = let
+    target =
+      if withGraphics
+      then "X-Configure"
+      else "Configure";
+    platform =
+      if stdenv.hostPlatform.isLinux
+      then "linux"
+      else if stdenv.hostPlatform.isDarwin
+      then "macintosh"
+      else if stdenv.hostPlatform.isBSD
+      then "bsd"
+      else if stdenv.hostPlatform.isCygwin
+      then "cygwin"
+      else if stdenv.hostPlatform.isSunOS
+      then "solaris"
+      else throw "unsupported system";
+  in "make ${target} name=${platform}";
 
   installPhase = ''
     make Install dest=$out
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Very high level general-purpose programming language";
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
     platforms = with platforms; linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos;
     license = licenses.publicDomain;
     homepage = "https://www.cs.arizona.edu/icon/";

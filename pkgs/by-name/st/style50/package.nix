@@ -5,7 +5,6 @@
   libclang,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "style50";
   version = "2.10.4";
@@ -48,9 +47,9 @@ python3Packages.buildPythonApplication rec {
     "clang-format"
   ];
 
-  pythonImportsCheck = [ "style50" ];
+  pythonImportsCheck = ["style50"];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no python tests
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/cs50/style50/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "style50";
   };
 }

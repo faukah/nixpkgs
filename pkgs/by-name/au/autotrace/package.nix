@@ -12,7 +12,6 @@
   libpng,
   pstoedit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autotrace";
   version = "0.31.10";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/autotrace/autotrace";
     description = "Utility for converting bitmap into vector graphics";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.gpl2;
     mainProgram = "autotrace";
   };

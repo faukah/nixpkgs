@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "meow";
   version = "2.1.4";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/PixelSergey/meow";
     license = lib.licenses.mit;
     mainProgram = "meow";
-    maintainers = with lib.maintainers; [ pixelsergey ];
+    maintainers = with lib.maintainers; [pixelsergey];
   };
 }

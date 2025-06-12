@@ -1,5 +1,4 @@
 # Temporarily avoid dependency on dotnetbuildhelpers to avoid rebuilding many times while working on it
-
 {
   lib,
   stdenv,
@@ -11,7 +10,6 @@
   automake,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsharp";
   version = "4.0.1.1";

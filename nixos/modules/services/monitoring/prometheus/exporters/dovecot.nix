@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.dovecot;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     escapeShellArg
     concatStringsSep
     ;
-in
-{
+in {
   port = 9166;
   extraOpts = {
     telemetryPath = mkOption {
@@ -75,7 +73,7 @@ in
     };
     scopes = mkOption {
       type = types.listOf types.str;
-      default = [ "user" ];
+      default = ["user"];
       example = [
         "user"
         "global"

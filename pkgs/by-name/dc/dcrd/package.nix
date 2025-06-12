@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "dcrd";
   version = "1.8.1";
@@ -40,7 +39,7 @@ buildGoModule rec {
   meta = {
     homepage = "https://decred.org";
     description = "Decred daemon in Go (golang)";
-    license = with lib.licenses; [ isc ];
-    maintainers = with lib.maintainers; [ juaningan ];
+    license = with lib.licenses; [isc];
+    maintainers = with lib.maintainers; [juaningan];
   };
 }

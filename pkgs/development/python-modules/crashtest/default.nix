@@ -4,7 +4,6 @@
   fetchPypi,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "crashtest";
   version = "0.4.1";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sdispater/crashtest";
     description = "Manage Python errors with ease";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

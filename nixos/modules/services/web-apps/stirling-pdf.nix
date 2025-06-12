@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.stirling-pdf;
-in
-{
+in {
   options.services.stirling-pdf = {
     enable = lib.mkEnableOption "the stirling-pdf service";
 
-    package = lib.mkPackageOption pkgs "stirling-pdf" { };
+    package = lib.mkPackageOption pkgs "stirling-pdf" {};
 
     environment = lib.mkOption {
       type = lib.types.attrsOf (
@@ -21,7 +18,7 @@ in
           lib.types.int
         ]
       );
-      default = { };
+      default = {};
       example = {
         SERVER_PORT = 8080;
         INSTALL_BOOK_AND_ADVANCED_HTML_OPS = "true";
@@ -34,7 +31,7 @@ in
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         Files containing additional environment variables to pass to Stirling PDF.
         Secrets should be added in environmentFiles instead of environment.
@@ -47,8 +44,7 @@ in
       environment = lib.mapAttrs (_: toString) cfg.environment;
 
       # following https://docs.stirlingpdf.com/Installation/Unix%20Installation
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           # `which` is used to test command availability
           # See https://github.com/Stirling-Tools/Stirling-PDF/blob/main/src/main/java/stirling/software/SPDF/config/ExternalAppDepConfig.java#L42
@@ -62,21 +58,22 @@ in
           pngquant
           tesseract
           (python3.withPackages (
-            p: with p; [
-              weasyprint
-              opencv-python-headless
-            ]
+            p:
+              with p; [
+                weasyprint
+                opencv-python-headless
+              ]
           ))
           ghostscript_headless
         ]
         ++ lib.optional (cfg.environment.INSTALL_BOOK_AND_ADVANCED_HTML_OPS or "false" == "true") calibre;
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        BindReadOnlyPaths = [ "${pkgs.tesseract}/share/tessdata:/usr/share/tessdata" ];
+        BindReadOnlyPaths = ["${pkgs.tesseract}/share/tessdata:/usr/share/tessdata"];
         CacheDirectory = "stirling-pdf";
-        Environment = [ "HOME=%S/stirling-pdf" ];
+        Environment = ["HOME=%S/stirling-pdf"];
         EnvironmentFile = cfg.environmentFiles;
         ExecStart = lib.getExe cfg.package;
         RuntimeDirectory = "stirling-pdf";
@@ -117,5 +114,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ DCsunset ];
+  meta.maintainers = with lib.maintainers; [DCsunset];
 }

@@ -8,7 +8,6 @@
   SDL_mixer,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "powermanga";
   version = "0.93.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
       power up your ship and get special powers, helpers and weapons.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

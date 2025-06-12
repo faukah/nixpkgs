@@ -7,7 +7,6 @@
   python3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libbde";
   version = "20240502";
@@ -28,9 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '$(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install' ' '
   '';
 
-  configureFlags = [ "--enable-python" ];
+  configureFlags = ["--enable-python"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Library to access the BitLocker Drive Encryption (BDE) format";

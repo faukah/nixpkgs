@@ -11,7 +11,6 @@
   tomlkit,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "yq";
   version = "3.4.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     argcomplete
@@ -37,11 +36,11 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
-  pythonImportsCheck = [ "yq" ];
+  pythonImportsCheck = ["yq"];
 
   meta = with lib; {
     description = "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";

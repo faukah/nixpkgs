@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "latexrun";
   version = "unstable-2015-11-18";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "0xdl94kn0dbp6r7jk82cwxybglm9wp5qwrjqjxmvadrqix11a48w";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   dontBuild = true;
   installPhase = ''
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation {
     mainProgram = "latexrun";
     homepage = "https://github.com/aclements/latexrun";
     license = licenses.mit;
-    maintainers = [ maintainers.lucus16 ];
+    maintainers = [maintainers.lucus16];
     platforms = platforms.all;
   };
 }

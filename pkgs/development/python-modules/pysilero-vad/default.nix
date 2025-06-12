@@ -3,18 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   stdenv,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   onnxruntime,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pysilero-vad";
   version = "2.1.0";
@@ -27,18 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-h49AD3ICh0NYyh2EDogynQ0qgkKCAQTVKS9rbXbrqPE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
   dependencies = [
     numpy
     onnxruntime
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pysilero_vad" ];
+  pythonImportsCheck = ["pysilero_vad"];
 
   meta = with lib; {
     # what():  /build/source/include/onnxruntime/core/common/logging/logging.h:294 static const onnxruntime::logging::Logger& onnxruntime::logging::LoggingManager::DefaultLogger() Attempt to use DefaultLogger but none has been registered.
@@ -47,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rhasspy/pysilero-vad";
     changelog = "https://github.com/rhasspy/pysilero-vad/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

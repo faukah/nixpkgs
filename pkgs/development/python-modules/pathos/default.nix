@@ -8,7 +8,6 @@
   ppft,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pathos";
   version = "0.3.4";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # Require network
   doCheck = false;
 
-  pythonImportsCheck = [ "pathos" ];
+  pythonImportsCheck = ["pathos"];
 
   meta = with lib; {
     description = "Parallel graph management and execution in heterogeneous computing";
     homepage = "https://pathos.readthedocs.io/";
     changelog = "https://github.com/uqfoundation/pathos/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

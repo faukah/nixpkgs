@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-piechart-panel";
   version = "1.6.4";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Pie chart panel for Grafana";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.unix;
   };
 }

@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe'
     mkEnableOption
     mkIf
@@ -15,7 +14,8 @@ let
     mkOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     listOf
     enum
     port
@@ -25,13 +25,11 @@ let
   inherit (utils) escapeSystemdExecArgs;
 
   cfg = config.services.netbird.server.signal;
-in
-
-{
+in {
   options.services.netbird.server.signal = {
     enable = mkEnableOption "Netbird's Signal Service";
 
-    package = mkPackageOption pkgs "netbird" { };
+    package = mkPackageOption pkgs "netbird" {};
 
     enableNginx = mkEnableOption "Nginx reverse-proxy for the netbird signal service";
 
@@ -54,7 +52,7 @@ in
 
     extraOptions = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Additional options given to netbird-signal as commandline arguments.
       '';
@@ -73,7 +71,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.port != cfg.metricsPort;
@@ -82,8 +79,8 @@ in
     ];
 
     systemd.services.netbird-signal = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = escapeSystemdExecArgs (

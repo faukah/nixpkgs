@@ -6,7 +6,6 @@
   readline,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bitwise";
   version = "0.50";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
     ncurses
     readline
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Terminal based bitwise calculator in curses";
     homepage = "https://github.com/mellowcandle/bitwise";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.whonore ];
+    maintainers = [maintainers.whonore];
     platforms = platforms.unix;
     mainProgram = "bitwise";
   };

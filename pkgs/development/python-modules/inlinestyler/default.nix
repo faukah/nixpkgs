@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch2,
-
   # build system
   setuptools,
-
   # dependencies
   cssutils,
   lxml,
   requests,
-
   # tests
   ipdb,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "inlinestyler";
   version = "0.2.5";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cssutils
@@ -45,7 +41,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "inlinestyler" ];
+  pythonImportsCheck = ["inlinestyler"];
 
   nativeCheckInputs = [
     ipdb
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dlanger/inlinestyler";
     changelog = "https://github.com/dlanger/inlinestyler/blob/${src.rev}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

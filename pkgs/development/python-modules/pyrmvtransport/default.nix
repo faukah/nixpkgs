@@ -12,7 +12,6 @@
   pytest-asyncio,
   pytest-httpx,
 }:
-
 buildPythonPackage rec {
   pname = "pyrmvtransport";
   version = "0.3.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-nFxGEyO+wyRzPayjjv8WNIJ+XIWbVn0dyyjQKHiyr40=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
   propagatedBuildInputs = [
     async-timeout
@@ -55,12 +54,12 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "RMVtransport" ];
+  pythonImportsCheck = ["RMVtransport"];
 
   meta = with lib; {
     homepage = "https://github.com/cgtobi/PyRMVtransport";
     description = "Get transport information from opendata.rmv.de";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

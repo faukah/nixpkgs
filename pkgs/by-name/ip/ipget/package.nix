@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ipget";
   version = "0.11.2";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Retrieve files over IPFS and save them locally";
     homepage = "https://ipfs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     mainProgram = "ipget";
   };
 }

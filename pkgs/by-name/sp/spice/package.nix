@@ -26,7 +26,6 @@
   orc,
   gdk-pixbuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spice";
   version = "0.15.2";

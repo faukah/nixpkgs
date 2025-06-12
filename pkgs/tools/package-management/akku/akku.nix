@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     touch bootstrap.db
   '';
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   meta = with lib; {
     homepage = "https://akkuscm.org/";

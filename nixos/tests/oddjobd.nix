@@ -1,18 +1,19 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
   {
+    pkgs,
+    lib,
+    ...
+  }: {
     name = "oddjobd";
-    meta.maintainers = [ lib.maintainers.anthonyroussel ];
+    meta.maintainers = [lib.maintainers.anthonyroussel];
 
-    nodes.machine =
-      { ... }:
-      {
-        environment.systemPackages = [
-          pkgs.oddjob
-        ];
+    nodes.machine = {...}: {
+      environment.systemPackages = [
+        pkgs.oddjob
+      ];
 
-        programs.oddjobd.enable = true;
-      };
+      programs.oddjobd.enable = true;
+    };
 
     testScript = ''
       start_all()

@@ -3,21 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.monetdb;
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ StillerHarpo ];
+in {
+  meta.maintainers = with lib.maintainers; [StillerHarpo];
 
   ###### interface
   options = {
     services.monetdb = {
-
       enable = lib.mkEnableOption "the MonetDB database server";
 
-      package = lib.mkPackageOption pkgs "monetdb" { };
+      package = lib.mkPackageOption pkgs "monetdb" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -54,7 +50,6 @@ in
 
   ###### implementation
   config = lib.mkIf cfg.enable {
-
     users.users.monetdb = lib.mkIf (cfg.user == "monetdb") {
       uid = config.ids.uids.monetdb;
       group = cfg.group;
@@ -65,16 +60,16 @@ in
 
     users.groups.monetdb = lib.mkIf (cfg.group == "monetdb") {
       gid = config.ids.gids.monetdb;
-      members = [ cfg.user ];
+      members = [cfg.user];
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.monetdb = {
       description = "MonetDB database server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ cfg.package ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [cfg.package];
       unitConfig.RequiresMountsFor = "${cfg.dataDir}";
       serviceConfig = {
         User = cfg.user;
@@ -93,6 +88,5 @@ in
         ${cfg.package}/bin/monetdbd set listenaddr=${cfg.listenAddress} ${cfg.dataDir}
       '';
     };
-
   };
 }

@@ -23,7 +23,6 @@
   autoPatchelfHook,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nice-dcv-client";
   version = "2021.2.3797-1";
@@ -82,9 +81,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "High-performance remote display protocol";
     homepage = "https://aws.amazon.com/hpc/dcv/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ rmcgibbo ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

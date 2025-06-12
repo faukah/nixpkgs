@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aws-s3-exporter";
   version = "0.5.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "s3_exporter";
     homepage = "https://github.com/ribbybibby/s3_exporter";
     license = licenses.asl20;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
   };
 }

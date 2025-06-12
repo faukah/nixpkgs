@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sof-firmware";
   version = "2025.01.1";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/thesofproject/sof-bin/releases/tag/v${finalAttrs.version}";
@@ -42,6 +41,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       hmenke
     ];
     platforms = with lib.platforms; linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

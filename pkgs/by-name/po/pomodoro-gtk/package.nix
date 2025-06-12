@@ -16,7 +16,6 @@
   gst_all_1,
   libportal-gtk4,
 }:
-
 stdenv.mkDerivation {
   pname = "pomodoro-gtk";
   version = "1.4.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/idevecore/pomodoro";
     license = lib.licenses.gpl3Plus;
     mainProgram = "pomodoro";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

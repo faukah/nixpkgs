@@ -1,15 +1,13 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   rpcSecret = "supersecret";
   rpc-listen-port = 6800;
   curlBody = {
     jsonrpc = 2.0;
     id = 1;
     method = "aria2.getVersion";
-    params = [ "token:${rpcSecret}" ];
+    params = ["token:${rpcSecret}"];
   };
-in
-{
+in {
   name = "aria2";
 
   nodes.machine = {
@@ -48,5 +46,5 @@ in
     machine.shutdown()
   '';
 
-  meta.maintainers = [ pkgs.lib.maintainers.timhae ];
+  meta.maintainers = [pkgs.lib.maintainers.timhae];
 }

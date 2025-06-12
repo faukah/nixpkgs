@@ -16,7 +16,6 @@
   vala,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ayatana-indicator-bluetooth";
   version = "24.5.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
       startup = nixosTests.ayatana-indicators;
       lomiri = nixosTests.lomiri.desktop-ayatana-indicator-bluetooth;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AyatanaIndicators/ayatana-indicator-bluetooth";
     changelog = "https://github.com/AyatanaIndicators/ayatana-indicator-bluetooth/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

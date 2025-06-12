@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildDartApplication {
   pname = "domine";
   version = "nightly-2023-08-10";

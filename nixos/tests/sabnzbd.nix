@@ -1,20 +1,17 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "sabnzbd";
-  meta.maintainers = with lib.maintainers; [ jojosch ];
+  meta.maintainers = with lib.maintainers; [jojosch];
 
   node.pkgsReadOnly = false;
 
-  nodes.machine =
-    { lib, ... }:
-    {
-      services.sabnzbd = {
-        enable = true;
-      };
-
-      # unrar is unfree
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "unrar" ];
+  nodes.machine = {lib, ...}: {
+    services.sabnzbd = {
+      enable = true;
     };
+
+    # unrar is unfree
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["unrar"];
+  };
 
   testScript = ''
     machine.wait_for_unit("sabnzbd.service")

@@ -6,7 +6,6 @@
   pkg-config,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "omniorbpy";
   version = "4.3.2";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  propagatedBuildInputs = [ omniorb ];
+  propagatedBuildInputs = [omniorb];
 
   configureFlags = [
     "--with-omniorb=${omniorb}"
@@ -52,7 +51,7 @@ buildPythonPackage rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
     platforms = platforms.unix;
   };
 }

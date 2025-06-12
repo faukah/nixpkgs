@@ -4,25 +4,19 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.boot.initrd.network.ssh;
-  shell = if cfg.shell == null then "/bin/ash" else cfg.shell;
+  shell =
+    if cfg.shell == null
+    then "/bin/ash"
+    else cfg.shell;
   inherit (config.programs.ssh) package;
 
-  enabled =
-    let
-      initrd = config.boot.initrd;
-    in
+  enabled = let
+    initrd = config.boot.initrd;
+  in
     (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable;
-
-in
-
-{
-
+in {
   options.boot.initrd.network.ssh = {
     enable = mkOption {
       type = types.bool;
@@ -56,7 +50,7 @@ in
 
     hostKeys = mkOption {
       type = types.listOf (types.either types.str types.path);
-      default = [ ];
+      default = [];
       example = [
         "/etc/secrets/initrd/ssh_host_rsa_key"
         "/etc/secrets/initrd/ssh_host_ed25519_key"
@@ -129,103 +123,99 @@ in
 
   imports =
     map
-      (
-        opt:
+    (
+      opt:
         mkRemovedOptionModule
-          (
-            [
-              "boot"
-              "initrd"
-              "network"
-              "ssh"
-            ]
-            ++ [ opt ]
-          )
+        (
+          [
+            "boot"
+            "initrd"
+            "network"
+            "ssh"
+          ]
+          ++ [opt]
+        )
+        ''
+          The initrd SSH functionality now uses OpenSSH rather than Dropbear.
+
+          If you want to keep your existing initrd SSH host keys, convert them with
+            $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
+          and then set options.boot.initrd.network.ssh.hostKeys.
+        ''
+    )
+    [
+      "hostRSAKey"
+      "hostDSSKey"
+      "hostECDSAKey"
+    ];
+
+  config = let
+    # Nix complains if you include a store hash in initrd path names, so
+    # as an awful hack we drop the first character of the hash.
+    initrdKeyPath = path:
+      if isString path
+      then path
+      else let
+        name = builtins.baseNameOf path;
+      in
+        builtins.unsafeDiscardStringContext ("/etc/ssh/" + substring 1 (stringLength name) name);
+
+    sshdCfg = config.services.openssh;
+
+    sshdConfig =
+      ''
+        UsePAM no
+        Port ${toString cfg.port}
+
+        PasswordAuthentication no
+        AuthorizedKeysFile %h/.ssh/authorized_keys %h/.ssh/authorized_keys2 /etc/ssh/authorized_keys.d/%u
+        ChallengeResponseAuthentication no
+
+        ${flip concatMapStrings cfg.hostKeys (path: ''
+          HostKey ${initrdKeyPath path}
+        '')}
+
+      ''
+      + lib.optionalString (sshdCfg.settings.KexAlgorithms != null) ''
+        KexAlgorithms ${concatStringsSep "," sshdCfg.settings.KexAlgorithms}
+      ''
+      + lib.optionalString (sshdCfg.settings.Ciphers != null) ''
+        Ciphers ${concatStringsSep "," sshdCfg.settings.Ciphers}
+      ''
+      + lib.optionalString (sshdCfg.settings.Macs != null) ''
+        MACs ${concatStringsSep "," sshdCfg.settings.Macs}
+      ''
+      + ''
+
+        LogLevel ${sshdCfg.settings.LogLevel}
+
+        ${
+          if sshdCfg.settings.UseDns
+          then ''
+            UseDNS yes
           ''
-            The initrd SSH functionality now uses OpenSSH rather than Dropbear.
-
-            If you want to keep your existing initrd SSH host keys, convert them with
-              $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
-            and then set options.boot.initrd.network.ssh.hostKeys.
+          else ''
+            UseDNS no
           ''
-      )
-      [
-        "hostRSAKey"
-        "hostDSSKey"
-        "hostECDSAKey"
-      ];
+        }
 
-  config =
-    let
-      # Nix complains if you include a store hash in initrd path names, so
-      # as an awful hack we drop the first character of the hash.
-      initrdKeyPath =
-        path:
-        if isString path then
-          path
-        else
-          let
-            name = builtins.baseNameOf path;
-          in
-          builtins.unsafeDiscardStringContext ("/etc/ssh/" + substring 1 (stringLength name) name);
+        ${optionalString (!config.boot.initrd.systemd.enable) ''
+          SshdAuthPath /bin/sshd-auth
+          SshdSessionPath /bin/sshd-session
+        ''}
 
-      sshdCfg = config.services.openssh;
-
-      sshdConfig =
-        ''
-          UsePAM no
-          Port ${toString cfg.port}
-
-          PasswordAuthentication no
-          AuthorizedKeysFile %h/.ssh/authorized_keys %h/.ssh/authorized_keys2 /etc/ssh/authorized_keys.d/%u
-          ChallengeResponseAuthentication no
-
-          ${flip concatMapStrings cfg.hostKeys (path: ''
-            HostKey ${initrdKeyPath path}
-          '')}
-
-        ''
-        + lib.optionalString (sshdCfg.settings.KexAlgorithms != null) ''
-          KexAlgorithms ${concatStringsSep "," sshdCfg.settings.KexAlgorithms}
-        ''
-        + lib.optionalString (sshdCfg.settings.Ciphers != null) ''
-          Ciphers ${concatStringsSep "," sshdCfg.settings.Ciphers}
-        ''
-        + lib.optionalString (sshdCfg.settings.Macs != null) ''
-          MACs ${concatStringsSep "," sshdCfg.settings.Macs}
-        ''
-        + ''
-
-          LogLevel ${sshdCfg.settings.LogLevel}
-
-          ${
-            if sshdCfg.settings.UseDns then
-              ''
-                UseDNS yes
-              ''
-            else
-              ''
-                UseDNS no
-              ''
-          }
-
-          ${optionalString (!config.boot.initrd.systemd.enable) ''
-            SshdAuthPath /bin/sshd-auth
-            SshdSessionPath /bin/sshd-session
-          ''}
-
-          ${cfg.extraConfig}
-        '';
-    in
+        ${cfg.extraConfig}
+      '';
+  in
     mkIf enabled {
       assertions = [
         {
-          assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeyFiles != [ ];
+          assertion = cfg.authorizedKeys != [] || cfg.authorizedKeyFiles != [];
           message = "You should specify at least one authorized key for initrd SSH";
         }
 
         {
-          assertion = (cfg.hostKeys != [ ]) || cfg.ignoreEmptyHostKeys;
+          assertion = (cfg.hostKeys != []) || cfg.ignoreEmptyHostKeys;
           message = ''
             You must now pre-generate the host keys for initrd SSH.
             See the boot.initrd.network.ssh.hostKeys documentation
@@ -276,12 +266,14 @@ in
         ${concatStrings (
           map (key: ''
             echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
-          '') cfg.authorizedKeys
+          '')
+          cfg.authorizedKeys
         )}
         ${concatStrings (
           map (keyFile: ''
             cat ${keyFile} >> /root/.ssh/authorized_keys
-          '') cfg.authorizedKeyFiles
+          '')
+          cfg.authorizedKeyFiles
         )}
 
         ${flip concatMapStrings cfg.hostKeys (path: ''
@@ -317,9 +309,11 @@ in
           gid = 1;
         };
 
-        users.root.shell = mkIf (
-          config.boot.initrd.network.ssh.shell != null
-        ) config.boot.initrd.network.ssh.shell;
+        users.root.shell =
+          mkIf (
+            config.boot.initrd.network.ssh.shell != null
+          )
+          config.boot.initrd.network.ssh.shell;
 
         contents = {
           "/etc/ssh/sshd_config".text = sshdConfig;
@@ -336,13 +330,13 @@ in
 
         services.sshd = {
           description = "SSH Daemon";
-          wantedBy = [ "initrd.target" ];
+          wantedBy = ["initrd.target"];
           after = [
             "network.target"
             "initrd-nixos-copy-secrets.service"
           ];
-          before = [ "shutdown.target" ];
-          conflicts = [ "shutdown.target" ];
+          before = ["shutdown.target"];
+          conflicts = ["shutdown.target"];
 
           # Keys from Nix store are world-readable, which sshd doesn't
           # like. If this were a real nix store and not the initrd, we
@@ -359,7 +353,5 @@ in
           };
         };
       };
-
     };
-
 }

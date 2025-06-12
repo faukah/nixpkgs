@@ -4,13 +4,10 @@
   autoreconfHook,
   makeWrapper,
   pkg-config,
-
   # check hook
   versionCheckHook,
-
   # fetchers
   fetchFromGitHub,
-
   # build inputs
   bison,
   brotli,
@@ -43,7 +40,6 @@
   wslay,
   xapian,
   zlib,
-
   # feature flags
   enableAutoCreate ? true,
   enableBackup ? true,
@@ -98,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
       bison
       libsrs2
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libcap ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libcap]
     ++ lib.optionals (enableHttp || enableCalalarmd || enableJMAP) [
       brotli.dev
       libical.dev
@@ -114,44 +110,42 @@ stdenv.mkDerivation (finalAttrs: {
       rsync
       xapian
     ]
-    ++ lib.optionals withMySQL [ libmysqlclient ]
-    ++ lib.optionals withPgSQL [ libpq ]
-    ++ lib.optionals withSQLite [ sqlite ];
+    ++ lib.optionals withMySQL [libmysqlclient]
+    ++ lib.optionals withPgSQL [libpq]
+    ++ lib.optionals withSQLite [sqlite];
 
   enableParallelBuilding = true;
 
-  postPatch =
-    let
-      managesieveLibs =
-        [
-          zlib
-          cyrus_sasl
-          sqlite
-        ]
-        # Darwin doesn't have libuuid, try to build without it
-        ++ lib.optional (!stdenv.hostPlatform.isDarwin) libuuid;
-      imapLibs = managesieveLibs ++ [ pcre2 ];
-      mkLibsString = lib.strings.concatMapStringsSep " " (l: "-L${lib.getLib l}/lib");
-    in
-    ''
-      patchShebangs cunit/*.pl
-      patchShebangs imap/promdatagen
-      patchShebangs tools/*
+  postPatch = let
+    managesieveLibs =
+      [
+        zlib
+        cyrus_sasl
+        sqlite
+      ]
+      # Darwin doesn't have libuuid, try to build without it
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin) libuuid;
+    imapLibs = managesieveLibs ++ [pcre2];
+    mkLibsString = lib.strings.concatMapStringsSep " " (l: "-L${lib.getLib l}/lib");
+  in ''
+    patchShebangs cunit/*.pl
+    patchShebangs imap/promdatagen
+    patchShebangs tools/*
 
-      echo ${finalAttrs.version} > VERSION
+    echo ${finalAttrs.version} > VERSION
 
-      substituteInPlace cunit/command.testc \
-        --replace-fail /usr/bin/touch ${lib.getExe' coreutils "touch"} \
-        --replace-fail /bin/echo ${lib.getExe' coreutils "echo"} \
-        --replace-fail /usr/bin/tr ${lib.getExe' coreutils "tr"} \
-        --replace-fail /bin/sh ${stdenv.shell}
+    substituteInPlace cunit/command.testc \
+      --replace-fail /usr/bin/touch ${lib.getExe' coreutils "touch"} \
+      --replace-fail /bin/echo ${lib.getExe' coreutils "echo"} \
+      --replace-fail /usr/bin/tr ${lib.getExe' coreutils "tr"} \
+      --replace-fail /bin/sh ${stdenv.shell}
 
-      # fix for https://github.com/cyrusimap/cyrus-imapd/issues/3893
-      substituteInPlace perl/imap/Makefile.PL.in \
-        --replace-fail  '"$LIB_SASL' '"${mkLibsString imapLibs} -lpcre2-posix $LIB_SASL'
-      substituteInPlace perl/sieve/managesieve/Makefile.PL.in \
-        --replace-fail  '"$LIB_SASL' '"${mkLibsString managesieveLibs} $LIB_SASL'
-    '';
+    # fix for https://github.com/cyrusimap/cyrus-imapd/issues/3893
+    substituteInPlace perl/imap/Makefile.PL.in \
+      --replace-fail  '"$LIB_SASL' '"${mkLibsString imapLibs} -lpcre2-posix $LIB_SASL'
+    substituteInPlace perl/sieve/managesieve/Makefile.PL.in \
+      --replace-fail  '"$LIB_SASL' '"${mkLibsString managesieveLibs} $LIB_SASL'
+  '';
 
   postFixup = ''
     wrapProgram $out/bin/cyradm --set PERL5LIB $(find $out/lib/perl5 -type d | tr "\\n" ":")
@@ -179,7 +173,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature withSQLite "sqlite")
   ];
 
-  checkInputs = [ cunit ];
+  checkInputs = [cunit];
   doCheck = true;
 
   versionCheckProgram = "${builtins.placeholder "out"}/libexec/master";
@@ -193,7 +187,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.cyrusimap.org";
     description = "Email, contacts and calendar server";
     changelog = "https://www.cyrusimap.org/imap/download/release-notes/${lib.versions.majorMinor finalAttrs.version}/x/${finalAttrs.version}.html";
-    license = with lib.licenses; [ bsdOriginal ];
+    license = with lib.licenses; [bsdOriginal];
     mainProgram = "cyradm";
     maintainers = with lib.maintainers; [
       moraxyc

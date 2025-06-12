@@ -22,22 +22,18 @@
   libtirpc,
   callPackage,
 }:
-
 assert lib.elem stdenv.system [
   "x86_64-linux"
   "x86_64-darwin"
   "aarch64-linux"
   "aarch64-darwin"
-];
-
-let
-  common =
-    {
-      pname,
-      platformAttrs,
-      jdk,
-      tests,
-    }:
+]; let
+  common = {
+    pname,
+    platformAttrs,
+    jdk,
+    tests,
+  }:
     stdenv.mkDerivation (finalAttrs: {
       inherit pname jdk;
       version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
@@ -46,7 +42,8 @@ let
           "mirror://apache/hadoop/common/hadoop-${finalAttrs.version}/hadoop-${finalAttrs.version}"
           + lib.optionalString stdenv.hostPlatform.isAarch64 "-aarch64"
           + ".tar.gz";
-        inherit (platformAttrs.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}"))
+        inherit
+          (platformAttrs.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}"))
           hash
           ;
       };
@@ -55,17 +52,19 @@ let
       # Build the container executor binary from source
       # InstallPhase is not lazily evaluating containerExecutor for some reason
       containerExecutor =
-        if stdenv.hostPlatform.isLinux then
+        if stdenv.hostPlatform.isLinux
+        then
           (callPackage ./containerExecutor.nix {
             inherit (finalAttrs) version;
             inherit platformAttrs;
           })
-        else
-          "";
+        else "";
 
-      nativeBuildInputs = [
-        makeWrapper
-      ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+      nativeBuildInputs =
+        [
+          makeWrapper
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
       buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
         (lib.getLib stdenv.cc.cc)
         openssl
@@ -103,13 +102,12 @@ let
           # hadoop 3.3+ depends on protobuf 3.18, 3.2 depends on 3.8
           find $out/lib/native -name 'libhdfspp.so*' | \
             xargs -r -n1 patchelf --replace-needed libprotobuf.so.${
-              if (lib.versionAtLeast finalAttrs.version "3.4.1") then
-                "32"
-              else if (lib.versionAtLeast finalAttrs.version "3.3") then
-                "18"
-              else
-                "8"
-            } libprotobuf.so
+            if (lib.versionAtLeast finalAttrs.version "3.4.1")
+            then "32"
+            else if (lib.versionAtLeast finalAttrs.version "3.3")
+            then "18"
+            else "8"
+          } libprotobuf.so
 
           patchelf --replace-needed libcrypto.so.1.1 libcrypto.so \
             $out/lib/native/{libhdfs{pp,}.so*,examples/{pipes-sort,wordcount-nopipe,wordcount-part,wordcount-simple}}
@@ -123,12 +121,12 @@ let
               --run "test -d /etc/hadoop-conf && export HADOOP_CONF_DIR=\''${HADOOP_CONF_DIR-'/etc/hadoop-conf/'}"\
               --set-default HADOOP_CONF_DIR $out/etc/hadoop/\
               --prefix PATH : "${
-                lib.makeBinPath [
-                  bash
-                  coreutils
-                  which
-                ]
-              }"\
+            lib.makeBinPath [
+              bash
+              coreutils
+              which
+            ]
+          }"\
               --prefix JAVA_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
           done
         ''
@@ -137,15 +135,14 @@ let
           cp ${spark.src}/yarn/spark-${spark.version}-yarn-shuffle.jar $out/share/hadoop/yarn/
         '');
 
-      passthru = { inherit tests; };
+      passthru = {inherit tests;};
 
-      meta =
-        with lib;
+      meta = with lib;
         recursiveUpdate {
           homepage = "https://hadoop.apache.org/";
           description = "Framework for distributed processing of large data sets across clusters of computers";
           license = licenses.asl20;
-          sourceProvenance = with sourceTypes; [ binaryBytecode ];
+          sourceProvenance = with sourceTypes; [binaryBytecode];
 
           longDescription = ''
             The Apache Hadoop software library is a framework that allows for
@@ -158,12 +155,11 @@ let
             so delivering a highly-availabile service on top of a cluster of
             computers, each of which may be prone to failures.
           '';
-          maintainers = with maintainers; [ illustris ];
+          maintainers = with maintainers; [illustris];
           platforms = attrNames platformAttrs;
-        } (attrByPath [ stdenv.system "meta" ] { } platformAttrs);
+        } (attrByPath [stdenv.system "meta"] {} platformAttrs);
     });
-in
-{
+in {
   # Different version of hadoop support different java runtime versions
   # https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions
   hadoop_3_4 = common {
@@ -175,11 +171,13 @@ in
         srcHash = "sha256-lE9uSohy6GWXprFEYbEin2ITqTms2h6EWXe4nEd3U4Y=";
       };
       x86_64-darwin = x86_64-linux;
-      aarch64-linux = x86_64-linux // {
-        version = "3.4.0";
-        hash = "sha256-QWxzKtNyw/AzcHMv0v7kj91pw1HO7VAN9MHO84caFk8=";
-        srcHash = "sha256-viDF3LdRCZHqFycOYfN7nUQBPHiMCIjmu7jgIAaaK9E=";
-      };
+      aarch64-linux =
+        x86_64-linux
+        // {
+          version = "3.4.0";
+          hash = "sha256-QWxzKtNyw/AzcHMv0v7kj91pw1HO7VAN9MHO84caFk8=";
+          srcHash = "sha256-viDF3LdRCZHqFycOYfN7nUQBPHiMCIjmu7jgIAaaK9E=";
+        };
       aarch64-darwin = aarch64-linux;
     };
     jdk = jdk11_headless;
@@ -195,9 +193,11 @@ in
         srcHash = "sha256-4OEsVhBNV9CJ+PN4FgCduUCVA9/el5yezSCZ6ko3+bU=";
       };
       x86_64-darwin = x86_64-linux;
-      aarch64-linux = x86_64-linux // {
-        hash = "sha256-5Lv2uA72BJEva5v2yncyPe5gKNCNOPNsoHffVt6KXQ0=";
-      };
+      aarch64-linux =
+        x86_64-linux
+        // {
+          hash = "sha256-5Lv2uA72BJEva5v2yncyPe5gKNCNOPNsoHffVt6KXQ0=";
+        };
       aarch64-darwin = aarch64-linux;
     };
     jdk = jdk11_headless;

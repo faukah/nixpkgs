@@ -4,7 +4,6 @@
   ocsipersist-pgsql,
   ocsipersist-sqlite,
 }:
-
 buildDunePackage {
   pname = "ocsipersist";
   inherit (ocsipersist-lib) src version;
@@ -15,9 +14,11 @@ buildDunePackage {
     ocsipersist-sqlite
   ];
 
-  propagatedBuildInputs = [ ocsipersist-lib ];
+  propagatedBuildInputs = [ocsipersist-lib];
 
-  meta = ocsipersist-lib.meta // {
-    description = "Persistent key/value storage (for Ocsigen) using multiple backends";
-  };
+  meta =
+    ocsipersist-lib.meta
+    // {
+      description = "Persistent key/value storage (for Ocsigen) using multiple backends";
+    };
 }

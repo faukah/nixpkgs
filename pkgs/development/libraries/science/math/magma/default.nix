@@ -1,26 +1,23 @@
-args@{
+args @ {
   callPackage,
   lib,
   ...
 }:
-
 # Type aliases
 # Release = {
 #  version: String
 #  hash: String
 #  supportedGpuTargets: List String
 # }
-
 let
   inherit (lib) lists strings trivial;
 
-  computeName = version: "magma_${strings.replaceStrings [ "." ] [ "_" ] version}";
+  computeName = version: "magma_${strings.replaceStrings ["."] ["_"] version}";
 
   # buildMagmaPackage :: Release -> Derivation
-  buildMagmaPackage =
-    magmaRelease:
+  buildMagmaPackage = magmaRelease:
     callPackage ./generic.nix (
-      (builtins.removeAttrs args [ "callPackage" ])
+      (builtins.removeAttrs args ["callPackage"])
       // {
         inherit magmaRelease;
       }
@@ -52,5 +49,4 @@ let
   # builds :: AttrSet String Derivation
   builds = allBuilds // defaultBuild;
 in
-
-builds
+  builds

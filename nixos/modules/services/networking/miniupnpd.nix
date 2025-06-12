@@ -4,19 +4,25 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.miniupnpd;
   configFile = pkgs.writeText "miniupnpd.conf" ''
     ext_ifname=${cfg.externalInterface}
-    enable_natpmp=${if cfg.natpmp then "yes" else "no"}
-    enable_upnp=${if cfg.upnp then "yes" else "no"}
+    enable_natpmp=${
+      if cfg.natpmp
+      then "yes"
+      else "no"
+    }
+    enable_upnp=${
+      if cfg.upnp
+      then "yes"
+      else "no"
+    }
 
     ${concatMapStrings (range: ''
-      listening_ip=${range}
-    '') cfg.internalIPs}
+        listening_ip=${range}
+      '')
+      cfg.internalIPs}
 
     ${lib.optionalString (firewall == "nftables") ''
       upnp_table_name=miniupnpd
@@ -25,13 +31,15 @@ let
 
     ${cfg.appendConfig}
   '';
-  firewall = if config.networking.nftables.enable then "nftables" else "iptables";
-  miniupnpd = pkgs.miniupnpd.override { inherit firewall; };
+  firewall =
+    if config.networking.nftables.enable
+    then "nftables"
+    else "iptables";
+  miniupnpd = pkgs.miniupnpd.override {inherit firewall;};
   firewallScripts = lib.optionals (firewall == "iptables") (
-    [ "iptables" ] ++ lib.optional (config.networking.enableIPv6) "ip6tables"
+    ["iptables"] ++ lib.optional (config.networking.enableIPv6) "ip6tables"
   );
-in
-{
+in {
   options = {
     services.miniupnpd = {
       enable = mkEnableOption "MiniUPnP daemon";
@@ -75,19 +83,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.extraCommands = lib.mkIf (firewallScripts != [ ]) (
+    networking.firewall.extraCommands = lib.mkIf (firewallScripts != []) (
       builtins.concatStringsSep "\n" (
         map (fw: ''
           EXTIF=${cfg.externalInterface} ${pkgs.bash}/bin/bash -x ${miniupnpd}/etc/miniupnpd/${fw}_init.sh
-        '') firewallScripts
+        '')
+        firewallScripts
       )
     );
 
-    networking.firewall.extraStopCommands = lib.mkIf (firewallScripts != [ ]) (
+    networking.firewall.extraStopCommands = lib.mkIf (firewallScripts != []) (
       builtins.concatStringsSep "\n" (
         map (fw: ''
           EXTIF=${cfg.externalInterface} ${pkgs.bash}/bin/bash -x ${miniupnpd}/etc/miniupnpd/${fw}_removeall.sh
-        '') firewallScripts
+        '')
+        firewallScripts
       )
     );
 
@@ -123,8 +133,8 @@ in
 
     systemd.services.miniupnpd = {
       description = "MiniUPnP daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${miniupnpd}/bin/miniupnpd -f ${configFile}";
         PIDFile = "/run/miniupnpd.pid";

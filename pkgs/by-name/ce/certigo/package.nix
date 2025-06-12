@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "certigo";
   version = "1.16.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Utility to examine and validate certificates in a variety of formats";
     homepage = "https://github.com/square/certigo";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "certigo";
   };
 }

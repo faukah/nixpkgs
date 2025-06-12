@@ -5,7 +5,6 @@
   testers,
   github-release,
 }:
-
 buildGoModule rec {
   pname = "github-release";
   version = "0.10.1-unstable-2024-06-25";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   passthru.tests.version = testers.testVersion {
     package = github-release;

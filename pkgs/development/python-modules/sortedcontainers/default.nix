@@ -3,9 +3,7 @@
   buildPythonPackage,
   fetchFromGitHub,
   pytestCheckHook,
-}:
-
-let
+}: let
   sortedcontainers = buildPythonPackage rec {
     pname = "sortedcontainers";
     version = "2.4.0";
@@ -20,9 +18,9 @@ let
 
     doCheck = false;
 
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
-    pythonImportsCheck = [ "sortedcontainers" ];
+    pythonImportsCheck = ["sortedcontainers"];
 
     passthru.tests = {
       pytest = sortedcontainers.overridePythonAttrs (_: {
@@ -34,8 +32,8 @@ let
       description = "Python Sorted Container Types: SortedList, SortedDict, and SortedSet";
       homepage = "https://grantjenks.com/docs/sortedcontainers/";
       license = licenses.asl20;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-sortedcontainers
+  sortedcontainers

@@ -10,7 +10,6 @@
   copyDesktopItems,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jpsxdec";
   version = "2.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
       free = true;
     };
     mainProgram = "jpsxdec";
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
     platforms = platforms.all;
   };
 })

@@ -3,20 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.power-profiles-daemon;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.power-profiles-daemon = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -26,16 +19,13 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "power-profiles-daemon" { };
-
+      package = lib.mkPackageOption pkgs "power-profiles-daemon" {};
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !config.services.tlp.enable;
@@ -53,14 +43,12 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
-
+    systemd.packages = [cfg.package];
   };
-
 }

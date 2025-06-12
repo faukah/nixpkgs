@@ -67,7 +67,6 @@
   wrapGAppsHook3,
   enableSshSocket ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-control-center";
   version = "1.4.0";
@@ -149,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
     upower
   ];
 
-  mesonFlags = [ (lib.mesonBool "ssh" enableSshSocket) ];
+  mesonFlags = [(lib.mesonBool "ssh" enableSshSocket)];
 
   preConfigure = ''
     # For ITS rules
@@ -189,8 +188,8 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -198,7 +197,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-control-center";
     changelog = "https://github.com/BuddiesOfBudgie/budgie-control-center/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     mainProgram = "budgie-control-center";
     platforms = lib.platforms.linux;
   };

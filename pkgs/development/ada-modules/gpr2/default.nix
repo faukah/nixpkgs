@@ -13,7 +13,6 @@
   # kb database source, if null assume it is pregenerated
   gpr2kbdir ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpr2";
   version = "25.0.0";
@@ -33,7 +32,11 @@ stdenv.mkDerivation rec {
     [
       "prefix=$(out)"
       "PROCESSORS=$(NIX_BUILD_CORES)"
-      "ENABLE_SHARED=${if enableShared then "yes" else "no"}"
+      "ENABLE_SHARED=${
+        if enableShared
+        then "yes"
+        else "no"
+      }"
       "GPR2_BUILD=release"
     ]
     ++ lib.optionals (gpr2kbdir != null) [
@@ -65,7 +68,7 @@ stdenv.mkDerivation rec {
       asl20
       gpl3Only
     ];
-    maintainers = with maintainers; [ heijligen ];
+    maintainers = with maintainers; [heijligen];
     platforms = platforms.all;
     # TODO(@sternenseemann): investigate failure with gnat 13
     broken = lib.versionOlder gnat.version "14";

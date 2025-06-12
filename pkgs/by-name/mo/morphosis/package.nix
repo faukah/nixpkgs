@@ -17,7 +17,6 @@
   webkitgtk_6_0,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "morphosis";
   version = "48.2";
@@ -51,23 +50,23 @@ python3Packages.buildPythonApplication rec {
     webkitgtk_6_0
   ];
 
-  dependencies = with python3Packages; [ pygobject3 ];
+  dependencies = with python3Packages; [pygobject3];
 
   dontWrapGApps = true;
   makeWrapperArgs = [
     "\${gappsWrapperArgs[@]}"
-    "--prefix PATH : ${lib.makeBinPath [ pandoc ]}"
+    "--prefix PATH : ${lib.makeBinPath [pandoc]}"
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Convert your documents";
     homepage = "https://gitlab.gnome.org/World/morphosis";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "morphosis";
     platforms = lib.platforms.linux;
   };

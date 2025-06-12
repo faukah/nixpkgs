@@ -7,7 +7,6 @@
   which,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dotter";
   version = "0.13.3";
@@ -35,14 +34,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Dotfile manager and templater written in rust 🦀";
     homepage = "https://github.com/SuperCuber/dotter";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     mainProgram = "dotter";
   };
 }

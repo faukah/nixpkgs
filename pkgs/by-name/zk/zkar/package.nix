@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zkar";
   version = "1.5.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/phith0n/zkar";
     changelog = "https://github.com/phith0n/zkar/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "zkar";
   };
 }

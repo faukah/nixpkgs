@@ -4,7 +4,6 @@
   fetchurl,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "losslessaudiochecker";
   version = "2.0.5";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "1i1zbl7sqwxwmhw89lgz922l5k85in3y76zb06h8j3zd0lb20wkq";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   sourceRoot = ".";
 
@@ -27,10 +26,10 @@ stdenv.mkDerivation {
   meta = {
     description = "Utility to check whether audio is truly lossless or not";
     homepage = "https://losslessaudiochecker.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ p-h ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [p-h];
     mainProgram = "LAC";
   };
 }

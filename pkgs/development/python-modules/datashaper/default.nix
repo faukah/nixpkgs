@@ -10,7 +10,6 @@
   pandas,
   pyarrow,
 }:
-
 buildPythonPackage rec {
   pname = "datashaper";
   version = "0.0.49";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-Bb+6WWRHSmK91SWew/oBc9AeNlIItqSv9OoOYwlqdTM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "pyarrow" ];
+  pythonRelaxDeps = ["pyarrow"];
 
   dependencies = [
     dacite
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  pythonImportsCheck = [ "datashaper" ];
+  pythonImportsCheck = ["datashaper"];
 
   # pypi tarball has no tests
   doCheck = false;
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Collection of utilities for doing lightweight data wrangling";
     homepage = "https://github.com/microsoft/datashaper/tree/main/python/datashaper";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

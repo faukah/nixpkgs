@@ -15,7 +15,6 @@
   gst-libav,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "farstream";
   version = "0.2.9";

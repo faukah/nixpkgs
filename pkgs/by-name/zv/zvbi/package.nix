@@ -9,7 +9,6 @@
   testers,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zvbi";
   version = "0.2.44";
@@ -46,14 +45,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "Vertical Blanking Interval (VBI) utilities";
     homepage = "https://github.com/zapping-vbi/zvbi";
     changelog = "https://github.com/zapping-vbi/zvbi/blob/${finalAttrs.src.rev}/ChangeLog";
-    pkgConfigModules = [ "zvbi-0.2" ];
+    pkgConfigModules = ["zvbi-0.2"];
     license = with lib.licenses; [
       bsd2
       bsd3
@@ -63,6 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl2Plus
       mit
     ];
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 })

@@ -9,7 +9,6 @@
   scdoc,
   testers,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sydbox";
   version = "3.34.0";
@@ -36,9 +35,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     scdoc
   ];
 
-  buildInputs = [ libseccomp ];
+  buildInputs = [libseccomp];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   checkFlags = [
     # rm -rf tmpdir: Os { code: 2, kind: NotFound, message: "No such file or directory" }
@@ -73,7 +72,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       command = "syd -V";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

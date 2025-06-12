@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "task-keeper";
   version = "0.29.0";
@@ -17,8 +16,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-D+aAqyJ7DzkaGHY+MEItcxQwuNKXzZhV/0HVj5WMqn0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
   useFetchCargoVendor = true;
   cargoHash = "sha256-asmdiJJmm+59vts0tkKDo7gkHOXbRM6FQWhdjfZ3w7U=";
 
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/linux-china/task-keeper";
     description = "CLI to manage tasks from different task runners or package managers";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tennox ];
+    maintainers = with lib.maintainers; [tennox];
     mainProgram = "tk";
   };
 }

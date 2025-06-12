@@ -9,7 +9,6 @@
   cppcodec,
   qttools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nitrokey-app";
   version = "1.4.2";

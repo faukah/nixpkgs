@@ -12,7 +12,6 @@
   libxkbcommon,
   scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wvkbd";
   version = "0.16";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     pango
     wayland
   ];
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   strictDeps = true;
 

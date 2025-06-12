@@ -4,7 +4,6 @@
   fetchFromGitiles,
   libcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minijail";
   version = "2024.05.22";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1NNjNEC0pNb0WW0PG5smltT1/dGYNRfhNxJtW0hngI8=";
   };
 
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   makeFlags = [
     "ECHO=echo"
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   installPhase = ''
     ./platform2_preinstall.sh ${version} $out/include/chromeos

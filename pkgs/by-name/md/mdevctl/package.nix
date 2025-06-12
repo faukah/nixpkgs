@@ -5,7 +5,6 @@
   docutils,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdevctl";
   version = "1.4.0";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mdevctl/mdevctl";
     description = "Mediated device management utility for linux";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   xorg,
   wayland,
 }:
-
 buildGoModule {
   pname = "go-sct";
   version = "unstable-2022-01-32";
@@ -39,7 +38,7 @@ buildGoModule {
     description = "Color temperature setting library and CLI that operates in a similar way to f.lux and Redshift";
     homepage = "https://github.com/d4l3k/go-sct";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "sct";
   };

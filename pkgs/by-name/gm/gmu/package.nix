@@ -15,7 +15,6 @@
   keymap ? "default",
   conf ? "unknown",
 }:
-
 stdenv.mkDerivation rec {
   pname = "gmu";
   version = "0.10.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     cp ${keymap}.keymap $out/share/gmu/default.keymap

@@ -10,7 +10,6 @@
   python,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "django-cachalot";
   version = "2.7.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     ./disable-unsupported-tests.patch
   ];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   checkInputs = [
     beautifulsoup4
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "cachalot" ];
+  pythonImportsCheck = ["cachalot"];
 
   # disable broken pinning test
   preCheck = ''
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/noripyt/django-cachalot";
     changelog = "https://github.com/noripyt/django-cachalot/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

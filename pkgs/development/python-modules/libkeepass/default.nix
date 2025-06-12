@@ -6,7 +6,6 @@
   pycryptodome,
   colorama,
 }:
-
 buildPythonPackage rec {
   pname = "libkeepass";
   version = "0.3.1.post1";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/libkeepass/libkeepass";
     description = "Library to access KeePass 1.x/KeePassX (v3) and KeePass 2.x (v4) files";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jqueiroz ];
+    maintainers = with maintainers; [jqueiroz];
   };
 }

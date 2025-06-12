@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-KIoRsCy/Cei1YM/94kUcgI2Twgi8kEFVNiUM+sCPMyo=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/cargo-clean-recursive \
-      --prefix PATH : ${lib.makeBinPath [ cargo ]}
+      --prefix PATH : ${lib.makeBinPath [cargo]}
   '';
 
   meta = {
@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ qubic ];
+    maintainers = with lib.maintainers; [qubic];
   };
 })

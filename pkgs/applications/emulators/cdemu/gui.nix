@@ -12,7 +12,6 @@
   libappindicator-gtk3,
 }:
 python3Packages.buildPythonApplication {
-
   inherit
     (callPackage ./common-drv-attrs.nix {
       version = "3.2.6";
@@ -38,12 +37,11 @@ python3Packages.buildPythonApplication {
     gdk-pixbuf
     libappindicator-gtk3
   ];
-  propagatedBuildInputs = with python3Packages; [ pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [pygobject3];
 
   pyproject = false;
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
-
 }

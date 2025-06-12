@@ -6,7 +6,6 @@
   mosquitto,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-mqtt";
   version = "1.0.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Plus
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = guile.meta.platforms;
   };
 })

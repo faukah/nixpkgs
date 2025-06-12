@@ -6,7 +6,6 @@
   pkg-config,
   libosmocore,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-pcu";
   version = "1.5.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "osmo-pcu";
     homepage = "https://osmocom.org/projects/osmopcu";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
   };
 }

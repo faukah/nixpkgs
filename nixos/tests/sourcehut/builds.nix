@@ -1,9 +1,11 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
-  let
-    domain = "sourcehut.localdomain";
-  in
   {
+    pkgs,
+    lib,
+    ...
+  }: let
+    domain = "sourcehut.localdomain";
+  in {
     name = "sourcehut";
 
     meta.maintainers = with pkgs.lib.maintainers; [
@@ -11,38 +13,36 @@ import ../make-test-python.nix (
       nessdoor
     ];
 
-    nodes.machine =
-      {
-        config,
-        pkgs,
-        nodes,
-        ...
-      }:
-      {
-        imports = [
-          ./nodes/common.nix
-        ];
+    nodes.machine = {
+      config,
+      pkgs,
+      nodes,
+      ...
+    }: {
+      imports = [
+        ./nodes/common.nix
+      ];
 
-        networking.domain = domain;
-        networking.extraHosts = ''
-          ${config.networking.primaryIPAddress} builds.${domain}
-          ${config.networking.primaryIPAddress} meta.${domain}
-        '';
+      networking.domain = domain;
+      networking.extraHosts = ''
+        ${config.networking.primaryIPAddress} builds.${domain}
+        ${config.networking.primaryIPAddress} meta.${domain}
+      '';
 
-        services.sourcehut = {
-          builds = {
-            enable = true;
-            # FIXME: see why it does not seem to activate fully.
-            #enableWorker = true;
-            images = { };
-          };
+      services.sourcehut = {
+        builds = {
+          enable = true;
+          # FIXME: see why it does not seem to activate fully.
+          #enableWorker = true;
+          images = {};
+        };
 
-          settings."builds.sr.ht" = {
-            oauth-client-secret = pkgs.writeText "buildsrht-oauth-client-secret" "2260e9c4d9b8dcedcef642860e0504bc";
-            oauth-client-id = "299db9f9c2013170";
-          };
+        settings."builds.sr.ht" = {
+          oauth-client-secret = pkgs.writeText "buildsrht-oauth-client-secret" "2260e9c4d9b8dcedcef642860e0504bc";
+          oauth-client-id = "299db9f9c2013170";
         };
       };
+    };
 
     testScript = ''
       start_all()

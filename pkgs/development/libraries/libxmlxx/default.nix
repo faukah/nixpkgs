@@ -8,7 +8,6 @@
   perl,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxml++";
   version = "2.40.1";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "C++ wrapper for the libxml2 XML parser library";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

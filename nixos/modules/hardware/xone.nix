@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.xone;
-in
-{
+in {
   options.hardware.xone = {
     enable = lib.mkEnableOption "the xone driver for Xbox One and Xbox Series X|S accessories";
   };
@@ -18,13 +16,13 @@ in
         "xpad"
         "mt76x2u"
       ];
-      extraModulePackages = with config.boot.kernelPackages; [ xone ];
+      extraModulePackages = with config.boot.kernelPackages; [xone];
     };
-    hardware.firmware = [ pkgs.xow_dongle-firmware ];
+    hardware.firmware = [pkgs.xow_dongle-firmware];
     hardware.xpad-noone.enable = lib.mkDefault true;
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ rhysmdnz ];
+    maintainers = with lib.maintainers; [rhysmdnz];
   };
 }

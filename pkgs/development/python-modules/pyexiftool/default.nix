@@ -7,7 +7,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyexiftool";
   version = "0.5.6";
@@ -28,11 +27,11 @@ buildPythonPackage rec {
                      'DEFAULT_EXECUTABLE = "${lib.getExe exiftool}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "exiftool" ];
+  pythonImportsCheck = ["exiftool"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/sylikc/pyexiftool/blob/${src.rev}/CHANGELOG.md";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
       bsd3 # or
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

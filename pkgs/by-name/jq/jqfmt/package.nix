@@ -17,13 +17,13 @@ buildGoModule {
 
   vendorHash = "sha256-avpZSgQKFZxLmYGj+2Gi+wSDHnAgF0/hyp4HtoQ0ZCo=";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=main" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch=main"];};
 
   meta = {
     description = "Like gofmt, but for jq";
     homepage = "https://github.com/noperator/jqfmt";
     license = lib.licenses.mit; # Doesn't have Licence file, but Readme points to MIT
-    maintainers = with lib.maintainers; [ heisfer ];
+    maintainers = with lib.maintainers; [heisfer];
     mainProgram = "jqfmt";
   };
 }

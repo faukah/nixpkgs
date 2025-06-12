@@ -9,7 +9,6 @@
   makeWrapper,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qdirstat";
   version = "1.9";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ makeWrapper ]
+    [makeWrapper]
     ++ (with libsForQt5; [
       qmake
       wrapQtAppsHook
     ]);
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
 
   postPatch = ''
     substituteInPlace scripts/scripts.pro \
@@ -49,18 +48,18 @@ stdenv.mkDerivation rec {
       --replace /bin/bash ${bash}/bin/bash
   '';
 
-  qmakeFlags = [ "INSTALL_PREFIX=${placeholder "out"}" ];
+  qmakeFlags = ["INSTALL_PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/qdirstat-cache-writer \
-      --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.URI ]}"
+      --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.URI]}"
   '';
 
   meta = with lib; {
     description = "Graphical disk usage analyzer";
     homepage = "https://github.com/shundhammer/qdirstat";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     platforms = platforms.linux;
     mainProgram = "qdirstat";
   };

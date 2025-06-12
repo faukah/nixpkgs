@@ -8,7 +8,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "spasm-ng";
 
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     description = "Z80 assembler with extra features to support development for TI calculators";
     mainProgram = "spasm";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

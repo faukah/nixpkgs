@@ -11,7 +11,6 @@
   zlib,
   eigen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsurvive";
   version = "1.01";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Open Source Lighthouse Tracking System";
     homepage = "https://github.com/cntools/libsurvive";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.linux;
   };
 }

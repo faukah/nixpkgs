@@ -32,7 +32,6 @@
   systemd,
   trayEnabled ? systemdSupport,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sway-unwrapped";
   version = "1.11";
@@ -97,28 +96,29 @@ stdenv.mkDerivation (finalAttrs: {
       librsvg
       wayland-protocols
       libdrm
-      (wlroots.override { inherit (finalAttrs) enableXWayland; })
+      (wlroots.override {inherit (finalAttrs) enableXWayland;})
     ]
     ++ lib.optionals finalAttrs.enableXWayland [
       xorg.xcbutilwm
     ];
 
-  mesonFlags =
-    let
-      inherit (lib.strings) mesonEnable mesonOption;
+  mesonFlags = let
+    inherit (lib.strings) mesonEnable mesonOption;
 
-      # The "sd-bus-provider" meson option does not include a "none" option,
-      # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
-      # (which is not in nixpkgs) instead of "none" to alert us if this
-      # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
-      # assert trayEnabled -> systemdSupport && dbusSupport;
+    # The "sd-bus-provider" meson option does not include a "none" option,
+    # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
+    # (which is not in nixpkgs) instead of "none" to alert us if this
+    # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
+    # assert trayEnabled -> systemdSupport && dbusSupport;
 
-      sd-bus-provider = if systemdSupport then "libsystemd" else "basu";
-    in
-    [
-      (mesonOption "sd-bus-provider" sd-bus-provider)
-      (mesonEnable "tray" finalAttrs.trayEnabled)
-    ];
+    sd-bus-provider =
+      if systemdSupport
+      then "libsystemd"
+      else "basu";
+  in [
+    (mesonOption "sd-bus-provider" sd-bus-provider)
+    (mesonEnable "tray" finalAttrs.trayEnabled)
+  ];
 
   passthru.tests.basic = nixosTests.sway;
 

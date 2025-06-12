@@ -13,7 +13,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wildcard";
   version = "0.3.3";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/World/Wildcard";
     downloadPage = "https://gitlab.gnome.org/World/Wildcard/-/releases/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     mainProgram = "wildcard";
     platforms = lib.platforms.linux;
   };

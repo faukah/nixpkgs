@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1dmsr7whxcxwnlvl1x4s3bqr5cr6q5ssb28vqi67w5hj4sshisry";
   };
 
-  patches = [ ./hostlist.patch ];
+  patches = [./hostlist.patch];
 
   # Required for build with gcc-14
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     mainProgram = "slurm-spank-x11";
     platforms = platforms.linux;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

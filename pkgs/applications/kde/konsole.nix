@@ -27,7 +27,6 @@
   knewstuff,
   qtmultimedia,
 }:
-
 mkDerivation {
   pname = "konsole";
   meta = {
@@ -38,7 +37,7 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
     mainProgram = "konsole";
   };
   nativeBuildInputs = [
@@ -72,5 +71,5 @@ mkDerivation {
 
   passthru.tests.test = nixosTests.terminal-emulators.konsole;
 
-  propagatedUserEnvPkgs = [ (lib.getBin kinit) ];
+  propagatedUserEnvPkgs = [(lib.getBin kinit)];
 }

@@ -3,9 +3,7 @@
   lib,
   fetchurl,
   callPackage,
-}:
-
-let
+}: let
   pname = "upscayl";
   version = "2.15.0";
   srcs = rec {
@@ -27,25 +25,26 @@ let
       matteopacini
     ];
     license = lib.licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
+    platforms = ["x86_64-linux"] ++ lib.platforms.darwin;
     mainProgram = "upscayl";
   };
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      meta
-      ;
-    src = srcs.${stdenv.hostPlatform.system};
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      meta
-      ;
-    src = srcs.${stdenv.hostPlatform.system};
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        meta
+        ;
+      src = srcs.${stdenv.hostPlatform.system};
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        meta
+        ;
+      src = srcs.${stdenv.hostPlatform.system};
+    }

@@ -4,7 +4,6 @@
   fetchsvn,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctags";
   version = "816";
@@ -15,10 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "0jmbkrmscbl64j71qffcc39x005jrmphx8kirs1g2ws44wil39hf";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # don't use $T(E)MP which is set to the build directory
-  configureFlags = [ "--enable-tmpdir=/tmp" ];
+  configureFlags = ["--enable-tmpdir=/tmp"];
 
   patches = [
     # Library defines an `__unused__` which is a reserved name, and may
@@ -45,5 +44,4 @@ stdenv.mkDerivation rec {
     # So that Exuberant ctags is preferred over emacs's ctags
     priority = 1;
   };
-
 }

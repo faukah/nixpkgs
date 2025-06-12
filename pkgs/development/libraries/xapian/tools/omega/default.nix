@@ -9,7 +9,6 @@
   zlib,
   libmagic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xapian-omega";
   inherit (xapian) version;
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     zlib
     libmagic
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postInstall = ''
     mkdir -p $out/share/omega

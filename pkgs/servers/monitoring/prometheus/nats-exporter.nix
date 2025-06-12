@@ -6,7 +6,6 @@
   testers,
   prometheus-nats-exporter,
 }:
-
 buildGoModule rec {
   pname = "prometheus-nats-exporter";
   version = "0.15.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       prometheus-nats-exporter-version = testers.testVersion {
         package = prometheus-nats-exporter;
@@ -44,6 +43,6 @@ buildGoModule rec {
     description = "Exporter for NATS metrics";
     homepage = "https://github.com/nats-io/prometheus-nats-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

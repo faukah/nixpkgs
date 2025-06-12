@@ -6,7 +6,6 @@
   stdenv,
   zip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jscoverage";
   version = "0.5.1";

@@ -1,23 +1,17 @@
 # at-spi2-core daemon.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-{
-
+}: {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
 
   ###### interface
   options = {
-
     services.gnome.at-spi2-core = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -29,18 +23,16 @@
           `The name org.a11y.Bus was not provided by any .service files`.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkMerge [
     (lib.mkIf config.services.gnome.at-spi2-core.enable {
-      environment.systemPackages = [ pkgs.at-spi2-core ];
-      services.dbus.packages = [ pkgs.at-spi2-core ];
-      systemd.packages = [ pkgs.at-spi2-core ];
+      environment.systemPackages = [pkgs.at-spi2-core];
+      services.dbus.packages = [pkgs.at-spi2-core];
+      systemd.packages = [pkgs.at-spi2-core];
     })
 
     (lib.mkIf (!config.services.gnome.at-spi2-core.enable) {

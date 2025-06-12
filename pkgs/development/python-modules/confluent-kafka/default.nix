@@ -26,7 +26,6 @@
   respx,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "confluent-kafka";
   version = "2.8.0";
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     hash = "sha256-EDEp260G/t7s17RlbT+Bcl7FZlVQFagNijDNw53DFpY=";
   };
 
-  buildInputs = [ rdkafka ];
+  buildInputs = [rdkafka];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     avro = [
@@ -74,18 +73,20 @@ buildPythonPackage rec {
       pyyaml
       # TODO: tink
     ];
-    schema-registry = [ requests ];
+    schema-registry = [requests];
   };
 
-  nativeCheckInputs = [
-    cachetools
-    pyflakes
-    pytestCheckHook
-    requests-mock
-    respx
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      cachetools
+      pyflakes
+      pytestCheckHook
+      requests-mock
+      respx
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "confluent_kafka" ];
+  pythonImportsCheck = ["confluent_kafka"];
 
   disabledTestPaths = [
     "tests/integration/"
@@ -102,6 +103,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/confluentinc/confluent-kafka-python";
     changelog = "https://github.com/confluentinc/confluent-kafka-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mlieberman85 ];
+    maintainers = with maintainers; [mlieberman85];
   };
 }

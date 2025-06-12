@@ -10,7 +10,6 @@
   openobex,
   dbus,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obex-data-server";
   version = "0.4.6";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  patches = [ ./obex-data-server-0.4.6-build-fixes-1.patch ];
+  patches = [./obex-data-server-0.4.6-build-fixes-1.patch];
 
   preConfigure = ''
     addToSearchPath PKG_CONFIG_PATH ${openobex}/lib64/pkgconfig

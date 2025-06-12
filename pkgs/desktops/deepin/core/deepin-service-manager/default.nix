@@ -6,7 +6,6 @@
   pkg-config,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-service-manager";
   version = "1.0.3";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-service-manager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

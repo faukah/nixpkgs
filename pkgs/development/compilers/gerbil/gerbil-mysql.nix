@@ -4,16 +4,14 @@
   fetchFromGitHub,
   mariadb-connector-c,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-mysql";
   version = "unstable-2023-09-23";
   git-version = "ecec94c";
   gerbil-package = "clan";
-  gerbilInputs = [ ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ mariadb-connector-c ];
+  gerbilInputs = [];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [mariadb-connector-c];
   version-path = "";
   softwareName = "Gerbil-MySQL";
 
@@ -30,7 +28,7 @@
     homepage = "https://github.com/mighty-gerbils/gerbil-mysql";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 
   # "-L${mariadb-connector-c}/lib/mariadb"

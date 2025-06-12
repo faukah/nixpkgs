@@ -13,7 +13,6 @@
   scipy,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "osqp";
   version = "0.6.7.post3";
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "osqp" ];
+  pythonImportsCheck = ["osqp"];
 
   disabledTests =
     [
@@ -83,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://osqp.org/";
     downloadPage = "https://github.com/oxfordcontrol/osqp-python/releases";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

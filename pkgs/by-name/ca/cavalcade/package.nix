@@ -11,7 +11,6 @@
   makeDesktopItem,
   fetchurl,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cavalcade";
   version = "0.8";
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail '"cava"' '"${cava}/bin/cava"'
   '';
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     pygobject3
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     gst_all_1.gstreamer
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   desktopItems = [
     (makeDesktopItem {
@@ -69,6 +68,6 @@ python3Packages.buildPythonApplication rec {
     description = "Python wrapper for C.A.V.A. utility with a GUI";
     homepage = "https://github.com/worron/cavalcade";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

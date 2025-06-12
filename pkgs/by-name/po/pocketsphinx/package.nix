@@ -10,7 +10,6 @@
   pkg-config,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pocketsphinx";
   version = "5.0.4";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ gst_all_1.gstreamer ];
+  buildInputs = [gst_all_1.gstreamer];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -59,8 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
       bsd3
       mit
     ];
-    pkgConfigModules = [ "pocketsphinx" ];
+    pkgConfigModules = ["pocketsphinx"];
     mainProgram = "pocketsphinx";
-    maintainers = with maintainers; [ jopejoe1 ];
+    maintainers = with maintainers; [jopejoe1];
   };
 })

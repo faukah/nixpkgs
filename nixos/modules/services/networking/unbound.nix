@@ -4,39 +4,36 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.unbound;
 
-  yesOrNo = v: if v then "yes" else "no";
+  yesOrNo = v:
+    if v
+    then "yes"
+    else "no";
 
-  toOption =
-    indent: n: v:
-    "${indent}${toString n}: ${v}";
+  toOption = indent: n: v: "${indent}${toString n}: ${v}";
 
-  toConf =
-    indent: n: v:
-    if builtins.isFloat v then
-      (toOption indent n (builtins.toJSON v))
-    else if isInt v then
-      (toOption indent n (toString v))
-    else if isBool v then
-      (toOption indent n (yesOrNo v))
-    else if isString v then
-      (toOption indent n v)
-    else if isList v then
-      (concatMapStringsSep "\n" (toConf indent n) v)
-    else if isAttrs v then
-      (concatStringsSep "\n" ([ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)))
-    else
-      throw (traceSeq v "services.unbound.settings: unexpected type");
+  toConf = indent: n: v:
+    if builtins.isFloat v
+    then (toOption indent n (builtins.toJSON v))
+    else if isInt v
+    then (toOption indent n (toString v))
+    else if isBool v
+    then (toOption indent n (yesOrNo v))
+    else if isString v
+    then (toOption indent n v)
+    else if isList v
+    then (concatMapStringsSep "\n" (toConf indent n) v)
+    else if isAttrs v
+    then (concatStringsSep "\n" (["${indent}${n}:"] ++ (mapAttrsToList (toConf "${indent}  ") v)))
+    else throw (traceSeq v "services.unbound.settings: unexpected type");
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ])) ++ [ "" ]
+    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings ["server"])) ++ [""]
   );
   confServer = concatStringsSep "\n" (
-    mapAttrsToList (toConf "  ") (builtins.removeAttrs cfg.settings.server [ "define-tag" ])
+    mapAttrsToList (toConf "  ") (builtins.removeAttrs cfg.settings.server ["define-tag"])
   );
 
   confFileUnchecked = pkgs.writeText "unbound.conf" ''
@@ -48,39 +45,35 @@ let
     ${confNoServer}
   '';
   confFile =
-    if cfg.checkconf then
+    if cfg.checkconf
+    then
       pkgs.runCommand "unbound-checkconf"
-        {
-          preferLocalBuild = true;
-        }
-        ''
-          cp ${confFileUnchecked} unbound.conf
+      {
+        preferLocalBuild = true;
+      }
+      ''
+        cp ${confFileUnchecked} unbound.conf
 
-          # fake stateDir which is not accessible in the sandbox
-          mkdir -p $PWD/state
-          sed -i unbound.conf \
-            -e '/auto-trust-anchor-file/d' \
-            -e "s|${cfg.stateDir}|$PWD/state|"
-          ${cfg.package}/bin/unbound-checkconf unbound.conf
+        # fake stateDir which is not accessible in the sandbox
+        mkdir -p $PWD/state
+        sed -i unbound.conf \
+          -e '/auto-trust-anchor-file/d' \
+          -e "s|${cfg.stateDir}|$PWD/state|"
+        ${cfg.package}/bin/unbound-checkconf unbound.conf
 
-          cp ${confFileUnchecked} $out
-        ''
-    else
-      confFileUnchecked;
+        cp ${confFileUnchecked} $out
+      ''
+    else confFileUnchecked;
 
   rootTrustAnchorFile = "${cfg.stateDir}/root.key";
-
-in
-{
-
+in {
   ###### interface
 
   options = {
     services.unbound = {
-
       enable = mkEnableOption "Unbound domain name server";
 
-      package = mkPackageOption pkgs "unbound-with-systemd" { };
+      package = mkPackageOption pkgs "unbound-with-systemd" {};
 
       user = mkOption {
         type = types.str;
@@ -150,28 +143,25 @@ in
       };
 
       settings = mkOption {
-        default = { };
-        type =
-          with types;
+        default = {};
+        type = with types;
           submodule {
-
-            freeformType =
-              let
-                validSettingsPrimitiveTypes = oneOf [
-                  int
-                  str
-                  bool
-                  float
-                ];
-                validSettingsTypes = oneOf [
-                  validSettingsPrimitiveTypes
-                  (listOf validSettingsPrimitiveTypes)
-                ];
-                settingsType = oneOf [
-                  str
-                  (attrsOf validSettingsTypes)
-                ];
-              in
+            freeformType = let
+              validSettingsPrimitiveTypes = oneOf [
+                int
+                str
+                bool
+                float
+              ];
+              validSettingsTypes = oneOf [
+                validSettingsPrimitiveTypes
+                (listOf validSettingsPrimitiveTypes)
+              ];
+              settingsType = oneOf [
+                str
+                (attrsOf validSettingsTypes)
+              ];
+            in
               attrsOf (oneOf [
                 settingsType
                 (listOf settingsType)
@@ -226,7 +216,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     services.unbound.settings = {
       server = {
         directory = mkDefault cfg.stateDir;
@@ -235,9 +224,9 @@ in
         pidfile = ''""'';
         # when running under systemd there is no need to daemonize
         do-daemonize = false;
-        interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
+        interface = mkDefault (["127.0.0.1"] ++ (optional config.networking.enableIPv6 "::1"));
         access-control = mkDefault (
-          [ "127.0.0.0/8 allow" ] ++ (optional config.networking.enableIPv6 "::1/128 allow")
+          ["127.0.0.0/8 allow"] ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );
         auto-trust-anchor-file = mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault config.security.pki.caBundle;
@@ -249,7 +238,7 @@ in
       remote-control =
         {
           control-enable = mkDefault false;
-          control-interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
+          control-interface = mkDefault (["127.0.0.1"] ++ (optional config.networking.enableIPv6 "::1"));
           server-key-file = mkDefault "${cfg.stateDir}/unbound_server.key";
           server-cert-file = mkDefault "${cfg.stateDir}/unbound_server.pem";
           control-key-file = mkDefault "${cfg.stateDir}/unbound_control.key";
@@ -261,7 +250,7 @@ in
         };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = mkIf (cfg.user == "unbound") {
       unbound = {
@@ -272,7 +261,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "unbound") {
-      unbound = { };
+      unbound = {};
     };
 
     networking = mkIf cfg.resolveLocalQueries {
@@ -285,14 +274,14 @@ in
 
     systemd.services.unbound = {
       description = "Unbound recursive Domain Name Server";
-      after = [ "network.target" ];
-      before = [ "nss-lookup.target" ];
+      after = ["network.target"];
+      before = ["nss-lookup.target"];
       wantedBy = [
         "multi-user.target"
         "nss-lookup.target"
       ];
 
-      path = mkIf cfg.settings.remote-control.control-enable [ pkgs.openssl ];
+      path = mkIf cfg.settings.remote-control.control-enable [pkgs.openssl];
 
       preStart = ''
         ${optionalString cfg.enableRootTrustAnchor ''
@@ -351,12 +340,12 @@ in
         ];
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
         RestrictNamespaces = true;
         LockPersonality = true;
         RestrictSUIDSGID = true;
 
-        ReadWritePaths = [ cfg.stateDir ];
+        ReadWritePaths = [cfg.stateDir];
 
         Restart = "on-failure";
         RestartSec = "5s";
@@ -365,19 +354,21 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "unbound" "interfaces" ]
-      [ "services" "unbound" "settings" "server" "interface" ]
+    (
+      mkRenamedOptionModule
+      ["services" "unbound" "interfaces"]
+      ["services" "unbound" "settings" "server" "interface"]
     )
-    (mkChangedOptionModule
-      [ "services" "unbound" "allowedAccess" ]
-      [ "services" "unbound" "settings" "server" "access-control" ]
+    (
+      mkChangedOptionModule
+      ["services" "unbound" "allowedAccess"]
+      ["services" "unbound" "settings" "server" "access-control"]
       (
         config:
-        map (value: "${value} allow") (getAttrFromPath [ "services" "unbound" "allowedAccess" ] config)
+          map (value: "${value} allow") (getAttrFromPath ["services" "unbound" "allowedAccess"] config)
       )
     )
-    (mkRemovedOptionModule [ "services" "unbound" "forwardAddresses" ] ''
+    (mkRemovedOptionModule ["services" "unbound" "forwardAddresses"] ''
       Add a new setting:
       services.unbound.settings.forward-zone = [{
         name = ".";
@@ -386,7 +377,7 @@ in
       If any of those addresses are local addresses (127.0.0.1 or ::1), you must
       also set services.unbound.settings.server.do-not-query-localhost to false.
     '')
-    (mkRemovedOptionModule [ "services" "unbound" "extraConfig" ] ''
+    (mkRemovedOptionModule ["services" "unbound" "extraConfig"] ''
       You can use services.unbound.settings to add any configuration you want.
     '')
   ];

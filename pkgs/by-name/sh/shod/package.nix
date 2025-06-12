@@ -11,7 +11,6 @@
   libXrender,
   conf ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shod";
   version = "2.6.2";
@@ -32,14 +31,15 @@ stdenv.mkDerivation rec {
     libXrender
   ];
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.h" conf;
+  in
     lib.optionalString (conf != null) "cp ${configFile} config.h";
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Mouse-based window manager that can tile windows inside floating containers";
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phillbush/shod";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

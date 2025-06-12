@@ -6,7 +6,6 @@
   fetchFromGitHub,
   writeText,
 }:
-
 # resholve does not yet support `finalAttrs` call pattern hence `rec`
 # https://github.com/abathur/resholve/issues/107
 resholve.mkDerivation rec {
@@ -28,9 +27,9 @@ resholve.mkDerivation rec {
 
   solutions = {
     default = {
-      scripts = [ "share/nix-direnv/direnvrc" ];
+      scripts = ["share/nix-direnv/direnvrc"];
       interpreter = "none";
-      inputs = [ coreutils ];
+      inputs = [coreutils];
       fake = {
         builtin = [
           "PATH_add"

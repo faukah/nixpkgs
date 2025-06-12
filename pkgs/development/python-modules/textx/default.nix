@@ -7,9 +7,7 @@
   click,
   callPackage,
   flit-core,
-}:
-
-let
+}: let
   textx = buildPythonPackage rec {
     pname = "textx";
     version = "4.0.1";
@@ -27,9 +25,9 @@ let
       "testout"
     ];
 
-    build-system = [ flit-core ];
+    build-system = [flit-core];
 
-    dependencies = [ arpeggio ];
+    dependencies = [arpeggio];
 
     postInstall = ''
       # FileNotFoundError: [Errno 2] No such file or directory: '$out/lib/python3.10/site-packages/textx/textx.tx
@@ -40,7 +38,7 @@ let
       cp -r tests $testout/tests
     '';
 
-    pythonImportsCheck = [ "textx" ];
+    pythonImportsCheck = ["textx"];
 
     # Circular dependencies, do tests in passthru.tests instead.
     doCheck = false;
@@ -62,7 +60,7 @@ let
       mainProgram = "textx";
       homepage = "https://github.com/textx/textx/";
       license = licenses.mit;
-      maintainers = with maintainers; [ yuu ];
+      maintainers = with maintainers; [yuu];
     };
   };
 
@@ -75,7 +73,7 @@ let
     pathToSourceRoot = "tests/functional/registration/projects/data_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
 
-    build-system = [ flit-core ];
+    build-system = [flit-core];
 
     dependencies = [
       textx
@@ -99,7 +97,7 @@ let
     pathToSourceRoot = "tests/functional/registration/projects/flow_codegen";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
 
-    build-system = [ flit-core ];
+    build-system = [flit-core];
     dependencies = [
       textx
       click
@@ -122,8 +120,8 @@ let
     pathToSourceRoot = "tests/functional/registration/projects/flow_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
 
-    build-system = [ flit-core ];
-    dependencies = [ textx ];
+    build-system = [flit-core];
+    dependencies = [textx];
 
     meta = with lib; {
       inherit (textx.meta) license maintainers;
@@ -142,8 +140,8 @@ let
     pathToSourceRoot = "tests/functional/registration/projects/types_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
 
-    build-system = [ flit-core ];
-    dependencies = [ textx ];
+    build-system = [flit-core];
+    dependencies = [textx];
 
     meta = with lib; {
       inherit (textx.meta) license maintainers;
@@ -162,8 +160,8 @@ let
     pathToSourceRoot = "tests/functional/subcommands/example_project";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
 
-    build-system = [ flit-core ];
-    dependencies = [ textx ];
+    build-system = [flit-core];
+    dependencies = [textx];
 
     meta = with lib; {
       inherit (textx.meta) license maintainers;
@@ -172,4 +170,4 @@ let
     };
   };
 in
-textx
+  textx

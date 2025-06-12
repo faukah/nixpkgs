@@ -6,7 +6,6 @@
   boulder,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "boulder";
   version = "2025-04-17";
@@ -27,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/boulder" ];
+  subPackages = ["cmd/boulder"];
 
   ldflags = [
     "-s"
@@ -324,7 +323,7 @@ buildGoModule rec {
       package = boulder;
       inherit version;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -339,6 +338,6 @@ buildGoModule rec {
     '';
     license = lib.licenses.mpl20;
     mainProgram = "boulder";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

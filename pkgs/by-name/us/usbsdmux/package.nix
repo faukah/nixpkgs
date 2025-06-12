@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "usbsdmux";
   version = "24.1.1";
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     description = "Control software for the LXA USB-SD-Mux";
     homepage = "https://github.com/linux-automation/usbsdmux";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux;
   };
 }

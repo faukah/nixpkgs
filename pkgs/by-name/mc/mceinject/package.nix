@@ -5,7 +5,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation {
   pname = "mceinject";
   version = "unstable-2013-01-19";
@@ -24,9 +23,9 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-Os -g -Wall";
 
-  NIX_LDFLAGS = [ "-lpthread" ];
+  NIX_LDFLAGS = ["-lpthread"];
 
-  makeFlags = [ "prefix=" ];
+  makeFlags = ["prefix="];
 
   enableParallelBuilding = true;
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/andikleen/mce-inject/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
     platforms = platforms.linux;
   };
 }

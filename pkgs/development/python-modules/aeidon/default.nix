@@ -6,7 +6,6 @@
   pytestCheckHook,
   charset-normalizer,
 }:
-
 buildPythonPackage rec {
   pname = "aeidon";
   version = "1.15";
@@ -26,27 +25,26 @@ buildPythonPackage rec {
     mv setup-aeidon.py setup.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ charset-normalizer ];
+  dependencies = [charset-normalizer];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "aeidon/test" ];
+  pytestFlagsArray = ["aeidon/test"];
 
   disabledTests = [
     # requires gspell to work with gobject introspection
     "test_spell"
   ];
 
-  pythonImportsCheck = [ "aeidon" ];
+  pythonImportsCheck = ["aeidon"];
 
   meta = with lib; {
     changelog = "https://github.com/otsaloma/gaupol/releases/tag/${version}";
     description = "Reading, writing and manipulationg text-based subtitle files";
     homepage = "https://github.com/otsaloma/gaupol";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
-
 }

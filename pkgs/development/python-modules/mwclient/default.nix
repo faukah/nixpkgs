@@ -11,7 +11,6 @@
   responses,
   six,
 }:
-
 buildPythonPackage rec {
   version = "0.11.0";
   pname = "mwclient";
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "mwclient" ];
+  pythonImportsCheck = ["mwclient"];
 
   meta = with lib; {
     description = "Python client library to the MediaWiki API";
     license = licenses.mit;
     homepage = "https://github.com/mwclient/mwclient";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

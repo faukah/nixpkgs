@@ -9,9 +9,8 @@
   gtk3,
   webkitgtk_4_1,
 }:
-
 buildGoModule (finalAttrs: {
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     webkitgtk_4_1
@@ -102,7 +101,7 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://github.com/ParetoSecurity/agent";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ zupo ];
+    maintainers = with lib.maintainers; [zupo];
     mainProgram = "paretosecurity";
   };
 })

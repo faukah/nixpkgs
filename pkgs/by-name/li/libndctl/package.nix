@@ -15,7 +15,6 @@
   libtracefs,
   libtraceevent,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libndctl";
   version = "81";
@@ -80,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tools for managing the Linux Non-Volatile Memory Device sub-system";
     homepage = "https://github.com/pmem/ndctl";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.linux;
   };
 })

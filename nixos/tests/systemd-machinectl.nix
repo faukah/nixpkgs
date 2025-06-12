@@ -1,32 +1,28 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
+  container = {config, ...}: {
+    # We re-use the NixOS container option ...
+    boot.isContainer = true;
+    # ... and revert unwanted defaults
+    networking.useHostResolvConf = false;
 
-  container =
-    { config, ... }:
-    {
-      # We re-use the NixOS container option ...
-      boot.isContainer = true;
-      # ... and revert unwanted defaults
-      networking.useHostResolvConf = false;
+    # use networkd to obtain systemd network setup
+    networking.useNetworkd = true;
+    networking.useDHCP = false;
 
-      # use networkd to obtain systemd network setup
-      networking.useNetworkd = true;
-      networking.useDHCP = false;
+    # systemd-nspawn expects /sbin/init
+    boot.loader.initScript.enable = true;
 
-      # systemd-nspawn expects /sbin/init
-      boot.loader.initScript.enable = true;
+    imports = [../modules/profiles/minimal.nix];
 
-      imports = [ ../modules/profiles/minimal.nix ];
+    system.stateVersion = config.system.nixos.release;
 
-      system.stateVersion = config.system.nixos.release;
-
-      nixpkgs.pkgs = pkgs;
-    };
+    nixpkgs.pkgs = pkgs;
+  };
 
   containerSystem =
     (import ../lib/eval-config.nix {
       system = null;
-      modules = [ container ];
+      modules = [container];
     }).config.system.build.toplevel;
 
   containerName = "container";
@@ -51,67 +47,64 @@ let
       }
     ];
   };
-in
-{
+in {
   name = "systemd-machinectl";
 
-  nodes.machine =
-    { lib, ... }:
-    {
-      # use networkd to obtain systemd network setup
-      networking.useNetworkd = true;
-      networking.useDHCP = false;
+  nodes.machine = {lib, ...}: {
+    # use networkd to obtain systemd network setup
+    networking.useNetworkd = true;
+    networking.useDHCP = false;
 
-      # do not try to access cache.nixos.org
-      nix.settings.substituters = lib.mkForce [ ];
+    # do not try to access cache.nixos.org
+    nix.settings.substituters = lib.mkForce [];
 
-      # auto-start container
-      systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ];
+    # auto-start container
+    systemd.targets.machines.wants = ["systemd-nspawn@${containerName}.service"];
 
-      virtualisation.additionalPaths = [
-        containerSystem
-        containerTarball
-      ];
+    virtualisation.additionalPaths = [
+      containerSystem
+      containerTarball
+    ];
 
-      systemd.tmpfiles.rules = [
-        "d /var/lib/machines/shared-decl 0755 root root - -"
-      ];
-      systemd.nspawn.shared-decl = {
-        execConfig = {
-          Boot = false;
-          Parameters = "${containerSystem}/init";
-        };
-        filesConfig = {
-          BindReadOnly = "/nix/store";
-        };
+    systemd.tmpfiles.rules = [
+      "d /var/lib/machines/shared-decl 0755 root root - -"
+    ];
+    systemd.nspawn.shared-decl = {
+      execConfig = {
+        Boot = false;
+        Parameters = "${containerSystem}/init";
       };
-
-      systemd.nspawn.${containerName} = {
-        filesConfig = {
-          # workaround to fix kernel namespaces; needed for Nix sandbox
-          # https://github.com/systemd/systemd/issues/27994#issuecomment-1704005670
-          Bind = "/proc:/run/proc";
-        };
+      filesConfig = {
+        BindReadOnly = "/nix/store";
       };
-
-      systemd.services."systemd-nspawn@${containerName}" = {
-        serviceConfig.Environment = [
-          # Disable tmpfs for /tmp
-          "SYSTEMD_NSPAWN_TMPFS_TMP=0"
-
-          # force unified cgroup delegation, which would be the default
-          # if systemd could check the capabilities of the installed systemd.
-          # see also: https://github.com/NixOS/nixpkgs/pull/198526
-          "SYSTEMD_NSPAWN_UNIFIED_HIERARCHY=1"
-        ];
-        overrideStrategy = "asDropin";
-      };
-
-      # open DHCP for container
-      networking.firewall.extraCommands = ''
-        ${pkgs.iptables}/bin/iptables -A nixos-fw -i ve-+ -p udp -m udp --dport 67 -j nixos-fw-accept
-      '';
     };
+
+    systemd.nspawn.${containerName} = {
+      filesConfig = {
+        # workaround to fix kernel namespaces; needed for Nix sandbox
+        # https://github.com/systemd/systemd/issues/27994#issuecomment-1704005670
+        Bind = "/proc:/run/proc";
+      };
+    };
+
+    systemd.services."systemd-nspawn@${containerName}" = {
+      serviceConfig.Environment = [
+        # Disable tmpfs for /tmp
+        "SYSTEMD_NSPAWN_TMPFS_TMP=0"
+
+        # force unified cgroup delegation, which would be the default
+        # if systemd could check the capabilities of the installed systemd.
+        # see also: https://github.com/NixOS/nixpkgs/pull/198526
+        "SYSTEMD_NSPAWN_UNIFIED_HIERARCHY=1"
+      ];
+      overrideStrategy = "asDropin";
+    };
+
+    # open DHCP for container
+    networking.firewall.extraCommands = ''
+      ${pkgs.iptables}/bin/iptables -A nixos-fw -i ve-+ -p udp -m udp --dport 67 -j nixos-fw-accept
+    '';
+  };
 
   testScript = ''
     start_all()

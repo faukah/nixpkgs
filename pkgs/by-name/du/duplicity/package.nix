@@ -17,9 +17,7 @@
   getconf,
   testers,
   nix-update-script,
-}:
-
-let
+}: let
   self = python3.pkgs.buildPythonApplication rec {
     pname = "duplicity";
     version = "3.0.4.1";
@@ -75,8 +73,7 @@ let
       glib
     ];
 
-    pythonPath =
-      with python3.pkgs;
+    pythonPath = with python3.pkgs;
       [
         b2sdk
         boto3
@@ -120,26 +117,24 @@ let
     # Prevent double wrapping, let the Python wrapper use the args in preFixup.
     dontWrapGApps = true;
 
-    preFixup =
-      let
-        binPath = lib.makeBinPath (
-          [
-            gnupg
-            ncftp
-            rsync
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isDarwin [
-            getconf
-          ]
-        );
-      in
-      ''
-        makeWrapperArgsBak=("''${makeWrapperArgs[@]}")
-        makeWrapperArgs+=(
-          "''${gappsWrapperArgs[@]}"
-          --prefix PATH : "${binPath}"
-        )
-      '';
+    preFixup = let
+      binPath = lib.makeBinPath (
+        [
+          gnupg
+          ncftp
+          rsync
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [
+          getconf
+        ]
+      );
+    in ''
+      makeWrapperArgsBak=("''${makeWrapperArgs[@]}")
+      makeWrapperArgs+=(
+        "''${gappsWrapperArgs[@]}"
+        --prefix PATH : "${binPath}"
+      )
+    '';
 
     postFixup = ''
       # Restore previous value for tests wrapping in preInstallCheck
@@ -174,9 +169,8 @@ let
       homepage = "https://duplicity.gitlab.io/duplicity-web/";
       license = licenses.gpl2Plus;
       mainProgram = "duplicity";
-      maintainers = with maintainers; [ corngood ];
+      maintainers = with maintainers; [corngood];
     };
   };
-
 in
-self
+  self

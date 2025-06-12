@@ -1,16 +1,13 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "audiobookshelf";
-  meta.maintainers = with lib.maintainers; [ wietsedv ];
+  meta.maintainers = with lib.maintainers; [wietsedv];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.audiobookshelf = {
-        enable = true;
-        port = 1234;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.audiobookshelf = {
+      enable = true;
+      port = 1234;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("audiobookshelf.service")

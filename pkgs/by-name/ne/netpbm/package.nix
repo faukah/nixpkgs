@@ -16,7 +16,6 @@
   libX11,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   # Determine version and revision from:
   # https://sourceforge.net/p/netpbm/code/HEAD/log/?path=/advanced
@@ -41,15 +40,17 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    zlib
-    perl
-    libpng
-    libjpeg
-    libxml2
-    libtiff
-    jbigkit
-  ] ++ lib.optional enableX11 libX11;
+  buildInputs =
+    [
+      zlib
+      perl
+      libpng
+      libjpeg
+      libxml2
+      libtiff
+      jbigkit
+    ]
+    ++ lib.optional enableX11 libX11;
 
   strictDeps = true;
 

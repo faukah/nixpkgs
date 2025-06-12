@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "uni";
   version = "2.8.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Query the Unicode database from the commandline, with good support for emojis";
     changelog = "https://github.com/arp242/uni/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ chvp ];
+    maintainers = with lib.maintainers; [chvp];
     mainProgram = "uni";
   };
 }

@@ -9,7 +9,6 @@
   astring,
   base64,
 }:
-
 buildDunePackage rec {
   pname = "otr";
   version = "1.0.0";
@@ -36,6 +35,6 @@ buildDunePackage rec {
     homepage = "https://github.com/hannesm/ocaml-otr";
     description = "Off-the-record messaging protocol, purely in OCaml";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "arkade";
   version = "0.11.39";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   env.CGO_ENABLED = 0;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = null;
 

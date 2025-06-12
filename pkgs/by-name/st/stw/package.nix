@@ -7,7 +7,6 @@
   libXft,
   libXrender,
 }:
-
 stdenv.mkDerivation {
   pname = "stw";
   version = "unstable-2022-02-04";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Simple text widget for X resembling the watch(1) command";
     license = licenses.mit;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "stw";

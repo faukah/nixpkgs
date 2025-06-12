@@ -8,7 +8,6 @@
   authres,
   pymilter,
 }:
-
 buildPythonApplication rec {
   pname = "spf-engine";
   version = "3.1.0";
@@ -19,7 +18,7 @@ buildPythonApplication rec {
     hash = "sha256-HUuMxYFCqItLFgMSnrkwfmJWqgFGyI1RWgmljb+jkWk=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     pyspf
@@ -37,7 +36,7 @@ buildPythonApplication rec {
   meta = {
     homepage = "https://launchpad.net/spf-engine/";
     description = "Postfix policy engine for Sender Policy Framework (SPF) checking";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     license = lib.licenses.asl20;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "log4j-scan";
   version = "unstable-2021-12-18";
@@ -41,6 +40,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "log4j-scan";
     homepage = "https://github.com/fullhunt/log4j-scan";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

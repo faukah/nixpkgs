@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   hatchling,
   hatch-vcs,
-
   # dependencies
   ghome-foyer-api,
   gpsoauth,
@@ -14,12 +12,10 @@
   requests,
   simplejson,
   zeroconf,
-
   # test dependencies
   pytestCheckHook,
   faker,
 }:
-
 buildPythonPackage rec {
   pname = "glocaltokens";
   version = "0.7.3";

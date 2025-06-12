@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "schedule";
   version = "1.2.2";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
       "# self.assertRaises(ScheduleValueError, every().day.until, datetime.time(hour=5))"
   '';
 
-  pythonImportsCheck = [ "schedule" ];
+  pythonImportsCheck = ["schedule"];
 
   meta = with lib; {
     description = "Python job scheduling for humans";
     homepage = "https://github.com/dbader/schedule";
     changelog = "https://github.com/dbader/schedule/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

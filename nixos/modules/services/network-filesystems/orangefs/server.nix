@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.orangefs.server;
 
   aliases = lib.mapAttrsToList (alias: url: alias) cfg.servers;
@@ -15,48 +14,56 @@ let
   # One range of handles for each meta/data instance
   handleStep = maxHandle / (lib.length aliases) / 2;
 
-  fileSystems = lib.mapAttrsToList (name: fs: ''
-    <FileSystem>
-      Name ${name}
-      ID ${toString fs.id}
-      RootHandle ${toString fs.rootHandle}
+  fileSystems =
+    lib.mapAttrsToList (name: fs: ''
+      <FileSystem>
+        Name ${name}
+        ID ${toString fs.id}
+        RootHandle ${toString fs.rootHandle}
 
-      ${fs.extraConfig}
+        ${fs.extraConfig}
 
-      <MetaHandleRanges>
-      ${lib.concatStringsSep "\n" (
+        <MetaHandleRanges>
+        ${lib.concatStringsSep "\n" (
         lib.imap0 (
-          i: alias:
-          let
+          i: alias: let
             begin = i * handleStep + 3;
             end = begin + handleStep - 1;
-          in
-          "Range ${alias} ${toString begin}-${toString end}"
-        ) aliases
+          in "Range ${alias} ${toString begin}-${toString end}"
+        )
+        aliases
       )}
-      </MetaHandleRanges>
+        </MetaHandleRanges>
 
-      <DataHandleRanges>
-      ${lib.concatStringsSep "\n" (
+        <DataHandleRanges>
+        ${lib.concatStringsSep "\n" (
         lib.imap0 (
-          i: alias:
-          let
+          i: alias: let
             begin = i * handleStep + 3 + (lib.length aliases) * handleStep;
             end = begin + handleStep - 1;
-          in
-          "Range ${alias} ${toString begin}-${toString end}"
-        ) aliases
+          in "Range ${alias} ${toString begin}-${toString end}"
+        )
+        aliases
       )}
-      </DataHandleRanges>
+        </DataHandleRanges>
 
-      <StorageHints>
-      TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
-      TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
-      ${fs.extraStorageHints}
-      </StorageHints>
+        <StorageHints>
+        TroveSyncMeta ${
+        if fs.troveSyncMeta
+        then "yes"
+        else "no"
+      }
+        TroveSyncData ${
+        if fs.troveSyncData
+        then "yes"
+        else "no"
+      }
+        ${fs.extraStorageHints}
+        </StorageHints>
 
-    </FileSystem>
-  '') cfg.fileSystems;
+      </FileSystem>
+    '')
+    cfg.fileSystems;
 
   configFile = ''
     <Defaults>
@@ -76,9 +83,7 @@ let
 
     ${lib.concatStringsSep "\n" fileSystems}
   '';
-
-in
-{
+in {
   ###### interface
 
   options = {
@@ -86,8 +91,7 @@ in
       enable = lib.mkEnableOption "OrangeFS server";
 
       logType = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           enum [
             "file"
             "syslog"
@@ -112,7 +116,7 @@ in
 
       BMIModules = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ "bmi_tcp" ];
+        default = ["bmi_tcp"];
         example = [
           "bmi_tcp"
           "bmi_ib"
@@ -134,7 +138,7 @@ in
 
       servers = lib.mkOption {
         type = with lib.types; attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = {
           node1 = "tcp://node1:3334";
           node2 = "tcp://node2:3334";
@@ -147,7 +151,7 @@ in
           These options will create the `<FileSystem>` sections of config file.
         '';
         default = {
-          orangefs = { };
+          orangefs = {};
         };
         example = lib.literalExpression ''
           {
@@ -160,12 +164,10 @@ in
             };
           }
         '';
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (
             submodule (
-              { ... }:
-              {
+              {...}: {
                 options = {
                   id = lib.mkOption {
                     type = lib.types.int;
@@ -213,14 +215,14 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.orangefs ];
+    environment.systemPackages = [pkgs.orangefs];
 
     # orangefs daemon will run as user
     users.users.orangefs = {
       isSystemUser = true;
       group = "orangefs";
     };
-    users.groups.orangefs = { };
+    users.groups.orangefs = {};
 
     # To format the file system the config file is needed.
     environment.etc."orangefs/server.conf" = {
@@ -230,9 +232,9 @@ in
     };
 
     systemd.services.orangefs-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         # Run as "simple" in foreground mode.
@@ -247,5 +249,4 @@ in
       };
     };
   };
-
 }

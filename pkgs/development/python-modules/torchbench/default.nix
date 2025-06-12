@@ -9,50 +9,48 @@
   torch,
   torchvision,
   tqdm,
-}:
-
-let
+}: let
   version = "0.0.31";
   pname = "torchbench";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-EBZzcnRT50KREIOPrr/OZTJ4639ZUEejcelh3QSBcZ8=";
-  };
+    pyproject = true;
 
-  # requirements.txt is missing in the Pypi archive and this makes the setup.py script fails
-  postPatch = ''
-    touch requirements.txt
-  '';
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-EBZzcnRT50KREIOPrr/OZTJ4639ZUEejcelh3QSBcZ8=";
+    };
 
-  build-system = [
-    setuptools
-  ];
+    # requirements.txt is missing in the Pypi archive and this makes the setup.py script fails
+    postPatch = ''
+      touch requirements.txt
+    '';
 
-  dependencies = [
-    numpy
-    opencv4
-    sotabenchapi
-    torch
-    torchvision
-    tqdm
-  ];
+    build-system = [
+      setuptools
+    ];
 
-  pythonImportsCheck = [
-    "torchbench"
-  ];
+    dependencies = [
+      numpy
+      opencv4
+      sotabenchapi
+      torch
+      torchvision
+      tqdm
+    ];
 
-  # No tests
-  doCheck = false;
+    pythonImportsCheck = [
+      "torchbench"
+    ];
 
-  meta = {
-    description = "Easily benchmark machine learning models in PyTorch";
-    homepage = "https://github.com/paperswithcode/torchbench";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
-  };
-}
+    # No tests
+    doCheck = false;
+
+    meta = {
+      description = "Easily benchmark machine learning models in PyTorch";
+      homepage = "https://github.com/paperswithcode/torchbench";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [drupol];
+    };
+  }

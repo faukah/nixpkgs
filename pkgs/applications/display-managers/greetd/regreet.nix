@@ -9,7 +9,6 @@
   pango,
   librsvg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "regreet";
   version = "0.2.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-abCQ3RsnZ/a1DbjQFOiA7Xs7bbqSJxwNps8yV6Q4FIw=";
 
-  buildFeatures = [ "gtk4_8" ];
+  buildFeatures = ["gtk4_8"];
 
   nativeBuildInputs = [
     pkg-config
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Clean and customizable greeter for greetd";
     homepage = "https://github.com/rharish101/ReGreet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = platforms.linux;
     mainProgram = "regreet";
   };

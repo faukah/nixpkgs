@@ -6,7 +6,6 @@
   pytest,
   pudb,
 }:
-
 buildPythonPackage {
   pname = "pytest-pudb";
   version = "0.8.0";
@@ -20,18 +19,18 @@ buildPythonPackage {
     hash = "sha256-gI9p6sXCQaQjWBXaHJCFli6lBh8+pr+KPhz50fv1F7A=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ pudb ];
+  propagatedBuildInputs = [pudb];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_pudb" ];
+  pythonImportsCheck = ["pytest_pudb"];
 
   meta = with lib; {
     description = "Pytest PuDB debugger integration";
     homepage = "https://github.com/wronglink/pytest-pudb";
     license = licenses.mit;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

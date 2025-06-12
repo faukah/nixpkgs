@@ -5,7 +5,6 @@
   setuptools,
   cryptography,
 }:
-
 buildPythonPackage rec {
   pname = "pymysql";
   version = "1.1.1";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-4SdhGq8rQXQDxgv03FcBJK60pX9fN7jpWuOZpC+QTNA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   # Wants to connect to MySQL
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Pure Python MySQL Client";
     homepage = "https://github.com/PyMySQL/PyMySQL";
     license = licenses.mit;
-    maintainers = [ maintainers.kalbasit ];
+    maintainers = [maintainers.kalbasit];
   };
 }

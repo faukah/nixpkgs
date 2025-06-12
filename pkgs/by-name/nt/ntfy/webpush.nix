@@ -5,7 +5,6 @@
   pywebpush,
   py-vapid,
 }:
-
 buildPythonPackage rec {
   pname = "ntfy-webpush";
   version = "0.1.3";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "cloudbell webpush notification support for ntfy";
     homepage = "https://dschep.github.io/ntfy-webpush/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

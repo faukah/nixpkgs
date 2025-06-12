@@ -11,7 +11,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "squashfs";
   version = "4.6.1";
@@ -31,9 +30,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [ which ]
+    [which]
     # when cross-compiling help2man cannot run the cross-compiled binary
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ help2man ];
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [help2man];
   buildInputs = [
     zlib
     xz
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Tool for creating and unpacking squashfs filesystems";
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ruuda ];
+    maintainers = with maintainers; [ruuda];
     mainProgram = "mksquashfs";
   };
 }

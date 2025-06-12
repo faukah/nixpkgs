@@ -10,7 +10,6 @@
   isPy3k,
   ipykernel,
 }:
-
 buildPythonPackage rec {
   pname = "pweave";
   version = "0.30.3";

@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   hatch-fancy-pypi-readme,
   hatch-vcs,
   hatchling,
-
   tenacity,
   typing-extensions,
-
   anyio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "stamina";
   version = "24.3.0";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "stamina" ];
+  pythonImportsCheck = ["stamina"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hynek/stamina";
     changelog = "https://github.com/hynek/stamina/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

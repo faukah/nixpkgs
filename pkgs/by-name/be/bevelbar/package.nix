@@ -8,7 +8,6 @@
   libXrandr,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bevelbar";
   version = "24.07";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-PUYgbJCII0JecetoY3dMBUgrtaVhlLKeaJY27JJ78RQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     libXrandr
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   passthru.updateScript = gitUpdater {
     url = "https://www.uninformativ.de/git/bevelbar.git/";

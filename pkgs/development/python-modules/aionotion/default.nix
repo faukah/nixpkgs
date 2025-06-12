@@ -17,7 +17,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aionotion";
   version = "2024.03.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-BsbfLb5wCVxR8v2U2Zzt7LMl7XJcZWfVjZN47VDkhFc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -54,15 +53,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "examples" ];
+  disabledTestPaths = ["examples"];
 
-  pythonImportsCheck = [ "aionotion" ];
+  pythonImportsCheck = ["aionotion"];
 
   meta = with lib; {
     description = "Python library for Notion Home Monitoring";
     homepage = "https://github.com/bachya/aionotion";
     changelog = "https://github.com/bachya/aionotion/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

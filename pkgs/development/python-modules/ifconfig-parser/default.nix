@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "ifconfig-parser";
   version = "0.0.5";
@@ -20,19 +19,19 @@ buildPythonPackage {
     hash = "sha256-TXa7oQ8AyTIdaSK4SH+RN2bDPtVqNvofPvlqHPKaCx4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   checkPhase = ''
     export PYTHONPATH=$PYTHONPATH:$(pwd)/ifconfigparser:$(pwd)/ifconfigparser/tests
     python -m unittest -v test_ifconfig_parser.TestIfconfigParser
   '';
 
-  pythonImportsCheck = [ "ifconfigparser" ];
+  pythonImportsCheck = ["ifconfigparser"];
 
   meta = with lib; {
     description = "Module for parsing raw output of ifconfig";
     homepage = "https://github.com/KnightWhoSayNi/ifconfig-parser";
     license = licenses.mit;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
   };
 }

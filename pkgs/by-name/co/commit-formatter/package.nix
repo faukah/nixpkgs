@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "commit-formatter";
   version = "0.3.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
     mainProgram = "git-cf";
   };
 }

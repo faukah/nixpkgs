@@ -4,7 +4,6 @@
   fetchurl,
   ocaml,
 }:
-
 buildDunePackage rec {
   pname = "stdlib-shims";
   version = "0.3.0";
@@ -17,6 +16,6 @@ buildDunePackage rec {
     description = "Shims for forward-compatibility between versions of the OCaml standard library";
     homepage = "https://github.com/ocaml/stdlib-shims";
     inherit (ocaml.meta) license;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

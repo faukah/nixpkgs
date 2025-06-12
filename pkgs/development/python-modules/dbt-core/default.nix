@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   agate,
   click,
@@ -29,11 +27,9 @@
   snowplow-tracker,
   sqlparse,
   typing-extensions,
-
   # passthru
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-core";
   version = "1.10.0b2";
@@ -73,36 +69,38 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    agate
-    click
-    daff
-    dbt-adapters
-    dbt-common
-    dbt-extractor
-    dbt-semantic-interfaces
-    jinja2
-    logbook
-    mashumaro
-    networkx
-    packaging
-    pathspec
-    protobuf
-    pydantic
-    pydantic-settings
-    pytz
-    pyyaml
-    requests
-    snowplow-tracker
-    sqlparse
-    typing-extensions
-  ] ++ mashumaro.optional-dependencies.msgpack;
+  dependencies =
+    [
+      agate
+      click
+      daff
+      dbt-adapters
+      dbt-common
+      dbt-extractor
+      dbt-semantic-interfaces
+      jinja2
+      logbook
+      mashumaro
+      networkx
+      packaging
+      pathspec
+      protobuf
+      pydantic
+      pydantic-settings
+      pytz
+      pyyaml
+      requests
+      snowplow-tracker
+      sqlparse
+      typing-extensions
+    ]
+    ++ mashumaro.optional-dependencies.msgpack;
 
   # tests exist for the dbt tool but not for this package specifically
   doCheck = false;
 
   passthru = {
-    withAdapters = callPackage ./with-adapters.nix { };
+    withAdapters = callPackage ./with-adapters.nix {};
   };
 
   meta = {

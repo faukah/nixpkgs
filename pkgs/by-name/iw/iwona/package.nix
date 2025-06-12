@@ -3,7 +3,6 @@
   stdenvNoCC,
   texlive,
 }:
-
 stdenvNoCC.mkDerivation rec {
   inherit (src) pname version;
 
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     # equivalent to the LaTeX Project Public # License (LPPL), version 1.3c or
     # later." - GUST website
     license = src.meta.license;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
     platforms = platforms.all;
   };
 }

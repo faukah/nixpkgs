@@ -11,7 +11,6 @@
   libXext,
   libXt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lesstif";
   version = "0.95.2";

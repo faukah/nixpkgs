@@ -6,7 +6,6 @@
   metis,
   mpi,
 }:
-
 stdenv.mkDerivation {
   pname = "parmetis";
   version = "4.0.3";
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-22YQxwC0phdMLX660wokRgmAif/9tRbUmQWwNMZ//7M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   enableParallelBuilding = true;
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
   configurePhase = ''
     tar xf ${metis.src}
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/KarypisLab/ParMETIS";
     platforms = platforms.all;
     license = licenses.unfree;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

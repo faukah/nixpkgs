@@ -1,15 +1,11 @@
 {
   lib,
   mkMesonLibrary,
-
   nix-store-c,
   nix-expr,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-expr-c";
   inherit version;
@@ -27,5 +23,4 @@ mkMesonLibrary (finalAttrs: {
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

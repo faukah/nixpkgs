@@ -5,7 +5,6 @@
   testers,
   hex,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hex";
   version = "0.6.0";
@@ -31,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/sitkevij/hex/releases/tag/v${version}";
     mainProgram = "hx";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

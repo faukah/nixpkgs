@@ -7,7 +7,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "paragraphs";
   version = "1.0.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "paragraphs"
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Module to incorporate long strings";
     homepage = "https://github.com/ShayHill/paragraphs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

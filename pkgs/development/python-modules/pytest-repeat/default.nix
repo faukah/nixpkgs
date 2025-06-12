@@ -7,7 +7,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-repeat";
   version = "0.9.4";
@@ -24,17 +23,17 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_repeat" ];
+  pythonImportsCheck = ["pytest_repeat"];
 
   meta = with lib; {
     description = "Pytest plugin for repeating tests";
     homepage = "https://github.com/pytest-dev/pytest-repeat";
     changelog = "https://github.com/pytest-dev/pytest-repeat/blob/v${version}/CHANGES.rst";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

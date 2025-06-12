@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rangeparser";
   version = "0.1.3";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-gjA7Iytg802Lv7/rLfhGE0yjz4e6FfOXbEoWNPjhCOY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rangeparser" ];
+  pythonImportsCheck = ["rangeparser"];
 
   meta = with lib; {
     description = "Parses ranges";
     homepage = "https://pypi.org/project/RangeParser/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -47,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Redirects the standard usbmuxd socket to allow connections to local and remote usbmuxd instances so remote devices appear connected locally";
     license = lib.licenses.gpl2Plus;
     mainProgram = "usbfluxctl";
-    maintainers = with lib.maintainers; [ x807x ];
+    maintainers = with lib.maintainers; [x807x];
   };
 })

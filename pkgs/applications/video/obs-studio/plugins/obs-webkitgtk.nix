@@ -11,7 +11,6 @@
   ninja,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "obs-webkitgtk";
   version = "unstable-2023-11-10";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Yet another OBS Studio browser source";
     homepage = "https://github.com/fzwoch/obs-webkitgtk";
-    maintainers = with maintainers; [ j-hui ];
+    maintainers = with maintainers; [j-hui];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

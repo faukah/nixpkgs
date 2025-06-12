@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.11.10";
   pname = "coinutils";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     license = licenses.epl20;
     homepage = "https://github.com/coin-or/CoinUtils";
     description = "Collection of classes and helper functions that are generally useful to multiple COIN-OR projects";
-    maintainers = with maintainers; [ tmarkus ];
+    maintainers = with maintainers; [tmarkus];
   };
 }

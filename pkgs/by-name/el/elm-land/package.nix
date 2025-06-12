@@ -9,7 +9,6 @@
   elm2nix,
   nixfmt-rfc-style,
 }:
-
 buildNpmPackage rec {
   pname = "elm-land";
   version = "0.20.1";
@@ -25,7 +24,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-Bg16s0tqEaUT+BbFMKuEtx32rmbZLIILp8Ra/dQGmUg=";
 
-  npmRebuildFlags = [ "--ignore-scripts" ];
+  npmRebuildFlags = ["--ignore-scripts"];
 
   postConfigure =
     (elmPackages.fetchElmDeps {

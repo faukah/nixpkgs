@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "wikipedia-api";
   version = "0.8.1";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-5wi1HVkD36RnmIAKSKRYTc30HtYMiFrRoYzZRWENd/M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "wikipediaapi" ];
+  pythonImportsCheck = ["wikipediaapi"];
 
   meta = with lib; {
     description = "Python wrapper for Wikipedia";
     homepage = "https://github.com/martin-majlis/Wikipedia-API";
     changelog = "https://github.com/martin-majlis/Wikipedia-API/blob/${src.tag}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

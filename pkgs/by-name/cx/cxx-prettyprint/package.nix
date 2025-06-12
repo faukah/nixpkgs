@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cxx-prettyprint-unstable";
   version = "2016-04-30";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
 
     # This is a header-only library, no point in hydra building it:
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

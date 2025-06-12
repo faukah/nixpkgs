@@ -8,7 +8,6 @@
   sphinx,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "recommonmark";
   version = "0.7.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "0kwm4smxbgq0c0ybkxfvlgrfb3gq9amdw94141jyykk9mmz38379";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   propagatedBuildInputs = [
     commonmark
     docutils
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = !isPy3k; # Not yet compatible with latest Sphinx.
-  pythonImportsCheck = [ "recommonmark" ];
+  pythonImportsCheck = ["recommonmark"];
 
   meta = {
     description = "Docutils-compatibility bridge to CommonMark";

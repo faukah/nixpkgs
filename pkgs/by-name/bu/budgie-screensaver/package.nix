@@ -19,7 +19,6 @@
   wrapGAppsHook3,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-screensaver";
   version = "5.1.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       command = "budgie-screensaver-command --version";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-screensaver";
     changelog = "https://github.com/BuddiesOfBudgie/budgie-screensaver/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     mainProgram = "budgie-screensaver";
     platforms = lib.platforms.linux;
   };

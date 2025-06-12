@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   pytestCheckHook,
-
   poetry-core,
   setuptools,
-
   typing-extensions,
   numpy,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "csaps";
   version = "1.3.2";
@@ -39,13 +36,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "csaps" ];
+  pythonImportsCheck = ["csaps"];
 
   meta = {
     description = "Cubic spline approximation (smoothing)";
     homepage = "https://github.com/espdev/csaps";
     changelog = "https://github.com/espdev/csaps/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   plasTeX,
   plastexshowmore,
@@ -29,7 +27,7 @@ buildPythonPackage {
     hash = "sha256-CUYdxEXgTf2vKDiOoeW4RV6tQ6prFhA4qMc0olZtZBM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     plasTeX
@@ -43,12 +41,12 @@ buildPythonPackage {
     gitpython
   ];
 
-  pythonImportsCheck = [ "leanblueprint" ];
+  pythonImportsCheck = ["leanblueprint"];
 
   meta = {
     description = "This plasTeX plugin allowing to write blueprints for Lean 4 projects";
     homepage = "https://github.com/PatrickMassot/leanblueprint";
-    maintainers = with lib.maintainers; [ niklashh ];
+    maintainers = with lib.maintainers; [niklashh];
     license = lib.licenses.asl20;
   };
 }

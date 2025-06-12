@@ -15,7 +15,6 @@
   buildContrib ? stdenv.hostPlatform == stdenv.buildPlatform,
   doCheck ? stdenv.hostPlatform == stdenv.buildPlatform,
   nix-update-script,
-
   # for passthru.tests
   libarchive,
   rocksdb,
@@ -25,7 +24,6 @@
   python3Packages,
   haskellPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zstd";
   version = "1.5.7";
@@ -37,7 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tNFWIT9ydfozB8dWcmTMuZLCQmQudTFJIkSr0aG7S44=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bashNonInteractive;
 
   patches = [
@@ -66,15 +64,19 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    lib.attrsets.mapAttrsToList (name: value: "-DZSTD_${name}:BOOL=${if value then "ON" else "OFF"}")
-      {
-        BUILD_SHARED = !static;
-        BUILD_STATIC = enableStatic;
-        BUILD_CONTRIB = buildContrib;
-        PROGRAMS_LINK_SHARED = !static;
-        LEGACY_SUPPORT = legacySupport;
-        BUILD_TESTS = doCheck;
-      };
+    lib.attrsets.mapAttrsToList (name: value: "-DZSTD_${name}:BOOL=${
+      if value
+      then "ON"
+      else "OFF"
+    }")
+    {
+      BUILD_SHARED = !static;
+      BUILD_STATIC = enableStatic;
+      BUILD_CONTRIB = buildContrib;
+      PROGRAMS_LINK_SHARED = !static;
+      LEGACY_SUPPORT = legacySupport;
+      BUILD_TESTS = doCheck;
+    };
 
   cmakeDir = "../build/cmake";
   dontUseCmakeBuildDir = true;
@@ -82,7 +84,7 @@ stdenv.mkDerivation rec {
     mkdir -p build_ && cd $_
   '';
 
-  nativeCheckInputs = [ file ];
+  nativeCheckInputs = [file];
   inherit doCheck;
   checkPhase = ''
     runHook preCheck
@@ -117,14 +119,14 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional stdenv.hostPlatform.isUnix "man"
-    ++ [ "out" ];
+    ++ ["out"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit libarchive rocksdb arrow-cpp;
-      libzip = libzip.override { withZstd = true; };
-      curl = curl.override { zstdSupport = true; };
+      libzip = libzip.override {withZstd = true;};
+      curl = curl.override {zstdSupport = true;};
       python-zstd = python3Packages.zstd;
       haskell-zstd = haskellPackages.zstd;
       haskell-hs-zstd = haskellPackages.hs-zstd;
@@ -144,9 +146,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://facebook.github.io/zstd/";
     changelog = "https://github.com/facebook/zstd/blob/v${version}/CHANGELOG";
-    license = with licenses; [ bsd3 ]; # Or, at your opinion, GPL-2.0-only.
+    license = with licenses; [bsd3]; # Or, at your opinion, GPL-2.0-only.
     mainProgram = "zstd";
     platforms = platforms.all;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

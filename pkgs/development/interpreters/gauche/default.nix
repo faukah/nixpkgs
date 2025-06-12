@@ -13,7 +13,6 @@
   mbedtls,
   cacert,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gauche";
   version = "0.9.15";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "shirok";
     repo = pname;
-    rev = "release${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "release${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-M2vZqTMkob+WxUnCo4NDxS4pCVNleVBqkiiRp9nG/KA=";
   };
 
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     description = "R7RS Scheme scripting engine";
     homepage = "https://practical-scheme.net/gauche/";
     mainProgram = "gosh";
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

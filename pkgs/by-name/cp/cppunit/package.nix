@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cppunit";
   version = "1.15.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
 
   # Avoid blanket -Werror to evade build failures on less
   # tested compilers.
-  configureFlags = [ "--disable-werror" ];
+  configureFlags = ["--disable-werror"];
 
   meta = with lib; {
     homepage = "https://freedesktop.org/wiki/Software/cppunit/";

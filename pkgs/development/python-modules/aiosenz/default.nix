@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiosenz";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-ODdWPS14zzptxuS6mff51f0s1SYnIqjF40DmvT0sL0w=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     httpx
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiosenz" ];
+  pythonImportsCheck = ["aiosenz"];
 
   meta = with lib; {
     description = "Python wrapper for the nVent Raychem SENZ RestAPI";
     homepage = "https://github.com/milanmeu/aiosenz";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

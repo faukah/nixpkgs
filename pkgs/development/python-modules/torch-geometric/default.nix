@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   aiohttp,
   fsspec,
@@ -17,7 +15,6 @@
   requests,
   torch,
   tqdm,
-
   # optional-dependencies
   matplotlib,
   networkx,
@@ -54,13 +51,11 @@
   onnxruntime,
   pytest,
   pytest-cov-stub,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "torch-geometric";
   version = "2.6.1";
@@ -189,6 +184,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyg-team/pytorch_geometric";
     changelog = "https://github.com/pyg-team/pytorch_geometric/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

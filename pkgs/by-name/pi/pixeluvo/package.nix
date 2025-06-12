@@ -7,7 +7,6 @@
   makeWrapper,
   gtk3-x11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pixeluvo";
   version = "1.6.0-2";
@@ -52,10 +51,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Beautifully Designed Image and Photo Editor for Windows and Linux";
     homepage = "http://www.pixeluvo.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
     mainProgram = "pixeluvo";
   };
 }

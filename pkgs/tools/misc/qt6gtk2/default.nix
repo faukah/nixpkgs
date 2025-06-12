@@ -8,7 +8,6 @@
   qtbase,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "qt6gtk2";
   version = "0.4-unstable-2025-05-11";
@@ -36,13 +35,13 @@ stdenv.mkDerivation {
     "PLUGINDIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "GTK+2.0 integration plugins for Qt6";
     license = lib.licenses.gpl2Plus;
     homepage = "https://github.com/trialuser02/qt6gtk2";
-    maintainers = [ lib.maintainers.misterio77 ];
+    maintainers = [lib.maintainers.misterio77];
     platforms = lib.platforms.linux;
   };
 }

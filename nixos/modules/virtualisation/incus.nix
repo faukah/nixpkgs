@@ -3,93 +3,94 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.incus;
-  preseedFormat = pkgs.formats.yaml { };
+  preseedFormat = pkgs.formats.yaml {};
 
-  nvidiaEnabled = (lib.elem "nvidia" config.services.xserver.videoDrivers);
+  nvidiaEnabled = lib.elem "nvidia" config.services.xserver.videoDrivers;
 
   serverBinPath = ''/run/wrappers/bin:${pkgs.qemu_kvm}/libexec:${
-    lib.makeBinPath (
-      with pkgs;
-      [
-        cfg.package
+      lib.makeBinPath (
+        with pkgs;
+          [
+            cfg.package
 
-        acl
-        attr
-        bash
-        btrfs-progs
-        cdrkit
-        coreutils
-        criu
-        dnsmasq
-        e2fsprogs
-        findutils
-        getent
-        gawk
-        gnugrep
-        gnused
-        gnutar
-        gptfdisk
-        gzip
-        iproute2
-        iptables
-        iw
-        kmod
-        libxfs
-        lvm2
-        lxcfs
-        minio
-        minio-client
-        nftables
-        qemu-utils
-        qemu_kvm
-        rsync
-        squashfs-tools-ng
-        squashfsTools
-        sshfs
-        swtpm
-        systemd
-        thin-provisioning-tools
-        util-linux
-        virtiofsd
-        xdelta
-        xz
-      ]
-      ++ lib.optionals (lib.versionAtLeast cfg.package.version "6.3.0") [
-        skopeo
-        umoci
-      ]
-      ++ lib.optionals (lib.versionAtLeast cfg.package.version "6.11.0") [
-        lego
-      ]
-      ++ lib.optionals config.security.apparmor.enable [
-        apparmor-bin-utils
+            acl
+            attr
+            bash
+            btrfs-progs
+            cdrkit
+            coreutils
+            criu
+            dnsmasq
+            e2fsprogs
+            findutils
+            getent
+            gawk
+            gnugrep
+            gnused
+            gnutar
+            gptfdisk
+            gzip
+            iproute2
+            iptables
+            iw
+            kmod
+            libxfs
+            lvm2
+            lxcfs
+            minio
+            minio-client
+            nftables
+            qemu-utils
+            qemu_kvm
+            rsync
+            squashfs-tools-ng
+            squashfsTools
+            sshfs
+            swtpm
+            systemd
+            thin-provisioning-tools
+            util-linux
+            virtiofsd
+            xdelta
+            xz
+          ]
+          ++ lib.optionals (lib.versionAtLeast cfg.package.version "6.3.0") [
+            skopeo
+            umoci
+          ]
+          ++ lib.optionals (lib.versionAtLeast cfg.package.version "6.11.0") [
+            lego
+          ]
+          ++ lib.optionals config.security.apparmor.enable [
+            apparmor-bin-utils
 
-        (writeShellScriptBin "apparmor_parser" ''
-          exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
-        '')
-      ]
-      ++ lib.optionals config.services.ceph.client.enable [ ceph-client ]
-      ++ lib.optionals config.virtualisation.vswitch.enable [ config.virtualisation.vswitch.package ]
-      ++ lib.optionals config.boot.zfs.enabled [
-        config.boot.zfs.package
-        "${config.boot.zfs.package}/lib/udev"
-      ]
-      ++ lib.optionals nvidiaEnabled [
-        libnvidia-container
-      ]
-    )
-  }'';
+            (writeShellScriptBin "apparmor_parser" ''
+              exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
+            '')
+          ]
+          ++ lib.optionals config.services.ceph.client.enable [ceph-client]
+          ++ lib.optionals config.virtualisation.vswitch.enable [config.virtualisation.vswitch.package]
+          ++ lib.optionals config.boot.zfs.enabled [
+            config.boot.zfs.package
+            "${config.boot.zfs.package}/lib/udev"
+          ]
+          ++ lib.optionals nvidiaEnabled [
+            libnvidia-container
+          ]
+      )
+    }'';
 
   # https://github.com/lxc/incus/blob/cff35a29ee3d7a2af1f937cbb6cf23776941854b/internal/server/instance/drivers/driver_qemu.go#L123
   OVMF2MB = pkgs.OVMF.override {
     secureBoot = true;
     fdSize2MB = true;
   };
-  ovmf-prefix = if pkgs.stdenv.hostPlatform.isAarch64 then "AAVMF" else "OVMF";
+  ovmf-prefix =
+    if pkgs.stdenv.hostPlatform.isAarch64
+    then "AAVMF"
+    else "OVMF";
   ovmf = pkgs.linkFarm "incus-ovmf" (
     [
       # 2MB must remain the default or existing VMs will fail to boot. New VMs will prefer 4MB
@@ -136,7 +137,7 @@ let
       INCUS_USBIDS_PATH = "${pkgs.hwdata}/share/hwdata/usb.ids";
       PATH = lib.mkForce serverBinPath;
     }
-    (lib.mkIf (cfg.ui.enable) { "INCUS_UI" = cfg.ui.package; })
+    (lib.mkIf (cfg.ui.enable) {"INCUS_UI" = cfg.ui.package;})
   ];
 
   incus-startup = pkgs.writeShellScript "incus-startup" ''
@@ -159,8 +160,7 @@ let
 
     exit 0
   '';
-in
-{
+in {
   meta = {
     maintainers = lib.teams.lxc.members;
   };
@@ -178,7 +178,7 @@ in
         (i.e. administrative operations are forbidden).
       '';
 
-      package = lib.mkPackageOption pkgs "incus-lts" { };
+      package = lib.mkPackageOption pkgs "incus-lts" {};
 
       lxcPackage = lib.mkOption {
         type = lib.types.package;
@@ -203,7 +203,7 @@ in
       };
 
       preseed = lib.mkOption {
-        type = lib.types.nullOr (lib.types.submodule { freeformType = preseedFormat.type; });
+        type = lib.types.nullOr (lib.types.submodule {freeformType = preseedFormat.type;});
 
         default = null;
 
@@ -257,10 +257,10 @@ in
         };
       };
 
-      socketActivation = lib.mkEnableOption (''
+      socketActivation = lib.mkEnableOption ''
         socket-activation for starting incus.service. Enabling this option
         will stop incus.service from starting automatically on boot.
-      '');
+      '';
 
       startTimeout = lib.mkOption {
         type = lib.types.ints.unsigned;
@@ -276,7 +276,7 @@ in
       ui = {
         enable = lib.mkEnableOption "Incus Web UI";
 
-        package = lib.mkPackageOption pkgs [ "incus-ui-canonical" ] { };
+        package = lib.mkPackageOption pkgs ["incus-ui-canonical"] {};
       };
     };
   };
@@ -309,14 +309,16 @@ in
       # vm.max_map_count is set higher in nixos/modules/config/sysctl.nix
     };
 
-    boot.kernelModules = [
-      "br_netfilter"
-      "veth"
-      "xt_comment"
-      "xt_CHECKSUM"
-      "xt_MASQUERADE"
-      "vhost_vsock"
-    ] ++ lib.optionals nvidiaEnabled [ "nvidia_uvm" ];
+    boot.kernelModules =
+      [
+        "br_netfilter"
+        "veth"
+        "xt_comment"
+        "xt_CHECKSUM"
+        "xt_MASQUERADE"
+        "vhost_vsock"
+      ]
+      ++ lib.optionals nvidiaEnabled ["nvidia_uvm"];
 
     environment.systemPackages = [
       cfg.clientPackage
@@ -328,10 +330,10 @@ in
     # Note: the following options are also declared in virtualisation.lxc, but
     # the latter can't be simply enabled to reuse the formers, because it
     # does a bunch of unrelated things.
-    systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/lxc/rootfs 0755 root root -"];
 
     security.apparmor = {
-      packages = [ cfg.lxcPackage ];
+      packages = [cfg.lxcPackage];
       policies = {
         "bin.lxc-start".profile = ''
           include ${cfg.lxcPackage}/etc/apparmor.d/usr.bin.lxc-start
@@ -380,19 +382,23 @@ in
 
       inherit environment;
 
-      wantedBy = lib.mkIf (!cfg.socketActivation) [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-        "lxcfs.service"
-        "incus.socket"
-      ] ++ lib.optionals config.virtualisation.vswitch.enable [ "ovs-vswitchd.service" ];
+      wantedBy = lib.mkIf (!cfg.socketActivation) ["multi-user.target"];
+      after =
+        [
+          "network-online.target"
+          "lxcfs.service"
+          "incus.socket"
+        ]
+        ++ lib.optionals config.virtualisation.vswitch.enable ["ovs-vswitchd.service"];
 
-      requires = [
-        "lxcfs.service"
-        "incus.socket"
-      ] ++ lib.optionals config.virtualisation.vswitch.enable [ "ovs-vswitchd.service" ];
+      requires =
+        [
+          "lxcfs.service"
+          "incus.socket"
+        ]
+        ++ lib.optionals config.virtualisation.vswitch.enable ["ovs-vswitchd.service"];
 
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/incusd --group incus-admin";
@@ -442,7 +448,7 @@ in
         "incus.service"
         "incus.socket"
       ];
-      requires = [ "incus.socket" ];
+      requires = ["incus.socket"];
       wantedBy = config.systemd.services.incus.wantedBy;
 
       serviceConfig = {
@@ -457,7 +463,7 @@ in
 
     systemd.sockets.incus = {
       description = "Incus UNIX socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
 
       socketConfig = {
         ListenStream = "/var/lib/incus/unix.socket";
@@ -468,7 +474,7 @@ in
 
     systemd.sockets.incus-user = {
       description = "Incus user UNIX socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
 
       socketConfig = {
         ListenStream = "/var/lib/incus/unix.socket.user";
@@ -480,10 +486,10 @@ in
     systemd.services.incus-preseed = lib.mkIf (cfg.preseed != null) {
       description = "Incus initialization with preseed file";
 
-      wantedBy = [ "incus.service" ];
-      after = [ "incus.service" ];
-      bindsTo = [ "incus.service" ];
-      partOf = [ "incus.service" ];
+      wantedBy = ["incus.service"];
+      after = ["incus.service"];
+      bindsTo = ["incus.service"];
+      partOf = ["incus.service"];
 
       script = ''
         ${cfg.package}/bin/incus admin init --preseed <${preseedFormat.generate "incus-preseed.yaml" cfg.preseed}
@@ -495,8 +501,8 @@ in
       };
     };
 
-    users.groups.incus = { };
-    users.groups.incus-admin = { };
+    users.groups.incus = {};
+    users.groups.incus-admin = {};
 
     users.users.root = {
       # match documented default ranges https://linuxcontainers.org/incus/docs/main/userns-idmap/#allowed-ranges

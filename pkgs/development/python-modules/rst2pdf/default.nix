@@ -19,7 +19,6 @@
   pymupdf,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "rst2pdf";
   version = "0.103.1";
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "rst2pdf" ];
+  pythonImportsCheck = ["rst2pdf"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://rst2pdf.org/";
     changelog = "https://github.com/rst2pdf/rst2pdf/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ pyrox0 ];
+    maintainers = with maintainers; [pyrox0];
   };
 }

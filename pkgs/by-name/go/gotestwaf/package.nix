@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "gotestwaf";
   version = "0.5.6";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mPqCphweDF9RQibdjTaXXfXdO8NENHVMdIPxrJEw2g4=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-w"
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/wallarm/gotestwaf";
     changelog = "https://github.com/wallarm/gotestwaf/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gotestwaf";
   };
 }

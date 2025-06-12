@@ -4,7 +4,6 @@
   fetchFromGitHub,
   util-linux,
 }:
-
 stdenv.mkDerivation {
   pname = "bin2c";
   version = "unstable-2020-05-30";
@@ -16,18 +15,18 @@ stdenv.mkDerivation {
     sha256 = "sha256-PLo5kkN2k3KutVGumoXEB2x9MdxDUtpwAQZLwm4dDvw=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
   checkTarget = "test";
-  checkInputs = [ util-linux ]; # uuidgen
+  checkInputs = [util-linux]; # uuidgen
 
   meta = with lib; {
     description = "Embed binary & text files inside C binaries";
     mainProgram = "bin2c";
     homepage = "https://github.com/adobe/bin2c";
     license = licenses.asl20;
-    maintainers = [ maintainers.shadowrz ];
+    maintainers = [maintainers.shadowrz];
     platforms = platforms.all;
   };
 }

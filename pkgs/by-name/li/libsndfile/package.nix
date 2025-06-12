@@ -13,7 +13,6 @@
   libopus,
   libvorbis,
   alsa-lib,
-
   # for passthru.tests
   audacity,
   freeswitch,
@@ -23,7 +22,6 @@
   pipewire,
   pulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsndfile";
   version = "1.2.2";
@@ -41,14 +39,16 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  buildInputs = [
-    flac
-    lame
-    libmpg123
-    libogg
-    libopus
-    libvorbis
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs =
+    [
+      flac
+      lame
+      libmpg123
+      libogg
+      libopus
+      libvorbis
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   enableParallelBuilding = true;
 
@@ -86,12 +86,13 @@ stdenv.mkDerivation rec {
       pipewire
       pulseaudio
       ;
-    inherit (python3.pkgs)
+    inherit
+      (python3.pkgs)
       soundfile
       wavefile
       ;
     inherit (gst_all_1) gst-plugins-bad;
-    lame = (lame.override { sndfileFileIOSupport = true; });
+    lame = lame.override {sndfileFileIOSupport = true;};
   };
 
   meta = {
@@ -99,7 +100,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libsndfile.github.io/libsndfile/";
     changelog = "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     platforms = lib.platforms.all;
 
     longDescription = ''

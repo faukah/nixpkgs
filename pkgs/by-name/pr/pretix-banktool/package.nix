@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pretix-banktool";
   version = "1.1.0";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-x6P+WqrOak5/gmMEmBkHrx6kPsbSOAXbKRbndFG3IJU=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     click
@@ -27,13 +26,13 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "pretix_banktool" ];
+  pythonImportsCheck = ["pretix_banktool"];
 
   meta = with lib; {
     description = "Automatic bank data upload tool for pretix (with FinTS client)";
     homepage = "https://github.com/pretix/pretix-banktool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     mainProgram = "pretix-banktool";
   };
 }

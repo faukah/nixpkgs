@@ -5,7 +5,6 @@
   caqti,
   core_kernel,
 }:
-
 buildDunePackage {
   pname = "caqti-async";
   inherit (caqti) version src;
@@ -19,7 +18,9 @@ buildDunePackage {
     core_kernel
   ];
 
-  meta = caqti.meta // {
-    description = "Async support for Caqti";
-  };
+  meta =
+    caqti.meta
+    // {
+      description = "Async support for Caqti";
+    };
 }

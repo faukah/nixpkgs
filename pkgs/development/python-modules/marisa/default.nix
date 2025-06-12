@@ -4,15 +4,14 @@
   marisa,
   swig,
 }:
-
 buildPythonPackage {
   pname = "marisa";
   format = "setuptools";
   inherit (marisa) src version;
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
-  buildInputs = [ marisa ];
+  buildInputs = [marisa];
 
   preBuild = ''
     make -C bindings swig-python
@@ -23,7 +22,7 @@ buildPythonPackage {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "marisa" ];
+  pythonImportsCheck = ["marisa"];
 
   meta = {
     description = "Python bindings for marisa";
@@ -32,6 +31,6 @@ buildPythonPackage {
       bsd2
       lgpl21Plus
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

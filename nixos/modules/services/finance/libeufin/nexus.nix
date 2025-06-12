@@ -3,9 +3,8 @@
   config,
   options,
   ...
-}:
-{
-  imports = [ (import ./common.nix "nexus") ];
+}: {
+  imports = [(import ./common.nix "nexus")];
 
   options.services.libeufin.nexus.settings = lib.mkOption {
     description = ''
@@ -118,16 +117,15 @@
     };
   };
 
-  config =
-    let
-      cfgMain = config.services.libeufin;
-      cfg = config.services.libeufin.nexus;
-    in
+  config = let
+    cfgMain = config.services.libeufin;
+    cfg = config.services.libeufin.nexus;
+  in
     lib.mkIf cfg.enable {
       services.libeufin.nexus.settings.libeufin-nexusdb-postgres.CONFIG = lib.mkIf (
         cfgMain.bank.enable && cfgMain.bank.createLocalDatabase
       ) "postgresql:///libeufin-bank";
 
-      systemd.services.libeufin-nexus.documentation = [ "man:libeufin-nexus(1)" ];
+      systemd.services.libeufin-nexus.documentation = ["man:libeufin-nexus(1)"];
     };
 }

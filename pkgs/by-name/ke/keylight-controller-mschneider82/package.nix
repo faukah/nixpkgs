@@ -7,7 +7,6 @@
   pkg-config,
   xorg,
 }:
-
 buildGoModule rec {
   pname = "keylight-controller-mschneider82";
   version = "0.1.1";
@@ -51,14 +50,13 @@ buildGoModule rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/mschneider82/keylight-control";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "keylight-control";
   };
 }
-
 # Note: Application errors on first executions but works on re-runs.
-
 # Troubleshooting
 # 1. Keylight lists at: `avahi-browse --all --resolve --ignore-local`
 # 2. Ping Keylight's IP
 # 3. Resolve Keylight's hostname: `getent hosts elgato-key-light-XXXX.local`
+

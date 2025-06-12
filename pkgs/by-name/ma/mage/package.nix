@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "mage";
   version = "1.15.0";
@@ -30,6 +29,6 @@ buildGoModule rec {
     mainProgram = "mage";
     homepage = "https://magefile.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swdunlop ];
+    maintainers = with maintainers; [swdunlop];
   };
 }

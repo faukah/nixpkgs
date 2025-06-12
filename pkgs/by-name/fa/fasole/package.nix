@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "fasole";
   version = "1.2.3";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Minimalist's todo-list";
     homepage = "https://github.com/ProggerX/fasole";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ proggerx ];
+    maintainers = with lib.maintainers; [proggerx];
     mainProgram = "fasole";
   };
 }

@@ -8,7 +8,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsysstat";
   version = "1.1.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lxqt/libsysstat";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

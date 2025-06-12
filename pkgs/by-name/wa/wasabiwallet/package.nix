@@ -10,9 +10,7 @@
   openssl,
   xorg,
   zlib,
-}:
-
-let
+}: let
   # These libraries are dynamically loaded by the application,
   # and need to be present in LD_LIBRARY_PATH
   runtimeLibs = [
@@ -25,58 +23,60 @@ let
     zlib
   ];
 in
-stdenv.mkDerivation rec {
-  pname = "wasabiwallet";
-  version = "2.6.0";
+  stdenv.mkDerivation rec {
+    pname = "wasabiwallet";
+    version = "2.6.0";
 
-  src = fetchurl {
-    url = "https://github.com/WalletWasabi/WalletWasabi/releases/download/v${version}/Wasabi-${version}-linux-x64.tar.gz";
-    sha256 = "sha256-XWhRJPt0xcFez+HD8RLLXg6XoVVfTeIQhLmsRLEPPMQ=";
-  };
+    src = fetchurl {
+      url = "https://github.com/WalletWasabi/WalletWasabi/releases/download/v${version}/Wasabi-${version}-linux-x64.tar.gz";
+      sha256 = "sha256-XWhRJPt0xcFez+HD8RLLXg6XoVVfTeIQhLmsRLEPPMQ=";
+    };
 
-  dontBuild = true;
+    dontBuild = true;
 
-  desktopItem = makeDesktopItem {
-    name = "wasabi";
-    exec = "wasabiwallet-desktop";
-    desktopName = "Wasabi";
-    genericName = "Bitcoin wallet";
-    comment = meta.description;
-    categories = [
-      "Network"
-      "Utility"
+    desktopItem = makeDesktopItem {
+      name = "wasabi";
+      exec = "wasabiwallet-desktop";
+      desktopName = "Wasabi";
+      genericName = "Bitcoin wallet";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "Utility"
+      ];
+    };
+
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
     ];
-  };
+    buildInputs =
+      runtimeLibs
+      ++ [
+        lttng-ust_2_12
+      ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
-  buildInputs = runtimeLibs ++ [
-    lttng-ust_2_12
-  ];
+    installPhase = ''
+      mkdir -p $out/opt/${pname} $out/bin $out/share/applications
 
-  installPhase = ''
-    mkdir -p $out/opt/${pname} $out/bin $out/share/applications
+      # The weird path is an upstream packaging error and could be fixed in the upcoming release
+      cp -Rv ./runner/work/WalletWasabi/WalletWasabi/build/linux-x64/* $out/opt/${pname}
 
-    # The weird path is an upstream packaging error and could be fixed in the upcoming release
-    cp -Rv ./runner/work/WalletWasabi/WalletWasabi/build/linux-x64/* $out/opt/${pname}
+      for nameMap in "wassabee:desktop" "wassabeed:daemon" "wcoordinator:coordinator" "wbackend:backend"; do
+        IFS=":" read -r filename wrappedname <<< "$nameMap"
+        makeWrapper "$out/opt/${pname}/$filename" "$out/bin/${pname}-$wrappedname" \
+          --suffix "LD_LIBRARY_PATH" : "${lib.makeLibraryPath runtimeLibs}"
+      done
 
-    for nameMap in "wassabee:desktop" "wassabeed:daemon" "wcoordinator:coordinator" "wbackend:backend"; do
-      IFS=":" read -r filename wrappedname <<< "$nameMap"
-      makeWrapper "$out/opt/${pname}/$filename" "$out/bin/${pname}-$wrappedname" \
-        --suffix "LD_LIBRARY_PATH" : "${lib.makeLibraryPath runtimeLibs}"
-    done
+      cp -v $desktopItem/share/applications/* $out/share/applications
+    '';
 
-    cp -v $desktopItem/share/applications/* $out/share/applications
-  '';
-
-  meta = with lib; {
-    description = "Privacy focused Bitcoin wallet";
-    homepage = "https://wasabiwallet.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mmahut ];
-  };
-}
+    meta = with lib; {
+      description = "Privacy focused Bitcoin wallet";
+      homepage = "https://wasabiwallet.io/";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.mit;
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [mmahut];
+    };
+  }

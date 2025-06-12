@@ -5,7 +5,6 @@
   setuptools,
   tree-sitter,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-rust";
   version = "0.23.2";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
 
   # There are no tests
   doCheck = false;
-  pythonImportsCheck = [ "tree_sitter_rust" ];
+  pythonImportsCheck = ["tree_sitter_rust"];
 
   meta = with lib; {
     description = "Rust grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter/tree-sitter-rust";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

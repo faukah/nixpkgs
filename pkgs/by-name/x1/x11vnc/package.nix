@@ -11,7 +11,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "x11vnc";
   version = "0.9.17";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/LibVNC/x11vnc/releases/tag/${finalAttrs.version}";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     mainProgram = "x11vnc";
   };
 })

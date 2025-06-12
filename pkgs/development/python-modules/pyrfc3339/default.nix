@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   pytz,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyrfc3339";
   version = "2.0.1";
@@ -25,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-iLzWm2xt7EuzqU0G+66sXTTvWTv1cf0BmTDciSL68+A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pytz ];
+  dependencies = [pytz];
 
   nativeCheckInputs = [
     pytestCheckHook

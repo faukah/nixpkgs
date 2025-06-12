@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-fancy-pypi-readme,
   hatchling,
-
   # dependencies
   awkward-cpp,
   fsspec,
   numpy,
   packaging,
-
   # tests
   numba,
   numexpr,
@@ -21,7 +18,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "awkward";
   version = "2.8.3";
@@ -48,7 +44,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "awkward" ];
+  pythonImportsCheck = ["awkward"];
 
   nativeCheckInputs = [
     fsspec
@@ -75,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scikit-hep/awkward";
     changelog = "https://github.com/scikit-hep/awkward/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

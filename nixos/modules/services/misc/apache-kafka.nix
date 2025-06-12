@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.apache-kafka;
 
   # The `javaProperties` generator takes care of various escaping rules and
@@ -17,25 +16,22 @@ let
   # Make sure every `freeformType` and any specific option type in `settings` is
   # supported here.
 
-  mkPropertyString =
-    let
-      render = {
-        bool = lib.boolToString;
-        int = toString;
-        list = lib.concatMapStringsSep "," mkPropertyString;
-        string = lib.id;
-      };
-    in
+  mkPropertyString = let
+    render = {
+      bool = lib.boolToString;
+      int = toString;
+      list = lib.concatMapStringsSep "," mkPropertyString;
+      string = lib.id;
+    };
+  in
     v: render.${builtins.typeOf v} v;
 
   stringlySettings = lib.mapAttrs (_: mkPropertyString) (
     lib.filterAttrs (_: v: v != null) cfg.settings
   );
 
-  generator = (pkgs.formats.javaProperties { }).generate;
-in
-{
-
+  generator = (pkgs.formats.javaProperties {}).generate;
+in {
   options.services.apache-kafka = {
     enable = lib.mkEnableOption "Apache Kafka event streaming broker";
 
@@ -50,15 +46,13 @@ in
         `settings.broker.id`).
       '';
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
-          let
-            primitive = oneOf [
-              bool
-              int
-              str
-            ];
-          in
+        freeformType = with lib.types; let
+          primitive = oneOf [
+            bool
+            int
+            str
+          ];
+        in
           lazyAttrsOf (nullOr (either primitive (listOf primitive)));
 
         options = {
@@ -83,7 +77,7 @@ in
               See [listeners](https://kafka.apache.org/documentation/#brokerconfigs_listeners).
             '';
             type = lib.types.listOf lib.types.str;
-            default = [ "PLAINTEXT://localhost:9092" ];
+            default = ["PLAINTEXT://localhost:9092"];
           };
         };
       };
@@ -144,7 +138,7 @@ in
 
     jvmOptions = lib.mkOption {
       description = "Extra command line options for the JVM running Kafka.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
       example = [
         "-Djava.net.preferIPv4Stack=true"
@@ -153,7 +147,7 @@ in
       ];
     };
 
-    package = lib.mkPackageOption pkgs "apacheKafka" { };
+    package = lib.mkPackageOption pkgs "apacheKafka" {};
 
     jre = lib.mkOption {
       description = "The JRE with which to run Kafka";
@@ -164,17 +158,20 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "apache-kafka" "brokerId" ]
-      [ "services" "apache-kafka" "settings" ''broker.id'' ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "apache-kafka" "brokerId"]
+      ["services" "apache-kafka" "settings" ''broker.id'']
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "apache-kafka" "logDirs" ]
-      [ "services" "apache-kafka" "settings" ''log.dirs'' ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "apache-kafka" "logDirs"]
+      ["services" "apache-kafka" "settings" ''log.dirs'']
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "apache-kafka" "zookeeper" ]
-      [ "services" "apache-kafka" "settings" ''zookeeper.connect'' ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "apache-kafka" "zookeeper"]
+      ["services" "apache-kafka" "settings" ''zookeeper.connect'']
     )
 
     (lib.mkRemovedOptionModule [
@@ -207,29 +204,30 @@ in
       group = "apache-kafka";
       description = "Apache Kafka daemon user";
     };
-    users.groups.apache-kafka = { };
+    users.groups.apache-kafka = {};
 
-    systemd.tmpfiles.rules = map (
-      logDir: "d '${logDir}' 0700 apache-kafka - - -"
-    ) cfg.settings."log.dirs";
+    systemd.tmpfiles.rules =
+      map (
+        logDir: "d '${logDir}' 0700 apache-kafka - - -"
+      )
+      cfg.settings."log.dirs";
 
     systemd.services.apache-kafka = {
       description = "Apache Kafka Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = lib.mkIf cfg.formatLogDirs (
-        if cfg.formatLogDirsIgnoreFormatted then
-          ''
-            ${cfg.package}/bin/kafka-storage.sh format -t "${cfg.clusterId}" -c ${cfg.configFiles.serverProperties} --ignore-formatted
-          ''
-        else
-          ''
-            if ${
-              lib.concatMapStringsSep " && " (l: ''[ ! -f "${l}/meta.properties" ]'') cfg.settings."log.dirs"
-            }; then
-              ${cfg.package}/bin/kafka-storage.sh format -t "${cfg.clusterId}" -c ${cfg.configFiles.serverProperties}
-            fi
-          ''
+        if cfg.formatLogDirsIgnoreFormatted
+        then ''
+          ${cfg.package}/bin/kafka-storage.sh format -t "${cfg.clusterId}" -c ${cfg.configFiles.serverProperties} --ignore-formatted
+        ''
+        else ''
+          if ${
+            lib.concatMapStringsSep " && " (l: ''[ ! -f "${l}/meta.properties" ]'') cfg.settings."log.dirs"
+          }; then
+            ${cfg.package}/bin/kafka-storage.sh format -t "${cfg.clusterId}" -c ${cfg.configFiles.serverProperties}
+          fi
+        ''
       );
       serviceConfig = {
         ExecStart = ''

@@ -32,17 +32,19 @@ buildPythonPackage rec {
   # We don't want setup.py to (re-)execute cmake in buildPhase
   # Besides, this package is totally handled by CMake, which means no additional configuration is needed.
   dontConfigure = true;
-  pythonImportsCheck = [ "gfal2" ];
+  pythonImportsCheck = ["gfal2"];
   passthru = {
     inherit gfal2;
-    tests = {
-      inherit gfal2-util;
-    } // lib.optionalAttrs (gfal2-util != null) gfal2-util.tests or { };
+    tests =
+      {
+        inherit gfal2-util;
+      }
+      // lib.optionalAttrs (gfal2-util != null) gfal2-util.tests or {};
   };
   meta = with lib; {
     description = "Python binding for gfal2";
     homepage = "https://github.com/cern-fts/gfal2-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

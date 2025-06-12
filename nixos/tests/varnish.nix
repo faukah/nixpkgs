@@ -1,47 +1,49 @@
-{ pkgs, package, ... }:
-let
-  testPath = pkgs.hello;
-in
 {
+  pkgs,
+  package,
+  ...
+}: let
+  testPath = pkgs.hello;
+in {
   name = "varnish";
   meta = {
-    maintainers = [ ];
+    maintainers = [];
   };
 
   nodes = {
-    varnish =
-      { config, pkgs, ... }:
-      {
-        services.nix-serve = {
-          enable = true;
-        };
-
-        services.varnish = {
-          inherit package;
-          enable = true;
-          http_address = "0.0.0.0:80";
-          config = ''
-            vcl 4.0;
-
-            backend nix-serve {
-              .host = "127.0.0.1";
-              .port = "${toString config.services.nix-serve.port}";
-            }
-          '';
-        };
-
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        system.extraDependencies = [ testPath ];
+    varnish = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.nix-serve = {
+        enable = true;
       };
 
-    client =
-      { lib, ... }:
-      {
-        nix.settings = {
-          require-sigs = false;
-          substituters = lib.mkForce [ "http://varnish" ];
-        };
+      services.varnish = {
+        inherit package;
+        enable = true;
+        http_address = "0.0.0.0:80";
+        config = ''
+          vcl 4.0;
+
+          backend nix-serve {
+            .host = "127.0.0.1";
+            .port = "${toString config.services.nix-serve.port}";
+          }
+        '';
       };
+
+      networking.firewall.allowedTCPPorts = [80];
+      system.extraDependencies = [testPath];
+    };
+
+    client = {lib, ...}: {
+      nix.settings = {
+        require-sigs = false;
+        substituters = lib.mkForce ["http://varnish"];
+      };
+    };
   };
 
   testScript = ''

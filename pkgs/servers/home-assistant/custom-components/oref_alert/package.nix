@@ -8,7 +8,6 @@
   pytest-homeassistant-custom-component,
   pytest-freezer,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "amitfin";
   domain = "oref_alert";
@@ -37,6 +36,6 @@ buildHomeAssistantComponent rec {
     description = "Israeli Oref Alerts";
     homepage = "https://github.com/amitfin/oref_alert";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
   };
 }

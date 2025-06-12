@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mednafen-server";
   version = "0.5.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "mednafen-server";
     homepage = "https://mednafen.github.io/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

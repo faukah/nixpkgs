@@ -6,7 +6,6 @@
   blas,
   lapack,
 }:
-
 stdenv.mkDerivation rec {
   pname = "JAGS";
   version = "4.3.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hx9VavQDp8LOag8C8Vz4WlcnY+CT0mZY66xVxKtHL8g=";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   buildInputs = [
     blas
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "jags";
     license = licenses.gpl2;
     homepage = "http://mcmc-jags.sourceforge.net";
-    maintainers = [ maintainers.andres ];
+    maintainers = [maintainers.andres];
     platforms = platforms.unix;
   };
 }

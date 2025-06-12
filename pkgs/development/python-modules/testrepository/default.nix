@@ -9,7 +9,6 @@
   fixtures,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "testrepository";
   version = "0.0.21";
@@ -20,8 +19,8 @@ buildPythonPackage rec {
     hash = "sha256-Nor89+CQs8aIvddUol9kvDFOUSuBb4xxufn8F9w3o9k=";
   };
 
-  nativeCheckInputs = [ testresources ];
-  buildInputs = [ pbr ];
+  nativeCheckInputs = [testresources];
+  buildInputs = [pbr];
   propagatedBuildInputs = [
     fixtures
     subunit

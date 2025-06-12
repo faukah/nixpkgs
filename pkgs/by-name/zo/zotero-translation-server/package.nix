@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nodejs,
 }:
-
 buildNpmPackage {
   pname = "zotero-translation-server";
   version = "unstable-2023-07-13";
@@ -35,7 +34,7 @@ buildNpmPackage {
     description = "Node.js-based server to run Zotero translators";
     homepage = "https://github.com/zotero/translation-server";
     license = licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "translation-server";
   };
 }

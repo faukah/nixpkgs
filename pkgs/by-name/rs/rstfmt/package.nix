@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "rstfmt";
   version = "0.0.14";
@@ -38,6 +37,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/dzhu/rstfmt";
     changelog = "https://github.com/dzhu/rstfmt/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

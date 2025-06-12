@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-gtk";
   version = "1.15.3";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "Desktop integration portals for sandboxed apps";
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

@@ -6,7 +6,6 @@
   poetry-core,
   nixops,
 }:
-
 buildPythonPackage {
   pname = "nixops-encrypted-links";
   version = "0-unstable-2021-02-16";
@@ -33,14 +32,14 @@ buildPythonPackage {
     nixops
   ];
 
-  pythonImportsCheck = [ "nixops_encrypted_links" ];
+  pythonImportsCheck = ["nixops_encrypted_links"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "EncryptedLinksTo from Nixops 1 module port";
     homepage = "https://github.com/nix-community/nixops-encrypted-links";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

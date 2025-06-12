@@ -11,7 +11,6 @@
   intltool,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klavaro";
   version = "3.14";

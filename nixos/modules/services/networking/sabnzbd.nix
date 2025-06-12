@@ -4,25 +4,17 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.sabnzbd;
   inherit (pkgs) sabnzbd;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
     services.sabnzbd = {
       enable = mkEnableOption "the sabnzbd server";
 
-      package = mkPackageOption pkgs "sabnzbd" { };
+      package = mkPackageOption pkgs "sabnzbd" {};
 
       configFile = mkOption {
         type = types.path;
@@ -69,8 +61,8 @@ in
 
     systemd.services.sabnzbd = {
       description = "sabnzbd server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "forking";
         GuessMainPID = "no";
@@ -82,7 +74,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8080 ];
+      allowedTCPPorts = [8080];
     };
   };
 }

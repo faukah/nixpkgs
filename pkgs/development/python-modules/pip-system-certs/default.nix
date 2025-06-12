@@ -7,7 +7,6 @@
   git-versioner,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "pip-system-certs";
   version = "4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     git-versioner
   ];
 
-  propagatedBuildInputs = [ wrapt ];
+  propagatedBuildInputs = [wrapt];
 
   pythonImportsCheck = [
     "pip_system_certs.wrapt_requests"
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Live patches pip and requests to use system certs by default";
     homepage = "https://gitlab.com/alelec/pip-system-certs";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ slotThe ];
+    maintainers = with maintainers; [slotThe];
   };
 }

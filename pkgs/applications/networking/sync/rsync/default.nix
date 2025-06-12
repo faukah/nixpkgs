@@ -19,7 +19,6 @@
   zstd,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rsync";
   version = "3.4.1";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) rsyncd; };
+  passthru.tests = {inherit (nixosTests) rsyncd;};
 
   meta = with lib; {
     description = "Fast incremental file transfer utility";

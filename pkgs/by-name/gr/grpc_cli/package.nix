@@ -8,7 +8,6 @@
   curl,
   numactl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grpc_cli";
   version = "1.73.0";
@@ -28,8 +27,8 @@ stdenv.mkDerivation rec {
     curl
     numactl
   ];
-  cmakeFlags = [ "-DgRPC_BUILD_TESTS=ON" ];
-  makeFlags = [ "grpc_cli" ];
+  cmakeFlags = ["-DgRPC_BUILD_TESTS=ON"];
+  makeFlags = ["grpc_cli"];
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch64 "-Wno-error=format-security";
   installPhase = ''
     runHook preInstall
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Command line tool for interacting with grpc services";
     homepage = "https://github.com/grpc/grpc";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doriath ];
+    maintainers = with maintainers; [doriath];
     platforms = platforms.linux;
     mainProgram = "grpc_cli";
   };

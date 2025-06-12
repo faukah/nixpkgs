@@ -30,7 +30,7 @@ mkLibretroCore {
     })
   ];
 
-  extraNativeBuildInputs = [ python3 ];
+  extraNativeBuildInputs = [python3];
   extraBuildInputs = [
     alsa-lib
     libGL

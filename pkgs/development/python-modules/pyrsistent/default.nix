@@ -8,7 +8,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "pyrsistent";
   version = "0.20.0";
@@ -21,21 +20,21 @@ buildPythonPackage rec {
     hash = "sha256-TEj3j2KrWWxnkIYITQ3RMlSuTz1scqg//fXr3vjyZaQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     pytestCheckHook
     hypothesis
   ];
 
-  pythonImportsCheck = [ "pyrsistent" ];
+  pythonImportsCheck = ["pyrsistent"];
 
   meta = with lib; {
     homepage = "https://github.com/tobgu/pyrsistent/";
     description = "Persistent/Functional/Immutable data structures";
     license = licenses.mit;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

@@ -4,11 +4,9 @@
   fetchzip,
   makeDesktopItem,
   nix-update-script,
-
   copyDesktopItems,
   icoutils,
   makeWrapper,
-
   ffmpeg,
   gtk2,
   hunspell,
@@ -16,14 +14,13 @@
   mpv,
   tesseract4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "subtitleedit";
   version = "4.0.12";
 
   src = fetchzip {
     url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }.zip";
     hash = "sha256-UlkFTsdssrjrPA0oOXJuSckEf1uMxh+POojfDX7NUu8=";
     stripRoot = false;
@@ -77,11 +74,11 @@ stdenv.mkDerivation rec {
       exec = "subtitleedit";
       icon = "subtitleedit";
       comment = meta.description;
-      categories = [ "AudioVideo" ];
+      categories = ["AudioVideo"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Subtitle editor";
@@ -94,7 +91,7 @@ stdenv.mkDerivation rec {
     homepage = "https://nikse.dk/subtitleedit";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ paveloom ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [paveloom];
   };
 }

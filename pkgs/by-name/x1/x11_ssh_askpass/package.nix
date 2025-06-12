@@ -6,7 +6,6 @@
   imake,
   gccmakedep,
 }:
-
 stdenv.mkDerivation rec {
   pname = "x11-ssh-askpass";
   version = "1.2.4.1";

@@ -14,7 +14,6 @@
   file,
   ghostscript,
 }:
-
 mkDerivation rec {
   pname = "qpdfview";
   version = "0.5.0";
@@ -68,7 +67,7 @@ mkDerivation rec {
     description = "Tabbed document viewer";
     mainProgram = "qpdfview";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://launchpad.net/qpdfview";
   };

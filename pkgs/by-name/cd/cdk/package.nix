@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdk";
   version = "5.0-20250116";

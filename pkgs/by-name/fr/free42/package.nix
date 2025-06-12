@@ -8,7 +8,6 @@
   makeDesktopItem,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "free42";
   version = "3.3.5";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ alsa-lib ];
+  buildInputs = [alsa-lib];
 
   postPatch = ''
     sed -i -e "s|/bin/ls|ls|" gtk/Makefile
@@ -96,8 +95,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/thomasokken/free42";
     description = "Software clone of HP-42S Calculator";
-    license = with lib.licenses; [ gpl2Only ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl2Only];
+    maintainers = with lib.maintainers; [];
     mainProgram = "free42dec";
     platforms = with lib.platforms; unix;
   };

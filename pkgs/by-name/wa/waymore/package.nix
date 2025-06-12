@@ -5,7 +5,6 @@
   waymore,
   testers,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "waymore";
   version = "4.7";
@@ -45,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/xnl-h4ck3r/waymore";
     changelog = "https://github.com/xnl-h4ck3r/waymore/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "waymore";
   };
 }

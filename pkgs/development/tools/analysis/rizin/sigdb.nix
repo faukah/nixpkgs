@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "rizin-sigdb";
   version = "unstable-2023-08-23";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Rizin FLIRT Signature Database";
     homepage = src.meta.homepage;
     license = licenses.lgpl3;
-    maintainers = with lib.maintainers; [ chayleaf ];
+    maintainers = with lib.maintainers; [chayleaf];
   };
 }

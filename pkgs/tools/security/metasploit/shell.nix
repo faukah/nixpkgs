@@ -1,6 +1,4 @@
-{
-  pkgs ? import ../../../.. { },
-}:
+{pkgs ? import ../../../.. {}}:
 pkgs.mkShell {
   nativeBuildInputs = [
     pkgs.pkg-config

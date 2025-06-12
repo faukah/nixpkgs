@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "filelock";
   version = "3.18.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "filelock" ];
+  pythonImportsCheck = ["filelock"];
 
   disabledTestPaths = [
     # Circular dependency with virtualenv
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Platform independent file lock for Python";
     homepage = "https://github.com/benediktschmitt/py-filelock";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ hyphon81 ];
+    maintainers = with maintainers; [hyphon81];
   };
 }

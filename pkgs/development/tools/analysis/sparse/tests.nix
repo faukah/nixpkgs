@@ -3,8 +3,7 @@
   gcc,
   sparse,
   writeText,
-}:
-let
+}: let
   src = writeText "CODE.c" ''
     #include <stdio.h>
     #include <stddef.h>
@@ -15,7 +14,7 @@ let
     }
   '';
 in
-runCommand "${sparse.pname}-tests"
+  runCommand "${sparse.pname}-tests"
   {
     buildInputs = [
       gcc

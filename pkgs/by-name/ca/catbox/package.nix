@@ -17,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-mbxZUCxkPhgIzUUgiQ1P1z6Zgs0UaVnm+erW60AIIH8=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Pipe mbox messages into shell commands";
     homepage = "https://github.com/konimarti/catbox";
     license = lib.licenses.mit;
     mainProgram = "catbox";
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

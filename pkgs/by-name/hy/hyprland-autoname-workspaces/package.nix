@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hyprland-autoname-workspaces";
   version = "1.1.16";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     description = "Automatically rename workspaces with icons of started applications";
     homepage = "https://github.com/hyprland-community/hyprland-autoname-workspaces";
     license = licenses.isc;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "hyprland-autoname-workspaces";
     platforms = platforms.linux;
   };

@@ -6,7 +6,6 @@
   installShellFiles,
   libusb-compat-0_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "teensy-loader-cli";
   version = "2.3";

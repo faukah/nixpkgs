@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "find-libpython";
   version = "0.4.0";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "find_libpython" ];
+  pythonImportsCheck = ["find_libpython"];
 
   meta = with lib; {
     description = "Finds the libpython associated with your environment, wherever it may be hiding";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/ktbarrett/find_libpython/releases/tag/v${version}";
     homepage = "https://github.com/ktbarrett/find_libpython";
     license = licenses.mit;
-    maintainers = with maintainers; [ jleightcap ];
+    maintainers = with maintainers; [jleightcap];
   };
 }

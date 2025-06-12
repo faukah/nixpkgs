@@ -20,7 +20,6 @@
   spdlog,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abaddon";
   version = "0.2.1";
@@ -62,11 +61,11 @@ stdenv.mkDerivation rec {
     cp abaddon $out/bin
     wrapProgram $out/bin/abaddon \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          alsa-lib
-          libpulseaudio
-        ]
-      }" \
+      lib.makeLibraryPath [
+        alsa-lib
+        libpulseaudio
+      ]
+    }" \
       --chdir $out/share/abaddon
 
     runHook postInstall
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
         "Network"
         "InstantMessaging"
       ];
-      mimeTypes = [ "x-scheme-handler/discord" ];
+      mimeTypes = ["x-scheme-handler/discord"];
     })
   ];
 
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
     mainProgram = "abaddon";
     homepage = "https://github.com/uowuo/abaddon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     platforms = lib.platforms.linux;
   };
 }

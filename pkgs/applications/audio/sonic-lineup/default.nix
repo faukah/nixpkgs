@@ -27,7 +27,6 @@
   pkg-config,
   libjack2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sonic-lineup";
   version = "1.1";
@@ -91,7 +90,7 @@ stdenv.mkDerivation rec {
     mainProgram = "sonic-lineup";
     homepage = "https://www.sonicvisualiser.org/sonic-lineup/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.vandenoever ];
+    maintainers = [maintainers.vandenoever];
     platforms = platforms.linux;
   };
 }

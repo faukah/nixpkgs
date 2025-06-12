@@ -5,7 +5,6 @@
   gettext,
   gitMinimal,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pykickstart";
   version = "3.64";

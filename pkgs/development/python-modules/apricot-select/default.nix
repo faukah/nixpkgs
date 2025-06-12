@@ -14,7 +14,6 @@
   torchvision,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "apricot-select";
   version = "0.6.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numba
@@ -48,9 +47,9 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "apricot" ];
+  pythonImportsCheck = ["apricot"];
 
   disabledTestPaths = [
     # Tests require nose
@@ -71,13 +70,13 @@ buildPythonPackage rec {
   # NOTE: Tests are disabled by default because they can run for hours and timeout on Hydra.
   doCheck = false;
 
-  passthru.tests.check = apricot-select.overridePythonAttrs { doCheck = true; };
+  passthru.tests.check = apricot-select.overridePythonAttrs {doCheck = true;};
 
   meta = with lib; {
     description = "Module for submodular optimization for the purpose of selecting subsets of massive data sets";
     homepage = "https://github.com/jmschrei/apricot";
     changelog = "https://github.com/jmschrei/apricot/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   buildPackages,
   buildsystem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libnsgif";
   version = "1.0.0";
@@ -16,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-YBTIQvYUVNL1oPgkPXqNe96bfaPM/cotNGx8CyxMBhs=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -21,7 +21,6 @@
   blueprint-compiler,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "diebahn";
   version = "2.8.1";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -82,6 +81,6 @@ stdenv.mkDerivation rec {
       dotlambda
       lilacious
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

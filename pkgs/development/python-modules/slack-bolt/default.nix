@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   slack-sdk,
-
   # optional-dependencies
   # - async
   aiohttp,
@@ -31,13 +28,11 @@
   uvicorn,
   websocket-client,
   werkzeug,
-
   # tests
   docker,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "slack-bolt";
   version = "1.23.0";
@@ -55,9 +50,9 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner==6.0.1",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ slack-sdk ];
+  dependencies = [slack-sdk];
 
   optional-dependencies = {
     async = [
@@ -85,13 +80,15 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "slack_bolt" ];
+  pythonImportsCheck = ["slack_bolt"];
 
-  nativeCheckInputs = [
-    docker
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      docker
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME="$(mktemp -d)"
@@ -116,6 +113,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/slackapi/bolt-python";
     changelog = "https://github.com/slackapi/bolt-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

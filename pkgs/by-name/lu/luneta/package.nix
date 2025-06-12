@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 buildDubPackage rec {
   pname = "luneta";
   version = "0.7.4";
@@ -25,7 +24,7 @@ buildDubPackage rec {
   # ncurses dub package version is locked to 1.0.0 instead of using ~master
   dubLock = ./dub-lock.json;
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     runHook preInstall
@@ -39,6 +38,6 @@ buildDubPackage rec {
     homepage = "https://github.com/fbeline/luneta";
     license = lib.licenses.gpl2Only;
     mainProgram = "luneta";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

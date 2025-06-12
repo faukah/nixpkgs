@@ -7,7 +7,6 @@
   mpv,
   yajl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jftui";
   version = "0.7.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Jellyfin Terminal User Interface";
     homepage = "https://github.com/Aanok/jftui";
     license = licenses.unlicense;
-    maintainers = [ maintainers.nyanloutre ];
+    maintainers = [maintainers.nyanloutre];
     platforms = platforms.linux;
     mainProgram = "jftui";
   };

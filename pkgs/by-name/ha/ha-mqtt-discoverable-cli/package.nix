@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ha-mqtt-discoverable-cli";
   version = "0.19.2.1";
@@ -16,9 +15,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-SPCbBqdhC+pgV3mQ+e3jkg2hWYegl1wE38Ac06R5uAA=";
   };
 
-  pythonRelaxDeps = [ "ha-mqtt-discoverable" ];
+  pythonRelaxDeps = ["ha-mqtt-discoverable"];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     gitlike-commands
@@ -28,14 +27,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no real tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ha_mqtt_discoverable_cli" ];
+  pythonImportsCheck = ["ha_mqtt_discoverable_cli"];
 
   meta = {
     description = "CLI for creating Home Assistant compatible MQTT entities that will be automatically discovered";
     homepage = "https://github.com/unixorn/ha-mqtt-discoverable-cli";
     changelog = "https://github.com/unixorn/ha-mqtt-discoverable-cli/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "hmd";
   };
 }

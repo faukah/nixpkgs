@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tml";
   version = "0.7.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/liamg/tml";
     changelog = "https://github.com/liamg/tml/releases/tag/v${version}";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

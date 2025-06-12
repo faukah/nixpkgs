@@ -7,7 +7,6 @@
   updateAutotoolsGnuConfigScriptsHook,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "source-highlight";
   version = "3.1.9";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
       (fetchpatch {
         url = "https://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=904949c9026cb772dc93fbe0947a252ef47127f4";
         hash = "sha256-h9DyD+pmlQT5dmKjWI9t0gCIYHe7pYkP55LnOqsE0vI=";
-        excludes = [ "ChangeLog" ];
+        excludes = ["ChangeLog"];
       })
 
       # Upstream fix for clang-13 and gcc-12 test support
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
         name = "remove-register-keyword";
         url = "https://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=416b39758dba2c74515584514a959ad1b0ad50d1";
         hash = "sha256-R5A7IGHhU82EqceMCsuNBanhRz4dFVqiaH8637dr7jw=";
-        includes = [ "lib/*" ];
+        includes = ["lib/*"];
       })
     ];
 
@@ -59,9 +58,9 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   # necessary to build on FreeBSD native pending inclusion of
   # https://git.savannah.gnu.org/cgit/config.git/commit/?id=e4786449e1c26716e3f9ea182caf472e4dbc96e0
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
   buildInputs =
-    [ boost ]
+    [boost]
     ++ lib.optional (stdenv.targetPlatform.useLLVM or false) (
       llvmPackages.compiler-rt.override {
         doFakeLibgcc = true;
@@ -89,7 +88,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/src-highlite/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }
 // lib.optionalAttrs (stdenv.targetPlatform.useLLVM or false) {

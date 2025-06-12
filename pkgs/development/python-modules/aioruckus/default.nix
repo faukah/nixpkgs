@@ -11,7 +11,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "aioruckus";
   version = "0.42";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UfyB3qGEDOQ39YA1AueCBXeoJhGH+XDCLZSFA+kpT2k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioruckus" ];
+  pythonImportsCheck = ["aioruckus"];
 
   disabledTests = [
     # Those tests require a local ruckus device
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     description = "Python client for Ruckus Unleashed and Ruckus ZoneDirector";
     homepage = "https://github.com/ms264556/aioruckus";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

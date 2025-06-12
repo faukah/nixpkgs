@@ -8,7 +8,6 @@
   packaging,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "onnxslim";
   version = "0.1.51";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "A Toolkit to Help Optimize Onnx Model";
     homepage = "https://pypi.org/project/onnxslim/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ferrine ];
+    maintainers = with lib.maintainers; [ferrine];
   };
 }

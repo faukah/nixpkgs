@@ -4,14 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   globalCfg = config.services.scion;
   cfg = config.services.scion.scion-control;
-  toml = pkgs.formats.toml { };
-  connectionDir = if globalCfg.stateless then "/run" else "/var/lib";
+  toml = pkgs.formats.toml {};
+  connectionDir =
+    if globalCfg.stateless
+    then "/run"
+    else "/var/lib";
   defaultConfig = {
     general = {
       id = "cs";
@@ -32,12 +32,11 @@ let
     };
   };
   configFile = toml.generate "scion-control.toml" (recursiveUpdate defaultConfig cfg.settings);
-in
-{
+in {
   options.services.scion.scion-control = {
     enable = mkEnableOption "the scion-control service";
     settings = mkOption {
-      default = { };
+      default = {};
       type = toml.type;
       example = literalExpression ''
         {
@@ -67,15 +66,22 @@ in
         "network-online.target"
         "scion-dispatcher.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
-        Group = if (config.services.scion.scion-dispatcher.enable == true) then "scion" else null;
+        Group =
+          if (config.services.scion.scion-dispatcher.enable == true)
+          then "scion"
+          else null;
         ExecStart = "${globalCfg.package}/bin/scion-control --config ${configFile}";
         DynamicUser = true;
         Restart = "on-failure";
-        BindPaths = [ "/dev/shm:/run/shm" ];
-        ${if globalCfg.stateless then "RuntimeDirectory" else "StateDirectory"} = "scion-control";
+        BindPaths = ["/dev/shm:/run/shm"];
+        ${
+          if globalCfg.stateless
+          then "RuntimeDirectory"
+          else "StateDirectory"
+        } = "scion-control";
       };
     };
   };

@@ -8,7 +8,6 @@
   rpcsvc-proto,
   enablePAM ? stdenv.hostPlatform.isLinux,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "webdav-server-rs";
   # The v0.4.0 tag cannot build.  So we use the 547602e commit.
@@ -24,11 +23,11 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-0Ee0L3gKNP1O3SFkImBzQrT1fgnWFrrW8owxEM1dUYQ=";
 
-  buildInputs = [ libtirpc ] ++ lib.optional enablePAM pam;
-  nativeBuildInputs = [ rpcsvc-proto ];
+  buildInputs = [libtirpc] ++ lib.optional enablePAM pam;
+  nativeBuildInputs = [rpcsvc-proto];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "quota" ] ++ lib.optional enablePAM "pam";
+  buildFeatures = ["quota"] ++ lib.optional enablePAM "pam";
 
   postPatch = ''
     substituteInPlace fs_quota/build.rs \
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage {
     '';
     homepage = "https://github.com/miquels/webdav-server-rs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pmy ];
+    maintainers = with maintainers; [pmy];
     mainProgram = "webdav-server";
   };
 }

@@ -8,7 +8,6 @@
   wcwidth,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "0.9.0";
   pname = "tabulate";
@@ -27,12 +26,14 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    widechars = [ wcwidth ];
+    widechars = [wcwidth];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   meta = {
     description = "Pretty-print tabular data";

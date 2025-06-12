@@ -7,7 +7,6 @@
   django,
   mock,
 }:
-
 buildPythonPackage {
   pname = "mock-django";
   version = "0.6.10";
@@ -37,6 +36,6 @@ buildPythonPackage {
     description = "Simple library for mocking certain Django behavior, such as the ORM";
     homepage = "https://github.com/dcramer/mock-django";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

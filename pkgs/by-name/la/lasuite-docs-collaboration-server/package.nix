@@ -8,7 +8,6 @@
   yarn,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lasuite-docs-collaboration-server";
   version = "3.3.0";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/suitenumerique/docs/blob/${src.tag}/CHANGELOG.md";
     mainProgram = "docs-collaboration-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     platforms = lib.platforms.all;
   };
 }

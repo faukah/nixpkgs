@@ -4,7 +4,6 @@
   rustPlatform,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cnsprcy";
   version = "0.3.2";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = ./update.sh;
 
   RUSTC_BOOTSTRAP = true;
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   meta = {
     description = "End to end encrypted connections between trusted devices";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       supinie
       oluchitheanalyst
     ];
-    teams = [ lib.teams.ngi ];
+    teams = [lib.teams.ngi];
     mainProgram = "cnspr";
     platforms = lib.platforms.linux;
   };

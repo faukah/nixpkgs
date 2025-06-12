@@ -10,9 +10,7 @@
   writeScript,
   writeText,
   distDir,
-}:
-
-let
+}: let
   toolsBazel = writeScript "bazel" ''
     #! ${runtimeShell}
 
@@ -57,7 +55,7 @@ let
     )
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (
+  workspaceDir = runLocal "our_workspace" {} (
     ''
       mkdir $out
       cp ${WORKSPACE} $out/WORKSPACE
@@ -84,6 +82,5 @@ let
         //python:bin
     '';
   };
-
 in
-testBazel
+  testBazel

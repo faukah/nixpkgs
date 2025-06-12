@@ -7,7 +7,6 @@
   typescript,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "gnome-shell-extension-pop-shell";
   version = "1.2.0-unstable-2025-03-10";
@@ -25,18 +24,18 @@ stdenv.mkDerivation {
     typescript
   ];
 
-  buildInputs = [ gjs ];
+  buildInputs = [gjs];
 
   patches = [
     ./fix-gjs.patch
   ];
 
-  makeFlags = [ "XDG_DATA_HOME=$(out)/share" ];
+  makeFlags = ["XDG_DATA_HOME=$(out)/share"];
 
   passthru = {
     extensionUuid = "pop-shell@system76.com";
     extensionPortalSlug = "pop-shell";
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   postPatch = ''
@@ -53,7 +52,7 @@ stdenv.mkDerivation {
     description = "Keyboard-driven layer for GNOME Shell";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.genofire ];
+    maintainers = [maintainers.genofire];
     homepage = "https://github.com/pop-os/shell";
   };
 }

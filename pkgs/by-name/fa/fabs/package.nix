@@ -5,7 +5,6 @@
   python3,
   sqlite,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fabs";
   version = "1.1";
@@ -63,8 +62,8 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "fabsys";
     description = "Flexible AFS Backup System for the OpenAFS distributed file system";
     homepage = "https://github.com/openafs-contrib/fabs";
-    license = with licenses; [ isc ];
-    maintainers = with maintainers; [ spacefrogg ];
+    license = with licenses; [isc];
+    maintainers = with maintainers; [spacefrogg];
     broken = lib.versionAtLeast python3.pkgs.sqlalchemy.version "2.0";
     badPlatforms = [
       "x86_64-darwin"

@@ -8,7 +8,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "supermodel";
   version = "0-unstable-2025-04-17";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
 
   makefile = "Makefiles/Makefile.UNIX";
 
-  makeFlags = [ "NET_BOARD=1" ];
+  makeFlags = ["NET_BOARD=1"];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +60,7 @@ stdenv.mkDerivation {
       <code>supermodel -game-xml-file=$out/share/supermodel/Config/Games.xml /path/to/romset</code>.
     '';
     mainProgram = "supermodel";
-    maintainers = with lib.maintainers; [ msanft ];
+    maintainers = with lib.maintainers; [msanft];
     platforms = lib.platforms.linux;
   };
 }

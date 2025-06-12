@@ -22,71 +22,72 @@
   harfbuzz,
   fontconfig,
   fribidi,
-}:
-let
+}: let
   arch =
     {
       aarch64-linux = "arm64";
       x86_64-linux = "amd64";
     }
-    .${stdenv.hostPlatform.system};
+    .${
+      stdenv.hostPlatform.system
+    };
 in
-stdenv.mkDerivation rec {
-  pname = "mdk-sdk";
-  version = "0.33.0";
+  stdenv.mkDerivation rec {
+    pname = "mdk-sdk";
+    version = "0.33.0";
 
-  src = fetchurl {
-    url = "https://github.com/wang-bin/mdk-sdk/releases/download/v${version}/mdk-sdk-linux.tar.xz";
-    hash = "sha256-d23Mq1uJg4LpbcxywOKZbwyUs3DIRtGrUZY1qBV85VE=";
-  };
+    src = fetchurl {
+      url = "https://github.com/wang-bin/mdk-sdk/releases/download/v${version}/mdk-sdk-linux.tar.xz";
+      hash = "sha256-d23Mq1uJg4LpbcxywOKZbwyUs3DIRtGrUZY1qBV85VE=";
+    };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [
-    alsa-lib
-    gcc-unwrapped
-    libX11
-    libcxx
-    libdrm
-    libgbm
-    libglvnd
-    libpulseaudio
-    libxcb
-    wayland
-    xz
-    zlib
-    freetype
-    harfbuzz
-    fontconfig
-    fribidi
-  ];
-
-  appendRunpaths = lib.makeLibraryPath [
-    libva
-    libvdpau
-    addDriverRunpath.driverLink
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir $out
-    cp -r include $out/include
-    cp -r lib/${arch} $out/lib
-    cp -r lib/cmake $out/lib/cmake
-    ln -s . $out/lib/${arch}
-
-    runHook postInstall
-  '';
-
-  meta = {
-    description = "multimedia development kit";
-    homepage = "https://github.com/wang-bin/mdk-sdk";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ orivej ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
+    buildInputs = [
+      alsa-lib
+      gcc-unwrapped
+      libX11
+      libcxx
+      libdrm
+      libgbm
+      libglvnd
+      libpulseaudio
+      libxcb
+      wayland
+      xz
+      zlib
+      freetype
+      harfbuzz
+      fontconfig
+      fribidi
     ];
-  };
-}
+
+    appendRunpaths = lib.makeLibraryPath [
+      libva
+      libvdpau
+      addDriverRunpath.driverLink
+    ];
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir $out
+      cp -r include $out/include
+      cp -r lib/${arch} $out/lib
+      cp -r lib/cmake $out/lib/cmake
+      ln -s . $out/lib/${arch}
+
+      runHook postInstall
+    '';
+
+    meta = {
+      description = "multimedia development kit";
+      homepage = "https://github.com/wang-bin/mdk-sdk";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [orivej];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+    };
+  }

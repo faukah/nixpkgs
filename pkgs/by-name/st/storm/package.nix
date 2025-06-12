@@ -7,11 +7,10 @@
   jdk,
   python3,
   confFile ? "",
-  extraLibraryPaths ? [ ],
-  extraJars ? [ ],
+  extraLibraryPaths ? [],
+  extraJars ? [],
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apache-storm";
   version = "2.8.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://storm.apache.org/";
     description = "Distributed realtime computation system";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     maintainers = with maintainers; [
       edwtjo

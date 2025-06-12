@@ -6,7 +6,6 @@
   fetchFromGitHub,
   libmodbus,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mbpoll";
   version = "1.5.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rO3j/p7MABlxcwRAZm26u7wgODGFTtetSDhPWPzTuEA=";
   };
 
-  buildInputs = [ libmodbus ];
+  buildInputs = [libmodbus];
   nativeBuildInputs = [
     cmake
     pkg-config

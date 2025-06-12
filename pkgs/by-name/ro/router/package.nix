@@ -8,7 +8,6 @@
   protobuf,
   elfutils,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "router";
   version = "1.56.0";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   # The v8 package will try to download a `librusty_v8.a` release at build time to our read-only filesystem
   # To avoid this we pre-download the file and export it via RUSTY_V8_ARCHIVE
-  RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix { };
+  RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix {};
 
   cargoTestFlags = [
     "-- --skip=query_planner::tests::missing_typename_and_fragments_in_requires"
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     description = "Configurable, high-performance routing runtime for Apollo Federation";
     homepage = "https://www.apollographql.com/docs/router/";
     license = licenses.elastic20;
-    maintainers = [ maintainers.bbigras ];
+    maintainers = [maintainers.bbigras];
   };
 }

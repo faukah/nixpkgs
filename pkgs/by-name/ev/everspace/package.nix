@@ -7,7 +7,6 @@
   unzip,
   copyDesktopItems,
   makeDesktopItem,
-
   # Everspace Dependencies
   cairo,
   gdk-pixbuf,
@@ -15,11 +14,9 @@
   gtk2-x11,
   libGL,
   openal,
-
   # Unreal Engine 4 Dependencies
   xorg,
 }:
-
 # Known issues:
 # - Video playback (upon starting a new game) does not work (screen is black)
 stdenv.mkDerivation rec {
@@ -115,7 +112,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       exec = "everspace";
       icon = "everspace-gog";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -123,8 +120,8 @@ stdenv.mkDerivation rec {
     description = "Action-focused single-player space shooter with roguelike elements";
     homepage = "https://classic.everspace-game.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jtrees ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with maintainers; [jtrees];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

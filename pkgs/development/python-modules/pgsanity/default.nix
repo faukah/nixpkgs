@@ -5,7 +5,6 @@
   postgresql,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pgsanity";
   version = "0.2.9";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  unittestFlagsArray = [ "test" ];
+  unittestFlagsArray = ["test"];
 
-  propagatedBuildInputs = [ postgresql ];
+  propagatedBuildInputs = [postgresql];
 
   # To find "ecpg"
-  nativeBuildInputs = [ (lib.getDev postgresql) ];
+  nativeBuildInputs = [(lib.getDev postgresql)];
 
   meta = with lib; {
     homepage = "https://github.com/markdrago/pgsanity";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
       let ecpg report on the syntax errors of the SQL.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ nalbyuites ];
+    maintainers = with maintainers; [nalbyuites];
   };
 }

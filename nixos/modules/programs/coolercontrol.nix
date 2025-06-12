@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.coolercontrol;
-in
-{
+in {
   ##### interface
   options = {
     programs.coolercontrol = {
@@ -29,7 +26,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       # Common
-      ({
+      {
         environment.systemPackages = with pkgs.coolercontrol; [
           coolercontrol-gui
         ];
@@ -42,22 +39,20 @@ in
 
           # https://github.com/NixOS/nixpkgs/issues/81138
           services = {
-            coolercontrol-liqctld.wantedBy = [ "multi-user.target" ];
-            coolercontrold.wantedBy = [ "multi-user.target" ];
+            coolercontrol-liqctld.wantedBy = ["multi-user.target"];
+            coolercontrold.wantedBy = ["multi-user.target"];
           };
         };
-      })
+      }
 
       # Nvidia support
       (lib.mkIf cfg.nvidiaSupport {
-        systemd.services.coolercontrold.path =
-          let
-            nvidiaPkg = config.hardware.nvidia.package;
-          in
-          [
-            nvidiaPkg # nvidia-smi
-            nvidiaPkg.settings # nvidia-settings
-          ];
+        systemd.services.coolercontrold.path = let
+          nvidiaPkg = config.hardware.nvidia.package;
+        in [
+          nvidiaPkg # nvidia-smi
+          nvidiaPkg.settings # nvidia-settings
+        ];
       })
     ]
   );

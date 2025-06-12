@@ -1,13 +1,9 @@
-{ pkgs, ... }:
-let
-  client =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.croc ];
-    };
+{pkgs, ...}: let
+  client = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.croc];
+  };
   pass = "PassRelay";
-in
-{
+in {
   name = "croc";
   meta = with pkgs.lib.maintainers; {
     maintainers = [

@@ -5,15 +5,13 @@
   enableAutologin,
   enableXWayland,
   ...
-}:
-
-{
+}: {
   name = testName;
 
   meta.maintainers = lib.teams.cosmic.members;
 
   nodes.machine = {
-    imports = [ ./common/user-account.nix ];
+    imports = [./common/user-account.nix];
 
     services = {
       # For `cosmic-store` to be added to `environment.systemPackages`
@@ -56,37 +54,36 @@
     virtualisation.memorySize = 4096;
   };
 
-  testScript =
-    { nodes, ... }:
-    let
-      cfg = nodes.machine;
-      user = cfg.users.users.alice;
-      DISPLAY = lib.strings.optionalString enableXWayland (
-        if enableAutologin then "DISPLAY=:0" else "DISPLAY=:1"
-      );
-    in
+  testScript = {nodes, ...}: let
+    cfg = nodes.machine;
+    user = cfg.users.users.alice;
+    DISPLAY = lib.strings.optionalString enableXWayland (
+      if enableAutologin
+      then "DISPLAY=:0"
+      else "DISPLAY=:1"
+    );
+  in
     ''
       #testName: ${testName}
     ''
     + (
-      if (enableAutologin) then
-        ''
-          with subtest("cosmic-greeter initialisation"):
-              machine.wait_for_unit("graphical.target", timeout=120)
-        ''
-      else
-        ''
-          from time import sleep
+      if enableAutologin
+      then ''
+        with subtest("cosmic-greeter initialisation"):
+            machine.wait_for_unit("graphical.target", timeout=120)
+      ''
+      else ''
+        from time import sleep
 
-          machine.wait_for_unit("graphical.target", timeout=120)
-          machine.wait_until_succeeds("pgrep --uid ${toString cfg.users.users.cosmic-greeter.name} --full cosmic-greeter", timeout=30)
-          # Sleep for 10 seconds for ensuring that `greetd` loads the
-          # password prompt for the login screen properly.
-          sleep(10)
+        machine.wait_for_unit("graphical.target", timeout=120)
+        machine.wait_until_succeeds("pgrep --uid ${toString cfg.users.users.cosmic-greeter.name} --full cosmic-greeter", timeout=30)
+        # Sleep for 10 seconds for ensuring that `greetd` loads the
+        # password prompt for the login screen properly.
+        sleep(10)
 
-          with subtest("cosmic-session login"):
-              machine.send_chars("${user.password}\n", delay=0.2)
-        ''
+        with subtest("cosmic-session login"):
+            machine.send_chars("${user.password}\n", delay=0.2)
+      ''
     )
     + ''
           # _One_ of the final processes to start as part of the

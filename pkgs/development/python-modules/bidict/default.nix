@@ -10,7 +10,6 @@
   pythonOlder,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "bidict";
   version = "0.23.1";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     rm pytest.ini
   '';
 
-  pythonImportsCheck = [ "bidict" ];
+  pythonImportsCheck = ["bidict"];
 
   meta = with lib; {
     homepage = "https://bidict.readthedocs.io";

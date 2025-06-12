@@ -14,7 +14,6 @@
   kpackage,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alkimia";
   version = "8.1.95";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     kpackage
   ];
 
-  propagatedBuildInputs = [ mpir ];
+  propagatedBuildInputs = [mpir];
 
   meta = {
     description = "Library used by KDE finance applications";

@@ -7,7 +7,6 @@
   scipy,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "pydoe";
   version = "0.3.8";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "pyDOE" ];
+  pythonImportsCheck = ["pyDOE"];
 
   meta = with lib; {
     description = "Design of experiments for Python";
     homepage = "https://github.com/tisimst/pyDOE";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

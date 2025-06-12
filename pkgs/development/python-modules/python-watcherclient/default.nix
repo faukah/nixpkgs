@@ -16,7 +16,6 @@
   sphinxHook,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "python-watcherclient";
   version = "4.8.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     cliff
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     oslo-utils
   ];
 
-  nativeCheckInputs = [ stestr ];
+  nativeCheckInputs = [stestr];
 
   checkPhase = ''
     runHook preCheck
@@ -63,13 +62,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "watcherclient" ];
+  pythonImportsCheck = ["watcherclient"];
 
   meta = {
     homepage = "https://github.com/openstack/python-watcherclient";
     description = "Client library for OpenStack Watcher API";
     license = lib.licenses.asl20;
     mainProgram = "watcher";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

@@ -40,7 +40,6 @@
   wrapt,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "reflex";
   version = "0.7.14";
@@ -55,7 +54,7 @@ buildPythonPackage rec {
 
   # 'rich' is also somehow checked when building the wheel,
   # pythonRelaxDepsHook modifies the wheel METADATA in postBuild
-  pypaBuildFlags = [ "--skip-dependency-check" ];
+  pypaBuildFlags = ["--skip-dependency-check"];
 
   pythonRelaxDeps = [
     # needed
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     "fastapi"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     alembic
@@ -132,14 +131,14 @@ buildPythonPackage rec {
     "tests/integration/"
   ];
 
-  pythonImportsCheck = [ "reflex" ];
+  pythonImportsCheck = ["reflex"];
 
   meta = {
     description = "Web apps in pure Python";
     homepage = "https://github.com/reflex-dev/reflex";
     changelog = "https://github.com/reflex-dev/reflex/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "reflex";
   };
 }

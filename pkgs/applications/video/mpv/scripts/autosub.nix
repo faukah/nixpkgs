@@ -23,12 +23,12 @@ buildLua {
       "local subliminal = '${lib.getExe' python3Packages.subliminal "subliminal"}'"
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fully automatic subtitle downloading for the MPV media player";
     homepage = "https://github.com/davidde/mpv-autosub";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.octvs ];
+    maintainers = [lib.maintainers.octvs];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "astronomer";
   version = "1.1.3";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/Ullaakut/astronomer";
     changelog = "https://github.com/Ullaakut/astronomer/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "astronomer";
   };
 }

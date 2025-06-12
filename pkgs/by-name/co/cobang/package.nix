@@ -15,7 +15,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cobang";
   version = "1.7.1";
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [
     gst_all_1.gst-plugins-base
     # Requires v4l2src
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     # gtk4paintablesink
     gst_all_1.gst-plugins-rs
     libadwaita

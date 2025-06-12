@@ -6,7 +6,6 @@
   replaceVars,
   file-roller,
 }:
-
 stdenv.mkDerivation rec {
   pname = "file-roller-contract";
   version = "0-unstable-2021-02-22";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Contractor extension for File Roller";
     homepage = "https://github.com/elementary/file-roller-contract";
     license = licenses.gpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
   };
 }

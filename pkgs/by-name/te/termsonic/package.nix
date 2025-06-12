@@ -16,9 +16,9 @@ buildGoModule {
 
   vendorHash = "sha256-+v7i69b4d11IGnraE6ROscFmqCVLHnkyI2pW+NS1v8k=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ alsa-lib ];
+  buildInputs = [alsa-lib];
 
   strictDeps = true;
 
@@ -28,6 +28,6 @@ buildGoModule {
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     mainProgram = "termsonic";
-    maintainers = with maintainers; [ mksafavi ];
+    maintainers = with maintainers; [mksafavi];
   };
 }

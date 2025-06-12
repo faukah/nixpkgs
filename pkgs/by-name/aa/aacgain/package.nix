@@ -7,7 +7,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation {
   pname = "aacgain";
   version = "2.0.0-unstable-2022-07-12";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/dgilman/aacgain";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.robbinch ];
+    maintainers = [maintainers.robbinch];
     mainProgram = "aacgain";
   };
 }

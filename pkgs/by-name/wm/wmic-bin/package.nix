@@ -6,7 +6,6 @@
   popt,
   libxcrypt-legacy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wmic-bin";
   version = "0.5.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     libxcrypt-legacy
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   dontConfigure = true;
   dontBuild = true;
@@ -50,9 +49,9 @@ stdenv.mkDerivation rec {
     description = "WMI client for Linux (binary)";
     mainProgram = "wmic";
     homepage = "https://www.openvas.org";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [peterhoeg];
+    platforms = ["x86_64-linux"];
   };
 }

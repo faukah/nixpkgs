@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   redis,
-
   # tests
   pygments,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "portalocker";
   version = "3.1.1";
@@ -37,20 +33,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ redis ];
+  propagatedBuildInputs = [redis];
 
   nativeCheckInputs = [
     pygments
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "portalocker" ];
+  pythonImportsCheck = ["portalocker"];
 
   meta = with lib; {
     changelog = "https://github.com/wolph/portalocker/releases/tag/v${version}";
     description = "Library to provide an easy API to file locking";
     homepage = "https://github.com/WoLpH/portalocker";
     license = licenses.psfl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

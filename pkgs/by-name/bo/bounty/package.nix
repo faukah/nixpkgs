@@ -6,7 +6,6 @@
   libgit2,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "bounty";
   version = "0.1.0-unstable-25-01-29";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
 
   doCheck = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -33,8 +32,8 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "CLI tool for bountybot.dev";
     homepage = "https://github.com/ghbountybot/cli";
-    license = [ lib.licenses.mit ];
-    maintainers = with lib.maintainers; [ andrewgazelka ];
+    license = [lib.licenses.mit];
+    maintainers = with lib.maintainers; [andrewgazelka];
     mainProgram = "bounty";
   };
 }

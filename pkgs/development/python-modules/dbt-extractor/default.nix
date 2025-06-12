@@ -7,7 +7,6 @@
   pythonOlder,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-extractor";
   version = "0.5.1";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   # no python tests exist
   doCheck = false;
 
-  pythonImportsCheck = [ "dbt_extractor" ];
+  pythonImportsCheck = ["dbt_extractor"];
 
   meta = with lib; {
     description = "Tool that processes the most common jinja value templates in dbt model files";

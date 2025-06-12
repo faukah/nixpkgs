@@ -18,7 +18,6 @@
   rustc,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "contrast";
   version = "0.0.11";
@@ -58,14 +57,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Checks whether the contrast between two colors meet the WCAG requirements";
     homepage = "https://gitlab.gnome.org/World/design/contrast";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "contrast";
     platforms = lib.platforms.linux;
   };

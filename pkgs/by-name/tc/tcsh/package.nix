@@ -6,7 +6,6 @@
   ncurses,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tcsh";
   version = "6.24.15";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       - job control
     '';
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ suominen ];
+    maintainers = with lib.maintainers; [suominen];
     platforms = lib.platforms.unix;
   };
 })

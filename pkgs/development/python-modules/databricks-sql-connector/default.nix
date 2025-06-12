@@ -17,7 +17,6 @@
   requests,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "databricks-sql-connector";
   version = "4.0.3";
@@ -55,17 +54,17 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "databricks" ];
+  pythonImportsCheck = ["databricks"];
 
   meta = with lib; {
     description = "Databricks SQL Connector for Python";
     homepage = "https://docs.databricks.com/dev-tools/python-sql-connector.html";
     changelog = "https://github.com/databricks/databricks-sql-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ harvidsen ];
+    maintainers = with maintainers; [harvidsen];
   };
 }

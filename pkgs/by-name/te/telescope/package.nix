@@ -11,7 +11,6 @@
   autoreconfHook,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "telescope";
   version = "0.11";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Telescope is a w3m-like browser for Gemini";
     homepage = "https://telescope-browser.org/";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ heph2 ];
+    maintainers = with lib.maintainers; [heph2];
     platforms = lib.platforms.unix;
   };
 })

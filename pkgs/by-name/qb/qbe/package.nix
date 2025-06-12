@@ -29,13 +29,13 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix { };
+    tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix {};
   };
 
   meta = with lib; {
     homepage = "https://c9x.me/compile/";
     description = "Small compiler backend written in C";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     license = licenses.mit;
     platforms = platforms.all;
     mainProgram = "qbe";

@@ -3,7 +3,6 @@
   fetchPypi,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ledfx";
   version = "2.0.108";
@@ -69,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/LedFx/LedFx";
     changelog = "https://github.com/LedFx/LedFx/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.c3d2 ];
+    teams = [lib.teams.c3d2];
     mainProgram = "ledfx";
   };
 }

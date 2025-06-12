@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   versioneer,
-
   # dependencies
   arviz,
   cachetools,
@@ -19,7 +17,6 @@
   threadpoolctl,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pymc";
   version = "5.23.0";
@@ -58,7 +55,7 @@ buildPythonPackage rec {
   # indicative for package usability hence tests are disabled by default.
   doCheck = false;
 
-  pythonImportsCheck = [ "pymc" ];
+  pythonImportsCheck = ["pymc"];
 
   meta = {
     description = "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";

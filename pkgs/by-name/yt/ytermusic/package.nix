@@ -7,7 +7,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ytermusic";
   version = "0.1.0";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ccgauche/ytermusic";
     changelog = "https://github.com/ccgauche/ytermusic/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ codebam ];
+    maintainers = with lib.maintainers; [codebam];
     mainProgram = "ytermusic";
   };
 }

@@ -7,7 +7,6 @@
   fetchNpmDeps,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "godns";
   version = "3.2.4";
@@ -52,14 +51,14 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dynamic DNS client tool supports AliDNS, Cloudflare, Google Domains, DNSPod, HE.net & DuckDNS & DreamHost, etc";
     homepage = "https://github.com/TimothyYe/godns";
     changelog = "https://github.com/TimothyYe/godns/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ yinfeng ];
+    maintainers = with lib.maintainers; [yinfeng];
     mainProgram = "godns";
   };
 }

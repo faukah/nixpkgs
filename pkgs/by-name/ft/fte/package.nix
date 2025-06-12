@@ -10,7 +10,6 @@
   ncurses,
   slang,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fte";
   version = "0.50.02";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     finalAttrs.ftecommon
   ];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     perl
     libX11
@@ -40,20 +39,20 @@ stdenv.mkDerivation (finalAttrs: {
     slang
   ];
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
   enableParallelBuilding = true;
 
   env.NIX_CFLAGS_COMPILE = "-DHAVE_STRLCAT -DHAVE_STRLCPY";
-  installFlags = [ "INSTALL_NONROOT=1" ];
+  installFlags = ["INSTALL_NONROOT=1"];
 
   # not setting it cause fte to not find xfte
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Free text editor for developers";
     homepage = "https://fte.sourceforge.net/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 })

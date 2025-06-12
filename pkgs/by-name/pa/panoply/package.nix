@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "panoply";
   version = "5.6.1";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-r3hKlBRpZe9HJws24cqoiiQmFlH6Abn++w5yEudgKfI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
     description = "netCDF, HDF and GRIB Data Viewer";
     homepage = "https://www.giss.nasa.gov/tools/panoply";
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.unfree; # Package does not state a license
     mainProgram = "panoply";
   };

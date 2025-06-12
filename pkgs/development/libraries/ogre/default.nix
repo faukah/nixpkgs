@@ -30,24 +30,20 @@
   withNvidiaCg ? false,
   nvidia_cg_toolkit,
   withSamples ? false,
-}:
-
-let
-  common =
-    {
-      version,
-      hash,
-      imguiVersion,
-      imguiHash,
-    }:
-    let
-      imgui.src = fetchFromGitHub {
-        owner = "ocornut";
-        repo = "imgui";
-        rev = "v${imguiVersion}";
-        hash = imguiHash;
-      };
-    in
+}: let
+  common = {
+    version,
+    hash,
+    imguiVersion,
+    imguiHash,
+  }: let
+    imgui.src = fetchFromGitHub {
+      owner = "ocornut";
+      repo = "imgui";
+      rev = "v${imguiVersion}";
+      hash = imguiHash;
+    };
+  in
     stdenv.mkDerivation {
       pname = "ogre";
       inherit version;
@@ -120,8 +116,7 @@ let
         license = lib.licenses.mit;
       };
     };
-in
-{
+in {
   ogre_14 = common {
     version = "14.3.4";
     hash = "sha256-4ZfScIBGy5J3pwGpnoFkiMhfaZKJz9oSOtFrK2pZnvc=";

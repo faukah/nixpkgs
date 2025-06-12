@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "getopt";
   version = "20230213";
@@ -23,6 +22,6 @@ buildDunePackage rec {
     homepage = "https://github.com/scemama/ocaml-getopt";
     description = "Parsing of command line arguments (similar to GNU GetOpt) for OCaml";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

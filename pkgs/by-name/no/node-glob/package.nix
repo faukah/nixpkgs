@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "glob";
   version = "10.3.3";
@@ -25,6 +24,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/isaacs/node-glob";
     license = lib.licenses.isc;
     mainProgram = "glob";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

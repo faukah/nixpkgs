@@ -6,7 +6,6 @@
   flex,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jbofihe";
   version = "0.43";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Parser & analyser for Lojban";
     homepage = "https://github.com/lojban/jbofihe";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ chkno ];
+    maintainers = with lib.maintainers; [chkno];
   };
 })

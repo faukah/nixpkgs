@@ -6,7 +6,6 @@
   versionCheckHook,
   stdenv,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "fleetctl";
 

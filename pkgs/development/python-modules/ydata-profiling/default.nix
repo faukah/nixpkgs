@@ -28,7 +28,6 @@
   visions,
   wordcloud,
 }:
-
 buildPythonPackage rec {
   pname = "ydata-profiling";
   version = "4.16.1";
@@ -106,14 +105,14 @@ buildPythonPackage rec {
     "test_urls"
   ];
 
-  pythonImportsCheck = [ "ydata_profiling" ];
+  pythonImportsCheck = ["ydata_profiling"];
 
   meta = {
     description = "Create HTML profiling reports from Pandas DataFrames";
     homepage = "https://ydata-profiling.ydata.ai";
     changelog = "https://github.com/ydataai/ydata-profiling/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     mainProgram = "ydata_profiling";
   };
 }

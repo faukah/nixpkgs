@@ -5,7 +5,6 @@
   rename,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cinzel";
   version = "0-unstable-2020-07-22";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation {
     "variable"
   ];
 
-  nativeBuildInputs = [ rename ];
+  nativeBuildInputs = [rename];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
@@ -43,6 +42,6 @@ stdenvNoCC.mkDerivation {
     description = "Typeface inspired in First Century Roman Inscriptions";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.marijanp ];
+    maintainers = [lib.maintainers.marijanp];
   };
 }

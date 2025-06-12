@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "stac-validator";
   version = "3.6.0";
@@ -17,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-j29Bo8n+/85fzJtif0eWYxDP86k9n4Osl9/piWmTxSs=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   pythonRelaxDeps = [
     "click"
@@ -29,12 +28,12 @@ python3Packages.buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "stac_validator" ];
+  pythonImportsCheck = ["stac_validator"];
 
   meta = {
     description = "Validator for the SpatioTemporal Asset Catalog (STAC) specification";
     homepage = "https://github.com/stac-utils/stac-validator";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

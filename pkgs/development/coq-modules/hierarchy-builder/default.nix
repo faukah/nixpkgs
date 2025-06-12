@@ -6,15 +6,12 @@
   stdlib,
   coq-elpi,
   version ? null,
-}:
-
-let
+}: let
   hb = mkCoqDerivation {
     pname = "hierarchy-builder";
     owner = "math-comp";
     inherit version;
-    defaultVersion =
-      with lib.versions;
+    defaultVersion = with lib.versions;
       lib.switch coq.coq-version [
         {
           case = range "8.20" "9.0";
@@ -52,7 +49,8 @@ let
           case = isEq "8.11";
           out = "0.10.0";
         }
-      ] null;
+      ]
+      null;
     release."1.9.1".sha256 = "sha256-AiS0ezMyfIYlXnuNsVLz1GlKQZzJX+ilkrKkbo0GrF0=";
     release."1.8.1".sha256 = "sha256-Z0WAHDyycqgL+Le/zNfEAoLWzFb7WIL+3G3vEBExlb4=";
     release."1.8.0".sha256 = "sha256-4s/4ZZKj5tiTtSHGIM8Op/Pak4Vp52WVOpd4l9m19fY=";
@@ -69,7 +67,7 @@ let
     release."0.10.0".sha256 = "1a3vry9nzavrlrdlq3cys3f8kpq3bz447q8c4c7lh2qal61wb32h";
     releaseRev = v: "v${v}";
 
-    propagatedBuildInputs = [ coq-elpi ];
+    propagatedBuildInputs = [coq-elpi];
 
     mlPlugin = true;
 
@@ -83,23 +81,21 @@ let
     };
   };
 in
-hb.overrideAttrs (
-  o:
-  lib.optionalAttrs (lib.versions.isGe "1.2.0" o.version || o.version == "dev") {
-    buildPhase = "make build";
-  }
-  // (
-    if lib.versions.isGe "1.1.0" o.version || o.version == "dev" then
-      { installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags; }
-    else
-      { installFlags = [ "VFILES=structures.v" ] ++ o.installFlags; }
-  )
-  // lib.optionalAttrs (o.version != null && o.version == "1.8.1") {
-    propagatedBuildInputs = o.propagatedBuildInputs ++ [ stdlib ];
-  }
-  # this is just a wrapper for rocqPackages.hierarchy-builder for Rocq >= 9.0
-  //
-    lib.optionalAttrs
+  hb.overrideAttrs (
+    o:
+      lib.optionalAttrs (lib.versions.isGe "1.2.0" o.version || o.version == "dev") {
+        buildPhase = "make build";
+      }
+      // (
+        if lib.versions.isGe "1.1.0" o.version || o.version == "dev"
+        then {installFlags = ["DESTDIR=$(out)"] ++ o.installFlags;}
+        else {installFlags = ["VFILES=structures.v"] ++ o.installFlags;}
+      )
+      // lib.optionalAttrs (o.version != null && o.version == "1.8.1") {
+        propagatedBuildInputs = o.propagatedBuildInputs ++ [stdlib];
+      }
+      # this is just a wrapper for rocqPackages.hierarchy-builder for Rocq >= 9.0
+      // lib.optionalAttrs
       (coq.version != null && (coq.version == "dev" || lib.versions.isGe "9.0" coq.version))
       {
         configurePhase = ''
@@ -111,6 +107,6 @@ hb.overrideAttrs (
         installPhase = ''
           echo installing nothing
         '';
-        propagatedBuildInputs = o.propagatedBuildInputs ++ [ rocqPackages.hierarchy-builder ];
+        propagatedBuildInputs = o.propagatedBuildInputs ++ [rocqPackages.hierarchy-builder];
       }
-)
+  )

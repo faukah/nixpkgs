@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ctop";
   version = "0.7.7";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Top-like interface for container metrics";
     homepage = "https://ctop.sh/";
     license = licenses.mit;
-    maintainers = with maintainers; [ apeyroux ];
+    maintainers = with maintainers; [apeyroux];
     mainProgram = "ctop";
   };
 }

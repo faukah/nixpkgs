@@ -1,18 +1,17 @@
-{ stdenv, lib }:
-
-let
+{
+  stdenv,
+  lib,
+}: let
   inherit (lib) boolToString optionals;
 
   # See https://mesonbuild.com/Reference-tables.html#cpu-families
-  cpuFamily =
-    platform:
+  cpuFamily = platform:
     with platform;
-    if isAarch32 then
-      "arm"
-    else if isx86_32 then
-      "x86"
-    else
-      platform.uname.processor;
+      if isAarch32
+      then "arm"
+      else if isx86_32
+      then "x86"
+      else platform.uname.processor;
 
   crossFile = builtins.toFile "cross-file.conf" ''
     [properties]
@@ -23,7 +22,11 @@ let
     system = '${stdenv.targetPlatform.parsed.kernel.name}'
     cpu_family = '${cpuFamily stdenv.targetPlatform}'
     cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
-    endian = ${if stdenv.targetPlatform.isLittleEndian then "'little'" else "'big'"}
+    endian = ${
+      if stdenv.targetPlatform.isLittleEndian
+      then "'little'"
+      else "'big'"
+    }
 
     [binaries]
     llvm-config = 'llvm-config-native'
@@ -38,14 +41,8 @@ let
     "--cross-file=${crossFile}"
   ];
 
-  makeMesonFlags =
-    {
-      mesonFlags ? [ ],
-      ...
-    }:
+  makeMesonFlags = {mesonFlags ? [], ...}:
     crossFlags ++ mesonFlags;
-
-in
-{
+in {
   inherit makeMesonFlags;
 }

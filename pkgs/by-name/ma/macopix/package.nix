@@ -7,7 +7,6 @@
   openssl,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "macopix";
   version = "3.4.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-1AjqdPPCc9UQWqLdWlA+Va+MmvKL8dAIfJURPifN7RI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     openssl

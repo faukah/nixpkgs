@@ -9,7 +9,6 @@
   strace,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libabigail";
   version = "2.5";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
       asl20
       llvm-exception
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

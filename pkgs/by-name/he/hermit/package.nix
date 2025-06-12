@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hermit";
   version = "2.0";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "monospace font designed to be clear, pragmatic and very readable";
     homepage = "https://pcaro.es/p/hermit";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

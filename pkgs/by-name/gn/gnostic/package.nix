@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gnostic";
   version = "0.7.0";
@@ -25,6 +24,6 @@ buildGoModule rec {
     description = "Compiler for APIs described by the OpenAPI Specification with plugins for code generation and other API support tasks";
     changelog = "https://github.com/google/gnostic/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

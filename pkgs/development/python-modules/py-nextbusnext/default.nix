@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-nextbusnext";
   version = "2.2.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-UA5/OjmgWU9vd9NGjH2qUUELsOpFayEVaO7hB91yQ74=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  pythonImportsCheck = [ "py_nextbus" ];
+  pythonImportsCheck = ["py_nextbus"];
 
   # upstream has no tests
   doCheck = false;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Minimalistic Python client for the NextBus public API";
     homepage = "https://github.com/ViViDboarder/py_nextbus";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

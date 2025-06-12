@@ -7,7 +7,6 @@
   guile,
   scheme-bytestructures,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-lzma";
   version = "0.1.1";
@@ -22,9 +21,9 @@ stdenv.mkDerivation rec {
     guile
     pkg-config
   ];
-  buildInputs = [ guile ];
-  propagatedBuildInputs = [ xz ];
-  propagatedNativeBuildInputs = [ scheme-bytestructures ];
+  buildInputs = [guile];
+  propagatedBuildInputs = [xz];
+  propagatedNativeBuildInputs = [scheme-bytestructures];
 
   doCheck = true;
 
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ngyro.com/software/guile-lzma.html";
     description = "Guile wrapper for lzma library";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

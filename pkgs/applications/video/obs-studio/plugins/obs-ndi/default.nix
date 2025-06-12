@@ -8,7 +8,6 @@
   ndi,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-ndi";
   version = "4.14.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     ln -s ${ndi}/include lib/ndi
   '';
 
-  cmakeFlags = [ "-DENABLE_QT=ON" ];
+  cmakeFlags = ["-DENABLE_QT=ON"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Network A/V plugin for OBS Studio";
     homepage = "https://github.com/Palakis/obs-ndi";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jshcmpbll ];
+    maintainers = with maintainers; [jshcmpbll];
     platforms = platforms.linux;
     hydraPlatforms = ndi.meta.hydraPlatforms;
   };

@@ -6,8 +6,7 @@
   samples,
   writeText,
   writeStringReferencesToFile,
-}:
-let
+}: let
   samplePaths = lib.unique (lib.attrValues samples);
   stri = x: "${x}";
   sampleText = writeText "sample-text" (
@@ -20,7 +19,7 @@ let
     ''
   );
 in
-runCommand "test-writeStringReferencesToFile" { } ''
-  diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
-  touch $out
-''
+  runCommand "test-writeStringReferencesToFile" {} ''
+    diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
+    touch $out
+  ''

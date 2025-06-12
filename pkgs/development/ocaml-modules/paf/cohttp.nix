@@ -14,11 +14,11 @@
   lwt,
   astring,
 }:
-
 buildDunePackage {
   pname = "paf-cohttp";
 
-  inherit (paf)
+  inherit
+    (paf)
     version
     src
     ;
@@ -45,7 +45,9 @@ buildDunePackage {
 
   __darwinAllowLocalNetworking = true;
 
-  meta = paf.meta // {
-    description = "CoHTTP client with its HTTP/AF implementation";
-  };
+  meta =
+    paf.meta
+    // {
+      description = "CoHTTP client with its HTTP/AF implementation";
+    };
 }

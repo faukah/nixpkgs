@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ffmpeg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "shaq";
   version = "0.0.1";
@@ -45,13 +44,13 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  pythonImportsCheck = [ "shaq" ];
+  pythonImportsCheck = ["shaq"];
 
   makeWrapperArgs = [
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   meta = with lib; {

@@ -6,7 +6,6 @@
   py,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-raisesregexp";
   version = "2.1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-tUNySU/B8ROIsbk0ius2tpYJaZ649G4OAQr8cz14I2o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     py
@@ -27,6 +26,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple pytest plugin to look for regex in Exceptions";
     homepage = "https://github.com/Walkman/pytest_raisesregexp";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

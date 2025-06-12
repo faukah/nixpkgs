@@ -24,7 +24,6 @@
   systemd,
   tigervnc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nemu";
   version = "3.3.1";
@@ -102,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nemuTUI/nemu";
     license = lib.licenses.bsd2;
     mainProgram = "nemu";
-    maintainers = with lib.maintainers; [ msanft ];
+    maintainers = with lib.maintainers; [msanft];
     platforms = lib.platforms.unix;
   };
 })

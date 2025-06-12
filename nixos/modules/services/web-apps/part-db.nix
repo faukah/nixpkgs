@@ -3,36 +3,36 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.part-db;
   pkg = cfg.package;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
     types
     mkIf
     ;
-in
-{
-  meta.maintainers = with lib.maintainers; [ felbinger ];
+in {
+  meta.maintainers = with lib.maintainers; [felbinger];
 
   options.services.part-db = {
     enable = mkEnableOption "PartDB";
 
-    package = mkPackageOption pkgs "part-db" { };
+    package = mkPackageOption pkgs "part-db" {};
 
-    phpPackage = mkPackageOption pkgs "php" { } // {
-      apply =
-        pkg:
-        pkg.buildEnv {
-          extraConfig = ''
-            memory_limit = 256M;
-          '';
-        };
-    };
+    phpPackage =
+      mkPackageOption pkgs "php" {}
+      // {
+        apply = pkg:
+          pkg.buildEnv {
+            extraConfig = ''
+              memory_limit = 256M;
+            '';
+          };
+      };
 
     enableNginx = mkOption {
       type = types.bool;
@@ -70,7 +70,7 @@ in
           lib.types.bool
         ]
       );
-      default = { };
+      default = {};
       defaultText = ''
         {
           "pm" = "dynamic";
@@ -88,7 +88,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Options for part-db configuration. Refer to
         <https://github.com/Part-DB/Part-DB-server/blob/master/.env> for
@@ -103,11 +103,11 @@ in
       type = lib.types.submodule {
         freeformType = lib.types.attrsOf (
           with lib.types;
-          oneOf [
-            str
-            int
-            bool
-          ]
+            oneOf [
+              str
+              int
+              bool
+            ]
         );
         options = {
           DATABASE_URL = lib.mkOption {
@@ -125,7 +125,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups.part-db = { };
+    users.groups.part-db = {};
     users.users.part-db = {
       group = "part-db";
       isSystemUser = true;
@@ -139,17 +139,19 @@ in
         phpOptions = ''
           log_errors = on
         '';
-        settings = {
-          "listen.mode" = lib.mkDefault "0660";
-          "listen.owner" = lib.mkDefault "part-db";
-          "listen.group" = lib.mkDefault "part-db";
-          "pm" = lib.mkDefault "dynamic";
-          "pm.max_children" = lib.mkDefault 32;
-          "pm.start_servers" = lib.mkDefault 2;
-          "pm.min_spare_servers" = lib.mkDefault 2;
-          "pm.max_spare_servers" = lib.mkDefault 4;
-          "pm.max_requests" = lib.mkDefault 500;
-        } // cfg.poolConfig;
+        settings =
+          {
+            "listen.mode" = lib.mkDefault "0660";
+            "listen.owner" = lib.mkDefault "part-db";
+            "listen.group" = lib.mkDefault "part-db";
+            "pm" = lib.mkDefault "dynamic";
+            "pm.max_children" = lib.mkDefault 32;
+            "pm.start_servers" = lib.mkDefault 2;
+            "pm.min_spare_servers" = lib.mkDefault 2;
+            "pm.max_spare_servers" = lib.mkDefault 4;
+            "pm.max_requests" = lib.mkDefault 500;
+          }
+          // cfg.poolConfig;
       };
 
       postgresql = mkIf cfg.enablePostgresql {
@@ -160,7 +162,7 @@ in
             ensureDBOwnership = true;
           }
         ];
-        ensureDatabases = [ "part-db" ];
+        ensureDatabases = ["part-db"];
       };
 
       nginx = mkIf cfg.enableNginx {
@@ -194,10 +196,10 @@ in
     systemd = {
       services = {
         part-db-migrate = {
-          before = [ "phpfpm-part-db.service" ];
-          after = [ "postgresql.service" ];
-          requires = [ "postgresql.service" ];
-          wantedBy = [ "multi-user.target" ];
+          before = ["phpfpm-part-db.service"];
+          after = ["postgresql.service"];
+          requires = ["postgresql.service"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
@@ -213,7 +215,7 @@ in
         };
 
         phpfpm-part-db = {
-          after = [ "part-db-migrate.service" ];
+          after = ["part-db-migrate.service"];
           requires = [
             "part-db-migrate.service"
             "postgresql.service"

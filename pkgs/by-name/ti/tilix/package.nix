@@ -19,7 +19,6 @@
   appstream,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tilix";
   version = "1.9.6";

@@ -10,7 +10,6 @@
   six,
   pymongo,
 }:
-
 buildPythonPackage rec {
   pname = "medallion";
   version = "3.0.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-+fWifWi/XR6MSOLhWXn2CFpItVdkOpzQItlrZkjapAk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "medallion" ];
+  pythonImportsCheck = ["medallion"];
 
   meta = with lib; {
     description = "Minimal implementation of a TAXII 2.1 Server in Python";
     homepage = "https://medallion.readthedocs.io/en/latest/";
     changelog = "https://github.com/oasis-open/cti-taxii-server/blob/v${version}/CHANGES.txt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ PapayaJackal ];
+    maintainers = with maintainers; [PapayaJackal];
   };
 }

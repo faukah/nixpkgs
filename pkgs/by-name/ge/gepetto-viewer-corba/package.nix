@@ -11,7 +11,6 @@
   libsForQt5,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gepetto-viewer-corba";
   version = "6.0.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  buildInputs = [ libsForQt5.qtbase ];
+  buildInputs = [libsForQt5.qtbase];
 
   nativeBuildInputs = [
     cmake
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/gepetto/gepetto-viewer-corba";
     description = "CORBA client/server for gepetto-viewer.";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.nim65s ];
+    maintainers = [lib.maintainers.nim65s];
     platforms = lib.platforms.unix;
   };
 })

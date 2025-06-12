@@ -6,7 +6,6 @@
   wget,
   zlib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eggnog-mapper";
   version = "2.1.12";
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     description = "Fast genome-wide functional annotation through orthology assignment";
     license = licenses.gpl2;
     homepage = "https://github.com/eggnogdb/eggnog-mapper/wiki";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     platforms = platforms.all;
   };
 }

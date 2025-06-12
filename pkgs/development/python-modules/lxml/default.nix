@@ -3,18 +3,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # native dependencies
   libxml2,
   libxslt,
   zlib,
   xcodebuild,
 }:
-
 buildPythonPackage rec {
   pname = "lxml";
   version = "5.3.1";
@@ -28,12 +25,14 @@ buildPythonPackage rec {
   };
 
   # setuptoolsBuildPhase needs dependencies to be passed through nativeBuildInputs
-  nativeBuildInputs = [
-    libxml2.dev
-    libxslt.dev
-    cython
-    setuptools
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcodebuild ];
+  nativeBuildInputs =
+    [
+      libxml2.dev
+      libxslt.dev
+      cython
+      setuptools
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [xcodebuild];
   buildInputs = [
     libxml2
     libxslt
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Pythonic binding for the libxml2 and libxslt libraries";
     homepage = "https://lxml.de";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

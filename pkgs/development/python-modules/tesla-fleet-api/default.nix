@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tesla-fleet-api";
   version = "1.1.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ykVes0LXvkwdZRX9g1N9WqzDgKzR5u/YLKkdMC9lR64=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tesla_fleet_api" ];
+  pythonImportsCheck = ["tesla_fleet_api"];
 
   meta = with lib; {
     description = "Python library for Tesla Fleet API and Teslemetry";
     homepage = "https://github.com/Teslemetry/python-tesla-fleet-api";
     changelog = "https://github.com/Teslemetry/python-tesla-fleet-api/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,23 +1,20 @@
-{ config, lib, ... }:
-let
-
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.hardware.mwProCapture;
 
   kernelPackages = config.boot.kernelPackages;
-
-in
-
-{
-
+in {
   options.hardware.mwProCapture.enable = lib.mkEnableOption "the Magewell Pro Capture family kernel module";
 
   config = lib.mkIf cfg.enable {
+    boot.kernelModules = ["ProCapture"];
 
-    boot.kernelModules = [ "ProCapture" ];
+    environment.systemPackages = [kernelPackages.mwprocapture];
 
-    environment.systemPackages = [ kernelPackages.mwprocapture ];
-
-    boot.extraModulePackages = [ kernelPackages.mwprocapture ];
+    boot.extraModulePackages = [kernelPackages.mwprocapture];
 
     boot.extraModprobeConfig = ''
       # Set the png picture to be displayed when no input signal is detected.
@@ -47,7 +44,5 @@ in
       # Parameters for internal usage
       #options ProCapture internal_params=""
     '';
-
   };
-
 }

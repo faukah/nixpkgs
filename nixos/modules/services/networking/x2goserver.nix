@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.x2goserver;
 
   defaults = {
@@ -15,36 +12,38 @@ let
       enable = cfg.superenicer.enable;
     };
   };
-  confText = generators.toINI { } (recursiveUpdate defaults cfg.settings);
+  confText = generators.toINI {} (recursiveUpdate defaults cfg.settings);
   x2goServerConf = pkgs.writeText "x2goserver.conf" confText;
 
   x2goAgentOptions = pkgs.writeText "x2goagent.options" ''
     X2GO_NXOPTIONS=""
     X2GO_NXAGENT_DEFAULT_OPTIONS="${concatStringsSep " " cfg.nxagentDefaultOptions}"
   '';
-
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "programs" "x2goserver" ] [ "services" "x2goserver" ])
+    (mkRenamedOptionModule ["programs" "x2goserver"] ["services" "x2goserver"])
   ];
 
   options.services.x2goserver = {
-    enable = mkEnableOption "x2goserver" // {
-      description = ''
-        Enables the x2goserver module.
-        NOTE: This will create a good amount of symlinks in `/usr/local/bin`
-      '';
-    };
-
-    superenicer = {
-      enable = mkEnableOption "superenicer" // {
+    enable =
+      mkEnableOption "x2goserver"
+      // {
         description = ''
-          Enables the SupeReNicer code in x2gocleansessions, this will renice
-          suspended sessions to nice level 19 and renice them to level 0 if the
-          session becomes marked as running again
+          Enables the x2goserver module.
+          NOTE: This will create a good amount of symlinks in `/usr/local/bin`
         '';
       };
+
+    superenicer = {
+      enable =
+        mkEnableOption "superenicer"
+        // {
+          description = ''
+            Enables the SupeReNicer code in x2gocleansessions, this will renice
+            suspended sessions to nice level 19 and renice them to level 0 if the
+            session becomes marked as running again
+          '';
+        };
     };
 
     nxagentDefaultOptions = mkOption {
@@ -60,7 +59,7 @@ in
 
     settings = mkOption {
       type = types.attrsOf types.attrs;
-      default = { };
+      default = {};
       description = ''
         x2goserver.conf ini configuration as nix attributes. See
         `x2goserver.conf(5)` for details
@@ -78,7 +77,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     # x2goserver can run X11 program even if "services.xserver.enable = false"
     xdg = {
       autostart.enable = true;
@@ -87,9 +85,9 @@ in
       icons.enable = true;
     };
 
-    environment.systemPackages = [ pkgs.x2goserver ];
+    environment.systemPackages = [pkgs.x2goserver];
 
-    users.groups.x2go = { };
+    users.groups.x2go = {};
     users.users.x2go = {
       home = "/var/lib/x2go/db";
       group = "x2go";
@@ -111,8 +109,7 @@ in
       setgid = true;
     };
 
-    systemd.tmpfiles.rules =
-      with pkgs;
+    systemd.tmpfiles.rules = with pkgs;
       [
         "d /var/lib/x2go/ - x2go x2go - -"
         "d /var/lib/x2go/db - x2go x2go - -"
@@ -120,43 +117,43 @@ in
         "d /run/x2go 0755 x2go x2go - -"
       ]
       ++
-        # x2goclient sends SSH commands with preset PATH set to
-        # "/usr/local/bin;/usr/bin;/bin". Since we cannot filter arbitrary ssh
-        # commands, we have to make the following executables available.
-        map (f: "L+ /usr/local/bin/${f} - - - - ${x2goserver}/bin/${f}") [
-          "x2goagent"
-          "x2gobasepath"
-          "x2gocleansessions"
-          "x2gocmdexitmessage"
-          "x2godbadmin"
-          "x2gofeature"
-          "x2gofeaturelist"
-          "x2gofm"
-          "x2gogetapps"
-          "x2gogetservers"
-          "x2golistdesktops"
-          "x2golistmounts"
-          "x2golistsessions"
-          "x2golistsessions_root"
-          "x2golistshadowsessions"
-          "x2gomountdirs"
-          "x2gopath"
-          "x2goprint"
-          "x2goresume-desktopsharing"
-          "x2goresume-session"
-          "x2goruncommand"
-          "x2goserver-run-extensions"
-          "x2gosessionlimit"
-          "x2gosetkeyboard"
-          "x2goshowblocks"
-          "x2gostartagent"
-          "x2gosuspend-desktopsharing"
-          "x2gosuspend-session"
-          "x2goterminate-desktopsharing"
-          "x2goterminate-session"
-          "x2goumount-session"
-          "x2goversion"
-        ]
+      # x2goclient sends SSH commands with preset PATH set to
+      # "/usr/local/bin;/usr/bin;/bin". Since we cannot filter arbitrary ssh
+      # commands, we have to make the following executables available.
+      map (f: "L+ /usr/local/bin/${f} - - - - ${x2goserver}/bin/${f}") [
+        "x2goagent"
+        "x2gobasepath"
+        "x2gocleansessions"
+        "x2gocmdexitmessage"
+        "x2godbadmin"
+        "x2gofeature"
+        "x2gofeaturelist"
+        "x2gofm"
+        "x2gogetapps"
+        "x2gogetservers"
+        "x2golistdesktops"
+        "x2golistmounts"
+        "x2golistsessions"
+        "x2golistsessions_root"
+        "x2golistshadowsessions"
+        "x2gomountdirs"
+        "x2gopath"
+        "x2goprint"
+        "x2goresume-desktopsharing"
+        "x2goresume-session"
+        "x2goruncommand"
+        "x2goserver-run-extensions"
+        "x2gosessionlimit"
+        "x2gosetkeyboard"
+        "x2goshowblocks"
+        "x2gostartagent"
+        "x2gosuspend-desktopsharing"
+        "x2gosuspend-session"
+        "x2goterminate-desktopsharing"
+        "x2goterminate-session"
+        "x2goumount-session"
+        "x2goversion"
+      ]
       ++ [
         "L+ /usr/local/bin/awk - - - - ${gawk}/bin/awk"
         "L+ /usr/local/bin/chmod - - - - ${coreutils}/bin/chmod"
@@ -169,7 +166,7 @@ in
 
     systemd.services.x2goserver = {
       description = "X2Go Server Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       unitConfig.Documentation = "man:x2goserver.conf(5)";
       serviceConfig = {
         Type = "forking";

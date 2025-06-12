@@ -8,7 +8,6 @@
   nodejs,
   npmHooks,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vim-language-server";
   version = "2.3.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "VImScript language server, LSP for vim script";
     homepage = "https://github.com/iamcco/vim-language-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "vim-language-server";
   };
 })

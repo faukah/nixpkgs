@@ -4,7 +4,6 @@
   fetchurl,
   cppo,
 }:
-
 buildDunePackage rec {
   pname = "extlib";
   version = "1.8.0";
@@ -14,7 +13,7 @@ buildDunePackage rec {
     hash = "sha256-lkJ38AEoCo7d/AjgcB1Zygxr3F0FIxOz5A5QiPbUXXA=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   doCheck = true;
 
@@ -22,6 +21,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ygrek/ocaml-extlib";
     description = "Enhancements to the OCaml Standard Library modules";
     license = lib.licenses.lgpl21Only;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
   };
 }

@@ -12,17 +12,13 @@
   SDL2,
   pkg-config,
 }:
-
-if lib.versionOlder ocaml.version "4.03" then
-  throw "tsdl is not available for OCaml ${ocaml.version}"
-else
-
-  let
-    pname = "tsdl";
-    version = "1.1.0";
-    webpage = "https://erratique.ch/software/${pname}";
-  in
-
+if lib.versionOlder ocaml.version "4.03"
+then throw "tsdl is not available for OCaml ${ocaml.version}"
+else let
+  pname = "tsdl";
+  version = "1.1.0";
+  webpage = "https://erratique.ch/software/${pname}";
+in
   stdenv.mkDerivation {
     pname = "ocaml${ocaml.version}-${pname}";
     inherit version;
@@ -41,7 +37,7 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
     propagatedBuildInputs = [
       SDL2
       ctypes

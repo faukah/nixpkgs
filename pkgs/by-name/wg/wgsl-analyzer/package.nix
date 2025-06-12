@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wgsl-analyzer";
   version = "2025-06-02";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=tests::struct_recover_3"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language server implementation for the WGSL shading language";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "wgsl-analyzer";
   };
 })

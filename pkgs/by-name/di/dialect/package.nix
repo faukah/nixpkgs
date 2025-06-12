@@ -18,7 +18,6 @@
   libsecret,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dialect";
   version = "2.5.0";
@@ -76,12 +75,12 @@ python3.pkgs.buildPythonApplication rec {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/dialect-app/dialect";
     description = "Translation app for GNOME";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "dialect";

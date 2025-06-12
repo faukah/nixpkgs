@@ -96,15 +96,15 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = ./update.sh;
-    tests = { inherit (nixosTests) intune; };
+    tests = {inherit (nixosTests) intune;};
   };
 
   meta = {
     description = "Microsoft Authentication Broker for Linux";
     homepage = "https://www.microsoft.com/";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ rhysmdnz ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [rhysmdnz];
   };
 }

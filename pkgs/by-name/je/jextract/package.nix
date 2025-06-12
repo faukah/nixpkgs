@@ -7,7 +7,6 @@
   jdk23,
   llvmPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "jextract";
   version = "unstable-2025-05-08";

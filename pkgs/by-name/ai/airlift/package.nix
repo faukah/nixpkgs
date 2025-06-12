@@ -6,9 +6,7 @@
   kind,
   docker,
 }:
-
 python3.pkgs.buildPythonApplication rec {
-
   pname = "airlift";
   pyproject = true;
   version = "0.4.0";
@@ -52,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/jl178/airlift";
     license = lib.licenses.mit;
     changelog = "https://github.com/jl178/airlift/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ jl178 ];
+    maintainers = with lib.maintainers; [jl178];
     mainProgram = "airlift";
   };
 }

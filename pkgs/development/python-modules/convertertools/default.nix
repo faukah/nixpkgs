@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   cython,
   poetry-core,
   setuptools,
-
   # checks
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "convertertools";
   version = "0.6.1";
@@ -37,15 +34,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "convertertools" ];
+  pythonImportsCheck = ["convertertools"];
 
   meta = with lib; {
     description = "Tools for converting python data types";
     homepage = "https://github.com/bluetooth-devices/convertertools";
     changelog = "https://github.com/bluetooth-devices/convertertools/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   nixosTests,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "radicale";
   version = "3.5.4";
@@ -21,8 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       defusedxml
       passlib

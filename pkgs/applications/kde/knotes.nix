@@ -36,7 +36,6 @@
   kpimtextedit,
   kcalendarcore,
 }:
-
 mkDerivation {
   pname = "knotes";
   nativeBuildInputs = [

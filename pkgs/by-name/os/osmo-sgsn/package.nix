@@ -11,7 +11,6 @@
   osmo-ggsn,
   c-ares,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-sgsn";
   version = "1.13.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Osmocom implementation of the 3GPP Serving GPRS Support Node (SGSN)";
     homepage = "https://osmocom.org/projects/osmosgsn";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
     mainProgram = "osmo-sgsn";
   };

@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.greetd;
   tty = "tty${toString cfg.vt}";
-  settingsFormat = pkgs.formats.toml { };
-in
-{
+  settingsFormat = pkgs.formats.toml {};
+in {
   options.services.greetd = {
     enable = lib.mkEnableOption "greetd, a minimal and flexible login manager daemon";
 
-    package = lib.mkPackageOption pkgs [ "greetd" "greetd" ] { };
+    package = lib.mkPackageOption pkgs ["greetd" "greetd"] {};
 
     settings = lib.mkOption {
       type = settingsFormat.type;
@@ -61,7 +59,6 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-
     services.greetd.settings.terminal.vt = lib.mkDefault cfg.vt;
     services.greetd.settings.default_session.user = lib.mkDefault "greeter";
 
@@ -78,7 +75,7 @@ in
     services.displayManager.enable = lib.mkDefault true;
 
     systemd.services.greetd = {
-      aliases = [ "display-manager.service" ];
+      aliases = ["display-manager.service"];
 
       unitConfig = {
         Wants = [
@@ -114,7 +111,7 @@ in
       # Don't kill a user session when using nixos-rebuild
       restartIfChanged = false;
 
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
     };
 
     systemd.defaultUnit = "graphical.target";
@@ -130,8 +127,8 @@ in
       group = "greeter";
     };
 
-    users.groups.greeter = { };
+    users.groups.greeter = {};
   };
 
-  meta.maintainers = with lib.maintainers; [ queezle ];
+  meta.maintainers = with lib.maintainers; [queezle];
 }

@@ -10,25 +10,21 @@
   librsvg,
   sassc,
   which,
-  themeVariants ? [ ], # default: blue
-  colorVariants ? [ ], # default: all
-  tweaks ? [ ],
-}:
-
-let
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  tweaks ? [],
+}: let
   pname = "qogir-theme";
-
 in
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "manjaro" "ubuntu" "all" ] themeVariants
+  lib.checkListOfEnum "${pname}: theme variants" ["default" "manjaro" "ubuntu" "all"] themeVariants
   lib.checkListOfEnum
   "${pname}: color variants"
-  [ "standard" "light" "dark" ]
+  ["standard" "light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "${pname}: tweaks"
-  [ "image" "square" "round" ]
+  ["image" "square" "round"]
   tweaks
-
   stdenv.mkDerivation
   rec {
     inherit pname;
@@ -67,9 +63,9 @@ lib.checkListOfEnum "${pname}: theme variants" [ "default" "manjaro" "ubuntu" "a
       mkdir -p $out/share/themes
 
       name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}
@@ -82,13 +78,13 @@ lib.checkListOfEnum "${pname}: theme variants" [ "default" "manjaro" "ubuntu" "a
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat Design theme for GTK based desktop environments";
       homepage = "https://github.com/vinceliuice/Qogir-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

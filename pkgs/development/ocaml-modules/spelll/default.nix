@@ -5,7 +5,6 @@
   seq,
   stdlib-shims,
 }:
-
 buildDunePackage rec {
   pname = "spelll";
   version = "0.4";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Fuzzy string searching, using Levenshtein automaton";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

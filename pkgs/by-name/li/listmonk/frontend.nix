@@ -8,7 +8,6 @@
   version,
   src,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "listmonk-frontend";
   inherit version;

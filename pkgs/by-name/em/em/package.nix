@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "em";
   version = "1.0.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       (such as the ITT's at QMC).
     '';
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "em";
   };

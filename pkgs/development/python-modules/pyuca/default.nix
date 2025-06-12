@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyuca";
   version = "1.2";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-KIWk+/o1MX5J9cO7xITvjHrYg0NdgdTetOzfGVwAI/4=";
   };
 
-  pythonImportsCheck = [ "pyuca" ];
+  pythonImportsCheck = ["pyuca"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "Python implementation of the Unicode Collation Algorithm";
     homepage = "https://github.com/jtauber/pyuca";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

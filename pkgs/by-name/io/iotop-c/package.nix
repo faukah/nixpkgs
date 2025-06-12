@@ -5,7 +5,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iotop-c";
   version = "1.30";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L0zChYDtlEi9tdHdNNWO0KugTorFIbYK0zDPNcLUMuo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags = [
     "TARGET=iotop-c"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "iotop identifies processes that use high amount of input/output requests on your machine";
     homepage = "https://github.com/Tomas-M/iotop";
-    maintainers = [ maintainers.arezvov ];
+    maintainers = [maintainers.arezvov];
     mainProgram = "iotop-c";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

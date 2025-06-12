@@ -20,7 +20,6 @@
   wtf-peewee,
   wtforms,
 }:
-
 buildPythonPackage rec {
   pname = "flask-admin";
   version = "1.6.1";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    azure = [ azure-storage-blob ];
+    azure = [azure-storage-blob];
   };
 
   nativeCheckInputs = [
@@ -88,13 +87,13 @@ buildPythonPackage rec {
     "flask_admin/tests/peeweemodel/test_basic.py"
   ];
 
-  pythonImportsCheck = [ "flask_admin" ];
+  pythonImportsCheck = ["flask_admin"];
 
   meta = with lib; {
     description = "Admin interface framework for Flask";
     homepage = "https://github.com/flask-admin/flask-admin/";
     changelog = "https://github.com/flask-admin/flask-admin/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

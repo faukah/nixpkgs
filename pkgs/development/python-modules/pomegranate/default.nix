@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   apricot-select,
   networkx,
@@ -14,11 +12,9 @@
   scikit-learn,
   scipy,
   torch,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pomegranate";
   version = "1.1.0";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-p2Gn0FXnsAHvRUeAqx4M1KH0+XvDl3fmUZZ7MiMvPSs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     apricot-select
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "pomegranate" ];
+  pythonImportsCheck = ["pomegranate"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -65,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jmschrei/pomegranate";
     changelog = "https://github.com/jmschrei/pomegranate/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rybern ];
+    maintainers = with lib.maintainers; [rybern];
   };
 }

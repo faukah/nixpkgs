@@ -15,7 +15,6 @@
   binutils,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dosbox";
   version = "0.74-3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url = "https://github.com/joncampbell123/dosbox-x/commit/006d5727d36d1ec598e387f2f1a3c521e3673dcb.patch";
-      includes = [ "src/gui/render_templates_sai.h" ];
+      includes = ["src/gui/render_templates_sai.h"];
       hash = "sha256-HSO29/LgZRKQ3HQBA0QF5henG8pCSoe1R2joYNPcUcE=";
     })
   ];
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
   # Tests for SDL_net.h for modem & IPX support, not automatically picked up due to being in SDL subdirectory
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL_net}/include/SDL";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = lib.optional stdenv.hostPlatform.isDarwin "--disable-sdltest";
 
@@ -99,7 +98,7 @@ stdenv.mkDerivation rec {
       understand some basic concepts about the MS-DOS environment.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.unix;
     mainProgram = "dosbox";
   };

@@ -5,7 +5,6 @@
   libX11,
   libXi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xautocfg";
   version = "1.2";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/SFTtech/xautocfg";
     description = "Automatic keyboard repeat rate configuration for new keyboards";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ jceb ];
+    maintainers = with lib.maintainers; [jceb];
     mainProgram = "xautocfg";
     platforms = lib.platforms.linux;
   };

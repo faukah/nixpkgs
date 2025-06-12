@@ -5,7 +5,6 @@
   fetchpatch,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "oscpy";
   version = "0.6.0";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oscpy" ];
+  pythonImportsCheck = ["oscpy"];
 
   meta = with lib; {
     description = "Modern implementation of OSC for python2/3";
     mainProgram = "oscli";
     license = licenses.mit;
     homepage = "https://github.com/kivy/oscpy";
-    maintainers = [ maintainers.yurkobb ];
+    maintainers = [maintainers.yurkobb];
   };
 }

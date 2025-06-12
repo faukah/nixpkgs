@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-autocomplete-light";
   version = "3.12.1";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-ctNbbmTUgrkLGCo7tgPIJpLn7RmkZSuj54/5RBe/sdA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   optional-dependencies = {
-    tags = [ django-taggit ];
+    tags = [django-taggit];
     # nested = [ django-nested-admin ];
     # genericm2m = [ django-generic-m2m ];
     # gfk = [ django-querysetsequence ];
@@ -37,13 +36,13 @@ buildPythonPackage rec {
   # Too many un-packaged dependencies
   doCheck = false;
 
-  pythonImportsCheck = [ "dal" ];
+  pythonImportsCheck = ["dal"];
 
   meta = with lib; {
     description = "Fresh approach to autocomplete implementations, specially for Django";
     homepage = "https://django-autocomplete-light.readthedocs.io";
     changelog = "https://github.com/yourlabs/django-autocomplete-light/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

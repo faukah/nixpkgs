@@ -7,7 +7,6 @@
   pytestCheckHook,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "demoji";
   version = "1.1.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    ujson = [ ujson ];
+    ujson = [ujson];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "demoji" ];
+  pythonImportsCheck = ["demoji"];
 
   meta = with lib; {
     description = "Module to find/replace/remove emojis in text strings";
     homepage = "https://github.com/bsolomon1124/demoji";
     changelog = "https://github.com/bsolomon1124/demoji/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

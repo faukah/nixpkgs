@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dq";
   version = "20250201";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-SFX71SNLvBTxDC8xWOMAp2gYz+8K5fod2hSTzQAXpo8=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -33,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/janmojzis/dq/releases/tag/${finalAttrs.version}";
     license = lib.licenses.cc0;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
   };
 })

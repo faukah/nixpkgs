@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "systemc";
   version = "3.0.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ReYRKx7H9rxVhvY9gAdxrMu5nlsK2FcVIzfgvZroD/E=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # Undefined reference to the sc_core::sc_api_version_2_3_4_XXX
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://systemc.org/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ amiloradovsky ];
+    maintainers = with maintainers; [amiloradovsky];
   };
 }

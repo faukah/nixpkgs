@@ -9,7 +9,6 @@
   gtk2,
   xdg-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "avrdudess";
   version = "2.18";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-N93FLiXp1WwhI5KwH6sho2wyFtkbODwCHOpEVbVnYdc=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontUnpack = true;
   dontInstall = true;
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/ZakKemble/AVRDUDESS/blob/v${finalAttrs.version}/Changelog.txt";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
     mainProgram = "avrdudess";
   };
 })

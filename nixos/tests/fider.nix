@@ -1,23 +1,19 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "fider-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.fider = {
-          enable = true;
-          environment = {
-            JWT_SECRET = "not_so_secret";
-            BASE_URL = "/";
-            EMAIL_NOREPLY = "noreply@fider.io";
-            EMAIL_SMTP_HOST = "mailhog";
-            EMAIL_SMTP_PORT = "1025";
-          };
+    machine = {pkgs, ...}: {
+      services.fider = {
+        enable = true;
+        environment = {
+          JWT_SECRET = "not_so_secret";
+          BASE_URL = "/";
+          EMAIL_NOREPLY = "noreply@fider.io";
+          EMAIL_SMTP_HOST = "mailhog";
+          EMAIL_SMTP_PORT = "1025";
         };
       };
+    };
   };
 
   testScript = ''

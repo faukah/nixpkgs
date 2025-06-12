@@ -16,7 +16,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "5.9.0";
   pname = "rr";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
   # we turn on additional warnings due to hardening
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   # FIXME
   doCheck = false;
@@ -85,10 +84,10 @@ stdenv.mkDerivation (finalAttrs: {
   # needs GDB to replay programs at runtime
   preFixup = ''
     wrapProgram "$out/bin/rr" \
-      --prefix PATH ":" "${lib.makeBinPath [ gdb ]}";
+      --prefix PATH ":" "${lib.makeBinPath [gdb]}";
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://rr-project.org/";

@@ -9,7 +9,6 @@
   git,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "delta";
   version = "0.18.2";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       zlib
     ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   env = {
     RUSTONIG_SYSTEM_LIBONIG = true;

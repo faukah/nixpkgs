@@ -7,7 +7,6 @@
   typing-extensions,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-ai-documentintelligence";
   version = "1.0.2";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-TXWiUT8oOTZeurwODhdy9WAbOoyaceddoSRA2hO2NIQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -30,12 +29,12 @@ buildPythonPackage rec {
   # Tests are not shipped
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.ai.documentintelligence" ];
+  pythonImportsCheck = ["azure.ai.documentintelligence"];
 
   meta = {
     description = "Azure AI Document Intelligence client library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/documentintelligence/azure-ai-documentintelligence/azure/ai/documentintelligence";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

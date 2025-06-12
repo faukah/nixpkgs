@@ -12,7 +12,6 @@
   perl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lean4";
   version = "4.19.0";
@@ -33,10 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Iw5JSamrty9l6aJ2WwslAolSHfi2q0UO8P8HI1gp+j8=";
   };
 
-  postPatch =
-    let
-      pattern = "\${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc";
-    in
+  postPatch = let
+    pattern = "\${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc";
+  in
     ''
       substituteInPlace src/CMakeLists.txt \
         --replace-fail 'set(GIT_SHA1 "")' 'set(GIT_SHA1 "${finalAttrs.src.tag}")'
@@ -74,12 +72,16 @@ stdenv.mkDerivation (finalAttrs: {
     perl
   ];
 
-  patches = [ ./mimalloc.patch ];
+  patches = [./mimalloc.patch];
 
   cmakeFlags = [
     "-DUSE_GITHASH=OFF"
     "-DINSTALL_LICENSE=OFF"
-    "-DUSE_MIMALLOC=${if enableMimalloc then "ON" else "OFF"}"
+    "-DUSE_MIMALLOC=${
+      if enableMimalloc
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   passthru.tests = {

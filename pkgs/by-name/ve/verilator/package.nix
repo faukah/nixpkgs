@@ -16,7 +16,6 @@
   coreutils,
   gdb,
 }:
-
 stdenv.mkDerivation rec {
   pname = "verilator";
   version = "5.034";

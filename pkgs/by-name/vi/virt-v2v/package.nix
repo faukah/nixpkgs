@@ -25,7 +25,6 @@
   pkgsCross, # for rsrvany
   virtio-win,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "virt-v2v";
   version = "2.6.0";
@@ -79,12 +78,12 @@ stdenv.mkDerivation (finalAttrs: {
       for bin in $out/bin/*; do
       wrapProgram "$bin" \
         --prefix PATH : "$out/bin:${
-          lib.makeBinPath [
-            nbdkit
-            ocamlPackages.nbd
-            qemu
-          ]
-        }"
+        lib.makeBinPath [
+          nbdkit
+          ocamlPackages.nbd
+          qemu
+        ]
+      }"
       done
     ''
     + lib.optionalString withWindowsGuestSupport ''
@@ -94,13 +93,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${placeholder "out"}/share/bash-completion/completions";
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://github.com/libguestfs/virt-v2v";
     description = "Convert guests from foreign hypervisors to run on KVM";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lukts30 ];
+    maintainers = with lib.maintainers; [lukts30];
     platforms = lib.platforms.linux;
     mainProgram = "virt-v2v";
   };

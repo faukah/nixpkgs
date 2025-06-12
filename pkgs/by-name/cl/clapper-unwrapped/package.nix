@@ -19,7 +19,6 @@
   glib-networking,
   libpeas2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clapper-unwrapped";
   version = "0.8.0";
@@ -84,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/Rafostar/clapper";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

@@ -1,40 +1,46 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "prometheus-pushgateway";
 
   nodes = {
-    prometheus =
-      { config, pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.jq ];
+    prometheus = {
+      config,
+      pkgs,
+      ...
+    }: {
+      environment.systemPackages = [pkgs.jq];
 
-        networking.firewall.allowedTCPPorts = [ config.services.prometheus.port ];
+      networking.firewall.allowedTCPPorts = [config.services.prometheus.port];
 
-        services.prometheus = {
-          enable = true;
-          globalConfig.scrape_interval = "2s";
+      services.prometheus = {
+        enable = true;
+        globalConfig.scrape_interval = "2s";
 
-          scrapeConfigs = [
-            {
-              job_name = "pushgateway";
-              static_configs = [ { targets = [ "pushgateway:9091" ]; } ];
-            }
-          ];
-        };
+        scrapeConfigs = [
+          {
+            job_name = "pushgateway";
+            static_configs = [{targets = ["pushgateway:9091"];}];
+          }
+        ];
       };
+    };
 
-    pushgateway =
-      { config, pkgs, ... }:
-      {
-        networking.firewall.allowedTCPPorts = [ 9091 ];
+    pushgateway = {
+      config,
+      pkgs,
+      ...
+    }: {
+      networking.firewall.allowedTCPPorts = [9091];
 
-        services.prometheus.pushgateway = {
-          enable = true;
-        };
+      services.prometheus.pushgateway = {
+        enable = true;
       };
+    };
 
-    client = { config, pkgs, ... }: { };
+    client = {
+      config,
+      pkgs,
+      ...
+    }: {};
   };
 
   testScript = ''

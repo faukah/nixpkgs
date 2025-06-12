@@ -11,7 +11,6 @@
   pkg-config,
   gst_all_1,
 }:
-
 stdenv.mkDerivation {
   pname = "kmscube";
   version = "unstable-2023-09-25";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     description = "Example OpenGL app using KMS/GBM";
     homepage = "https://gitlab.freedesktop.org/mesa/kmscube";
     license = licenses.mit;
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.linux;
   };
 }

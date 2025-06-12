@@ -1,12 +1,14 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "environment";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ nequissimus ];
+    maintainers = [nequissimus];
   };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }:
     lib.mkMerge [
       {
         boot.kernelPackages = pkgs.linuxPackages;

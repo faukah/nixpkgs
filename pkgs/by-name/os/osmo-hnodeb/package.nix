@@ -11,50 +11,47 @@
   libosmo-netif,
   libosmo-sigtran,
   osmo-iuh,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform) isLinux;
 in
+  stdenv.mkDerivation rec {
+    pname = "osmo-hnodeb";
+    version = "0.1.1";
 
-stdenv.mkDerivation rec {
-  pname = "osmo-hnodeb";
-  version = "0.1.1";
+    src = fetchFromGitHub {
+      owner = "osmocom";
+      repo = "osmo-hnodeb";
+      rev = version;
+      hash = "sha256-Izivyw2HqRmrM68ehGqlIkJeuZ986d1WQ0yr6NWWTdA=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "osmocom";
-    repo = "osmo-hnodeb";
-    rev = version;
-    hash = "sha256-Izivyw2HqRmrM68ehGqlIkJeuZ986d1WQ0yr6NWWTdA=";
-  };
+    postPatch = ''
+      echo "${version}" > .tarball-version
+    '';
 
-  postPatch = ''
-    echo "${version}" > .tarball-version
-  '';
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+    buildInputs = [
+      libosmocore
+      lksctp-tools
+      libasn1c
+      libosmoabis
+      libosmo-netif
+      libosmo-sigtran
+      osmo-iuh
+    ];
 
-  buildInputs = [
-    libosmocore
-    lksctp-tools
-    libasn1c
-    libosmoabis
-    libosmo-netif
-    libosmo-sigtran
-    osmo-iuh
-  ];
+    enableParallelBuilding = true;
 
-  enableParallelBuilding = true;
-
-  meta = {
-    description = "(upper layers of) HomeNodeB";
-    mainProgram = "osmo-hnodeb";
-    homepage = "https://osmocom.org/projects/osmo-hnodeb";
-    license = lib.licenses.agpl3Plus;
-    maintainers = [ ];
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "(upper layers of) HomeNodeB";
+      mainProgram = "osmo-hnodeb";
+      homepage = "https://osmocom.org/projects/osmo-hnodeb";
+      license = lib.licenses.agpl3Plus;
+      maintainers = [];
+      platforms = lib.platforms.linux;
+    };
+  }

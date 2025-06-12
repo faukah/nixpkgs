@@ -7,7 +7,6 @@
   gensim,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "navec";
   version = "0.10.0";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
     gensim
   ];
   # TODO: remove when gensim usage will be fixed in `navec`.
-  disabledTests = [ "test_gensim" ];
-  pythonImportsCheck = [ "navec" ];
+  disabledTests = ["test_gensim"];
+  pythonImportsCheck = ["navec"];
 
   meta = with lib; {
     description = "Compact high quality word embeddings for Russian language";
     mainProgram = "navec-train";
     homepage = "https://github.com/natasha/navec";
     license = licenses.mit;
-    maintainers = with maintainers; [ npatsakula ];
+    maintainers = with maintainers; [npatsakula];
   };
 }

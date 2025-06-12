@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "altgraph";
   version = "0.17.4";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "altgraph" ];
+  pythonImportsCheck = ["altgraph"];
 
   meta = with lib; {
     changelog = "https://github.com/ronaldoussoren/altgraph/tags${version}";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://altgraph.readthedocs.io/";
     downloadPage = "https://pypi.org/project/altgraph/";
     license = licenses.mit;
-    maintainers = with maintainers; [ septem9er ];
+    maintainers = with maintainers; [septem9er];
   };
 }

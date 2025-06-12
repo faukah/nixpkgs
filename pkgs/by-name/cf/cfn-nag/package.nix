@@ -4,7 +4,6 @@
   bundlerUpdateScript,
   ruby,
 }:
-
 bundlerEnv rec {
   pname = "cfn-nag";
   version = "0.8.10";

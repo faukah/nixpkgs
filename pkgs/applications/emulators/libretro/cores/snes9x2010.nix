@@ -14,7 +14,7 @@ mkLibretroCore rec {
     hash = "sha256-nsExAYnzDenPvXzeN60jGykRTrCGMi/mRPV+vgS8ZtE=";
   };
 
-  makeFlags = [ "GIT_VERSION=${builtins.substring 0 7 src.rev}" ];
+  makeFlags = ["GIT_VERSION=${builtins.substring 0 7 src.rev}"];
 
   meta = {
     description = "Optimized port/rewrite of SNES9x 1.52+ to Libretro";

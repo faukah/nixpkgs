@@ -16,7 +16,6 @@
   pythonOlder,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "habiticalib";
   version = "0.3.7";
@@ -52,9 +51,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "--snapshot-update" ];
+  pytestFlagsArray = ["--snapshot-update"];
 
-  pythonImportsCheck = [ "habiticalib" ];
+  pythonImportsCheck = ["habiticalib"];
 
   disabledTests = [
     # AssertionError
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tr4nt0r/habiticalib";
     changelog = "https://github.com/tr4nt0r/habiticalib/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

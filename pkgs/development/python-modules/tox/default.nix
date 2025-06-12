@@ -21,7 +21,6 @@
   testers,
   tox,
 }:
-
 buildPythonPackage rec {
   pname = "tox";
   version = "4.23.2";
@@ -44,25 +43,27 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  propagatedBuildInputs = [
-    cachetools
-    chardet
-    colorama
-    filelock
-    packaging
-    platformdirs
-    pluggy
-    py
-    pyproject-api
-    six
-    toml
-    virtualenv
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      cachetools
+      chardet
+      colorama
+      filelock
+      packaging
+      platformdirs
+      pluggy
+      py
+      pyproject-api
+      six
+      toml
+      virtualenv
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   doCheck = false; # infinite recursion via devpi-client
 
   passthru.tests = {
-    version = testers.testVersion { package = tox; };
+    version = testers.testVersion {package = tox;};
   };
 
   meta = with lib; {
@@ -71,6 +72,6 @@ buildPythonPackage rec {
     mainProgram = "tox";
     homepage = "https://github.com/tox-dev/tox";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

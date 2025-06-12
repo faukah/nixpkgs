@@ -8,7 +8,6 @@
   SDL2_image,
   SDL2_mixer,
 }:
-
 stdenv.mkDerivation rec {
   pname = "infra-arcana";
   version = "23.0.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       ultimate goal is to unearth this artifact.
     '';
     platforms = platforms.linux;
-    maintainers = [ maintainers.kenran ];
+    maintainers = [maintainers.kenran];
     license = licenses.agpl3Plus;
   };
 }

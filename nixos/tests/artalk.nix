@@ -1,35 +1,35 @@
-{ lib, pkgs, ... }:
 {
-
+  lib,
+  pkgs,
+  ...
+}: {
   name = "artalk";
 
   meta = {
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [
-        pkgs.curl
-        pkgs.artalk
-        pkgs.sudo
-      ];
-      services.artalk = {
-        enable = true;
-        settings = {
-          cache.enabled = true;
-          admin_users = [
-            {
-              name = "admin";
-              email = "admin@example.org";
-              # md5 for 'password'
-              password = "(md5)5F4DCC3B5AA765D61D8327DEB882CF99";
-            }
-          ];
-        };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [
+      pkgs.curl
+      pkgs.artalk
+      pkgs.sudo
+    ];
+    services.artalk = {
+      enable = true;
+      settings = {
+        cache.enabled = true;
+        admin_users = [
+          {
+            name = "admin";
+            email = "admin@example.org";
+            # md5 for 'password'
+            password = "(md5)5F4DCC3B5AA765D61D8327DEB882CF99";
+          }
+        ];
       };
     };
+  };
 
   testScript = ''
     import json

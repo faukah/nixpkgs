@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   gtk3,
 }:
-
 buildGoModule {
   pname = "coyim";
   version = "0.4.1-unstable-2023-09-21";
@@ -49,6 +48,6 @@ buildGoModule {
     homepage = "https://coy.im/";
     license = lib.licenses.gpl3;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with lib.maintainers; [ PapayaJackal ];
+    maintainers = with lib.maintainers; [PapayaJackal];
   };
 }

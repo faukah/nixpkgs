@@ -6,7 +6,6 @@
   deadbeef,
   gtk3,
 }:
-
 stdenv.mkDerivation {
   pname = "deadbeef-playlist-manager-plugin";
   version = "unstable-2021-05-02";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     description = "Removes duplicate and vanished files from the current playlist";
     homepage = "https://github.com/kpcee/deadbeef-playlist-manager";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.cmm ];
+    maintainers = [maintainers.cmm];
     platforms = platforms.linux;
   };
 }

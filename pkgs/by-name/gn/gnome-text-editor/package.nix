@@ -21,7 +21,6 @@
   libxml2,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-text-editor";
   version = "48.2";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-text-editor/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Text Editor for GNOME";
     mainProgram = "gnome-text-editor";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

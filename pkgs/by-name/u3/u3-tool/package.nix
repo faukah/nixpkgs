@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "u3-tool";
   version = "1.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sourceforge.net/projects/u3-tool/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
     mainProgram = "u3-tool";
   };
 })

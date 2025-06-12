@@ -6,7 +6,6 @@
   spacy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "spacy-lookups-data";
   version = "1.0.5";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "spacy_lookups_data" ];
+  pythonImportsCheck = ["spacy_lookups_data"];
 
   meta = with lib; {
     description = "Additional lookup tables and data resources for spaCy";
     homepage = "https://pypi.org/project/spacy-lookups-data";
     license = licenses.mit;
-    maintainers = with maintainers; [ jboy ];
+    maintainers = with maintainers; [jboy];
   };
 }

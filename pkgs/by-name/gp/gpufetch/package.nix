@@ -13,7 +13,6 @@
   versionCheckHook,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpufetch";
   version = "0.25";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Dr-Noob/gpufetch";
     license = lib.licenses.gpl2Only;
     mainProgram = "gpufetch";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
+    platforms = ["x86_64-linux"];
   };
 })

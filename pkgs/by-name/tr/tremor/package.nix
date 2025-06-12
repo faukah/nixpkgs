@@ -6,7 +6,6 @@
   pkg-config,
   libogg,
 }:
-
 stdenv.mkDerivation {
   pname = "tremor";
   version = "unstable-2018-03-16";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  propagatedBuildInputs = [ libogg ];
+  propagatedBuildInputs = [libogg];
 
   preConfigure = ''
     sed -i /XIPH_PATH_OGG/d configure

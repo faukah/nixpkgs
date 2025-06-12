@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "goarista";
   version = "0-unstable-2025-03-24";
@@ -18,19 +17,19 @@ buildGoModule {
 
   vendorHash = "sha256-5vdVHTQOXsYc8EdEGEAXk2ZX/6o88gHxBzfwETcwXvA=";
 
-  checkFlags =
-    let
-      skippedTests = [
+  checkFlags = let
+    skippedTests =
+      [
         "TestDeepSizeof"
-      ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "TestDialTCPTimeoutWithTOS" ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin ["TestDialTCPTimeoutWithTOS"];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   meta = {
     description = "Collection of open-source tools for network management and monitoring mostly based around gNMI";
     homepage = "https://github.com/aristanetworks/goarista";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.haylin ];
+    maintainers = [lib.maintainers.haylin];
     mainProgram = "gnmi";
   };
 }

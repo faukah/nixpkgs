@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "errcheck";
   version = "1.9.0";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-znkT0S13wCB47InP2QBCZqeWxDdEeIwQPoVWoxiAosQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Checks for unchecked errors in go programs";
     mainProgram = "errcheck";
     homepage = "https://github.com/kisielk/errcheck";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

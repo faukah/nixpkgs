@@ -4,7 +4,6 @@
   src,
   version,
 }:
-
 buildNpmPackage {
   pname = "frigate-web";
   inherit version src;

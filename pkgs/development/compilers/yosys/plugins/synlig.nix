@@ -10,7 +10,6 @@
   uhdm,
   yosys,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yosys-synlig";
   plugin = "synlig";
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SystemVerilog support plugin for Yosys";
     homepage = "https://github.com/chipsalliance/synlig";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hzeller ];
+    maintainers = with maintainers; [hzeller];
     platforms = platforms.all;
   };
 })

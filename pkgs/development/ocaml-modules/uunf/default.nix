@@ -9,10 +9,11 @@
   uutf,
   cmdliner,
   cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1",
-  version ? if lib.versionAtLeast ocaml.version "4.14" then "16.0.0" else "15.0.0",
-}:
-
-let
+  version ?
+    if lib.versionAtLeast ocaml.version "4.14"
+    then "16.0.0"
+    else "15.0.0",
+}: let
   pname = "uunf";
   webpage = "https://erratique.ch/software/${pname}";
   hash =
@@ -22,51 +23,51 @@ let
     }
     ."${version}";
 in
+  if lib.versionOlder ocaml.version "4.03"
+  then throw "${pname} is not available for OCaml ${ocaml.version}"
+  else
+    stdenv.mkDerivation {
+      name = "ocaml${ocaml.version}-${pname}-${version}";
+      inherit version;
 
-if lib.versionOlder ocaml.version "4.03" then
-  throw "${pname} is not available for OCaml ${ocaml.version}"
-else
+      src = fetchurl {
+        url = "${webpage}/releases/${pname}-${version}.tbz";
+        inherit hash;
+      };
 
-  stdenv.mkDerivation {
-    name = "ocaml${ocaml.version}-${pname}-${version}";
-    inherit version;
+      nativeBuildInputs = [
+        ocaml
+        findlib
+        ocamlbuild
+        topkg
+      ];
+      buildInputs =
+        [
+          topkg
+          uutf
+        ]
+        ++ lib.optional cmdlinerSupport cmdliner;
 
-    src = fetchurl {
-      url = "${webpage}/releases/${pname}-${version}.tbz";
-      inherit hash;
-    };
+      strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      topkg
-    ];
-    buildInputs = [
-      topkg
-      uutf
-    ] ++ lib.optional cmdlinerSupport cmdliner;
+      prePatch = lib.optionalString stdenv.hostPlatform.isAarch64 "ulimit -s 16384";
 
-    strictDeps = true;
+      buildPhase = ''
+        runHook preBuild
+        ${topkg.run} build \
+          --with-uutf true \
+          --with-cmdliner ${lib.boolToString cmdlinerSupport}
+        runHook postBuild
+      '';
 
-    prePatch = lib.optionalString stdenv.hostPlatform.isAarch64 "ulimit -s 16384";
+      inherit (topkg) installPhase;
 
-    buildPhase = ''
-      runHook preBuild
-      ${topkg.run} build \
-        --with-uutf true \
-        --with-cmdliner ${lib.boolToString cmdlinerSupport}
-      runHook postBuild
-    '';
-
-    inherit (topkg) installPhase;
-
-    meta = with lib; {
-      description = "OCaml module for normalizing Unicode text";
-      homepage = webpage;
-      license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
-      mainProgram = "unftrip";
-      inherit (ocaml.meta) platforms;
-    };
-  }
+      meta = with lib; {
+        description = "OCaml module for normalizing Unicode text";
+        homepage = webpage;
+        license = licenses.bsd3;
+        maintainers = [maintainers.vbgl];
+        mainProgram = "unftrip";
+        inherit (ocaml.meta) platforms;
+      };
+    }

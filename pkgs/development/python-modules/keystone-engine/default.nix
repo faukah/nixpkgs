@@ -5,7 +5,6 @@
   fetchPypi,
   keystone,
 }:
-
 buildPythonPackage rec {
   pname = "keystone-engine";
   version = "0.9.2";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "keystone" ];
+  pythonImportsCheck = ["keystone"];
 
   meta = with lib; {
     description = "Lightweight multi-platform, multi-architecture assembler framework";
     homepage = "https://www.keystone-engine.org";
-    maintainers = with maintainers; [ dump_stack ];
+    maintainers = with maintainers; [dump_stack];
     license = licenses.gpl2Only;
   };
 }

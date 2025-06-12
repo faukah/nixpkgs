@@ -36,7 +36,6 @@
   yelp-tools,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glom";
   version = "1.32.0";
@@ -60,13 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   python = python311.withPackages (
-    pkgs: with pkgs; [
-      pygobject3
-      distutils
-    ]
+    pkgs:
+      with pkgs; [
+        pygobject3
+        distutils
+      ]
   );
 
-  python_boost = python311.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  python_boost = python311.withPackages (pkgs: with pkgs; [pygobject3]);
 
   sphinx-build = python311.pkgs.sphinx.overrideAttrs (super: {
     postFixup =
@@ -138,7 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
+    fontDirectories = [freefont_ttf];
   };
 
   preFixup = ''

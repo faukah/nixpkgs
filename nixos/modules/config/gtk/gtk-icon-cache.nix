@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
     gtk.iconCache.enable = lib.mkOption {
       type = lib.types.bool;
@@ -17,7 +16,6 @@
   };
 
   config = lib.mkIf config.gtk.iconCache.enable {
-
     # (Re)build icon theme caches
     # ---------------------------
     # Each icon theme has its own cache. The difficult is that many
@@ -84,5 +82,4 @@
       done
     '';
   };
-
 }

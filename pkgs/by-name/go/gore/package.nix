@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gore";
   version = "0.6.0";
@@ -24,6 +23,6 @@ buildGoModule rec {
     mainProgram = "gore";
     homepage = "https://github.com/motemen/gore";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

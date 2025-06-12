@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule {
   pname = "tmsu";
   version = "0.7.5-unstable-2024-06-08";
@@ -18,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-r2wzVkPTsxWdVPFLO84tJgl3VJonoU7kNKLOBgHHdF8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     # can't do "mv TMSU tmsu" on case-insensitive filesystems

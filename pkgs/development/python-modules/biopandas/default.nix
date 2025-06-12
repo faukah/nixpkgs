@@ -9,7 +9,6 @@
   pandas,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "biopandas";
   version = "0.5.1";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-dUeGjDDz9VA1NrFLGKy0ebaa+MU4c1tHi5YYkAspLRk=";
   };
 
-  pythonRelaxDeps = [ "looseversion" ];
+  pythonRelaxDeps = ["looseversion"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     looseversion
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # require network access
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_b_factor_shift"
   ];
 
-  pythonImportsCheck = [ "biopandas" ];
+  pythonImportsCheck = ["biopandas"];
 
   meta = {
     description = "Working with molecular structures in pandas DataFrames";
     homepage = "https://github.com/BioPandas/biopandas";
     changelog = "https://github.com/BioPandas/biopandas/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

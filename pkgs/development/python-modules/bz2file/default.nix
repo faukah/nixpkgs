@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "bz2file";
   version = "0.98";
@@ -20,6 +19,6 @@ buildPythonPackage rec {
   meta = {
     description = "Bz2file is a Python library for reading and writing bzip2-compressed files";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jyp ];
+    maintainers = with lib.maintainers; [jyp];
   };
 }

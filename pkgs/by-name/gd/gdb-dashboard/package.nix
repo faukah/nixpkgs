@@ -6,7 +6,6 @@
   makeWrapper,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "gdb-dashboard";
   version = "0.17.4";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xoBkAFwkbaAsvgPwGwe1JxE1C8gPR6GP1iXeNKK5Z70=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  propagatedBuildInputs = [ python3Packages.pygments ];
+  propagatedBuildInputs = [python3Packages.pygments];
 
   installPhase = ''
     runHook preInstall
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/cyrus-and/gdb-dashboard";
     changelog = "https://github.com/cyrus-and/gdb-dashboard/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 })

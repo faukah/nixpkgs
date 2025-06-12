@@ -15,7 +15,6 @@
   sqlalchemy,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "typical";
   version = "2.9.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-RS4hJ7NufClroRPRO3EyHwDaMgg0s0F7D/mqcBr8O18=";
   };
 
-  pythonRelaxDeps = [ "pendulum" ];
+  pythonRelaxDeps = ["pendulum"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     fastjsonschema
@@ -70,13 +69,13 @@ buildPythonPackage rec {
     "tests/mypy/test_mypy.py"
   ];
 
-  pythonImportsCheck = [ "typic" ];
+  pythonImportsCheck = ["typic"];
 
   meta = with lib; {
     description = "Python library for runtime analysis, inference and validation of Python types";
     homepage = "https://python-typical.org/";
     changelog = "https://github.com/seandstewart/typical/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

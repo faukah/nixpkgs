@@ -5,7 +5,6 @@
   fixDarwinDylibNames,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "duktape";
   version = "2.7.0";
@@ -15,11 +14,13 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # https://github.com/svaarala/duktape/issues/2464
-  LDFLAGS = [ "-lm" ];
+  LDFLAGS = ["-lm"];
 
-  nativeBuildInputs = [
-    validatePkgConfig
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      validatePkgConfig
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   buildPhase =
     ''
@@ -48,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://duktape.org/";
     downloadPage = "https://duktape.org/download.html";
     license = licenses.mit;
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
     mainProgram = "duk";
     platforms = platforms.all;
   };

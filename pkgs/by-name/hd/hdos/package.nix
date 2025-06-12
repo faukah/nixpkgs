@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     comment = "HDOS is a client for Old School RuneScape that emulates the era of 2008-2011 RuneScape HD";
     desktopName = "HDOS";
     genericName = "Oldschool Runescape";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   nativeBuildInputs = [
@@ -43,12 +43,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
     makeWrapper ${lib.getExe openjdk11} $out/bin/hdos \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libGL]}" \
       --add-flags "-jar $src"
     runHook postInstall
   '';
 
-  desktopItems = [ finalAttrs.desktop ];
+  desktopItems = [finalAttrs.desktop];
 
   passthru.updateScript = ./update.sh;
 
@@ -56,9 +56,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "High Detail Old School Runescape Client";
     homepage = "https://hdos.dev";
     changelog = "https://hdos.dev/changelog";
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     license = lib.licenses.unfree;
     platforms = openjdk11.meta.platforms;
-    maintainers = [ lib.maintainers.misterio77 ];
+    maintainers = [lib.maintainers.misterio77];
   };
 })

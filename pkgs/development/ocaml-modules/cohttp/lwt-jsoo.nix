@@ -10,7 +10,6 @@
   nodejs,
   lwt_ppx,
 }:
-
 buildDunePackage {
   pname = "cohttp-lwt-jsoo";
   inherit (cohttp-lwt) version src;
@@ -33,7 +32,9 @@ buildDunePackage {
     lwt_ppx
   ];
 
-  meta = cohttp-lwt.meta // {
-    description = "CoHTTP implementation for the Js_of_ocaml JavaScript compiler";
-  };
+  meta =
+    cohttp-lwt.meta
+    // {
+      description = "CoHTTP implementation for the Js_of_ocaml JavaScript compiler";
+    };
 }

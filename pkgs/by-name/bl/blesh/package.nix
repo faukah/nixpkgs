@@ -6,7 +6,6 @@
   bashInteractive,
   glibcLocales,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "blesh";
   version = "0.4.0-devel3";

@@ -4,7 +4,6 @@
   buildDunePackage,
   gg,
 }:
-
 buildDunePackage rec {
   pname = "color";
   version = "0.2.0";
@@ -24,7 +23,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Converts between different color formats";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/anuragsoni/color";
   };
 }

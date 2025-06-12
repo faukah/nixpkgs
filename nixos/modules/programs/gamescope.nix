@@ -3,28 +3,25 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.gamescope;
 
-  gamescope =
-    let
-      wrapperArgs =
-        lib.optional (cfg.args != [ ]) ''--add-flags "${builtins.toString cfg.args}"''
-        ++ builtins.attrValues (builtins.mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env);
-    in
-    pkgs.runCommand "gamescope" { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; } ''
+  gamescope = let
+    wrapperArgs =
+      lib.optional (cfg.args != []) ''--add-flags "${builtins.toString cfg.args}"''
+      ++ builtins.attrValues (builtins.mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env);
+  in
+    pkgs.runCommand "gamescope" {nativeBuildInputs = [pkgs.makeBinaryWrapper];} ''
       mkdir -p $out/bin
       makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
         ${builtins.toString wrapperArgs}
       ln -s ${cfg.package}/bin/gamescopectl $out/bin/gamescopectl
     '';
-in
-{
+in {
   options.programs.gamescope = {
     enable = lib.mkEnableOption "gamescope, the SteamOS session compositing window manager";
 
-    package = lib.mkPackageOption pkgs "gamescope" { };
+    package = lib.mkPackageOption pkgs "gamescope" {};
 
     capSysNice = lib.mkOption {
       type = lib.types.bool;
@@ -37,7 +34,7 @@ in
 
     args = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "--rt"
         "--prefer-vk-device 8086:9bc4"
@@ -49,7 +46,7 @@ in
 
     env = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         # for Prime render offload on Nvidia laptops.
         # Also requires `hardware.nvidia.prime.offload.enable`.
@@ -75,8 +72,8 @@ in
       };
     };
 
-    environment.systemPackages = lib.mkIf (!cfg.capSysNice) [ gamescope ];
+    environment.systemPackages = lib.mkIf (!cfg.capSysNice) [gamescope];
   };
 
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 }

@@ -30,7 +30,6 @@
   boost,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "workrave";
   version = "1.10.53";
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.workrave.org/";
     downloadPage = "https://github.com/rcaelers/workrave/releases";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   stdenv,
   gawk,
 }:
-
 buildGoModule rec {
   pname = "goawk";
   version = "1.29.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeCheckInputs = [ gawk ];
+  nativeCheckInputs = [gawk];
 
   postPatch = ''
     substituteInPlace goawk_test.go \
@@ -37,13 +36,13 @@ buildGoModule rec {
     "${gawk}/bin/gawk"
   ];
 
-  doCheck = (stdenv.system != "aarch64-darwin");
+  doCheck = stdenv.system != "aarch64-darwin";
 
   meta = with lib; {
     description = "POSIX-compliant AWK interpreter written in Go";
     homepage = "https://benhoyt.com/writings/goawk/";
     license = licenses.mit;
     mainProgram = "goawk";
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
   };
 }

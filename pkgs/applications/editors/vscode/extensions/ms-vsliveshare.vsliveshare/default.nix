@@ -3,7 +3,6 @@
   vscode-utils,
   xsel,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vsliveshare";
@@ -22,6 +21,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     homepage = "https://aka.ms/vsls-docs";
     changelog = "https://marketplace.visualstudio.com/items/MS-vsliveshare.vsliveshare/changelog";
     license = lib.licenses.unfree;
-    maintainers = builtins.attrValues { inherit (lib.maintainers) jraygauthier V; };
+    maintainers = builtins.attrValues {inherit (lib.maintainers) jraygauthier V;};
   };
 }

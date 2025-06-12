@@ -7,7 +7,6 @@
   zope-interface,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-filerepresentation";
   version = "6.1";
@@ -25,26 +24,26 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-interface
     zope-schema
   ];
 
-  pythonImportsCheck = [ "zope.filerepresentation" ];
+  pythonImportsCheck = ["zope.filerepresentation"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "src/zope/filerepresentation" ];
+  unittestFlagsArray = ["src/zope/filerepresentation"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.filerepresentation";
     description = "File-system Representation Interfaces";
     changelog = "https://github.com/zopefoundation/zope.filerepresentation/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "wheel";
   version = "0.45.1";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
     '';
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # No tests in archive
   doCheck = false;
 
-  pythonImportsCheck = [ "wheel" ];
+  pythonImportsCheck = ["wheel"];
 
   meta = with lib; {
     homepage = "https://github.com/pypa/wheel";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
       It should be noted that wheel is not intended to be used as a library,
       and as such there is no stable, public API.
     '';
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ siriobalmelli ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

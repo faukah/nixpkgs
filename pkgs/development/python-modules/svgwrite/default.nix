@@ -5,7 +5,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "svgwrite";
   version = "1.4.3";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   # svgwrite requires Python 3.6 or newer
   disabled = pythonOlder "3.6";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # embed_google_web_font test tried to pull font from internet

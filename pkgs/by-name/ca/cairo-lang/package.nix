@@ -5,7 +5,6 @@
   rustfmt,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cairo";
   version = "2.11.2";
@@ -46,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     description = "Turing-complete language for creating provable programs for general computation";
     homepage = "https://github.com/starkware-libs/cairo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

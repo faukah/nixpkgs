@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "roadrunner";
   version = "2025.1.1";
@@ -56,6 +55,6 @@ buildGoModule rec {
     homepage = "https://roadrunner.dev";
     license = lib.licenses.mit;
     mainProgram = "rr";
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
   };
 }

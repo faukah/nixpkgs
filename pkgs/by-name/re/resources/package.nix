@@ -19,7 +19,6 @@
   util-linux,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "resources";
   version = "1.8.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
       lukas-heiligenbrunner
       ewuuwe
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

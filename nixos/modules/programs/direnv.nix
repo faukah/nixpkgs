@@ -3,28 +3,24 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.direnv;
-  enabledOption =
-    x:
+  enabledOption = x:
     lib.mkEnableOption x
     // {
       default = true;
       example = false;
     };
-  format = pkgs.formats.toml { };
-in
-{
+  format = pkgs.formats.toml {};
+in {
   options.programs.direnv = {
-
     enable = lib.mkEnableOption ''
       direnv integration. Takes care of both installation and
       setting up the sourcing of the shell. Additionally enables nix-direnv
       integration. Note that you need to logout and login for this change to apply
     '';
 
-    package = lib.mkPackageOption pkgs "direnv" { };
+    package = lib.mkPackageOption pkgs "direnv" {};
 
     finalPackage = lib.mkOption {
       type = lib.types.package;
@@ -71,7 +67,7 @@ in
       '';
 
       package = lib.mkOption {
-        default = pkgs.nix-direnv.override { nix = config.nix.package; };
+        default = pkgs.nix-direnv.override {nix = config.nix.package;};
         defaultText = "pkgs.nix-direnv";
         type = lib.types.package;
         description = ''
@@ -82,7 +78,7 @@ in
 
     settings = lib.mkOption {
       inherit (format) type;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           global = {
@@ -102,7 +98,7 @@ in
       direnv = {
         finalPackage = pkgs.symlinkJoin {
           inherit (cfg.package) name;
-          paths = [ cfg.package ];
+          paths = [cfg.package];
           # direnv has a fish library which automatically sources direnv for some reason
           postBuild = ''
             rm -rf "$out/share/fish"
@@ -138,13 +134,12 @@ in
       '';
 
       xonsh = lib.mkIf cfg.enableXonshIntegration {
-        extraPackages = ps: [ ps.xonsh.xontribs.xonsh-direnv ];
+        extraPackages = ps: [ps.xonsh.xontribs.xonsh-direnv];
         config = ''
           if ${
-            if cfg.loadInNixShell then
-              "True"
-            else
-              "not any(map(lambda s: s.startswith('/nix/store'), __xonsh__.env.get('PATH')))"
+            if cfg.loadInNixShell
+            then "True"
+            else "not any(map(lambda s: s.startswith('/nix/store'), __xonsh__.env.get('PATH')))"
           }:
               xontrib load direnv
         '';
@@ -159,7 +154,7 @@ in
       variables.DIRENV_CONFIG = "/etc/direnv";
 
       etc = {
-        "direnv/direnv.toml" = lib.mkIf (cfg.settings != { }) {
+        "direnv/direnv.toml" = lib.mkIf (cfg.settings != {}) {
           source = format.generate "direnv.toml" cfg.settings;
         };
         "direnv/direnvrc".text = ''
@@ -194,5 +189,5 @@ in
       };
     };
   };
-  meta.maintainers = with lib.maintainers; [ gerg-l ];
+  meta.maintainers = with lib.maintainers; [gerg-l];
 }

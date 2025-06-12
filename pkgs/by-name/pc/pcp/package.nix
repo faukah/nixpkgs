@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pcp";
   version = "0.4.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Command line peer-to-peer data transfer tool based on libp2p";
     homepage = "https://github.com/dennis-tra/pcp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     platforms = platforms.linux;
     mainProgram = "pcp";
   };

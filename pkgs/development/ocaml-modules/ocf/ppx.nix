@@ -3,7 +3,6 @@
   ocf,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "ocf_ppx";
   minimalOCamlVersion = "4.11";
@@ -17,7 +16,9 @@ buildDunePackage {
     ocf
   ];
 
-  meta = ocf.meta // {
-    description = "Preprocessor for Ocf library";
-  };
+  meta =
+    ocf.meta
+    // {
+      description = "Preprocessor for Ocf library";
+    };
 }

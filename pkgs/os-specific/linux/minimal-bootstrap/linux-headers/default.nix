@@ -4,8 +4,7 @@
   bash,
   gnutar,
   xz,
-}:
-let
+}: let
   # WARNING: You probably don't want to use this package outside minimal-bootstrap
   #
   # We need some set of Linux kernel headers to build our bootstrap packages
@@ -24,7 +23,7 @@ let
     sha256 = "0sm2z9x4wk45bh6qfs94p0w1d6hsy6dqx9sw38qsqbvxwa1qzk8s";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -36,7 +35,7 @@ bash.runCommand "${pname}-${version}"
     meta = with lib; {
       description = "Header files and scripts for Linux kernel";
       license = licenses.gpl2Only;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.linux;
     };
   }

@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cogapp";
   version = "3.4.1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-qAbV254xihotP86YgAgXkWjn2xPl5VsZt5dj+budKYI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # there are no tests
   doCheck = false;
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     description = "Code generator for executing Python snippets in source files";
     homepage = "https://nedbatchelder.com/code/cog";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

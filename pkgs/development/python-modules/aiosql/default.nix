@@ -11,7 +11,6 @@
   sphinx-rtd-theme,
   sphinxHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiosql";
   version = "13.3";
@@ -40,20 +39,20 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs = [ pg8000 ];
+  propagatedBuildInputs = [pg8000];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiosql" ];
+  pythonImportsCheck = ["aiosql"];
 
   meta = with lib; {
     description = "Simple SQL in Python";
     homepage = "https://nackjicholson.github.io/aiosql/";
     changelog = "https://github.com/nackjicholson/aiosql/releases/tag/${version}";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ kaction ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [kaction];
   };
 }

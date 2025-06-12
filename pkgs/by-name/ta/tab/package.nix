@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   version = "9.2";
   pname = "tab";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <cstring>' -i deps.h
   '';
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tab";
     homepage = "https://tab-lang.xyz";
     license = licenses.boost;
-    maintainers = with maintainers; [ mstarzyk ];
+    maintainers = with maintainers; [mstarzyk];
     platforms = with platforms; unix;
   };
 }

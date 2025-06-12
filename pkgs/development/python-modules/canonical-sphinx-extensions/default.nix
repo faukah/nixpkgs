@@ -9,7 +9,6 @@
   requests,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "canonical-sphinx-extensions";
   version = "0.0.27";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "A collection of Sphinx extensions used by Canonical documentation";
     homepage = "https://pypi.org/project/canonical-sphinx-extensions";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

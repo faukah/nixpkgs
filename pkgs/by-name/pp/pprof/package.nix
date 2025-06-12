@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libllvm,
 }:
-
 buildGoModule {
   pname = "pprof";
   version = "0-unstable-2025-03-02";
@@ -51,6 +50,6 @@ buildGoModule {
       This is not an official Google product.
     '';
     mainProgram = "pprof";
-    maintainers = with maintainers; [ hzeller ];
+    maintainers = with maintainers; [hzeller];
   };
 }

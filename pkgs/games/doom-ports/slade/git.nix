@@ -19,7 +19,6 @@
   unstableGitUpdater,
   libwebp,
 }:
-
 stdenv.mkDerivation {
   pname = "slade";
   version = "3.2.7-unstable-2025-05-09";
@@ -74,6 +73,6 @@ stdenv.mkDerivation {
     homepage = "http://slade.mancubus.net/";
     license = lib.licenses.gpl2Only; # https://github.com/sirjuddington/SLADE/issues/1754
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ertes ];
+    maintainers = with lib.maintainers; [ertes];
   };
 }

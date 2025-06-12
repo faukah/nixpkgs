@@ -30,13 +30,13 @@
   wrapGAppsHook3,
   desktop-file-utils,
   gst_all_1,
-  gst_plugins ? with gst_all_1; [
-    gst-plugins-good
-    gst-plugins-ugly
-  ],
+  gst_plugins ?
+    with gst_all_1; [
+      gst-plugins-good
+      gst-plugins-ugly
+    ],
   check,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rhythmbox";
   version = "3.4.8";
@@ -58,37 +58,39 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    python3
-    libsoup_3
-    libxml2
-    tdb
-    json-glib
+  buildInputs =
+    [
+      python3
+      libsoup_3
+      libxml2
+      tdb
+      json-glib
 
-    glib
-    gtk3
-    libpeas
-    totem-pl-parser
-    libgudev
-    libgpod
-    libmtp
-    lirc
-    brasero-unwrapped
-    grilo
+      glib
+      gtk3
+      libpeas
+      totem-pl-parser
+      libgudev
+      libgpod
+      libmtp
+      lirc
+      brasero-unwrapped
+      grilo
 
-    python3.pkgs.pygobject3
+      python3.pkgs.pygobject3
 
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    gst_all_1.gst-libav
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-libav
 
-    libdmapsharing # for daap support
-    libsecret
-    libnotify
-  ] ++ gst_plugins;
+      libdmapsharing # for daap support
+      libsecret
+      libnotify
+    ]
+    ++ gst_plugins;
 
   nativeCheckInputs = [
     check
@@ -120,6 +122,6 @@ stdenv.mkDerivation rec {
     description = "Music playing application for GNOME";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rasendubi ];
+    maintainers = [maintainers.rasendubi];
   };
 }

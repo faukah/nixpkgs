@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jaeles";
   version = "0.17.1";
@@ -26,6 +25,6 @@ buildGoModule rec {
     homepage = "https://github.com/jaeles-project/jaeles";
     changelog = "https://github.com/jaeles-project/jaeles/releases/tag/beta-v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

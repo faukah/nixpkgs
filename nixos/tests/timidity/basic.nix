@@ -1,14 +1,10 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
-  {
-
+  {pkgs, ...}: {
     name = "timidity";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.timidity ];
-      };
+    nodes.machine = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.timidity];
+    };
 
     testScript = ''
       start_all ()

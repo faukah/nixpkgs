@@ -4,8 +4,7 @@
   lib,
   runCommand,
   nixfmt-rfc-style,
-}:
-let
+}: let
   inherit (haskell.lib.compose) overrideCabal justStaticExecutables;
 
   overrides = rec {
@@ -13,7 +12,7 @@ let
 
     passthru.updateScript = ./update.sh;
 
-    teams = [ lib.teams.formatter ];
+    teams = [lib.teams.formatter];
 
     preBuild = ''
       echo -n 'nixpkgs-${version}' > .version
@@ -23,14 +22,14 @@ let
     #
     # $ nix-build -A nixfmt-rfc-style.tests
     passthru.tests =
-      runCommand "nixfmt-rfc-style-tests" { nativeBuildInputs = [ nixfmt-rfc-style ]; }
-        ''
-          nixfmt --version > $out
-        '';
+      runCommand "nixfmt-rfc-style-tests" {nativeBuildInputs = [nixfmt-rfc-style];}
+      ''
+        nixfmt --version > $out
+      '';
   };
-  raw-pkg = haskellPackages.callPackage ./generated-package.nix { };
+  raw-pkg = haskellPackages.callPackage ./generated-package.nix {};
 in
-lib.pipe raw-pkg [
-  (overrideCabal overrides)
-  justStaticExecutables
-]
+  lib.pipe raw-pkg [
+    (overrideCabal overrides)
+    justStaticExecutables
+  ]

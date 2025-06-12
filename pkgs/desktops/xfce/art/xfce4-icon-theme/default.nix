@@ -10,7 +10,6 @@
   hicolor-icon-theme,
   httpTwoLevelsUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfce4-icon-theme";
   version = "4.4.3";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Icons for Xfce";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

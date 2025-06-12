@@ -23,7 +23,7 @@ buildGoModule rec {
     description = "Copy files and artifacts via SSH using a binary, docker or Drone CI";
     homepage = "https://github.com/appleboy/drone-scp";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     mainProgram = "drone-scp";
   };
 }

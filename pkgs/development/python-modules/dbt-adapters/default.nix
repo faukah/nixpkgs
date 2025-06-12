@@ -11,7 +11,6 @@
   pytz,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-adapters";
   version = "1.14.4";
@@ -24,34 +23,36 @@ buildPythonPackage rec {
     hash = "sha256-6UYXUGZIzHYxd8J+avmnIfdigtgoVU0lE28ng2b0Q8M=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "mashumaro"
     "protobuf"
   ];
 
-  dependencies = [
-    agate
-    dbt-common
-    mashumaro
-    protobuf
-    pytz
-    typing-extensions
-  ] ++ mashumaro.optional-dependencies.msgpack;
+  dependencies =
+    [
+      agate
+      dbt-common
+      mashumaro
+      protobuf
+      pytz
+      typing-extensions
+    ]
+    ++ mashumaro.optional-dependencies.msgpack;
 
-  pythonImportsCheck = [ "dbt.adapters" ];
+  pythonImportsCheck = ["dbt.adapters"];
 
   # circular dependencies
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Set of adapter protocols and base functionality that supports integration with dbt-core";
     homepage = "https://github.com/dbt-labs/dbt-adapters";
     changelog = "https://github.com/dbt-labs/dbt-adapters/blob/main/dbt-adapters/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

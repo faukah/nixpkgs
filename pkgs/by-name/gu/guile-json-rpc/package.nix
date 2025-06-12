@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "JSON-RPC implementation for Scheme";
     homepage = "https://codeberg.org/rgherdt/scheme-json-rpc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ knightpp ];
+    maintainers = with lib.maintainers; [knightpp];
     platforms = guile.meta.platforms;
   };
 })

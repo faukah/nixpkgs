@@ -7,7 +7,6 @@
   kjs,
   qtsvg,
 }:
-
 mkDerivation {
   pname = "kjsembed";
   nativeBuildInputs = [
@@ -19,5 +18,5 @@ mkDerivation {
     ki18n
     qtsvg
   ];
-  propagatedBuildInputs = [ kjs ];
+  propagatedBuildInputs = [kjs];
 }

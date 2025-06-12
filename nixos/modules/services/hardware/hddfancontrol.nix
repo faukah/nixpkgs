@@ -3,14 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.hddfancontrol;
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ philipwilk ];
+in {
+  meta.maintainers = with lib.maintainers; [philipwilk];
 
   imports = [
     (lib.mkRemovedOptionModule [
@@ -48,25 +44,24 @@ in
         placeholder = "drive-bay-name";
         elemType = (
           lib.types.submodule (
-            { ... }:
-            {
+            {...}: {
               options = {
                 disks = lib.mkOption {
                   type = lib.types.listOf lib.types.path;
-                  default = [ ];
+                  default = [];
                   description = ''
                     Drive(s) to get temperature from
                   '';
-                  example = [ "/dev/sda" ];
+                  example = ["/dev/sda"];
                 };
 
                 pwmPaths = lib.mkOption {
                   type = lib.types.listOf lib.types.path;
-                  default = [ ];
+                  default = [];
                   description = ''
                     PWM filepath(s) to control fan speed (under /sys), followed by initial and fan-stop PWM values
                   '';
-                  example = [ "/sys/class/hwmon/hwmon2/pwm1:30:10" ];
+                  example = ["/sys/class/hwmon/hwmon2/pwm1:30:10"];
                 };
 
                 logVerbosity = lib.mkOption {
@@ -85,7 +80,7 @@ in
 
                 extraArgs = lib.mkOption {
                   type = lib.types.listOf lib.types.str;
-                  default = [ ];
+                  default = [];
                   description = ''
                     Extra commandline arguments for hddfancontrol
                   '';
@@ -99,7 +94,7 @@ in
           )
         );
       };
-      default = { };
+      default = {};
       description = ''
         Parameter-sets for each instance of hddfancontrol.
       '';
@@ -136,21 +131,20 @@ in
 
   config = lib.mkIf cfg.enable (
     let
-      args =
-        cnf:
+      args = cnf:
         lib.concatLists [
-          [ "-d" ]
+          ["-d"]
           cnf.disks
-          [ "-p" ]
+          ["-p"]
           cnf.pwmPaths
           cnf.extraArgs
         ];
 
       createService = cnf: {
         description = "HDD fan control";
-        documentation = [ "man:hddfancontrol(1)" ];
-        after = [ "hddtemp.service" ];
-        wants = [ "hddtemp.service" ];
+        documentation = ["man:hddfancontrol(1)"];
+        after = ["hddtemp.service"];
+        wants = ["hddtemp.service"];
         serviceConfig = {
           ExecStart = "${lib.getExe pkgs.hddfancontrol} -v ${cnf.logVerbosity} daemon ${lib.escapeShellArgs (args cnf)}";
 
@@ -164,20 +158,20 @@ in
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
         };
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
 
       services = lib.attrsets.mergeAttrsList [
         (lib.attrsets.mapAttrs' (
-          name: cnf: lib.nameValuePair "hddfancontrol-${name}" (createService cnf)
-        ) cfg.settings)
+            name: cnf: lib.nameValuePair "hddfancontrol-${name}" (createService cnf)
+          )
+          cfg.settings)
         {
           "hddfancontrol".enable = false;
         }
       ];
-    in
-    {
-      systemd.packages = [ pkgs.hddfancontrol ];
+    in {
+      systemd.packages = [pkgs.hddfancontrol];
 
       hardware.sensor.hddtemp = {
         enable = true;

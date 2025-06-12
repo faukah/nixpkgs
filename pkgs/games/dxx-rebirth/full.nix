@@ -5,15 +5,12 @@
   dxx-rebirth,
   descent1-assets,
   descent2-assets,
-}:
-
-let
-  generic =
-    ver: assets:
+}: let
+  generic = ver: assets:
     stdenv.mkDerivation {
       name = "d${toString ver}x-rebirth-full-${assets.version}";
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       buildCommand = ''
         mkdir -p $out/bin
@@ -29,14 +26,12 @@ let
           free
           unfree
         ];
-        maintainers = with maintainers; [ peterhoeg ];
+        maintainers = with maintainers; [peterhoeg];
         platforms = with platforms; linux;
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
       };
     };
-
-in
-{
+in {
   d1x-rebirth-full = generic 1 descent1-assets;
   d2x-rebirth-full = generic 2 descent2-assets;
 }

@@ -14,7 +14,6 @@
   marisa,
   libkkc-data,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libkkc";
   version = "0.3.5";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Japanese Kana Kanji conversion input method library";
     homepage = "https://github.com/ueno/libkkc";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
     platforms = platforms.linux;
   };
 }

@@ -34,7 +34,6 @@
   libXpm,
   rpcsvc-proto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cde";
   version = "2.5.1";
@@ -120,7 +119,7 @@ stdenv.mkDerivation rec {
     description = "Common Desktop Environment";
     homepage = "https://sourceforge.net/projects/cdesktopenv/";
     license = licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

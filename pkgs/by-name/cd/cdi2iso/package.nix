@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cdi2iso";
   version = "0.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Very simple utility for converting DiscJuggler images to the standard ISO-9660 format";
     homepage = "https://sourceforge.net/projects/cdi2iso.berlios";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = platforms.all;
     mainProgram = "cdi2iso";
   };

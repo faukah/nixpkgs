@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   deprecated,
   google-api-core,
@@ -16,7 +14,6 @@
   proto-plus,
   protobuf,
   sqlparse,
-
   # optional dependencies
   libcst,
   opentelemetry-api,
@@ -24,13 +21,11 @@
   opentelemetry-semantic-conventions,
   google-cloud-monitoring,
   mmh3,
-
   # testing
   mock,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-spanner";
   version = "3.55.0";
@@ -43,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-0+mTBqgy8SaHjoYhQjCaypipVsJTrN2DdhcfPY3PxSc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     deprecated
@@ -57,7 +52,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    libcst = [ libcst ];
+    libcst = [libcst];
     tracing = [
       opentelemetry-api
       opentelemetry-sdk
@@ -68,17 +63,19 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    google-cloud-monitoring
-    google-cloud-testutils
-    mmh3
-    mock
-    opentelemetry-api
-    opentelemetry-sdk
-    opentelemetry-semantic-conventions
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      google-cloud-monitoring
+      google-cloud-testutils
+      mmh3
+      mock
+      opentelemetry-api
+      opentelemetry-sdk
+      opentelemetry-semantic-conventions
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     # prevent google directory from shadowing google imports
@@ -131,6 +128,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-spanner";
     changelog = "https://github.com/googleapis/python-spanner/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

@@ -8,7 +8,6 @@
   udev,
   acl,
 }:
-
 stdenv.mkDerivation {
   pname = "joycond";
   version = "unstable-2021-07-30";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     description = "Userspace daemon to combine joy-cons from the hid-nintendo kernel driver";
     mainProgram = "joycond";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

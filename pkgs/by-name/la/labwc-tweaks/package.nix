@@ -9,7 +9,6 @@
   xkeyboard_config,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "labwc-tweaks";
   version = "0-unstable-2024-04-27";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     substituteInPlace tweaks-qt/gen-layout-list --replace-fail /usr/share/X11/xkb ${xkeyboard_config}/share/X11/xkb
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/labwc/labwc-tweaks";

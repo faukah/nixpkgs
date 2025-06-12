@@ -12,7 +12,6 @@
   kcapi-encapp ? true,
   kcapi-dgstapp ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libkcapi";
   version = "1.5.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-xOI29cjhUGUeHLaYIrPA5ZwwCE9lBdZG6kaW0lo1uL8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # libkcapi looks also for a host c compiler when cross-compiling
   # otherwise you obtain following error message:

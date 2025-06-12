@@ -21,7 +21,6 @@
   pkg-config,
   rustc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glycin-loaders";
   version = "1.2.1";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Glycin loaders for several formats";
     homepage = "https://gitlab.gnome.org/GNOME/glycin";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = with licenses; [
       mpl20 # or
       lgpl21Plus

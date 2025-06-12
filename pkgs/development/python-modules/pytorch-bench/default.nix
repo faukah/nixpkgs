@@ -10,7 +10,6 @@
   torch,
   torchprofile,
 }:
-
 buildPythonPackage {
   pname = "pytorch-bench";
   version = "unstable-2024-07-18";
@@ -44,6 +43,6 @@ buildPythonPackage {
     description = "Benchmarking tool for torch";
     homepage = "https://github.com/MaximeGloesener/torch-benchmark";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

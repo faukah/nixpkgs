@@ -6,7 +6,6 @@
   R,
   rPackages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "radian";
   version = "0.6.13";
@@ -53,16 +52,16 @@ python3Packages.buildPythonApplication rec {
       ptyprocess
       jedi
     ])
-    ++ [ git ];
+    ++ [git];
 
-  makeWrapperArgs = [ "--set R_HOME ${R}/lib/R" ];
+  makeWrapperArgs = ["--set R_HOME ${R}/lib/R"];
 
   preCheck = ''
     export HOME=$TMPDIR
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${R}/lib/R/lib
   '';
 
-  pythonImportsCheck = [ "radian" ];
+  pythonImportsCheck = ["radian"];
 
   meta = with lib; {
     description = "21 century R console";
@@ -70,6 +69,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/randy3k/radian";
     changelog = "https://github.com/randy3k/radian/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ savyajha ];
+    maintainers = with maintainers; [savyajha];
   };
 }

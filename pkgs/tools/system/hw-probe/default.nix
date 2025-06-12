@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeWrapper,
   makePerlPath,
-
   # Perl libraries
   LWP,
   LWPProtocolHttps,
@@ -12,7 +11,6 @@
   HTTPDate,
   URI,
   TryTiny,
-
   # Required
   coreutils,
   curl, # Preferred to using the Perl HTTP libs - according to hw-probe.
@@ -28,11 +26,9 @@
   smartmontools,
   usbutils,
   xz,
-
   # Conditionally recommended
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
-
   # Recommended
   withRecommended ? true, # Install recommended tools
   mcelog,
@@ -50,14 +46,12 @@
   vulkan-tools,
   i2c-tools,
   opensc,
-
   # Suggested
   withSuggested ? false, # Install (most) suggested tools
   hplip,
   sane-backends,
-# , pnputils # pnputils (lspnp) isn't currently in nixpkgs and appears to be poorly maintained
+  # , pnputils # pnputils (lspnp) isn't currently in nixpkgs and appears to be poorly maintained
 }:
-
 stdenv.mkDerivation rec {
   pname = "hw-probe";
   version = "1.6.6";
@@ -69,76 +63,74 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8dLfk2k7xG2CXMHfMPrpgq43j3ttj5a0bgNPEahl2rQ=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  makeWrapperArgs =
-    let
-      requiredPrograms = [
-        hwinfo
-        dmidecode
-        smartmontools
-        pciutils
-        usbutils
-        edid-decode
-        iproute2 # (ip)
-        coreutils # (sort)
-        gnugrep
-        curl
-        gnutar
-        xz
-        kmod # (lsmod)
-      ];
-      recommendedPrograms =
-        [
-          mcelog
-          hdparm
-          acpica-tools
-          drm_info
-          mesa-demos
-          memtester
-          sysstat # (iostat)
-          util-linuxMinimal # (rfkill)
-          xinput
-          libva-utils # (vainfo)
-          inxi
-          vulkan-tools
-          i2c-tools
-          opensc
-        ]
-        # cpuid is only compatible with i686 and x86_64
-        ++ lib.optional (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms) cpuid;
-      conditionallyRecommendedPrograms = lib.optional systemdSupport systemd; # (systemd-analyze)
-      suggestedPrograms = [
-        hplip # (hp-probe)
-        sane-backends # (sane-find-scanner)
-        # pnputils # (lspnp)
-      ];
-      programs =
-        requiredPrograms
-        ++ conditionallyRecommendedPrograms
-        ++ lib.optionals withRecommended recommendedPrograms
-        ++ lib.optionals withSuggested suggestedPrograms;
-    in
-    [
-      "--set"
-      "PERL5LIB"
-      "${makePerlPath [
-        LWP
-        LWPProtocolHttps
-        HTTPMessage
-        URI
-        HTTPDate
-        TryTiny
-      ]}"
-      "--prefix"
-      "PATH"
-      ":"
-      "${lib.makeBinPath programs}"
+  makeWrapperArgs = let
+    requiredPrograms = [
+      hwinfo
+      dmidecode
+      smartmontools
+      pciutils
+      usbutils
+      edid-decode
+      iproute2 # (ip)
+      coreutils # (sort)
+      gnugrep
+      curl
+      gnutar
+      xz
+      kmod # (lsmod)
     ];
+    recommendedPrograms =
+      [
+        mcelog
+        hdparm
+        acpica-tools
+        drm_info
+        mesa-demos
+        memtester
+        sysstat # (iostat)
+        util-linuxMinimal # (rfkill)
+        xinput
+        libva-utils # (vainfo)
+        inxi
+        vulkan-tools
+        i2c-tools
+        opensc
+      ]
+      # cpuid is only compatible with i686 and x86_64
+      ++ lib.optional (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms) cpuid;
+    conditionallyRecommendedPrograms = lib.optional systemdSupport systemd; # (systemd-analyze)
+    suggestedPrograms = [
+      hplip # (hp-probe)
+      sane-backends # (sane-find-scanner)
+      # pnputils # (lspnp)
+    ];
+    programs =
+      requiredPrograms
+      ++ conditionallyRecommendedPrograms
+      ++ lib.optionals withRecommended recommendedPrograms
+      ++ lib.optionals withSuggested suggestedPrograms;
+  in [
+    "--set"
+    "PERL5LIB"
+    "${makePerlPath [
+      LWP
+      LWPProtocolHttps
+      HTTPMessage
+      URI
+      HTTPDate
+      TryTiny
+    ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath programs}"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/hw-probe \
@@ -153,7 +145,7 @@ stdenv.mkDerivation rec {
       lgpl21
       bsdOriginal
     ];
-    maintainers = with maintainers; [ rehno-lindeque ];
+    maintainers = with maintainers; [rehno-lindeque];
     mainProgram = "hw-probe";
   };
 }

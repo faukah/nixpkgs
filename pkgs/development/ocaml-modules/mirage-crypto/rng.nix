@@ -9,7 +9,6 @@
   duration,
   logs,
 }:
-
 buildDunePackage {
   pname = "mirage-crypto-rng";
 
@@ -24,7 +23,7 @@ buildDunePackage {
     randomconv
   ];
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     digestif
     mirage-crypto
@@ -32,7 +31,9 @@ buildDunePackage {
     logs
   ];
 
-  meta = mirage-crypto.meta // {
-    description = "Cryptographically secure PRNG";
-  };
+  meta =
+    mirage-crypto.meta
+    // {
+      description = "Cryptographically secure PRNG";
+    };
 }

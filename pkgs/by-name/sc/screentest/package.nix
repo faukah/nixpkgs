@@ -7,7 +7,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "screentest";
   version = "3.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/TobiX/screentest";
     changelog = "https://github.com/TobiX/screentest/blob/${finalAttrs.version}/NEWS";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ evils ];
+    maintainers = with lib.maintainers; [evils];
     platforms = lib.platforms.unix;
   };
 })

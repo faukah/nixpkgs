@@ -15,9 +15,7 @@
   testpath,
   traitlets,
   xmltodict,
-}:
-
-let
+}: let
   nbclient = buildPythonPackage rec {
     pname = "nbclient";
     version = "0.10.2";
@@ -32,7 +30,7 @@ let
       hash = "sha256-+qSed6yy4YVZ25GigNTap+kMaoDiMYSJO85wurbzeDs=";
     };
 
-    build-system = [ hatchling ];
+    build-system = [hatchling];
 
     dependencies = [
       jupyter-client
@@ -69,8 +67,8 @@ let
       description = "Client library for executing notebooks";
       mainProgram = "jupyter-execute";
       license = lib.licenses.bsd3;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-nbclient
+  nbclient

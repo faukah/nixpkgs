@@ -5,8 +5,7 @@
   rustPlatform,
   vimPlugins,
   vimUtils,
-}:
-let
+}: let
   version = "0-unstable-2025-05-13";
   src = fetchFromGitHub {
     owner = "nvim-pack";
@@ -33,28 +32,28 @@ let
     ];
   };
 in
-vimUtils.buildVimPlugin {
-  pname = "nvim-spectre";
-  inherit version src;
+  vimUtils.buildVimPlugin {
+    pname = "nvim-spectre";
+    inherit version src;
 
-  dependencies = [ vimPlugins.plenary-nvim ];
+    dependencies = [vimPlugins.plenary-nvim];
 
-  postInstall = ''
-    ln -s ${spectre_oxi}/lib/libspectre_oxi.* $out/lua/spectre_oxi.so
-  '';
+    postInstall = ''
+      ln -s ${spectre_oxi}/lib/libspectre_oxi.* $out/lua/spectre_oxi.so
+    '';
 
-  passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
-      attrPath = "vimPlugins.nvim-spectre.spectre_oxi";
+    passthru = {
+      updateScript = nix-update-script {
+        extraArgs = ["--version=branch"];
+        attrPath = "vimPlugins.nvim-spectre.spectre_oxi";
+      };
+
+      # needed for the update script
+      inherit spectre_oxi;
     };
 
-    # needed for the update script
-    inherit spectre_oxi;
-  };
-
-  meta = {
-    homepage = "https://github.com/nvim-pack/nvim-spectre/";
-    license = lib.licenses.mit;
-  };
-}
+    meta = {
+      homepage = "https://github.com/nvim-pack/nvim-spectre/";
+      license = lib.licenses.mit;
+    };
+  }

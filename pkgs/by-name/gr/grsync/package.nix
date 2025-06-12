@@ -11,7 +11,6 @@
   rsync,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.3.1";
   pname = "grsync";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     mainProgram = "grsync";
-    maintainers = [ maintainers.kuznero ];
+    maintainers = [maintainers.kuznero];
   };
 }

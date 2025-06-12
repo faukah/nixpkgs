@@ -12,12 +12,11 @@
   torchaudio,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "torchcrepe";
   version = "0.0.23";
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.7";
 
@@ -38,14 +37,14 @@ buildPythonPackage {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "torchcrepe" ];
+  pythonImportsCheck = ["torchcrepe"];
 
   meta = {
     description = "Pytorch implementation of the CREPE pitch tracker";
     homepage = "https://github.com/maxrmorrison/torchcrepe";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

@@ -6,7 +6,6 @@
   absl-py,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "tensorflow-estimator";
   version = "2.15.0";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "TensorFlow Estimator is a high-level API that encapsulates model training, evaluation, prediction, and exporting";
     homepage = "http://tensorflow.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jyp ];
+    maintainers = with maintainers; [jyp];
   };
 }

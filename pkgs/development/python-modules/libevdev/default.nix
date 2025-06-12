@@ -7,7 +7,6 @@
   pkgs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libevdev";
   version = "0.11";
@@ -25,12 +24,12 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python wrapper around the libevdev C library";
     homepage = "https://gitlab.freedesktop.org/libevdev/python-libevdev";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
   };
 }

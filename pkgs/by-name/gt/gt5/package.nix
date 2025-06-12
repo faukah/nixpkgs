@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gt5";
   version = "1.4.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Diff-capable 'du' browser";
     homepage = "https://gt5.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; all;
     mainProgram = "gt5";
   };

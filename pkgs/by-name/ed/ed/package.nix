@@ -6,12 +6,10 @@
   stdenv,
   testers,
 }:
-
 # Note: this package is used for bootstrapping fetchurl, and thus cannot use
 # fetchpatch! Any mutable patches (retrieved from GitHub, cgit or any other
 # place) that are needed here should be directly included together as regular
 # files.
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ed";
   version = "1.21.1";
@@ -21,9 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1tDHGSsCsFGckCqTcZBT6GWt5aeEo7Mn2T2IhFeyPEs=";
   };
 
-  nativeBuildInputs = [ lzip ];
+  nativeBuildInputs = [lzip];
 
-  buildInputs = [ runtimeShellPackage ];
+  buildInputs = [runtimeShellPackage];
 
   configureFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -54,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "ed";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

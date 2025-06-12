@@ -21,7 +21,6 @@
   ninja,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-klotski";
   version = "3.38.2";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-klotski"; };
+    updateScript = gnome.updateScript {packageName = "gnome-klotski";};
   };
 
   meta = {
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-klotski/-/blob/${version}/NEWS?ref_type=tags";
     description = "Slide blocks to solve the puzzle";
     mainProgram = "gnome-klotski";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
   };

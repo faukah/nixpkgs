@@ -11,7 +11,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiontfy";
   version = "0.5.3";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     orjson
   ];
 
-  pythonImportsCheck = [ "aiontfy" ];
+  pythonImportsCheck = ["aiontfy"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Async ntfy client library";
     homepage = "https://github.com/tr4nt0r/aiontfy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

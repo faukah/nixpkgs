@@ -8,7 +8,6 @@
   stdenv,
   libunwind,
 }:
-
 buildGoModule rec {
   pname = "imgproxy";
   version = "3.28.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     gobject-introspection
   ];
 
-  buildInputs = [ vips ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libunwind ];
+  buildInputs = [vips] ++ lib.optionals stdenv.hostPlatform.isDarwin [libunwind];
 
   preBuild = ''
     export CGO_LDFLAGS_ALLOW='-(s|w)'
@@ -39,6 +38,6 @@ buildGoModule rec {
     homepage = "https://imgproxy.net";
     changelog = "https://github.com/imgproxy/imgproxy/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ paluh ];
+    maintainers = with maintainers; [paluh];
   };
 }

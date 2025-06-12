@@ -3,7 +3,6 @@
   remctl,
   TestPod,
 }:
-
 buildPerlModule {
   pname = "NetRemctl";
 
@@ -14,7 +13,7 @@ buildPerlModule {
     cd perl
   '';
 
-  buildInputs = [ remctl ];
+  buildInputs = [remctl];
 
-  checkInputs = [ TestPod ];
+  checkInputs = [TestPod];
 }

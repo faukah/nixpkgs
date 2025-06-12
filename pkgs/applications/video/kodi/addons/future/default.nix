@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "future";
   namespace = "script.module.future";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://python-future.org";
     description = "Missing compatibility layer between Python 2 and Python 3";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

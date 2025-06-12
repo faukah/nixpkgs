@@ -3,17 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   cython,
   ninja,
   pkg-config,
   scikit-build-core,
-
   # native dependencies
   c-blosc2,
-
   # dependencies
   msgpack,
   ndindex,
@@ -22,14 +19,12 @@
   platformdirs,
   py-cpuinfo,
   requests,
-
   # tests
   psutil,
   pytestCheckHook,
   torch,
   runTorchTests ? lib.meta.availableOn stdenv.hostPlatform torch,
 }:
-
 buildPythonPackage rec {
   pname = "blosc2";
   version = "3.3.4";
@@ -57,7 +52,7 @@ buildPythonPackage rec {
     scikit-build-core
   ];
 
-  buildInputs = [ c-blosc2 ];
+  buildInputs = [c-blosc2];
 
   dependencies = [
     msgpack
@@ -69,10 +64,12 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    psutil
-    pytestCheckHook
-  ] ++ lib.optionals runTorchTests [ torch ];
+  nativeCheckInputs =
+    [
+      psutil
+      pytestCheckHook
+    ]
+    ++ lib.optionals runTorchTests [torch];
 
   passthru.c-blosc2 = c-blosc2;
 
@@ -81,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Blosc/python-blosc2";
     changelog = "https://github.com/Blosc/python-blosc2/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

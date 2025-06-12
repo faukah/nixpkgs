@@ -28,7 +28,6 @@
   zbar,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "visp";
   version = "3.6.0";
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://visp.inria.fr";
     changelog = "https://github.com/lagadic/visp/blob/v${finalAttrs.version}/ChangeLog.txt";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

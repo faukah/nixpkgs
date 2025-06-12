@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "oauth2ms";
   version = "2021-07-09";
@@ -18,11 +17,12 @@ stdenv.mkDerivation {
 
   buildInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        pyxdg
-        msal
-        python-gnupg
-      ]
+      ps:
+        with ps; [
+          pyxdg
+          msal
+          python-gnupg
+        ]
     ))
   ];
 
@@ -38,6 +38,6 @@ stdenv.mkDerivation {
     mainProgram = "oauth2ms";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
   };
 }

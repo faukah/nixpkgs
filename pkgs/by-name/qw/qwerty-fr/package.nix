@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "qwerty-fr";
   version = "0.7.3";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/qwerty-fr/qwerty-fr/blob/v${finalAttrs.version}/linux/debian/changelog";
     homepage = "https://github.com/qwerty-fr/qwerty-fr";
     license = licenses.mit;
-    maintainers = with maintainers; [ potb ];
+    maintainers = with maintainers; [potb];
   };
 })

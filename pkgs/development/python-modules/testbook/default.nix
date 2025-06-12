@@ -11,7 +11,6 @@
   setuptools,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "testbook";
   version = "0.4.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     nbformat
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     ipykernel
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "testbook" ];
+  pythonImportsCheck = ["testbook"];
 
   meta = with lib; {
     description = "Unit testing framework extension for testing code in Jupyter Notebooks";
     homepage = "https://testbook.readthedocs.io/";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ djacu ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [djacu];
   };
 }

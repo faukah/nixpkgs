@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_rational";
   version = "0.0.2";
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
   meta = {
     description = "Precise fractional arithmetic for PostgreSQL";
     homepage = "https://github.com/begriffs/pg_rational";
-    maintainers = with lib.maintainers; [ netcrns ];
+    maintainers = with lib.maintainers; [netcrns];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.mit;
   };

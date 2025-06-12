@@ -7,7 +7,6 @@
   sqlalchemy,
   wtforms,
 }:
-
 buildPythonPackage rec {
   pname = "wtforms-sqlalchemy";
   version = "0.4.2";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "wtforms_sqlalchemy" ];
+  pythonImportsCheck = ["wtforms_sqlalchemy"];
 
   meta = {
     description = "WTForms integration for SQLAlchemy";
     homepage = "https://github.com/wtforms/wtforms-sqlalchemy";
     changelog = "https://github.com/wtforms/wtforms-sqlalchemy/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

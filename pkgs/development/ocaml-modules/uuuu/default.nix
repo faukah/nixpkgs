@@ -7,7 +7,6 @@
   ocaml,
   re,
 }:
-
 buildDunePackage rec {
   pname = "uuuu";
   version = "0.3.0";
@@ -22,11 +21,11 @@ buildDunePackage rec {
       'ocaml} -I ${findlib}/lib/ocaml/${ocaml.version}/site-lib '
   '';
 
-  nativeBuildInputs = [ findlib ];
+  nativeBuildInputs = [findlib];
 
-  buildInputs = [ angstrom ];
+  buildInputs = [angstrom];
 
-  checkInputs = [ re ];
+  checkInputs = [re];
   doCheck = true;
 
   duneVersion = "3";
@@ -35,7 +34,7 @@ buildDunePackage rec {
     description = "Library to normalize an ISO-8859 input to Unicode code-point";
     homepage = "https://github.com/mirage/uuuu";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "uuuu.generate";
   };
 }

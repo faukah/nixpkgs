@@ -8,7 +8,6 @@
   libusb1,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qdl";
   version = "0-unstable-2025-03-19";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace Makefile --replace-fail 'pkg-config' '${stdenv.cc.targetPrefix}pkg-config'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libxml2
     libusb1
@@ -47,5 +46,5 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "qdl";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 })

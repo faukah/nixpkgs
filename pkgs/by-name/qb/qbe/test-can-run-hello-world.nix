@@ -3,7 +3,6 @@
   writeText,
   qbe,
 }:
-
 # The hello world program available at https://c9x.me/compile/
 let
   helloWorld = writeText "hello-world.ssa" ''
@@ -20,15 +19,14 @@ let
     }
     data $fmt = { b "One and one make %d!\n", b 0 }
   '';
-
 in
-stdenv.mkDerivation {
-  name = "qbe-test-can-run-hello-world";
-  meta.timeout = 10;
-  buildCommand = ''
-    ${qbe}/bin/qbe -o asm.s ${helloWorld}
-    cc -o out asm.s
-    ./out | grep 'One and one make 2!'
-    touch $out
-  '';
-}
+  stdenv.mkDerivation {
+    name = "qbe-test-can-run-hello-world";
+    meta.timeout = 10;
+    buildCommand = ''
+      ${qbe}/bin/qbe -o asm.s ${helloWorld}
+      cc -o out asm.s
+      ./out | grep 'One and one make 2!'
+      touch $out
+    '';
+  }

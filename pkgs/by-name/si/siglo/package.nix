@@ -11,7 +11,6 @@
   gtk3,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "siglo";
   version = "0.9.9";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/theironrobin/siglo";
     changelog = "https://github.com/theironrobin/siglo/tags/v${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pcsx2-bin";
   version = "2.3.180";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-FsYVTqQ9Se6SoSbHGUw8eLd6Y9ywaedlBy9fu/FYr7g=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontPatch = true;
   dontConfigure = true;
@@ -49,8 +48,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with lib.maintainers; [ matteopacini ];
-    platforms = [ "x86_64-darwin" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [matteopacini];
+    platforms = ["x86_64-darwin"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

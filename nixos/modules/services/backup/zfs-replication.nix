@@ -3,16 +3,14 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.zfs.autoReplication;
-in
-{
+in {
   options = {
     services.zfs.autoReplication = {
       enable = lib.mkEnableOption "ZFS snapshot replication";
 
-      package = lib.mkPackageOption pkgs "zfs-replicate" { };
+      package = lib.mkPackageOption pkgs "zfs-replicate" {};
 
       followDelete = lib.mkOption {
         description = "Remove remote snapshots that don't have a local correspondent.";
@@ -76,24 +74,22 @@ in
         "https://github.com/alunduil/zfs-replicate"
       ];
       restartIfChanged = false;
-      serviceConfig.ExecStart =
-        let
-          args = lib.map lib.escapeShellArg (
-            [
-              "--verbose"
-              "--user"
-              cfg.username
-              "--identity-file"
-              cfg.identityFilePath
-              cfg.host
-              cfg.remoteFilesystem
-              cfg.localFilesystem
-            ]
-            ++ (lib.optional cfg.recursive "--recursive")
-            ++ (lib.optional cfg.followDelete "--follow-delete")
-          );
-        in
-        "${lib.getExe cfg.package} ${lib.concatStringsSep " " args}";
+      serviceConfig.ExecStart = let
+        args = lib.map lib.escapeShellArg (
+          [
+            "--verbose"
+            "--user"
+            cfg.username
+            "--identity-file"
+            cfg.identityFilePath
+            cfg.host
+            cfg.remoteFilesystem
+            cfg.localFilesystem
+          ]
+          ++ (lib.optional cfg.recursive "--recursive")
+          ++ (lib.optional cfg.followDelete "--follow-delete")
+        );
+      in "${lib.getExe cfg.package} ${lib.concatStringsSep " " args}";
       wantedBy = [
         "zfs-snapshot-daily.service"
         "zfs-snapshot-frequent.service"
@@ -105,6 +101,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ alunduil ];
+    maintainers = with lib.maintainers; [alunduil];
   };
 }

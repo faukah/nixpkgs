@@ -7,7 +7,6 @@
   openssl,
   libkrb5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uw-imap";
   version = "2007f";
@@ -17,17 +16,27 @@ stdenv.mkDerivation rec {
     sha256 = "0a2a00hbakh0640r2wdpnwr8789z59wnk7rfsihh3j0vbhmmmqak";
   };
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
-    (if stdenv.hostPlatform.isDarwin then "osx" else "lnp") # Linux with PAM modules;
-  ] ++ lib.optional stdenv.hostPlatform.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
+  makeFlags =
+    [
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+      (
+        if stdenv.hostPlatform.isDarwin
+        then "osx"
+        else "lnp"
+      ) # Linux with PAM modules;
+    ]
+    ++ lib.optional stdenv.hostPlatform.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     openssl
-    (if stdenv.hostPlatform.isDarwin then libkrb5 else pam) # Matches the make target.
+    (
+      if stdenv.hostPlatform.isDarwin
+      then libkrb5
+      else pam
+    ) # Matches the make target.
   ];
 
   patches = [

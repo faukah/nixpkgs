@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clex";
   version = "4.7";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-3Y3ayJEy9pHLTUSeXYeekTVdopwKLZ8vVcVarLIFnpM=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 

@@ -24,7 +24,6 @@
   withScreencastSupport ? true,
   withSystemd ? true,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "niri";
   version = "25.05.1";
@@ -112,13 +111,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     );
   };
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    providedSessions = [ "niri" ];
-    updateScript = nix-update-script { };
+    providedSessions = ["niri"];
+    updateScript = nix-update-script {};
   };
 
   meta = {

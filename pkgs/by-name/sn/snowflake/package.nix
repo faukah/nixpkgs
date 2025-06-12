@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "snowflake";
   version = "2.11.0";

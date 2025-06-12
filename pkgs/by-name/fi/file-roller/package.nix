@@ -21,7 +21,6 @@
   libarchive,
   nautilus,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "file-roller";
   version = "44.5";

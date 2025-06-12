@@ -10,7 +10,6 @@
   pandas,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "formulae";
   version = "0.5.4";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # use assertions of form `assert pytest.approx(...)`, which is now disallowed:
   disabledTests = [
     "test_basic"
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     description = "Formulas for mixed-effects models in Python";
     changelog = "https://github.com/bambinos/formulae/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

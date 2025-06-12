@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildNpmPackage rec {
   pname = "repomix";
   version = "0.3.8";
@@ -19,7 +18,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-VWW9JkLlk3OoMQ7yneTsUdyepe4bDezoM1t2RxF4zVY=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   doCheck = true;
@@ -30,14 +29,14 @@ buildNpmPackage rec {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to pack repository contents to single file for AI consumption";
     homepage = "https://github.com/yamadashy/repomix";
     changelog = "https://github.com/yamadashy/repomix/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ boralg ];
+    maintainers = with lib.maintainers; [boralg];
     mainProgram = "repomix";
   };
 }

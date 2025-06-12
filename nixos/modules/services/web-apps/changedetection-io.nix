@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.changedetection-io;
-in
-{
+in {
   options.services.changedetection-io = {
     enable = mkEnableOption "changedetection-io";
 
@@ -128,40 +124,38 @@ in
       }
     ];
 
-    systemd =
-      let
-        defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
-      in
-      {
-        services.changedetection-io = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            User = cfg.user;
-            Group = cfg.group;
-            StateDirectory = mkIf defaultStateDir "changedetection-io";
-            StateDirectoryMode = mkIf defaultStateDir "0750";
-            WorkingDirectory = cfg.datastorePath;
-            Environment =
-              [ "HIDE_REFERER=true" ]
-              ++ lib.optional (cfg.baseURL != null) "BASE_URL=${cfg.baseURL}"
-              ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
-              ++ lib.optional cfg.webDriverSupport "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
-              ++ lib.optional cfg.playwrightSupport "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${toString cfg.chromePort}/?stealth=1&--disable-web-security=true";
-            EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-            ExecStart = ''
-              ${pkgs.changedetection-io}/bin/changedetection.py \
-                -h ${cfg.listenAddress} -p ${toString cfg.port} -d ${cfg.datastorePath}
-            '';
-            ProtectHome = true;
-            ProtectSystem = true;
-            Restart = "on-failure";
-          };
+    systemd = let
+      defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
+    in {
+      services.changedetection-io = {
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
+        serviceConfig = {
+          User = cfg.user;
+          Group = cfg.group;
+          StateDirectory = mkIf defaultStateDir "changedetection-io";
+          StateDirectoryMode = mkIf defaultStateDir "0750";
+          WorkingDirectory = cfg.datastorePath;
+          Environment =
+            ["HIDE_REFERER=true"]
+            ++ lib.optional (cfg.baseURL != null) "BASE_URL=${cfg.baseURL}"
+            ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
+            ++ lib.optional cfg.webDriverSupport "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
+            ++ lib.optional cfg.playwrightSupport "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${toString cfg.chromePort}/?stealth=1&--disable-web-security=true";
+          EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          ExecStart = ''
+            ${pkgs.changedetection-io}/bin/changedetection.py \
+              -h ${cfg.listenAddress} -p ${toString cfg.port} -d ${cfg.datastorePath}
+          '';
+          ProtectHome = true;
+          ProtectSystem = true;
+          Restart = "on-failure";
         };
-        tmpfiles.rules = mkIf (!defaultStateDir) [
-          "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
-        ];
       };
+      tmpfiles.rules = mkIf (!defaultStateDir) [
+        "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
+      ];
+    };
 
     users = {
       users = optionalAttrs (cfg.user == "changedetection-io") {
@@ -172,7 +166,7 @@ in
       };
 
       groups = optionalAttrs (cfg.group == "changedetection-io") {
-        "changedetection-io" = { };
+        "changedetection-io" = {};
       };
     };
 
@@ -193,7 +187,7 @@ in
             volumes = [
               "/dev/shm:/dev/shm"
             ];
-            extraOptions = [ "--network=bridge" ];
+            extraOptions = ["--network=bridge"];
           };
         })
 
@@ -215,7 +209,7 @@ in
             ports = [
               "127.0.0.1:${toString cfg.chromePort}:3000"
             ];
-            extraOptions = [ "--network=bridge" ];
+            extraOptions = ["--network=bridge"];
           };
         })
       ];

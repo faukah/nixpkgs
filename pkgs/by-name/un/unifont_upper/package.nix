@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "unifont_upper";
   version = "16.0.03";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
 
     # Basically GPL2+ with font exception.
     license = "https://unifoundry.com/LICENSE.txt";
-    maintainers = [ maintainers.mathnerd314 ];
+    maintainers = [maintainers.mathnerd314];
     platforms = platforms.all;
   };
 }

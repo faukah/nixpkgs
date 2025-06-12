@@ -4,7 +4,6 @@
   installShellFiles,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "zi";
   version = "unstable-2022-04-09";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     mkdir -p $out
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/z-shell/zi";
     description = "Swiss Army Knife for Zsh - Unix Shell";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

@@ -8,7 +8,6 @@
   hypothesis,
   hs-dbus-signature,
 }:
-
 buildPythonPackage rec {
   pname = "into-dbus-python";
   version = "0.8.2";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     hs-dbus-signature
   ];
 
-  pythonImportsCheck = [ "into_dbus_python" ];
+  pythonImportsCheck = ["into_dbus_python"];
 
   meta = with lib; {
     description = "Transformer to dbus-python types";
     homepage = "https://github.com/stratis-storage/into-dbus-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

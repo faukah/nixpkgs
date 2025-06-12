@@ -15,17 +15,15 @@ buildGoModule rec {
     hash = "sha256-2iDT9sI4dy7KEFKfWhPhccTc1/1jpSjYt+cXz+RE9ys=";
   };
 
-  checkFlags =
-    let
-      # Skip tests that require network access
-      skippedTests = [
-        "TestExtraSiblingsInRemoteRef"
-        "TestIssue495WithDraft04"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Skip tests that require network access
+    skippedTests = [
+      "TestExtraSiblingsInRemoteRef"
+      "TestIssue495WithDraft04"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  subPackages = [ "cmd/validate" ];
+  subPackages = ["cmd/validate"];
 
   meta = {
     mainProgram = "validate";
@@ -33,6 +31,6 @@ buildGoModule rec {
     homepage = "https://github.com/getkin/kin-openapi";
     changelog = "https://github.com/getkin/kin-openapi/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers._6543 ];
+    maintainers = [lib.maintainers._6543];
   };
 }

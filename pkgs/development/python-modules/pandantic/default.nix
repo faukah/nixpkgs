@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pandantic";
   version = "1.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-lqd4aQiBMbATFMdftKQeTlqQ3MGrxm2shb7qil+84iA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     multiprocess
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pandantic" ];
+  pythonImportsCheck = ["pandantic"];
 
   meta = {
     description = "Module to enriche the Pydantic BaseModel class";
     homepage = "https://github.com/wesselhuising/pandantic";
     changelog = "https://github.com/wesselhuising/pandantic/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -1,33 +1,29 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-with pkgs.lib;
-{
+with import ../lib/testing-python.nix {inherit system pkgs;};
+with pkgs.lib; {
   bind = makeTest {
     name = "non-default-filesystem-bind";
 
-    nodes.machine =
-      { ... }:
-      {
-        virtualisation.writableStore = false;
+    nodes.machine = {...}: {
+      virtualisation.writableStore = false;
 
-        virtualisation.fileSystems."/test-bind-dir/bind" = {
-          device = "/";
-          neededForBoot = true;
-          options = [ "bind" ];
-        };
-
-        virtualisation.fileSystems."/test-bind-file/bind" = {
-          depends = [ "/nix/store" ];
-          device = builtins.toFile "empty" "";
-          neededForBoot = true;
-          options = [ "bind" ];
-        };
+      virtualisation.fileSystems."/test-bind-dir/bind" = {
+        device = "/";
+        neededForBoot = true;
+        options = ["bind"];
       };
+
+      virtualisation.fileSystems."/test-bind-file/bind" = {
+        depends = ["/nix/store"];
+        device = builtins.toFile "empty" "";
+        neededForBoot = true;
+        options = ["bind"];
+      };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
@@ -37,53 +33,50 @@ with pkgs.lib;
   btrfs = makeTest {
     name = "non-default-filesystems-btrfs";
 
-    nodes.machine =
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      let
-        disk = config.virtualisation.rootDevice;
-      in
-      {
-        virtualisation.rootDevice = "/dev/vda";
-        virtualisation.useDefaultFilesystems = false;
+    nodes.machine = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: let
+      disk = config.virtualisation.rootDevice;
+    in {
+      virtualisation.rootDevice = "/dev/vda";
+      virtualisation.useDefaultFilesystems = false;
 
-        boot.initrd.availableKernelModules = [ "btrfs" ];
-        boot.supportedFilesystems = [ "btrfs" ];
+      boot.initrd.availableKernelModules = ["btrfs"];
+      boot.supportedFilesystems = ["btrfs"];
 
-        boot.initrd.postDeviceCommands = ''
-          FSTYPE=$(blkid -o value -s TYPE ${disk} || true)
-          if test -z "$FSTYPE"; then
-            modprobe btrfs
-            ${pkgs.btrfs-progs}/bin/mkfs.btrfs ${disk}
+      boot.initrd.postDeviceCommands = ''
+        FSTYPE=$(blkid -o value -s TYPE ${disk} || true)
+        if test -z "$FSTYPE"; then
+          modprobe btrfs
+          ${pkgs.btrfs-progs}/bin/mkfs.btrfs ${disk}
 
-            mkdir /nixos
-            mount -t btrfs ${disk} /nixos
+          mkdir /nixos
+          mount -t btrfs ${disk} /nixos
 
-            ${pkgs.btrfs-progs}/bin/btrfs subvolume create /nixos/root
-            ${pkgs.btrfs-progs}/bin/btrfs subvolume create /nixos/home
+          ${pkgs.btrfs-progs}/bin/btrfs subvolume create /nixos/root
+          ${pkgs.btrfs-progs}/bin/btrfs subvolume create /nixos/home
 
-            umount /nixos
-          fi
-        '';
+          umount /nixos
+        fi
+      '';
 
-        virtualisation.fileSystems = {
-          "/" = {
-            device = disk;
-            fsType = "btrfs";
-            options = [ "subvol=/root" ];
-          };
+      virtualisation.fileSystems = {
+        "/" = {
+          device = disk;
+          fsType = "btrfs";
+          options = ["subvol=/root"];
+        };
 
-          "/home" = {
-            device = disk;
-            fsType = "btrfs";
-            options = [ "subvol=/home" ];
-          };
+        "/home" = {
+          device = disk;
+          fsType = "btrfs";
+          options = ["subvol=/home"];
         };
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
@@ -95,14 +88,13 @@ with pkgs.lib;
     '';
   };
 
-  erofs =
-    let
-      fsImage = "/tmp/non-default-filesystem.img";
-    in
+  erofs = let
+    fsImage = "/tmp/non-default-filesystem.img";
+  in
     makeTest {
       name = "non-default-filesystems-erofs";
 
-      meta.maintainers = with maintainers; [ nikstur ];
+      meta.maintainers = with maintainers; [nikstur];
 
       nodes.machine = _: {
         virtualisation.qemu.drives = [
@@ -141,14 +133,13 @@ with pkgs.lib;
       '';
     };
 
-  squashfs =
-    let
-      fsImage = "/tmp/non-default-filesystem.img";
-    in
+  squashfs = let
+    fsImage = "/tmp/non-default-filesystem.img";
+  in
     makeTest {
       name = "non-default-filesystems-squashfs";
 
-      meta.maintainers = with maintainers; [ nikstur ];
+      meta.maintainers = with maintainers; [nikstur];
 
       nodes.machine = {
         virtualisation.qemu.drives = [

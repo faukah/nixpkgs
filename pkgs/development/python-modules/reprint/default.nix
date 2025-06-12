@@ -6,7 +6,6 @@
   colorama,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "reprint";
   version = "0.6.0";

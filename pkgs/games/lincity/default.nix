@@ -11,7 +11,6 @@
   libpng12,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lincity";
   version = "1.13.1";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xlincity";
     license = licenses.gpl2Plus;
     homepage = "https://sourceforge.net/projects/lincity";
-    maintainers = [ ];
+    maintainers = [];
     # ../lcintl.h:14:10: fatal error: 'libintl.h' file not found
     broken = stdenv.hostPlatform.isDarwin;
   };

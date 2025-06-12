@@ -10,7 +10,6 @@
   giflib,
   libtiff,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pslib";
   version = "0.4.8";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pslib.sourceforge.net/";
     changelog = "https://sourceforge.net/p/pslib/git/ci/master/tree/pslib/ChangeLog";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
     platforms = platforms.unix;
   };
 }

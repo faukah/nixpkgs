@@ -6,7 +6,7 @@
   writeText,
   nix-update-script,
   theme ? null,
-  plugins ? [ ],
+  plugins ? [],
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "adminneo";
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/plugins
     cp plugins/plugin.php $out/plugins/plugin.php
 
-    ${lib.optionalString (plugins != [ ]) ''
+    ${lib.optionalString (plugins != []) ''
       cp plugins/*.php $out/plugins/
       cp ${writeText "$out/plugins.json" ''
         ${toString (builtins.toJSON plugins)}
@@ -57,7 +57,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     indexPHP = ./index.php;
   };
 

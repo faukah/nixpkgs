@@ -3,19 +3,15 @@
   fetchFromGitHub,
   idris2Packages,
   makeWrapper,
-}:
-
-let
-  globalLibraries =
-    let
-      idrName = "idris2-${idris2Packages.idris2.version}";
-      libSuffix = "lib/${idrName}";
-    in
-    [
-      "\\$HOME/.nix-profile/lib/${idrName}"
-      "/run/current-system/sw/lib/${idrName}"
-      "${idris2Packages.idris2}/${idrName}"
-    ];
+}: let
+  globalLibraries = let
+    idrName = "idris2-${idris2Packages.idris2.version}";
+    libSuffix = "lib/${idrName}";
+  in [
+    "\\$HOME/.nix-profile/lib/${idrName}"
+    "/run/current-system/sw/lib/${idrName}"
+    "${idris2Packages.idris2}/${idrName}"
+  ];
   globalLibrariesPath = builtins.concatStringsSep ":" globalLibraries;
 
   inherit (idris2Packages) idris2Api;
@@ -28,7 +24,7 @@ let
       rev = "03851daae0c0274a02d94663d8f53143a94640da";
       hash = "sha256-ICW9oOOP70hXneJFYInuPY68SZTDw10dSxSPTW4WwWM=";
     };
-    idrisLibraries = [ ];
+    idrisLibraries = [];
   };
 
   lspPkg = idris2Packages.buildIdris {
@@ -45,7 +41,7 @@ let
       lspLib
     ];
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     postInstall = ''
       wrapProgram $out/bin/idris2-lsp \
         --suffix IDRIS2_PACKAGE_PATH ':' "${globalLibrariesPath}"
@@ -56,8 +52,8 @@ let
       mainProgram = "idris2-lsp";
       homepage = "https://github.com/idris-community/idris2-lsp";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ mattpolzin ];
+      maintainers = with maintainers; [mattpolzin];
     };
   };
 in
-lspPkg.executable
+  lspPkg.executable

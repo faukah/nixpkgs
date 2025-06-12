@@ -1,11 +1,9 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
-
-let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
+}: let
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
   testCombinations = pkgs.lib.cartesianProduct {
     predictable = [
       true
@@ -21,30 +19,27 @@ let
     ];
   };
 in
-pkgs.lib.listToAttrs (
-  builtins.map (
-    {
-      predictable,
-      withNetworkd,
-      systemdStage1,
-    }:
-    {
-      name =
-        pkgs.lib.optionalString (!predictable) "un"
-        + "predictable"
-        + pkgs.lib.optionalString withNetworkd "Networkd"
-        + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
-      value = makeTest {
+  pkgs.lib.listToAttrs (
+    builtins.map (
+      {
+        predictable,
+        withNetworkd,
+        systemdStage1,
+      }: {
         name =
           pkgs.lib.optionalString (!predictable) "un"
-          + "predictableInterfaceNames"
-          + pkgs.lib.optionalString withNetworkd "-with-networkd"
-          + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
-        meta = { };
+          + "predictable"
+          + pkgs.lib.optionalString withNetworkd "Networkd"
+          + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
+        value = makeTest {
+          name =
+            pkgs.lib.optionalString (!predictable) "un"
+            + "predictableInterfaceNames"
+            + pkgs.lib.optionalString withNetworkd "-with-networkd"
+            + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
+          meta = {};
 
-        nodes.machine =
-          { lib, ... }:
-          let
+          nodes.machine = {lib, ...}: let
             script = ''
               ip link
               if ${lib.optionalString predictable "!"} ip link show eth0; then
@@ -53,8 +48,7 @@ pkgs.lib.listToAttrs (
                 exit 1
               fi
             '';
-          in
-          {
+          in {
             networking.usePredictableInterfaceNames = lib.mkForce predictable;
             networking.useNetworkd = withNetworkd;
             networking.dhcpcd.enable = !withNetworkd;
@@ -65,23 +59,28 @@ pkgs.lib.listToAttrs (
 
             boot.initrd.systemd = lib.mkIf systemdStage1 {
               enable = true;
-              initrdBin = [ pkgs.iproute2 ];
-              services.systemd-udev-settle.wantedBy = [ "initrd.target" ];
+              initrdBin = [pkgs.iproute2];
+              services.systemd-udev-settle.wantedBy = ["initrd.target"];
               services.check-interfaces = {
-                requiredBy = [ "initrd.target" ];
-                after = [ "systemd-udev-settle.service" ];
+                requiredBy = ["initrd.target"];
+                after = ["systemd-udev-settle.service"];
                 serviceConfig.Type = "oneshot";
-                path = [ pkgs.iproute2 ];
+                path = [pkgs.iproute2];
                 inherit script;
               };
             };
           };
 
-        testScript = ''
-          print(machine.succeed("ip link"))
-          machine.${if predictable then "fail" else "succeed"}("ip link show eth0")
-        '';
-      };
-    }
-  ) testCombinations
-)
+          testScript = ''
+            print(machine.succeed("ip link"))
+            machine.${
+              if predictable
+              then "fail"
+              else "succeed"
+            }("ip link show eth0")
+          '';
+        };
+      }
+    )
+    testCombinations
+  )

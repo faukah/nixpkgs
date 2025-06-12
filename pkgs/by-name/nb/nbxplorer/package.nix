@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "nbxplorer";
   version = "2.5.27";

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "wyoming-faster-whisper";
   version = "2.4.0";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     description = "Wyoming Server for Faster Whisper";
     homepage = "https://github.com/rhasspy/wyoming-faster-whisper";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     mainProgram = "wyoming-faster-whisper";
   };
 }

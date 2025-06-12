@@ -9,7 +9,6 @@
   gtk3,
   libXtst,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xclicker";
   version = "1.5.1";

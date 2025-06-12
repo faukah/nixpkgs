@@ -8,18 +8,15 @@
   zip,
   nugetPackageHook,
   baseName ? "dotnet",
-  fallbackTargetPackages ? { },
-}:
-
-let
-  mkWrapper = callPackage ./wrapper.nix { };
-  mkCommon =
-    type: args:
+  fallbackTargetPackages ? {},
+}: let
+  mkWrapper = callPackage ./wrapper.nix {};
+  mkCommon = type: args:
     mkWrapper type (
       stdenvNoCC.mkDerivation (
         args
         // {
-          outputs = args.outputs or [ "out" ] ++ [ "man" ];
+          outputs = args.outputs or ["out"] ++ ["man"];
           postFixup =
             args.postFixup or ""
             + ''
@@ -38,8 +35,7 @@ let
   # TODO: do this properly
   hostRid = targetRid;
 
-  mkPackage =
-    pname: version:
+  mkPackage = pname: version:
     stdenvNoCC.mkDerivation {
       inherit pname version;
 
@@ -103,20 +99,22 @@ let
     ]
     ++ targetPackages.${targetRid};
 
-  targetPackages = fallbackTargetPackages // {
-    ${targetRid} =
-      [
-        (mkPackage "Microsoft.AspNetCore.App.Runtime.${targetRid}" aspnetcore.version)
-        (mkPackage "Microsoft.NETCore.App.Host.${targetRid}" runtime.version)
-        (mkPackage "Microsoft.NETCore.App.Runtime.${targetRid}" runtime.version)
-        (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetAppHost" runtime.version)
-      ]
-      ++ lib.optionals (lib.versionOlder runtime.version "9") [
-        (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHost" runtime.version)
-        (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHostPolicy" runtime.version)
-        (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHostResolver" runtime.version)
-      ];
-  };
+  targetPackages =
+    fallbackTargetPackages
+    // {
+      ${targetRid} =
+        [
+          (mkPackage "Microsoft.AspNetCore.App.Runtime.${targetRid}" aspnetcore.version)
+          (mkPackage "Microsoft.NETCore.App.Host.${targetRid}" runtime.version)
+          (mkPackage "Microsoft.NETCore.App.Runtime.${targetRid}" runtime.version)
+          (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetAppHost" runtime.version)
+        ]
+        ++ lib.optionals (lib.versionOlder runtime.version "9") [
+          (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHost" runtime.version)
+          (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHostPolicy" runtime.version)
+          (mkPackage "runtime.${targetRid}.Microsoft.NETCore.DotNetHostResolver" runtime.version)
+        ];
+    };
 
   sdk = mkCommon "sdk" rec {
     pname = "${baseName}-sdk";
@@ -163,12 +161,13 @@ let
     '';
 
     ${
-      if stdenvNoCC.hostPlatform.isDarwin && lib.versionAtLeast version "10" then "postInstall" else null
-    } =
-      ''
-        mkdir -p "$out"/nix-support
-        cp "$src"/nix-support/manual-sdk-deps "$out"/nix-support/manual-sdk-deps
-      '';
+      if stdenvNoCC.hostPlatform.isDarwin && lib.versionAtLeast version "10"
+      then "postInstall"
+      else null
+    } = ''
+      mkdir -p "$out"/nix-support
+      cp "$src"/nix-support/manual-sdk-deps "$out"/nix-support/manual-sdk-deps
+    '';
 
     passthru = {
       inherit (vmr) icu targetRid hasILCompiler;
@@ -181,9 +180,11 @@ let
         ;
     };
 
-    meta = vmr.meta // {
-      mainProgram = "dotnet";
-    };
+    meta =
+      vmr.meta
+      // {
+        mainProgram = "dotnet";
+      };
   };
 
   runtime = mkCommon "runtime" rec {
@@ -209,9 +210,11 @@ let
       inherit (vmr) icu;
     };
 
-    meta = vmr.meta // {
-      mainProgram = "dotnet";
-    };
+    meta =
+      vmr.meta
+      // {
+        mainProgram = "dotnet";
+      };
   };
 
   aspnetcore = mkCommon "aspnetcore" rec {
@@ -240,17 +243,17 @@ let
       inherit (vmr) icu;
     };
 
-    meta = vmr.meta // {
-      mainProgram = "dotnet";
-    };
+    meta =
+      vmr.meta
+      // {
+        mainProgram = "dotnet";
+      };
   };
-in
-{
+in {
   inherit
     vmr
     sdk
     runtime
     aspnetcore
     ;
-
 }

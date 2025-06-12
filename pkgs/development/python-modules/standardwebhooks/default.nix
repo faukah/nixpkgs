@@ -11,7 +11,6 @@
   types-deprecated,
   types-python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "standardwebhooks";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-2UuZwNzqhBVuA62tlPjboy1UVMxo4S7CyCQFG1W7Z/8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     types-python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "standardwebhooks" ];
+  pythonImportsCheck = ["standardwebhooks"];
 
   meta = {
     description = "Standard Webhooks";
     homepage = "https://pypi.org/project/standardwebhooks/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

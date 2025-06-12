@@ -9,7 +9,6 @@
   codecserver,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "digiham";
   version = "0.6.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     icu
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${builtins.placeholder "out"}/bin/dmr_decoder";
   doInstallCheck = true;
 
@@ -46,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tools for decoding digital ham communication";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.c3d2 ];
+    teams = [lib.teams.c3d2];
   };
 })

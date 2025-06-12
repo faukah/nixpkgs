@@ -7,7 +7,6 @@
   trousers,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tboot";
   version = "1.11.9";
@@ -41,14 +40,14 @@ stdenv.mkDerivation rec {
         "digest = malloc(sizeof *digest);"
   '';
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   meta = {
     description = "Pre-kernel/VMM module that uses Intel(R) TXT to perform a measured and verified launch of an OS kernel/VMM";
     homepage = "https://sourceforge.net/projects/tboot/";
     changelog = "https://sourceforge.net/p/tboot/code/ci/v${version}/tree/CHANGELOG";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ak ];
+    maintainers = with lib.maintainers; [ak];
     platforms = [
       "x86_64-linux"
       "i686-linux"

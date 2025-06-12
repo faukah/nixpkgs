@@ -11,7 +11,6 @@
   rich,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "typer-shell";
   version = "0.1.12";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "typer"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     click
@@ -46,12 +45,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "typer_shell" ];
+  pythonImportsCheck = ["typer_shell"];
 
   meta = with lib; {
     description = "Library for making beautiful shells/REPLs with Typer";
     homepage = "https://github.com/FergusFettes/typer-shell";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

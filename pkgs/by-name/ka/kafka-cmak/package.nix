@@ -6,7 +6,6 @@
   gawk,
   makeBinaryWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "CMAK";
   version = "3.0.0.6";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mv ./* $out
     wrapProgram $out/bin/cmak \
       --set JAVA_HOME ${jdk.home} \
-      --prefix PATH : ${lib.makeBinPath [ gawk ]}
+      --prefix PATH : ${lib.makeBinPath [gawk]}
 
     runHook postInstall
   '';
@@ -42,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Cluster Manager for Apache Kafka, previously known as Kafka Manager";
     license = licenses.apsl20;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     platforms = lib.platforms.unix;
     mainProgram = "cmak";
   };

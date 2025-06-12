@@ -4,7 +4,6 @@
   melpaBuild,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "git-undo";
   version = "0-unstable-2022-08-07";
@@ -16,12 +15,12 @@ melpaBuild {
     hash = "sha256-xwVCAdxnIRHrFNWvtlM3u6CShsUiGgl1CiBTsp2x7IM=";
   };
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/jwiegley/git-undo-el";
     description = "Revert region to most recent Git-historical version";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ leungbk ];
+    maintainers = with lib.maintainers; [leungbk];
   };
 }

@@ -10,7 +10,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "reolink-aio";
   version = "0.13.5";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-a1F2hSRGR6IGS9KaOEChcyY2vKluQSAeSZ7cAIshZCY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "reolink_aio" ];
+  pythonImportsCheck = ["reolink_aio"];
 
   # All tests require a network device
   doCheck = false;
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/starkillerOG/reolink_aio";
     changelog = "https://github.com/starkillerOG/reolink_aio/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

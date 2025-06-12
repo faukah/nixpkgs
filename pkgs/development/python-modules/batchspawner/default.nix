@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   jinja2,
   jupyterhub,
-
   # tests
   pytest-asyncio,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "batchspawner";
   version = "1.3.0";
@@ -52,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "batchspawner" ];
+  pythonImportsCheck = ["batchspawner"];
 
   meta = {
     description = "Spawner for Jupyterhub to spawn notebooks using batch resource managers";
@@ -60,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyterhub/batchspawner";
     changelog = "https://github.com/jupyterhub/batchspawner/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

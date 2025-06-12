@@ -14,7 +14,6 @@
   genome-collector,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   pname = "dnachisel";
   version = "3.2.13";
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     "test_avoid_matches_with_phage"
   ];
 
-  pythonImportsCheck = [ "dnachisel" ];
+  pythonImportsCheck = ["dnachisel"];
 
   meta = with lib; {
     homepage = "https://github.com/Edinburgh-Genome-Foundry/DnaChisel";
     description = "Optimize DNA sequences under constraints";
     changelog = "https://github.com/Edinburgh-Genome-Foundry/DnaChisel/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

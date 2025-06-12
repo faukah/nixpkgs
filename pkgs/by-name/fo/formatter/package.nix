@@ -20,7 +20,6 @@
   libgee,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "formatter";
   version = "0.4.0";
@@ -64,14 +63,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Simple formatter designed for elementary OS";
     homepage = "https://github.com/Djaler/Formatter";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.lgpl2Plus;
     mainProgram = "com.github.djaler.formatter";

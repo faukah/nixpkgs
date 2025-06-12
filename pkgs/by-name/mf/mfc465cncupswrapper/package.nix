@@ -11,7 +11,6 @@
   pkgsi686Linux,
   psutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfc465cncupswrapper";
   version = "1.0.1-1";
@@ -81,9 +80,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother MFC-465CN CUPS wrapper driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ phrogg ];
+    maintainers = with maintainers; [phrogg];
   };
 }

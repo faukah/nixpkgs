@@ -6,7 +6,6 @@
   zlib,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libharu";
   version = "2.4.5";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-v2vudB95OdYPiLxS9Al5lsAInsvmharhPWdnUmCl+Bs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     libpng
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Cross platform, open source library for generating PDF files";
     homepage = "http://libharu.org/";
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.unix;
   };
 }

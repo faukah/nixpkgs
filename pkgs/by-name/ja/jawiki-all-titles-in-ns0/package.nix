@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "jawiki-all-titles-in-ns0";
   version = "0-unstable-2025-06-01";
@@ -39,10 +38,10 @@ stdenvNoCC.mkDerivation {
       fdl13Only
       cc-by-sa-30
     ];
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides a dump gz file
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

@@ -5,7 +5,6 @@
   guile,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mcron";
   version = "1.2.1";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
     sed -E -i '/chmod u\+s/d' Makefile.in
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [guile];
 
   doCheck = true;
 

@@ -7,7 +7,6 @@
   pkg-config,
   unittestCheckHook,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "python-djvulibre";
   version = "0.9.3";
@@ -38,7 +37,7 @@ python3Packages.buildPythonPackage rec {
     rm -rf tests/examples
   '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "tests"
@@ -50,6 +49,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/FriedrichFroebel/python-djvulibre";
     license = licenses.gpl2Only;
     changelog = "https://github.com/FriedrichFroebel/python-djvulibre/releases/tag/${src.tag}";
-    maintainers = with maintainers; [ dansbandit ];
+    maintainers = with maintainers; [dansbandit];
   };
 }

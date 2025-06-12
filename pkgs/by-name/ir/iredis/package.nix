@@ -4,7 +4,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "iredis";
   version = "1.15.1";
@@ -60,14 +59,14 @@ python3.pkgs.buildPythonApplication rec {
       "--deselect=tests/unittests/test_utils.py::test_timer"
     ];
 
-  pythonImportsCheck = [ "iredis" ];
+  pythonImportsCheck = ["iredis"];
 
   meta = with lib; {
     description = "Terminal Client for Redis with AutoCompletion and Syntax Highlighting";
     changelog = "https://github.com/laixintao/iredis/blob/${src.tag}/CHANGELOG.md";
     homepage = "https://iredis.xbin.io/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "iredis";
   };
 }

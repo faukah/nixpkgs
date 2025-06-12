@@ -11,7 +11,6 @@
   rofi,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pinentry-rofi";
   version = "3.0.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   # pinentry-rofi wants to call `env rofi` (https://github.com/plattfot/pinentry-rofi/blob/fde8e32b8380512e2ba02961ccc99765575e2c89/pinentry-rofi.scm#L338)
   postInstall = ''
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/plattfot/pinentry-rofi";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     mainProgram = "pinentry-rofi";
   };
 }

@@ -24,12 +24,14 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional stdenv.hostPlatform.isDarwin ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
 
-  nativeBuildInputs = [
-    acme
-    ldc
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf;
+  nativeBuildInputs =
+    [
+      acme
+      ldc
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf;
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   makefile = "Makefile.ldc";
 
@@ -47,19 +49,17 @@ stdenv.mkDerivation {
     done
   '';
 
-  postFixup =
-    let
-      rpathSDL = lib.makeLibraryPath [ SDL ];
-    in
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        install_name_tool -add_rpath ${rpathSDL} $out/bin/ccutter
-      ''
-    else
-      ''
-        rpath=$(patchelf --print-rpath $out/bin/ccutter)
-        patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
-      '';
+  postFixup = let
+    rpathSDL = lib.makeLibraryPath [SDL];
+  in
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      install_name_tool -add_rpath ${rpathSDL} $out/bin/ccutter
+    ''
+    else ''
+      rpath=$(patchelf --print-rpath $out/bin/ccutter)
+      patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
+    '';
 
   meta = with lib; {
     description = "Tracker program for composing music for the SID chip";
@@ -70,6 +70,6 @@ stdenv.mkDerivation {
       "i686-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

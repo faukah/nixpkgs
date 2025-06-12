@@ -7,7 +7,6 @@
   qtdeclarative,
   sailfish-access-control,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sailfish-access-control-plugin";
   inherit (sailfish-access-control) version src patches;
@@ -46,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "QML interface for sailfish-access-control";
-    inherit (sailfish-access-control.meta)
+    inherit
+      (sailfish-access-control.meta)
       homepage
       changelog
       license

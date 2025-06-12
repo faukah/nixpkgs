@@ -13,7 +13,6 @@
   setuptools-scm,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "statsmodels";
   version = "0.14.4";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   # Huge test suites with several test failures
   doCheck = false;
 
-  pythonImportsCheck = [ "statsmodels" ];
+  pythonImportsCheck = ["statsmodels"];
 
   meta = with lib; {
     description = "Statistical computations and models for use with SciPy";

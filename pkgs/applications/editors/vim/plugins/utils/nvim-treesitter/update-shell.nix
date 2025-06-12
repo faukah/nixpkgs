@@ -1,20 +1,15 @@
-{
-  pkgs ? import ../../../../../../.. { },
-}:
-
-with pkgs;
-
-let
+{pkgs ? import ../../../../../../.. {}}:
+with pkgs; let
   pythonWithPackages = python3.withPackages (
-    ps: with ps; [
-      requests
-    ]
+    ps:
+      with ps; [
+        requests
+      ]
   );
 in
-
-mkShell {
-  packages = [
-    nurl
-    pythonWithPackages
-  ];
-}
+  mkShell {
+    packages = [
+      nurl
+      pythonWithPackages
+    ];
+  }

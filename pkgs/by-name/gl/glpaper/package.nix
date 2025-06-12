@@ -9,7 +9,6 @@
   libX11,
   libGL,
 }:
-
 stdenv.mkDerivation {
   pname = "glpaper";
   version = "unstable-2022-05-15";
@@ -39,6 +38,6 @@ stdenv.mkDerivation {
     homepage = "https://hg.sr.ht/~scoopta/glpaper";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ccellado ];
+    maintainers = with maintainers; [ccellado];
   };
 }

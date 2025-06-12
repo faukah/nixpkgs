@@ -7,7 +7,6 @@
   kio,
   libksane,
 }:
-
 mkDerivation {
   pname = "skanlite";
   meta = with lib; {
@@ -15,7 +14,7 @@ mkDerivation {
     mainProgram = "skanlite";
     homepage = "https://apps.kde.org/skanlite";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ polendri ];
+    maintainers = with maintainers; [polendri];
   };
 
   nativeBuildInputs = [

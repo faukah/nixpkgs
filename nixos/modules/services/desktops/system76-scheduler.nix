@@ -3,18 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.system76-scheduler;
 
-  inherit (builtins)
+  inherit
+    (builtins)
     concatStringsSep
     map
     toString
     attrNames
     ;
-  inherit (lib)
+  inherit
+    (lib)
     boolToString
     types
     mkOption
@@ -23,7 +23,8 @@ let
     mkIf
     mkMerge
     ;
-  inherit (types)
+  inherit
+    (types)
     nullOr
     listOf
     bool
@@ -34,16 +35,15 @@ let
     enum
     ;
 
-  withDefaults =
-    optionSpecs: defaults:
+  withDefaults = optionSpecs: defaults:
     lib.genAttrs (attrNames optionSpecs) (
       name:
-      mkOption (
-        optionSpecs.${name}
-        // {
-          default = optionSpecs.${name}.default or defaults.${name} or null;
-        }
-      )
+        mkOption (
+          optionSpecs.${name}
+          // {
+            default = optionSpecs.${name}.default or defaults.${name} or null;
+          }
+        )
     );
 
   latencyProfile = withDefaults {
@@ -109,7 +109,7 @@ let
     };
     matchers = {
       type = nullOr (listOf str);
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           "include cgroup=\"/user.slice/*.service\" parent=\"systemd\""
@@ -120,29 +120,24 @@ let
     };
   };
 
-  cfsProfileToString =
-    name:
-    let
-      p = cfg.settings.cfsProfiles.${name};
-    in
-    "${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${toString p.bandwidth-size} preempt=\"${p.preempt}\"";
+  cfsProfileToString = name: let
+    p = cfg.settings.cfsProfiles.${name};
+  in "${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${toString p.bandwidth-size} preempt=\"${p.preempt}\"";
 
-  prioToString = class: prio: if prio == null then "\"${class}\"" else "(${class})${toString prio}";
+  prioToString = class: prio:
+    if prio == null
+    then "\"${class}\""
+    else "(${class})${toString prio}";
 
-  schedulerProfileToString =
-    name: a: indent:
+  schedulerProfileToString = name: a: indent:
     concatStringsSep " " (
-      [ "${indent}${name}" ]
+      ["${indent}${name}"]
       ++ (optional (a.nice != null) "nice=${toString a.nice}")
       ++ (optional (a.class != null) "sched=${prioToString a.class a.prio}")
       ++ (optional (a.ioClass != null) "io=${prioToString a.ioClass a.ioPrio}")
-      ++ (optional ((builtins.length a.matchers) != 0) (
-        "{\n${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}\n${indent}}"
-      ))
+      ++ (optional ((builtins.length a.matchers) != 0) "{\n${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}\n${indent}}")
     );
-
-in
-{
+in {
   options = {
     services.system76-scheduler = {
       enable = lib.mkEnableOption "system76-scheduler";
@@ -249,10 +244,10 @@ in
       assignments = mkOption {
         type = types.attrsOf (
           types.submodule {
-            options = schedulerProfile { };
+            options = schedulerProfile {};
           }
         );
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             nix-builds = {
@@ -270,7 +265,7 @@ in
 
       exceptions = mkOption {
         type = types.listOf str;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "include descends=\"schedtool\""
@@ -283,12 +278,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.dbus.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.dbus.packages = [cfg.package];
 
     systemd.services.system76-scheduler = {
       description = "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         # execsnoop needs those to extract kernel headers:
         pkgs.kmod
@@ -318,40 +313,37 @@ in
           cfsp = settings.cfsProfiles;
           ps = settings.processScheduler;
         in
-        mkIf (!cfg.useStockConfig) {
-          "system76-scheduler/config.kdl".text = ''
-            version "2.0"
-            autogroup-enabled false
-            cfs-profiles enable=${boolToString cfsp.enable} {
-              ${cfsProfileToString "default"}
-              ${cfsProfileToString "responsive"}
-            }
-            process-scheduler enable=${boolToString ps.enable} {
-              execsnoop ${boolToString ps.useExecsnoop}
-              refresh-rate ${toString ps.refreshInterval}
-              assignments {
-                ${
-                  if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "foreground" ps.foregroundBoost.foreground "    ")
-                  else
-                    ""
-                }
-                ${
-                  if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "background" ps.foregroundBoost.background "    ")
-                  else
-                    ""
-                }
-                ${
-                  if ps.pipewireBoost.enable then
-                    (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ")
-                  else
-                    ""
+          mkIf (!cfg.useStockConfig) {
+            "system76-scheduler/config.kdl".text = ''
+              version "2.0"
+              autogroup-enabled false
+              cfs-profiles enable=${boolToString cfsp.enable} {
+                ${cfsProfileToString "default"}
+                ${cfsProfileToString "responsive"}
+              }
+              process-scheduler enable=${boolToString ps.enable} {
+                execsnoop ${boolToString ps.useExecsnoop}
+                refresh-rate ${toString ps.refreshInterval}
+                assignments {
+                  ${
+                if ps.foregroundBoost.enable
+                then (schedulerProfileToString "foreground" ps.foregroundBoost.foreground "    ")
+                else ""
+              }
+                  ${
+                if ps.foregroundBoost.enable
+                then (schedulerProfileToString "background" ps.foregroundBoost.background "    ")
+                else ""
+              }
+                  ${
+                if ps.pipewireBoost.enable
+                then (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ")
+                else ""
+              }
                 }
               }
-            }
-          '';
-        }
+            '';
+          }
       )
 
       {
@@ -367,6 +359,6 @@ in
   };
 
   meta = {
-    maintainers = [ lib.maintainers.cmm ];
+    maintainers = [lib.maintainers.cmm];
   };
 }

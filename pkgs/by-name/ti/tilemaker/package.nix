@@ -15,7 +15,6 @@
   zlib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tilemaker";
   version = "3.0.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     lib.cmakeFeature "PROTOBUF_PROTOC_EXECUTABLE" "${buildPackages.protobuf}/bin/protoc"
   );
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-DTM_VERSION=${finalAttrs.version}" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DTM_VERSION=${finalAttrs.version}"];
 
   postInstall = ''
     installManPage ../docs/man/tilemaker.1
@@ -80,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tilemaker.org/";
     changelog = "https://github.com/systemed/tilemaker/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = licenses.free; # FTWPL
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
     mainProgram = "tilemaker";
   };

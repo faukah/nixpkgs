@@ -7,7 +7,6 @@
   numpy,
   srsly,
 }:
-
 buildPythonPackage rec {
   pname = "spacy-pkuseg";
   version = "1.0.0";
@@ -34,12 +33,12 @@ buildPythonPackage rec {
     srsly
   ];
 
-  pythonImportsCheck = [ "spacy_pkuseg" ];
+  pythonImportsCheck = ["spacy_pkuseg"];
 
   meta = with lib; {
     description = "Toolkit for multi-domain Chinese word segmentation (spaCy fork)";
     homepage = "https://github.com/explosion/spacy-pkuseg";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

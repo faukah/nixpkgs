@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fcast-client";
   version = "0.1.0-unstable-2024-05-23";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       receiver devices or integrate the FCast protocol into their own apps.
     '';
     mainProgram = "fcast";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   buildPackages,
   postgresql,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tzdata";
   version = "2025b";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
     "dev"
   ];
-  propagatedBuildOutputs = [ ];
+  propagatedBuildOutputs = [];
 
   makeFlags =
     [

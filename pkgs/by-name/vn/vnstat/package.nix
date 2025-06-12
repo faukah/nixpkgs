@@ -8,7 +8,6 @@
   sqlite,
   check,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vnstat";
   version = "2.13";
@@ -24,14 +23,14 @@ stdenv.mkDerivation rec {
     substituteInPlace src/cfg.c --replace /usr/local $out
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gd
     ncurses
     sqlite
   ];
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   doCheck = true;
 
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://humdi.net/vnstat/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

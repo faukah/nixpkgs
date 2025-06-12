@@ -7,13 +7,12 @@
   vulkan-loader,
   addDriverRunpath,
 }:
-
 stdenv.mkDerivation {
   pname = "virtualgl";
   version = lib.getVersion virtualglLib;
 
-  paths = [ virtualglLib ];
-  nativeBuildInputs = [ makeWrapper ];
+  paths = [virtualglLib];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand =
     ''
@@ -24,16 +23,16 @@ stdenv.mkDerivation {
 
       wrapProgram $out/bin/vglrun \
         --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            virtualglLib
-            virtualglLib_i686
+        lib.makeLibraryPath [
+          virtualglLib
+          virtualglLib_i686
 
-            addDriverRunpath.driverLink
+          addDriverRunpath.driverLink
 
-            # Needed for vulkaninfo to work
-            vulkan-loader
-          ]
-        }"
+          # Needed for vulkaninfo to work
+          vulkan-loader
+        ]
+      }"
     ''
     + lib.optionalString (virtualglLib_i686 != null) ''
       ln -sf ${virtualglLib_i686}/bin/.vglrun.vars32 $out/bin

@@ -8,12 +8,11 @@
   avahi,
   ndi,
 }:
-
 stdenv.mkDerivation {
   pname = "v4l2-to-ndi";
   version = "0-unstable-2022-09-14";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     openssl

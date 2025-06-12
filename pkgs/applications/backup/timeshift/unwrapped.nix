@@ -15,7 +15,6 @@
   vte,
   xapp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timeshift";
   version = "24.06.6";

@@ -37,10 +37,8 @@
   limesuite,
   pkg-config,
   zeromq,
-}:
-
-let
-  fxload = libusb1.override { withExamples = true; };
+}: let
+  fxload = libusb1.override {withExamples = true;};
   src-3rdparty = fetchFromGitHub {
     owner = "indilib";
     repo = "indi-3rdparty";
@@ -48,19 +46,18 @@ let
     hash = "sha256-REmeIP0Cl5FfwUnL40u0dqZaJugBlLGT/Bts5j1bvgw=";
   };
 
-  buildIndi3rdParty =
-    args@{
-      pname,
-      nativeBuildInputs ? [ ],
-      propagatedBuildInputs ? [ ],
-      cmakeFlags ? [ ],
-      postInstall ? "",
-      doCheck ? true,
-      version ? indilib.version,
-      src ? src-3rdparty,
-      meta ? { },
-      ...
-    }:
+  buildIndi3rdParty = args @ {
+    pname,
+    nativeBuildInputs ? [],
+    propagatedBuildInputs ? [],
+    cmakeFlags ? [],
+    postInstall ? "",
+    doCheck ? true,
+    version ? indilib.version,
+    src ? src-3rdparty,
+    meta ? {},
+    ...
+  }:
     stdenv.mkDerivation (
       args
       // {
@@ -82,13 +79,15 @@ let
           ]
           ++ cmakeFlags;
 
-        nativeBuildInputs = [
-          cmake
-          ninja
-          pkg-config
-        ] ++ nativeBuildInputs;
+        nativeBuildInputs =
+          [
+            cmake
+            ninja
+            pkg-config
+          ]
+          ++ nativeBuildInputs;
 
-        checkInputs = [ gtest ];
+        checkInputs = [gtest];
 
         postInstall = ''
           mkdir -p $out/lib/udev/rules.d/
@@ -103,8 +102,7 @@ let
           ${postInstall}
         '';
 
-        meta =
-          with lib;
+        meta = with lib;
           {
             homepage = "https://www.indilib.org/";
             description = "Third party drivers for the INDI astronomical software suite";
@@ -136,8 +134,8 @@ let
       indilib
       libusb1
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
-    cmakeFlags = [ "-DCONF_DIR=etc/" ];
+    nativeBuildInputs = [autoPatchelfHook];
+    cmakeFlags = ["-DCONF_DIR=etc/"];
     meta = with lib; {
       license = licenses.mpl20;
       platforms = platforms.linux;
@@ -158,7 +156,7 @@ let
       libusb1
       (lib.getLib stdenv.cc.cc)
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ i686 ++ arm;
@@ -167,8 +165,8 @@ let
 
   libastroasis = buildIndi3rdParty {
     pname = "libastroasis";
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -183,7 +181,7 @@ let
       systemd
       libdc1394
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ i686 ++ arm;
@@ -192,7 +190,7 @@ let
 
   libbressercam = buildIndi3rdParty {
     pname = "libbressercam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -235,7 +233,7 @@ let
       (lib.getLib stdenv.cc.cc)
       libusb1
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm ++ i686;
@@ -244,7 +242,7 @@ let
 
   libmallincam = buildIndi3rdParty {
     pname = "libmallincam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -253,7 +251,7 @@ let
 
   libmeadecam = buildIndi3rdParty {
     pname = "libmeadecam";
-    buildInputs = [ libusb1 ];
+    buildInputs = [libusb1];
     meta = with lib; {
       license = lib.licenses.lgpl21Only;
       platforms = platforms.linux;
@@ -262,8 +260,8 @@ let
 
   libmicam = buildIndi3rdParty {
     pname = "libmicam";
-    buildInputs = [ libusb1 ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    buildInputs = [libusb1];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm ++ i686;
@@ -272,7 +270,7 @@ let
 
   libnncam = buildIndi3rdParty {
     pname = "libnncam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -281,7 +279,7 @@ let
 
   libogmacam = buildIndi3rdParty {
     pname = "libogmacam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -290,7 +288,7 @@ let
 
   libomegonprocam = buildIndi3rdParty {
     pname = "libomegonprocam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -300,11 +298,11 @@ let
   # broken: needs pigpio library
   libpigpiod = buildIndi3rdParty {
     pname = "libpigpiod";
-    buildInputs = [ indilib ];
+    buildInputs = [indilib];
     meta = with lib; {
       license = licenses.unlicense;
       broken = true;
-      platforms = [ ];
+      platforms = [];
     };
   };
 
@@ -316,7 +314,7 @@ let
         --replace-fail "set (PK_DATADIR /usr/share/pktriggercord)" "set (PK_DATADIR $out/share/pkgtriggercord)"
     '';
 
-    buildInputs = [ indilib ];
+    buildInputs = [indilib];
 
     meta = with lib; {
       license = licenses.lgpl3Plus;
@@ -337,7 +335,7 @@ let
       libusb1
       systemd
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -359,13 +357,13 @@ let
       sed -e 's|-D $env{DEVNAME}|-p $env{BUSNUM},$env{DEVNUM}|' -i 85-qhyccd.rules
     '';
 
-    cmakeFlags = [ "-DQHY_FIRMWARE_INSTALL_DIR=\${CMAKE_INSTALL_PREFIX}/lib/firmware/qhy" ];
+    cmakeFlags = ["-DQHY_FIRMWARE_INSTALL_DIR=\${CMAKE_INSTALL_PREFIX}/lib/firmware/qhy"];
 
     buildInputs = [
       (lib.getLib stdenv.cc.cc)
       libusb1
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
@@ -379,7 +377,7 @@ let
       libftdi1
       indilib
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = platforms.linux;
@@ -392,7 +390,7 @@ let
       (lib.getLib stdenv.cc.cc)
       libusb1
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ i686 ++ arm;
@@ -411,8 +409,8 @@ let
       sed -e 's|-D $env{DEVNAME}|-p $env{BUSNUM},$env{DEVNUM}|' -i 51-sbig-debian.rules
     '';
 
-    buildInputs = [ libusb1 ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    buildInputs = [libusb1];
+    nativeBuildInputs = [autoPatchelfHook];
 
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
@@ -422,7 +420,7 @@ let
 
   libstarshootg = buildIndi3rdParty {
     pname = "libstarshootg";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -435,7 +433,7 @@ let
       (lib.getLib stdenv.cc.cc)
       libusb1
     ];
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm ++ i686;
@@ -444,7 +442,7 @@ let
 
   libsvbonycam = buildIndi3rdParty {
     pname = "libsvbonycam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -453,7 +451,7 @@ let
 
   libtoupcam = buildIndi3rdParty {
     pname = "libtoupcam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
@@ -462,19 +460,16 @@ let
 
   libtscam = buildIndi3rdParty {
     pname = "libtscam";
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     meta = with lib; {
       license = lib.licenses.unfreeRedistributable;
       platforms = with platforms; x86_64 ++ aarch64 ++ arm;
     };
   };
-
-in
-{
-
+in {
   indi-aagcloudwatcher-ng = buildIndi3rdParty {
     pname = "indi-aagcloudwatcher-ng";
-    buildInputs = [ indilib ];
+    buildInputs = [indilib];
   };
 
   indi-ahp-xc = buildIndi3rdParty {
@@ -486,7 +481,7 @@ in
       zlib
     ];
     meta = {
-      platforms = [ ];
+      platforms = [];
       # libahc-xc not packaged
       broken = true;
     };
@@ -508,7 +503,7 @@ in
       libapogee
       zlib
     ];
-    propagatedBuildInputs = [ libapogee ];
+    propagatedBuildInputs = [libapogee];
     meta.platforms = libapogee.meta.platforms;
   };
 
@@ -532,21 +527,21 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libasi ];
+    propagatedBuildInputs = [libasi];
     meta.platforms = libasi.meta.platforms;
   };
 
   # broken needs pigpio
   indi-asi-power = buildIndi3rdParty {
     pname = "indi-asi-power";
-    buildInputs = [ indilib ];
-    meta.platforms = [ ];
+    buildInputs = [indilib];
+    meta.platforms = [];
     meta.broken = true;
   };
 
   indi-astarbox = buildIndi3rdParty {
     pname = "indi-astarbox";
-    buildInputs = [ indilib ];
+    buildInputs = [indilib];
   };
 
   indi-astroasis = buildIndi3rdParty {
@@ -558,7 +553,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libastroasis ];
+    propagatedBuildInputs = [libastroasis];
     meta.platforms = libastroasis.meta.platforms;
   };
 
@@ -570,7 +565,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libatik ];
+    propagatedBuildInputs = [libatik];
     meta.platforms = libatik.meta.platforms;
   };
 
@@ -676,7 +671,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libfishcamp ];
+    propagatedBuildInputs = [libfishcamp];
     meta.platforms = libfishcamp.meta.platforms;
   };
 
@@ -687,7 +682,7 @@ in
       indilib
       zlib
     ];
-    propagatedBuildInputs = [ libfli ];
+    propagatedBuildInputs = [libfli];
     meta.platforms = libfli.meta.platforms;
   };
 
@@ -712,7 +707,7 @@ in
       indilib
       zlib
     ];
-    propagatedBuildInputs = [ libgphoto2 ];
+    propagatedBuildInputs = [libgphoto2];
   };
 
   indi-gpio = buildIndi3rdParty {
@@ -751,7 +746,7 @@ in
       indilib
       zlib
     ];
-    propagatedBuildInputs = [ libinovasdk ];
+    propagatedBuildInputs = [libinovasdk];
     meta.platforms = libinovasdk.meta.platforms;
   };
 
@@ -769,7 +764,7 @@ in
       libraw
       zlib
     ];
-    meta.platforms = [ ];
+    meta.platforms = [];
     # broken, wants rpicam-apps
     meta.broken = true;
   };
@@ -812,7 +807,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libmicam ];
+    propagatedBuildInputs = [libmicam];
   };
 
   indi-nexdome = buildIndi3rdParty {
@@ -891,7 +886,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libplayerone ];
+    propagatedBuildInputs = [libplayerone];
     meta.platforms = libplayerone.meta.platforms;
   };
 
@@ -905,7 +900,7 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libqhy ];
+    propagatedBuildInputs = [libqhy];
     meta.platforms = libqhy.meta.platforms;
   };
 
@@ -961,12 +956,12 @@ in
       libusb1
       zlib
     ];
-    propagatedBuildInputs = [ libsbig ];
+    propagatedBuildInputs = [libsbig];
   };
 
   indi-shelyak = buildIndi3rdParty {
     pname = "indi-shelyak";
-    buildInputs = [ indilib ];
+    buildInputs = [indilib];
   };
 
   indi-starbook = buildIndi3rdParty {
@@ -994,7 +989,7 @@ in
       indilib
       zlib
     ];
-    propagatedBuildInputs = [ libsvbony ];
+    propagatedBuildInputs = [libsvbony];
 
     meta.platforms = libsvbony.meta.platforms;
   };
@@ -1060,5 +1055,4 @@ in
       indilib
     ];
   };
-
 }

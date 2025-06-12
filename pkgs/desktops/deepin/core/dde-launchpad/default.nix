@@ -10,7 +10,6 @@
   dtk6declarative,
   dde-shell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-launchpad";
   version = "1.0.8";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       appstream-qt
     ]);
 
-  cmakeFlags = [ "-DSYSTEMD_USER_UNIT_DIR=${placeholder "out"}/lib/systemd/user" ];
+  cmakeFlags = ["-DSYSTEMD_USER_UNIT_DIR=${placeholder "out"}/lib/systemd/user"];
 
   meta = {
     description = "'launcher' or 'start menu' component for DDE";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-launchpad";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

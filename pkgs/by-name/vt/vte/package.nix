@@ -32,15 +32,16 @@
   nixosTests,
   blackbox-terminal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vte";
   version = "0.80.2";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional (gtkVersion != null) "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional (gtkVersion != null) "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/vte/${lib.versions.majorMinor finalAttrs.version}/vte-${finalAttrs.version}.tar.xz";
@@ -91,7 +92,9 @@ stdenv.mkDerivation (finalAttrs: {
   propagatedBuildInputs = lib.optionals (gtkVersion != null) [
     (
       assert (gtkVersion == "3" || gtkVersion == "4");
-      if gtkVersion == "3" then gtk3 else gtk4
+        if gtkVersion == "3"
+        then gtk3
+        else gtk4
     )
     glib
     pango
@@ -136,7 +139,8 @@ stdenv.mkDerivation (finalAttrs: {
       versionPolicy = "odd-unstable";
     };
     tests = {
-      inherit (nixosTests.terminal-emulators)
+      inherit
+        (nixosTests.terminal-emulators)
         gnome-terminal
         lxterminal
         mlterm
@@ -147,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
         termite
         xfce4-terminal
         ;
-      blackbox-terminal = blackbox-terminal.override { sixelSupport = true; };
+      blackbox-terminal = blackbox-terminal.override {sixelSupport = true;};
     };
   };
 
@@ -167,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
       astsmtl
       antono
     ];
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

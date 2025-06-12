@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "meslo-lgs-nf";
   version = "unstable-2023-04-03";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     description = "Meslo Nerd Font patched for Powerlevel10k";
     homepage = "https://github.com/romkatv/powerlevel10k-media";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
     platforms = platforms.all;
   };
 }

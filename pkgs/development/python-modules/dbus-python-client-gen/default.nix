@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dbus-python-client-gen";
   version = "0.8.3";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     dbus-python
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dbus_python_client_gen" ];
+  pythonImportsCheck = ["dbus_python_client_gen"];
 
   meta = with lib; {
     description = "Python library for generating dbus-python client code";
     homepage = "https://github.com/stratis-storage/dbus-python-client-gen";
     changelog = "https://github.com/stratis-storage/dbus-python-client-gen/blob/v${version}/CHANGES.txt";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

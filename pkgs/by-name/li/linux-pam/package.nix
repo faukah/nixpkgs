@@ -12,7 +12,6 @@
   autoreconfHook269,
   pkg-config-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linux-pam";
   version = "1.6.1";
@@ -29,10 +28,10 @@ stdenv.mkDerivation rec {
   # Case-insensitivity workaround for https://github.com/linux-pam/linux-pam/issues/569
   postPatch =
     lib.optionalString (stdenv.buildPlatform.isDarwin && stdenv.buildPlatform != stdenv.hostPlatform)
-      ''
-        rm CHANGELOG
-        touch ChangeLog
-      '';
+    ''
+      rm CHANGELOG
+      touch ChangeLog
+    '';
 
   outputs = [
     "out"
@@ -40,19 +39,23 @@ stdenv.mkDerivation rec {
     "man" # "modules"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   # autoreconfHook269 is needed for `suid-wrapper-path.patch` above.
   # pkg-config-unwrapped is needed for `AC_CHECK_LIB` and `AC_SEARCH_LIBS`
-  nativeBuildInputs = [
-    flex
-    autoreconfHook269
-    pkg-config-unwrapped
-  ] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
+  nativeBuildInputs =
+    [
+      flex
+      autoreconfHook269
+      pkg-config-unwrapped
+    ]
+    ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
 
-  buildInputs = [
-    db4
-    libxcrypt
-  ] ++ lib.optional stdenv.buildPlatform.isLinux audit;
+  buildInputs =
+    [
+      db4
+      libxcrypt
+    ]
+    ++ lib.optional stdenv.buildPlatform.isLinux audit;
 
   enableParallelBuilding = true;
 
@@ -71,7 +74,8 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       pam-oath-login
       pam-u2f
       shadow

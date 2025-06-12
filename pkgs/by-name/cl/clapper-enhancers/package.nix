@@ -14,7 +14,6 @@
   gst_all_1,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clapper-enhancers";
   version = "0.8.3";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  mesonFlags = [ "-Denhancersdir=${placeholder "out"}/${finalAttrs.passthru.pluginPath}" ];
+  mesonFlags = ["-Denhancersdir=${placeholder "out"}/${finalAttrs.passthru.pluginPath}"];
 
   passthru.pluginPath = "lib/clapper-enhancers/plugins";
 

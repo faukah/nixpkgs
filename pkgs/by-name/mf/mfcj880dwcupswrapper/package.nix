@@ -6,7 +6,6 @@
   makeWrapper,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcj880dw-cupswrapper";
   version = "1.0.0-0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vykf4x1kr+rvtbDmBvS6+AxB2AAJ40syt31W91npz5Q=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     bash # shebang
   ];
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     license = with licenses; gpl2;
     platforms = with platforms; linux;
     downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj880dw_us_eu_as&os=128";
-    maintainers = with maintainers; [ _6543 ];
+    maintainers = with maintainers; [_6543];
   };
 }

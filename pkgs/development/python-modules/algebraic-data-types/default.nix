@@ -7,7 +7,6 @@
   mypy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "algebraic-data-types";
   version = "0.2.1";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
     "tests/test_mypy_plugin.py"
   ];
 
-  pythonImportsCheck = [ "adt" ];
+  pythonImportsCheck = ["adt"];
 
   meta = with lib; {
     description = "Algebraic data types for Python";
     homepage = "https://github.com/jspahrsummers/adt";
     license = licenses.mit;
-    maintainers = with maintainers; [ uri-canva ];
+    maintainers = with maintainers; [uri-canva];
   };
 }

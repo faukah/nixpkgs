@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "geist-font";
   version = "1.4.01";
@@ -37,8 +36,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Font family created by Vercel in collaboration with Basement Studio";
     homepage = "https://vercel.com/font";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ x0ba ];
+    maintainers = with lib.maintainers; [x0ba];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 })

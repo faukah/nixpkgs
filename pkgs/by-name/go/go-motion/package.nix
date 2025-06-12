@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "motion";
   version = "1.2.0";
@@ -36,7 +35,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/fatih/motion";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

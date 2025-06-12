@@ -20,7 +20,6 @@
   tqdm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "photutils";
   version = "2.2.0";
@@ -69,13 +68,13 @@ buildPythonPackage rec {
   # With 1.12.0 tests have issues importing modules
   doCheck = false;
 
-  pythonImportsCheck = [ "photutils" ];
+  pythonImportsCheck = ["photutils"];
 
   meta = with lib; {
     description = "Astropy package for source detection and photometry";
     homepage = "https://github.com/astropy/photutils";
     changelog = "https://github.com/astropy/photutils/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -12,7 +12,6 @@
   libtool,
   clangStdenv,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "ios-cross-compile";
   version = "9.2";
@@ -78,8 +77,8 @@ clangStdenv.mkDerivation rec {
   meta = {
     description = "Provides an iOS cross compiler from 7.1 up to iOS-${version} and ldid";
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
-    maintainers = with lib.maintainers; [ fxfactorial ];
+    hydraPlatforms = [];
+    maintainers = with lib.maintainers; [fxfactorial];
     license = lib.licenses.gpl2;
   };
 }

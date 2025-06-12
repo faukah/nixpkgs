@@ -21,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-nog6DymnnD0ABzG21jy00yNWhSTHfd7vJ4vo1DjsfKs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ napalm ];
+  dependencies = [napalm];
 
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_napalm_plugin" ];
+  pythonImportsCheck = ["netbox_napalm_plugin"];
 
   meta = {
     description = "Netbox plugin for Napalm integration";
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/netbox-community/netbox-napalm-plugin/releases/tag/${src.rev}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

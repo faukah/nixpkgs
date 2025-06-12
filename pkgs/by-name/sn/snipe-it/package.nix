@@ -6,7 +6,6 @@
   nixosTests,
   php84,
 }:
-
 php84.buildComposerProject2 (finalAttrs: {
   pname = "snipe-it";
   version = "8.1.4";
@@ -56,7 +55,7 @@ php84.buildComposerProject2 (finalAttrs: {
     homepage = "https://snipeitapp.com/";
     changelog = "https://github.com/snipe/snipe-it/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ yayayayaka ];
+    maintainers = with lib.maintainers; [yayayayaka];
     platforms = lib.platforms.linux;
   };
 })

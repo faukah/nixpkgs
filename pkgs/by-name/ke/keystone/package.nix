@@ -7,7 +7,6 @@
   python3,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keystone";
   version = "0.9.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight multi-platform, multi-architecture assembler framework";
     homepage = "https://www.keystone-engine.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "kstool";
     platforms = platforms.unix;
   };

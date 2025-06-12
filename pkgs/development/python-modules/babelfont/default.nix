@@ -16,7 +16,6 @@
   ufomerge,
   vfblib,
 }:
-
 buildPythonPackage rec {
   pname = "babelfont";
   version = "3.1.2";
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     "test_rename_contextual"
   ];
 
-  disabledTestPaths = [ "tests/test_glyphs3_roundtrip.py" ];
+  disabledTestPaths = ["tests/test_glyphs3_roundtrip.py"];
 
   meta = with lib; {
     description = "Python library to load, examine, and save fonts in a variety of formats";
     mainProgram = "babelfont";
     homepage = "https://github.com/simoncozens/babelfont";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

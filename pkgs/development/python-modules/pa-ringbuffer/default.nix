@@ -3,7 +3,6 @@
   buildPythonPackage,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "pa-ringbuffer";
   version = "0.1.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
   meta = {
     description = "Adds ring buffer functionality";
     homepage = "https://github.com/spatialaudio/python-pa-ringbuffer";
-    maintainers = with lib.maintainers; [ laikq ];
+    maintainers = with lib.maintainers; [laikq];
     license = lib.licenses.mit;
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.doas;
 
   inherit (pkgs) doas;
@@ -13,8 +12,7 @@ let
 
   mkGrpString = group: ":${toString group}";
 
-  mkOpts =
-    rule:
+  mkOpts = rule:
     lib.concatStringsSep " " [
       (lib.optionalString rule.noPass "nopass")
       (lib.optionalString rule.noLog "nolog")
@@ -23,26 +21,22 @@ let
       "setenv { SSH_AUTH_SOCK TERMINFO TERMINFO_DIRS ${lib.concatStringsSep " " rule.setEnv} }"
     ];
 
-  mkArgs =
-    rule:
-    if (rule.args == null) then
-      ""
-    else if (lib.length rule.args == 0) then
-      "args"
-    else
-      "args ${lib.concatStringsSep " " rule.args}";
+  mkArgs = rule:
+    if (rule.args == null)
+    then ""
+    else if (lib.length rule.args == 0)
+    then "args"
+    else "args ${lib.concatStringsSep " " rule.args}";
 
-  mkRule =
-    rule:
-    let
-      opts = mkOpts rule;
+  mkRule = rule: let
+    opts = mkOpts rule;
 
-      as = lib.optionalString (rule.runAs != null) "as ${rule.runAs}";
+    as = lib.optionalString (rule.runAs != null) "as ${rule.runAs}";
 
-      cmd = lib.optionalString (rule.cmd != null) "cmd ${rule.cmd}";
+    cmd = lib.optionalString (rule.cmd != null) "cmd ${rule.cmd}";
 
-      args = mkArgs rule;
-    in
+    args = mkArgs rule;
+  in
     lib.optionals (lib.length cfg.extraRules > 0) [
       (lib.optionalString (lib.length rule.users > 0) (
         map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}") rule.users
@@ -51,13 +45,10 @@ let
         map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}") rule.groups
       ))
     ];
-in
-{
-
+in {
   ###### interface
 
   options.security.doas = {
-
     enable = lib.mkOption {
       type = with lib.types; bool;
       default = false;
@@ -77,7 +68,7 @@ in
     };
 
     extraRules = lib.mkOption {
-      default = [ ];
+      default = [];
       description = ''
         Define specific rules to be set in the
         {file}`/etc/doas.conf` file. More specific rules should
@@ -116,11 +107,9 @@ in
             setEnv = [ "-SSH_AUTH_SOCK" "ALPHA=1" "BETA" ]; }
         ]
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         listOf (submodule {
           options = {
-
             noPass = lib.mkOption {
               type = with types; bool;
               default = false;
@@ -162,7 +151,7 @@ in
 
             setEnv = lib.mkOption {
               type = with types; listOf str;
-              default = [ ];
+              default = [];
               description = ''
                 Keep or set the specified variables. Variables may also be
                 removed with a leading '-' or set using
@@ -181,13 +170,13 @@ in
 
             users = lib.mkOption {
               type = with types; listOf (either str int);
-              default = [ ];
+              default = [];
               description = "The usernames / UIDs this rule should apply for.";
             };
 
             groups = lib.mkOption {
               type = with types; listOf (either str int);
-              default = [ ];
+              default = [];
               description = "The groups / GIDs this rule should apply for.";
             };
 
@@ -244,10 +233,9 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     security.doas.extraRules = lib.mkOrder 600 [
       {
-        groups = [ "wheel" ];
+        groups = ["wheel"];
         noPass = !cfg.wheelNeedsPassword;
       }
     ];
@@ -271,30 +259,29 @@ in
     environment.etc."doas.conf" = {
       source =
         pkgs.runCommand "doas-conf"
-          {
-            src = pkgs.writeText "doas-conf-in" ''
-              # To modify this file, set the NixOS options
-              # `security.doas.extraRules` or `security.doas.extraConfig`. To
-              # completely replace the contents of this file, use
-              # `environment.etc."doas.conf"`.
+        {
+          src = pkgs.writeText "doas-conf-in" ''
+            # To modify this file, set the NixOS options
+            # `security.doas.extraRules` or `security.doas.extraConfig`. To
+            # completely replace the contents of this file, use
+            # `environment.etc."doas.conf"`.
 
-              # extraRules
-              ${lib.concatStringsSep "\n" (lib.lists.flatten (map mkRule cfg.extraRules))}
+            # extraRules
+            ${lib.concatStringsSep "\n" (lib.lists.flatten (map mkRule cfg.extraRules))}
 
-              # extraConfig
-              ${cfg.extraConfig}
+            # extraConfig
+            ${cfg.extraConfig}
 
-              # "root" is allowed to do anything.
-              permit nopass keepenv root
-            '';
-            preferLocalBuild = true;
-          }
-          # Make sure that the doas.conf file is syntactically valid.
-          "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out";
+            # "root" is allowed to do anything.
+            permit nopass keepenv root
+          '';
+          preferLocalBuild = true;
+        }
+        # Make sure that the doas.conf file is syntactically valid.
+        "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out";
       mode = "0440";
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ cole-h ];
+  meta.maintainers = with lib.maintainers; [cole-h];
 }

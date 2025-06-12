@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.git;
-in
-
-{
+in {
   options = {
     programs.git = {
       enable = lib.mkEnableOption "git, a distributed version control system";
@@ -19,42 +15,36 @@ in
       };
 
       config = lib.mkOption {
-        type =
-          with lib.types;
-          let
-            gitini = attrsOf (attrsOf anything);
-          in
+        type = with lib.types; let
+          gitini = attrsOf (attrsOf anything);
+        in
           either gitini (listOf gitini)
           // {
-            merge =
-              loc: defs:
-              let
-                config =
-                  builtins.foldl'
-                    (
-                      acc:
-                      { value, ... }@x:
-                      acc
-                      // (
-                        if builtins.isList value then
-                          {
-                            ordered = acc.ordered ++ value;
-                          }
-                        else
-                          {
-                            unordered = acc.unordered ++ [ x ];
-                          }
-                      )
+            merge = loc: defs: let
+              config =
+                builtins.foldl'
+                (
+                  acc: {value, ...} @ x:
+                    acc
+                    // (
+                      if builtins.isList value
+                      then {
+                        ordered = acc.ordered ++ value;
+                      }
+                      else {
+                        unordered = acc.unordered ++ [x];
+                      }
                     )
-                    {
-                      ordered = [ ];
-                      unordered = [ ];
-                    }
-                    defs;
-              in
-              [ (gitini.merge loc config.unordered) ] ++ config.ordered;
+                )
+                {
+                  ordered = [];
+                  unordered = [];
+                }
+                defs;
+            in
+              [(gitini.merge loc config.unordered)] ++ config.ordered;
           };
-        default = [ ];
+        default = [];
         example = {
           init.defaultBranch = "main";
           url."https://github.com/".insteadOf = [
@@ -80,7 +70,7 @@ in
       lfs = {
         enable = lib.mkEnableOption "git-lfs (Large File Storage)";
 
-        package = lib.mkPackageOption pkgs "git-lfs" { };
+        package = lib.mkPackageOption pkgs "git-lfs" {};
 
         enablePureSSHTransfer = lib.mkEnableOption "Enable pure SSH transfer in server side by adding git-lfs-transfer to environment.systemPackages";
       };
@@ -89,15 +79,15 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      environment.systemPackages = [ cfg.package ];
-      environment.etc.gitconfig = lib.mkIf (cfg.config != [ ]) {
+      environment.systemPackages = [cfg.package];
+      environment.etc.gitconfig = lib.mkIf (cfg.config != []) {
         text = lib.concatMapStringsSep "\n" lib.generators.toGitINI cfg.config;
       };
     })
     (lib.mkIf (cfg.enable && cfg.lfs.enable) {
       environment.systemPackages = lib.mkMerge [
-        [ cfg.lfs.package ]
-        (lib.mkIf cfg.lfs.enablePureSSHTransfer [ pkgs.git-lfs-transfer ])
+        [cfg.lfs.package]
+        (lib.mkIf cfg.lfs.enablePureSSHTransfer [pkgs.git-lfs-transfer])
       ];
       programs.git.config = {
         filter.lfs = {
@@ -115,5 +105,5 @@ in
     })
   ];
 
-  meta.maintainers = with lib.maintainers; [ figsoda ];
+  meta.maintainers = with lib.maintainers; [figsoda];
 }

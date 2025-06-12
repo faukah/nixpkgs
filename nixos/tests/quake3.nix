@@ -1,5 +1,4 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   # Build Quake with coverage instrumentation.
   overrides = pkgs: {
     quake3game = pkgs.quake3game.override (args: {
@@ -8,30 +7,25 @@ let
   };
 
   # Only allow the demo data to be used (only if it's unfreeRedistributable).
-  unfreePredicate =
-    pkg:
-    let
-      allowPackageNames = [
-        "quake3-demodata"
-        "quake3-pointrelease"
-      ];
-      allowLicenses = [ lib.licenses.unfreeRedistributable ];
-    in
+  unfreePredicate = pkg: let
+    allowPackageNames = [
+      "quake3-demodata"
+      "quake3-pointrelease"
+    ];
+    allowLicenses = [lib.licenses.unfreeRedistributable];
+  in
     lib.elem pkg.pname allowPackageNames && lib.elem (pkg.meta.license or null) allowLicenses;
 
-  client =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      hardware.graphics.enable = true;
-      environment.systemPackages = [ pkgs.quake3demo ];
-      nixpkgs.config.packageOverrides = overrides;
-      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-    };
-in
-{
+  client = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    hardware.graphics.enable = true;
+    environment.systemPackages = [pkgs.quake3demo];
+    nixpkgs.config.packageOverrides = overrides;
+    nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+  };
+in {
   name = "quake3";
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 
   node.pkgsReadOnly = false;
 
@@ -39,19 +33,17 @@ in
   #makeCoverageReport = true;
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        systemd.services.quake3-server = {
-          wantedBy = [ "multi-user.target" ];
-          script =
-            "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
-            + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
-        };
-        nixpkgs.config.packageOverrides = overrides;
-        nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-        networking.firewall.allowedUDPPorts = [ 27960 ];
+    server = {pkgs, ...}: {
+      systemd.services.quake3-server = {
+        wantedBy = ["multi-user.target"];
+        script =
+          "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
+          + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
       };
+      nixpkgs.config.packageOverrides = overrides;
+      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+      networking.firewall.allowedUDPPorts = [27960];
+    };
 
     client1 = client;
     client2 = client;

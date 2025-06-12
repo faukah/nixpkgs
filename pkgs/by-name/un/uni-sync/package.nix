@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage {
     hash = "sha256-K2zX3rKtTaKO6q76xlxX+rDLL0gEsJ2l8x/s1vsp+ZQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libudev-zero ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libudev-zero];
 
   patches = [
     ./config_path.patch
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage {
     description = "Synchronization tool for Lian Li Uni Controllers";
     homepage = "https://github.com/EightB1ts/uni-sync";
     license = licenses.mit;
-    maintainers = with maintainers; [ yunfachi ];
+    maintainers = with maintainers; [yunfachi];
     mainProgram = "uni-sync";
   };
 }

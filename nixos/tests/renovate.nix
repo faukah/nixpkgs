@@ -1,38 +1,35 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "renovate";
   meta.maintainers = with pkgs.lib.maintainers; [
     marie
     natsukium
   ];
 
-  nodes.machine =
-    { config, ... }:
-    {
-      services.renovate = {
-        enable = true;
-        settings = {
-          platform = "gitea";
-          endpoint = "http://localhost:3000";
-          autodiscover = true;
-          gitAuthor = "Renovate <renovate@example.com>";
-        };
-        credentials = {
-          RENOVATE_TOKEN = "/etc/renovate-token";
-        };
+  nodes.machine = {config, ...}: {
+    services.renovate = {
+      enable = true;
+      settings = {
+        platform = "gitea";
+        endpoint = "http://localhost:3000";
+        autodiscover = true;
+        gitAuthor = "Renovate <renovate@example.com>";
       };
-      environment.systemPackages = [
-        config.services.forgejo.package
-        pkgs.tea
-        pkgs.git
-      ];
-      services.forgejo = {
-        enable = true;
-        settings.server.HTTP_PORT = 3000;
+      credentials = {
+        RENOVATE_TOKEN = "/etc/renovate-token";
       };
-      # Uncomment the next line to lint service scripts (Note: breaks VM startup; see #373166)
-      #systemd.enableStrictShellChecks = true;
     };
+    environment.systemPackages = [
+      config.services.forgejo.package
+      pkgs.tea
+      pkgs.git
+    ];
+    services.forgejo = {
+      enable = true;
+      settings.server.HTTP_PORT = 3000;
+    };
+    # Uncomment the next line to lint service scripts (Note: breaks VM startup; see #373166)
+    #systemd.enableStrictShellChecks = true;
+  };
 
   testScript = ''
     def gitea(command):

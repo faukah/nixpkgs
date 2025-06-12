@@ -6,7 +6,6 @@
   imath,
   rapidjson,
 }:
-
 stdenv.mkDerivation rec {
   pname = "open-timeline-io";
   version = "0.17.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Open Source API and interchange format for editorial timeline information";
     homepage = "https://github.com/AcademySoftwareFoundation/OpenTimelineIO";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

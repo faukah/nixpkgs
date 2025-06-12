@@ -2,8 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-}:
-let
+}: let
   fonts = {
     assamese = {
       label = "Assamese";
@@ -95,13 +94,11 @@ let
     };
   };
 
-  mkpkg =
-    license: pname:
-    {
-      label,
-      version,
-      hash,
-    }:
+  mkpkg = license: pname: {
+    label,
+    version,
+    hash,
+  }:
     stdenvNoCC.mkDerivation {
       inherit pname version;
 
@@ -138,7 +135,6 @@ let
         priority = 5;
       };
     };
-
 in
-# Technically, GPLv2 with usage exceptions
-lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts // lib.mapAttrs (mkpkg lib.licenses.ofl) fonts
+  # Technically, GPLv2 with usage exceptions
+  lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts // lib.mapAttrs (mkpkg lib.licenses.ofl) fonts

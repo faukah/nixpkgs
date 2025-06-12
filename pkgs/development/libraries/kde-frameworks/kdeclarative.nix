@@ -13,10 +13,9 @@
   kwindowsystem,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "kdeclarative";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     libepoxy
     kglobalaccel

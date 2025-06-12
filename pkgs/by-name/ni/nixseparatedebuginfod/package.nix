@@ -9,7 +9,6 @@
   pkg-config,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nixseparatedebuginfod";
   version = "0.4.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
     tests = {
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     description = "Downloads and provides debug symbols and source code for nix derivations to gdb and other debuginfod-capable debuggers as needed";
     homepage = "https://github.com/symphorien/nixseparatedebuginfod";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     platforms = platforms.linux;
     mainProgram = "nixseparatedebuginfod";
   };

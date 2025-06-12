@@ -11,54 +11,49 @@
   python3,
   xorg,
   nix-update-script,
-
   # chromedriver is more efficient than geckodriver, but is available on less platforms.
-
   withChromium ? (lib.elem stdenv.hostPlatform.system chromedriver.meta.platforms),
   chromedriver,
   chromium,
-
   withFirefox ? (lib.elem stdenv.hostPlatform.system geckodriver.meta.platforms),
   geckodriver,
   firefox,
 }:
-assert
-  (!withFirefox && !withChromium) -> throw "Either `withFirefox` or `withChromium` must be enabled.";
-buildNpmPackage rec {
-  pname = "sitespeed-io";
-  version = "37.6.0";
+assert (!withFirefox && !withChromium) -> throw "Either `withFirefox` or `withChromium` must be enabled.";
+  buildNpmPackage rec {
+    pname = "sitespeed-io";
+    version = "37.6.0";
 
-  src = fetchFromGitHub {
-    owner = "sitespeedio";
-    repo = "sitespeed.io";
-    tag = "v${version}";
-    hash = "sha256-sR6vDLoMysdcbtaIrNUvzwhIPe0GbymHdKQkFDBaEiM=";
-  };
+    src = fetchFromGitHub {
+      owner = "sitespeedio";
+      repo = "sitespeed.io";
+      tag = "v${version}";
+      hash = "sha256-sR6vDLoMysdcbtaIrNUvzwhIPe0GbymHdKQkFDBaEiM=";
+    };
 
-  postPatch = ''
-    ln -s npm-shrinkwrap.json package-lock.json
-  '';
+    postPatch = ''
+      ln -s npm-shrinkwrap.json package-lock.json
+    '';
 
-  # Don't try to download the browser drivers
-  CHROMEDRIVER_SKIP_DOWNLOAD = true;
-  GECKODRIVER_SKIP_DOWNLOAD = true;
-  EDGEDRIVER_SKIP_DOWNLOAD = true;
+    # Don't try to download the browser drivers
+    CHROMEDRIVER_SKIP_DOWNLOAD = true;
+    GECKODRIVER_SKIP_DOWNLOAD = true;
+    EDGEDRIVER_SKIP_DOWNLOAD = true;
 
-  buildInputs = [
-    systemdLibs
-  ];
+    buildInputs = [
+      systemdLibs
+    ];
 
-  dontNpmBuild = true;
-  npmInstallFlags = [ "--omit=dev" ];
-  npmDepsHash = "sha256-6Q8ed8iIGVOUNIn7gMEgqK8fqF5dI2fO/j5u7hj3hGA=";
+    dontNpmBuild = true;
+    npmInstallFlags = ["--omit=dev"];
+    npmDepsHash = "sha256-6Q8ed8iIGVOUNIn7gMEgqK8fqF5dI2fO/j5u7hj3hGA=";
 
-  postInstall = ''
-    mv $out/bin/sitespeed{.,-}io
-    mv $out/bin/sitespeed{.,-}io-wpr
-  '';
+    postInstall = ''
+      mv $out/bin/sitespeed{.,-}io
+      mv $out/bin/sitespeed{.,-}io-wpr
+    '';
 
-  postFixup =
-    let
+    postFixup = let
       chromiumArgs = lib.concatStringsSep " " [
         "--browsertime.chrome.chromedriverPath=${lib.getExe chromedriver}"
         "--browsertime.chrome.binaryPath=${lib.getExe chromium}"
@@ -69,39 +64,38 @@ buildNpmPackage rec {
         # Firefox crashes if the profile template dir is not writable
         "--browsertime.firefox.profileTemplate=$(mktemp -d)"
       ];
-    in
-    ''
+    in ''
       wrapProgram $out/bin/sitespeed-io \
         --set PATH ${
-          lib.makeBinPath [
-            (python3.withPackages (p: [
-              p.numpy
-              p.opencv4
-              p.pyssim
-            ]))
-            ffmpeg-headless
-            imagemagick_light
-            xorg.xorgserver
-            procps
-            coreutils
-          ]
-        } \
+        lib.makeBinPath [
+          (python3.withPackages (p: [
+            p.numpy
+            p.opencv4
+            p.pyssim
+          ]))
+          ffmpeg-headless
+          imagemagick_light
+          xorg.xorgserver
+          procps
+          coreutils
+        ]
+      } \
         ${lib.optionalString withChromium "--add-flags '${chromiumArgs}'"} \
         ${lib.optionalString withFirefox "--add-flags '${firefoxArgs}'"} \
         ${lib.optionalString (!withFirefox && withChromium) "--add-flags '-b chrome'"} \
         ${lib.optionalString (withFirefox && !withChromium) "--add-flags '-b firefox'"}
     '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+    passthru = {
+      updateScript = nix-update-script {};
+    };
 
-  meta = {
-    description = "Open source tool that helps you monitor, analyze and optimize your website speed and performance";
-    homepage = "https://sitespeed.io";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ misterio77 ];
-    platforms = lib.unique (geckodriver.meta.platforms ++ chromedriver.meta.platforms);
-    mainProgram = "sitespeed-io";
-  };
-}
+    meta = {
+      description = "Open source tool that helps you monitor, analyze and optimize your website speed and performance";
+      homepage = "https://sitespeed.io";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [misterio77];
+      platforms = lib.unique (geckodriver.meta.platforms ++ chromedriver.meta.platforms);
+      mainProgram = "sitespeed-io";
+    };
+  }

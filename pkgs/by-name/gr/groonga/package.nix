@@ -20,7 +20,6 @@
   zlibSupport ? true,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "groonga";
   version = "15.0.4";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     };
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "groonga" ];
+      moduleNames = ["groonga"];
     };
   };
 
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://groonga.org/";
     description = "Open-source fulltext search engine and column store";
     license = lib.licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
     longDescription = ''
       Groonga is an open-source fulltext search engine and column store.

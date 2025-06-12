@@ -19,7 +19,6 @@
   libmysqlclient,
   fontconfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libagar";
   version = "1.5.0";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform GUI toolkit";
     homepage = "http://libagar.org/index.html";
     license = with licenses; bsd3;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 })

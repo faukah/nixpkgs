@@ -6,7 +6,6 @@
   fuse2,
   unrar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rar2fs";
   version = "1.29.7";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
       --replace "which echo" "echo"
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     fuse2
     unrar

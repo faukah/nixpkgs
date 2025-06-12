@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubespy";
   version = "0.6.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4q+eFMrcZsEdk1W7aorIrfS3oVAuD4V0KQ7oJ/5d8nk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -39,6 +38,6 @@ buildGoModule rec {
     mainProgram = "kubespy";
     homepage = "https://github.com/pulumi/kubespy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

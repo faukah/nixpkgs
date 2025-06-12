@@ -1,23 +1,24 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "matomo";
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      services.matomo = {
-        enable = true;
-        nginx = {
-          forceSSL = false;
-          enableACME = false;
-        };
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    services.matomo = {
+      enable = true;
+      nginx = {
+        forceSSL = false;
+        enableACME = false;
       };
-      services.mysql = {
-        enable = true;
-        package = pkgs.mariadb;
-      };
-      services.nginx.enable = true;
     };
+    services.mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+    services.nginx.enable = true;
+  };
 
   testScript = ''
     start_all()
@@ -46,8 +47,7 @@
       machine.wait_for_unit("phpfpm-matomo.service")
   '';
 
-  meta.maintainers =
-    with lib.maintainers;
+  meta.maintainers = with lib.maintainers;
     [
       florianjacob
       mmilata

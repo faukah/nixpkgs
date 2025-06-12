@@ -6,7 +6,6 @@
   unzip,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mysql-connector-java";
   version = "9.3.0";
@@ -21,9 +20,9 @@ stdenv.mkDerivation rec {
     cp mysql-connector-j-*.jar $out/share/java/mysql-connector-j.jar
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ ant ];
+  buildInputs = [ant];
 
   passthru.updateScript = gitUpdater {
     url = "https://github.com/mysql/mysql-connector-j.git";
@@ -33,9 +32,9 @@ stdenv.mkDerivation rec {
     description = "MySQL Connector/J";
     homepage = "https://dev.mysql.com/doc/connector-j/en/";
     changelog = "https://dev.mysql.com/doc/relnotes/connector-j/en/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     license = licenses.gpl2Only;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

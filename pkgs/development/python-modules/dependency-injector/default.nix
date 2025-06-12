@@ -16,7 +16,6 @@
   scipy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dependency-injector";
   version = "4.42.0";
@@ -31,26 +30,28 @@ buildPythonPackage rec {
     hash = "sha256-ryPNmiIKQzR4WSjt7hi4C+iTsYvfj5TYGy+9PJxX+10=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    pydantic = [ pydantic ];
-    flask = [ flask ];
-    yaml = [ pyyaml ];
+    aiohttp = [aiohttp];
+    pydantic = [pydantic];
+    flask = [flask];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    fastapi
-    httpx
-    mypy-boto3-s3
-    numpy
-    pytest-asyncio
-    pytestCheckHook
-    scipy
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      fastapi
+      httpx
+      mypy-boto3-s3
+      numpy
+      pytest-asyncio
+      pytestCheckHook
+      scipy
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "dependency_injector" ];
+  pythonImportsCheck = ["dependency_injector"];
 
   disabledTestPaths = [
     # Exclude tests for EOL Python releases
@@ -65,7 +66,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/ets-labs/python-dependency-injector";
     changelog = "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
     # https://github.com/ets-labs/python-dependency-injector/issues/726
     broken = versionAtLeast pydantic.version "2";
   };

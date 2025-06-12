@@ -4,45 +4,38 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-  forEachInstance =
-    f:
+with lib; let
+  forEachInstance = f:
     flip mapAttrs' config.services.fcgiwrap.instances (
       name: cfg: nameValuePair "fcgiwrap-${name}" (f cfg)
     );
-
-in
-{
+in {
   imports =
     forEach
-      [
-        "enable"
-        "user"
-        "group"
-        "socketType"
-        "socketAddress"
-        "preforkProcesses"
-      ]
-      (
-        attr:
-        mkRemovedOptionModule [ "services" "fcgiwrap" attr ] ''
+    [
+      "enable"
+      "user"
+      "group"
+      "socketType"
+      "socketAddress"
+      "preforkProcesses"
+    ]
+    (
+      attr:
+        mkRemovedOptionModule ["services" "fcgiwrap" attr] ''
           The global shared fcgiwrap instance is no longer supported due to
           security issues.
           Isolated instances should instead be configured through
           `services.fcgiwrap.instances.*'.
         ''
-      );
+    );
 
   options.services.fcgiwrap.instances = mkOption {
     description = "Configuration for fcgiwrap instances.";
-    default = { };
+    default = {};
     type = types.attrsOf (
       types.submodule (
-        { config, ... }:
-        {
+        {config, ...}: {
           options = {
             process.prefork = mkOption {
               type = types.ints.positive;
@@ -103,7 +96,10 @@ in
 
             socket.mode = mkOption {
               type = types.nullOr types.str;
-              default = if config.socket.type == "unix" then "0600" else null;
+              default =
+                if config.socket.type == "unix"
+                then "0600"
+                else null;
               defaultText = literalExpression ''
                 if config.socket.type == "unix" then "0600" else null
               '';
@@ -141,18 +137,19 @@ in
           assertion = cfg.socket.mode != null -> cfg.socket.type == "unix";
           message = "Socket mode can only be set for the UNIX socket type.";
         }
-      ]) config.services.fcgiwrap.instances
+      ])
+      config.services.fcgiwrap.instances
     );
 
     systemd.services = forEachInstance (cfg: {
-      after = [ "nss-user-lookup.target" ];
+      after = ["nss-user-lookup.target"];
       wantedBy = optional (cfg.socket.type != "unix") "multi-user.target";
 
       serviceConfig =
         {
           ExecStart = ''
             ${pkgs.fcgiwrap}/sbin/fcgiwrap ${
-              cli.toGNUCommandLineShell { } (
+              cli.toGNUCommandLineShell {} (
                 {
                   c = cfg.process.prefork;
                 }
@@ -164,29 +161,28 @@ in
           '';
         }
         // (
-          if cfg.process.user != null then
-            {
-              User = cfg.process.user;
-              Group = cfg.process.group;
-            }
-          else
-            {
-              DynamicUser = true;
-            }
+          if cfg.process.user != null
+          then {
+            User = cfg.process.user;
+            Group = cfg.process.group;
+          }
+          else {
+            DynamicUser = true;
+          }
         );
     });
 
     systemd.sockets = forEachInstance (
       cfg:
-      mkIf (cfg.socket.type == "unix") {
-        wantedBy = [ "sockets.target" ];
-        socketConfig = {
-          ListenStream = cfg.socket.address;
-          SocketUser = cfg.socket.user;
-          SocketGroup = cfg.socket.group;
-          SocketMode = cfg.socket.mode;
-        };
-      }
+        mkIf (cfg.socket.type == "unix") {
+          wantedBy = ["sockets.target"];
+          socketConfig = {
+            ListenStream = cfg.socket.address;
+            SocketUser = cfg.socket.user;
+            SocketGroup = cfg.socket.group;
+            SocketMode = cfg.socket.mode;
+          };
+        }
     );
   };
 }

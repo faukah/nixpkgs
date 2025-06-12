@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch2,
 }:
-
 buildNpmPackage rec {
   pname = "http-server";
   version = "14.1.1";
@@ -34,6 +33,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/http-party/http-server";
     license = lib.licenses.mit;
     mainProgram = "http-server";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

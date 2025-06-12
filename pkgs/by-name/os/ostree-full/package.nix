@@ -1,7 +1,4 @@
-{
-  ostree,
-}:
-
+{ostree}:
 ostree.override {
   withComposefs = true;
 }

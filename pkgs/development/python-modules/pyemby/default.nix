@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyemby";
   version = "1.10";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-+A/SNMCUqo9TwWsQXwOKJCqmYhbilIdHYazLNQY+NkU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyemby" ];
+  pythonImportsCheck = ["pyemby"];
 
   meta = with lib; {
     description = "Python library to interface with the Emby API";
     homepage = "https://github.com/mezz64/pyemby";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

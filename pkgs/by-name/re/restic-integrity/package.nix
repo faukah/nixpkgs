@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitea,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "restic-integrity";
   version = "1.4.0";
@@ -22,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "CLI tool to check the integrity of a restic repository without unlocking it";
     homepage = "https://git.nwex.de/networkException/restic-integrity";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ networkexception ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [networkexception];
     mainProgram = "restic-integrity";
   };
 }

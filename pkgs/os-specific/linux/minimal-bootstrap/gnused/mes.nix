@@ -6,10 +6,8 @@
   bash,
   gnumake,
   tinycc,
-}:
-
-let
-  inherit (import ./common.nix { inherit lib; }) meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) meta;
   pname = "gnused-mes";
   # last version that can be compiled with mes-libc
   version = "4.0.9";
@@ -26,7 +24,7 @@ let
     sha256 = "0w1f5ri0g5zla31m6l6xyzbqwdvandqfnzrsw90dd6ak126w3mya";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 
@@ -35,14 +33,13 @@ bash.runCommand "${pname}-${version}"
       tinycc.compiler
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/sed --version
         mkdir ''${out}
       '';
   }
-  (''
+  ''
     # Unpack
     ungz --file ${src} --output sed.tar
     untar --file sed.tar
@@ -60,4 +57,4 @@ bash.runCommand "${pname}-${version}"
 
     # Install
     make install PREFIX=$out
-  '')
+  ''

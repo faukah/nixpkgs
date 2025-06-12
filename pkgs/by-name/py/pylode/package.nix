@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pylode";
   version = "2.13.3";
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     requests
   ];
 
-  pythonRelaxDeps = [ "rdflib" ];
+  pythonRelaxDeps = ["rdflib"];
 
   # Path issues with the tests
   doCheck = false;
@@ -42,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/RDFLib/pyLODE";
     # Next release will move to BSD3
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ koslambrou ];
+    maintainers = with maintainers; [koslambrou];
     mainProgram = "pylode";
   };
 }

@@ -11,7 +11,6 @@
   pytest-cov-stub,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "plotille";
   version = "5.0.0";
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "Plot in the terminal using braille dots";
     homepage = "https://github.com/tammoippen/plotille";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

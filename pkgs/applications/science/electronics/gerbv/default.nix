@@ -11,7 +11,6 @@
   libtool,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gerbv";
   version = "2.10.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gerbv.github.io/";
     changelog = "https://github.com/gerbv/gerbv/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ mog ];
+    maintainers = with lib.maintainers; [mog];
     platforms = lib.platforms.unix;
   };
 }

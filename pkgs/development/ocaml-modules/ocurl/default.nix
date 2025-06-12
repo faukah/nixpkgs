@@ -9,8 +9,8 @@
   lwt,
   lwt_ppx,
 }:
-if lib.versionOlder ocaml.version "4.04" then
-  throw "ocurl is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.04"
+then throw "ocurl is not available for OCaml ${ocaml.version}"
 else
   stdenv.mkDerivation rec {
     pname = "ocurl";
@@ -43,6 +43,6 @@ else
         dandellion
         bennofs
       ];
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
     };
   }

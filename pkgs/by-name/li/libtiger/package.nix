@@ -8,7 +8,6 @@
   pango,
   cairo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtiger";
   version = "0.3.4";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "Rendering library for Kate streams using Pango and Cairo";
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

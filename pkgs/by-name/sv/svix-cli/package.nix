@@ -4,7 +4,6 @@
   fetchpatch,
   buildGoModule,
 }:
-
 buildGoModule rec {
   version = "0.21.1";
   pname = "svix-cli";
@@ -30,7 +29,7 @@ buildGoModule rec {
     })
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -42,6 +41,6 @@ buildGoModule rec {
     description = "CLI for interacting with the Svix API";
     homepage = "https://github.com/svix/svix-cli/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

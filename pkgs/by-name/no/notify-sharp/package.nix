@@ -9,7 +9,6 @@
   dbus-sharp-1_0,
   dbus-sharp-glib-1_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notify-sharp";
   version = "3.0.3";

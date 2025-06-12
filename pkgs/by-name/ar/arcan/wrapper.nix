@@ -2,16 +2,15 @@
   arcan,
   makeWrapper,
   symlinkJoin,
-  appls ? [ ],
+  appls ? [],
   name ? "arcan-wrapped",
 }:
-
 symlinkJoin {
   inherit name;
 
-  paths = appls ++ [ arcan ];
+  paths = appls ++ [arcan];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for prog in ${placeholder "out"}/bin/*; do
@@ -28,3 +27,4 @@ symlinkJoin {
 # TODO: set ARCAN_STATEBASEPATH to $HOME/.arcan/resources/savestates/ - possibly
 # via a suitable script
 # TODO: set ARCAN_FONTPATH to a set of default-but-configurable fontset
+

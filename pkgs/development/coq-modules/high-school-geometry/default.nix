@@ -4,13 +4,11 @@
   coq,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "high-school-geometry";
   inherit version;
   repo = "HighSchoolGeometry";
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.16" "8.20";
@@ -28,7 +26,8 @@ mkCoqDerivation {
         case = "8.11";
         out = "8.11";
       }
-    ] null;
+    ]
+    null;
 
   release = {
     "8.16".sha256 = "sha256-HvUrZ6l7wCshuKUZs8rvfMkTEv+oXuogI5LICcD8Bn8=";
@@ -40,7 +39,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Geometry in Coq for French high school";
-    maintainers = with maintainers; [ definfo ];
+    maintainers = with maintainers; [definfo];
     license = licenses.lgpl21Plus;
   };
 }

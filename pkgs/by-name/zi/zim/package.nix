@@ -8,12 +8,10 @@
   wrapGAppsHook3,
   adwaita-icon-theme,
 }:
-
 # TODO: Declare configuration options for the following optional dependencies:
 #  -  File stores: hg, git, bzr
 #  -  Included plugins dependencies: dot, ditaa, dia, any other?
 #  -  pyxdg: Need to make it work first (see setupPyInstallFlags).
-
 python3Packages.buildPythonApplication rec {
   pname = "zim";
   version = "0.75.2";
@@ -71,7 +69,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://zim-wiki.org/";
     changelog = "https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/${version}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     mainProgram = "zim";
     broken = stdenv.hostPlatform.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
   };

@@ -8,7 +8,6 @@
   libcprime,
   libcsys,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "corepad";
   version = "5.0.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "corepad";
     homepage = "https://gitlab.com/cubocore/coreapps/corepad";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
+    maintainers = with lib.maintainers; [dan4ik605743];
     platforms = lib.platforms.linux;
   };
 })

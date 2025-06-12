@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals pythonSupport [
       python3Packages.python
       python3Packages.pybind11
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3Packages.pythonImportsCheckHook
   ];
 
-  pythonImportsCheck = [ "kahip" ];
+  pythonImportsCheck = ["kahip"];
 
   meta = {
     homepage = "https://kahip.github.io/";
@@ -61,6 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Karlsruhe HIGH Quality Partitioning";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 })

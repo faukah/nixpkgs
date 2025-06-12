@@ -48,7 +48,6 @@
   curl,
   httpretty,
 }:
-
 buildPythonPackage rec {
   pname = "datalad";
   version = "1.1.5";
@@ -96,9 +95,9 @@ buildPythonPackage rec {
         annexremote
         looseversion
       ]
-      ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
-      ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-      ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+      ++ lib.optionals stdenv.hostPlatform.isWindows [colorama]
+      ++ lib.optionals (pythonOlder "3.10") [importlib-metadata]
+      ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
     downloaders = [
       boto3
       keyrings-alt
@@ -109,13 +108,13 @@ buildPythonPackage rec {
     downloaders-extra = [
       # requests-ftp # not in nixpkgs yet
     ];
-    publish = [ python-gitlab ];
+    publish = [python-gitlab];
     misc = [
       argcomplete
       pyperclip
       python-dateutil
     ];
-    duecredit = [ duecredit ];
+    duecredit = [duecredit];
   };
 
   postInstall = ''
@@ -236,12 +235,12 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "datalad" ];
+  pythonImportsCheck = ["datalad"];
 
   meta = {
     description = "Keep code, data, containers under control with git and git-annex";
     homepage = "https://www.datalad.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ renesat ];
+    maintainers = with lib.maintainers; [renesat];
   };
 }

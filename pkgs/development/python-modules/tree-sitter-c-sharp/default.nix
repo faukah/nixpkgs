@@ -9,7 +9,6 @@
   tree-sitter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-c-sharp";
   version = "0.23.1";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "tree_sitter_c_sharp" ];
+  pythonImportsCheck = ["tree_sitter_c_sharp"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "C# Grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter/tree-sitter-c-sharp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

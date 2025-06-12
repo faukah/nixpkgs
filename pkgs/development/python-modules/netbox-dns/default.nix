@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-cT2nvPDsvZBVuhvvORtxwb2TDHqnSpvpIJFkGZy1CEc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dnspython
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/peteeckel/netbox-plugin-dns/releases/tag/${src.tag}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

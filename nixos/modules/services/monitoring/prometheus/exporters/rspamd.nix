@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.rspamd;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     replaceStrings
@@ -22,9 +21,10 @@ let
 
   generateConfig = extraLabels: {
     modules.default.metrics =
-      (map
+      (
+        map
         (path: {
-          name = "rspamd_${replaceStrings [ "[" "." " " "]" "\\" "'" ] [ "_" "_" "_" "" "" "" ] path}";
+          name = "rspamd_${replaceStrings ["[" "." " " "]" "\\" "'"] ["_" "_" "_" "" "" ""] path}";
           path = "{ .${path} }";
           labels = extraLabels;
         })
@@ -57,10 +57,12 @@ let
           name = "rspamd_statfiles";
           type = "object";
           path = "{.statfiles[*]}";
-          labels = recursiveUpdate {
-            symbol = "{.symbol}";
-            type = "{.type}";
-          } extraLabels;
+          labels =
+            recursiveUpdate {
+              symbol = "{.symbol}";
+              type = "{.type}";
+            }
+            extraLabels;
           values = {
             revision = "{.revision}";
             size = "{.size}";
@@ -72,8 +74,7 @@ let
         }
       ];
   };
-in
-{
+in {
   port = 7980;
   extraOpts = {
     extraLabels = mkOption {
@@ -99,7 +100,7 @@ in
   '';
 
   imports = [
-    (mkRemovedOptionModule [ "url" ] ''
+    (mkRemovedOptionModule ["url"] ''
       This option was removed. The URL of the rspamd metrics endpoint
       must now be provided to the exporter by prometheus via the url
       parameter `target'.
@@ -111,9 +112,9 @@ in
       For more information, take a look at the official documentation
       (https://github.com/prometheus-community/json_exporter) of the json_exporter.
     '')
-    ({
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
 }

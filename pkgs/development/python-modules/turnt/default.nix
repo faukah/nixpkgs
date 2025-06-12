@@ -6,7 +6,6 @@
   click,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "turnt";
   version = "1.12.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-4K7cqGwKErGbZ+dxVa06v8aIfrpVLC293d29QT+vsBw=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     click
@@ -30,13 +29,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "turnt" ];
+  pythonImportsCheck = ["turnt"];
 
   meta = with lib; {
     description = "Snapshot testing tool";
     mainProgram = "turnt";
     homepage = "https://github.com/cucapra/turnt";
     license = licenses.mit;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
   };
 }

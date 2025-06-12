@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mpris-notifier";
   version = "0.2.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Dependency-light, highly-customizable, XDG desktop notification generator for MPRIS status changes";
     homepage = "https://github.com/l1na-forever/mpris-notifier";
     license = licenses.mit;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     mainProgram = "mpris-notifier";
   };
 }

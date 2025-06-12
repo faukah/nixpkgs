@@ -10,7 +10,6 @@
   typing-extensions,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   name = "marqo";
   version = "3.12.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-phO7aR7kQJHw5qxrpMI5DtOaXlaHMsKfaC3UquyD/Rw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -63,15 +62,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonRemoveDeps = [ "urllib3" ];
+  pythonRemoveDeps = ["urllib3"];
 
-  pythonImportsCheck = [ "marqo" ];
+  pythonImportsCheck = ["marqo"];
 
   meta = with lib; {
     description = "Unified embedding generation and search engine";
     homepage = "https://marqo.ai";
     changelog = "https://github.com/marqo-ai/py-marqo/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ naufik ];
+    maintainers = with maintainers; [naufik];
   };
 }

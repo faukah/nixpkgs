@@ -9,7 +9,6 @@
   stdlib,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "graph-theory";
 
@@ -23,55 +22,54 @@ mkCoqDerivation {
   releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.coq-version mathcomp.version ]
-      [
-        {
-          cases = [
-            (range "8.18" "9.0")
-            (range "2.0.0" "2.4.0")
-          ];
-          out = "0.9.6";
-        }
-        {
-          cases = [
-            (range "8.16" "8.19")
-            (range "2.0.0" "2.3.0")
-          ];
-          out = "0.9.4";
-        }
-        {
-          cases = [
-            (range "8.16" "8.18")
-            (range "2.0.0" "2.1.0")
-          ];
-          out = "0.9.3";
-        }
-        {
-          cases = [
-            (range "8.14" "8.18")
-            (range "1.13.0" "1.18.0")
-          ];
-          out = "0.9.2";
-        }
-        {
-          cases = [
-            (range "8.14" "8.16")
-            (range "1.13.0" "1.14.0")
-          ];
-          out = "0.9.1";
-        }
-        {
-          cases = [
-            (range "8.12" "8.13")
-            (range "1.12.0" "1.14.0")
-          ];
-          out = "0.9";
-        }
-      ]
-      null;
+    [coq.coq-version mathcomp.version]
+    [
+      {
+        cases = [
+          (range "8.18" "9.0")
+          (range "2.0.0" "2.4.0")
+        ];
+        out = "0.9.6";
+      }
+      {
+        cases = [
+          (range "8.16" "8.19")
+          (range "2.0.0" "2.3.0")
+        ];
+        out = "0.9.4";
+      }
+      {
+        cases = [
+          (range "8.16" "8.18")
+          (range "2.0.0" "2.1.0")
+        ];
+        out = "0.9.3";
+      }
+      {
+        cases = [
+          (range "8.14" "8.18")
+          (range "1.13.0" "1.18.0")
+        ];
+        out = "0.9.2";
+      }
+      {
+        cases = [
+          (range "8.14" "8.16")
+          (range "1.13.0" "1.14.0")
+        ];
+        out = "0.9.1";
+      }
+      {
+        cases = [
+          (range "8.12" "8.13")
+          (range "1.12.0" "1.14.0")
+        ];
+        out = "0.9";
+      }
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.algebra
@@ -92,7 +90,7 @@ mkCoqDerivation {
       the study of relation algebra within the ERC CoVeCe project (e.g.,
       soundness and completeness of an axiomatization of graph isomorphism).
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
   };
 }

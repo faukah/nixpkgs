@@ -5,7 +5,6 @@
   mkfontdir,
   mkfontscale,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "arphic-ukai";
   version = "0.2.20080216.2";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.freedesktop.org/wiki/Software/CJKUnifonts/";
 
     license = licenses.arphicpl;
-    maintainers = [ maintainers.changlinli ];
+    maintainers = [maintainers.changlinli];
     platforms = platforms.all;
   };
 }

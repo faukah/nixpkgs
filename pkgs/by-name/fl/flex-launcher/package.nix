@@ -11,7 +11,6 @@
   lib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flex-launcher";
   version = "2.2";
@@ -36,13 +35,13 @@ stdenv.mkDerivation (finalAttrs: {
     inih
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Customizable HTPC application launcher";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ MasterEvarior ];
+    maintainers = with lib.maintainers; [MasterEvarior];
     homepage = "https://complexlogic.github.io/flex-launcher/";
     changelog = "https://github.com/complexlogic/flex-launcher/releases/tag/v${finalAttrs.version}";
     mainProgram = "flex-launcher";

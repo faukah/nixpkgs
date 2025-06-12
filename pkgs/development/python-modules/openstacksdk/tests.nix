@@ -13,7 +13,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage {
   pname = "openstacksdk-tests";
   inherit (openstacksdk) version src;

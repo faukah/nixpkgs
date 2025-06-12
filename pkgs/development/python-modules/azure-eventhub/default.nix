@@ -7,7 +7,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-eventhub";
   version = "5.15.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/eventhub/azure-eventhub";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "azure.eventhub."; };
+    updateScript = gitUpdater {rev-prefix = "azure.eventhub.";};
   };
 
   meta = with lib; {
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/eventhub/azure-eventhub";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/${src.tag}/sdk/eventhub/azure-eventhub/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

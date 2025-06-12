@@ -3,7 +3,6 @@
   lib,
   rebar3Relx,
 }:
-
 rebar3Relx rec {
   pname = "erlfmt";
   version = "1.6.2";
@@ -22,6 +21,6 @@ rebar3Relx rec {
     mainProgram = "erlfmt";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ dlesl ];
+    maintainers = with lib.maintainers; [dlesl];
   };
 }

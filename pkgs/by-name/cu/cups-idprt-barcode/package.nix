@@ -6,7 +6,6 @@
   cups,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cups-idprt-barcode";
   version = "1.2.1";
@@ -17,30 +16,28 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-jp8DDaTmCgNrHCJSSz1K3xDcSB8dQm6i1pICaMrBFaQ=";
   };
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
   nativeBuildInputs = [
     autoPatchelfHook
     unzip
   ];
 
-  installPhase =
-    let
-      arch =
-        {
-          x86_64-linux = "x64";
-          x86-linux = "x86";
-        }
+  installPhase = let
+    arch =
+      {
+        x86_64-linux = "x64";
+        x86-linux = "x86";
+      }
         ."${stdenvNoCC.hostPlatform.system}"
           or (throw "cups-idprt-barcode: No prebuilt filters for system: ${stdenvNoCC.hostPlatform.system}");
-    in
-    ''
-      runHook preInstall
-      mkdir -p $out/share/cups/model $out/lib/cups/filter
-      cp -r filter/${arch}/. $out/lib/cups/filter
-      cp -r ppd/. $out/share/cups/model
-      chmod +x $out/lib/cups/filter/*
-      runHook postInstall
-    '';
+  in ''
+    runHook preInstall
+    mkdir -p $out/share/cups/model $out/lib/cups/filter
+    cp -r filter/${arch}/. $out/lib/cups/filter
+    cp -r ppd/. $out/share/cups/model
+    chmod +x $out/lib/cups/filter/*
+    runHook postInstall
+  '';
 
   meta = {
     description = "CUPS drivers for iDPRT barcode printers (iD2P, iD2X, iD4P, iD4S, iE2P, iE2X, iE4P, iE4S, iT4B, iT4E, iT4P, iT4S, iT4X, iX4E, iX4L, iX4P, iX4E, iX6P)";
@@ -49,7 +46,7 @@ stdenvNoCC.mkDerivation {
       "x86-linux"
     ];
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

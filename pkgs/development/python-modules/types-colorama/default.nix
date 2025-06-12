@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-colorama";
   version = "0.4.15.20240311";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-oo5/mNF9KxT7lWXTI4jkGfQQj1V6fZOaZjGZabK5nHo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # Module has no tests
   doCheck = false;
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     description = "Typing stubs for colorama";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

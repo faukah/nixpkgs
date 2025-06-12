@@ -9,7 +9,6 @@
   zope-testrunner,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "repoze-sphinx-autointerface";
   version = "1.0.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-SGvxQjpGlrkVPkiM750ybElv/Bbd6xSwyYh7RsYOKKE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     zope-interface
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     zope-testrunner
   ];
 
-  pythonImportsCheck = [ "repoze.sphinx.autointerface" ];
+  pythonImportsCheck = ["repoze.sphinx.autointerface"];
 
   pythonNamespaces = [
     "repoze"
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     description = "Auto-generate Sphinx API docs from Zope interfaces";
     changelog = "https://github.com/repoze/repoze.sphinx.autointerface/blob/${version}/CHANGES.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     # https://github.com/repoze/repoze.sphinx.autointerface/issues/21
     broken = versionAtLeast sphinx.version "7.2";
   };

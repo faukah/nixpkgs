@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "microplane";
   version = "0.0.35";
@@ -31,6 +30,6 @@ buildGoModule rec {
     description = "CLI tool to make git changes across many repos";
     homepage = "https://github.com/Clever/microplane";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dbirks ];
+    maintainers = with maintainers; [dbirks];
   };
 }

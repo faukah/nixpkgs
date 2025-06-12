@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.5";
   pname = "commons-fileupload";
@@ -21,8 +20,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-fileupload";
     description = "Makes it easy to add robust, high-performance, file upload capability to your servlets and web applications";
-    maintainers = [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

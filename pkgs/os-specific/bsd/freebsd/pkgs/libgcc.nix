@@ -4,7 +4,6 @@
   libcMinimal,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libgcc_eh";
   extraPaths = [

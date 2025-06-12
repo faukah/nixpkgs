@@ -12,7 +12,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyfaidx";
   version = "0.8.1.4";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     glibcLocales
   ];
 
-  pythonImportsCheck = [ "pyfaidx" ];
+  pythonImportsCheck = ["pyfaidx"];
 
   preCheck = ''
     bgzip --keep tests/data/genes.fasta
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mdshw5/pyfaidx";
     changelog = "https://github.com/mdshw5/pyfaidx/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jbedo ];
+    maintainers = with lib.maintainers; [jbedo];
     mainProgram = "faidx";
   };
 }

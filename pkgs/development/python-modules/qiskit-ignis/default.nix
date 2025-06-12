@@ -21,7 +21,6 @@
   pyfakefs,
   qiskit-aer,
 }:
-
 buildPythonPackage rec {
   pname = "qiskit-ignis";
   version = "0.7.1";
@@ -44,12 +43,12 @@ buildPythonPackage rec {
       scikit-learn
       scipy
     ]
-    ++ lib.optionals (withCvx) [ cvxpy ]
-    ++ lib.optionals (withVisualization) [ matplotlib ]
-    ++ lib.optionals (withJit) [ numba ];
+    ++ lib.optionals withCvx [cvxpy]
+    ++ lib.optionals withVisualization [matplotlib]
+    ++ lib.optionals withJit [numba];
 
   # Tests
-  pythonImportsCheck = [ "qiskit.ignis" ];
+  pythonImportsCheck = ["qiskit.ignis"];
   preCheck = ''
     export HOME=$TMPDIR
   '';
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit-ignis/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

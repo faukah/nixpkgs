@@ -6,7 +6,6 @@
   importlib-metadata,
   importlib-resources,
 }:
-
 buildPythonPackage rec {
   pname = "ament-package";
   version = "0.17.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     importlib-resources
   ];
 
-  pythonImportsCheck = [ "ament_package" ];
+  pythonImportsCheck = ["ament_package"];
 
   # Tests currently broken
   doCheck = false;
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "The parser for the manifest files in the ament buildsystem";
     homepage = "https://github.com/ament/ament_package";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

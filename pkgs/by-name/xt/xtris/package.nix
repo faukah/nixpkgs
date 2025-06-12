@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     sed -i '28i#include <time.h>' xtserv.c
     sed -i '35i#include <time.h>' xtbot.c
   '';
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   meta = with lib; {
     description = "Multi-player version of the classical game of Tetris, for the X Window system";

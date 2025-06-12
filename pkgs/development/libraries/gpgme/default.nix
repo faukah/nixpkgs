@@ -18,7 +18,6 @@
   qt6Packages,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpgme";
   version = "1.24.2";
@@ -52,16 +51,18 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  propagatedBuildInputs = [
-    glib
-    libassuan
-    libgpg-error
-    pth
-  ] ++ lib.optionals (qtbase != null) [ qtbase ];
+  propagatedBuildInputs =
+    [
+      glib
+      libassuan
+      libgpg-error
+      pth
+    ]
+    ++ lib.optionals (qtbase != null) [qtbase];
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   dontWrapQtApps = true;
 
@@ -75,7 +76,7 @@ stdenv.mkDerivation rec {
     # which has a path length limit. Nix on darwin is using a build directory
     # that already has quite a long path and the resulting socket path doesn't
     # fit in the limit. https://github.com/NixOS/nix/pull/1085
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-gpg-test" ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["--disable-gpg-test"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless
@@ -88,7 +89,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # prevent tests from being run during the buildPhase
-  makeFlags = [ "tests=" ];
+  makeFlags = ["tests="];
 
   doCheck = true;
 
@@ -120,6 +121,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -8,7 +8,6 @@
   which,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "socat";
   version = "1.8.0.3";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   enableParallelBuilding = true;
 
@@ -56,8 +55,8 @@ stdenv.mkDerivation rec {
     description = "Utility for bidirectional data transfer between two independent data channels";
     homepage = "http://www.dest-unreach.org/socat/";
     platforms = platforms.unix;
-    license = with licenses; [ gpl2Only ];
-    maintainers = [ ];
+    license = with licenses; [gpl2Only];
+    maintainers = [];
     mainProgram = "socat";
   };
 }

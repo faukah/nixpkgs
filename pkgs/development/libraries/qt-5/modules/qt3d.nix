@@ -5,7 +5,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 qtModule {
   pname = "qt3d";
   propagatedBuildInputs = [

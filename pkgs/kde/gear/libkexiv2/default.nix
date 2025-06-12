@@ -11,5 +11,5 @@ mkKdeDerivation {
     qt5compat
     exiv2
   ];
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
 }

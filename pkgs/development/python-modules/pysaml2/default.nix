@@ -23,7 +23,6 @@
   xmlsec,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "pysaml2";
   version = "7.5.2";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     sed -i 's/2999\(-.*T\)/2029\1/g' tests/*.xml
   '';
 
-  pythonRelaxDeps = [ "xmlschema" ];
+  pythonRelaxDeps = ["xmlschema"];
 
   nativeBuildInputs = [
     poetry-core
@@ -95,13 +94,13 @@ buildPythonPackage rec {
     "test_namespace_processing"
   ];
 
-  pythonImportsCheck = [ "saml2" ];
+  pythonImportsCheck = ["saml2"];
 
   meta = with lib; {
     description = "Python implementation of SAML Version 2 Standard";
     homepage = "https://github.com/IdentityPython/pysaml2";
     changelog = "https://github.com/IdentityPython/pysaml2/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

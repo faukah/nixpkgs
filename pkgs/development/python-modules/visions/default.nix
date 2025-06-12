@@ -18,7 +18,6 @@
   pygraphviz,
   shapely,
 }:
-
 buildPythonPackage rec {
   pname = "visions";
   version = "0.8.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-MHseb1XJ0t7jQ45VXKQclYPgddrzmJAC7cde8qqYhNQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     attrs
@@ -45,7 +44,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    type-geometry = [ shapely ];
+    type-geometry = [shapely];
     type-image-path = [
       imagehash
       pillow
@@ -57,9 +56,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTestPaths = [
     # requires running Apache Spark:
@@ -74,6 +75,6 @@ buildPythonPackage rec {
     description = "Type system for data analysis in Python";
     homepage = "https://dylan-profiler.github.io/visions";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

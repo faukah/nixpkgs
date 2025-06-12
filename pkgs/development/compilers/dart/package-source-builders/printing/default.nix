@@ -2,10 +2,11 @@
   stdenv,
   pdfium-binaries,
   replaceVars,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "printing";
   inherit version src;

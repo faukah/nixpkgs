@@ -9,7 +9,6 @@
   lzlib,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-lzlib";
   version = "0.3.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   # tests fail on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "GNU Guile library providing bindings to lzlib";
     homepage = "https://notabug.org/guile-lzlib/guile-lzlib";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

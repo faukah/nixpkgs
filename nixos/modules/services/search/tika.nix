@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.tika;
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkIf
     mkEnableOption
@@ -16,14 +15,13 @@ let
     getExe
     types
     ;
-in
-{
-  meta.maintainers = [ lib.maintainers.drupol ];
+in {
+  meta.maintainers = [lib.maintainers.drupol];
 
   options = {
     services.tika = {
       enable = mkEnableOption "Apache Tika server";
-      package = mkPackageOption pkgs "tika" { };
+      package = mkPackageOption pkgs "tika" {};
 
       listenAddress = mkOption {
         type = types.str;
@@ -74,28 +72,26 @@ in
     systemd.services.tika = {
       description = "Apache Tika Server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-      serviceConfig =
-        let
-          package = cfg.package.override {
-            inherit (cfg) enableOcr;
-            enableGui = false;
-          };
-        in
-        {
-          Type = "simple";
-
-          ExecStart = "${getExe package} --host ${cfg.listenAddress} --port ${toString cfg.port} ${
-            lib.optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
-          }";
-          DynamicUser = true;
-          StateDirectory = "tika";
-          CacheDirectory = "tika";
+      serviceConfig = let
+        package = cfg.package.override {
+          inherit (cfg) enableOcr;
+          enableGui = false;
         };
+      in {
+        Type = "simple";
+
+        ExecStart = "${getExe package} --host ${cfg.listenAddress} --port ${toString cfg.port} ${
+          lib.optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
+        }";
+        DynamicUser = true;
+        StateDirectory = "tika";
+        CacheDirectory = "tika";
+      };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

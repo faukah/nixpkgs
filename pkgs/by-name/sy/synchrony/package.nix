@@ -8,7 +8,6 @@
   fetchurl,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "synchrony";
   version = "2.4.5";
@@ -60,26 +59,25 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.deobfuscate =
-      let
-        obfuscated = fetchurl {
-          url = "https://gist.github.com/relative/79e392bced4b9bed8fd076f834e06dee/raw/obfuscated.js";
-          hash = "sha256-AQWKVIyb6x3wWG3bMMqIJWsV26S9W5Xd+QVB26zu8LA=";
-        };
-      in
-      runCommand "synchrony-test" { } ''
+    tests.deobfuscate = let
+      obfuscated = fetchurl {
+        url = "https://gist.github.com/relative/79e392bced4b9bed8fd076f834e06dee/raw/obfuscated.js";
+        hash = "sha256-AQWKVIyb6x3wWG3bMMqIJWsV26S9W5Xd+QVB26zu8LA=";
+      };
+    in
+      runCommand "synchrony-test" {} ''
         mkdir -p $out
         ${lib.getExe finalAttrs.finalPackage} deobfuscate ${obfuscated} -o $out/deobfuscated.js
       '';
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Simple deobfuscator for mangled or obfuscated JavaScript files";
     homepage = "https://deobfuscate.relative.im/";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ pluiedev ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [pluiedev];
     inherit (nodejs.meta) platforms;
     mainProgram = "synchrony";
   };

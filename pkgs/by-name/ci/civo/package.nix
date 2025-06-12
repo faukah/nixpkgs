@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "civo";
   version = "1.3.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-fGAJUGYbPJ88Dnfi5XWXr2jd9hE6M8p2ZLq5ORMoyL0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = 0;
 

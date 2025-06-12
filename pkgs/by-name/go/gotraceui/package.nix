@@ -12,7 +12,6 @@
   wayland,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "gotraceui";
   version = "0.4.0";
@@ -33,9 +32,9 @@ buildGoModule rec {
   ];
 
   vendorHash = "sha256-9rzcSxlOuQC5bt1kZuRX7CTQaDHKrtGRpMNLrOHTjJk=";
-  subPackages = [ "cmd/gotraceui" ];
+  subPackages = ["cmd/gotraceui"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     vulkan-headers
@@ -47,7 +46,7 @@ buildGoModule rec {
     libGL
   ];
 
-  ldflags = [ "-X gioui.org/app.ID=co.honnef.Gotraceui" ];
+  ldflags = ["-X gioui.org/app.ID=co.honnef.Gotraceui"];
 
   postInstall = ''
     cp -r share $out/
@@ -59,6 +58,6 @@ buildGoModule rec {
     homepage = "https://github.com/dominikh/gotraceui";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ dominikh ];
+    maintainers = with maintainers; [dominikh];
   };
 }

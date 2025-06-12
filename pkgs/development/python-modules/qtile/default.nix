@@ -30,9 +30,8 @@
   xcffib,
   xkbcommon,
   nixosTests,
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
-
 buildPythonPackage rec {
   pname = "qtile";
   version = "0.31.0";
@@ -67,22 +66,24 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  dependencies = extraPackages ++ [
-    (cairocffi.override { withXcffib = true; })
-    dbus-fast
-    iwlib
-    libcst
-    mpd2
-    psutil
-    pulsectl-asyncio
-    pygobject3
-    pytz
-    pywayland
-    pywlroots
-    pyxdg
-    xcffib
-    xkbcommon
-  ];
+  dependencies =
+    extraPackages
+    ++ [
+      (cairocffi.override {withXcffib = true;})
+      dbus-fast
+      iwlib
+      libcst
+      mpd2
+      psutil
+      pulsectl-asyncio
+      pygobject3
+      pytz
+      pywayland
+      pywlroots
+      pyxdg
+      xcffib
+      xkbcommon
+    ];
 
   buildInputs = [
     libinput
@@ -95,7 +96,7 @@ buildPythonPackage rec {
   doCheck = false;
   passthru = {
     tests.qtile = nixosTests.qtile;
-    providedSessions = [ "qtile" ];
+    providedSessions = ["qtile"];
   };
 
   postInstall = ''

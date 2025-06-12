@@ -6,7 +6,6 @@
   pandoc,
   go,
 }:
-
 buildGoModule rec {
   pname = "checkmake";
   version = "0.2.2";
@@ -53,7 +52,7 @@ buildGoModule rec {
     homepage = "https://github.com/mrtazz/checkmake";
     changelog = "https://github.com/mrtazz/checkmake/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ vidbina ];
+    maintainers = with maintainers; [vidbina];
     longDescription = ''
       checkmake is an experimental tool for linting and checking
       Makefiles. It may not do what you want it to.

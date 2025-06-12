@@ -3,12 +3,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.hardware.new-lg4ff;
   kernelPackages = config.boot.kernelPackages;
-in
-{
+in {
   options.hardware.new-lg4ff = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -23,10 +21,10 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      extraModulePackages = [ kernelPackages.new-lg4ff ];
-      kernelModules = [ "hid-logitech-new" ];
+      extraModulePackages = [kernelPackages.new-lg4ff];
+      kernelModules = ["hid-logitech-new"];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ matthiasbenaets ];
+  meta.maintainers = with lib.maintainers; [matthiasbenaets];
 }

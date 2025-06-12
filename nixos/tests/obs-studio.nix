@@ -1,25 +1,21 @@
-{ ... }:
-
-{
+{...}: {
   name = "obs-studio";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-        ./common/user-account.nix
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [
+      ./common/x11.nix
+      ./common/user-account.nix
+    ];
 
-      programs.obs-studio = {
-        enable = true;
-        plugins = with pkgs.obs-studio-plugins; [
-          wlrobs
-          obs-vkcapture
-        ];
-        enableVirtualCamera = true;
-      };
+    programs.obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-vkcapture
+      ];
+      enableVirtualCamera = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_x()

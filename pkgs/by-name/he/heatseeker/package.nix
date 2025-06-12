@@ -4,7 +4,6 @@
   rustPlatform,
   coreutils,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "heatseeker";
   version = "1.7.3";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "General-purpose fuzzy selector";
     homepage = "https://github.com/rschmitt/heatseeker";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "hs";
     platforms = platforms.unix;
   };

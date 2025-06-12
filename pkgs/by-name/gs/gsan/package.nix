@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gsan";
   version = "5.0.0";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Os/NappuvdadGqCouF5vhvPhRnu1SLpii+Esq0C1j48=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     cryptography
@@ -29,14 +28,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "gsan" ];
+  pythonImportsCheck = ["gsan"];
 
   meta = {
     description = "Tool to extract subdomains from SSL certificates in HTTPS sites";
     homepage = "https://github.com/franccesco/getaltname";
     changelog = "https://github.com/franccesco/getaltname/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gsan";
   };
 }

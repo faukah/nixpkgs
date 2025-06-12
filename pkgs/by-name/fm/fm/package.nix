@@ -9,7 +9,6 @@
   gtksourceview5,
   poppler,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "fm";
   version = "0-unstable-2024-01-03";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage {
     description = "Small, general purpose file manager built with GTK4";
     homepage = "https://github.com/euclio/fm";
     license = licenses.mit;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     mainProgram = "fm";
     platforms = platforms.unix;
   };

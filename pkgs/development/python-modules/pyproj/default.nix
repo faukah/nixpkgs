@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
   replaceVars,
-
   certifi,
   cython,
   mock,
@@ -15,7 +14,6 @@
   shapely,
   xarray,
 }:
-
 buildPythonPackage rec {
   pname = "pyproj";
   version = "3.7.1";
@@ -37,10 +35,10 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ proj ];
+  nativeBuildInputs = [cython];
+  buildInputs = [proj];
 
-  propagatedBuildInputs = [ certifi ];
+  propagatedBuildInputs = [certifi];
 
   nativeCheckInputs = [
     mock
@@ -112,6 +110,6 @@ buildPythonPackage rec {
       lsix
       dotlambda
     ];
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

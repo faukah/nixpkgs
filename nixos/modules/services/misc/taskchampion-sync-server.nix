@@ -3,15 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) types;
   cfg = config.services.taskchampion-sync-server;
-in
-{
+in {
   options.services.taskchampion-sync-server = {
     enable = lib.mkEnableOption "TaskChampion Sync Server for Taskwarrior 3";
-    package = lib.mkPackageOption pkgs "taskchampion-sync-server" { };
+    package = lib.mkPackageOption pkgs "taskchampion-sync-server" {};
     user = lib.mkOption {
       description = "Unix User to run the server under";
       type = types.str;
@@ -54,7 +52,7 @@ in
     allowClientIds = lib.mkOption {
       description = "Client IDs to allow (can be repeated; if not specified, all clients are allowed)";
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
     };
   };
 
@@ -63,8 +61,8 @@ in
       isSystemUser = true;
       inherit (cfg) group;
     };
-    users.groups.${cfg.group} = { };
-    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [ cfg.port ];
+    users.groups.${cfg.group} = {};
+    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [cfg.port];
     systemd.tmpfiles.settings = {
       "10-taskchampion-sync-server" = {
         "${cfg.dataDir}" = {
@@ -77,8 +75,8 @@ in
     };
 
     systemd.services.taskchampion-sync-server = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

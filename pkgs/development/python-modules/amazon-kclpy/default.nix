@@ -8,7 +8,6 @@
   boto3,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "amazon-kclpy";
   version = "3.0.1";
@@ -29,22 +28,22 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     mock
     boto3
   ];
 
-  pythonImportsCheck = [ "amazon_kclpy" ];
+  pythonImportsCheck = ["amazon_kclpy"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Amazon Kinesis Client Library for Python";
     homepage = "https://github.com/awslabs/amazon-kinesis-client-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
     broken = true;
   };
 }

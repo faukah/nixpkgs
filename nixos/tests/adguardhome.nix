@@ -10,7 +10,7 @@
       services.adguardhome = {
         enable = true;
 
-        settings = { };
+        settings = {};
       };
     };
 
@@ -27,7 +27,7 @@
         enable = true;
 
         mutableSettings = false;
-        settings.dns.bootstrap_dns = [ "127.0.0.1" ];
+        settings.dns.bootstrap_dns = ["127.0.0.1"];
       };
     };
 
@@ -36,77 +36,73 @@
         enable = true;
 
         mutableSettings = true;
-        settings.dns.bootstrap_dns = [ "127.0.0.1" ];
+        settings.dns.bootstrap_dns = ["127.0.0.1"];
       };
     };
 
-    dhcpConf =
-      { lib, ... }:
-      {
-        virtualisation.vlans = [ 1 ];
+    dhcpConf = {lib, ...}: {
+      virtualisation.vlans = [1];
 
-        networking = {
-          # Configure static IP for DHCP server
+      networking = {
+        # Configure static IP for DHCP server
+        useDHCP = false;
+        interfaces."eth1" = lib.mkForce {
           useDHCP = false;
-          interfaces."eth1" = lib.mkForce {
-            useDHCP = false;
-            ipv4 = {
-              addresses = [
-                {
-                  address = "10.0.10.1";
-                  prefixLength = 24;
-                }
-              ];
+          ipv4 = {
+            addresses = [
+              {
+                address = "10.0.10.1";
+                prefixLength = 24;
+              }
+            ];
 
-              routes = [
-                {
-                  address = "10.0.10.0";
-                  prefixLength = 24;
-                }
-              ];
-            };
+            routes = [
+              {
+                address = "10.0.10.0";
+                prefixLength = 24;
+              }
+            ];
           };
-
-          # Required for DHCP
-          firewall.allowedUDPPorts = [
-            67
-            68
-          ];
         };
 
-        services.adguardhome = {
-          enable = true;
-          allowDHCP = true;
-          mutableSettings = false;
-          settings = {
-            dns.bootstrap_dns = [ "127.0.0.1" ];
-            dhcp = {
-              # This implicitly enables CAP_NET_RAW
-              enabled = true;
-              interface_name = "eth1";
-              local_domain_name = "lan";
-              dhcpv4 = {
-                gateway_ip = "10.0.10.1";
-                range_start = "10.0.10.100";
-                range_end = "10.0.10.101";
-                subnet_mask = "255.255.255.0";
-              };
+        # Required for DHCP
+        firewall.allowedUDPPorts = [
+          67
+          68
+        ];
+      };
+
+      services.adguardhome = {
+        enable = true;
+        allowDHCP = true;
+        mutableSettings = false;
+        settings = {
+          dns.bootstrap_dns = ["127.0.0.1"];
+          dhcp = {
+            # This implicitly enables CAP_NET_RAW
+            enabled = true;
+            interface_name = "eth1";
+            local_domain_name = "lan";
+            dhcpv4 = {
+              gateway_ip = "10.0.10.1";
+              range_start = "10.0.10.100";
+              range_end = "10.0.10.101";
+              subnet_mask = "255.255.255.0";
             };
           };
         };
       };
+    };
 
-    client =
-      { lib, ... }:
-      {
-        virtualisation.vlans = [ 1 ];
-        networking = {
-          interfaces.eth1 = {
-            useDHCP = true;
-            ipv4.addresses = lib.mkForce [ ];
-          };
+    client = {lib, ...}: {
+      virtualisation.vlans = [1];
+      networking = {
+        interfaces.eth1 = {
+          useDHCP = true;
+          ipv4.addresses = lib.mkForce [];
         };
       };
+    };
   };
 
   testScript = ''

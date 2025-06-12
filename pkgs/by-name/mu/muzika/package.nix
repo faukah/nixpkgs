@@ -21,7 +21,6 @@
   blueprint-compiler,
   libsecret,
 }:
-
 stdenv.mkDerivation rec {
   pname = "muzika";
   version = "unstable-2023-11-07";
@@ -89,6 +88,6 @@ stdenv.mkDerivation rec {
     description = "Elegant music streaming app";
     homepage = "https://github.com/vixalien/muzika";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

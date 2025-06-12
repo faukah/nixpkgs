@@ -6,7 +6,6 @@
   libax25,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "ax25-apps";
   version = "0.0.8-rc5-unstable-2021-05-13";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     description = "AX.25 ham radio applications";
     homepage = "https://linux-ax25.in-berlin.de/wiki/Main_Page";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ sarcasticadmin ];
+    maintainers = with lib.maintainers; [sarcasticadmin];
     platforms = lib.platforms.linux;
   };
 }

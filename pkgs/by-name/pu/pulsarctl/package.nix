@@ -8,7 +8,6 @@
   testers,
   pulsarctl,
 }:
-
 buildGoModule rec {
   pname = "pulsarctl";
   version = "4.0.4.3";
@@ -22,21 +21,20 @@ buildGoModule rec {
 
   vendorHash = "sha256-AruXsUIKeUMcojf0XF1ZEaZ2LlXDwCp2n82RN5e0Rj8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags =
-    let
-      buildVars = {
-        ReleaseVersion = version;
-        BuildTS = "None";
-        GitHash = src.rev;
-        GitBranch = "None";
-        GoVersion = "go${go.version}";
-      };
-    in
-    (lib.mapAttrsToList (
+  ldflags = let
+    buildVars = {
+      ReleaseVersion = version;
+      BuildTS = "None";
+      GitHash = src.rev;
+      GitBranch = "None";
+      GoVersion = "go${go.version}";
+    };
+  in (lib.mapAttrsToList (
       k: v: "-X github.com/streamnative/pulsarctl/pkg/cmdutils.${k}=${v}"
-    ) buildVars);
+    )
+    buildVars);
 
   excludedPackages = [
     "./pkg/test"
@@ -58,7 +56,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = pulsarctl;
       command = "pulsarctl --version";
@@ -69,9 +67,9 @@ buildGoModule rec {
   meta = with lib; {
     description = " a CLI for Apache Pulsar written in Go";
     homepage = "https://github.com/streamnative/pulsarctl";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gaelreyrol ];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "pulsarctl";
   };
 }

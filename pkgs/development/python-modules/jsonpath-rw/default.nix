@@ -7,7 +7,6 @@
   six,
   decorator,
 }:
-
 buildPythonPackage rec {
   pname = "jsonpath-rw";
   version = "1.4.0";

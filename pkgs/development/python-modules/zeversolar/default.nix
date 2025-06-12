@@ -9,7 +9,6 @@
   requests,
   retry2,
 }:
-
 buildPythonPackage rec {
   pname = "zeversolar";
   version = "0.3.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-HnF21B7k2MmugMjGIF2EKwwXJWD/WdDvPdz1oaPSS5Y=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     requests
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zeversolar" ];
+  pythonImportsCheck = ["zeversolar"];
 
   meta = {
     description = "Module to interact with the local CGI provided by ZeverSolar";
     homepage = "https://github.com/kvanzuijlen/zeversolar";
     changelog = "https://github.com/kvanzuijlen/zeversolar/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

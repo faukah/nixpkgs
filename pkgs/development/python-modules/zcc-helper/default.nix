@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zcc-helper";
   version = "3.5.2";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-6cpLpzzJPoyWaldXZzptV2LY5aYmRtVf0rd1Ye71VG0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zcc" ];
+  pythonImportsCheck = ["zcc"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "ZIMI ZCC helper module";
     homepage = "https://bitbucket.org/mark_hannon/zcc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -5,7 +5,6 @@
   libxcb,
   xcb-util-cursor,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wmutils-libwm";
   version = "1.3";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
     xcb-util-cursor
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Small library for X window manipulation";
     homepage = "https://github.com/wmutils/libwm";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ bhougland ];
+    maintainers = with lib.maintainers; [bhougland];
     platforms = lib.platforms.unix;
   };
 }

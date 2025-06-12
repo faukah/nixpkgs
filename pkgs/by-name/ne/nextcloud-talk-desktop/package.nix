@@ -22,7 +22,6 @@
   systemd,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nextcloud-talk-desktop";
   version = "1.1.9";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Required to launch the application and proceed past the zygote_linux fork() process
   # Fixes `Zygote could not fork`
-  runtimeDependencies = [ systemd ];
+  runtimeDependencies = [systemd];
 
   desktopItems = [
     (makeDesktopItem {
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
       comment = finalAttrs.meta.description;
       exec = finalAttrs.meta.mainProgram;
       icon = "nextcloud-talk-desktop";
-      categories = [ "Chat" ];
+      categories = ["Chat"];
     })
   ];
 
@@ -103,16 +102,16 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Nextcloud Talk Desktop Client";
     homepage = "https://github.com/nextcloud/talk-desktop";
     changelog = "https://github.com/nextcloud/talk-desktop/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ kashw2 ];
+    maintainers = with lib.maintainers; [kashw2];
     mainProgram = "nextcloud-talk-desktop";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    platforms = ["x86_64-linux"];
   };
 })

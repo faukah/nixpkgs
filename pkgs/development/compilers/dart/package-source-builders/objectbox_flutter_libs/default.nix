@@ -3,13 +3,12 @@
   stdenv,
   fetchzip,
   replaceVars,
-}:
-
-{ version, src, ... }:
-
-let
-  selectSystem =
-    attrs:
+}: {
+  version,
+  src,
+  ...
+}: let
+  selectSystem = attrs:
     attrs.${stdenv.hostPlatform.system}
       or (throw "objectbox_flutter_libs: ${stdenv.hostPlatform.system} is not supported");
 
@@ -27,24 +26,24 @@ let
     stripRoot = false;
   };
 in
-stdenv.mkDerivation {
-  pname = "objectbox_flutter_libs";
-  inherit version src;
-  inherit (src) passthru;
+  stdenv.mkDerivation {
+    pname = "objectbox_flutter_libs";
+    inherit version src;
+    inherit (src) passthru;
 
-  patches = [
-    (replaceVars ./CMakeLists.patch {
-      OBJECTBOX_SHARED_LIBRARY = "${objectbox-sync}/lib/libobjectbox.so";
-    })
-  ];
+    patches = [
+      (replaceVars ./CMakeLists.patch {
+        OBJECTBOX_SHARED_LIBRARY = "${objectbox-sync}/lib/libobjectbox.so";
+      })
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cp -r . $out
+      cp -r . $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta.sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-}
+    meta.sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+  }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mkcert";
   version = "1.4.4";
@@ -30,6 +29,6 @@ buildGoModule rec {
     description = "Simple tool for making locally-trusted development certificates";
     mainProgram = "mkcert";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

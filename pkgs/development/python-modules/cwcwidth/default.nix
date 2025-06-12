@@ -7,7 +7,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cwcwidth";
   version = "0.1.10";
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_combining_spacing"
   ];
 
-  pythonImportsCheck = [ "cwcwidth" ];
+  pythonImportsCheck = ["cwcwidth"];
 
   meta = {
     description = "Python bindings for wc(s)width";
     homepage = "https://github.com/sebastinas/cwcwidth";
     changelog = "https://github.com/sebastinas/cwcwidth/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

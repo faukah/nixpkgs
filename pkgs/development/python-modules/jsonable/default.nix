@@ -6,7 +6,6 @@
   fetchpatch2,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jsonable";
   version = "0.3.1";
@@ -28,16 +27,16 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonable" ];
+  pythonImportsCheck = ["jsonable"];
 
   meta = {
     description = "Provides an abstract base class and utilities for defining trivially JSONable python objects";
     homepage = "https://github.com/halfak/python-jsonable";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

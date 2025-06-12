@@ -4,8 +4,7 @@ import ./make-test-python.nix (
     lib,
     testPackage ? pkgs.cassandra,
     ...
-  }:
-  let
+  }: let
     clusterName = "NixOS Automated-Test Cluster";
 
     testRemoteAuth = lib.versionAtLeast testPackage.version "3.11";
@@ -36,49 +35,49 @@ import ./make-test-python.nix (
       inherit clusterName;
       listenAddress = ipAddress;
       rpcAddress = ipAddress;
-      seedAddresses = [ "192.168.1.1" ];
+      seedAddresses = ["192.168.1.1"];
       package = testPackage;
       maxHeapSize = "${numMaxHeapSize}M";
       heapNewSize = "100M";
       inherit jmxPort;
     };
-    nodeCfg =
-      ipAddress: extra:
-      { pkgs, config, ... }:
-      rec {
-        environment.systemPackages = [ testPackage ];
-        networking = {
-          firewall.allowedTCPPorts = [
-            7000
-            9042
-            services.cassandra.jmxPort
-          ];
-          useDHCP = false;
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-            {
-              address = ipAddress;
-              prefixLength = 24;
-            }
-          ];
-        };
-        services.cassandra = cassandraCfg ipAddress // extra;
+    nodeCfg = ipAddress: extra: {
+      pkgs,
+      config,
+      ...
+    }: rec {
+      environment.systemPackages = [testPackage];
+      networking = {
+        firewall.allowedTCPPorts = [
+          7000
+          9042
+          services.cassandra.jmxPort
+        ];
+        useDHCP = false;
+        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = ipAddress;
+            prefixLength = 24;
+          }
+        ];
       };
-  in
-  {
+      services.cassandra = cassandraCfg ipAddress // extra;
+    };
+  in {
     name = "cassandra-${testPackage.version}";
     meta = {
-      maintainers = with lib.maintainers; [ johnazoidberg ];
+      maintainers = with lib.maintainers; [johnazoidberg];
     };
 
     nodes = {
-      cass0 = nodeCfg "192.168.1.1" { };
+      cass0 = nodeCfg "192.168.1.1" {};
       cass1 = nodeCfg "192.168.1.2" (
         lib.optionalAttrs testRemoteAuth {
           inherit jmxRoles;
           remoteJmx = true;
         }
       );
-      cass2 = nodeCfg "192.168.1.3" { jvmOpts = [ "-Dcassandra.replace_address=cass1" ]; };
+      cass2 = nodeCfg "192.168.1.3" {jvmOpts = ["-Dcassandra.replace_address=cass1"];};
     };
 
     testScript =

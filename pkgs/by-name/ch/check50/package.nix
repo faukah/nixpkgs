@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "check50";
   version = "3.3.11";
@@ -34,9 +33,9 @@ python3Packages.buildPythonApplication rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "check50" ];
+  pythonImportsCheck = ["check50"];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no python tests
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/cs50/check50/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "check50";
   };
 }

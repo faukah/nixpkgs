@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "gh-actions-cache";
   version = "1.0.4";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/actions/gh-actions-cache";
     changelog = "https://github.com/actions/gh-actions-cache/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     mainProgram = "gh-actions-cache";
   };
 }

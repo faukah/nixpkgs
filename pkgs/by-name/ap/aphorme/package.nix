@@ -10,7 +10,6 @@
   aphorme,
   autoPatchelfHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aphorme";
   version = "0.1.19";
@@ -28,8 +27,8 @@ rustPlatform.buildRustPackage rec {
   # No tests exist
   doCheck = false;
 
-  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
-  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [(lib.getLib stdenv.cc.cc)];
+  nativeBuildInputs = [autoPatchelfHook];
 
   runtimeDependencies = [
     wayland
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "aphorme";
     homepage = "https://github.com/Iaphetes/aphorme_launcher";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ anytimetraveler ];
+    maintainers = with lib.maintainers; [anytimetraveler];
     platforms = lib.platforms.linux;
   };
 }

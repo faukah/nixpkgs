@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.froide-govplan;
-  pythonFmt = pkgs.formats.pythonVars { };
+  pythonFmt = pkgs.formats.pythonVars {};
   settingsFile = pythonFmt.generate "extra_settings.py" cfg.settings;
 
   pkg = cfg.package.overridePythonAttrs (old: {
@@ -20,7 +18,7 @@ let
 
   froide-govplan = pkgs.writeShellApplication {
     name = "froide-govplan";
-    runtimeInputs = [ pkgs.coreutils ];
+    runtimeInputs = [pkgs.coreutils];
     text = ''
       SUDO="exec"
       if [[ "$USER" != govplan ]]; then
@@ -33,7 +31,7 @@ let
   # Service hardening
   defaultServiceConfig = {
     # Secure the services
-    ReadWritePaths = [ cfg.dataDir ];
+    ReadWritePaths = [cfg.dataDir];
     CacheDirectory = "froide-govplan";
     CapabilityBoundingSet = "";
     # ProtectClock adds DeviceAllow=char-rtc r
@@ -70,14 +68,11 @@ let
     ];
     UMask = "0066";
   };
-
-in
-{
+in {
   options.services.froide-govplan = {
-
     enable = lib.mkEnableOption "Gouvernment planer web app Govplan";
 
-    package = lib.mkPackageOption pkgs "froide-govplan" { };
+    package = lib.mkPackageOption pkgs "froide-govplan" {};
 
     hostName = lib.mkOption {
       type = lib.types.str;
@@ -104,7 +99,7 @@ in
         Configuration options to set in `extra_settings.py`.
       '';
 
-      default = { };
+      default = {};
 
       type = lib.types.submodule {
         freeformType = pythonFmt.type;
@@ -112,7 +107,7 @@ in
         options = {
           ALLOWED_HOSTS = lib.mkOption {
             type = with lib.types; listOf str;
-            default = [ "*" ];
+            default = ["*"];
             description = ''
               A list of valid fully-qualified domain names (FQDNs) and/or IP
               addresses that can be used to reach the Froide-Govplan service.
@@ -121,11 +116,9 @@ in
         };
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     services.froide-govplan = {
       settings = {
         STATIC_ROOT = "${cfg.dataDir}/static";
@@ -141,14 +134,14 @@ in
 
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "govplan" ];
+      ensureDatabases = ["govplan"];
       ensureUsers = [
         {
           name = "govplan";
           ensureDBOwnership = true;
         }
       ];
-      extensions = ps: with ps; [ postgis ];
+      extensions = ps: with ps; [postgis];
     };
 
     services.nginx = {
@@ -162,33 +155,32 @@ in
 
     systemd = {
       services = {
-
-        postgresql.serviceConfig.ExecStartPost =
-          let
-            sqlFile = pkgs.writeText "immich-pgvectors-setup.sql" ''
-              CREATE EXTENSION IF NOT EXISTS postgis;
-            '';
-          in
-          [
-            ''
-              ${lib.getExe' config.services.postgresql.package "psql"} -d govplan -f "${sqlFile}"
-            ''
-          ];
+        postgresql.serviceConfig.ExecStartPost = let
+          sqlFile = pkgs.writeText "immich-pgvectors-setup.sql" ''
+            CREATE EXTENSION IF NOT EXISTS postgis;
+          '';
+        in [
+          ''
+            ${lib.getExe' config.services.postgresql.package "psql"} -d govplan -f "${sqlFile}"
+          ''
+        ];
 
         froide-govplan = {
           description = "Gouvernment planer Govplan";
-          serviceConfig = defaultServiceConfig // {
-            WorkingDirectory = cfg.dataDir;
-            StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/froide-govplan") "froide-govplan";
-            User = "govplan";
-            Group = "govplan";
-          };
+          serviceConfig =
+            defaultServiceConfig
+            // {
+              WorkingDirectory = cfg.dataDir;
+              StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/froide-govplan") "froide-govplan";
+              User = "govplan";
+              Group = "govplan";
+            };
           after = [
             "postgresql.service"
             "network.target"
             "systemd-tmpfiles-setup.service"
           ];
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           environment =
             {
               PYTHONPATH = pkg.pythonPath;
@@ -216,22 +208,19 @@ in
           '';
         };
       };
-
     };
 
-    systemd.tmpfiles.rules = [ "d /run/froide-govplan - govplan govplan - -" ];
+    systemd.tmpfiles.rules = ["d /run/froide-govplan - govplan govplan - -"];
 
-    environment.systemPackages = [ froide-govplan ];
+    environment.systemPackages = [froide-govplan];
 
     users.users.govplan = {
       home = "${cfg.dataDir}";
       isSystemUser = true;
       group = "govplan";
     };
-    users.groups.govplan = { };
-
+    users.groups.govplan = {};
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
-
+  meta.maintainers = with lib.maintainers; [onny];
 }

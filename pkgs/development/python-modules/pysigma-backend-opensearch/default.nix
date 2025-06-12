@@ -10,7 +10,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pysigma-backend-opensearch";
   version = "1.0.4";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-VKDyXTvh0T/MKqsZo9lAlHyfhtiXzP5P+d0DSiLqS1o=";
   };
 
-  pythonRelaxDeps = [ "pysigma" ];
+  pythonRelaxDeps = ["pysigma"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     pysigma
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "sigma.backends.opensearch" ];
+  pythonImportsCheck = ["sigma.backends.opensearch"];
 
   disabledTests = [
     # Tests requires network access
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SigmaHQ/pySigma-backend-opensearch";
     changelog = "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

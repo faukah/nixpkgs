@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyuseragents";
   version = "1.0.5";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "D7Qs3vsfkRH2FDkbfakrR+FfWzQFiOCQM7q9AdJavyU=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "test.py" ];
-  pythonImportsCheck = [ "pyuseragents" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["test.py"];
+  pythonImportsCheck = ["pyuseragents"];
 
   meta = with lib; {
     description = "Giving you a random User-Agent Header";
     homepage = "https://github.com/Animenosekai/useragents";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [emilytrau];
   };
 }

@@ -11,7 +11,6 @@
   libsndfile,
   qtquickcontrols,
 }:
-
 mkDerivation {
   pname = "libkdegames";
   nativeBuildInputs = [
@@ -28,7 +27,7 @@ mkDerivation {
     qtquickcontrols
   ];
   meta = {
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
 }

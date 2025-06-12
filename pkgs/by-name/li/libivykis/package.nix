@@ -7,7 +7,6 @@
   file,
   protobufc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libivykis";
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       notification facilities
     '';
     license = licenses.zlib;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

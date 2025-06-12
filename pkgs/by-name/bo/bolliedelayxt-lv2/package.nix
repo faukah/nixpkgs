@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lv2,
 }:
-
 stdenv.mkDerivation {
   pname = "bolliedelayxt.lv2";
   version = "unstable-2017-11-02";
@@ -16,15 +15,15 @@ stdenv.mkDerivation {
     sha256 = "sha256-7GM3YccN22JQdQ5ng9HFs9R6Ex/d+XP/khTQsgbGcAw=";
   };
 
-  buildInputs = [ lv2 ];
+  buildInputs = [lv2];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Flexible LV2 delay plugin";
     homepage = "https://github.com/MrBollie/bolliedelayxt.lv2";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

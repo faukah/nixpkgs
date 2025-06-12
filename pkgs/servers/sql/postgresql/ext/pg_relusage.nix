@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_relusage";
   version = "0.0.1";
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
   meta = {
     description = "pg_relusage extension for PostgreSQL: discover and log the relations used in your statements";
     homepage = "https://github.com/adept/pg_relusage";
-    maintainers = with lib.maintainers; [ thenonameguy ];
+    maintainers = with lib.maintainers; [thenonameguy];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.postgresql;
   };

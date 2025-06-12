@@ -8,7 +8,6 @@
   nodejs,
   fetchpatch2,
 }:
-
 buildGoModule rec {
   pname = "wireguard-ui";
   version = "0.6.2";
@@ -75,7 +74,7 @@ buildGoModule rec {
     homepage = "https://github.com/ngoduykhanh/wireguard-ui";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "wireguard-ui";
   };
 }

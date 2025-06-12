@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "pms";
   version = "unstable-2022-11-12";
@@ -21,7 +20,7 @@ buildGoModule {
     description = "Interactive Vim-like console client for MPD";
     homepage = "https://ambientsound.github.io/pms/";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
     mainProgram = "pms";
   };
 }

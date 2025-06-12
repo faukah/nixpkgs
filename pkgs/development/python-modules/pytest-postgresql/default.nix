@@ -12,7 +12,6 @@
   pytest,
   postgresql,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-postgresql";
   version = "6.0.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     sed -i 's#/usr/lib/postgresql/.*/bin/pg_ctl#${postgresql}/bin/pg_ctl#' pytest_postgresql/plugin.py
   '';
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     mirakuru
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     "-p"
     "no:postgresql"
   ];
-  disabledTestPaths = [ "tests/docker/test_noproc_docker.py" ]; # requires Docker
+  disabledTestPaths = ["tests/docker/test_noproc_docker.py"]; # requires Docker
   disabledTests = [
     # permissions issue running pg as Nixbld user
     "test_executor_init_with_password"
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     description = "Pytest plugin that enables you to test code on a temporary PostgreSQL database";
     changelog = "https://github.com/ClearcodeHQ/pytest-postgresql/blob/v${version}/CHANGES.rst";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

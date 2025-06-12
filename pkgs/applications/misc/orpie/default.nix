@@ -3,7 +3,6 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "orpie";
   version = "1.6.1";
@@ -15,13 +14,13 @@ ocamlPackages.buildDunePackage rec {
     sha256 = "sha256-LwhH2BO4p8Y8CB2pNkl2heIR7yh42erdTcDsxgy1ouc=";
   };
 
-  patches = [ ./prefix.patch ];
+  patches = [./prefix.patch];
 
   preConfigure = ''
     substituteInPlace src/orpie/install.ml.in --replace '@prefix@' $out
   '';
 
-  nativeBuildInputs = [ ocamlPackages.camlp5 ];
+  nativeBuildInputs = [ocamlPackages.camlp5];
   buildInputs = with ocamlPackages; [
     curses
     num
@@ -32,6 +31,6 @@ ocamlPackages.buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Curses-based RPN calculator";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ obadz ];
+    maintainers = with lib.maintainers; [obadz];
   };
 }

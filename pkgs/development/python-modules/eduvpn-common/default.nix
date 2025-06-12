@@ -4,14 +4,13 @@
   selenium,
   setuptools,
 }:
-
 buildPythonPackage rec {
   inherit (libeduvpn-common) version src;
   pname = "eduvpn-common";
 
   sourceRoot = "${pname}-${version}/wrappers/python";
 
-  patches = [ ./use-nix-lib.patch ];
+  patches = [./use-nix-lib.patch];
 
   postPatch = ''
     substituteInPlace eduvpn_common/loader.py \
@@ -25,11 +24,13 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ selenium ];
+  nativeCheckInputs = [selenium];
 
-  pythonImportsCheck = [ "eduvpn_common" ];
+  pythonImportsCheck = ["eduvpn_common"];
 
-  meta = libeduvpn-common.meta // {
-    description = "Python wrapper for libeduvpn-common";
-  };
+  meta =
+    libeduvpn-common.meta
+    // {
+      description = "Python wrapper for libeduvpn-common";
+    };
 }

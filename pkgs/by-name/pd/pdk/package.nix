@@ -7,16 +7,15 @@
   pdk,
   testers,
 }:
-
 bundlerApp {
   pname = "pdk";
   gemdir = ./.;
-  exes = [ "pdk" ];
+  exes = ["pdk"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
-    wrapProgram $out/bin/pdk --prefix PATH : ${lib.makeBinPath [ gnumake ]}
+    wrapProgram $out/bin/pdk --prefix PATH : ${lib.makeBinPath [gnumake]}
   '';
 
   passthru = {

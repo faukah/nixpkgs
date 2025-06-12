@@ -7,7 +7,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "bc-soci";
   version = "linphone-4.4.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     "-DWITH_SQLITE3=YES"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     sqlite
     boost
@@ -49,6 +48,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.linphone.org/BC/public/external/soci";
     license = licenses.boost;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thibaultlemaire ];
+    maintainers = with maintainers; [thibaultlemaire];
   };
 }

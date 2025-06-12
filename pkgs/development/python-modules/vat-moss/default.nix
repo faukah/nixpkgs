@@ -6,7 +6,6 @@
   pythonAtLeast,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "vat-moss";
   version = "0.11.0";
@@ -30,11 +29,11 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "vat_moss" ];
+  pythonImportsCheck = ["vat_moss"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "test_fetch" ];
+  disabledTests = ["test_fetch"];
 
   disabledTestPaths = [
     # network access
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/raphaelm/vat_moss-python";
     changelog = "https://github.com/raphaelm/vat_moss-python/blob/${src.rev}/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -4,18 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.whitebophir;
-in
-{
+in {
   options = {
     services.whitebophir = {
       enable = mkEnableOption "whitebophir, an online collaborative whiteboard server (persistent state will be maintained under {file}`/var/lib/whitebophir`)";
 
-      package = mkPackageOption pkgs "whitebophir" { };
+      package = mkPackageOption pkgs "whitebophir" {};
 
       listenAddress = mkOption {
         type = types.str;
@@ -34,8 +30,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.whitebophir = {
       description = "Whitebophir Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         PORT = toString cfg.port;
         HOST = toString cfg.listenAddress;

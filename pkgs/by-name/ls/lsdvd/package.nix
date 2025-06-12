@@ -5,7 +5,6 @@
   libdvdread,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lsdvd";
   version = "0.17";
@@ -14,8 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "1274d54jgca1prx106iyir7200aflr70bnb1kawndlmcckcmnb3x";
   };
 
-  buildInputs = [ libdvdread ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libdvdread];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/lsdvd/";

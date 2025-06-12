@@ -11,7 +11,6 @@
   redshift-connector,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-redshift";
   version = "1.9.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     "redshift-connector"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     agate
@@ -41,17 +40,17 @@ buildPythonPackage rec {
     redshift-connector
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "dbt.adapters.redshift" ];
+  pythonImportsCheck = ["dbt.adapters.redshift"];
 
   meta = with lib; {
     description = "Plugin enabling dbt to work with Amazon Redshift";
     homepage = "https://github.com/dbt-labs/dbt-redshift";
     changelog = "https://github.com/dbt-labs/dbt-redshift/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "raspberrypi-wireless-firmware";
   version = "unstable-2024-02-26";
@@ -58,6 +57,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/RPi-Distro/firmware-nonfree";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

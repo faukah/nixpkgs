@@ -29,24 +29,24 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-OiXpG45jwWydbpRHnbIlECOaa75CzUOmdWxZ3WE5+hY=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ udev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [udev];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${builtins.placeholder "out"}/bin/${meta.mainProgram}";
 
   postInstall = ''
     install -Dm444 40-streamdeck.rules -t $out/lib/udev/rules.d/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "ibusb based driver for Elgato StreamDeck devices";
     homepage = "https://github.com/ryankurte/rust-streamdeck";
     license = lib.licenses.mpl20;
-    maintainers = [ lib.maintainers.gdifolco ];
+    maintainers = [lib.maintainers.gdifolco];
     mainProgram = "streamdeck-cli";
   };
 }

@@ -1,37 +1,38 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "jibri";
   meta = with pkgs.lib; {
     maintainers = teams.jitsi.members;
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      virtualisation.memorySize = 5120;
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    virtualisation.memorySize = 5120;
 
-      services.jitsi-meet = {
-        enable = true;
-        hostName = "machine";
-        jibri.enable = true;
-      };
-      services.jibri.ignoreCert = true;
-      services.jitsi-videobridge.openFirewall = true;
-
-      networking.firewall.allowedTCPPorts = [
-        80
-        443
-      ];
-
-      services.nginx.virtualHosts.machine = {
-        enableACME = true;
-        forceSSL = true;
-      };
-
-      security.acme.defaults.email = "me@example.org";
-      security.acme.acceptTerms = true;
-      security.acme.defaults.server = "https://example.com"; # self-signed only
+    services.jitsi-meet = {
+      enable = true;
+      hostName = "machine";
+      jibri.enable = true;
     };
+    services.jibri.ignoreCert = true;
+    services.jitsi-videobridge.openFirewall = true;
+
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
+
+    services.nginx.virtualHosts.machine = {
+      enableACME = true;
+      forceSSL = true;
+    };
+
+    security.acme.defaults.email = "me@example.org";
+    security.acme.acceptTerms = true;
+    security.acme.defaults.server = "https://example.com"; # self-signed only
+  };
 
   testScript = ''
     machine.wait_for_unit("jitsi-videobridge2.service")

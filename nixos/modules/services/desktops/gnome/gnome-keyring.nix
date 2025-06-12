@@ -1,16 +1,12 @@
 # GNOME Keyring daemon.
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.gnome.gnome-keyring;
-in
-{
-
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
@@ -26,14 +22,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.gnome-keyring ];
+    environment.systemPackages = [pkgs.gnome-keyring];
 
     services.dbus.packages = [
       pkgs.gnome-keyring
       pkgs.gcr
     ];
 
-    xdg.portal.extraPortals = [ pkgs.gnome-keyring ];
+    xdg.portal.extraPortals = [pkgs.gnome-keyring];
 
     security.pam.services.login.enableGnomeKeyring = true;
 

@@ -6,7 +6,6 @@
   autoPatchelfHook,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "texturepacker";
   version = "7.7.1";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.codeandweb.com/texturepacker";
     license = lib.licenses.unfree;
     mainProgram = "TexturePacker";
-    maintainers = with lib.maintainers; [ tomasajt ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [tomasajt];
+    platforms = ["x86_64-linux"];
   };
 })

@@ -5,7 +5,6 @@
   makeWrapper,
   iperf3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "iperf3d";
   version = "1.0.0";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-pMwGoBgFRVY+H51k+YCamzHgBoaJVwEVqY0CvMPvE0w=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/iperf3d --prefix PATH : ${iperf3}/bin
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "iperf3d";
     homepage = "https://github.com/wobcom/iperf3d";
     license = licenses.mit;
-    maintainers = with maintainers; [ netali ];
-    teams = [ teams.wdz ];
+    maintainers = with maintainers; [netali];
+    teams = [teams.wdz];
   };
 }

@@ -15,7 +15,6 @@
   openssl,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waytrogen";
   version = "0.7.2";
@@ -56,9 +55,9 @@ stdenv.mkDerivation rec {
     OPENSSL_NO_VENDOR = 1;
   };
 
-  mesonFlags = [ "-Dcargo_features=nixos" ];
+  mesonFlags = ["-Dcargo_features=nixos"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Lightning fast wallpaper setter for Wayland";

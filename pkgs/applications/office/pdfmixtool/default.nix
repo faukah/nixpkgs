@@ -12,7 +12,6 @@
   podofo,
   imagemagick,
 }:
-
 mkDerivation rec {
   pname = "pdfmixtool";
   version = "1.1.1";
@@ -55,6 +54,6 @@ mkDerivation rec {
     mainProgram = "pdfmixtool";
     homepage = "https://gitlab.com/scarpetta/pdfmixtool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

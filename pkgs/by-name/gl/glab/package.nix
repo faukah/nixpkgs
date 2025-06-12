@@ -7,7 +7,6 @@
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "glab";
   version = "1.57.0";
@@ -27,11 +26,11 @@ buildGoModule (finalAttrs: {
     "-X main.version=${finalAttrs.version}"
   ];
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
-  subPackages = [ "cmd/glab" ];
+  subPackages = ["cmd/glab"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     make manpage
@@ -42,7 +41,7 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/glab completion -s zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GitLab CLI tool bringing GitLab to your command line";

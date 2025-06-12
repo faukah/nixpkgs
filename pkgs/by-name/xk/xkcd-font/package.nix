@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "xkcd-font";
   version = "unstable-2017-08-24";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/ipython/xkcd-font";
     license = licenses.cc-by-nc-30;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

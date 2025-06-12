@@ -10,7 +10,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "docx2python";
   version = "3.0.0";
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "docx2python" ];
+  pythonImportsCheck = ["docx2python"];
 
   meta = with lib; {
     description = "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
     homepage = "https://github.com/ShayHill/docx2python";
     changelog = "https://github.com/ShayHill/docx2python/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

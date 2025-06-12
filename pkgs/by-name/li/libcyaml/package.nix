@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libyaml,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcyaml";
   version = "1.4.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JIN/cvh9PRl4/K0Z3WZtSCA3casBxyaxNxjXZZdQRWQ=";
   };
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   makeFlags = [
     "VARIANT=release"

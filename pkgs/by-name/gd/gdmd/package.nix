@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://gdcproject.org";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jtbx ];
+    maintainers = with lib.maintainers; [jtbx];
     mainProgram = "gdmd";
   };
 }

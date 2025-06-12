@@ -16,7 +16,6 @@
   tclPackages,
   withJson ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fossil";
   version = "2.26";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # required for build time tool `./tools/translate.c`
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     installShellFiles
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.fossil-scm.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ maggesi ];
+    maintainers = with maintainers; [maggesi];
     platforms = platforms.all;
     mainProgram = "fossil";
   };

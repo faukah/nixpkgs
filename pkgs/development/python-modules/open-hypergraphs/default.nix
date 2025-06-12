@@ -8,7 +8,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "open-hypergraphs";
   version = "0.1.2";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/statusfailed/open-hypergraphs";
     changelog = "https://github.com/statusfailed/open-hypergraphs/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

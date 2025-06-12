@@ -6,7 +6,6 @@
   openssl,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tlsclient";
   version = "1.6.6";
@@ -20,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   enableParallelBuilding = true;
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
-  buildFlags = [ "tlsclient" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  buildFlags = ["tlsclient"];
+  installFlags = ["PREFIX=$(out)"];
   installTargets = "tlsclient.install";
 
   passthru.updateScript = gitUpdater {
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = "unix port of 9front's tlsclient(1) and rcpu(1)";
     homepage = "https://git.sr.ht/~moody/tlsclient";
     license = licenses.mit;
-    maintainers = with maintainers; [ moody ];
+    maintainers = with maintainers; [moody];
     mainProgram = "tlsclient";
     platforms = platforms.all;
   };

@@ -5,7 +5,6 @@
   installShellFiles,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zig-shell-completions";
   version = "0-unstable-2024-07-08";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-iil6M59S94f9SojTnwdWGOlIO/QOV77fJOUjyBa7jMk=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontConfigure = true;
   dontBuild = true;
@@ -31,13 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/ziglang/shell-completions";
     description = "Shell completions for the Zig compiler";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     platforms = lib.platforms.all;
   };
 })

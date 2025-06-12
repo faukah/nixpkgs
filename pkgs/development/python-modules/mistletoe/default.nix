@@ -7,7 +7,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mistletoe";
   version = "1.4.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-jFU16vdASGVSPq+TJ/6cN7IGkE/61SL9BWCOPsVqNaU=";
   };
 
-  pythonImportsCheck = [ "mistletoe" ];
+  pythonImportsCheck = ["mistletoe"];
 
   nativeCheckInputs = [
     parameterized
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/miyuchina/mistletoe";
     changelog = "https://github.com/miyuchina/mistletoe/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

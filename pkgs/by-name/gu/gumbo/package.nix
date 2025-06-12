@@ -4,7 +4,6 @@
   fetchFromGitea,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gumbo";
   version = "0.13.0";
@@ -17,14 +16,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-QpGOBKNPBryCXZKKEQMv9TXJiNyXESBFiR4wM0lmjiI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "C99 HTML parsing algorithm";
     homepage = "https://codeberg.org/gumbo-parser/gumbo-parser";
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
     platforms = with platforms; linux ++ darwin;
     license = licenses.asl20;
   };

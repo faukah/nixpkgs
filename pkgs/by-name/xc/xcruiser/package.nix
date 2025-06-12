@@ -11,7 +11,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xcruiser";
   version = "0.30";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       exec = "xcruiser";
       desktopName = "XCruiser";
       comment = "filesystem visualization utility";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xcruiser.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = with platforms; linux;
     mainProgram = "xcruiser";
   };

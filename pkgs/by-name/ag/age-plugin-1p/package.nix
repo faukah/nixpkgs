@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "age-plugin-1p";
   version = "0.1.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/Enzime/age-plugin-1p";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ Enzime ];
+    maintainers = with maintainers; [Enzime];
   };
 }

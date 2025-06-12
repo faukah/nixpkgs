@@ -14,7 +14,6 @@
   perlPackages,
   systemd,
   keyutils,
-
   # drbd-utils are compiled twice, once with forOCF = true to extract
   # its OCF definitions for use in the ocf-resource-agents derivation,
   # then again with forOCF = false, where the ocf-resource-agents is
@@ -22,7 +21,6 @@
   forOCF ? false,
   ocf-resource-agents,
 }:
-
 stdenv.mkDerivation rec {
   pname = "drbd";
   version = "9.27.0";
@@ -53,10 +51,12 @@ stdenv.mkDerivation rec {
     "--without-distro"
   ];
 
-  makeFlags = [
-    "SOURCE_DATE_EPOCH=1"
-    "WANT_DRBD_REPRODUCIBLE_BUILD=1"
-  ] ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
+  makeFlags =
+    [
+      "SOURCE_DATE_EPOCH=1"
+      "WANT_DRBD_REPRODUCIBLE_BUILD=1"
+    ]
+    ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
 
   installFlags = [
     "prefix="

@@ -3,19 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.longview;
 
   runDir = "/run/longview";
   configsDir = "${runDir}/longview.d";
-
-in
-{
+in {
   options = {
-
     services.longview = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -101,16 +96,14 @@ in
           A file containing the password corresponding to {option}`mysqlUser`.
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.longview = {
       description = "Longview Metrics Collection";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       serviceConfig.ExecStop = "-${pkgs.coreutils}/bin/kill -TERM $MAINPID";
       serviceConfig.ExecReload = "-${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -142,11 +135,9 @@ in
         '');
     };
 
-    warnings =
-      let
-        warn =
-          k: lib.optional (cfg.${k} != "") "config.services.longview.${k} is insecure. Use ${k}File instead.";
-      in
+    warnings = let
+      warn = k: lib.optional (cfg.${k} != "") "config.services.longview.${k} is insecure. Use ${k}File instead.";
+    in
       lib.concatMap warn [
         "apiKey"
         "mysqlPassword"

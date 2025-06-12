@@ -15,7 +15,6 @@
   vala,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "paper-clip";
   version = "5.5.2";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Diego-Ivan/Paper-Clip";
     license = lib.licenses.gpl3Plus;
     mainProgram = "pdf-metadata-editor";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

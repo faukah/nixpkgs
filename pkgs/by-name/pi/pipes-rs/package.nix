@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pipes-rs";
   version = "1.6.3";
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "pipes-rs";
     homepage = "https://github.com/lhvy/pipes-rs";
     license = licenses.blueOak100;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
   };
 }

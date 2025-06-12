@@ -1,8 +1,11 @@
 # This module contains the basic configuration for building a graphical NixOS
 # installation CD.
-{ lib, pkgs, ... }:
 {
-  imports = [ ./installation-cd-base.nix ];
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./installation-cd-base.nix];
 
   # Whitelist wheel users to do anything
   # This is useful for things like pkexec
@@ -56,5 +59,4 @@
 
     mesa-demos
   ];
-
 }

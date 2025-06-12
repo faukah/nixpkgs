@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "circleci-cli";
   version = "0.1.32367";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mMMZ0EntLT9YC0Q1ya/uTRA2cl95aqg/XBtLXC7ufqc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -44,7 +43,7 @@ buildGoModule rec {
       Command to enable you to reproduce the CircleCI environment locally and
       run jobs as if they were running on the hosted CirleCI application.
     '';
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
     mainProgram = "circleci";
     license = licenses.mit;
     homepage = "https://circleci.com/";

@@ -8,7 +8,6 @@
   wrapGAppsHook4,
   libadwaita,
 }:
-
 buildGoModule rec {
   pname = "multiplex";
   version = "0.1.7";
@@ -29,7 +28,7 @@ buildGoModule rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   # generate files requested by go:generate
   # don't generate in goModules because buildInputs isn't available
@@ -67,6 +66,6 @@ buildGoModule rec {
       cc0
     ];
     mainProgram = "multiplex";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

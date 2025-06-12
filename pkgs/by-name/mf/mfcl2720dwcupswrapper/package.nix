@@ -10,7 +10,6 @@
   perl,
   mfcl2720dwlpr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl2720dwcupswrapper";
   version = "3.2.0-1";
@@ -43,12 +42,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/cupswrapper/brother_lpdwrapper_MFCL2720DW \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     mkdir -p $out/lib/cups/filter
     mkdir -p $out/share/cups/model
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ lib.maintainers.xeji ];
+    maintainers = [lib.maintainers.xeji];
   };
 }

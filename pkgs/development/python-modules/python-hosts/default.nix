@@ -7,7 +7,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-hosts";
   version = "1.0.7";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-TFaZHiL2v/woCWgz3nh/kjUOhbfN1ghnBnJcVcTwSrk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pyyaml
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "python_hosts" ];
+  pythonImportsCheck = ["python_hosts"];
 
   disabledTests = [
     # Tests require network access
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jonhadfield/python-hosts";
     changelog = "https://github.com/jonhadfield/python-hosts/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

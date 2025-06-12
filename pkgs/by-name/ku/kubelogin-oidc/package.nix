@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubelogin";
   version = "1.32.4";
@@ -15,7 +14,7 @@ buildGoModule rec {
     hash = "sha256-zdUtLjILildwSOA5CV1SNzVtMj+Tz1KkHB2MH1SZ8wk=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
   ldflags = [
     "-s"
     "-w"

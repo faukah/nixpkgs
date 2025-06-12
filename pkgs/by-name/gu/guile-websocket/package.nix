@@ -7,7 +7,6 @@
   texinfo,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-websocket";
   version = "0.2.0";
@@ -28,13 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
     guile-gnutls
   ];
   doCheck = true;
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   meta = {
     description = "Provides an implementation of the WebSocket protocol in Guile";
     homepage = "https://dthompson.us/projects/guile-websocket.html";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ binarydigitz01 ];
+    maintainers = with lib.maintainers; [binarydigitz01];
     platforms = lib.platforms.all;
   };
 })

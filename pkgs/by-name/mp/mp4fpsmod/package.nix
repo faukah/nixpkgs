@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mp4fpsmod";
   version = "0.27-unstable-2023-12-30";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-54pkjlvLLi4pLlQA/l+v4Mx5HlloR6GiB2GP71A0x/g=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       bsd2 # FreeBSD CVS
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ huggy ];
+    maintainers = with maintainers; [huggy];
     mainProgram = "mp4fpsmod";
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aarch64-esr-decoder";
   version = "0.2.3";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/google/aarch64-esr-decoder";
     changelog = "https://github.com/google/aarch64-esr-decoder/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jmbaur ];
+    maintainers = with maintainers; [jmbaur];
     mainProgram = "aarch64-esr-decoder";
   };
 }

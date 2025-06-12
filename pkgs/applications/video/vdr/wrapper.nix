@@ -3,32 +3,28 @@
   lib,
   makeWrapper,
   vdr,
-  plugins ? [ ],
-}:
-let
-
+  plugins ? [],
+}: let
   makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  requiredXinePlugins = lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);
-
+  requiredXinePlugins = lib.flatten (map (p: p.passthru.requiredXinePlugins or []) plugins);
 in
-symlinkJoin {
+  symlinkJoin {
+    name = "vdr-with-plugins-${lib.getVersion vdr}";
 
-  name = "vdr-with-plugins-${lib.getVersion vdr}";
+    paths = [vdr] ++ plugins;
 
-  paths = [ vdr ] ++ plugins;
+    nativeBuildInputs = [makeWrapper];
 
-  nativeBuildInputs = [ makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/vdr \
+        --add-flags "-L $out/lib/vdr --localedir=$out/share/locale" \
+        --prefix XINE_PLUGIN_PATH ":" ${lib.escapeShellArg (makeXinePluginPath requiredXinePlugins)}
+    '';
 
-  postBuild = ''
-    wrapProgram $out/bin/vdr \
-      --add-flags "-L $out/lib/vdr --localedir=$out/share/locale" \
-      --prefix XINE_PLUGIN_PATH ":" ${lib.escapeShellArg (makeXinePluginPath requiredXinePlugins)}
-  '';
-
-  meta = with vdr.meta; {
-    inherit license homepage;
-    description =
-      description + " (with plugins: " + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
-  };
-}
+    meta = with vdr.meta; {
+      inherit license homepage;
+      description =
+        description + " (with plugins: " + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
+    };
+  }

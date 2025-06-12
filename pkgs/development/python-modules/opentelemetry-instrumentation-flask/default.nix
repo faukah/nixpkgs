@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-flask";
@@ -22,7 +21,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-flask";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     flask
@@ -39,10 +38,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.flask" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.flask"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-flask";
-    description = "Flask Middleware for OpenTelemetry based on the WSGI middleware";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-flask";
+      description = "Flask Middleware for OpenTelemetry based on the WSGI middleware";
+    };
 }

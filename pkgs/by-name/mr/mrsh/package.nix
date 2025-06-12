@@ -7,7 +7,6 @@
   pkg-config,
   readline,
 }:
-
 stdenv.mkDerivation {
   pname = "mrsh-unstable";
   version = "2021-01-10";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     ninja
     pkg-config
   ];
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   doCheck = true;
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     mainProgram = "mrsh";
     homepage = "https://mrsh.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.unix;
   };
 

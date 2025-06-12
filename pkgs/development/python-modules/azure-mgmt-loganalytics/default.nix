@@ -7,7 +7,6 @@
   azure-common,
   azure-mgmt-core,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-loganalytics";
   version = "12.0.0";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.loganalytics" ];
+  pythonImportsCheck = ["azure.mgmt.loganalytics"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Log Analytics Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

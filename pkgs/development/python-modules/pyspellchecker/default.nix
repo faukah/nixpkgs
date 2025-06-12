@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyspellchecker";
   version = "0.8.3";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-cfYtUOXO4xzO2CYYhWMv3o40iw5/+nvA8MAzJn6LPlQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Pure python spell checking";
     homepage = "https://github.com/barrust/pyspellchecker";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

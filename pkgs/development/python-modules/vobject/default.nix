@@ -9,7 +9,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "vobject";
   version = "0.9.9";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-OL0agVpV/kWph6KhpzDhfzayscs0OaJ2W9WIilXVaS0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-dateutil
@@ -32,16 +31,16 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "vobject" ];
+  pythonImportsCheck = ["vobject"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   meta = with lib; {
     description = "Module for reading vCard and vCalendar files";
     homepage = "https://github.com/py-vobject/vobject";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

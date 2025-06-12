@@ -20,9 +20,7 @@
   pango,
   pipewire,
   wireplumber,
-}:
-
-let
+}: let
   wireplumber_0_4 = wireplumber.overrideAttrs (attrs: rec {
     version = "0.4.17";
     src = fetchFromGitLab {
@@ -41,55 +39,55 @@ let
     ];
   });
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "pwvucontrol";
-  version = "0.4.9";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "pwvucontrol";
+    version = "0.4.9";
 
-  src = fetchFromGitHub {
-    owner = "saivert";
-    repo = "pwvucontrol";
-    tag = finalAttrs.version;
-    hash = "sha256-fmEXVUz3SerVgWijT/CAoelSUzq861AkBVjP5qwS0ao=";
-  };
+    src = fetchFromGitHub {
+      owner = "saivert";
+      repo = "pwvucontrol";
+      tag = finalAttrs.version;
+      hash = "sha256-fmEXVUz3SerVgWijT/CAoelSUzq861AkBVjP5qwS0ao=";
+    };
 
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-oQSH4P9WxvkXZ53KM5ZoRAZyQFt60Zz7guBbgT1iiBk=";
-  };
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-oQSH4P9WxvkXZ53KM5ZoRAZyQFt60Zz7guBbgT1iiBk=";
+    };
 
-  nativeBuildInputs = [
-    cargo
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    rustPlatform.bindgenHook
-    rustPlatform.cargoSetupHook
-    rustc
-    wrapGAppsHook4
-  ];
-
-  buildInputs = [
-    cairo
-    gdk-pixbuf
-    glib
-    gtk4
-    libadwaita
-    pango
-    pipewire
-    wireplumber_0_4
-  ];
-
-  meta = {
-    description = "Pipewire Volume Control";
-    homepage = "https://github.com/saivert/pwvucontrol";
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      figsoda
-      Guanran928
-      johnrtitor
+    nativeBuildInputs = [
+      cargo
+      desktop-file-utils
+      meson
+      ninja
+      pkg-config
+      rustPlatform.bindgenHook
+      rustPlatform.cargoSetupHook
+      rustc
+      wrapGAppsHook4
     ];
-    mainProgram = "pwvucontrol";
-    platforms = lib.platforms.linux;
-  };
-})
+
+    buildInputs = [
+      cairo
+      gdk-pixbuf
+      glib
+      gtk4
+      libadwaita
+      pango
+      pipewire
+      wireplumber_0_4
+    ];
+
+    meta = {
+      description = "Pipewire Volume Control";
+      homepage = "https://github.com/saivert/pwvucontrol";
+      license = lib.licenses.gpl3Plus;
+      maintainers = with lib.maintainers; [
+        figsoda
+        Guanran928
+        johnrtitor
+      ];
+      mainProgram = "pwvucontrol";
+      platforms = lib.platforms.linux;
+    };
+  })

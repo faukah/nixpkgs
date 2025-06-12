@@ -16,7 +16,6 @@
   xcbutilwm,
   mate,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "firedecor";
   version = "2023-10-23";

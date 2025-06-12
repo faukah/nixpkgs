@@ -10,7 +10,6 @@
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pepit";
   version = "0.3.2";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     changelog = "https://pepit.readthedocs.io/en/latest/whatsnew/${version}.html";
     homepage = "https://pepit.readthedocs.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "pyseventeentrack";
   version = "1.0.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-B/p+7wuXMtdOlIOySGQdtiiErcVD8DaVJPvSX4lPnos=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "pyseventeentrack" ];
+  pythonImportsCheck = ["pyseventeentrack"];
 
   nativeCheckInputs = [
     aresponses
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Simple Python API for 17track.net";
     homepage = "https://github.com/shaiu/pyseventeentrack";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

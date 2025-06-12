@@ -8,10 +8,12 @@
 ioquake3.overrideAttrs (old: {
   pname = "ioq3-scion";
   version = "unstable-2024-03-03";
-  buildInputs = old.buildInputs ++ [
-    pan-bindings
-    libsodium
-  ];
+  buildInputs =
+    old.buildInputs
+    ++ [
+      pan-bindings
+      libsodium
+    ];
   src = fetchFromGitHub {
     owner = "lschulz";
     repo = "ioq3-scion";
@@ -20,6 +22,6 @@ ioquake3.overrideAttrs (old: {
   };
   meta = {
     description = "ioquake3 with support for path aware networking";
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
   };
 })

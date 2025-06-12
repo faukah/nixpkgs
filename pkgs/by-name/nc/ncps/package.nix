@@ -3,9 +3,7 @@
   dbmate,
   fetchFromGitHub,
   lib,
-}:
-
-let
+}: let
   finalAttrs = {
     pname = "ncps";
     version = "0.2.0";
@@ -21,7 +19,7 @@ let
       "-X github.com/kalbasit/ncps/cmd.Version=v${finalAttrs.version}"
     ];
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     vendorHash = "sha256-El3yvYYnase4ztG3u7xxcKE5ARy5Lvp/FVosBwOXzbU=";
     doCheck = true;
@@ -40,8 +38,8 @@ let
       homepage = "https://github.com/kalbasit/ncps";
       license = lib.licenses.mit;
       mainProgram = "ncps";
-      maintainers = [ lib.maintainers.kalbasit ];
+      maintainers = [lib.maintainers.kalbasit];
     };
   };
 in
-buildGoModule finalAttrs
+  buildGoModule finalAttrs

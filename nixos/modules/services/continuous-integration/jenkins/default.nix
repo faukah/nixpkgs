@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.jenkins;
   jenkinsUrl = "http://${cfg.listenAddress}:${toString cfg.port}${cfg.prefix}";
-in
-{
+in {
   options = {
     services.jenkins = {
       enable = lib.mkEnableOption "Jenkins, a continuous integration server";
@@ -32,7 +30,7 @@ in
 
       extraGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "wheel"
           "dialout"
@@ -81,9 +79,9 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "jenkins" { };
+      package = lib.mkPackageOption pkgs "jenkins" {};
 
-      javaPackage = lib.mkPackageOption pkgs "jdk21" { };
+      javaPackage = lib.mkPackageOption pkgs "jdk21" {};
 
       packages = lib.mkOption {
         default = [
@@ -101,7 +99,7 @@ in
       };
 
       environment = lib.mkOption {
-        default = { };
+        default = {};
         type = with lib.types; attrsOf str;
         description = ''
           Additional environment variables to be passed to the jenkins process.
@@ -132,8 +130,8 @@ in
 
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "--debug=9" ];
+        default = [];
+        example = ["--debug=9"];
         description = ''
           Additional command line arguments to pass to Jenkins.
         '';
@@ -141,8 +139,8 @@ in
 
       extraJavaOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "-Xmx80m" ];
+        default = [];
+        example = ["-Xmx80m"];
         description = ''
           Additional command line arguments to pass to the Java run time (as opposed to Jenkins).
         '';
@@ -165,12 +163,14 @@ in
   config = lib.mkIf cfg.enable {
     environment = {
       # server references the dejavu fonts
-      systemPackages = [
-        pkgs.dejavu_fonts
-      ] ++ lib.optional cfg.withCLI cfg.package;
+      systemPackages =
+        [
+          pkgs.dejavu_fonts
+        ]
+        ++ lib.optional cfg.withCLI cfg.package;
 
       variables =
-        { }
+        {}
         // lib.optionalAttrs cfg.withCLI {
           # Make it more convenient to use the `jenkins-cli`.
           JENKINS_URL = jenkinsUrl;
@@ -195,15 +195,16 @@ in
 
     systemd.services.jenkins = {
       description = "Jenkins Continuous Integration Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment =
-        let
-          selectedSessionVars = lib.filterAttrs (
-            n: v: builtins.elem n [ "NIX_PATH" ]
-          ) config.environment.sessionVariables;
-        in
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (
+            n: v: builtins.elem n ["NIX_PATH"]
+          )
+          config.environment.sessionVariables;
+      in
         selectedSessionVars
         // {
           JENKINS_HOME = cfg.home;
@@ -215,23 +216,20 @@ in
 
       # Force .war (re)extraction, or else we might run stale Jenkins.
 
-      preStart =
-        let
-          replacePlugins = lib.optionalString (cfg.plugins != null) (
-            let
-              pluginCmds = lib.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
-            in
-            ''
-              rm -r ${cfg.home}/plugins || true
-              mkdir -p ${cfg.home}/plugins
-              ${lib.concatStringsSep "\n" pluginCmds}
-            ''
-          );
-        in
-        ''
-          rm -rf ${cfg.home}/war
-          ${replacePlugins}
-        '';
+      preStart = let
+        replacePlugins = lib.optionalString (cfg.plugins != null) (
+          let
+            pluginCmds = lib.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
+          in ''
+            rm -r ${cfg.home}/plugins || true
+            mkdir -p ${cfg.home}/plugins
+            ${lib.concatStringsSep "\n" pluginCmds}
+          ''
+        );
+      in ''
+        rm -rf ${cfg.home}/war
+        ${replacePlugins}
+      '';
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''

@@ -1,5 +1,7 @@
-{ mkDerivation, make-rules }:
-
+{
+  mkDerivation,
+  make-rules,
+}:
 mkDerivation {
   path = "usr.bin/make";
 
@@ -13,5 +15,5 @@ mkDerivation {
   postInstall = ''
     make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
   '';
-  extraPaths = [ "share/mk" ];
+  extraPaths = ["share/mk"];
 }

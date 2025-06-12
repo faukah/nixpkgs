@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.tayga;
 
   # Converts an address set to a string
@@ -25,10 +23,8 @@ let
     ${concatStringsSep "\n" (mapAttrsToList (ipv4: ipv6: "map " + ipv4 + " " + ipv6) cfg.mappings)}
   '';
 
-  addrOpts =
-    v:
-    assert v == 4 || v == 6;
-    {
+  addrOpts = v:
+    assert v == 4 || v == 6; {
       options = {
         address = mkOption {
           type = types.str;
@@ -36,10 +32,22 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
+          type = types.addCheck types.int (n:
+            n
+            >= 0
+            && n
+            <= (
+              if v == 4
+              then 32
+              else 128
+            ));
           description = ''
             Subnet mask of the interface, specified as the number of
-            bits in the prefix ("${if v == 4 then "24" else "64"}").
+            bits in the prefix ("${
+              if v == 4
+              then "24"
+              else "64"
+            }").
           '';
         };
       };
@@ -66,13 +74,12 @@ let
       };
     };
   };
-in
-{
+in {
   options = {
     services.tayga = {
       enable = mkEnableOption "Tayga";
 
-      package = mkPackageOption pkgs "tayga" { };
+      package = mkPackageOption pkgs "tayga" {};
 
       ipv4 = mkOption {
         type = types.submodule (versionOpts 4);
@@ -122,7 +129,7 @@ in
 
       mappings = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = "Static IPv4 -> IPv6 host mappings.";
         example = literalExpression ''
           {
@@ -173,8 +180,8 @@ in
 
     systemd.services.tayga = {
       description = "Stateless NAT64 implementation";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";

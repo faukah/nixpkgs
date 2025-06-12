@@ -15,7 +15,6 @@
   SDL2,
   vulkan-loader,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flycast";
   version = "2.5";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/flycast --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+    wrapProgram $out/bin/flycast --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   meta = {
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     mainProgram = "flycast";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -10,7 +10,6 @@
   gtest,
   cppcheck,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cpr";
   version = "1.11.2";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libcpr/cpr";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ phodina ];
+    maintainers = with lib.maintainers; [phodina];
   };
 })

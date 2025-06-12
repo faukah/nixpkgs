@@ -1,27 +1,28 @@
 {
   buildNpmPackage,
   callPackage,
-}:
-let
-  common = callPackage ./common.nix { };
+}: let
+  common = callPackage ./common.nix {};
 in
-buildNpmPackage {
-  pname = "openbooks-frontend";
-  inherit (common) version;
+  buildNpmPackage {
+    pname = "openbooks-frontend";
+    inherit (common) version;
 
-  src = "${common.src}/server/app";
+    src = "${common.src}/server/app";
 
-  npmDepsHash = "sha256-OtXPOFK18b6tzFIvXkThafLUw0GlioRmxjzcKYeTalU=";
+    npmDepsHash = "sha256-OtXPOFK18b6tzFIvXkThafLUw0GlioRmxjzcKYeTalU=";
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cp -r dist $out
+      cp -r dist $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = common.meta // {
-    description = "openbooks frontend";
-  };
-}
+    meta =
+      common.meta
+      // {
+        description = "openbooks frontend";
+      };
+  }

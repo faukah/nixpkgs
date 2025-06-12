@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "versatiles";
   version = "0.15.6"; # When updating: Replace with current version
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     downloadPage = "https://github.com/versatiles-org/versatiles-rs";
     changelog = "https://github.com/versatiles-org/versatiles-rs/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wilhelmines ];
+    maintainers = with lib.maintainers; [wilhelmines];
     mainProgram = "versatiles";
     platforms = with lib.platforms; linux ++ darwin ++ windows;
   };

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "nvrh";
   version = "0.1.15";
@@ -44,7 +43,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -52,7 +51,7 @@ buildGoModule rec {
     homepage = "https://github.com/mikew/nvrh";
     changelog = "https://github.com/mikew/nvrh/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "nvrh";
   };
 }

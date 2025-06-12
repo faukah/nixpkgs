@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/Vladimir-csp/app2unit";
     license = lib.licenses.gpl3;
     mainProgram = "app2unit";
-    maintainers = with lib.maintainers; [ fazzi ];
+    maintainers = with lib.maintainers; [fazzi];
     platforms = lib.platforms.linux;
   };
 }

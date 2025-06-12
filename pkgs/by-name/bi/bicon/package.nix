@@ -9,7 +9,6 @@
   kbd,
   xkbutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bicon";
   version = "0.5-unstable-2024-01-31";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       psfl
       bsd0
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

@@ -23,7 +23,6 @@
   wrapGAppsHook3,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-files";
   version = "7.1.2";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/files";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.files";
   };
 }

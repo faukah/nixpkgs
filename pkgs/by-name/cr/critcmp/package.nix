@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "critcmp";
   version = "0.1.8";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       mit
       unlicense
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

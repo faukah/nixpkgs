@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "termsvg";
   version = "0.9.2";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Record, share and export your terminal as a animated SVG image";
     homepage = "https://github.com/mrmarble/termsvg";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     mainProgram = "termsvg";
   };
 }

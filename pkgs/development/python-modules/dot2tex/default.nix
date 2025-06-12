@@ -8,7 +8,6 @@
   pytestCheckHook,
   texliveSmall,
 }:
-
 buildPythonPackage rec {
   pname = "dot2tex";
   version = "2.11.3";
@@ -29,15 +28,16 @@ buildPythonPackage rec {
     ./remove-duplicate-script.patch
   ];
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   nativeCheckInputs = [
     pytestCheckHook
     (texliveSmall.withPackages (
-      ps: with ps; [
-        preview
-        pstricks
-      ]
+      ps:
+        with ps; [
+          preview
+          pstricks
+        ]
     ))
   ];
 

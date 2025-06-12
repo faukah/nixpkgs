@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinyssh";
   version = "20250201";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=implicit-function-declaration";
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Minimalistic SSH server";
@@ -28,6 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/janmojzis/tinyssh/releases/tag/${finalAttrs.version}";
     license = lib.licenses.cc0;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
   };
 })

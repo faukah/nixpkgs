@@ -16,7 +16,6 @@
   gtk4,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-music";
   version = "8.0.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/music";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.music";
   };
 }

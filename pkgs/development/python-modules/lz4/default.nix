@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "lz4";
   version = "4.4.3";
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-lz4/python-lz4";
     changelog = "https://github.com/python-lz4/python-lz4/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

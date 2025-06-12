@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytest-timeout,
 }:
-
 buildPythonPackage {
   pname = "ipykernel-tests";
   inherit (ipykernel) version src;

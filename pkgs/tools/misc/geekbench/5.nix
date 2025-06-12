@@ -7,9 +7,7 @@
   makeWrapper,
   ocl-icd,
   vulkan-loader,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform.uname) processor;
   version = "5.5.1";
   sources = {
@@ -23,51 +21,51 @@ let
     };
   };
 in
-stdenv.mkDerivation {
-  inherit version;
-  pname = "geekbench";
+  stdenv.mkDerivation {
+    inherit version;
+    pname = "geekbench";
 
-  src = fetchurl (
-    sources.${stdenv.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
-  );
+    src = fetchurl (
+      sources.${stdenv.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
+    );
 
-  dontConfigure = true;
-  dontBuild = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
+    ];
 
-  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    cp -r geekbench.plar geekbench5 geekbench_${processor} $out/bin
+      mkdir -p $out/bin
+      cp -r geekbench.plar geekbench5 geekbench_${processor} $out/bin
 
-    for f in geekbench5 geekbench_${processor} ; do
-      wrapProgram $out/bin/$f \
-        --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            addDriverRunpath.driverLink
-            ocl-icd
-            vulkan-loader
-          ]
-        }"
-    done
+      for f in geekbench5 geekbench_${processor} ; do
+        wrapProgram $out/bin/$f \
+          --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          addDriverRunpath.driverLink
+          ocl-icd
+          vulkan-loader
+        ]
+      }"
+      done
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Cross-platform benchmark";
-    homepage = "https://geekbench.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = [ maintainers.michalrus ];
-    platforms = builtins.attrNames sources;
-    mainProgram = "geekbench5";
-  };
-}
+    meta = with lib; {
+      description = "Cross-platform benchmark";
+      homepage = "https://geekbench.com/";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = [maintainers.michalrus];
+      platforms = builtins.attrNames sources;
+      mainProgram = "geekbench5";
+    };
+  }

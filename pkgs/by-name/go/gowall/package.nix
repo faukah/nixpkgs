@@ -7,7 +7,6 @@
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "gowall";
   version = "0.2.1";
@@ -33,7 +32,7 @@ buildGoModule rec {
       --zsh <($out/bin/gowall completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/Achno/gowall/releases/tag/v${version}";

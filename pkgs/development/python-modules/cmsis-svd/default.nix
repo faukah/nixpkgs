@@ -6,7 +6,6 @@
   six,
   lxml,
 }:
-
 buildPythonPackage {
   pname = "cmsis-svd";
   version = "0.4-unstable-2024-01-25";
@@ -23,7 +22,7 @@ buildPythonPackage {
     cd python
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     six
@@ -38,7 +37,7 @@ buildPythonPackage {
   meta = {
     description = "CMSIS SVD parser";
     homepage = "https://github.com/cmsis-svd/cmsis-svd";
-    maintainers = [ lib.maintainers.dump_stack ];
+    maintainers = [lib.maintainers.dump_stack];
     license = lib.licenses.asl20;
   };
 }

@@ -6,7 +6,6 @@
   addonUpdateScript,
   six,
 }:
-
 buildKodiAddon rec {
   pname = "websocket";
   namespace = "script.module.websocket";
@@ -32,6 +31,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/websocket-client/websocket-client";
     description = "WebSocket client for Python";
     license = licenses.lgpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

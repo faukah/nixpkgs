@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.chisel-server;
-
-in
-{
+in {
   options = {
     services.chisel-server = {
       enable = lib.mkEnableOption "Chisel Tunnel Server";
@@ -56,7 +53,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.chisel-server = {
       description = "Chisel Tunnel Server";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = ["network-online.target"];
 
       serviceConfig = {
         ExecStart =
@@ -104,5 +101,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ clerie ];
+  meta.maintainers = with lib.maintainers; [clerie];
 }

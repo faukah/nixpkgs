@@ -6,7 +6,6 @@
   libsForQt5,
   graphviz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qvge";
   version = "0.6.3-unstable-2024-04-08";
@@ -33,14 +32,16 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    if stdenv.hostPlatform.isDarwin then [ libsForQt5.qtsvg ] else [ libsForQt5.qtx11extras ];
+    if stdenv.hostPlatform.isDarwin
+    then [libsForQt5.qtsvg]
+    else [libsForQt5.qtx11extras];
 
   meta = with lib; {
     description = "Qt Visual Graph Editor";
     mainProgram = "qvgeapp";
     homepage = "https://github.com/ArsMasiuk/qvge";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

@@ -2,14 +2,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   lib,
-
   pathos,
   pytestCheckHook,
   pytest-mock,
   setuptools,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "lox";
   version = "0.13.0";
@@ -22,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-I/+/wl+H3OLAN26qJVqyqgW72GoTddm59j2Y6fsz8AM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pathos ];
+  dependencies = [pathos];
 
   # setup.py requires pytest-runner for setuptools, which is wrong
   postPatch = ''
     substituteInPlace setup.py --replace-fail '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [ "lox" ];
+  pythonImportsCheck = ["lox"];
 
   disabledTests = [
     # Benchmark, performance testing
@@ -54,6 +52,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/BrianPugh/lox/releases/tag/${src.tag}";
     homepage = "https://github.com/BrianPugh/lox";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.greg ];
+    maintainers = [lib.maintainers.greg];
   };
 }

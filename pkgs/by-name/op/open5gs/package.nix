@@ -24,7 +24,6 @@
   libtins,
   mongosh,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "open5gs";
   version = "2.7.2";
@@ -129,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "4G/5G core network components";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     changelog = "https://github.com/open5gs/open5gs/releases/tag/v${finalAttrs.version}";
   };
 })

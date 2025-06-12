@@ -14,7 +14,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "Archi";
   version = "5.6.0";
@@ -34,7 +33,9 @@ stdenv.mkDerivation rec {
         hash = "sha256-a80QyJT+mizT4bxhJ/1rXnQGbq0Zxwmqb74n2QH4H3I=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   buildInputs = [
     libsecret
@@ -53,42 +54,44 @@ stdenv.mkDerivation rec {
       copyDesktopItems
     ];
 
-  sourceRoot = if stdenv.hostPlatform.isDarwin then "." else null;
+  sourceRoot =
+    if stdenv.hostPlatform.isDarwin
+    then "."
+    else null;
 
   installPhase =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      ''
-        runHook preInstall
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then ''
+      runHook preInstall
 
-        mkdir -p $out/bin $out/libexec
-        for f in configuration features p2 plugins Archi.ini; do
-          cp -r $f $out/libexec
-        done
+      mkdir -p $out/bin $out/libexec
+      for f in configuration features p2 plugins Archi.ini; do
+        cp -r $f $out/libexec
+      done
 
-        install -D -m755 Archi $out/libexec/Archi
-        makeWrapper $out/libexec/Archi $out/bin/Archi \
-          --prefix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath ([
-              glib
-              webkitgtk_4_1
-            ])
-          } \
-          --set WEBKIT_DISABLE_DMABUF_RENDERER 1 \
-          --prefix PATH : ${jdk}/bin
+      install -D -m755 Archi $out/libexec/Archi
+      makeWrapper $out/libexec/Archi $out/bin/Archi \
+        --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          glib
+          webkitgtk_4_1
+        ]
+      } \
+        --set WEBKIT_DISABLE_DMABUF_RENDERER 1 \
+        --prefix PATH : ${jdk}/bin
 
-        install -Dm444 icon.xpm $out/share/icons/hicolor/256x256/apps/archi.xpm
+      install -Dm444 icon.xpm $out/share/icons/hicolor/256x256/apps/archi.xpm
 
-        runHook postInstall
-      ''
-    else
-      ''
-        runHook preInstall
+      runHook postInstall
+    ''
+    else ''
+      runHook preInstall
 
-        mkdir -p "$out/Applications"
-        mv Archi.app "$out/Applications/"
+      mkdir -p "$out/Applications"
+      mv Archi.app "$out/Applications/"
 
-        runHook postInstall
-      '';
+      runHook postInstall
+    '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -106,7 +109,7 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = ./update.sh;
 
-  passthru.tests = { inherit (nixosTests) archi; };
+  passthru.tests = {inherit (nixosTests) archi;};
 
   meta = with lib; {
     description = "ArchiMate modelling toolkit";
@@ -115,7 +118,7 @@ stdenv.mkDerivation rec {
       models and sketches.
     '';
     homepage = "https://www.archimatetool.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [

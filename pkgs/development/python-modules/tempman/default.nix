@@ -6,7 +6,6 @@
   pytestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "tempman";
   version = "0.1.3";
@@ -24,19 +23,19 @@ buildPythonPackage rec {
       --replace-fail 'read("README")' '""'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "tempman" ];
+  pythonImportsCheck = ["tempman"];
 
   # Disabling tests, they rely on dependencies that are outdated and not supported
   doCheck = false;
 
-  passthru.updateScripts = gitUpdater { };
+  passthru.updateScripts = gitUpdater {};
 
   meta = {
     description = "Create and clean up temporary directories";
     homepage = "https://github.com/mwilliamson/python-tempman";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

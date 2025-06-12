@@ -8,7 +8,6 @@
   docopt,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "tubeup";
   version = "2025.5.11";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-LZ/kNtw5Tw3PtqQp4Dq2qOeXgofID5upFvpLMXUIuiM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     internetarchive
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     yt-dlp
   ];
 
-  pythonRelaxDeps = [ "docopt" ];
+  pythonRelaxDeps = ["docopt"];
 
-  pythonImportsCheck = [ "tubeup" ];
+  pythonImportsCheck = ["tubeup"];
 
   # Tests failing upstream
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bibanon/tubeup";
     changelog = "https://github.com/bibanon/tubeup/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

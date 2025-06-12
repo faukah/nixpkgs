@@ -10,7 +10,6 @@
   docutils,
   stdenvNoCC,
 }:
-
 buildPythonPackage rec {
   pname = "pyudev";
   version = "0.24.3";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hypothesis
     docutils
   ];
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkPhase = ''
     py.test
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://pyudev.readthedocs.org/";
     description = "Pure Python libudev binding";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ frogamic ];
+    maintainers = with maintainers; [frogamic];
   };
 }

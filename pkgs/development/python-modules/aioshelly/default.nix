@@ -13,7 +13,6 @@
   setuptools,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aioshelly";
   version = "13.6.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-cJKo/UITcvpGbrtOqXLReWghEXL0AKFve1s6Ncde0gc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioshelly" ];
+  pythonImportsCheck = ["aioshelly"];
 
   meta = with lib; {
     description = "Python library to control Shelly";
     homepage = "https://github.com/home-assistant-libs/aioshelly";
     changelog = "https://github.com/home-assistant-libs/aioshelly/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

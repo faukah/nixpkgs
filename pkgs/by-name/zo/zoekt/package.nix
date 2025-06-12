@@ -5,7 +5,6 @@
   gitMinimal,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "zoekt";
   version = "3.7.2-2-unstable-2025-06-04";
@@ -39,7 +38,7 @@ buildGoModule {
     description = "Fast trigram based code search";
     homepage = "https://github.com/sourcegraph/zoekt";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "zoekt";
   };
 }

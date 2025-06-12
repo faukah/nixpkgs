@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-en-max-word-count,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-en-max-word-count";
   version = "2.0.1";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-rule/textlint-rule-en-max-word-count";
     changelog = "https://github.com/textlint-rule/textlint-rule-en-max-word-count/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

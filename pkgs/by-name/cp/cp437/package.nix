@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cp437";
   version = "0.6";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/keaston/cp437";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
     mainProgram = "cp437";
   };
 }

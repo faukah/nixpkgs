@@ -6,7 +6,6 @@
   melpaBuild,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "evil-markdown";
   version = "0-unstable-2021-07-21";
@@ -23,12 +22,12 @@ melpaBuild {
     markdown-mode
   ];
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/Somelauw/evil-markdown";
     description = "Integrates Emacs evil and markdown";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ leungbk ];
+    maintainers = with lib.maintainers; [leungbk];
   };
 }

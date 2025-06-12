@@ -9,7 +9,6 @@
   wrapQtAppsHook,
   ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "tipp10";
   version = "3.3.3";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tipp10";
     homepage = "https://gitlab.com/tipp10/tipp10";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 }

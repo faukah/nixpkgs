@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-images";
   version = "0.6.3";
@@ -27,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/chenjiandongx/kubectl-images";
     changelog = "https://github.com/chenjiandongx/kubectl-images/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

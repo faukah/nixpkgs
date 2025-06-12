@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wpm";
   version = "1.51.5";
@@ -18,13 +17,13 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "wpm" ];
+  pythonImportsCheck = ["wpm"];
 
   meta = with lib; {
     description = "Console app for measuring typing speed in words per minute (WPM)";
     mainProgram = "wpm";
     homepage = "https://pypi.org/project/wpm";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ alejandrosame ];
+    maintainers = with maintainers; [alejandrosame];
   };
 }

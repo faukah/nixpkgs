@@ -6,7 +6,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "bunster";
   version = "0.9.0";
@@ -22,11 +21,11 @@ buildGoModule rec {
   # checks fail on aarch64-darwin but binary still builds successfully
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Compile shell scripts to static binaries";

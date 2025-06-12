@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule {
   pname = "dnsmon-go";
   version = "unstable-2022-05-13";
@@ -25,8 +24,8 @@ buildGoModule {
   meta = with lib; {
     description = "Tool to collect DNS traffic";
     homepage = "https://github.com/jonpulsifer/dnsmon-go";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "dnsmon-go";
   };
 }

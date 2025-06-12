@@ -3,9 +3,7 @@
   fetchFromGitHub,
   fetchPypi,
   python3,
-}:
-
-let
+}: let
   py = python3.override {
     self = py;
     packageOverrides = self: super: {
@@ -26,53 +24,51 @@ let
           inherit version;
           hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
         };
-        disabledTests = [ "test_bytes_args" ];
+        disabledTests = ["test_bytes_args"];
       });
     };
   };
 in
-with py.pkgs;
+  with py.pkgs;
+    buildPythonApplication rec {
+      pname = "haxor-news";
+      version = "unstable-2020-10-20";
 
-buildPythonApplication rec {
-  pname = "haxor-news";
-  version = "unstable-2020-10-20";
+      # haven't done a stable release in 3+ years, but actively developed
+      src = fetchFromGitHub {
+        owner = "donnemartin";
+        repo = "haxor-news";
+        rev = "811a5804c09406465b2b02eab638c08bf5c4fa7f";
+        hash = "sha256-5v61b49ttwqPOvtoykJBBzwVSi7S8ARlakccMr12bbw=";
+      };
 
-  # haven't done a stable release in 3+ years, but actively developed
-  src = fetchFromGitHub {
-    owner = "donnemartin";
-    repo = "haxor-news";
-    rev = "811a5804c09406465b2b02eab638c08bf5c4fa7f";
-    hash = "sha256-5v61b49ttwqPOvtoykJBBzwVSi7S8ARlakccMr12bbw=";
-  };
+      propagatedBuildInputs = [
+        click
+        colorama
+        requests
+        pygments
+        prompt-toolkit
+        six
+      ];
 
-  propagatedBuildInputs = [
-    click
-    colorama
-    requests
-    pygments
-    prompt-toolkit
-    six
-  ];
+      # will fail without pre-seeded config files
+      doCheck = false;
 
-  # will fail without pre-seeded config files
-  doCheck = false;
+      nativeCheckInputs = [
+        unittestCheckHook
+        mock
+      ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    mock
-  ];
+      unittestFlagsArray = [
+        "-s"
+        "tests"
+        "-v"
+      ];
 
-  unittestFlagsArray = [
-    "-s"
-    "tests"
-    "-v"
-  ];
-
-  meta = with lib; {
-    homepage = "https://github.com/donnemartin/haxor-news";
-    description = "Browse Hacker News like a haxor";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ matthiasbeyer ];
-  };
-
-}
+      meta = with lib; {
+        homepage = "https://github.com/donnemartin/haxor-news";
+        description = "Browse Hacker News like a haxor";
+        license = licenses.asl20;
+        maintainers = with maintainers; [matthiasbeyer];
+      };
+    }

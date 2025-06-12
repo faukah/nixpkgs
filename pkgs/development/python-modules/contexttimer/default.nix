@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "contexttimer";
   version = "unstable-2024-09-05";
@@ -22,7 +21,7 @@ buildPythonPackage {
 
   disabled = pythonOlder "3.12";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   preCheck = ''
     substituteInPlace tests/test_timer.py \
@@ -34,12 +33,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "contexttimer" ];
+  pythonImportsCheck = ["contexttimer"];
 
   meta = {
     homepage = "https://github.com/brouberol/contexttimer";
     description = "Timer as a context manager";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ atila ];
+    maintainers = with lib.maintainers; [atila];
   };
 }

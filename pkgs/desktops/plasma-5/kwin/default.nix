@@ -58,9 +58,7 @@
   plasma-framework,
   libqaccessibilityclient,
 }:
-
 # TODO (ttuegel): investigate qmlplugindump failure
-
 mkDerivation {
   pname = "kwin";
   nativeBuildInputs = [
@@ -123,7 +121,6 @@ mkDerivation {
     kxmlgui
     plasma-framework
     libqaccessibilityclient
-
   ];
   outputs = [
     "out"

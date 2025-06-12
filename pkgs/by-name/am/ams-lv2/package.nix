@@ -11,7 +11,6 @@
   wafHook,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ams-lv2";
   version = "1.2.2";
@@ -46,10 +45,10 @@ stdenv.mkDerivation rec {
     description = "LV2 port of the internal modules found in Alsa Modular Synth";
     homepage = "https://github.com/blablack/ams-lv2";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     # Build uses `-msse` and `-mfpmath=sse`
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
     # `ModuleNotFoundError: No module named 'imp'`
     broken = true;
   };

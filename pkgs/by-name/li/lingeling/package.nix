@@ -4,7 +4,6 @@
   fetchFromGitHub,
   aiger,
 }:
-
 stdenv.mkDerivation {
   pname = "lingeling";
   # This is the version used in satcomp2020
@@ -50,6 +49,6 @@ stdenv.mkDerivation {
     homepage = "http://fmv.jku.at/lingeling/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

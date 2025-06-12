@@ -3,17 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch2,
-
   # propagates
   pyopenssl,
   requests,
   six,
-
   # tests
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "paypalhttp";
   version = "1.0.0";
@@ -55,6 +52,6 @@ buildPythonPackage rec {
     description = "PayPalHttp is a generic HTTP Client";
     homepage = "https://github.com/paypal/paypalhttp_python";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -14,7 +14,6 @@
   librsvg,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.1.1";
   pname = "t4kcommon";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Library of code shared between tuxmath and tuxtype";
     homepage = "https://github.com/tux4kids/t4kcommon";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.aanderse ];
+    maintainers = [maintainers.aanderse];
     platforms = platforms.linux;
   };
 }

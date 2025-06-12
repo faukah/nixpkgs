@@ -10,7 +10,6 @@
   gtk3,
   lib3270,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libv3270";
   version = "5.4";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/PerryWerneck/libv3270";
     changelog = "https://github.com/PerryWerneck/libv3270/blob/master/CHANGELOG";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.vifino ];
+    maintainers = [maintainers.vifino];
   };
 }

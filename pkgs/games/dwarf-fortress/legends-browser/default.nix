@@ -4,9 +4,7 @@
   writeShellScriptBin,
   fetchurl,
   jre,
-}:
-
-let
+}: let
   name = "legends-browser-${version}";
   version = "1.19.2";
 
@@ -27,20 +25,19 @@ let
     exec ${jre}/bin/java -jar ${jar}
   '';
 in
+  buildEnv {
+    inherit name;
+    paths = [script];
 
-buildEnv {
-  inherit name;
-  paths = [ script ];
-
-  meta = with lib; {
-    description = "Multi-platform, open source, java-based legends viewer for dwarf fortress";
-    maintainers = with maintainers; [
-      Baughn
-      numinit
-    ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.mit;
-    platforms = platforms.all;
-    homepage = "https://github.com/robertjanetzko/LegendsBrowser";
-  };
-}
+    meta = with lib; {
+      description = "Multi-platform, open source, java-based legends viewer for dwarf fortress";
+      maintainers = with maintainers; [
+        Baughn
+        numinit
+      ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
+      license = licenses.mit;
+      platforms = platforms.all;
+      homepage = "https://github.com/robertjanetzko/LegendsBrowser";
+    };
+  }

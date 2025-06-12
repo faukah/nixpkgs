@@ -16,7 +16,6 @@
   wrapGAppsHook4,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "treedome";
   version = "0.5.4";
@@ -76,9 +75,9 @@ rustPlatform.buildRustPackage rec {
     description = "Local-first, encrypted, note taking application organized in tree-like structures";
     homepage = " https://codeberg.org/solver-orgz/treedome";
     license = lib.licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "treedome";
-    maintainers = with lib.maintainers; [ tengkuizdihar ];
+    maintainers = with lib.maintainers; [tengkuizdihar];
     changelog = "https://codeberg.org/solver-orgz/treedome/releases/tag/${version}";
   };
 }

@@ -1,4 +1,7 @@
-{ mkDerivation, lib }:
+{
+  mkDerivation,
+  lib,
+}:
 mkDerivation {
   path = "usr.sbin/syslogd";
 
@@ -16,7 +19,7 @@ mkDerivation {
 
   meta = {
     description = "FreeBSD syslog daemon";
-    maintainers = with lib.maintainers; [ artemist ];
+    maintainers = with lib.maintainers; [artemist];
     platforms = lib.platforms.freebsd;
     license = lib.licenses.bsd2;
   };

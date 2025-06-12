@@ -15,7 +15,6 @@
   unittestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "trectools";
   version = "0.0.50";
@@ -35,7 +34,7 @@ buildPythonPackage {
       --replace-fail "bs4 >= 0.0.0.1" "beautifulsoup4 >= 4.11.1"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pandas
@@ -56,12 +55,12 @@ buildPythonPackage {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "trectools" ];
+  pythonImportsCheck = ["trectools"];
 
   meta = {
     homepage = "https://github.com/joaopalotti/trectools";
     description = "Library for assisting Information Retrieval (IR) practitioners with TREC-like campaigns";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ MoritzBoehme ];
+    maintainers = with lib.maintainers; [MoritzBoehme];
   };
 }

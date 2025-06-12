@@ -31,11 +31,9 @@
   enableAMR ? false,
   amrnb,
   amrwb,
-  enableLibpulseaudio ?
-    stdenv.hostPlatform.isLinux && lib.meta.availableOn stdenv.hostPlatform libpulseaudio,
+  enableLibpulseaudio ? stdenv.hostPlatform.isLinux && lib.meta.availableOn stdenv.hostPlatform libpulseaudio,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation {
   pname = "sox";
   version = "unstable-2021-05-09";
@@ -63,7 +61,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
+  patches = [./0001-musl-rewind-pipe-workaround.patch];
 
   buildInputs =
     lib.optional (enableAlsa && stdenv.hostPlatform.isLinux) alsa-lib
@@ -90,8 +88,11 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Sample Rate Converter for audio";
     homepage = "https://sox.sourceforge.net/";
-    maintainers = with maintainers; [ marcweber ];
-    license = if enableAMR then licenses.unfree else licenses.gpl2Plus;
+    maintainers = with maintainers; [marcweber];
+    license =
+      if enableAMR
+      then licenses.unfree
+      else licenses.gpl2Plus;
     platforms = platforms.unix;
   };
 }

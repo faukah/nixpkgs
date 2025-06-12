@@ -10,61 +10,57 @@
   coreutils,
   gnugrep,
   runCommand,
-}:
-
-let
+}: let
   libv8 = nodejs_20.libv8;
 in
-postgresqlBuildExtension (finalAttrs: {
-  pname = "plv8";
-  version = "3.2.3";
+  postgresqlBuildExtension (finalAttrs: {
+    pname = "plv8";
+    version = "3.2.3";
 
-  src = fetchFromGitHub {
-    owner = "plv8";
-    repo = "plv8";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-ivQZJSNn5giWF351fqZ7mBZoJkGtby5T7beK45g3Zqs=";
-  };
+    src = fetchFromGitHub {
+      owner = "plv8";
+      repo = "plv8";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-ivQZJSNn5giWF351fqZ7mBZoJkGtby5T7beK45g3Zqs=";
+    };
 
-  patches = [
-    # Allow building with system v8.
-    # https://github.com/plv8/plv8/pull/505 (rejected)
-    ./0001-build-Allow-using-V8-from-system.patch
-  ];
+    patches = [
+      # Allow building with system v8.
+      # https://github.com/plv8/plv8/pull/505 (rejected)
+      ./0001-build-Allow-using-V8-from-system.patch
+    ];
 
-  nativeBuildInputs = [
-    perl
-  ];
+    nativeBuildInputs = [
+      perl
+    ];
 
-  buildInputs = [
-    libv8
-  ];
+    buildInputs = [
+      libv8
+    ];
 
-  buildFlags = [ "all" ];
+    buildFlags = ["all"];
 
-  makeFlags = [
-    # Nixpkgs build a v8 monolith instead of separate v8_libplatform.
-    "USE_SYSTEM_V8=1"
-    "SHLIB_LINK=-lv8"
-    "V8_OUTDIR=${libv8}/lib"
-  ];
+    makeFlags = [
+      # Nixpkgs build a v8 monolith instead of separate v8_libplatform.
+      "USE_SYSTEM_V8=1"
+      "SHLIB_LINK=-lv8"
+      "V8_OUTDIR=${libv8}/lib"
+    ];
 
-  # No configure script.
-  dontConfigure = true;
+    # No configure script.
+    dontConfigure = true;
 
-  postPatch = ''
-    patchShebangs ./generate_upgrade.sh
-  '';
+    postPatch = ''
+      patchShebangs ./generate_upgrade.sh
+    '';
 
-  passthru = {
-    tests =
-      let
+    passthru = {
+      tests = let
         postgresqlWithSelf = postgresql.withPackages (_: [
           finalAttrs.finalPackage
         ]);
-      in
-      {
-        smoke = runCommand "plv8-smoke-test" { } ''
+      in {
+        smoke = runCommand "plv8-smoke-test" {} ''
           export PATH=${
             lib.makeBinPath [
               postgresqlWithSelf
@@ -94,7 +90,8 @@ postgresqlBuildExtension (finalAttrs: {
 
         regression = stdenv.mkDerivation {
           name = "plv8-regression";
-          inherit (finalAttrs)
+          inherit
+            (finalAttrs)
             src
             patches
             nativeBuildInputs
@@ -127,15 +124,15 @@ postgresqlBuildExtension (finalAttrs: {
           '';
         };
       };
-  };
+    };
 
-  meta = {
-    description = "V8 Engine Javascript Procedural Language add-on for PostgreSQL";
-    homepage = "https://plv8.github.io/";
-    changelog = "https://github.com/plv8/plv8/blob/r${finalAttrs.version}/Changes";
-    maintainers = [ ];
-    platforms = postgresql.meta.platforms;
-    license = lib.licenses.postgresql;
-    broken = stdenv.hostPlatform.isDarwin;
-  };
-})
+    meta = {
+      description = "V8 Engine Javascript Procedural Language add-on for PostgreSQL";
+      homepage = "https://plv8.github.io/";
+      changelog = "https://github.com/plv8/plv8/blob/r${finalAttrs.version}/Changes";
+      maintainers = [];
+      platforms = postgresql.meta.platforms;
+      license = lib.licenses.postgresql;
+      broken = stdenv.hostPlatform.isDarwin;
+    };
+  })

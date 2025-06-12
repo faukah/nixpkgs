@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-callvis";
   version = "0.7.1";
@@ -24,13 +23,13 @@ buildGoModule rec {
 
   # Build errors in github.com/goccy/go-graphviz/internal/ccall when format hardening is enabled:
   #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Visualize call graph of a Go program using Graphviz";
     mainProgram = "go-callvis";
     homepage = "https://github.com/ofabry/go-callvis";
     license = licenses.mit;
-    maintainers = with maintainers; [ meain ];
+    maintainers = with maintainers; [meain];
   };
 }

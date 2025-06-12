@@ -5,11 +5,9 @@
   gitUpdater,
   cmake,
   nasm,
-
   # for passthru.tests
   ffmpeg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "svt-av1";
   version = "2.3.0";
@@ -35,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       rev-prefix = "v";
     };
     tests = {
-      ffmpeg = ffmpeg.override { withSvtav1 = true; };
+      ffmpeg = ffmpeg.override {withSvtav1 = true;};
     };
   };
 
@@ -57,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       aom
       bsd3
     ];
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     platforms = platforms.unix;
   };
 })

@@ -11,7 +11,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "explorerscript";
   version = "0.2.3";
@@ -55,16 +54,16 @@ buildPythonPackage rec {
     igraph
   ];
 
-  optional-dependencies.pygments = [ pygments ];
+  optional-dependencies.pygments = [pygments];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.pygments;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.pygments;
 
-  pythonImportsCheck = [ "explorerscript" ];
+  pythonImportsCheck = ["explorerscript"];
 
   meta = {
     homepage = "https://github.com/SkyTemple/explorerscript";
     description = "Programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marius851000 ];
+    maintainers = with lib.maintainers; [marius851000];
   };
 }

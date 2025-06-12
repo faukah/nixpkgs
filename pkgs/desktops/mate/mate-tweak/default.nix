@@ -12,7 +12,6 @@
   glib,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mate-tweak";
   version = "22.10.0";
@@ -74,14 +73,14 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Tweak tool for the MATE Desktop";
     homepage = "https://github.com/ubuntu-mate/mate-tweak";
     changelog = "https://github.com/ubuntu-mate/mate-tweak/releases/tag/${version}";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

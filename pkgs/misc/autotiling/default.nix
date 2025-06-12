@@ -5,7 +5,6 @@
   i3ipc,
   importlib-metadata,
 }:
-
 buildPythonApplication rec {
   pname = "autotiling";
   version = "1.9.3";
@@ -28,7 +27,7 @@ buildPythonApplication rec {
     description = "Script for sway and i3 to automatically switch the horizontal / vertical window split orientation";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     mainProgram = "autotiling";
   };
 }

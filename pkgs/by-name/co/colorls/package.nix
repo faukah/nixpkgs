@@ -4,12 +4,11 @@
   ruby,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "colorls";
 
   gemdir = ./.;
-  exes = [ "colorls" ];
+  exes = ["colorls"];
 
   passthru.updateScript = bundlerUpdateScript "colorls";
 

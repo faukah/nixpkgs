@@ -12,7 +12,6 @@
   ps,
   python-daemon,
 }:
-
 buildPythonPackage rec {
   pname = "mirakuru";
   version = "2.6.0";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-R5prLIub2kVhsKRGWbZMf/v0U7oOBieoLiHwMRDEs0I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ psutil ];
+  dependencies = [psutil];
 
   nativeCheckInputs = [
     netcat.nc
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mirakuru" ];
+  pythonImportsCheck = ["mirakuru"];
 
   # Necessary for the tests to pass on Darwin with sandbox enabled.
   __darwinAllowLocalNetworking = true;
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     description = "Process orchestration tool designed for functional and integration tests";
     changelog = "https://github.com/ClearcodeHQ/mirakuru/blob/v${version}/CHANGES.rst";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

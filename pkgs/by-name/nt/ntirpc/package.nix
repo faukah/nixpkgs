@@ -8,7 +8,6 @@
   libtirpc,
   libnsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ntirpc";
   version = "6.3";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <assert.h>' -i src/work_pool.c
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     krb5
     liburcu
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Transport-independent RPC (TI-RPC)";
     homepage = "https://github.com/nfs-ganesha/ntirpc";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

@@ -11,7 +11,6 @@
   typing-extensions,
   z3-solver,
 }:
-
 buildPythonPackage rec {
   pname = "claripy";
   version = "9.2.154";
@@ -27,28 +26,30 @@ buildPythonPackage rec {
   };
 
   # z3 does not provide a dist-info, so python-runtime-deps-check will fail
-  pythonRemoveDeps = [ "z3-solver" ];
+  pythonRemoveDeps = ["z3-solver"];
 
   build-system = [
     setuptools
   ];
 
-  dependencies = [
-    cachetools
-    decorator
-    pysmt
-    typing-extensions
-    z3-solver
-  ] ++ z3-solver.requiredPythonModules;
+  dependencies =
+    [
+      cachetools
+      decorator
+      pysmt
+      typing-extensions
+      z3-solver
+    ]
+    ++ z3-solver.requiredPythonModules;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "claripy" ];
+  pythonImportsCheck = ["claripy"];
 
   meta = with lib; {
     description = "Python abstraction layer for constraint solvers";
     homepage = "https://github.com/angr/claripy";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

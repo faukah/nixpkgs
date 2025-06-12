@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatchling,
-
   # dependencies
   aiohttp,
   aiohttp-jinja2,
@@ -13,7 +11,6 @@
   rich,
   textual,
 }:
-
 buildPythonPackage rec {
   pname = "textual-serve";
   version = "1.1.2";
@@ -49,6 +46,6 @@ buildPythonPackage rec {
     description = "Turn your Textual TUIs in to web applications";
     homepage = "https://pypi.org/project/textual-serve/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

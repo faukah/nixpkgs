@@ -16,7 +16,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "keyguard";
   version = "1.12.2";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.JAVA_HOME = jdk17;
 
-  gradleFlags = [ "-Dorg.gradle.java.home=${jdk17}" ];
+  gradleFlags = ["-Dorg.gradle.java.home=${jdk17}"];
 
   nativeBuildInputs = [
     gradle
@@ -95,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AChep/keyguard-app";
     mainProgram = "Keyguard";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode

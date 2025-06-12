@@ -8,7 +8,6 @@
   nix-update-script,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "handlr-regex";
   version = "0.12.1";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     shared-mime-info
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   preCheck = ''
     export HOME=$TEMPDIR
@@ -43,13 +42,13 @@ rustPlatform.buildRustPackage rec {
     installManPage target/release-tmp/build/handlr-regex-*/out/manual/man1/*
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Fork of handlr with support for regex";
     homepage = "https://github.com/Anomalocaridid/handlr-regex";
     license = licenses.mit;
-    maintainers = with maintainers; [ anomalocaris ];
+    maintainers = with maintainers; [anomalocaris];
     mainProgram = "handlr";
   };
 }

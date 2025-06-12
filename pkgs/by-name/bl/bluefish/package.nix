@@ -11,7 +11,6 @@
   python3,
   adwaita-icon-theme,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluefish";
   version = "2.2.17";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Powerful editor targeted towards programmers and webdevelopers";
     homepage = "https://bluefish.openoffice.nl/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
     platforms = lib.platforms.all;
     mainProgram = "bluefish";
   };

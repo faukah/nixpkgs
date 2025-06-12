@@ -8,7 +8,6 @@
   six,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "cloudsmith-api";
   version = "2.0.18";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # Wheels have no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cloudsmith_api" ];
+  pythonImportsCheck = ["cloudsmith_api"];
 
   meta = with lib; {
     description = "Cloudsmith API Client";
     homepage = "https://github.com/cloudsmith-io/cloudsmith-api";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

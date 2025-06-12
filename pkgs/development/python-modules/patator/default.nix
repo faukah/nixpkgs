@@ -18,7 +18,6 @@
   pysqlcipher3,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "patator";
   version = "1.1.0";
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     description = "Multi-purpose brute-forcer";
     homepage = "https://github.com/lanjelot/patator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ y0no ];
+    maintainers = with maintainers; [y0no];
   };
 }

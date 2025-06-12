@@ -8,7 +8,6 @@
   coreutils,
   dieHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtree";
   version = "3.1.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-q3JtQ9AxoP0ma9K96cC3gf6QmQ1FbS7T7I59qhkwbMk=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # Fails at https://github.com/haampie/libtree/blob/v3.1.1/tests/07_origin_is_relative_to_symlink_location_not_realpath/Makefile#L28
   doCheck = false;
@@ -33,16 +32,16 @@ stdenv.mkDerivation (finalAttrs: {
     };
     checkCoreUtils =
       runCommand "${finalAttrs.pname}-ls-test"
-        {
-          nativeBuildInputs = [
-            finalAttrs.finalPackage
-            dieHook
-          ];
-        }
-        ''
-          libtree ${coreutils}/bin/ls > $out || die "libtree failed to show dependencies."
-          [ -s $out ]
-        '';
+      {
+        nativeBuildInputs = [
+          finalAttrs.finalPackage
+          dieHook
+        ];
+      }
+      ''
+        libtree ${coreutils}/bin/ls > $out || die "libtree failed to show dependencies."
+        [ -s $out ]
+      '';
   };
 
   meta = with lib; {

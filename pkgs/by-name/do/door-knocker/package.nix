@@ -12,7 +12,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "door-knocker";
   version = "0.7.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool to check the availability of portals";
     homepage = "https://codeberg.org/tytan652/door-knocker";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.linux;
     mainProgram = "door-knocker";
   };

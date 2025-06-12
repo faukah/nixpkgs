@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dendrite;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configurationYaml = settingsFormat.generate "dendrite.yaml" cfg.settings;
   workingDir = "/var/lib/dendrite";
-in
-{
+in {
   options.services.dendrite = {
     enable = lib.mkEnableOption "matrix.org dendrite";
     httpPort = lib.mkOption {
@@ -79,8 +77,8 @@ in
     };
     loadCredential = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "private_key:/path/to/my_private_key" ];
+      default = [];
+      example = ["private_key:/path/to/my_private_key"];
       description = ''
         This can be used to pass secrets to the systemd service without adding them to
         the nix store.
@@ -116,7 +114,7 @@ in
           };
           trusted_third_party_id_servers = lib.mkOption {
             type = lib.types.listOf lib.types.str;
-            example = [ "matrix.org" ];
+            example = ["matrix.org"];
             default = [
               "matrix.org"
               "vector.im"
@@ -261,7 +259,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Configuration for dendrite, see:
         <https://github.com/matrix-org/dendrite/blob/main/dendrite-sample.yaml>
@@ -301,7 +299,7 @@ in
       after = [
         "network.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;

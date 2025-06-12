@@ -11,7 +11,6 @@
   libpeas,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-analogue-clock-applet";
   version = "2.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/samlane-ma/analogue-clock-applet";
     changelog = "https://github.com/samlane-ma/analogue-clock-applet/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     platforms = lib.platforms.linux;
   };
 })

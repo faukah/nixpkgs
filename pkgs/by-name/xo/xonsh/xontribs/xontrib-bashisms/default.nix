@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   writableTmpDirAsHomeHook,
   pytestCheckHook,
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-bashisms";
   version = "0.0.5";
@@ -37,12 +35,12 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Bash-like interactive mode extensions for the xonsh shell";
     homepage = "https://github.com/xonsh/xontrib-bashisms";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

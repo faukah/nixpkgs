@@ -13,7 +13,6 @@
   sqlite,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-calendar";
   version = "5.14.4";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-bZxNOBtLjop0eYxpMeoomaWYvPcMyDfQfgGPK9m+ARo=";
   };
 
-  patches = [ ./fix-wrapped-name-not-in-whitelist.diff ];
+  patches = [./fix-wrapped-name-not-in-whitelist.diff];
 
   postPatch = ''
     for file in $(grep -rl "/bin/bash"); do
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-calendar";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

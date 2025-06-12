@@ -6,9 +6,7 @@
   udev,
   libusb1,
   segger-jlink,
-}:
-
-let
+}: let
   supported = {
     x86_64-linux = {
       name = "linux-amd64";
@@ -28,53 +26,50 @@ let
 
   version = "10.23.2";
 
-  url =
-    let
-      versionWithDashes = builtins.replaceStrings [ "." ] [ "-" ] version;
-    in
-    "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-${lib.versions.major version}-x-x/${versionWithDashes}/nrf-command-line-tools-${version}_${platform.name}.tar.gz";
-
+  url = let
+    versionWithDashes = builtins.replaceStrings ["."] ["-"] version;
+  in "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-${lib.versions.major version}-x-x/${versionWithDashes}/nrf-command-line-tools-${version}_${platform.name}.tar.gz";
 in
-stdenv.mkDerivation {
-  pname = "nrf-command-line-tools";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "nrf-command-line-tools";
+    inherit version;
 
-  src = fetchurl {
-    inherit url;
-    inherit (platform) hash;
-  };
+    src = fetchurl {
+      inherit url;
+      inherit (platform) hash;
+    };
 
-  runtimeDependencies = [
-    segger-jlink
-  ];
+    runtimeDependencies = [
+      segger-jlink
+    ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+    ];
 
-  buildInputs = [
-    udev
-    libusb1
-  ];
+    buildInputs = [
+      udev
+      libusb1
+    ];
 
-  dontConfigure = true;
-  dontBuild = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    rm -rf ./python
-    mkdir -p $out
-    cp -r * $out
+      rm -rf ./python
+      mkdir -p $out
+      cp -r * $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Nordic Semiconductor nRF Command Line Tools";
-    homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools";
-    license = licenses.unfree;
-    platforms = attrNames supported;
-    maintainers = with maintainers; [ stargate01 ];
-  };
-}
+    meta = with lib; {
+      description = "Nordic Semiconductor nRF Command Line Tools";
+      homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools";
+      license = licenses.unfree;
+      platforms = attrNames supported;
+      maintainers = with maintainers; [stargate01];
+    };
+  }

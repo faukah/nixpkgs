@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "meowpdf";
   version = "1.2.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "PDF viewer for the Kitty terminal with GUI-like usage and Vim-like keybindings written in Rust";
     homepage = "https://github.com/monoamine11231/meowpdf";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     mainProgram = "meowpdf";
     platforms = lib.platforms.linux;
   };

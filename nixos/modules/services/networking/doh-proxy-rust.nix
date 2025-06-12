@@ -3,28 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.doh-proxy-rust;
-
-in
-{
-
+in {
   options.services.doh-proxy-rust = {
-
     enable = lib.mkEnableOption "doh-proxy-rust";
 
     flags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "--server-address=9.9.9.9:53" ];
+      default = [];
+      example = ["--server-address=9.9.9.9:53"];
       description = ''
         A list of command-line flags to pass to doh-proxy. For details on the
         available options, see <https://github.com/jedisct1/doh-server#usage>.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,7 +27,7 @@ in
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.doh-proxy-rust}/bin/doh-proxy ${lib.escapeShellArgs cfg.flags}";
         Restart = "always";
@@ -64,6 +57,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ stephank ];
-
+  meta.maintainers = with lib.maintainers; [stephank];
 }

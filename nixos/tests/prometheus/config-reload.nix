@@ -2,46 +2,48 @@
   name = "prometheus-config-reload";
 
   nodes = {
-    prometheus =
-      { config, pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.jq ];
+    prometheus = {
+      config,
+      pkgs,
+      ...
+    }: {
+      environment.systemPackages = [pkgs.jq];
 
-        networking.firewall.allowedTCPPorts = [ config.services.prometheus.port ];
+      networking.firewall.allowedTCPPorts = [config.services.prometheus.port];
 
-        services.prometheus = {
-          enable = true;
-          enableReload = true;
-          globalConfig.scrape_interval = "2s";
-          scrapeConfigs = [
-            {
-              job_name = "prometheus";
-              static_configs = [ { targets = [ "prometheus:${toString config.services.prometheus.port}" ]; } ];
-            }
-          ];
-        };
+      services.prometheus = {
+        enable = true;
+        enableReload = true;
+        globalConfig.scrape_interval = "2s";
+        scrapeConfigs = [
+          {
+            job_name = "prometheus";
+            static_configs = [{targets = ["prometheus:${toString config.services.prometheus.port}"];}];
+          }
+        ];
+      };
 
-        specialisation = {
-          "prometheus-config-change" = {
-            configuration = {
-              environment.systemPackages = [ pkgs.yq ];
+      specialisation = {
+        "prometheus-config-change" = {
+          configuration = {
+            environment.systemPackages = [pkgs.yq];
 
-              # This configuration just adds a new prometheus job
-              # to scrape the node_exporter metrics of the s3 machine.
-              services.prometheus = {
-                scrapeConfigs = [
-                  {
-                    job_name = "node";
-                    static_configs = [
-                      { targets = [ "node:${toString config.services.prometheus.exporters.node.port}" ]; }
-                    ];
-                  }
-                ];
-              };
+            # This configuration just adds a new prometheus job
+            # to scrape the node_exporter metrics of the s3 machine.
+            services.prometheus = {
+              scrapeConfigs = [
+                {
+                  job_name = "node";
+                  static_configs = [
+                    {targets = ["node:${toString config.services.prometheus.exporters.node.port}"];}
+                  ];
+                }
+              ];
             };
           };
         };
       };
+    };
   };
 
   testScript = ''

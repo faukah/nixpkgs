@@ -1,24 +1,25 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "freshrss-caddy-sqlite";
     meta.maintainers = with lib.maintainers; [
       etu
       stunkymonkey
     ];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.freshrss = {
-          enable = true;
-          baseUrl = "http://localhost";
-          passwordFile = pkgs.writeText "password" "secret";
-          dataDir = "/srv/freshrss";
-          webserver = "caddy";
-          virtualHost = "freshrss:80";
-        };
+    nodes.machine = {pkgs, ...}: {
+      services.freshrss = {
+        enable = true;
+        baseUrl = "http://localhost";
+        passwordFile = pkgs.writeText "password" "secret";
+        dataDir = "/srv/freshrss";
+        webserver = "caddy";
+        virtualHost = "freshrss:80";
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -10,7 +10,6 @@
   setuptools-rust,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "spacy-alignments";
   version = "0.9.0";
@@ -35,17 +34,17 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   # Fails because spacy_alignments module cannot be loaded correctly.
   doCheck = false;
 
-  pythonImportsCheck = [ "spacy_alignments" ];
+  pythonImportsCheck = ["spacy_alignments"];
 
   meta = with lib; {
     description = "Align tokenizations for spaCy and transformers";
     homepage = "https://github.com/explosion/spacy-alignments";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -1,27 +1,24 @@
-{ ... }:
-{
+{...}: {
   name = "tt-rss-nixos";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.tt-rss = {
-        enable = true;
-        virtualHost = "localhost";
-        selfUrlPath = "http://localhost/";
-        pluginPackages = with pkgs; [
-          tt-rss-plugin-auth-ldap
-          tt-rss-plugin-feediron
-        ];
-        plugins = [
-          "auth_internal"
-          "feediron"
-          "note"
-        ];
-        singleUserMode = true;
-        themePackages = with pkgs; [ tt-rss-theme-feedly ];
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.tt-rss = {
+      enable = true;
+      virtualHost = "localhost";
+      selfUrlPath = "http://localhost/";
+      pluginPackages = with pkgs; [
+        tt-rss-plugin-auth-ldap
+        tt-rss-plugin-feediron
+      ];
+      plugins = [
+        "auth_internal"
+        "feediron"
+        "note"
+      ];
+      singleUserMode = true;
+      themePackages = with pkgs; [tt-rss-theme-feedly];
     };
+  };
 
   testScript = ''
     import json

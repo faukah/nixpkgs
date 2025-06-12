@@ -8,7 +8,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableDebug ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mlx42";
   version = "2.4.1";
@@ -41,11 +40,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ glfw ];
+  buildInputs = [glfw];
 
-  cmakeFlags = [ (lib.cmakeBool "DEBUG" enableDebug) ];
+  cmakeFlags = [(lib.cmakeBool "DEBUG" enableDebug)];
 
   postInstall = ''
     mkdir -p $out/lib/pkgconfig
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple cross-platform graphics library that uses GLFW and OpenGL";
     homepage = "https://github.com/codam-coding-college/MLX42";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.unix;
   };
 })

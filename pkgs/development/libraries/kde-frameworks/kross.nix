@@ -14,7 +14,6 @@
   qtscript,
   qtxmlpatterns,
 }:
-
 mkDerivation {
   pname = "kross";
   nativeBuildInputs = [

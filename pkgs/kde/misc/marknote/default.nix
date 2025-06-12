@@ -21,5 +21,5 @@ mkKdeDerivation rec {
     qtwayland
   ];
 
-  meta.license = [ lib.licenses.gpl2Plus ];
+  meta.license = [lib.licenses.gpl2Plus];
 }

@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "standard-telnetlib";
   version = "3.13.0";
@@ -20,17 +19,17 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/telnetlib";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # missing "reads" fixture when using pytest
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "telnetlib" ];
+  pythonImportsCheck = ["telnetlib"];
 
   meta = {
     description = "Python dead batteries. See PEP 594";
     homepage = "https://github.com/youknowone/python-deadlib";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

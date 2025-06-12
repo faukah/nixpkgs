@@ -14,7 +14,6 @@
   libadwaita,
   librsvg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dynamic-wallpaper";
   version = "0.1.0";
@@ -61,6 +60,6 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     mainProgram = "me.dusansimic.DynamicWallpaper";
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

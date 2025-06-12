@@ -12,7 +12,6 @@
   json-data-encoding-bson,
   ppx_expect,
 }:
-
 buildDunePackage {
   pname = "data-encoding";
   inherit (json-data-encoding) src version;
@@ -39,6 +38,6 @@ buildDunePackage {
     homepage = "https://gitlab.com/nomadic-labs/data-encoding";
     description = "Library of JSON and binary encoding combinators";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

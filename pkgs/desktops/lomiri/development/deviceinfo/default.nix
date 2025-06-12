@@ -10,7 +10,6 @@
   gtest,
   yaml-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "deviceinfo";
   version = "0.2.3";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/deviceinfo";
     changelog = "https://gitlab.com/ubports/development/core/deviceinfo/-/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.gpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
     mainProgram = "device-info";
     pkgConfigModules = [

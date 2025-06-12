@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
-
   defusedxml,
   pillow,
   fonttools,
-
   pytestCheckHook,
   qrcode,
   camelot,
   uharfbuzz,
   lxml,
 }:
-
 buildPythonPackage rec {
   pname = "fpdf2";
   version = "2.8.2";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=fpdf --cov-report=xml" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     defusedxml
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     description = "Simple PDF generation for Python";
     changelog = "https://github.com/py-pdf/fpdf2/blob/${version}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jfvillablanca ];
+    maintainers = with lib.maintainers; [jfvillablanca];
   };
 }

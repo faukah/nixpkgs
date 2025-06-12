@@ -9,7 +9,6 @@
   setuptools,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "pydeako";
   version = "0.6.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-GEYuVKE3DOXJzCqTW2Ngoi6l0e4JvE9lUnZtjrNXTVk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ zeroconf ];
+  dependencies = [zeroconf];
 
   # Module has no tests
   #doCheck = false;
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pydeako" ];
+  pythonImportsCheck = ["pydeako"];
 
   meta = {
     description = "Module used to discover and communicate with Deako devices over the network locally";
     homepage = "https://github.com/DeakoLights/pydeako";
     changelog = "https://github.com/DeakoLights/pydeako/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

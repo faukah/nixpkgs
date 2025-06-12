@@ -5,7 +5,6 @@
   inkscape,
   xcursorgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "numix-cursor-theme";
   version = "1.2";
@@ -37,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://numixproject.github.io";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

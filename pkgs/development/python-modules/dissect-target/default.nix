@@ -42,7 +42,6 @@
   yara-python,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-target";
   version = "3.20.1";
@@ -82,38 +81,42 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    full = [
-      asn1crypto
-      dissect-btrfs
-      dissect-cim
-      dissect-clfs
-      dissect-esedb
-      dissect-etl
-      dissect-extfs
-      dissect-fat
-      dissect-ffs
-      dissect-shellitem
-      dissect-sql
-      dissect-thumbcache
-      dissect-xfs
-      fusepy
-      ipython
-      pycryptodome
-      ruamel-yaml
-      yara-python
-      zstandard
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
-    yara = [ yara-python ] ++ optional-dependencies.full;
-    smb = [ impacket ] ++ optional-dependencies.full;
-    mqtt = [ paho-mqtt ] ++ optional-dependencies.full;
+    full =
+      [
+        asn1crypto
+        dissect-btrfs
+        dissect-cim
+        dissect-clfs
+        dissect-esedb
+        dissect-etl
+        dissect-extfs
+        dissect-fat
+        dissect-ffs
+        dissect-shellitem
+        dissect-sql
+        dissect-thumbcache
+        dissect-xfs
+        fusepy
+        ipython
+        pycryptodome
+        ruamel-yaml
+        yara-python
+        zstandard
+      ]
+      ++ lib.optionals (pythonOlder "3.11") [tomli];
+    yara = [yara-python] ++ optional-dependencies.full;
+    smb = [impacket] ++ optional-dependencies.full;
+    mqtt = [paho-mqtt] ++ optional-dependencies.full;
   };
 
-  nativeCheckInputs = [
-    docutils
-    pytestCheckHook
-  ] ++ optional-dependencies.full;
+  nativeCheckInputs =
+    [
+      docutils
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.full;
 
-  pythonImportsCheck = [ "dissect.target" ];
+  pythonImportsCheck = ["dissect.target"];
 
   disabledTests =
     [
@@ -174,6 +177,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.target";
     changelog = "https://github.com/fox-it/dissect.target/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

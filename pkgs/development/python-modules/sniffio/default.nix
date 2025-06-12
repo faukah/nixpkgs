@@ -9,7 +9,6 @@
   pytestCheckHook,
   curio,
 }:
-
 buildPythonPackage rec {
   pname = "sniffio";
   version = "1.3.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   nativeCheckInputs = [
     curio

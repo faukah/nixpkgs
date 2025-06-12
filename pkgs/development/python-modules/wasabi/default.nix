@@ -3,14 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # tests
   ipykernel,
   nbconvert,
   pytestCheckHook,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "wasabi";
   version = "1.1.3";
@@ -30,7 +28,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "wasabi" ];
+  pythonImportsCheck = ["wasabi"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -39,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ines/wasabi";
     changelog = "https://github.com/ines/wasabi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

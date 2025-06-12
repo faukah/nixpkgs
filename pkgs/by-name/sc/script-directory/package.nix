@@ -6,7 +6,6 @@
   patsh,
   coreutils,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "script-directory";
   version = "1.1.0";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   # needed for cross
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ianthehenry/sd";
     changelog = "https://github.com/ianthehenry/sd/tree/${src.rev}#changelog";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "sd";
   };
 }

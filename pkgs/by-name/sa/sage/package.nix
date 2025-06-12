@@ -2,38 +2,38 @@
   pkgs,
   withDoc ? false,
   requireSageTests ? true,
-  extraPythonPackages ? ps: [ ],
+  extraPythonPackages ? ps: [],
 }:
-
 # Here sage and its dependencies are put together. Some dependencies may be pinned
 # as a last resort. Patching sage for compatibility with newer dependency versions
 # is always preferred, see `sage-src.nix` for that.
-
 let
   inherit (pkgs) symlinkJoin callPackage nodePackages;
 
-  python3 = pkgs.python3 // {
-    pkgs = pkgs.python3.pkgs.overrideScope (
-      self: super: {
-        # `sagelib`, i.e. all of sage except some wrappers and runtime dependencies
-        sagelib = self.callPackage ./sagelib.nix {
-          inherit flint3;
-          inherit sage-src env-locations singular;
-          inherit (maxima) lisp-compiler;
-          linbox = pkgs.linbox;
-          pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
-        };
+  python3 =
+    pkgs.python3
+    // {
+      pkgs = pkgs.python3.pkgs.overrideScope (
+        self: super: {
+          # `sagelib`, i.e. all of sage except some wrappers and runtime dependencies
+          sagelib = self.callPackage ./sagelib.nix {
+            inherit flint3;
+            inherit sage-src env-locations singular;
+            inherit (maxima) lisp-compiler;
+            linbox = pkgs.linbox;
+            pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+          };
 
-        sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
-          inherit sage-src;
-        };
+          sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
+            inherit sage-src;
+          };
 
-        sage-setup = self.callPackage ./python-modules/sage-setup.nix {
-          inherit sage-src;
-        };
-      }
-    );
-  };
+          sage-setup = self.callPackage ./python-modules/sage-setup.nix {
+            inherit sage-src;
+          };
+        }
+      );
+    };
 
   # matches src/sage/repl/ipython_kernel/install.py:kernel_spec
   jupyter-kernel-definition = {
@@ -52,12 +52,14 @@ let
   };
 
   jupyter-kernel-specs = pkgs.jupyter-kernel.create {
-    definitions = pkgs.jupyter-kernel.default // {
-      sagemath = jupyter-kernel-definition;
-    };
+    definitions =
+      pkgs.jupyter-kernel.default
+      // {
+        sagemath = jupyter-kernel-definition;
+      };
   };
 
-  three = callPackage ./threejs-sage.nix { };
+  three = callPackage ./threejs-sage.nix {};
 
   # A bash script setting various environment variables to tell sage where
   # the files its looking fore are located. Also see `sage-env`.
@@ -109,10 +111,9 @@ let
     pytest = python3.pkgs.pytest;
   };
 
-  sage-src = callPackage ./sage-src.nix { };
+  sage-src = callPackage ./sage-src.nix {};
 
-  pythonRuntimeDeps =
-    with python3.pkgs;
+  pythonRuntimeDeps = with python3.pkgs;
     [
       sagelib
       sage-docbuild
@@ -142,7 +143,7 @@ let
       extraLibs = pythonRuntimeDeps;
     }; # make the libs accessible
 
-  singular = pkgs.singular.override { inherit flint3; };
+  singular = pkgs.singular.override {inherit flint3;};
 
   maxima = pkgs.maxima-ecl.override {
     lisp-compiler = pkgs.ecl.override {
@@ -164,7 +165,7 @@ let
   # openblas instead of openblasCompat. Apparently other packages somehow use flints
   # blas when it is available. Alternative would be to override flint to use
   # openblasCompat.
-  flint3 = pkgs.flint3.override { withBlas = false; };
+  flint3 = pkgs.flint3.override {withBlas = false;};
 
   # Multiple palp dimensions need to be available and sage expects them all to be
   # in the same folder.
@@ -199,14 +200,14 @@ let
     ];
   };
 in
-# A wrapper around sage that makes sure sage finds its docs (if they were build).
-callPackage ./sage.nix {
-  inherit
-    sage-tests
-    sage-with-env
-    sagedoc
-    jupyter-kernel-definition
-    jupyter-kernel-specs
-    ;
-  inherit withDoc requireSageTests;
-}
+  # A wrapper around sage that makes sure sage finds its docs (if they were build).
+  callPackage ./sage.nix {
+    inherit
+      sage-tests
+      sage-with-env
+      sagedoc
+      jupyter-kernel-definition
+      jupyter-kernel-specs
+      ;
+    inherit withDoc requireSageTests;
+  }

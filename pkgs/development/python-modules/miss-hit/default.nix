@@ -9,7 +9,6 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "miss-hit";
   version = "0.9.44";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-dJZIleDWmdarhmxoKvQxWvI/Tmx9pSCNlgFXj5NFIUc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     miss-hit-core

@@ -5,7 +5,6 @@
   pandoc-xnos,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "pandoc-eqnos";
   version = "2.5.0";
@@ -22,7 +21,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ pandoc-xnos ];
+  propagatedBuildInputs = [pandoc-xnos];
 
   # Different pandoc executables are not available
   doCheck = false;
@@ -31,7 +30,7 @@ buildPythonApplication rec {
     description = "Standalone pandoc filter from the pandoc-xnos suite for numbering equations and equation references";
     homepage = "https://github.com/tomduck/pandoc-eqnos";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ppenguin ];
+    maintainers = with maintainers; [ppenguin];
     mainProgram = "pandoc-eqnos";
   };
 }

@@ -13,7 +13,6 @@
   tokenizers,
   sudachipy,
 }:
-
 buildPythonPackage rec {
   pname = "sudachipy";
   inherit (sudachi-rs) src version;
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     setuptools-rust
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   preBuild = ''
     cd python
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     tokenizers
   ];
 
-  pythonImportsCheck = [ "sudachipy" ];
+  pythonImportsCheck = ["sudachipy"];
 
   passthru = {
     inherit (sudachi-rs) updateScript;
@@ -59,8 +58,10 @@ buildPythonPackage rec {
     };
   };
 
-  meta = sudachi-rs.meta // {
-    homepage = "https://github.com/WorksApplications/sudachi.rs/tree/develop/python";
-    mainProgram = "sudachipy";
-  };
+  meta =
+    sudachi-rs.meta
+    // {
+      homepage = "https://github.com/WorksApplications/sudachi.rs/tree/develop/python";
+      mainProgram = "sudachipy";
+    };
 }

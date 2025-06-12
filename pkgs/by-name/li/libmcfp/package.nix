@@ -4,7 +4,6 @@
   cmake,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmcfp";
   version = "1.4.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mhekkel/libmcfp";
     changelog = "https://github.com/mhekkel/libmcfp/blob/${finalAttrs.src.rev}/changelog";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 })

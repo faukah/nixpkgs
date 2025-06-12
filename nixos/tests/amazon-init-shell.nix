@@ -4,16 +4,10 @@
 # exits.
 # Note that other tests verify that amazon-init can treat user-data as a nixos
 # configuration expression.
-
-{
-  lib,
-  ...
-}:
-
-{
+{lib, ...}: {
   name = "amazon-init";
   meta = with lib.maintainers; {
-    maintainers = [ urbas ];
+    maintainers = [urbas];
   };
   nodes.machine = {
     imports = [

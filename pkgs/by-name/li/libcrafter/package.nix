@@ -7,7 +7,6 @@
   libtool,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcrafter";
   version = "1.0";
@@ -23,21 +22,21 @@ stdenv.mkDerivation rec {
 
   configureScript = "./autogen.sh";
 
-  configureFlags = [ "--with-libpcap=yes" ];
+  configureFlags = ["--with-libpcap=yes"];
 
   nativeBuildInputs = [
     autoconf
     automake
   ];
-  buildInputs = [ libtool ];
+  buildInputs = [libtool];
 
-  propagatedBuildInputs = [ libpcap ];
+  propagatedBuildInputs = [libpcap];
 
   meta = {
     homepage = "https://github.com/pellegre/libcrafter";
     description = "High level C++ network packet sniffing and crafting library";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

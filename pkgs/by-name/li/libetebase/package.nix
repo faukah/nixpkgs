@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZLQFERi38+0SUxWaYAL4AepgVuAQKo9pxjcMkzA55BM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postInstall = ''
     install -d $out/lib/pkgconfig
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.etebase.com/";
     license = licenses.bsd3;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ laalsaas ];
-    pkgConfigModules = [ "etebase" ];
+    maintainers = with maintainers; [laalsaas];
+    pkgConfigModules = ["etebase"];
   };
 }

@@ -19,10 +19,9 @@
   qtx11extras,
   layer-shell-qt,
 }:
-
 mkDerivation {
   pname = "kscreen";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kconfig
     kcmutils

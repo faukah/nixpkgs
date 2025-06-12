@@ -8,7 +8,6 @@
   gtksourceview3,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtksourceviewmm";
   version = "3.21.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glibmm
     gtkmm3
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceviewmm";
     description = "C++ wrapper for gtksourceview";
     license = licenses.lgpl2;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

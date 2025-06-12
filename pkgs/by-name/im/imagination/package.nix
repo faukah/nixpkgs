@@ -13,7 +13,6 @@
   sox,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imagination";
   version = "3.6";
@@ -50,11 +49,11 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
        --prefix PATH : "${
-         lib.makeBinPath [
-           ffmpeg-full
-           sox
-         ]
-       }"
+      lib.makeBinPath [
+        ffmpeg-full
+        sox
+      ]
+    }"
     )
   '';
 
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight and simple DVD slide show maker";
     homepage = "https://imagination.sourceforge.net";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     platforms = platforms.linux;
     mainProgram = "imagination";
   };

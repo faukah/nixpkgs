@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "paperless";
   meta.maintainers = with lib.maintainers; [
     leona
@@ -7,41 +6,40 @@
     erikarvstedt
   ];
 
-  nodes =
-    let
-      self = {
-        simple =
-          { pkgs, ... }:
-          {
-            environment.systemPackages = with pkgs; [
-              imagemagick
-              jq
-            ];
-            services.paperless = {
-              enable = true;
-              passwordFile = builtins.toFile "password" "admin";
+  nodes = let
+    self = {
+      simple = {pkgs, ...}: {
+        environment.systemPackages = with pkgs; [
+          imagemagick
+          jq
+        ];
+        services.paperless = {
+          enable = true;
+          passwordFile = builtins.toFile "password" "admin";
 
-              exporter = {
-                enable = true;
+          exporter = {
+            enable = true;
 
-                settings = {
-                  "no-color" = lib.mkForce false; # override a default option
-                  "no-thumbnail" = true; # add a new option
-                };
-              };
+            settings = {
+              "no-color" = lib.mkForce false; # override a default option
+              "no-thumbnail" = true; # add a new option
             };
           };
-        postgres =
-          { config, pkgs, ... }:
-          {
-            imports = [ self.simple ];
-            services.paperless.database.createLocally = true;
-            services.paperless.settings = {
-              PAPERLESS_OCR_LANGUAGE = "deu";
-            };
-          };
+        };
       };
-    in
+      postgres = {
+        config,
+        pkgs,
+        ...
+      }: {
+        imports = [self.simple];
+        services.paperless.database.createLocally = true;
+        services.paperless.settings = {
+          PAPERLESS_OCR_LANGUAGE = "deu";
+        };
+      };
+    };
+  in
     self;
 
   testScript = ''

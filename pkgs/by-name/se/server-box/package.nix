@@ -11,7 +11,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter329.buildFlutterApplication {
   pname = "server-box";
   version = "1.0.1130-unstable-2025-04-25";
@@ -48,7 +47,7 @@ flutter329.buildFlutterApplication {
       icon = "server-box";
       genericName = "ServerBox";
       desktopName = "ServerBox";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       keywords = [
         "server"
         "ssh"
@@ -65,15 +64,15 @@ flutter329.buildFlutterApplication {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (server-box) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (server-box) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "server-box.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -84,6 +83,6 @@ flutter329.buildFlutterApplication {
     mainProgram = "ServerBox";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

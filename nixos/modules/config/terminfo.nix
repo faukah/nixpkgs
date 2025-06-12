@@ -5,9 +5,7 @@
   lib,
   pkgs,
   ...
-}:
-{
-
+}: {
   options = with lib; {
     environment.enableAllTerminfo = lib.mkOption {
       default = false;
@@ -28,7 +26,6 @@
   };
 
   config = {
-
     # This should not contain packages that are broken or can't build, since it
     # will break this expression
     #
@@ -38,8 +35,7 @@
     #  pkgs)
     environment.systemPackages = lib.mkIf config.environment.enableAllTerminfo (
       map (x: x.terminfo) (
-        with pkgs.pkgsBuildBuild;
-        [
+        with pkgs.pkgsBuildBuild; [
           alacritty
           contour
           foot
@@ -67,7 +63,7 @@
     };
 
     environment.profileRelativeSessionVariables = {
-      TERMINFO_DIRS = [ "/share/terminfo" ];
+      TERMINFO_DIRS = ["/share/terminfo"];
     };
 
     environment.extraInit = ''
@@ -76,18 +72,17 @@
       export TERM=$TERM
     '';
 
-    security =
-      let
-        extraConfig = ''
+    security = let
+      extraConfig = ''
 
-          # Keep terminfo database for root and %wheel.
-          Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-          Defaults:root,%wheel env_keep+=TERMINFO
-        '';
-      in
+        # Keep terminfo database for root and %wheel.
+        Defaults:root,%wheel env_keep+=TERMINFO_DIRS
+        Defaults:root,%wheel env_keep+=TERMINFO
+      '';
+    in
       lib.mkIf config.security.sudo.keepTerminfo {
-        sudo = { inherit extraConfig; };
-        sudo-rs = { inherit extraConfig; };
+        sudo = {inherit extraConfig;};
+        sudo-rs = {inherit extraConfig;};
       };
   };
 }

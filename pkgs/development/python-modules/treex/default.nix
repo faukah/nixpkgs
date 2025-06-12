@@ -18,7 +18,6 @@
   torchmetrics,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "treex";
   version = "0.6.11";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     einops
@@ -66,12 +65,12 @@ buildPythonPackage rec {
     torchmetrics
   ];
 
-  pythonImportsCheck = [ "treex" ];
+  pythonImportsCheck = ["treex"];
 
   meta = with lib; {
     description = "Pytree Module system for Deep Learning in JAX";
     homepage = "https://github.com/cgarciae/treex";
     license = licenses.mit;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

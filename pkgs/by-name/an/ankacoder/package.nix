@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ankacoder";
   version = "1.100";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Anka/Coder fonts";
     homepage = "https://code.google.com/archive/p/anka-coder-fonts";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

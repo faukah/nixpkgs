@@ -13,9 +13,7 @@
   clang,
   libtheora,
   unfree_assets ? false,
-}:
-
-let
+}: let
   pname = "keeperrl";
   version = "alpha34";
 
@@ -43,63 +41,62 @@ let
     sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nlll";
   };
 in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-stdenv.mkDerivation {
-  inherit pname version;
+    srcs = [free_src] ++ lib.optional unfree_assets assets;
 
-  srcs = [ free_src ] ++ lib.optional unfree_assets assets;
+    sourceRoot = free_src.name;
 
-  sourceRoot = free_src.name;
+    postUnpack = lib.optionalString unfree_assets ''
+      mv data $sourceRoot
+    '';
 
-  postUnpack = lib.optionalString unfree_assets ''
-    mv data $sourceRoot
-  '';
-
-  buildInputs = [
-    openal
-    curl
-    libogg
-    libvorbis
-    libtheora
-    SDL2
-    SDL2_image
-    zlib
-    clang
-  ];
-
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-I${lib.getInclude SDL2}/include/SDL2"
-  ];
-
-  enableParallelBuilding = true;
-
-  makeFlags = [
-    "OPT=true"
-    "RELEASE=true"
-    "DATA_DIR=$(out)/share"
-    "ENABLE_LOCAL_USER_DIR=true"
-    "NO_STEAMWORKS=true"
-  ];
-
-  installPhase = ''
-    install -Dm755 keeper $out/bin/keeper
-    install -Dm755 appconfig.txt $out/share/appconfig.txt
-
-    cp -r data_free $out/share
-    cp -r data_contrib $out/share
-    ${lib.optionalString unfree_assets "cp -r data $out/share"}
-  '';
-
-  meta = with lib; {
-    description = "Dungeon management rogue-like";
-    mainProgram = "keeper";
-    homepage = "https://keeperrl.com/";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ onny ];
-    # TODO: Add OS X
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
+    buildInputs = [
+      openal
+      curl
+      libogg
+      libvorbis
+      libtheora
+      SDL2
+      SDL2_image
+      zlib
+      clang
     ];
-  };
-}
+
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-I${lib.getInclude SDL2}/include/SDL2"
+    ];
+
+    enableParallelBuilding = true;
+
+    makeFlags = [
+      "OPT=true"
+      "RELEASE=true"
+      "DATA_DIR=$(out)/share"
+      "ENABLE_LOCAL_USER_DIR=true"
+      "NO_STEAMWORKS=true"
+    ];
+
+    installPhase = ''
+      install -Dm755 keeper $out/bin/keeper
+      install -Dm755 appconfig.txt $out/share/appconfig.txt
+
+      cp -r data_free $out/share
+      cp -r data_contrib $out/share
+      ${lib.optionalString unfree_assets "cp -r data $out/share"}
+    '';
+
+    meta = with lib; {
+      description = "Dungeon management rogue-like";
+      mainProgram = "keeper";
+      homepage = "https://keeperrl.com/";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [onny];
+      # TODO: Add OS X
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

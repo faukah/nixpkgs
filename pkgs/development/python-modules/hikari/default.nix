@@ -45,7 +45,7 @@ buildPythonPackage rec {
   pythonRelaxDeps = true;
 
   optional-dependencies = {
-    server = [ pynacl ];
+    server = [pynacl];
   };
 
   nativeCheckInputs = [
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "hikari" ];
+  pythonImportsCheck = ["hikari"];
 
   disabled = pythonOlder "3.7";
 

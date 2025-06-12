@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "apery";
   version = "2.1.0-unstable-2024-06-23";

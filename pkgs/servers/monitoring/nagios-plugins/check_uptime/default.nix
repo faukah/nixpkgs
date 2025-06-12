@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "check-uptime";
   version = "0-unstable-2016-11-12";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-0zOvaVWCFKlbblGyObir1QI0cU186J6y1+0ki/+KCaM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -29,6 +28,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/madrisan/nagios-plugins-uptime";
     license = lib.licenses.gpl3Plus;
     mainProgram = "check_uptime";
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

@@ -13,7 +13,6 @@
   unstableGitUpdater,
   util-linux,
 }:
-
 stdenv.mkDerivation {
   pname = "clerk";
   version = "0-unstable-2024-02-20";
@@ -62,24 +61,22 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  postFixup =
-    let
-      binPath = lib.makeBinPath [
-        fzf
-        libnotify
-        mpc
-        rofi
-        tmux
-        util-linux
-      ];
-    in
-    ''
-      for f in clerk clerk_rating_client; do
-        wrapProgram $out/bin/$f \
-          --prefix PATH : "${binPath}" \
-          --set PERL5LIB $PERL5LIB
-      done
-    '';
+  postFixup = let
+    binPath = lib.makeBinPath [
+      fzf
+      libnotify
+      mpc
+      rofi
+      tmux
+      util-linux
+    ];
+  in ''
+    for f in clerk clerk_rating_client; do
+      wrapProgram $out/bin/$f \
+        --prefix PATH : "${binPath}" \
+        --set PERL5LIB $PERL5LIB
+    done
+  '';
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/carnager/clerk.git";

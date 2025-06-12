@@ -15,7 +15,6 @@
   qtsystems,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-terminal-app";
   version = "2.0.5";
@@ -76,11 +75,13 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Terminal app for desktop and mobile devices";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-terminal-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-terminal-app/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
     mainProgram = "lomiri-terminal-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

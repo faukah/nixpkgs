@@ -12,7 +12,6 @@
   xorgproto,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsg";
   version = "4.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1756y01rkvd3f1pkj88jqh83fqcfl2fy0c48mcq53pjzln9ycv8c";
   };
 
-  patches = [ ./wxgtk-3.2.patch ];
+  patches = [./wxgtk-3.2.patch];
 
   # use correct wx-config for cross-compiling
   postPatch = ''
@@ -31,9 +30,9 @@ stdenv.mkDerivation rec {
       --replace-fail 'wx-config' "${lib.getExe' wxGTK32 "wx-config"}"
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Cellular automata engine tuned towards the likes of Falling Sand";
     mainProgram = "fsg";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

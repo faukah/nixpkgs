@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dosage";
   version = "3.0";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     responses
   ];
 
-  build-system = [ python3Packages.setuptools-scm ];
+  build-system = [python3Packages.setuptools-scm];
 
   dependencies = with python3Packages; [
     colorama
@@ -45,6 +44,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "dosage";
     homepage = "https://dosage.rocks/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ toonn ];
+    maintainers = with lib.maintainers; [toonn];
   };
 }

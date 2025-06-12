@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.couchdb;
   opt = options.services.couchdb;
 
@@ -30,7 +29,7 @@ let
   };
   appConfig = lib.recursiveUpdate (lib.recursiveUpdate baseConfig adminConfig) cfg.extraConfig;
 
-  optionsConfigFile = pkgs.writeText "couchdb.ini" (lib.generators.toINI { } appConfig);
+  optionsConfigFile = pkgs.writeText "couchdb.ini" (lib.generators.toINI {} appConfig);
 
   # we are actually specifying 5 configuration files:
   # 1. the preinstalled default.ini
@@ -43,17 +42,16 @@ let
       optionsConfigFile
     ]
     ++ cfg.extraConfigFiles
-    ++ [ cfg.configFile ];
+    ++ [cfg.configFile];
   executable = "${cfg.package}/bin/couchdb";
-in
-{
+in {
   ###### interface
 
   options = {
     services.couchdb = {
       enable = lib.mkEnableOption "CouchDB Server";
 
-      package = lib.mkPackageOption pkgs "couchdb3" { };
+      package = lib.mkPackageOption pkgs "couchdb3" {};
 
       adminUser = lib.mkOption {
         type = lib.types.str;
@@ -149,12 +147,12 @@ in
 
       extraConfig = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         description = "Extra configuration options for CouchDB";
       };
       extraConfigFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           Extra configuration files. Overrides any other configuration. You can use this to setup the Admin user without putting the password in your nix store.
         '';
@@ -183,7 +181,7 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${dirOf cfg.uriFile}' - ${cfg.user} ${cfg.group} - -"
@@ -194,7 +192,7 @@ in
 
     systemd.services.couchdb = {
       description = "CouchDB Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         touch ${cfg.configFile}

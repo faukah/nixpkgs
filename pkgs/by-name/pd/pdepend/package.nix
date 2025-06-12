@@ -4,7 +4,6 @@
   lib,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "pdepend";
   version = "2.16.2";
@@ -19,7 +18,7 @@ php.buildComposerProject2 (finalAttrs: {
   composerLock = ./composer.lock;
   vendorHash = "sha256-szKVZhWcd8p4307irNqgSAK2+hl8AW+gCPyf0EEco8A=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
@@ -35,6 +34,6 @@ php.buildComposerProject2 (finalAttrs: {
       maintainability.
     ";
     mainProgram = "pdepend";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

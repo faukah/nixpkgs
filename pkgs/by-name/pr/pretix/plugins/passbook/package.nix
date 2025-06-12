@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   replaceVars,
-
   # build-system
   pretix-plugin-build,
   setuptools,
-
   # runtime
   openssl,
-
   # dependencies
   googlemaps,
   wallet-py3k,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-passbook";
   version = "1.13.3";
@@ -54,6 +50,6 @@ buildPythonPackage rec {
     description = "Support for Apple Wallet/Passbook files in pretix";
     homepage = "https://github.com/pretix/pretix-passbook";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

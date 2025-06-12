@@ -18,7 +18,6 @@
   bluez,
   sigrok-firmware-fx2lafw,
 }:
-
 stdenv.mkDerivation {
   pname = "libsigrok";
   version = "0.5.2-unstable-2024-10-20";

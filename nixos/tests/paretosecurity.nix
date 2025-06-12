@@ -1,34 +1,30 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "paretosecurity";
-  meta.maintainers = [ lib.maintainers.zupo ];
+  meta.maintainers = [lib.maintainers.zupo];
 
-  nodes.terminal =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  nodes.terminal = {pkgs, ...}: {
+    imports = [./common/user-account.nix];
 
-      networking.firewall.enable = true;
-      services.paretosecurity = {
-        enable = true;
+    networking.firewall.enable = true;
+    services.paretosecurity = {
+      enable = true;
 
-        # Create a patched version of the package that points to the local dashboard
-        # for easier testing
-        package = pkgs.paretosecurity.overrideAttrs (oldAttrs: {
-          postPatch =
-            oldAttrs.postPatch or ""
-            + ''
-              substituteInPlace team/report.go \
-                --replace-warn 'const reportURL = "https://dash.paretosecurity.com"' \
-                               'const reportURL = "http://dashboard"'
-            '';
-        });
-      };
-
+      # Create a patched version of the package that points to the local dashboard
+      # for easier testing
+      package = pkgs.paretosecurity.overrideAttrs (oldAttrs: {
+        postPatch =
+          oldAttrs.postPatch or ""
+          + ''
+            substituteInPlace team/report.go \
+              --replace-warn 'const reportURL = "https://dash.paretosecurity.com"' \
+                             'const reportURL = "http://dashboard"'
+          '';
+      });
     };
+  };
 
   nodes.dashboard = {
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = [80];
 
     services.nginx = {
       enable = true;
@@ -41,31 +37,28 @@
     };
   };
 
-  nodes.xfce =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  nodes.xfce = {pkgs, ...}: {
+    imports = [./common/user-account.nix];
 
-      services.paretosecurity.enable = true;
+    services.paretosecurity.enable = true;
 
-      services.xserver.enable = true;
-      services.xserver.displayManager.lightdm.enable = true;
-      services.xserver.desktopManager.xfce.enable = true;
+    services.xserver.enable = true;
+    services.xserver.displayManager.lightdm.enable = true;
+    services.xserver.desktopManager.xfce.enable = true;
 
-      services.displayManager.autoLogin = {
-        enable = true;
-        user = "alice";
-
-      };
-
-      virtualisation.resolution = {
-        x = 640;
-        y = 480;
-      };
-
-      environment.systemPackages = [ pkgs.xdotool ];
-      environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
+    services.displayManager.autoLogin = {
+      enable = true;
+      user = "alice";
     };
+
+    virtualisation.resolution = {
+      x = 640;
+      y = 480;
+    };
+
+    environment.systemPackages = [pkgs.xdotool];
+    environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
+  };
 
   enableOCR = true;
 

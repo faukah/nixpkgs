@@ -8,7 +8,6 @@
   qcheck-core,
   mdx,
 }:
-
 buildDunePackage {
   pname = "containers-data";
 
@@ -16,17 +15,19 @@ buildDunePackage {
 
   doCheck = containers.doCheck && ocaml.meta.branch != "5.0";
 
-  buildInputs = [ dune-configurator ];
-  nativeCheckInputs = [ mdx.bin ];
+  buildInputs = [dune-configurator];
+  nativeCheckInputs = [mdx.bin];
   checkInputs = [
     gen
     iter
     qcheck-core
   ];
 
-  propagatedBuildInputs = [ containers ];
+  propagatedBuildInputs = [containers];
 
-  meta = containers.meta // {
-    description = "Set of advanced datatypes for containers";
-  };
+  meta =
+    containers.meta
+    // {
+      description = "Set of advanced datatypes for containers";
+    };
 }

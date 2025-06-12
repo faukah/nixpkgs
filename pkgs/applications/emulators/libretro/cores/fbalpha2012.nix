@@ -19,24 +19,22 @@ mkLibretroCore rec {
   sourceRoot = "${src.name}/svn-current/trunk";
 
   # unvendor zlib and broken minizip code
-  postPatch =
-    let
-      minizip-src = runCommand "minizip-src" { } ''
-        mkdir $out
-        unpackFile ${zlib.src}
-        cp */contrib/minizip/{unzip.*,ioapi.*,crypt.h} $out/
-      '';
-    in
-    ''
-      substituteInPlace ${makefile} \
-        --replace-fail '-I$(FBA_LIB_DIR)/zlib' ""
-
-      cp ${minizip-src}/* src/burner
+  postPatch = let
+    minizip-src = runCommand "minizip-src" {} ''
+      mkdir $out
+      unpackFile ${zlib.src}
+      cp */contrib/minizip/{unzip.*,ioapi.*,crypt.h} $out/
     '';
+  in ''
+    substituteInPlace ${makefile} \
+      --replace-fail '-I$(FBA_LIB_DIR)/zlib' ""
 
-  buildInputs = [ zlib ];
+    cp ${minizip-src}/* src/burner
+  '';
 
-  makeFlags = [ "EXTERNAL_ZLIB=1" ];
+  buildInputs = [zlib];
+
+  makeFlags = ["EXTERNAL_ZLIB=1"];
 
   makefile = "makefile.libretro";
 

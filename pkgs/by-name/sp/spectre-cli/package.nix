@@ -9,7 +9,6 @@
   libxml2,
   jq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spectre-cli";
   version = "unstable-2022-02-05";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Stateless cryptographic identity algorithm";
     homepage = "https://spectre.app";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ emmabastas ];
+    maintainers = with maintainers; [emmabastas];
     mainProgram = "spectre";
     platforms = platforms.all;
   };

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pid1";
   version = "0.1.3";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Signal handling and zombie reaping for PID1 process";
     homepage = "https://github.com/fpco/pid1-rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
     mainProgram = "pid1";
   };
 }

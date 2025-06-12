@@ -6,7 +6,6 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liblogging";
   version = "1.0.6";
@@ -16,13 +15,17 @@ stdenv.mkDerivation rec {
     sha256 = "14xz00mq07qmcgprlj5b2r21ljgpa4sbwmpr6jm2wrf8wms6331k";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = lib.optionals withSystemd [ systemd ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = lib.optionals withSystemd [systemd];
 
   configureFlags = [
     "--enable-rfc3195"
     "--enable-stdlog"
-    (if withSystemd then "--enable-journal" else "--disable-journal")
+    (
+      if withSystemd
+      then "--enable-journal"
+      else "--disable-journal"
+    )
     "--enable-man-pages"
   ];
 

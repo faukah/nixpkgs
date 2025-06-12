@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyeconet";
   version = "0.1.28";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-xGjQlOiA2SzSuhdD/jUYYtL8EiYj4jaIp85JqcGiaUI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "paho-mqtt" ];
+  pythonRelaxDeps = ["paho-mqtt"];
 
   dependencies = [
     paho-mqtt
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # Tests require credentials
   doCheck = false;
 
-  pythonImportsCheck = [ "pyeconet" ];
+  pythonImportsCheck = ["pyeconet"];
 
   meta = {
     description = "Python interface to the EcoNet API";
     homepage = "https://github.com/w1ll1am23/pyeconet";
     changelog = "https://github.com/w1ll1am23/pyeconet/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

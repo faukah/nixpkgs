@@ -2,8 +2,8 @@
   makeBinaryWrapper,
   makeSetupHook,
 }:
-
 makeSetupHook {
   name = "wrapGNUstepAppsHook";
-  propagatedBuildInputs = [ makeBinaryWrapper ];
-} ./wrapGNUstepAppsHook.sh
+  propagatedBuildInputs = [makeBinaryWrapper];
+}
+./wrapGNUstepAppsHook.sh

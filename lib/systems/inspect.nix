@@ -1,7 +1,6 @@
-{ lib }:
-
-let
-  inherit (lib)
+{lib}: let
+  inherit
+    (lib)
     any
     attrValues
     concatMap
@@ -16,7 +15,8 @@ let
 
   inherit (lib.strings) toJSON;
 
-  inherit (lib.systems.parse)
+  inherit
+    (lib.systems.parse)
     kernels
     kernelFamilies
     significantBytes
@@ -24,10 +24,8 @@ let
     execFormats
     ;
 
-  abis = mapAttrs (_: abi: removeAttrs abi [ "assertions" ]) lib.systems.parse.abis;
-in
-
-rec {
+  abis = mapAttrs (_: abi: removeAttrs abi ["assertions"]) lib.systems.parse.abis;
+in rec {
   # these patterns are to be matched against {host,build,target}Platform.parsed
   patterns = rec {
     # The patterns below are lists in sum-of-products form.
@@ -95,9 +93,8 @@ rec {
       };
     };
     isArmv7 = map (
-      { arch, ... }:
-      {
-        cpu = { inherit arch; };
+      {arch, ...}: {
+        cpu = {inherit arch;};
       }
     ) (filter (cpu: hasPrefix "armv7" cpu.arch or "") (attrValues cpuTypes));
     isAarch64 = {
@@ -265,16 +262,16 @@ rec {
         }
       ]
       ++ map
-        (a: {
-          abi = {
-            abi = a;
-          };
-        })
-        [
-          "n32"
-          "ilp32"
-          "x32"
-        ];
+      (a: {
+        abi = {
+          abi = a;
+        };
+      })
+      [
+        "n32"
+        "ilp32"
+        "x32"
+      ];
     isBigEndian = {
       cpu = {
         significantByte = significantBytes.bigEndian;
@@ -288,12 +285,12 @@ rec {
 
     isBSD = {
       kernel = {
-        families = { inherit (kernelFamilies) bsd; };
+        families = {inherit (kernelFamilies) bsd;};
       };
     };
     isDarwin = {
       kernel = {
-        families = { inherit (kernelFamilies) darwin; };
+        families = {inherit (kernelFamilies) darwin;};
       };
     };
     isUnix = [
@@ -356,12 +353,11 @@ rec {
     };
 
     isAndroid = [
-      { abi = abis.android; }
-      { abi = abis.androideabi; }
+      {abi = abis.android;}
+      {abi = abis.androideabi;}
     ];
-    isGnu =
-      with abis;
-      map (a: { abi = a; }) [
+    isGnu = with abis;
+      map (a: {abi = a;}) [
         gnuabi64
         gnuabin32
         gnu
@@ -370,18 +366,16 @@ rec {
         gnuabielfv1
         gnuabielfv2
       ];
-    isMusl =
-      with abis;
-      map (a: { abi = a; }) [
+    isMusl = with abis;
+      map (a: {abi = a;}) [
         musl
         musleabi
         musleabihf
         muslabin32
         muslabi64
       ];
-    isUClibc =
-      with abis;
-      map (a: { abi = a; }) [
+    isUClibc = with abis;
+      map (a: {abi = a;}) [
         uclibc
         uclibceabi
         uclibceabihf
@@ -433,38 +427,38 @@ rec {
 
   # given two patterns, return a pattern which is their logical AND.
   # Since a pattern is a list-of-disjuncts, this needs to
-  patternLogicalAnd =
-    pat1_: pat2_:
-    let
-      # patterns can be either a list or a (bare) singleton; turn
-      # them into singletons for uniform handling
-      pat1 = toList pat1_;
-      pat2 = toList pat2_;
-    in
+  patternLogicalAnd = pat1_: pat2_: let
+    # patterns can be either a list or a (bare) singleton; turn
+    # them into singletons for uniform handling
+    pat1 = toList pat1_;
+    pat2 = toList pat2_;
+  in
     concatMap (
       attr1:
-      map (
-        attr2:
-        recursiveUpdateUntil (
-          path: subattr1: subattr2:
-          if (builtins.intersectAttrs subattr1 subattr2) == { } || subattr1 == subattr2 then
-            true
-          else
-            throw ''
-              pattern conflict at path ${toString path}:
-                ${toJSON subattr1}
-                ${toJSON subattr2}
-            ''
-        ) attr1 attr2
-      ) pat2
-    ) pat1;
+        map (
+          attr2:
+            recursiveUpdateUntil (
+              path: subattr1: subattr2:
+                if (builtins.intersectAttrs subattr1 subattr2) == {} || subattr1 == subattr2
+                then true
+                else
+                  throw ''
+                    pattern conflict at path ${toString path}:
+                      ${toJSON subattr1}
+                      ${toJSON subattr2}
+                  ''
+            )
+            attr1
+            attr2
+        )
+        pat2
+    )
+    pat1;
 
-  matchAnyAttrs =
-    patterns:
-    if isList patterns then
-      attrs: any (pattern: matchAttrs pattern attrs) patterns
-    else
-      matchAttrs patterns;
+  matchAnyAttrs = patterns:
+    if isList patterns
+    then attrs: any (pattern: matchAttrs pattern attrs) patterns
+    else matchAttrs patterns;
 
   predicates = mapAttrs (_: matchAnyAttrs) patterns;
 
@@ -473,7 +467,7 @@ rec {
   # that `lib.meta.availableOn` can distinguish them from the patterns which
   # apply only to the `parsed` field.
 
-  platformPatterns = mapAttrs (_: p: { parsed = { }; } // p) {
+  platformPatterns = mapAttrs (_: p: {parsed = {};} // p) {
     isStatic = {
       isStatic = true;
     };

@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       unlicense
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     platforms = lib.platforms.all;
   };
 })

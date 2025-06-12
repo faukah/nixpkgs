@@ -1,10 +1,8 @@
-{ ... }:
-let
+{...}: let
   machineName = "machine";
   settingName = "prefix";
   settingValue = "/some/path";
-in
-{
+in {
   name = "npmrc";
 
   nodes."${machineName}".programs.npm = {

@@ -16,7 +16,6 @@
   gst_all_1,
   clapper-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   pname = "televido";
   version = "0.5.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/d-k-bo/televido";
     license = lib.licenses.gpl3;
     mainProgram = "televido";
-    maintainers = with lib.maintainers; [ seineeloquenz ];
+    maintainers = with lib.maintainers; [seineeloquenz];
     platforms = lib.platforms.linux;
   };
 }

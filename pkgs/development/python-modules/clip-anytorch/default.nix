@@ -12,7 +12,6 @@
   torchvision,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "clip-anytorch";
   version = "2.6.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ftfy
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  pythonImportsCheck = [ "clip" ];
+  pythonImportsCheck = ["clip"];
 
   # All tests require network access
   doCheck = false;
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     description = "Contrastive Language-Image Pretraining";
     homepage = "https://github.com/rom1504/CLIP";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

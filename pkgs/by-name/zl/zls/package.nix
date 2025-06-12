@@ -5,7 +5,6 @@
   fetchFromGitHub,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zls";
   version = "0.14.0";
@@ -18,10 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-A5Mn+mfIefOsX+eNBRHrDVkqFDVrD3iXDNsUL4TPhKo=";
   };
 
-  nativeBuildInputs = [ zig_0_14.hook ];
+  nativeBuildInputs = [zig_0_14.hook];
 
   postPatch = ''
-    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
+    ln -s ${callPackage ./deps.nix {}} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   meta = {

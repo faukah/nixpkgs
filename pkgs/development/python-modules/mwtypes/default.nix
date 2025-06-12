@@ -7,7 +7,6 @@
   fetchpatch2,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mwtypes";
   version = "0.4.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ jsonable ];
+  dependencies = [jsonable];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Even with 7z included, this test does not pass
-  disabledTests = [ "test_open_file" ];
+  disabledTests = ["test_open_file"];
 
-  pythonImportsCheck = [ "mwtypes" ];
+  pythonImportsCheck = ["mwtypes"];
 
   meta = {
     description = "Set of classes for working with MediaWiki data types";
     homepage = "https://github.com/mediawiki-utilities/python-mwtypes";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

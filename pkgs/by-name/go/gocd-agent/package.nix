@@ -5,7 +5,6 @@
   unzip,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gocd-agent";
   version = "23.1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L2MOkbVHoQu99lKrbnsNkhuU0SZ8VANSK72GZrGLbiQ=";
   };
 
-  passthru.tests = { inherit (nixosTests) gocd-agent; };
+  passthru.tests = {inherit (nixosTests) gocd-agent;};
 
   meta = with lib; {
     description = "Continuous delivery server specializing in advanced workflow modeling and visualization";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildCommand = "
     unzip $src -d $out

@@ -12,7 +12,6 @@
   cryptography,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lib50";
   version = "3.0.12";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-Fc4Hb1AbSeetK3gH1/dRCUfHGDlMzfzgF1cnK3Se01U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     "jellyfish"
   ];
 
-  pythonImportsCheck = [ "lib50" ];
+  pythonImportsCheck = ["lib50"];
 
   # latest GitHub release is several years old and doesn't include
   # tests and neither does pypi version include tests
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cs50/lib50";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

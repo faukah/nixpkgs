@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.duckdns;
   duckdns = pkgs.writeShellScriptBin "duckdns" ''
     DRESPONSE=$(curl -sS --max-time 60 --no-progress-meter -k -K- <<< "url = \"https://www.duckdns.org/update?verbose=true&domains=$DUCKDNS_DOMAINS&token=$DUCKDNS_TOKEN&ip=\"")
@@ -28,8 +27,7 @@ let
         exit 1
     fi
   '';
-in
-{
+in {
   options.services.duckdns = {
     enable = lib.mkEnableOption "DuckDNS Dynamic DNS Client";
     tokenFile = lib.mkOption {
@@ -44,7 +42,7 @@ in
     domains = lib.mkOption {
       default = null;
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
-      example = [ "examplehost" ];
+      example = ["examplehost"];
       description = ''
         The domain(s) to update in DuckDNS
         (without the .duckdns.org suffix)
@@ -68,7 +66,6 @@ in
         (without the .duckdns.org suffix)
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -82,17 +79,17 @@ in
         message = "services.duckdns.domains and services.duckdns.domainsFile can't both be defined at the same time";
       }
       {
-        assertion = (cfg.tokenFile != null);
+        assertion = cfg.tokenFile != null;
         message = "services.duckdns.tokenFile has to be defined";
       }
     ];
 
-    environment.systemPackages = [ duckdns ];
+    environment.systemPackages = [duckdns];
 
     systemd.services.duckdns = {
       description = "DuckDNS Dynamic DNS Client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       startAt = "*:0/5";
       path = [
         pkgs.gnused
@@ -103,9 +100,11 @@ in
       ];
       serviceConfig = {
         Type = "simple";
-        LoadCredential = [
-          "DUCKDNS_TOKEN_FILE:${cfg.tokenFile}"
-        ] ++ lib.optionals (cfg.domainsFile != null) [ "DUCKDNS_DOMAINS_FILE:${cfg.domainsFile}" ];
+        LoadCredential =
+          [
+            "DUCKDNS_TOKEN_FILE:${cfg.tokenFile}"
+          ]
+          ++ lib.optionals (cfg.domainsFile != null) ["DUCKDNS_DOMAINS_FILE:${cfg.domainsFile}"];
         DynamicUser = true;
       };
       script = ''
@@ -121,5 +120,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ notthebee ];
+  meta.maintainers = with lib.maintainers; [notthebee];
 }

@@ -6,7 +6,6 @@
   kernelModuleMakeFlags,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qc71_laptop";
   version = "0-unstable-2025-01-07";
@@ -20,10 +19,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "VERSION=${version}"
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "VERSION=${version}"
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -32,14 +33,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = with lib; {
     description = "Linux driver for QC71 laptop";
     homepage = "https://github.com/pobrn/qc71_laptop/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ aacebedo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [aacebedo];
+    platforms = ["x86_64-linux"];
   };
 }

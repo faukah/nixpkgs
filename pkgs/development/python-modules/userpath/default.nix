@@ -6,7 +6,6 @@
   click,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "userpath";
   version = "1.9.2";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-bFIojasGklfMgxhG0V1IEzUiRV1Gd+5pqXgfEdvv2BU=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   # Test suite is difficult to emulate in sandbox due to shell manipulation
   doCheck = false;
 
-  pythonImportsCheck = [ "userpath" ];
+  pythonImportsCheck = ["userpath"];
 
   meta = with lib; {
     description = "Cross-platform tool for adding locations to the user PATH";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ yshym ];
+    maintainers = with maintainers; [yshym];
   };
 }

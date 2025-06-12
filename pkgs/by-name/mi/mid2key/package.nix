@@ -8,7 +8,6 @@
   libXtst,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mid2key";
   version = "1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "http://code.google.com/p/mid2key/";
     description = "Simple tool which maps midi notes to simulated keystrokes";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "mid2key";
   };

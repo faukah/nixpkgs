@@ -6,9 +6,7 @@
   cmake,
   ncurses,
   asio,
-}:
-
-let
+}: let
   version = "unstable-2024-03-03";
   src = fetchFromGitHub {
     owner = "lschulz";
@@ -25,40 +23,39 @@ let
     }
   );
 in
+  stdenv.mkDerivation {
+    name = "pan-bindings";
 
-stdenv.mkDerivation {
-  name = "pan-bindings";
+    inherit src version;
 
-  inherit src version;
+    cmakeFlags = [
+      "-DBUILD_SHARED_LIBS=1"
+      "-DBUILD_EXAMPLES=0"
+    ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=1"
-    "-DBUILD_EXAMPLES=0"
-  ];
+    patchPhase = ''
+      runHook prePatch
+      export HOME=$TMP
+      cp -r --reflink=auto ${goDeps.goModules} go/vendor
+      runHook postPatch
+    '';
 
-  patchPhase = ''
-    runHook prePatch
-    export HOME=$TMP
-    cp -r --reflink=auto ${goDeps.goModules} go/vendor
-    runHook postPatch
-  '';
+    buildInputs = [
+      ncurses
+      asio
+    ];
 
-  buildInputs = [
-    ncurses
-    asio
-  ];
+    nativeBuildInputs = [
+      cmake
+      goDeps.go
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    goDeps.go
-  ];
-
-  meta = with lib; {
-    description = "SCION PAN Bindings for C, C++, and Python";
-    homepage = "https://github.com/lschulz/pan-bindings";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ matthewcroughan ];
-    mainProgram = "pan-bindings";
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "SCION PAN Bindings for C, C++, and Python";
+      homepage = "https://github.com/lschulz/pan-bindings";
+      license = licenses.asl20;
+      maintainers = with maintainers; [matthewcroughan];
+      mainProgram = "pan-bindings";
+      platforms = platforms.all;
+    };
+  }

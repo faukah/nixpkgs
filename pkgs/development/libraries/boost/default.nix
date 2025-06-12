@@ -3,23 +3,19 @@
   callPackage,
   boost-build,
   fetchurl,
-}:
-
-let
-  makeBoost =
-    file:
+}: let
+  makeBoost = file:
     lib.fix (
       self:
-      callPackage file {
-        boost-build = boost-build.override {
-          # useBoost allows us passing in src and version from
-          # the derivation we are building to get a matching b2 version.
-          useBoost = self;
-        };
-      }
+        callPackage file {
+          boost-build = boost-build.override {
+            # useBoost allows us passing in src and version from
+            # the derivation we are building to get a matching b2 version.
+            useBoost = self;
+          };
+        }
     );
-in
-{
+in {
   boost177 = makeBoost ./1.77.nix;
   boost178 = makeBoost ./1.78.nix;
   boost179 = makeBoost ./1.79.nix;

@@ -6,7 +6,6 @@
   python3,
   stdenv,
 }:
-
 buildNpmPackage rec {
   pname = "semantic-release";
   version = "24.2.5";
@@ -22,9 +21,11 @@ buildNpmPackage rec {
 
   dontNpmBuild = true;
 
-  nativeBuildInputs = [
-    python3
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin cctools;
+  nativeBuildInputs =
+    [
+      python3
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin cctools;
 
   # Fixes `semantic-release --version` output
   postPatch = ''
@@ -38,6 +39,6 @@ buildNpmPackage rec {
     mainProgram = "semantic-release";
     homepage = "https://semantic-release.gitbook.io/semantic-release/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sestrella ];
+    maintainers = [lib.maintainers.sestrella];
   };
 }

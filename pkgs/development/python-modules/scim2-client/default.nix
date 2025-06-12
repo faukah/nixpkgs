@@ -14,7 +14,6 @@
   werkzeug,
   cacert,
 }:
-
 buildPythonPackage rec {
   pname = "scim2-client";
   version = "0.5.1";
@@ -29,19 +28,21 @@ buildPythonPackage rec {
     hash = "sha256-g2RR+Ruvjw88cGHcwEPoktTmB8VcWAPnea3BErS8JyI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ scim2-models ];
+  dependencies = [scim2-models];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    portpicker
-    pytest-httpserver
-    pytest-asyncio
-    scim2-server
-    werkzeug
-    cacert
-  ] ++ optional-dependencies.httpx;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      portpicker
+      pytest-httpserver
+      pytest-asyncio
+      scim2-server
+      werkzeug
+      cacert
+    ]
+    ++ optional-dependencies.httpx;
 
   # Werkzeug returns 500, didn't deem it worth it to investigate
   disabledTests = [
@@ -49,11 +50,11 @@ buildPythonPackage rec {
     "test_query_dont_check_request_payload"
   ];
 
-  pythonImportsCheck = [ "scim2_client" ];
+  pythonImportsCheck = ["scim2_client"];
 
   optional-dependencies = {
-    httpx = [ httpx ];
-    werkzeug = [ werkzeug ];
+    httpx = [httpx];
+    werkzeug = [werkzeug];
   };
 
   meta = with lib; {
@@ -61,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://scim2-client.readthedocs.io/";
     changelog = "https://github.com/python-scim/scim2-client/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

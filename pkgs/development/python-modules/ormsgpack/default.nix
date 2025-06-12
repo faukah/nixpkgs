@@ -6,17 +6,14 @@
   rustPlatform,
   rustc,
   pyinstaller,
-
   # dependencies
   msgpack,
-
   # testing
   pydantic,
   pytestCheckHook,
   python-dateutil,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "ormsgpack";
   version = "1.9.1";
@@ -71,6 +68,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.mongodb;
 
   mongodb = cfg.package;
 
   mongoshExe = lib.getExe cfg.mongoshPackage;
 
-  mongoCnf =
-    cfg:
+  mongoCnf = cfg:
     pkgs.writeText "mongodb.conf" ''
       net.bindIp: ${cfg.bind_ip}
       ${lib.optionalString cfg.quiet "systemLog.quiet: true"}
@@ -23,10 +20,7 @@ let
       ${lib.optionalString (cfg.replSetName != "") "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     '';
-
-in
-
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -38,16 +32,14 @@ in
   ###### interface
 
   options = {
-
     services.mongodb = {
-
       enable = lib.mkEnableOption "the MongoDB server";
 
       package = lib.mkPackageOption pkgs "mongodb" {
         example = "pkgs.mongodb-ce";
       };
 
-      mongoshPackage = lib.mkPackageOption pkgs "mongosh" { };
+      mongoshPackage = lib.mkPackageOption pkgs "mongosh" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -117,7 +109,6 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
@@ -136,13 +127,13 @@ in
       group = "mongodb";
       description = "MongoDB server user";
     };
-    users.groups.mongodb = lib.mkIf (cfg.user == "mongodb") { };
+    users.groups.mongodb = lib.mkIf (cfg.user == "mongodb") {};
 
     systemd.services.mongodb = {
       description = "MongoDB server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${mongodb}/bin/mongod --config ${mongoCnf cfg} --fork --pidfilepath ${cfg.pidFile}";
@@ -153,13 +144,14 @@ in
         PermissionsStartOnly = true;
       };
 
-      preStart =
-        let
-          cfg_ = cfg // {
+      preStart = let
+        cfg_ =
+          cfg
+          // {
             enableAuth = false;
             bind_ip = "127.0.0.1";
           };
-        in
+      in
         ''
           rm ${cfg.dbpath}/mongod.lock || true
           if ! test -e ${cfg.dbpath}; then
@@ -199,14 +191,12 @@ in
       postStart = ''
         if test -e "${cfg.dbpath}/.first_startup"; then
           ${lib.optionalString (cfg.initialScript != null) ''
-            initialRootPassword=$(<${cfg.initialRootPasswordFile})
-            ${mongoshExe} ${lib.optionalString (cfg.enableAuth) "-u root -p $initialRootPassword"} admin "${cfg.initialScript}"
-          ''}
+          initialRootPassword=$(<${cfg.initialRootPasswordFile})
+          ${mongoshExe} ${lib.optionalString (cfg.enableAuth) "-u root -p $initialRootPassword"} admin "${cfg.initialScript}"
+        ''}
           rm -f "${cfg.dbpath}/.first_startup"
         fi
       '';
     };
-
   };
-
 }

@@ -7,7 +7,6 @@
   makeWrapper,
   pax,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bogofilter";
   version = "1.2.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-MkihNzv/VSxQCDStvqS2yu4EIkUWrlgfslpMam3uieo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     flex
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # needs "y" tool
 
   postInstall = ''
-    wrapProgram "$out/bin/bf_tar" --prefix PATH : "${lib.makeBinPath [ pax ]}"
+    wrapProgram "$out/bin/bf_tar" --prefix PATH : "${lib.makeBinPath [pax]}"
   '';
 
   meta = {

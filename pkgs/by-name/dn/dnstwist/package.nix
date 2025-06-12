@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dnstwist";
   version = "20250130";
@@ -40,8 +39,8 @@ python3.pkgs.buildPythonApplication rec {
     description = "Domain name permutation engine for detecting homograph phishing attacks";
     homepage = "https://github.com/elceef/dnstwist";
     changelog = "https://github.com/elceef/dnstwist/releases/tag/${version}";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "dnstwist";
   };
 }

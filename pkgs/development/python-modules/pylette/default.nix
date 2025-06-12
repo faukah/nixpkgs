@@ -63,6 +63,6 @@ buildPythonPackage rec {
     description = "Python library for extracting color palettes from images";
     homepage = "https://qtiptip.github.io/Pylette/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DataHearth ];
+    maintainers = with lib.maintainers; [DataHearth];
   };
 }

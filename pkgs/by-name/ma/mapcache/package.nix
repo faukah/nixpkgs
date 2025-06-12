@@ -23,7 +23,6 @@
   sqlite,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapcache";
   version = "1.14.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "MapServer";
     repo = "mapcache";
-    tag = "rel-${lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version}";
+    tag = "rel-${lib.replaceStrings ["."] ["-"] finalAttrs.version}";
     hash = "sha256-AwdZdOEq9SZ5VzuBllg4U1gdVxZ9IVdqiDrn3QuRdCk=";
   };
 
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mapserver.org/mapcache/";
     changelog = "https://www.mapserver.org/development/changelog/mapcache/";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     platforms = lib.platforms.unix;
   };
 })

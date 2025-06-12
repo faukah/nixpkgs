@@ -7,7 +7,6 @@
   snappy,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-snappy";
   version = "0.7.3";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ snappy ];
+  buildInputs = [snappy];
 
-  dependencies = [ cramjam ];
+  dependencies = [cramjam];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "Python library for the snappy compression library from Google";
     homepage = "https://github.com/intake/python-snappy";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

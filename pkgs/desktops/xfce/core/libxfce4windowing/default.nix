@@ -19,7 +19,6 @@
   buildPackages,
   gobject-introspection,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "libxfce4windowing";
@@ -55,6 +54,6 @@ mkXfceDerivation {
   meta = {
     description = "Windowing concept abstraction library for X11 and Wayland";
     license = lib.licenses.lgpl21Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 }

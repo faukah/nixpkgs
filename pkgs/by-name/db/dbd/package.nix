@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "dbd";
   version = "1.50-unstable-2016-01-04";
@@ -20,14 +19,14 @@ stdenv.mkDerivation {
       "PREFIX=${placeholder "out"}"
       "CC=${stdenv.cc.targetPrefix}cc"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "darwin" ]
-    ++ lib.optionals (stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isDarwin) [ "unix" ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["darwin"]
+    ++ lib.optionals (stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isDarwin) ["unix"];
 
   meta = with lib; {
     description = "Netcat-clone, designed to be portable and offer strong encryption";
     mainProgram = "dbd";
     homepage = "https://github.com/gitdurandal/dbd";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

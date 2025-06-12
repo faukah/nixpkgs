@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "packvers";
   version = "21.5";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-nCSYL0g7mXi9pGFt24pOXbmmYsaRuB+rRZrygf8DTLE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyparsing ];
+  dependencies = [pyparsing];
 
   nativeCheckInputs = [
     pretend
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "packvers" ];
+  pythonImportsCheck = ["packvers"];
 
   disabledTests = [
     # Failed: DID NOT RAISE <class 'packvers.requirements.InvalidRequirement'>
@@ -47,6 +46,6 @@ buildPythonPackage rec {
       asl20 # and
       bsd2
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

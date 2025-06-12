@@ -5,8 +5,7 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }:
-  let
+  }: let
     testImageEnv = pkgs.buildEnv {
       name = "k3s-pause-image-env";
       paths = with pkgs; [
@@ -24,13 +23,13 @@ import ../make-test-python.nix (
     # pack the test helm chart as a .tgz archive
     package =
       pkgs.runCommand "k3s-test-chart.tgz"
-        {
-          nativeBuildInputs = [ pkgs.kubernetes-helm ];
-        }
-        ''
-          helm package ${./k3s-test-chart}
-          mv ./*.tgz $out
-        '';
+      {
+        nativeBuildInputs = [pkgs.kubernetes-helm];
+      }
+      ''
+        helm package ${./k3s-test-chart}
+        mv ./*.tgz $out
+      '';
     # The common Helm chart that is used in this test
     testChart = {
       inherit package;
@@ -42,45 +41,46 @@ import ../make-test-python.nix (
         };
       };
     };
-  in
-  {
+  in {
     name = "${k3s.name}-auto-deploy-helm";
     meta.maintainers = lib.teams.k3s.members;
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        # k3s uses enough resources the default vm fails.
-        virtualisation = {
-          memorySize = 1536;
-          diskSize = 4096;
-        };
-        environment.systemPackages = [ pkgs.yq-go ];
-        services.k3s = {
-          enable = true;
-          package = k3s;
-          # Slightly reduce resource usage
-          extraFlags = [
-            "--disable coredns"
-            "--disable local-storage"
-            "--disable metrics-server"
-            "--disable servicelb"
-            "--disable traefik"
-          ];
-          images = [
-            # Provides the k3s Helm controller
-            k3s.airgapImages
-            testImage
-          ];
-          autoDeployCharts = {
-            # regular test chart that should get installed
-            hello = testChart;
-            # disabled chart that should not get installed
-            disabled = testChart // {
+    nodes.machine = {pkgs, ...}: {
+      # k3s uses enough resources the default vm fails.
+      virtualisation = {
+        memorySize = 1536;
+        diskSize = 4096;
+      };
+      environment.systemPackages = [pkgs.yq-go];
+      services.k3s = {
+        enable = true;
+        package = k3s;
+        # Slightly reduce resource usage
+        extraFlags = [
+          "--disable coredns"
+          "--disable local-storage"
+          "--disable metrics-server"
+          "--disable servicelb"
+          "--disable traefik"
+        ];
+        images = [
+          # Provides the k3s Helm controller
+          k3s.airgapImages
+          testImage
+        ];
+        autoDeployCharts = {
+          # regular test chart that should get installed
+          hello = testChart;
+          # disabled chart that should not get installed
+          disabled =
+            testChart
+            // {
               enable = false;
             };
-            # advanced chart that should get installed in the "test" namespace with a custom
-            # timeout and overridden values
-            advanced = testChart // {
+          # advanced chart that should get installed in the "test" namespace with a custom
+          # timeout and overridden values
+          advanced =
+            testChart
+            // {
               # create the "test" namespace via extraDeploy for testing
               extraDeploy = [
                 {
@@ -105,11 +105,12 @@ import ../make-test-python.nix (
                 };
               };
             };
-          };
         };
       };
+    };
 
-    testScript = # python
+    testScript =
+      # python
       ''
         import json
 

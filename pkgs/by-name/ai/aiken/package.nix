@@ -5,7 +5,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aiken";
   version = "1.1.17";
@@ -20,15 +19,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Ob4UuBLD6HFbghv4E2XMj+xVeUSFtc9qPUNuUDgZeQA=";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "Modern smart contract platform for Cardano";
     homepage = "https://aiken-lang.org";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     mainProgram = "aiken";
   };
 }

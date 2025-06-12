@@ -5,7 +5,6 @@
   moreutils,
   pandoc,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vscode-pandoc";
@@ -25,6 +24,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     homepage = "https://github.com/ChrisChinchilla/vscode-pandoc#readme";
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

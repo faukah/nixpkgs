@@ -8,7 +8,7 @@
 mkDerivation {
   pname = "plasma-firewall";
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     extra-cmake-modules

@@ -9,7 +9,7 @@
   clang,
   python3,
   tdlib,
-  tg_owt ? callPackage ./tg_owt.nix { inherit stdenv; },
+  tg_owt ? callPackage ./tg_owt.nix {inherit stdenv;},
   qtbase,
   qtsvg,
   qtwayland,
@@ -36,14 +36,12 @@
   apple-sdk_15,
   nix-update-script,
 }:
-
 # Main reference:
 # - This package was originally based on the Arch package but all patches are now upstreamed:
 #   https://git.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/telegram-desktop
 # Other references that could be useful:
 # - https://git.alpinelinux.org/aports/tree/testing/telegram-desktop/APKBUILD
 # - https://github.com/void-linux/void-packages/blob/master/srcpkgs/telegram-desktop/template
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "telegram-desktop-unwrapped";
   version = "5.15.3";
@@ -95,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
       microsoft-gsl
       boost
       ada
-      (tdlib.override { tde2eOnly = true; })
+      (tdlib.override {tde2eOnly = true;})
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       protobuf
@@ -131,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit tg_owt;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -144,7 +142,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.all;
     homepage = "https://desktop.telegram.org/";
     changelog = "https://github.com/telegramdesktop/tdesktop/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
     mainProgram = "Telegram";
   };
 })

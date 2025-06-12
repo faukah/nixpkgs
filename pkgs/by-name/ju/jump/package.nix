@@ -4,7 +4,6 @@
   lib,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "jump";
   version = "0.51.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-nMUqZWdq//q/DNthvpKiYLq8f95O0QoItyX5w4vHzSA=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -38,7 +37,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/gsamokovarov/jump";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "jump";
   };
 }

@@ -9,7 +9,6 @@
   tqdm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "idbutils";
   version = "1.0.1";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "idbutils" ];
+  pythonImportsCheck = ["idbutils"];
 
   meta = {
     description = "Python utilities useful for database and internal apps";
     license = lib.licenses.gpl2Only;
     homepage = "https://github.com/tcgoetz/utilities";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

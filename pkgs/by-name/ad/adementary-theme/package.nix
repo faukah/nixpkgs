@@ -5,7 +5,6 @@
   gtk3,
   sassc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adementary-theme";
   version = "201905r1";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
     export HOME="$NIX_BUILD_ROOT"
   '';
 
-  nativeBuildInputs = [ sassc ];
-  buildInputs = [ gtk3 ];
+  nativeBuildInputs = [sassc];
+  buildInputs = [gtk3];
 
   postPatch = "patchShebangs .";
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Adwaita-based GTK theme with design influence from elementary OS and Vertex GTK theme";
     homepage = "https://github.com/hrdwrrsk/adementary-theme";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

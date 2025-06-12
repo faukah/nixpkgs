@@ -25,10 +25,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-sNqaMBtbklSBcKxsc3ROI30bE1PUzJJeZqLqC9p3H+U=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/alpine-make-rootfs --set PATH ${
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alpinelinux/alpine-make-rootfs";
     description = "Make customized Alpine Linux rootfs (base image) for containers";
     mainProgram = "alpine-make-rootfs";
-    maintainers = with maintainers; [ danielsidhion ];
+    maintainers = with maintainers; [danielsidhion];
     license = licenses.mit;
     platforms = platforms.linux;
   };

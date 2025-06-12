@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "konstraint";
   version = "0.43.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
   # Exclude go within .github folder
   excludedPackages = ".github";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -54,6 +53,6 @@ buildGoModule rec {
       library changes. Enable writing the same policies for Conftest and Gatekeeper.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

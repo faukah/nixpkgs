@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jsonlines";
   version = "4.0.0";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-KNEJdAxEgd0NGPnk9J51C3yUN2e6Cvvevth0iKOMlhE=";
   };
 
-  propagatedBuildInputs = [ attrs ];
+  propagatedBuildInputs = [attrs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonlines" ];
+  pythonImportsCheck = ["jsonlines"];
 
   meta = with lib; {
     description = "Python library to simplify working with jsonlines and ndjson data";
     homepage = "https://github.com/wbolster/jsonlines";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

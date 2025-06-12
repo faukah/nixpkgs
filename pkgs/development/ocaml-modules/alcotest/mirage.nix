@@ -7,7 +7,6 @@
   mirage-clock,
   duration,
 }:
-
 buildDunePackage {
   pname = "alcotest-mirage";
 
@@ -25,11 +24,13 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = alcotest.meta // {
-    description = "Mirage implementation for Alcotest";
-    maintainers = with lib.maintainers; [
-      ulrikstrid
-      anmonteiro
-    ];
-  };
+  meta =
+    alcotest.meta
+    // {
+      description = "Mirage implementation for Alcotest";
+      maintainers = with lib.maintainers; [
+        ulrikstrid
+        anmonteiro
+      ];
+    };
 }

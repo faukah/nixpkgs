@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "deluge";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ flokli ];
+    maintainers = [flokli];
   };
 
   nodes = {
@@ -43,7 +42,6 @@
         '';
       };
     };
-
   };
 
   testScript = ''

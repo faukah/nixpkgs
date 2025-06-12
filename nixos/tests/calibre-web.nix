@@ -1,30 +1,25 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   port = 3142;
   defaultPort = 8083;
-in
-{
+in {
   name = "calibre-web";
-  meta.maintainers = with lib.maintainers; [ pborzenkov ];
+  meta.maintainers = with lib.maintainers; [pborzenkov];
 
   nodes = {
-    customized =
-      { pkgs, ... }:
-      {
-        services.calibre-web = {
-          enable = true;
-          listen.port = port;
-          options = {
-            calibreLibrary = "/tmp/books";
-            reverseProxyAuth = {
-              enable = true;
-              header = "X-User";
-            };
+    customized = {pkgs, ...}: {
+      services.calibre-web = {
+        enable = true;
+        listen.port = port;
+        options = {
+          calibreLibrary = "/tmp/books";
+          reverseProxyAuth = {
+            enable = true;
+            header = "X-User";
           };
         };
-        environment.systemPackages = [ pkgs.calibre ];
       };
+      environment.systemPackages = [pkgs.calibre];
+    };
   };
   testScript = ''
     start_all()

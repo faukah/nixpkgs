@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "httpref";
   version = "1.6.1";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/dnnrly/httpref";
     changelog = "https://github.com/dnnrly/httpref/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

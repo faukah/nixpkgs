@@ -7,7 +7,6 @@
   vips,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "librechat";
   version = "0.7.8";
@@ -52,7 +51,7 @@ buildNpmPackage rec {
   makeCacheWritable = true;
 
   npmBuildScript = "frontend";
-  npmPruneFlags = [ "--omit=dev" ];
+  npmPruneFlags = ["--omit=dev"];
 
   passthru = {
     updateScript = nix-update-script {
@@ -67,7 +66,7 @@ buildNpmPackage rec {
     description = "Open-source app for all your AI conversations, fully customizable and compatible with any AI provider";
     homepage = "https://github.com/danny-avila/LibreChat";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ niklaskorz ];
+    maintainers = with lib.maintainers; [niklaskorz];
     mainProgram = "librechat-server";
   };
 }

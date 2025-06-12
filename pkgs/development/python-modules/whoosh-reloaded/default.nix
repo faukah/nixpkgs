@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "whoosh-reloaded";
   version = "2.7.5";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-frM8tw298Yz3u3rLK4CxWUXL6ymCSwYyYhXP/EdyjtQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cached-property
     loguru
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "whoosh" ];
+  pythonImportsCheck = ["whoosh"];
 
   meta = {
     description = "Fast, featureful full-text indexing and searching library implemented in pure Python";
     homepage = "https://github.com/Sygil-Dev/whoosh-reloaded";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

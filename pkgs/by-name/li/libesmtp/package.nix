@@ -7,7 +7,6 @@
   pkg-config,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libESMTP";
   version = "1.1.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   mesonFlags = lib.optional (stdenv.hostPlatform.libc == "glibc") "-Dc_args=-D_DEFAULT_SOURCE";
 

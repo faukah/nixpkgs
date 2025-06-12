@@ -8,7 +8,6 @@
   extra-cmake-modules,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calligraplan";
   version = "3.3.0";
@@ -44,14 +43,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     homepage = "https://www.calligra.org/plan/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     description = "Project Management Application";
     mainProgram = "calligraplan";
     changelog = "https://invent.kde.org/office/calligraplan/-/tags/v${finalAttrs.version}";

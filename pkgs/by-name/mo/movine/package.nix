@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "movine";
   version = "0.11.4";
@@ -48,6 +47,6 @@ rustPlatform.buildRustPackage rec {
       Consider <link xling:href="https://diesel.rs/">diesel</link> instead if
       you want an ORM.
     '';
-    maintainers = with maintainers; [ netcrns ];
+    maintainers = with maintainers; [netcrns];
   };
 }

@@ -11,7 +11,6 @@
   unstableGitUpdater,
   autoAddDriverRunpath,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "peakperf";
   version = "1.17-unstable-2024-10-07";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   nativeInstallCheckInputs = [
@@ -66,8 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Dr-Noob/peakperf";
     description = "Achieve peak performance on x86 CPUs and NVIDIA GPUs";
     mainProgram = "peakperf";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.gpl2Only;
   };
 })

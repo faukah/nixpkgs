@@ -11,7 +11,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "logilab-common";
   version = "2.0.0";
@@ -29,13 +28,15 @@ buildPythonPackage rec {
       --replace-fail "_TextTestResult" "TextTestResult"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    setuptools
-    mypy-extensions
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  dependencies =
+    [
+      setuptools
+      mypy-extensions
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,7 +52,7 @@ buildPythonPackage rec {
     homepage = "https://logilab-common.readthedocs.io/";
     changelog = "https://forge.extranet.logilab.fr/open-source/logilab-common/-/blob/branch/default/CHANGELOG.md";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "logilab-pytest";
   };
 }

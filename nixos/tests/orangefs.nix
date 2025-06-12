@@ -1,52 +1,44 @@
-{ ... }:
+{...}: let
+  server = {pkgs, ...}: {
+    networking.firewall.allowedTCPPorts = [3334];
+    boot.initrd.postDeviceCommands = ''
+      ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
+    '';
 
-let
-  server =
-    { pkgs, ... }:
-    {
-      networking.firewall.allowedTCPPorts = [ 3334 ];
-      boot.initrd.postDeviceCommands = ''
-        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
-      '';
+    virtualisation.emptyDiskImages = [4096];
 
-      virtualisation.emptyDiskImages = [ 4096 ];
-
-      virtualisation.fileSystems = {
-        "/data" = {
-          device = "/dev/disk/by-label/data";
-          fsType = "ext4";
-        };
-      };
-
-      services.orangefs.server = {
-        enable = true;
-        dataStorageSpace = "/data/storage";
-        metadataStorageSpace = "/data/meta";
-        servers = {
-          server1 = "tcp://server1:3334";
-          server2 = "tcp://server2:3334";
-        };
+    virtualisation.fileSystems = {
+      "/data" = {
+        device = "/dev/disk/by-label/data";
+        fsType = "ext4";
       };
     };
 
-  client =
-    { lib, ... }:
-    {
-      networking.firewall.enable = true;
-
-      services.orangefs.client = {
-        enable = true;
-        fileSystems = [
-          {
-            target = "tcp://server1:3334/orangefs";
-            mountPoint = "/orangefs";
-          }
-        ];
+    services.orangefs.server = {
+      enable = true;
+      dataStorageSpace = "/data/storage";
+      metadataStorageSpace = "/data/meta";
+      servers = {
+        server1 = "tcp://server1:3334";
+        server2 = "tcp://server2:3334";
       };
     };
+  };
 
-in
-{
+  client = {lib, ...}: {
+    networking.firewall.enable = true;
+
+    services.orangefs.client = {
+      enable = true;
+      fileSystems = [
+        {
+          target = "tcp://server1:3334/orangefs";
+          mountPoint = "/orangefs";
+        }
+      ];
+    };
+  };
+in {
   name = "orangefs";
 
   nodes = {

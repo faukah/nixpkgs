@@ -4,9 +4,8 @@
   fetchurl,
   ncurses,
   libressl,
-  patches ? [ ], # allow users to easily override config.def.h
+  patches ? [], # allow users to easily override config.def.h
 }:
-
 stdenv.mkDerivation rec {
   pname = "sacc";
   version = "1.07";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "sacc";
     homepage = "gopher://bitreich.org/1/scm/sacc";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.unix;
   };
 }

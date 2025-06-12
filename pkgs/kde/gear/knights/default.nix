@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "knights";
 
-  extraNativeBuildInputs = [ _7zz ];
+  extraNativeBuildInputs = [_7zz];
   extraBuildInputs = [
     qtsvg
     qtspeech

@@ -59,11 +59,11 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper ${lib.getExe nodejs} "$out/bin/fish-lsp" \
       --add-flags "$out/share/fish-lsp/out/cli.js" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          fish
-          which
-        ]
-      }"
+      lib.makeBinPath [
+        fish
+        which
+      ]
+    }"
 
     ${lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd fish-lsp \
@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doDist = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "LSP implementation for the fish shell language";

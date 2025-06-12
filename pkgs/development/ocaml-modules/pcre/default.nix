@@ -5,7 +5,6 @@
   pcre,
   dune-configurator,
 }:
-
 buildDunePackage rec {
   pname = "pcre";
   version = "8.0.3";
@@ -19,9 +18,9 @@ buildDunePackage rec {
     sha256 = "sha256-FIgCeBEAHKz7/6bNsUoqbH2c3eMq62gphVdEa+kNf3k=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
-  propagatedBuildInputs = [ pcre ];
+  propagatedBuildInputs = [pcre];
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/pcre-ocaml";

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   click,
   jinja2,
@@ -25,7 +23,6 @@
   sphinx-togglebutton,
   sphinxcontrib-bibtex,
   sphinx-multitoc-numbering,
-
   # tests
   jupytext,
   pytest-regressions,
@@ -35,7 +32,6 @@
   texsoup,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-book";
   version = "1.0.4";
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-04I9mzJMXCpvMiOeMD/Bg8FiymkRgHf/Yo9C1VcyTsw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "myst-parser"
@@ -132,7 +128,7 @@ buildPythonPackage rec {
     homepage = "https://jupyterbook.org/";
     changelog = "https://github.com/jupyter-book/jupyter-book/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
     mainProgram = "jupyter-book";
   };
 }

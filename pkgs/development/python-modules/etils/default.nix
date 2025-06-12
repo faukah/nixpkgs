@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
   flit-core,
-
   # tests
   chex,
   jaxlib,
@@ -12,7 +11,6 @@
   pytest-xdist,
   pytestCheckHook,
   yapf,
-
   # optional
   jupyter,
   mediapy,
@@ -26,7 +24,6 @@
   jax,
   tensorflow,
 }:
-
 buildPythonPackage rec {
   pname = "etils";
   version = "1.12.2";
@@ -39,13 +36,15 @@ buildPythonPackage rec {
     hash = "sha256-xrnh8M5m0bv1T5kgGwimC6OW00RtnrGNS8ObJqLhpe4=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   optional-dependencies = rec {
     array-types = enp;
-    eapp = [
-      absl-py # FIXME package simple-parsing
-    ] ++ epy;
+    eapp =
+      [
+        absl-py # FIXME package simple-parsing
+      ]
+      ++ epy;
     ecolab =
       [
         jupyter
@@ -55,21 +54,25 @@ buildPythonPackage rec {
       ++ enp
       ++ epy;
     edc = epy;
-    enp = [ numpy ] ++ epy;
-    epath = [
-      importlib-resources
-      typing-extensions
-      zipp
-    ] ++ epy;
-    epy = [ typing-extensions ];
-    etqdm = [
-      absl-py
-      tqdm
-    ] ++ epy;
+    enp = [numpy] ++ epy;
+    epath =
+      [
+        importlib-resources
+        typing-extensions
+        zipp
+      ]
+      ++ epy;
+    epy = [typing-extensions];
+    etqdm =
+      [
+        absl-py
+        tqdm
+      ]
+      ++ epy;
     etree = array-types ++ epy ++ enp ++ etqdm;
-    etree-dm = [ dm-tree ] ++ etree;
-    etree-jax = [ jax ] ++ etree;
-    etree-tf = [ tensorflow ] ++ etree;
+    etree-dm = [dm-tree] ++ etree;
+    etree-jax = [jax] ++ etree;
+    etree-tf = [tensorflow] ++ etree;
     all =
       array-types
       ++ eapp
@@ -85,16 +88,18 @@ buildPythonPackage rec {
       ++ etree-tf;
   };
 
-  pythonImportsCheck = [ "etils" ];
+  pythonImportsCheck = ["etils"];
 
-  nativeCheckInputs = [
-    chex
-    jaxlib
-    pytest-subtests
-    pytest-xdist
-    pytestCheckHook
-    yapf
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      chex
+      jaxlib
+      pytest-subtests
+      pytest-xdist
+      pytestCheckHook
+      yapf
+    ]
+    ++ optional-dependencies.all;
 
   disabledTests = [
     "test_public_access" # requires network access
@@ -107,6 +112,6 @@ buildPythonPackage rec {
     description = "Collection of eclectic utils";
     homepage = "https://github.com/google/etils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

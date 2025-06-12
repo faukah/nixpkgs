@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wlr-layout-ui";
   version = "1.6.15";
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Simple GUI to setup the screens layout on wlroots based systems";
     homepage = "https://github.com/fdev31/wlr-layout-ui/";
-    maintainers = with maintainers; [ bnlrnz ];
+    maintainers = with maintainers; [bnlrnz];
     license = licenses.mit;
     mainProgram = "wlrlui";
     platforms = subtractLists platforms.darwin platforms.unix;

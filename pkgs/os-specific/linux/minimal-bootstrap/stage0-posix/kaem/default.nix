@@ -9,7 +9,6 @@
   version,
   platforms,
 }:
-
 # Once mescc-tools-extra is available we can install kaem at /bin/kaem
 # to make it findable in environments
 derivationWithMeta {
@@ -26,10 +25,9 @@ derivationWithMeta {
       chmod 555 ''${out}/bin/kaem
     '')
   ];
-  PATH = lib.makeBinPath [ mescc-tools-extra ];
+  PATH = lib.makeBinPath [mescc-tools-extra];
 
-  passthru.runCommand =
-    name: env: buildCommand:
+  passthru.runCommand = name: env: buildCommand:
     derivationWithMeta (
       {
         inherit name;
@@ -43,7 +41,7 @@ derivationWithMeta {
         ];
 
         PATH = lib.makeBinPath (
-          (env.nativeBuildInputs or [ ])
+          (env.nativeBuildInputs or [])
           ++ [
             kaem
             mescc-tools
@@ -51,14 +49,14 @@ derivationWithMeta {
           ]
         );
       }
-      // (builtins.removeAttrs env [ "nativeBuildInputs" ])
+      // (builtins.removeAttrs env ["nativeBuildInputs"])
     );
 
   meta = with lib; {
     description = "Minimal build tool for running scripts on systems that lack any shell";
     homepage = "https://github.com/oriansj/mescc-tools";
     license = licenses.gpl3Plus;
-    teams = [ teams.minimal-bootstrap ];
+    teams = [teams.minimal-bootstrap];
     inherit platforms;
   };
 }

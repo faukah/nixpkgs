@@ -7,7 +7,6 @@
   six,
   unidecode,
 }:
-
 buildPythonPackage rec {
   pname = "unicode-slugify";
   version = "0.1.5";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "slugify/tests.py" ];
+  pytestFlagsArray = ["slugify/tests.py"];
 
   meta = with lib; {
     description = "Generates unicode slugs";
     homepage = "https://pypi.org/project/unicode-slugify/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

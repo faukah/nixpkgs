@@ -8,7 +8,6 @@
   pytestCheckHook,
   weasyprint,
 }:
-
 buildPythonPackage rec {
   pname = "flametree";
   version = "0.2.0";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     "test_weasyprint"
   ];
 
-  pythonImportsCheck = [ "flametree" ];
+  pythonImportsCheck = ["flametree"];
 
   meta = with lib; {
     description = "Python file and zip operations made easy";
     homepage = "https://github.com/Edinburgh-Genome-Foundry/Flametree";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

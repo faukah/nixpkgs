@@ -13,9 +13,7 @@
   pip,
   pythonOlder,
   setuptools-scm,
-}:
-
-let
+}: let
   version = "0.36.1";
   gqlgen = import ./fix-gqlgen-trimpath.nix {
     inherit unzip;
@@ -61,57 +59,57 @@ let
     '';
   };
 in
-buildPythonPackage rec {
-  inherit src version patches;
-  pname = "hgsrht";
+  buildPythonPackage rec {
+    inherit src version patches;
+    pname = "hgsrht";
 
-  pyproject = true;
+    pyproject = true;
 
-  disabled = pythonOlder "3.7";
+    disabled = pythonOlder "3.7";
 
-  postPatch = ''
-    substituteInPlace hg.sr.ht-shell \
-      --replace-fail /var/log/hg.sr.ht-shell /var/log/sourcehut/hg.sr.ht-shell
-  '';
+    postPatch = ''
+      substituteInPlace hg.sr.ht-shell \
+        --replace-fail /var/log/hg.sr.ht-shell /var/log/sourcehut/hg.sr.ht-shell
+    '';
 
-  nativeBuildInputs = [
-    pip
-    setuptools-scm
-  ];
-
-  propagatedBuildInputs = [
-    python-hglib
-    scmsrht
-    srht
-    unidiff
-  ];
-
-  env = {
-    PKGVER = version;
-    SRHT_PATH = "${srht}/${python.sitePackages}/srht";
-    PREFIX = placeholder "out";
-  };
-
-  postBuild = ''
-    make SASSC_INCLUDE=-I${srht}/share/sourcehut/scss/ all-share
-  '';
-
-  postInstall = ''
-    ln -s ${hgsrht-api}/bin/api $out/bin/hg.sr.ht-api
-    ln -s ${hgsrht-keys}/bin/hgsrht-keys $out/bin/hg.sr.ht-keys
-    install -Dm644 schema.sql $out/share/sourcehut/hg.sr.ht-schema.sql
-    make install-share
-  '';
-
-  pythonImportsCheck = [ "hgsrht" ];
-
-  meta = with lib; {
-    homepage = "https://hg.sr.ht/~sircmpwn/hg.sr.ht";
-    description = "Mercurial repository hosting service for the sr.ht network";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      eadwu
-      christoph-heiss
+    nativeBuildInputs = [
+      pip
+      setuptools-scm
     ];
-  };
-}
+
+    propagatedBuildInputs = [
+      python-hglib
+      scmsrht
+      srht
+      unidiff
+    ];
+
+    env = {
+      PKGVER = version;
+      SRHT_PATH = "${srht}/${python.sitePackages}/srht";
+      PREFIX = placeholder "out";
+    };
+
+    postBuild = ''
+      make SASSC_INCLUDE=-I${srht}/share/sourcehut/scss/ all-share
+    '';
+
+    postInstall = ''
+      ln -s ${hgsrht-api}/bin/api $out/bin/hg.sr.ht-api
+      ln -s ${hgsrht-keys}/bin/hgsrht-keys $out/bin/hg.sr.ht-keys
+      install -Dm644 schema.sql $out/share/sourcehut/hg.sr.ht-schema.sql
+      make install-share
+    '';
+
+    pythonImportsCheck = ["hgsrht"];
+
+    meta = with lib; {
+      homepage = "https://hg.sr.ht/~sircmpwn/hg.sr.ht";
+      description = "Mercurial repository hosting service for the sr.ht network";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [
+        eadwu
+        christoph-heiss
+      ];
+    };
+  }

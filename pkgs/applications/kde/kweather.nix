@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   kholidays,
   ki18n,
@@ -17,7 +15,6 @@
   qtcharts,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "kweather";
 
@@ -48,6 +45,6 @@ mkDerivation {
       gpl2Plus
       cc-by-40
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

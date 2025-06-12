@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "commix";
   version = "4.0";
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "commix";
     homepage = "https://github.com/commixproject/commix";
     changelog = "https://github.com/commixproject/commix/releases/tag/v${version}";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [fab];
   };
 }

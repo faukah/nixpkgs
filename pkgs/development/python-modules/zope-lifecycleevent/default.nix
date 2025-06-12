@@ -9,7 +9,6 @@
   zope-component,
   zope-testing,
 }:
-
 buildPythonPackage rec {
   pname = "zope-lifecycleevent";
   version = "5.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-event
@@ -45,15 +44,15 @@ buildPythonPackage rec {
     zope-testing
   ];
 
-  unittestFlagsArray = [ "src/zope/lifecycleevent" ];
+  unittestFlagsArray = ["src/zope/lifecycleevent"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.lifecycleevent";
     description = "Object life-cycle events";
     changelog = "https://github.com/zopefoundation/zope.lifecycleevent/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

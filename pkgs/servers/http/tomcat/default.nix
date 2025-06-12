@@ -6,11 +6,11 @@
   nixosTests,
   stdenvNoCC,
   testers,
-}:
-
-let
-  common =
-    { version, hash }:
+}: let
+  common = {
+    version,
+    hash,
+  }:
     stdenvNoCC.mkDerivation (finalAttrs: {
       pname = "apache-tomcat";
       inherit version;
@@ -51,14 +51,12 @@ let
         homepage = "https://tomcat.apache.org/";
         description = "Implementation of the Java Servlet and JavaServer Pages technologies";
         platforms = jre.meta.platforms;
-        maintainers = with lib.maintainers; [ anthonyroussel ];
+        maintainers = with lib.maintainers; [anthonyroussel];
         license = lib.licenses.asl20;
-        sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with lib.sourceTypes; [binaryBytecode];
       };
     });
-
-in
-{
+in {
   tomcat9 = common {
     version = "9.0.105";
     hash = "sha256-7obuF5ST5hA1iyOg95unC552recRV6ramsfNzc2+NfU=";

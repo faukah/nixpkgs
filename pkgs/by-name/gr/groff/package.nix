@@ -24,7 +24,6 @@
   bison,
   bashNonInteractive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "groff";
   version = "1.23.0";
@@ -93,8 +92,8 @@ stdenv.mkDerivation rec {
       psutils
       netpbm
     ]
-    ++ lib.optionals enableIconv [ iconv ]
-    ++ lib.optionals enableLibuchardet [ libuchardet ];
+    ++ lib.optionals enableIconv [iconv]
+    ++ lib.optionals enableLibuchardet [libuchardet];
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
@@ -162,7 +161,7 @@ stdenv.mkDerivation rec {
     description = "GNU Troff, a typesetting package that reads plain text and produces formatted output";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
 
     longDescription = ''
       groff is the GNU implementation of troff, a document formatting

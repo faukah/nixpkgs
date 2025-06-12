@@ -1,87 +1,80 @@
 # Testing out the substitute server with two machines in a local network. As a
 # bonus, we'll also test a feature of the substitute server being able to
 # advertise its service to the local network with Avahi.
-
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     publishPort = 8181;
     inherit (builtins) toString;
-  in
-  {
+  in {
     name = "guix-publish";
 
-    meta.maintainers = with lib.maintainers; [ foo-dogsquared ];
+    meta.maintainers = with lib.maintainers; [foo-dogsquared];
 
-    nodes =
-      let
-        commonConfig =
-          { config, ... }:
-          {
-            # We'll be using '--advertise' flag with the
-            # substitute server which requires Avahi.
-            services.avahi = {
-              enable = true;
-              nssmdns4 = true;
-              publish = {
-                enable = true;
-                userServices = true;
-              };
-            };
+    nodes = let
+      commonConfig = {config, ...}: {
+        # We'll be using '--advertise' flag with the
+        # substitute server which requires Avahi.
+        services.avahi = {
+          enable = true;
+          nssmdns4 = true;
+          publish = {
+            enable = true;
+            userServices = true;
           };
-      in
-      {
-        server =
-          {
-            config,
-            lib,
-            pkgs,
-            ...
-          }:
-          {
-            imports = [ commonConfig ];
-
-            services.guix = {
-              enable = true;
-              publish = {
-                enable = true;
-                port = publishPort;
-
-                generateKeyPair = true;
-                extraArgs = [ "--advertise" ];
-              };
-            };
-
-            networking.firewall.allowedTCPPorts = [ publishPort ];
-          };
-
-        client =
-          {
-            config,
-            lib,
-            pkgs,
-            ...
-          }:
-          {
-            imports = [ commonConfig ];
-
-            services.guix = {
-              enable = true;
-
-              # Force to only get all substitutes from the local server. We don't
-              # have anything in the Guix store directory and we cannot get
-              # anything from the official substitute servers anyways.
-              substituters.urls = [ "http://server.local:${toString publishPort}" ];
-
-              extraArgs = [
-                # Enable autodiscovery of the substitute servers in the local
-                # network. This machine shouldn't need to import the signing key from
-                # the substitute server since it is automatically done anyways.
-                "--discover=yes"
-              ];
-            };
-          };
+        };
       };
+    in {
+      server = {
+        config,
+        lib,
+        pkgs,
+        ...
+      }: {
+        imports = [commonConfig];
+
+        services.guix = {
+          enable = true;
+          publish = {
+            enable = true;
+            port = publishPort;
+
+            generateKeyPair = true;
+            extraArgs = ["--advertise"];
+          };
+        };
+
+        networking.firewall.allowedTCPPorts = [publishPort];
+      };
+
+      client = {
+        config,
+        lib,
+        pkgs,
+        ...
+      }: {
+        imports = [commonConfig];
+
+        services.guix = {
+          enable = true;
+
+          # Force to only get all substitutes from the local server. We don't
+          # have anything in the Guix store directory and we cannot get
+          # anything from the official substitute servers anyways.
+          substituters.urls = ["http://server.local:${toString publishPort}"];
+
+          extraArgs = [
+            # Enable autodiscovery of the substitute servers in the local
+            # network. This machine shouldn't need to import the signing key from
+            # the substitute server since it is automatically done anyways.
+            "--discover=yes"
+          ];
+        };
+      };
+    };
 
     testScript = ''
       import pathlib

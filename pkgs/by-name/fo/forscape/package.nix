@@ -2,18 +2,15 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   qt6,
   python3,
-
   # buildInputs
   eigen,
   parallel-hashmap,
   readerwriterqueue,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "forscape";
   version = "0.0.2-unstable-2025-04-28";
@@ -48,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Scientific computing language";
     homepage = "https://github.com/JohnDTill/Forscape";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "Forscape";
     platforms = lib.platforms.all;
   };

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "haproxy_exporter";
   version = "0.15.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "haproxy_exporter";
     homepage = "https://github.com/prometheus/haproxy_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
   };
 }

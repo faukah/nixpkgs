@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 # This needs to be a VM test because the FUSE kernel module can't be used inside of a derivation in the Nix sandbox.
 # This test also exercises the LZFSE support in darling-dmg.
 let
@@ -7,12 +11,11 @@ let
     url = "https://github.com/kovidgoyal/kitty/releases/download/v0.17.4/kitty-0.17.4.dmg";
     hash = "sha256-m+c5s8fFrgUc0xQNI196WplYBZq9+lNgems5haZUdvA=";
   };
-in
-{
+in {
   name = "darling-dmg";
-  meta.maintainers = with lib.maintainers; [ Luflosi ];
+  meta.maintainers = with lib.maintainers; [Luflosi];
 
-  nodes.machine = { };
+  nodes.machine = {};
 
   testScript = ''
     start_all()

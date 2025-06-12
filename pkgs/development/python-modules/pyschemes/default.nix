@@ -5,7 +5,6 @@
   pytestCheckHook,
   fetchpatch,
 }:
-
 buildPythonPackage {
   pname = "pyschemes";
   version = "unstable-2017-11-08";
@@ -26,14 +25,14 @@ buildPythonPackage {
       hash = "sha256-vDaWxMrn2aC2wmd035EWRZ3cd/XME81z/BWG0f2T9jc=";
     })
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyschemes" ];
+  pythonImportsCheck = ["pyschemes"];
 
   meta = with lib; {
     description = "Library for validating data structures in Python";
     homepage = "https://github.com/spy16/pyschemes";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

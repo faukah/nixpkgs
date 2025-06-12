@@ -5,7 +5,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pytr";
   version = "0.4.2";
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     websockets
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd pytr \
@@ -44,11 +43,11 @@ python3Packages.buildPythonApplication rec {
       --zsh <($out/bin/pytr completion zsh)
   '';
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "pytr" ];
+  pythonImportsCheck = ["pytr"];
 
   meta = {
     changelog = "https://github.com/pytr-org/pytr/releases/tag/${src.tag}";
@@ -56,6 +55,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/pytr-org/pytr";
     license = lib.licenses.mit;
     mainProgram = "pytr";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

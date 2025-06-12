@@ -5,7 +5,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "utm";
   version = "4.6.5";
@@ -65,7 +64,7 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "UTM";
     license = lib.licenses.asl20;
     platforms = lib.platforms.darwin; # 11.3 is the minimum supported version as of UTM 4.
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with lib.maintainers; [
       rrbutani
       wegank

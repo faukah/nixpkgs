@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calaos_installer";
   version = "3.11";
@@ -16,26 +15,25 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-e/f58VtGmKukdv4rIrGljXhA9d/xUycM5V6I1FT5qeY=";
   };
 
-  buildInputs = [ libsForQt5.qtbase ];
+  buildInputs = [libsForQt5.qtbase];
   nativeBuildInputs = with libsForQt5; [
     qmake
     wrapQtAppsHook
     qttools
   ];
 
-  qmakeFlags = [ "REVISION=${finalAttrs.version}" ];
+  qmakeFlags = ["REVISION=${finalAttrs.version}"];
 
   installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/Applications
-        cp -a calaos_installer.app $out/Applications
-      ''
-    else
-      ''
-        mkdir -p $out/bin
-        cp -a calaos_installer $out/bin
-      '';
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir -p $out/Applications
+      cp -a calaos_installer.app $out/Applications
+    ''
+    else ''
+      mkdir -p $out/bin
+      cp -a calaos_installer $out/bin
+    '';
 
   meta = {
     description = "Calaos Installer, a tool to create calaos configuration";
@@ -44,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/calaos/calaos_installer/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ tiramiseb ];
+    maintainers = with lib.maintainers; [tiramiseb];
   };
 })

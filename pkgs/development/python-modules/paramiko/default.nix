@@ -15,7 +15,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "paramiko";
   version = "3.5.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bcrypt
@@ -48,18 +47,20 @@ buildPythonPackage rec {
       pyasn1
       gssapi
     ];
-    ed25519 = [ ];
-    invoke = [ invoke ];
+    ed25519 = [];
+    invoke = [invoke];
   };
 
-  nativeCheckInputs = [
-    icecream
-    mock
-    pytestCheckHook
-    pytest-relaxed
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      icecream
+      mock
+      pytestCheckHook
+      pytest-relaxed
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "paramiko" ];
+  pythonImportsCheck = ["paramiko"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -74,6 +75,6 @@ buildPythonPackage rec {
       between python scripts. All major ciphers and hash methods are
       supported. SFTP client and server mode are both supported too.
     '';
-    teams = [ lib.teams.helsinki-systems ];
+    teams = [lib.teams.helsinki-systems];
   };
 }

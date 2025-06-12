@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
     server = lib.mkOption {
       type = lib.types.either (lib.types.submodule (import ./server-options.nix)) (lib.types.path);
@@ -24,7 +23,7 @@
         "host.org/v2/mypath"
         "/somepath"
       ];
-      default = [ ];
+      default = [];
       description = ''
         List of nghttpx backend patterns.
 

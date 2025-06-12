@@ -25,7 +25,6 @@
   gitUpdater,
   autoreconfHook,
 }:
-
 # TODO: Look at the hardcoded paths to kernel, modules etc.
 stdenv.mkDerivation rec {
   pname = "elfutils";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-7daehJj1t0wPtQzTv+/Rpuqqs5Ng/EYnZzrcf2o/Lb0=";
       })
     ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ ./musl-error_h.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [./musl-error_h.patch]
     # Prevent headers and binaries from colliding which results in an error.
     # https://sourceware.org/pipermail/elfutils-devel/2024q3/007281.html
     ++ lib.optional (stdenv.targetPlatform.useLLVM or false) ./cxx-header-collision.patch;
@@ -115,7 +114,7 @@ stdenv.mkDerivation rec {
       libarchive
     ];
 
-  propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
+  propagatedNativeBuildInputs = [setupDebugInfoDirs];
 
   configureFlags =
     [
@@ -156,7 +155,7 @@ stdenv.mkDerivation rec {
     description = "Set of utilities to handle ELF objects";
     platforms = platforms.linux;
     # https://lists.fedorahosted.org/pipermail/elfutils-devel/2014-November/004223.html
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
     # licenses are GPL2 or LGPL3+ for libraries, GPL3+ for bins,
     # but since this package isn't split that way, all three are listed.
     license = with licenses; [
@@ -164,6 +163,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
       gpl3Plus
     ];
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

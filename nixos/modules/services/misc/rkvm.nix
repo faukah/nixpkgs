@@ -4,14 +4,12 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   opt = options.services.rkvm;
   cfg = config.services.rkvm;
-  toml = pkgs.formats.toml { };
-in
-{
-  meta.maintainers = [ ];
+  toml = pkgs.formats.toml {};
+in {
+  meta.maintainers = [];
 
   options.services.rkvm = {
     enable = lib.mkOption {
@@ -23,7 +21,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "rkvm" { };
+    package = lib.mkPackageOption pkgs "rkvm" {};
 
     server = {
       enable = lib.mkEnableOption "the rkvm server daemon (input transmitter)";
@@ -87,7 +85,7 @@ in
           };
         };
 
-        default = { };
+        default = {};
         description = "Structured server daemon configuration";
       };
     };
@@ -129,47 +127,47 @@ in
           };
         };
 
-        default = { };
+        default = {};
         description = "Structured client daemon configuration";
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    systemd.services =
-      let
-        mkBase = component: {
-          description = "RKVM ${component}";
-          wantedBy = [ "multi-user.target" ];
-          after =
-            {
-              server = [ "network.target" ];
-              client = [ "network-online.target" ];
-            }
-            .${component};
-          wants =
-            {
-              server = [ ];
-              client = [ "network-online.target" ];
-            }
-            .${component};
-          serviceConfig = {
-            ExecStart = "${cfg.package}/bin/rkvm-${component} ${
-              toml.generate "rkvm-${component}.toml" cfg.${component}.settings
-            }";
-            Restart = "always";
-            RestartSec = 5;
-            Type = "simple";
+    systemd.services = let
+      mkBase = component: {
+        description = "RKVM ${component}";
+        wantedBy = ["multi-user.target"];
+        after =
+          {
+            server = ["network.target"];
+            client = ["network-online.target"];
+          }
+            .${
+            component
           };
+        wants =
+          {
+            server = [];
+            client = ["network-online.target"];
+          }
+            .${
+            component
+          };
+        serviceConfig = {
+          ExecStart = "${cfg.package}/bin/rkvm-${component} ${
+            toml.generate "rkvm-${component}.toml" cfg.${component}.settings
+          }";
+          Restart = "always";
+          RestartSec = 5;
+          Type = "simple";
         };
-      in
-      {
-        rkvm-server = lib.mkIf cfg.server.enable (mkBase "server");
-        rkvm-client = lib.mkIf cfg.client.enable (mkBase "client");
       };
+    in {
+      rkvm-server = lib.mkIf cfg.server.enable (mkBase "server");
+      rkvm-client = lib.mkIf cfg.client.enable (mkBase "client");
+    };
   };
-
 }

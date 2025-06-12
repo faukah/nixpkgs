@@ -5,7 +5,6 @@
   libiconv,
   recode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enca";
   version = "1.19";
@@ -32,6 +31,5 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.gpl2Only;
-
   };
 }

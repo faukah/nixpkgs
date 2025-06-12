@@ -3,11 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   cython,
   setuptools,
-
   # dependencies
   aiohappyeyeballs,
   async-interrupt,
@@ -17,13 +15,11 @@
   noiseprotocol,
   protobuf,
   zeroconf,
-
   # tests
   mock,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aioesphomeapi";
   version = "30.2.0";
@@ -43,17 +39,19 @@ buildPythonPackage rec {
     cython
   ];
 
-  pythonRelaxDeps = [ "cryptography" ];
+  pythonRelaxDeps = ["cryptography"];
 
-  dependencies = [
-    aiohappyeyeballs
-    async-interrupt
-    chacha20poly1305-reuseable
-    cryptography
-    noiseprotocol
-    protobuf
-    zeroconf
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies =
+    [
+      aiohappyeyeballs
+      async-interrupt
+      chacha20poly1305-reuseable
+      cryptography
+      noiseprotocol
+      protobuf
+      zeroconf
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     mock
@@ -68,7 +66,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "aioesphomeapi" ];
+  pythonImportsCheck = ["aioesphomeapi"];
 
   meta = with lib; {
     description = "Python Client for ESPHome native API";

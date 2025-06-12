@@ -7,7 +7,6 @@
   rustPlatform,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sequoia-sqop";
   version = "0.35.0";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     nettle
   ];
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   # Install manual pages
   postInstall = ''
@@ -48,13 +47,13 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Implementation of the Stateless OpenPGP Command Line Interface using Sequoia";
     homepage = "https://docs.sequoia-pgp.org/sqop/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "sqop";
   };
 }

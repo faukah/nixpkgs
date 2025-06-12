@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "hanken-grotesk";
   version = "0-unstable-2024-01-30";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/marcologous/hanken-grotesk";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bricked ];
+    maintainers = with lib.maintainers; [bricked];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "certi";
   version = "0.1.0-unstable-2023-01-27";
@@ -34,7 +33,7 @@ python3.pkgs.buildPythonApplication {
     description = "ADCS abuser";
     homepage = "https://github.com/zer1t0/certi";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "certi";
   };
 }

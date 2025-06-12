@@ -11,7 +11,6 @@
   python-slugify,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "comicon";
   version = "1.5.0";
@@ -45,15 +44,15 @@ buildPythonPackage rec {
 
   doCheck = false; # test artifacts are not public
 
-  pythonImportsCheck = [ "comicon" ];
+  pythonImportsCheck = ["comicon"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/potatoeggy/comicon/releases/tag/v${version}";
     description = "Lightweight comic converter library between CBZ, PDF, and EPUB";
     homepage = "https://github.com/potatoeggy/comicon";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    maintainers = with lib.maintainers; [Scrumplex];
   };
 }

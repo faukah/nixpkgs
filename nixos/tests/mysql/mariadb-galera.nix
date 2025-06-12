@@ -1,137 +1,128 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
-}:
-
-let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+}: let
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
   # Common user configuration
-  makeGaleraTest =
-    {
-      mariadbPackage,
-      name ? mkTestName mariadbPackage,
-      galeraPackage ? pkgs.mariadb-galera,
-    }:
+  makeGaleraTest = {
+    mariadbPackage,
+    name ? mkTestName mariadbPackage,
+    galeraPackage ? pkgs.mariadb-galera,
+  }:
     makeTest {
       name = "${name}-galera-mariabackup";
       meta = {
-        maintainers = with lib.maintainers; [ izorkin ] ++ lib.teams.helsinki-systems.members;
+        maintainers = with lib.maintainers; [izorkin] ++ lib.teams.helsinki-systems.members;
       };
 
       # The test creates a Galera cluster with 3 nodes and is checking if mariabackup-based SST works. The cluster is tested by creating a DB and an empty table on one node,
       # and checking the table's presence on the other node.
-      nodes =
-        let
-          mkGaleraNode =
-            {
-              id,
-              method,
-            }:
-            let
-              address = "192.168.1.${toString id}";
-              isFirstClusterNode = id == 1 || id == 4;
-            in
-            {
-              users = {
-                users.testuser = {
-                  isSystemUser = true;
-                  group = "testusers";
+      nodes = let
+        mkGaleraNode = {
+          id,
+          method,
+        }: let
+          address = "192.168.1.${toString id}";
+          isFirstClusterNode = id == 1 || id == 4;
+        in {
+          users = {
+            users.testuser = {
+              isSystemUser = true;
+              group = "testusers";
+            };
+            groups.testusers = {};
+          };
+
+          networking = {
+            interfaces.eth1 = {
+              ipv4.addresses = [
+                {
+                  inherit address;
+                  prefixLength = 24;
+                }
+              ];
+              ipv6.addresses = lib.mkForce [];
+            };
+            extraHosts = lib.concatMapStringsSep "\n" (i: "192.168.1.${toString i} galera_0${toString i}") (
+              lib.range 1 6
+            );
+          };
+          services.mysql = {
+            enable = true;
+            package = mariadbPackage;
+            ensureDatabases = lib.mkIf isFirstClusterNode ["testdb"];
+            ensureUsers = lib.mkIf isFirstClusterNode [
+              {
+                name = "testuser";
+                ensurePermissions = {
+                  "testdb.*" = "ALL PRIVILEGES";
                 };
-                groups.testusers = { };
-              };
+              }
+            ];
+            initialScript = lib.mkIf isFirstClusterNode (
+              pkgs.writeText "mariadb-init.sql" ''
+                GRANT ALL PRIVILEGES ON *.* TO 'check_repl'@'localhost' IDENTIFIED BY 'check_pass' WITH GRANT OPTION;
+                FLUSH PRIVILEGES;
+              ''
+            );
 
-              networking = {
-                interfaces.eth1 = {
-                  ipv4.addresses = [
-                    {
-                      inherit address;
-                      prefixLength = 24;
-                    }
-                  ];
-                  ipv6.addresses = lib.mkForce [ ];
-                };
-                extraHosts = lib.concatMapStringsSep "\n" (i: "192.168.1.${toString i} galera_0${toString i}") (
-                  lib.range 1 6
-                );
-              };
-              services.mysql = {
-                enable = true;
-                package = mariadbPackage;
-                ensureDatabases = lib.mkIf isFirstClusterNode [ "testdb" ];
-                ensureUsers = lib.mkIf isFirstClusterNode [
-                  {
-                    name = "testuser";
-                    ensurePermissions = {
-                      "testdb.*" = "ALL PRIVILEGES";
-                    };
-                  }
-                ];
-                initialScript = lib.mkIf isFirstClusterNode (
-                  pkgs.writeText "mariadb-init.sql" ''
-                    GRANT ALL PRIVILEGES ON *.* TO 'check_repl'@'localhost' IDENTIFIED BY 'check_pass' WITH GRANT OPTION;
-                    FLUSH PRIVILEGES;
-                  ''
-                );
+            galeraCluster = {
+              enable = true;
+              package = galeraPackage;
+              sstMethod = method;
 
-                galeraCluster = {
-                  enable = true;
-                  package = galeraPackage;
-                  sstMethod = method;
+              localAddress = address;
+              localName = "galera_0${toString id}";
 
-                  localAddress = address;
-                  localName = "galera_0${toString id}";
+              clusterAddress =
+                "gcomm://"
+                + lib.optionalString (id == 2 || id == 3) "galera_01,galera_02,galera_03"
+                + lib.optionalString (id == 5 || id == 6) "galera_04,galera_05,galera_06";
+            };
 
-                  clusterAddress =
-                    "gcomm://"
-                    + lib.optionalString (id == 2 || id == 3) "galera_01,galera_02,galera_03"
-                    + lib.optionalString (id == 5 || id == 6) "galera_04,galera_05,galera_06";
-                };
-
-                settings = {
-                  galera = {
-                    wsrep_debug = "NONE";
-                  };
-                };
+            settings = {
+              galera = {
+                wsrep_debug = "NONE";
               };
             };
-        in
-        {
-          galera_01 = mkGaleraNode {
-            id = 1;
-            method = "mariabackup";
           };
-
-          galera_02 = mkGaleraNode {
-            id = 2;
-            method = "mariabackup";
-          };
-
-          galera_03 = mkGaleraNode {
-            id = 3;
-            method = "mariabackup";
-          };
-
-          galera_04 = mkGaleraNode {
-            id = 4;
-            method = "rsync";
-          };
-
-          galera_05 = mkGaleraNode {
-            id = 5;
-            method = "rsync";
-          };
-
-          galera_06 = mkGaleraNode {
-            id = 6;
-            method = "rsync";
-          };
-
         };
+      in {
+        galera_01 = mkGaleraNode {
+          id = 1;
+          method = "mariabackup";
+        };
+
+        galera_02 = mkGaleraNode {
+          id = 2;
+          method = "mariabackup";
+        };
+
+        galera_03 = mkGaleraNode {
+          id = 3;
+          method = "mariabackup";
+        };
+
+        galera_04 = mkGaleraNode {
+          id = 4;
+          method = "rsync";
+        };
+
+        galera_05 = mkGaleraNode {
+          id = 5;
+          method = "rsync";
+        };
+
+        galera_06 = mkGaleraNode {
+          id = 6;
+          method = "rsync";
+        };
+      };
 
       testScript = ''
         galera_01.start()
@@ -243,4 +234,4 @@ let
       '';
     };
 in
-lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; }) mariadbPackages
+  lib.mapAttrs (_: mariadbPackage: makeGaleraTest {inherit mariadbPackage;}) mariadbPackages

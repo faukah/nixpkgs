@@ -8,7 +8,6 @@
   pkg-config,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "agate";
   version = "3.3.16";
@@ -23,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-HA1h06ZlWvq7z5hJFqKxGtXNk8/GHxUivigaVqWQCvA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     tests = {
       inherit (nixosTests) agate;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -59,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

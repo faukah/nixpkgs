@@ -5,7 +5,6 @@
   testers,
   odo,
 }:
-
 buildGoModule rec {
   pname = "odo";
   version = "3.16.1";
@@ -40,6 +39,6 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     homepage = "https://odo.dev";
     changelog = "https://github.com/redhat-developer/odo/releases/v${version}";
-    maintainers = with lib.maintainers; [ stehessel ];
+    maintainers = with lib.maintainers; [stehessel];
   };
 }

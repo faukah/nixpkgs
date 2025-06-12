@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "email-validator";
   version = "2.2.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     idna
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # dns.resolver.NoResolverConfiguration: cannot open /etc/resolv.conf
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     "tests/test_main.py"
   ];
 
-  pythonImportsCheck = [ "email_validator" ];
+  pythonImportsCheck = ["email_validator"];
 
   meta = with lib; {
     description = "Email syntax and deliverability validation library";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JoshData/python-email-validator";
     changelog = "https://github.com/JoshData/python-email-validator/releases/tag/v${version}";
     license = licenses.cc0;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
   };
 }

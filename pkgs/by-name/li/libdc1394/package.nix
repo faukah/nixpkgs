@@ -5,7 +5,6 @@
   libraw1394,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdc1394";
   version = "2.2.7";
@@ -20,13 +19,13 @@ stdenv.mkDerivation rec {
     "trivialautovarinit"
   ];
 
-  buildInputs = [ libusb1 ] ++ lib.optional stdenv.hostPlatform.isLinux libraw1394;
+  buildInputs = [libusb1] ++ lib.optional stdenv.hostPlatform.isLinux libraw1394;
 
   meta = with lib; {
     description = "Capture and control API for IIDC compliant cameras";
     homepage = "https://sourceforge.net/projects/libdc1394/";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dc1394_reset_bus";
     platforms = platforms.unix;
   };

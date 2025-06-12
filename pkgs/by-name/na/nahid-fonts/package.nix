@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nahid-fonts";
   version = "0.3.0";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (Farsi) Font - قلم (فونت) فارسی ناهید";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

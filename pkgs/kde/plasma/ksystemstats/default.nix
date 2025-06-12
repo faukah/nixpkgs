@@ -9,7 +9,7 @@
 mkKdeDerivation {
   pname = "ksystemstats";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     networkmanager-qt
     lm_sensors

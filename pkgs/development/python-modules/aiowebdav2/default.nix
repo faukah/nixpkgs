@@ -13,7 +13,6 @@
   python-dateutil,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiowebdav2";
   version = "0.4.5";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-/oQuXFPWgJIfyw7qyvrD95U6E9/GORLR/K4F/46CIY0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiofiles
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "aiowebdav2" ];
+  pythonImportsCheck = ["aiowebdav2"];
 
   nativeCheckInputs = [
     aioresponses
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Async Python 3 client for WebDAV";
     homepage = "https://github.com/jpbede/aiowebdav2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

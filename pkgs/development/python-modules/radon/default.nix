@@ -11,7 +11,6 @@
   tomli,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "radon";
   version = "6.0.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -50,17 +49,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    toml = [ tomli ];
+    toml = [tomli];
   };
 
-  pythonImportsCheck = [ "radon" ];
+  pythonImportsCheck = ["radon"];
 
   meta = with lib; {
     description = "Various code metrics for Python code";
     homepage = "https://radon.readthedocs.org";
     changelog = "https://github.com/rubik/radon/blob/v${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
     mainProgram = "radon";
   };
 }

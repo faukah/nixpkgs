@@ -6,7 +6,6 @@
   qtdeclarative,
   bluez,
 }:
-
 qtModule {
   pname = "qtconnectivity";
   buildInputs = lib.optional stdenv.hostPlatform.isLinux bluez;

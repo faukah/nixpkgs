@@ -9,7 +9,6 @@
   pycrypto,
   pydub,
 }:
-
 buildPythonPackage rec {
   pname = "aigpy";
   version = "2022.7.8.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/AIGMix/AIGPY";
     description = "Python library with miscellaneous tools";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.misterio77 ];
+    maintainers = [lib.maintainers.misterio77];
     platforms = lib.platforms.all;
   };
 }

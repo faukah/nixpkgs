@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liquidprompt";
   version = "2.2.1";
@@ -45,13 +44,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Full-featured & carefully designed adaptive prompt for Bash & Zsh";
     homepage = "https://github.com/liquidprompt/liquidprompt";
     license = licenses.agpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
   };
 }

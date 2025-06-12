@@ -11,18 +11,16 @@
     python3Packages.swh-storage
     python3Packages.swh-web-client
   ],
-}:
-
-let
-  python3' = python3Packages.python.withPackages (ps: with ps; [ swh-core ] ++ withSwhPythonPackages);
+}: let
+  python3' = python3Packages.python.withPackages (ps: with ps; [swh-core] ++ withSwhPythonPackages);
 in
-writeShellApplication {
-  name = "swh";
-  text = ''
-    ${python3'}/bin/swh "$@"
-  '';
-  meta = {
-    inherit (python3Packages.swh-core.meta) license mainProgram platforms;
-    description = "Software Heritage command-line client";
-  };
-}
+  writeShellApplication {
+    name = "swh";
+    text = ''
+      ${python3'}/bin/swh "$@"
+    '';
+    meta = {
+      inherit (python3Packages.swh-core.meta) license mainProgram platforms;
+      description = "Software Heritage command-line client";
+    };
+  }

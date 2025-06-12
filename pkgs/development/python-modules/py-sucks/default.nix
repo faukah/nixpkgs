@@ -11,7 +11,6 @@
   requests-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "py-sucks";
   version = "0.9.11";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-srj/3x04R9KgbdC6IgbQdgUz+srAx0OttB6Ndb2+Nh4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pycryptodome
@@ -39,12 +38,14 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "sucks" ];
+  pythonImportsCheck = ["sucks"];
 
-  nativeCheckInputs = [
-    requests-mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      requests-mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # assumes $HOME is at a specific place
@@ -57,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mib1185/py-sucks";
     license = lib.licenses.gpl3Only;
     mainProgram = "sucks";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -13,7 +13,6 @@
   uvicorn,
   wsproto,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-ws";
   version = "0.7.2";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace-fail 'addopts = "--cov=httpx_ws/ --cov-report=term-missing"' ""
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     anyio
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  pythonImportsCheck = [ "httpx_ws" ];
+  pythonImportsCheck = ["httpx_ws"];
 
   disabledTestPaths = [
     # hang
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frankie567/httpx-ws";
     changelog = "https://github.com/frankie567/httpx-ws/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

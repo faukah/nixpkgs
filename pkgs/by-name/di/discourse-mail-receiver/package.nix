@@ -6,7 +6,6 @@
   makeWrapper,
   replace,
 }:
-
 stdenv.mkDerivation rec {
   pname = "discourse-mail-receiver";
   version = "4.1.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     replace
     makeWrapper
   ];
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   dontBuild = true;
 
@@ -41,9 +40,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.discourse.org/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ talyz ];
+    maintainers = with maintainers; [talyz];
     license = licenses.mit;
     description = "Helper program which receives incoming mail for Discourse";
   };
-
 }

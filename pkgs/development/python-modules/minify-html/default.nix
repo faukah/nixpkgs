@@ -4,7 +4,6 @@
   lib,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "minify-html";
   version = "0.16.4";
@@ -28,13 +27,13 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  pythonImportsCheck = [ "minify_html" ];
+  pythonImportsCheck = ["minify_html"];
 
   meta = {
     description = "Extremely fast and smart HTML + JS + CSS minifier";
     homepage = "https://github.com/wilsonzlin/minify-html/tree/master/minify-html-python";
     changelog = "https://github.com/wilsonzlin/minify-html/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.apm ];
+    teams = [lib.teams.apm];
   };
 }

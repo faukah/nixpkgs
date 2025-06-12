@@ -12,7 +12,6 @@
   cracklib,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atheme";
   version = "7.2.12";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://atheme.github.io/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

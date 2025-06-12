@@ -2,24 +2,21 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.xpad-noone;
-in
-{
+in {
   options.hardware.xpad-noone = {
     enable = lib.mkEnableOption "The Xpad driver from the Linux kernel with support for Xbox One controllers removed";
   };
 
   config = lib.mkIf cfg.enable {
     boot = {
-      blacklistedKernelModules = [ "xpad" ];
-      extraModulePackages = with config.boot.kernelPackages; [ xpad-noone ];
+      blacklistedKernelModules = ["xpad"];
+      extraModulePackages = with config.boot.kernelPackages; [xpad-noone];
     };
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ Cryolitia ];
+    maintainers = with lib.maintainers; [Cryolitia];
   };
 }

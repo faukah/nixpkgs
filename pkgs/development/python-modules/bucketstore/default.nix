@@ -8,7 +8,6 @@
   moto,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "bucketstore";
   version = "0.3.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-WjweYFnlDEoR+TYzNgjPMdCLdUUEbdPROubov6kancc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  propagatedBuildInputs = [ boto3 ];
+  propagatedBuildInputs = [boto3];
 
   nativeCheckInputs = [
     moto
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bucketstore" ];
+  pythonImportsCheck = ["bucketstore"];
 
   meta = with lib; {
     description = "Library for interacting with Amazon S3";
     homepage = "https://github.com/jpetrucciani/bucketstore";
     changelog = "https://github.com/jpetrucciani/bucketstore/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

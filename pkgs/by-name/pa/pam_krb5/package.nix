@@ -5,7 +5,6 @@
   pam,
   libkrb5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam-krb5";
   version = "4.11";

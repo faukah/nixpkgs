@@ -21,8 +21,8 @@ buildNpmPackage rec {
   npmDepsHash = "sha256-LUwnue1kFxtifRrV8U+IQ74A2/ari75MVyZT0xLaez4=";
   npmBuildScript = "package";
 
-  buildInputs = [ nodejs ];
-  nativeBuildInputs = [ unzip ];
+  buildInputs = [nodejs];
+  nativeBuildInputs = [unzip];
 
   postPatch = ''
     patchShebangs index.js
@@ -37,7 +37,7 @@ buildNpmPackage rec {
     description = "Gauge plugin that lets you write tests in JavaScript";
     homepage = "https://github.com/getgauge/gauge-js/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marie ];
+    maintainers = with lib.maintainers; [marie];
     inherit (gauge-unwrapped.meta) platforms;
   };
 }

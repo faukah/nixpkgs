@@ -13,7 +13,6 @@
   liblo,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xsynth-dssi";
   version = "0.9.4";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dssi.sourceforge.net/download.html#Xsynth-DSSI";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

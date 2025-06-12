@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "robin-map";
   version = "1.3.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Tessil/robin-map";
     changelog = "https://github.com/Tessil/robin-map/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   pkg-config,
   pipewire,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wiremix";
   version = "0.4.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     rustPlatform.bindgenHook
   ];
-  buildInputs = [ pipewire ];
+  buildInputs = [pipewire];
 
   meta = {
     description = "Simple TUI mixer for PipeWire";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ tsowell ];
+    maintainers = with lib.maintainers; [tsowell];
     platforms = lib.platforms.linux;
   };
 }

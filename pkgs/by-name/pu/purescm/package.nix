@@ -3,9 +3,7 @@
   buildNpmPackage,
   fetchNpmDeps,
   testers,
-}:
-
-let
+}: let
   inherit (lib) fileset;
 
   packageLock = builtins.fromJSON (builtins.readFile ./manifests/package-lock.json);
@@ -31,16 +29,16 @@ let
     '';
 
     passthru.tests = {
-      version = testers.testVersion { inherit package; };
+      version = testers.testVersion {inherit package;};
     };
 
     meta = {
       description = "Chez Scheme back-end for PureScript";
       homepage = "https://github.com/purescm/purescm";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ toastal ];
+      maintainers = with lib.maintainers; [toastal];
       mainProgram = "purescm";
     };
   };
 in
-package
+  package

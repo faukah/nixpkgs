@@ -6,7 +6,6 @@
   openssl,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "syndicate-server";
   version = "0.50.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     versionCheckHook
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   RUSTC_BOOTSTRAP = 1;
 
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://synit.org/";
     license = lib.licenses.asl20;
     mainProgram = "syndicate-server";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.linux;
   };
 }

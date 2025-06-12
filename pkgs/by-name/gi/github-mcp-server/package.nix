@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "github-mcp-server";
   version = "0.4.0";
@@ -29,7 +28,7 @@ buildGoModule (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -38,6 +37,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/github/github-mcp-server";
     license = lib.licenses.mit;
     mainProgram = "github-mcp-server";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

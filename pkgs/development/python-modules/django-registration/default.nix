@@ -7,7 +7,6 @@
   coverage,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "django-registration";
   version = "5.1.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-02kAZXxzTdLBvgff+WNUww2k/yGqxIG5gv8gXy9z7KE=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     confusable-homoglyphs
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     runHook postInstallCheck
   '';
 
-  pythonImportsCheck = [ "django_registration" ];
+  pythonImportsCheck = ["django_registration"];
 
   meta = {
     changelog = "https://github.com/ubernostrum/django-registration/blob/${version}/docs/changelog.rst";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://django-registration.readthedocs.io/en/${version}/";
     downloadPage = "https://github.com/ubernostrum/django-registration";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.l0b0 ];
+    maintainers = [lib.maintainers.l0b0];
   };
 }

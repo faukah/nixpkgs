@@ -4,15 +4,12 @@
   fetchFromGitHub,
   cmake,
   openmpi,
-
   # passthru
   conduit,
   python3Packages,
   nix-update-script,
-
   mpiSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "conduit";
   version = "0.9.4";
@@ -50,11 +47,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      withMpi = conduit.override { mpiSupport = true; };
+      withMpi = conduit.override {mpiSupport = true;};
       pythonModule = python3Packages.conduit;
       pythonModuleWithMpi = python3Packages.conduit-mpi;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -62,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LLNL/conduit";
     changelog = "https://github.com/LLNL/conduit/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd3Lbnl;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     platforms = lib.platforms.all;
   };
 })

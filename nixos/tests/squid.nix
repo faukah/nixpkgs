@@ -1,7 +1,6 @@
 # This is a distributed test of the Squid as a forward proxy
 # - "external" -- i.e. the internet, where the proxy and server communicate
 # - "internal" -- i.e. an office LAN, where the client and proxy communicat
-
 {
   pkgs,
   lib,
@@ -40,24 +39,22 @@ let
       '')
     ];
   };
-in
-{
+in {
   name = "squid";
-  meta.maintainers = with lib.maintainers; [ cobalt ];
+  meta.maintainers = with lib.maintainers; [cobalt];
 
   node.pkgsReadOnly = false;
 
   nodes = {
-    client =
-      { ... }:
+    client = {...}:
       lib.mkMerge [
         commonConfig
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking.firewall.enable = true;
 
           # NOTE: the client doesn't need a HTTP server, this is here to allow a validation of the proxy acl
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.nginx = {
             enable = true;
@@ -76,23 +73,25 @@ in
         }
       ];
 
-    proxy =
-      { config, nodes, ... }:
-      let
-        clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
-        serverIp = (pkgs.lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address;
-      in
+    proxy = {
+      config,
+      nodes,
+      ...
+    }: let
+      clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
+      serverIp = (pkgs.lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address;
+    in
       lib.mkMerge [
         commonConfig
         {
-          nixpkgs.config.permittedInsecurePackages = [ "squid-7.0.1" ];
+          nixpkgs.config.permittedInsecurePackages = ["squid-7.0.1"];
 
           virtualisation.vlans = [
             1
             2
           ];
           networking.firewall.enable = true;
-          networking.firewall.allowedTCPPorts = [ config.services.squid.proxyPort ];
+          networking.firewall.allowedTCPPorts = [config.services.squid.proxyPort];
 
           services.squid = {
             enable = true;
@@ -107,14 +106,13 @@ in
         }
       ];
 
-    server =
-      { ... }:
+    server = {...}:
       lib.mkMerge [
         commonConfig
         {
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
           networking.firewall.enable = true;
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.nginx = {
             enable = true;
@@ -134,53 +132,50 @@ in
       ];
   };
 
-  testScript =
-    { nodes, ... }:
-    let
-      clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
-      serverIp = (pkgs.lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address;
-      proxyExternalIp = (pkgs.lib.head nodes.proxy.networking.interfaces.eth2.ipv4.addresses).address;
-      proxyInternalIp = (pkgs.lib.head nodes.proxy.networking.interfaces.eth1.ipv4.addresses).address;
-    in
-    ''
-      client.start()
-      proxy.start()
-      server.start()
+  testScript = {nodes, ...}: let
+    clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
+    serverIp = (pkgs.lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address;
+    proxyExternalIp = (pkgs.lib.head nodes.proxy.networking.interfaces.eth2.ipv4.addresses).address;
+    proxyInternalIp = (pkgs.lib.head nodes.proxy.networking.interfaces.eth1.ipv4.addresses).address;
+  in ''
+    client.start()
+    proxy.start()
+    server.start()
 
-      proxy.wait_for_unit("network.target")
-      proxy.wait_for_unit("squid.service")
-      client.wait_for_unit("network.target")
-      server.wait_for_unit("network.target")
-      server.wait_for_unit("nginx.service")
+    proxy.wait_for_unit("network.target")
+    proxy.wait_for_unit("squid.service")
+    client.wait_for_unit("network.target")
+    server.wait_for_unit("network.target")
+    server.wait_for_unit("nginx.service")
 
-      # Topology checks.
-      with subtest("proxy connectivity"):
-          ## The proxy should have direct access to the server and client
-          proxy.succeed("check-connection ${serverIp} expect-success")
-          proxy.succeed("check-connection ${clientIp} expect-success")
+    # Topology checks.
+    with subtest("proxy connectivity"):
+        ## The proxy should have direct access to the server and client
+        proxy.succeed("check-connection ${serverIp} expect-success")
+        proxy.succeed("check-connection ${clientIp} expect-success")
 
-      with subtest("server connectivity"):
-          ## The server should have direct access to the proxy
-          server.succeed("check-connection ${proxyExternalIp} expect-success")
-          ## ... and not have access to the client
-          server.succeed("check-connection ${clientIp} expect-failure")
+    with subtest("server connectivity"):
+        ## The server should have direct access to the proxy
+        server.succeed("check-connection ${proxyExternalIp} expect-success")
+        ## ... and not have access to the client
+        server.succeed("check-connection ${clientIp} expect-failure")
 
-      with subtest("client connectivity"):
-          # The client should be also able to connect to the proxy
-          client.succeed("check-connection ${proxyInternalIp} expect-success")
-          # but not the client to the server
-          client.succeed("check-connection ${serverIp} expect-failure")
+    with subtest("client connectivity"):
+        # The client should be also able to connect to the proxy
+        client.succeed("check-connection ${proxyInternalIp} expect-success")
+        # but not the client to the server
+        client.succeed("check-connection ${serverIp} expect-failure")
 
-      with subtest("HTTP"):
-          # the client cannot reach the server directly over HTTP
-          client.fail('[[ `timeout 3 curl --fail-with-body http://${serverIp}` ]]')
-          # ... but can with the proxy
-          client.succeed('[[ `timeout 3 curl --fail-with-body --proxy http://${proxyInternalIp}:3128 http://${serverIp}` == "server" ]]')
-          # and cannot from the server (with a 4xx error code) and ...
-          server.fail('[[ `timeout 3 curl --fail-with-body --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == "client" ]]')
-          # .. not the client hostname
-          server.fail('[[ `timeout 3 curl --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == "client" ]]')
-          # with an explicit deny message (no --fail because we want to parse the returned message)
-          server.succeed('[[ `timeout 3 curl --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == *"ERR_ACCESS_DENIED"* ]]')
-    '';
+    with subtest("HTTP"):
+        # the client cannot reach the server directly over HTTP
+        client.fail('[[ `timeout 3 curl --fail-with-body http://${serverIp}` ]]')
+        # ... but can with the proxy
+        client.succeed('[[ `timeout 3 curl --fail-with-body --proxy http://${proxyInternalIp}:3128 http://${serverIp}` == "server" ]]')
+        # and cannot from the server (with a 4xx error code) and ...
+        server.fail('[[ `timeout 3 curl --fail-with-body --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == "client" ]]')
+        # .. not the client hostname
+        server.fail('[[ `timeout 3 curl --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == "client" ]]')
+        # with an explicit deny message (no --fail because we want to parse the returned message)
+        server.succeed('[[ `timeout 3 curl --proxy http://${proxyExternalIp}:3128 http://${clientIp}` == *"ERR_ACCESS_DENIED"* ]]')
+  '';
 }

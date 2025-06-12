@@ -8,7 +8,6 @@
   libftdi1,
   popt,
 }:
-
 stdenv.mkDerivation {
   pname = "sd-mux-ctrl-unstable";
   version = "2020-02-17";

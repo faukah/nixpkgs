@@ -3,14 +3,11 @@
   makeFontsConf,
   buildFHSEnv,
   tiling_wm ? false,
-}:
-
-let
-  mkStudio =
-    opts:
+}: let
+  mkStudio = opts:
     callPackage (import ./common.nix opts) {
       fontsConf = makeFontsConf {
-        fontDirectories = [ ];
+        fontDirectories = [];
       };
       inherit buildFHSEnv;
       inherit tiling_wm;
@@ -26,8 +23,7 @@ let
     versionPrefix = "canary-meerkat";
     sha256Hash = "sha256-j5KEwHbc+0eFi3GZlD5PMuM/RWw2MJ1PaXZrPMvhCik=";
   };
-in
-{
+in {
   # Attributes are named by their corresponding release channels
 
   stable = mkStudio (

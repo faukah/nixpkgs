@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     any
     attrsets
     attrByPath
@@ -30,9 +29,7 @@ let
     splitString
     substring
     versionOlder
-
     readFile
-
     literalExpression
     literalMD
     mkBefore
@@ -50,8 +47,9 @@ let
   db = ex.":pleroma"."Pleroma.Repo";
   web = ex.":pleroma"."Pleroma.Web.Endpoint";
 
-  format = pkgs.formats.elixirConf { elixir = cfg.package.elixirPackage; };
-  inherit (format.lib)
+  format = pkgs.formats.elixirConf {elixir = cfg.package.elixirPackage;};
+  inherit
+    (format.lib)
     mkAtom
     mkMap
     mkRaw
@@ -60,14 +58,13 @@ let
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
   hasSmtp =
-    (attrByPath [ ":pleroma" "Pleroma.Emails.Mailer" "adapter" "value" ] null ex)
+    (attrByPath [":pleroma" "Pleroma.Emails.Mailer" "adapter" "value"] null ex)
     == "Swoosh.Adapters.SMTP";
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
 
-  absolutePath =
-    with types;
+  absolutePath = with types;
     mkOptionType {
       name = "absolutePath";
       description = "absolute path";
@@ -86,8 +83,7 @@ let
     };
   };
 
-  ipAddress =
-    with types;
+  ipAddress = with types;
     mkOptionType {
       name = "ipAddress";
       description = "IPv4 or IPv6 address";
@@ -96,22 +92,20 @@ let
       inherit (str) merge;
     };
 
-  elixirValue =
-    let
-      elixirValue' =
-        with types;
-        nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          (attrsOf elixirValue')
-          (listOf elixirValue')
-        ])
-        // {
-          description = "Elixir value";
-        };
-    in
+  elixirValue = let
+    elixirValue' = with types;
+      nullOr (oneOf [
+        bool
+        int
+        float
+        str
+        (attrsOf elixirValue')
+        (listOf elixirValue')
+      ])
+      // {
+        description = "Elixir value";
+      };
+  in
     elixirValue';
 
   frontend = {
@@ -138,40 +132,32 @@ let
 
   sha256 = builtins.hashString "sha256";
 
-  replaceSec =
-    let
-      replaceSec' =
-        { }@args:
-        v:
-        if isAttrs v then
-          if v ? _secret then
-            if isAbsolutePath v._secret then
-              sha256 v._secret
-            else
-              abort "Invalid secret path (_secret = ${v._secret})"
-          else
-            mapAttrs (_: val: replaceSec' args val) v
-        else if isList v then
-          map (replaceSec' args) v
-        else
-          v;
-    in
-    replaceSec' { };
+  replaceSec = let
+    replaceSec' = {} @ args: v:
+      if isAttrs v
+      then
+        if v ? _secret
+        then
+          if isAbsolutePath v._secret
+          then sha256 v._secret
+          else abort "Invalid secret path (_secret = ${v._secret})"
+        else mapAttrs (_: val: replaceSec' args val) v
+      else if isList v
+      then map (replaceSec' args) v
+      else v;
+  in
+    replaceSec' {};
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
-  erlAddr =
-    addr:
-    let
-      isIPv4 = (lib.match "^([0-9]+\\.){3}[0-9]+$" addr) != null;
-    in
-    if isIPv4 then
-      "{${lib.concatStringsSep "," (lib.splitString "." addr)}}"
-    else
-      let
-        inherit (lib.network.ipv6.fromString addr) address;
-        parsed = lib.map (x: "16#${x}") (lib.splitString ":" address);
-      in
-      "{${lib.concatStringsSep "," parsed}}";
+  erlAddr = addr: let
+    isIPv4 = (lib.match "^([0-9]+\\.){3}[0-9]+$" addr) != null;
+  in
+    if isIPv4
+    then "{${lib.concatStringsSep "," (lib.splitString "." addr)}}"
+    else let
+      inherit (lib.network.ipv6.fromString addr) address;
+      parsed = lib.map (x: "16#${x}") (lib.splitString ":" address);
+    in "{${lib.concatStringsSep "," parsed}}";
 
   configFile = format.generate "config.exs" (
     replaceSec (
@@ -183,27 +169,26 @@ let
             "http"
             "ip"
           ];
-          update =
-            addr:
-            if isAbsolutePath addr then
+          update = addr:
+            if isAbsolutePath addr
+            then
               mkTuple [
                 (mkAtom ":local")
                 addr
               ]
-            else
-              mkRaw (erlAddr addr);
+            else mkRaw (erlAddr addr);
         }
-      ] cfg.config
+      ]
+      cfg.config
     )
   );
 
-  writeShell =
-    {
-      name,
-      text,
-      runtimeInputs ? [ ],
-    }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}";
+  writeShell = {
+    name,
+    text,
+    runtimeInputs ? [],
+  }:
+    pkgs.writeShellApplication {inherit name text runtimeInputs;} + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -222,7 +207,7 @@ let
 
   copyScript = writeShell {
     name = "akkoma-copy-cookie";
-    runtimeInputs = with pkgs; [ coreutils ];
+    runtimeInputs = with pkgs; [coreutils];
     text = ''
       install -m 0400 \
         -o ${escapeShellArg cfg.user} \
@@ -247,42 +232,40 @@ let
       coreutils
       cfg.package.elixirPackage
     ];
-    text =
-      let
-        key-base = web.secret_key_base;
-        jwt-signer = ex.":joken".":default_signer";
-        signing-salt = web.signing_salt;
-        liveview-salt = web.live_view.signing_salt;
-        vapid-private = ex.":web_push_encryption".":vapid_details".private_key;
-        vapid-public = ex.":web_push_encryption".":vapid_details".public_key;
-      in
-      ''
-        secret() {
-          # Generate default secret if non‐existent
-          test -e "$2" || install -D -m 0600 <(tr -dc 'A-Za-z-._~' </dev/urandom | head -c "$1") "$2"
-          if [ "$(stat --dereference --format='%s' "$2")" -lt "$1" ]; then
-            echo "Secret '$2' is smaller than minimum size of $1 bytes." >&2
-            exit 65
-          fi
+    text = let
+      key-base = web.secret_key_base;
+      jwt-signer = ex.":joken".":default_signer";
+      signing-salt = web.signing_salt;
+      liveview-salt = web.live_view.signing_salt;
+      vapid-private = ex.":web_push_encryption".":vapid_details".private_key;
+      vapid-public = ex.":web_push_encryption".":vapid_details".public_key;
+    in ''
+      secret() {
+        # Generate default secret if non‐existent
+        test -e "$2" || install -D -m 0600 <(tr -dc 'A-Za-z-._~' </dev/urandom | head -c "$1") "$2"
+        if [ "$(stat --dereference --format='%s' "$2")" -lt "$1" ]; then
+          echo "Secret '$2' is smaller than minimum size of $1 bytes." >&2
+          exit 65
+        fi
+      }
+
+      secret 64 ${escapeShellArg key-base._secret}
+      secret 64 ${escapeShellArg jwt-signer._secret}
+      secret 8 ${escapeShellArg signing-salt._secret}
+      secret 8 ${escapeShellArg liveview-salt._secret}
+
+      ${optionalString (isSecret vapid-public) ''
+        { test -e ${escapeShellArg vapid-private._secret} && \
+          test -e ${escapeShellArg vapid-public._secret}; } || \
+            elixir ${
+          escapeShellArgs [
+            vapidKeygen
+            vapid-public._secret
+            vapid-private._secret
+          ]
         }
-
-        secret 64 ${escapeShellArg key-base._secret}
-        secret 64 ${escapeShellArg jwt-signer._secret}
-        secret 8 ${escapeShellArg signing-salt._secret}
-        secret 8 ${escapeShellArg liveview-salt._secret}
-
-        ${optionalString (isSecret vapid-public) ''
-          { test -e ${escapeShellArg vapid-private._secret} && \
-            test -e ${escapeShellArg vapid-public._secret}; } || \
-              elixir ${
-                escapeShellArgs [
-                  vapidKeygen
-                  vapid-public._secret
-                  vapid-private._secret
-                ]
-              }
-        ''}
-      '';
+      ''}
+    '';
   };
 
   configScript = writeShell {
@@ -298,13 +281,14 @@ let
 
       cat ${escapeShellArg configFile} >"$tmp"
       ${concatMapStrings (file: ''
-        replace-secret ${
-          escapeShellArgs [
-            (sha256 file)
-            file
-          ]
-        } "$tmp"
-      '') secretPaths}
+          replace-secret ${
+            escapeShellArgs [
+              (sha256 file)
+              file
+            ]
+          } "$tmp"
+        '')
+        secretPaths}
 
       chown ${escapeShellArg cfg.user}:${escapeShellArg cfg.group} "$tmp"
       chmod 0400 "$tmp"
@@ -312,30 +296,31 @@ let
     '';
   };
 
-  pgpass =
-    let
-      esc = escape [
-        ":"
-        ''\''
-      ];
-    in
-    if (cfg.initDb.password != null) then
+  pgpass = let
+    esc = escape [
+      ":"
+      ''\''
+    ];
+  in
+    if (cfg.initDb.password != null)
+    then
       pkgs.writeText "pgpass.conf" ''
         *:*:*${esc cfg.initDb.username}:${esc (sha256 cfg.initDb.password._secret)}
       ''
-    else
-      null;
+    else null;
 
-  escapeSqlId = x: ''"${replaceStrings [ ''"'' ] [ ''""'' ] x}"'';
-  escapeSqlStr = x: "'${replaceStrings [ "'" ] [ "''" ] x}'";
+  escapeSqlId = x: ''"${replaceStrings [''"''] [''""''] x}"'';
+  escapeSqlStr = x: "'${replaceStrings ["'"] ["''"] x}'";
 
   setupSql = pkgs.writeText "setup.psql" ''
     \set ON_ERROR_STOP on
 
     ALTER ROLE ${escapeSqlId db.username}
       LOGIN PASSWORD ${
-        if db ? password then "${escapeSqlStr (sha256 db.password._secret)}" else "NULL"
-      };
+      if db ? password
+      then "${escapeSqlStr (sha256 db.password._secret)}"
+      else "NULL"
+    };
 
     ALTER DATABASE ${escapeSqlId db.database}
       OWNER TO ${escapeSqlId db.username};
@@ -347,14 +332,13 @@ let
   '';
 
   dbHost =
-    if db ? socket_dir then
-      db.socket_dir
-    else if db ? socket then
-      db.socket
-    else if db ? hostname then
-      db.hostname
-    else
-      null;
+    if db ? socket_dir
+    then db.socket_dir
+    else if db ? socket
+    then db.socket
+    else if db ? hostname
+    then db.hostname
+    else null;
 
   initDbScript = writeShell {
     name = "akkoma-initdb";
@@ -411,50 +395,49 @@ let
     '';
   };
 
-  envWrapper =
-    let
-      script = writeShell {
-        name = "akkoma-env";
-        text = ''
-          cd "${cfg.package}"
+  envWrapper = let
+    script = writeShell {
+      name = "akkoma-env";
+      text = ''
+        cd "${cfg.package}"
 
-          RUNTIME_DIRECTORY="''${RUNTIME_DIRECTORY:-/run/akkoma}"
-          CACHE_DIRECTORY="''${CACHE_DIRECTORY:-/var/cache/akkoma}" \
-          AKKOMA_CONFIG_PATH="''${RUNTIME_DIRECTORY%%:*}/config.exs" \
-          ERL_EPMD_ADDRESS="${cfg.dist.address}" \
-          ERL_EPMD_PORT="${toString cfg.dist.epmdPort}" \
-          ERL_FLAGS="${
-            escapeShellArgs (
-              [
-                "-kernel"
-                "inet_dist_use_interface"
-                (erlAddr cfg.dist.address)
-                "-kernel"
-                "inet_dist_listen_min"
-                (toString cfg.dist.portMin)
-                "-kernel"
-                "inet_dist_listen_max"
-                (toString cfg.dist.portMax)
-              ]
-              ++ cfg.dist.extraFlags
-            )
-          }" \
-          RELEASE_COOKIE="$(<"''${RUNTIME_DIRECTORY%%:*}/cookie")" \
-          RELEASE_NAME="akkoma" \
-            exec "${cfg.package}/bin/$(basename "$0")" "$@"
-        '';
-      };
-    in
-    pkgs.runCommand "akkoma-env"
-      {
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p "$out/bin"
-
-        ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
-        ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
+        RUNTIME_DIRECTORY="''${RUNTIME_DIRECTORY:-/run/akkoma}"
+        CACHE_DIRECTORY="''${CACHE_DIRECTORY:-/var/cache/akkoma}" \
+        AKKOMA_CONFIG_PATH="''${RUNTIME_DIRECTORY%%:*}/config.exs" \
+        ERL_EPMD_ADDRESS="${cfg.dist.address}" \
+        ERL_EPMD_PORT="${toString cfg.dist.epmdPort}" \
+        ERL_FLAGS="${
+          escapeShellArgs (
+            [
+              "-kernel"
+              "inet_dist_use_interface"
+              (erlAddr cfg.dist.address)
+              "-kernel"
+              "inet_dist_listen_min"
+              (toString cfg.dist.portMin)
+              "-kernel"
+              "inet_dist_listen_max"
+              (toString cfg.dist.portMax)
+            ]
+            ++ cfg.dist.extraFlags
+          )
+        }" \
+        RELEASE_COOKIE="$(<"''${RUNTIME_DIRECTORY%%:*}/cookie")" \
+        RELEASE_NAME="akkoma" \
+          exec "${cfg.package}/bin/$(basename "$0")" "$@"
       '';
+    };
+  in
+    pkgs.runCommand "akkoma-env"
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p "$out/bin"
+
+      ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
+      ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
+    '';
 
   userWrapper = pkgs.writeShellApplication {
     name = "pleroma_ctl";
@@ -470,7 +453,8 @@ let
   };
 
   socketScript =
-    if isAbsolutePath web.http.ip then
+    if isAbsolutePath web.http.ip
+    then
       writeShell {
         name = "akkoma-socket";
         runtimeInputs = with pkgs; [
@@ -491,41 +475,41 @@ let
           chmod 0666 ${escapeShellArg web.http.ip}
         '';
       }
-    else
-      null;
+    else null;
 
   staticDir = ex.":pleroma".":instance".static_dir;
   uploadDir = ex.":pleroma".":instance".upload_dir;
 
   staticFiles =
     pkgs.runCommand "akkoma-static"
-      {
-        preferLocalBuild = true;
-      }
-      ''
-        ${concatStringsSep "\n" (
-          mapAttrsToList (key: val: ''
-            mkdir -p $out/frontends/${escapeShellArg val.name}/
-            ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
-          '') cfg.frontends
-        )}
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      ${concatStringsSep "\n" (
+        mapAttrsToList (key: val: ''
+          mkdir -p $out/frontends/${escapeShellArg val.name}/
+          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
+        '')
+        cfg.frontends
+      )}
 
-        ${optionalString (cfg.extraStatic != null) (
-          concatStringsSep "\n" (
-            mapAttrsToList (key: val: ''
-              mkdir -p "$out/$(dirname ${escapeShellArg key})"
-              ln -s ${escapeShellArg val} $out/${escapeShellArg key}
-            '') cfg.extraStatic
-          )
-        )}
-      '';
-in
-{
+      ${optionalString (cfg.extraStatic != null) (
+        concatStringsSep "\n" (
+          mapAttrsToList (key: val: ''
+            mkdir -p "$out/$(dirname ${escapeShellArg key})"
+            ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+          '')
+          cfg.extraStatic
+        )
+      )}
+    '';
+in {
   options = {
     services.akkoma = {
       enable = mkEnableOption "Akkoma";
 
-      package = mkPackageOption pkgs "akkoma" { };
+      package = mkPackageOption pkgs "akkoma" {};
 
       user = mkOption {
         type = types.nonEmptyStr;
@@ -727,7 +711,7 @@ in
 
         extraFlags = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = "Extra flags to pass to Erlang";
           example = [
             "+sbwt"
@@ -884,7 +868,10 @@ in
 
                   port = mkOption {
                     type = types.port;
-                    default = if isAbsolutePath web.http.ip then 0 else 4000;
+                    default =
+                      if isAbsolutePath web.http.ip
+                      then 0
+                      else 4000;
                     defaultText = literalExpression ''
                       if isAbsolutePath config.services.akkoma.config.:pleroma"."Pleroma.Web.Endpoint".http.ip
                         then 0
@@ -956,39 +943,38 @@ in
                 };
               };
 
-              "Pleroma.Upload" =
-                let
-                  httpConf = cfg.config.":pleroma"."Pleroma.Web.Endpoint".url;
-                in
-                {
-                  base_url = mkOption {
-                    type = types.nonEmptyStr;
-                    default =
-                      if versionOlder config.system.stateVersion "24.05" then
-                        "${httpConf.scheme}://${httpConf.host}:${builtins.toString httpConf.port}/media/"
-                      else
-                        null;
-                    defaultText = literalExpression ''
-                      if lib.versionOlder config.system.stateVersion "24.05"
-                      then "$\{httpConf.scheme}://$\{httpConf.host}:$\{builtins.toString httpConf.port}/media/"
-                      else null;
-                    '';
-                    description = ''
-                      Base path which uploads will be stored at.
-                      Whilst this can just be set to a subdirectory of the main domain, it is now recommended to use a different subdomain.
-                    '';
-                  };
+              "Pleroma.Upload" = let
+                httpConf = cfg.config.":pleroma"."Pleroma.Web.Endpoint".url;
+              in {
+                base_url = mkOption {
+                  type = types.nonEmptyStr;
+                  default =
+                    if versionOlder config.system.stateVersion "24.05"
+                    then "${httpConf.scheme}://${httpConf.host}:${builtins.toString httpConf.port}/media/"
+                    else null;
+                  defaultText = literalExpression ''
+                    if lib.versionOlder config.system.stateVersion "24.05"
+                    then "$\{httpConf.scheme}://$\{httpConf.host}:$\{builtins.toString httpConf.port}/media/"
+                    else null;
+                  '';
+                  description = ''
+                    Base path which uploads will be stored at.
+                    Whilst this can just be set to a subdirectory of the main domain, it is now recommended to use a different subdomain.
+                  '';
                 };
+              };
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default = mapAttrs (
-                  key: val:
-                  mkMap {
-                    name = val.name;
-                    ref = val.ref;
-                  }
-                ) cfg.frontends;
+                default =
+                  mapAttrs (
+                    key: val:
+                      mkMap {
+                        name = val.name;
+                        ref = val.ref;
+                      }
+                  )
+                  cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -1002,42 +988,38 @@ in
                 '';
               };
 
-              ":media_proxy" =
-                let
-                  httpConf = cfg.config.":pleroma"."Pleroma.Web.Endpoint".url;
-                in
-                {
-                  enabled = mkOption {
-                    type = types.bool;
-                    default = false;
-                    defaultText = literalExpression "false";
-                    description = ''
-                      Whether to enable proxying of remote media through the instance's proxy.
-                    '';
-                  };
-                  base_url = mkOption {
-                    type = types.nullOr types.nonEmptyStr;
-                    default =
-                      if versionOlder config.system.stateVersion "24.05" then
-                        "${httpConf.scheme}://${httpConf.host}:${builtins.toString httpConf.port}"
-                      else
-                        null;
-                    defaultText = literalExpression ''
-                      if lib.versionOlder config.system.stateVersion "24.05"
-                      then "$\{httpConf.scheme}://$\{httpConf.host}:$\{builtins.toString httpConf.port}"
-                      else null;
-                    '';
-                    description = ''
-                      Base path for the media proxy.
-                      Whilst this can just be set to a subdirectory of the main domain, it is now recommended to use a different subdomain.
-                    '';
-                  };
+              ":media_proxy" = let
+                httpConf = cfg.config.":pleroma"."Pleroma.Web.Endpoint".url;
+              in {
+                enabled = mkOption {
+                  type = types.bool;
+                  default = false;
+                  defaultText = literalExpression "false";
+                  description = ''
+                    Whether to enable proxying of remote media through the instance's proxy.
+                  '';
                 };
-
+                base_url = mkOption {
+                  type = types.nullOr types.nonEmptyStr;
+                  default =
+                    if versionOlder config.system.stateVersion "24.05"
+                    then "${httpConf.scheme}://${httpConf.host}:${builtins.toString httpConf.port}"
+                    else null;
+                  defaultText = literalExpression ''
+                    if lib.versionOlder config.system.stateVersion "24.05"
+                    then "$\{httpConf.scheme}://$\{httpConf.host}:$\{builtins.toString httpConf.port}"
+                    else null;
+                  '';
+                  description = ''
+                    Base path for the media proxy.
+                    Whilst this can just be set to a subdirectory of the main domain, it is now recommended to use a different subdomain.
+                  '';
+                };
+              };
             };
 
             ":web_push_encryption" = mkOption {
-              default = { };
+              default = {};
               description = ''
                 Web Push Notifications configuration.
 
@@ -1153,9 +1135,8 @@ in
       };
 
       nginx = mkOption {
-        type =
-          with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+        type = with types;
+          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}));
         default = null;
         description = ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1169,23 +1150,23 @@ in
   config = mkIf cfg.enable {
     assertions =
       optionals
-        (
-          cfg.config.":pleroma".":media_proxy".enabled
-          && cfg.config.":pleroma".":media_proxy".base_url == null
-        )
-        [
-          ''
-            `services.akkoma.config.":pleroma".":media_proxy".base_url` must be set when the media proxy is enabled.
-          ''
-        ];
+      (
+        cfg.config.":pleroma".":media_proxy".enabled
+        && cfg.config.":pleroma".":media_proxy".base_url == null
+      )
+      [
+        ''
+          `services.akkoma.config.":pleroma".":media_proxy".base_url` must be set when the media proxy is enabled.
+        ''
+      ];
     warnings =
       optionals (with config.security; cfg.installWrapper && (!sudo.enable) && (!sudo-rs.enable))
-        [
-          ''
-            The pleroma_ctl wrapper enabled by the installWrapper option relies on
-            sudo, which appears to have been disabled through security.sudo.enable.
-          ''
-        ];
+      [
+        ''
+          The pleroma_ctl wrapper enabled by the installWrapper option relies on
+          sudo, which appears to have been disabled through security.sudo.enable.
+        ''
+      ];
 
     users = {
       users."${cfg.user}" = {
@@ -1193,7 +1174,7 @@ in
         group = cfg.group;
         isSystemUser = true;
       };
-      groups."${cfg.group}" = { };
+      groups."${cfg.group}" = {};
     };
 
     # Confinement of the main service unit requires separation of the
@@ -1201,9 +1182,9 @@ in
     # residing outside of the chroot.
     systemd.services.akkoma-config = {
       description = "Akkoma social network configuration";
-      reloadTriggers = [ configFile ] ++ secretPaths;
+      reloadTriggers = [configFile] ++ secretPaths;
 
-      unitConfig.PropagatesReloadTo = [ "akkoma.service" ];
+      unitConfig.PropagatesReloadTo = ["akkoma.service"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -1212,28 +1193,28 @@ in
         RuntimeDirectory = mkBefore "akkoma";
 
         ExecStart = mkMerge [
-          (mkIf (cfg.dist.cookie == null) [ genScript ])
-          (mkIf (cfg.dist.cookie != null) [ copyScript ])
-          (mkIf cfg.initSecrets [ initSecretsScript ])
-          [ configScript ]
+          (mkIf (cfg.dist.cookie == null) [genScript])
+          (mkIf (cfg.dist.cookie != null) [copyScript])
+          (mkIf cfg.initSecrets [initSecretsScript])
+          [configScript]
         ];
 
         ExecReload = mkMerge [
-          (mkIf cfg.initSecrets [ initSecretsScript ])
-          [ configScript ]
+          (mkIf cfg.initSecrets [initSecretsScript])
+          [configScript]
         ];
       };
     };
 
     systemd.services.akkoma-initdb = mkIf cfg.initDb.enable {
       description = "Akkoma social network database setup";
-      requires = [ "akkoma-config.service" ];
-      requiredBy = [ "akkoma.service" ];
+      requires = ["akkoma-config.service"];
+      requiredBy = ["akkoma.service"];
       after = [
         "akkoma-config.service"
         "postgresql.service"
       ];
-      before = [ "akkoma.service" ];
+      before = ["akkoma.service"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -1245,132 +1226,129 @@ in
       };
     };
 
-    systemd.services.akkoma =
-      let
-        runtimeInputs =
-          with pkgs;
-          [
-            coreutils
-            gawk
-            gnused
-          ]
-          ++ cfg.extraPackages;
-      in
-      {
-        description = "Akkoma social network";
-        documentation = [ "https://docs.akkoma.dev/stable/" ];
+    systemd.services.akkoma = let
+      runtimeInputs = with pkgs;
+        [
+          coreutils
+          gawk
+          gnused
+        ]
+        ++ cfg.extraPackages;
+    in {
+      description = "Akkoma social network";
+      documentation = ["https://docs.akkoma.dev/stable/"];
 
-        # This service depends on network-online.target and is sequenced after
-        # it because it requires access to the Internet to function properly.
-        bindsTo = [ "akkoma-config.service" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "akkoma-config.target"
-          "network.target"
-          "network-online.target"
-          "postgresql.service"
+      # This service depends on network-online.target and is sequenced after
+      # it because it requires access to the Internet to function properly.
+      bindsTo = ["akkoma-config.service"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      after = [
+        "akkoma-config.target"
+        "network.target"
+        "network-online.target"
+        "postgresql.service"
+      ];
+
+      confinement.packages = mkIf isConfined runtimeInputs;
+      path = runtimeInputs;
+
+      serviceConfig = {
+        Type = "exec";
+        User = cfg.user;
+        Group = cfg.group;
+        UMask = "0077";
+
+        # The run‐time directory is preserved as it is managed by the akkoma-config.service unit.
+        RuntimeDirectory = "akkoma";
+        RuntimeDirectoryPreserve = true;
+
+        CacheDirectory = "akkoma";
+
+        BindPaths = ["${uploadDir}:${uploadDir}:norbind"];
+        BindReadOnlyPaths = mkMerge [
+          (mkIf (!isStorePath staticDir) ["${staticDir}:${staticDir}:norbind"])
+          (mkIf isConfined (mkMerge [
+            [
+              "/etc/hosts"
+              "/etc/resolv.conf"
+            ]
+            (mkIf (isStorePath staticDir) (
+              map (dir: "${dir}:${dir}:norbind") (
+                splitString "\n" (readFile ((pkgs.closureInfo {rootPaths = staticDir;}) + "/store-paths"))
+              )
+            ))
+            (mkIf (db ? socket_dir) ["${db.socket_dir}:${db.socket_dir}:norbind"])
+            (mkIf (db ? socket) ["${db.socket}:${db.socket}:norbind"])
+          ]))
         ];
 
-        confinement.packages = mkIf isConfined runtimeInputs;
-        path = runtimeInputs;
+        ExecStartPre = "${envWrapper}/bin/pleroma_ctl migrate";
+        ExecStart = "${envWrapper}/bin/pleroma start";
+        ExecStartPost = socketScript;
+        ExecStop = "${envWrapper}/bin/pleroma stop";
+        ExecStopPost = mkIf (isAbsolutePath web.http.ip) "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
 
-        serviceConfig = {
-          Type = "exec";
-          User = cfg.user;
-          Group = cfg.group;
-          UMask = "0077";
+        ProtectProc = "noaccess";
+        ProcSubset = "pid";
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        PrivateIPC = true;
+        ProtectHostname = true;
+        ProtectClock = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
 
-          # The run‐time directory is preserved as it is managed by the akkoma-config.service unit.
-          RuntimeDirectory = "akkoma";
-          RuntimeDirectoryPreserve = true;
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        RemoveIPC = true;
 
-          CacheDirectory = "akkoma";
+        CapabilityBoundingSet = mkIf (any (port: port > 0 && port < 1024) [
+          web.http.port
+          cfg.dist.epmdPort
+          cfg.dist.portMin
+        ]) ["CAP_NET_BIND_SERVICE"];
 
-          BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
-          BindReadOnlyPaths = mkMerge [
-            (mkIf (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
-            (mkIf isConfined (mkMerge [
-              [
-                "/etc/hosts"
-                "/etc/resolv.conf"
-              ]
-              (mkIf (isStorePath staticDir) (
-                map (dir: "${dir}:${dir}:norbind") (
-                  splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"))
-                )
-              ))
-              (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
-              (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
-            ]))
-          ];
+        NoNewPrivileges = true;
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@chown"
+        ];
+        SystemCallArchitectures = "native";
 
-          ExecStartPre = "${envWrapper}/bin/pleroma_ctl migrate";
-          ExecStart = "${envWrapper}/bin/pleroma start";
-          ExecStartPost = socketScript;
-          ExecStop = "${envWrapper}/bin/pleroma stop";
-          ExecStopPost = mkIf (isAbsolutePath web.http.ip) "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
+        DeviceAllow = null;
+        DevicePolicy = "closed";
 
-          ProtectProc = "noaccess";
-          ProcSubset = "pid";
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          PrivateIPC = true;
-          ProtectHostname = true;
-          ProtectClock = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-
-          RestrictAddressFamilies = [
-            "AF_UNIX"
-            "AF_INET"
-            "AF_INET6"
-          ];
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          RemoveIPC = true;
-
-          CapabilityBoundingSet = mkIf (any (port: port > 0 && port < 1024) [
-            web.http.port
-            cfg.dist.epmdPort
-            cfg.dist.portMin
-          ]) [ "CAP_NET_BIND_SERVICE" ];
-
-          NoNewPrivileges = true;
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-            "@chown"
-          ];
-          SystemCallArchitectures = "native";
-
-          DeviceAllow = null;
-          DevicePolicy = "closed";
-
-          # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
-          SocketBindAllow = mkIf (!hasSmtp) (mkMerge [
-            [
-              "tcp:${toString cfg.dist.epmdPort}"
-              "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
-            ]
-            (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
-          ]);
-          SocketBindDeny = mkIf (!hasSmtp) "any";
-        };
+        # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
+        SocketBindAllow = mkIf (!hasSmtp) (mkMerge [
+          [
+            "tcp:${toString cfg.dist.epmdPort}"
+            "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
+          ]
+          (mkIf (web.http.port != 0) ["tcp:${toString web.http.port}"])
+        ]);
+        SocketBindDeny = mkIf (!hasSmtp) "any";
       };
+    };
 
     systemd.tmpfiles.rules = [
       "d ${uploadDir}  0700 ${cfg.user} ${cfg.group} - -"
       "Z ${uploadDir} ~0700 ${cfg.user} ${cfg.group} - -"
     ];
 
-    environment.systemPackages = mkIf (cfg.installWrapper) [ userWrapper ];
+    environment.systemPackages = mkIf (cfg.installWrapper) [userWrapper];
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       ${web.url.host} = mkMerge [
@@ -1378,12 +1356,11 @@ in
         {
           locations."/" = {
             proxyPass =
-              if isAbsolutePath web.http.ip then
-                "http://unix:${web.http.ip}"
-              else if hasInfix ":" web.http.ip then
-                "http://[${web.http.ip}]:${toString web.http.port}"
-              else
-                "http://${web.http.ip}:${toString web.http.port}";
+              if isAbsolutePath web.http.ip
+              then "http://unix:${web.http.ip}"
+              else if hasInfix ":" web.http.ip
+              then "http://[${web.http.ip}]:${toString web.http.port}"
+              else "http://${web.http.ip}:${toString web.http.port}";
 
             proxyWebsockets = true;
             recommendedProxySettings = true;
@@ -1393,6 +1370,6 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ mvs ];
+  meta.maintainers = with lib.maintainers; [mvs];
   meta.doc = ./akkoma.md;
 }

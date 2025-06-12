@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.networking.jool;
 
   jool = config.boot.kernelPackages.jool;
@@ -18,7 +16,7 @@ let
     DynamicUser = true;
 
     # Restrict filesystem to only read the jool module
-    TemporaryFileSystem = [ "/" ];
+    TemporaryFileSystem = ["/"];
     BindReadOnlyPaths = [
       builtins.storeDir
       "/run/booted-system/kernel-modules"
@@ -29,10 +27,10 @@ let
       "CAP_SYS_MODULE"
       "CAP_NET_ADMIN"
     ];
-    RestrictAddressFamilies = [ "AF_NETLINK" ];
+    RestrictAddressFamilies = ["AF_NETLINK"];
 
     # Other restrictions
-    RestrictNamespaces = [ "net" ];
+    RestrictNamespaces = ["net"];
     SystemCallFilter = [
       "@system-service"
       "@module"
@@ -43,13 +41,11 @@ let
     ];
   };
 
-  configFormat = pkgs.formats.json { };
+  configFormat = pkgs.formats.json {};
 
   # Generate the config file of instance `name`
-  nat64Conf =
-    name: configFormat.generate "jool-nat64-${name}.conf" (cfg.nat64.${name} // { instance = name; });
-  siitConf =
-    name: configFormat.generate "jool-siit-${name}.conf" (cfg.siit.${name} // { instance = name; });
+  nat64Conf = name: configFormat.generate "jool-nat64-${name}.conf" (cfg.nat64.${name} // {instance = name;});
+  siitConf = name: configFormat.generate "jool-siit-${name}.conf" (cfg.siit.${name} // {instance = name;});
 
   # NAT64 config type
   nat64Options = lib.types.submodule {
@@ -70,9 +66,11 @@ let
       '';
     };
     options.global.pool6 = lib.mkOption {
-      type = lib.types.strMatching "[[:xdigit:]:]+/[[:digit:]]+" // {
-        description = "Network prefix in CIDR notation";
-      };
+      type =
+        lib.types.strMatching "[[:xdigit:]:]+/[[:digit:]]+"
+        // {
+          description = "Network prefix in CIDR notation";
+        };
       default = "64:ff9b::/96";
       description = ''
         The prefix used for embedding IPv4 into IPv6 addresses.
@@ -87,38 +85,42 @@ let
     # The format is, again, plain JSON
     freeformType = configFormat.type;
     # Some options with a default value
-    options = { inherit (nat64Options.getSubOptions [ ]) framework; };
+    options = {inherit (nat64Options.getSubOptions []) framework;};
   };
 
   makeNat64Unit = name: opts: {
     "jool-nat64-${name}" = {
       description = "Jool, NAT64 setup of instance ${name}";
-      documentation = [ "https://nicmx.github.io/Jool/en/documentation.html" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStartPre = "${pkgs.kmod}/bin/modprobe jool";
-        ExecStart = "${jool-cli}/bin/jool file handle ${nat64Conf name}";
-        ExecStop = "${jool-cli}/bin/jool -f ${nat64Conf name} instance remove";
-      } // hardening;
+      documentation = ["https://nicmx.github.io/Jool/en/documentation.html"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig =
+        {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStartPre = "${pkgs.kmod}/bin/modprobe jool";
+          ExecStart = "${jool-cli}/bin/jool file handle ${nat64Conf name}";
+          ExecStop = "${jool-cli}/bin/jool -f ${nat64Conf name} instance remove";
+        }
+        // hardening;
     };
   };
 
   makeSiitUnit = name: opts: {
     "jool-siit-${name}" = {
       description = "Jool, SIIT setup of instance ${name}";
-      documentation = [ "https://nicmx.github.io/Jool/en/documentation.html" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStartPre = "${pkgs.kmod}/bin/modprobe jool_siit";
-        ExecStart = "${jool-cli}/bin/jool_siit file handle ${siitConf name}";
-        ExecStop = "${jool-cli}/bin/jool_siit -f ${siitConf name} instance remove";
-      } // hardening;
+      documentation = ["https://nicmx.github.io/Jool/en/documentation.html"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig =
+        {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStartPre = "${pkgs.kmod}/bin/modprobe jool_siit";
+          ExecStart = "${jool-cli}/bin/jool_siit file handle ${siitConf name}";
+          ExecStop = "${jool-cli}/bin/jool_siit -f ${siitConf name} instance remove";
+        }
+        // hardening;
     };
   };
 
@@ -133,10 +135,7 @@ let
     jool_siit file check ${siitConf name}
     printf 'Ok.\n'; touch "$out"
   '';
-
-in
-
-{
+in {
   options = {
     networking.jool.enable = lib.mkOption {
       type = lib.types.bool;
@@ -161,7 +160,7 @@ in
 
     networking.jool.nat64 = lib.mkOption {
       type = lib.types.attrsOf nat64Options;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           default = {
@@ -228,7 +227,7 @@ in
 
     networking.jool.siit = lib.mkOption {
       type = lib.types.attrsOf siitOptions;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           default = {
@@ -270,13 +269,12 @@ in
         :::
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     # Install kernel module and cli tools
-    boot.extraModulePackages = [ jool ];
-    environment.systemPackages = [ jool-cli ];
+    boot.extraModulePackages = [jool];
+    environment.systemPackages = [jool-cli];
 
     # Install services for each instance
     systemd.services = lib.mkMerge (
@@ -284,18 +282,17 @@ in
     );
 
     # Check the configuration of each instance
-    system.checks = lib.optional (cfg.nat64 != { } || cfg.siit != { }) (
+    system.checks = lib.optional (cfg.nat64 != {} || cfg.siit != {}) (
       pkgs.runCommand "jool-validated"
-        {
-          nativeBuildInputs = with pkgs.buildPackages; [ jool-cli ];
-          preferLocalBuild = true;
-        }
-        (
-          lib.concatStrings (lib.mapAttrsToList checkNat64 cfg.nat64 ++ lib.mapAttrsToList checkSiit cfg.siit)
-        )
+      {
+        nativeBuildInputs = with pkgs.buildPackages; [jool-cli];
+        preferLocalBuild = true;
+      }
+      (
+        lib.concatStrings (lib.mapAttrsToList checkNat64 cfg.nat64 ++ lib.mapAttrsToList checkSiit cfg.siit)
+      )
     );
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

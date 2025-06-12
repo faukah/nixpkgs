@@ -7,7 +7,6 @@
   qtbase,
   qmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qcustomplot";
   version = "2.1.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   nativeBuildInputs =
     [
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.LANG = "C.UTF-8";
 
-  qmakeFlags = [ "sharedlib/sharedlib-compilation/sharedlib-compilation.pro" ];
+  qmakeFlags = ["sharedlib/sharedlib-compilation/sharedlib-compilation.pro"];
 
   dontWrapQtApps = true;
 
@@ -63,6 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Qt C++ widget for plotting and data visualization";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Cryolitia ];
+    maintainers = with lib.maintainers; [Cryolitia];
   };
 })

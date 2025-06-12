@@ -13,7 +13,7 @@ mkDerivation {
   postUnpack = ''
     sourceRoot="$sourceRoot/libraries/ghc-platform"
   '';
-  libraryHaskellDepends = [ base ];
+  libraryHaskellDepends = [base];
   description = "Platform information used by GHC and friends";
   license = lib.licenses.bsd3;
 }

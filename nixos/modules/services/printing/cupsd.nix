@@ -4,12 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
-  inherit (pkgs)
+with lib; let
+  inherit
+    (pkgs)
     cups-pk-helper
     libcupsfilters
     cups-filters
@@ -23,22 +20,22 @@ let
 
   additionalBackends =
     pkgs.runCommand "additional-cups-backends"
-      {
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out
-        if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
-          mkdir -p $out/lib/cups/backend
-          ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
-        fi
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out
+      if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
+        mkdir -p $out/lib/cups/backend
+        ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
+      fi
 
-        # Provide support for printing via HTTPS.
-        if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
-          mkdir -p $out/lib/cups/backend
-          ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
-        fi
-      '';
+      # Provide support for printing via HTTPS.
+      if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
+        mkdir -p $out/lib/cups/backend
+        ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
+      fi
+    '';
 
   # Here we can enable additional backends, filters, etc. that are not
   # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
@@ -47,13 +44,15 @@ let
   # cups-files.conf tells cupsd to use this tree.
   bindir = pkgs.buildEnv {
     name = "cups-progs";
-    paths = [
-      cups.out
-      additionalBackends
-      libcupsfilters
-      cups-filters
-      pkgs.ghostscript
-    ] ++ cfg.drivers;
+    paths =
+      [
+        cups.out
+        additionalBackends
+        libcupsfilters
+        cups-filters
+        pkgs.ghostscript
+      ]
+      ++ cfg.drivers;
     pathsToLink = [
       "/lib"
       "/share/cups"
@@ -63,8 +62,7 @@ let
     ignoreCollisions = true;
   };
 
-  writeConf =
-    name: text:
+  writeConf = name: text:
     pkgs.writeTextFile {
       inherit name text;
       destination = "/etc/cups/${name}";
@@ -97,15 +95,28 @@ let
 
   cupsdFile = writeConf "cupsd.conf" ''
     ${concatMapStrings (addr: ''
-      Listen ${addr}
-    '') cfg.listenAddresses}
+        Listen ${addr}
+      '')
+      cfg.listenAddresses}
     Listen /run/cups/cups.sock
 
-    DefaultShared ${if cfg.defaultShared then "Yes" else "No"}
+    DefaultShared ${
+      if cfg.defaultShared
+      then "Yes"
+      else "No"
+    }
 
-    Browsing ${if cfg.browsing then "Yes" else "No"}
+    Browsing ${
+      if cfg.browsing
+      then "Yes"
+      else "No"
+    }
 
-    WebInterface ${if cfg.webInterface then "Yes" else "No"}
+    WebInterface ${
+      if cfg.webInterface
+      then "Yes"
+      else "No"
+    }
 
     LogLevel ${cfg.logLevel}
 
@@ -125,7 +136,7 @@ let
       ]
       ++ optional cfg.browsed.enable browsedFile
       ++ cfg.drivers;
-    pathsToLink = [ "/etc/cups" ];
+    pathsToLink = ["/etc/cups"];
     ignoreCollisions = true;
   };
 
@@ -133,35 +144,29 @@ let
   containsGutenprint = pkgs: length (filterGutenprint pkgs) > 0;
   getGutenprint = pkgs: head (filterGutenprint pkgs);
 
-  parsePorts =
-    addresses:
-    let
-      splitAddress = addr: strings.splitString ":" addr;
-      extractPort = addr: builtins.foldl' (a: b: b) "" (splitAddress addr);
-    in
+  parsePorts = addresses: let
+    splitAddress = addr: strings.splitString ":" addr;
+    extractPort = addr: builtins.foldl' (a: b: b) "" (splitAddress addr);
+  in
     builtins.map (address: strings.toInt (extractPort address)) addresses;
-
-in
-
-{
-
+in {
   imports = [
-    (mkChangedOptionModule [ "services" "printing" "gutenprint" ] [ "services" "printing" "drivers" ] (
-      config:
-      let
-        enabled = getAttrFromPath [ "services" "printing" "gutenprint" ] config;
+    (mkChangedOptionModule ["services" "printing" "gutenprint"] ["services" "printing" "drivers"] (
+      config: let
+        enabled = getAttrFromPath ["services" "printing" "gutenprint"] config;
       in
-      if enabled then [ pkgs.gutenprint ] else [ ]
+        if enabled
+        then [pkgs.gutenprint]
+        else []
     ))
-    (mkRemovedOptionModule [ "services" "printing" "cupsFilesConf" ] "")
-    (mkRemovedOptionModule [ "services" "printing" "cupsdConf" ] "")
+    (mkRemovedOptionModule ["services" "printing" "cupsFilesConf"] "")
+    (mkRemovedOptionModule ["services" "printing" "cupsdConf"] "")
   ];
 
   ###### interface
 
   options = {
     services.printing = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -170,7 +175,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "cups" { };
+      package = lib.mkPackageOption pkgs "cups" {};
 
       stateless = mkOption {
         type = types.bool;
@@ -193,8 +198,8 @@ in
 
       listenAddresses = mkOption {
         type = types.listOf types.str;
-        default = [ "localhost:631" ];
-        example = [ "*:631" ];
+        default = ["localhost:631"];
+        example = ["*:631"];
         description = ''
           A list of addresses and ports on which to listen.
         '';
@@ -202,8 +207,8 @@ in
 
       allowFrom = mkOption {
         type = types.listOf types.str;
-        default = [ "localhost" ];
-        example = [ "all" ];
+        default = ["localhost"];
+        example = ["all"];
         apply = concatMapStringsSep "\n" (x: "Allow ${x}");
         description = ''
           From which hosts to allow unconditional access.
@@ -306,7 +311,7 @@ in
         '';
       };
 
-      browsed.package = lib.mkPackageOption pkgs "cups-browsed" { };
+      browsed.package = lib.mkPackageOption pkgs "cups-browsed" {};
 
       browsedConf = mkOption {
         type = types.lines;
@@ -333,7 +338,7 @@ in
 
       drivers = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs; [ gutenprint hplip splix ]";
         description = ''
           CUPS drivers to use. Drivers provided by CUPS, cups-filters,
@@ -354,13 +359,11 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.services.printing.enable {
-
     users.users.cups = {
       uid = config.ids.uids.cups;
       group = "lp";
@@ -369,13 +372,15 @@ in
 
     # We need xdg-open (part of xdg-utils) for the desktop-file to proper open the users default-browser when opening "Manage Printing"
     # https://github.com/NixOS/nixpkgs/pull/237994#issuecomment-1597510969
-    environment.systemPackages = [
-      cups.out
-      xdg-utils
-    ] ++ optional polkitEnabled cups-pk-helper;
+    environment.systemPackages =
+      [
+        cups.out
+        xdg-utils
+      ]
+      ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
-    services.dbus.packages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
+    services.dbus.packages = [cups.out] ++ optional polkitEnabled cups-pk-helper;
     services.udev.packages = cfg.drivers;
 
     # Allow passwordless printer admin for members of wheel group
@@ -391,32 +396,33 @@ in
     # Cups uses libusb to talk to printers, and does not use the
     # linux kernel driver. If the driver is not in a black list, it
     # gets loaded, and then cups cannot access the printers.
-    boot.blacklistedKernelModules = [ "usblp" ];
+    boot.blacklistedKernelModules = ["usblp"];
 
     # Some programs like print-manager rely on this value to get
     # printer test pages.
     environment.sessionVariables.CUPS_DATADIR = "${bindir}/share/cups";
 
-    systemd.packages = [ cups.out ];
+    systemd.packages = [cups.out];
 
     systemd.sockets.cups = mkIf cfg.startWhenNeeded {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       listenStreams =
         [
           ""
           "/run/cups/cups.sock"
         ]
         ++ map (
-          x: replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
-        ) cfg.listenAddresses;
+          x: replaceStrings ["localhost"] ["127.0.0.1"] (removePrefix "*:" x)
+        )
+        cfg.listenAddresses;
     };
 
     systemd.services.cups = {
-      wantedBy = optionals (!cfg.startWhenNeeded) [ "multi-user.target" ];
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = optionals (!cfg.startWhenNeeded) ["multi-user.target"];
+      wants = ["network.target"];
+      after = ["network.target"];
 
-      path = [ cups.out ];
+      path = [cups.out];
 
       preStart =
         lib.optionalString cfg.stateless ''
@@ -467,17 +473,17 @@ in
     systemd.services.cups-browsed = mkIf cfg.browsed.enable {
       description = "CUPS Remote Printer Discovery";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      after = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      wantedBy = ["multi-user.target"];
+      wants = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      bindsTo = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      partOf = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      after = ["avahi-daemon.service"] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
-      path = [ cups ];
+      path = [cups];
 
       serviceConfig.ExecStart = "${cfg.browsed.package}/bin/cups-browsed";
 
-      restartTriggers = [ browsedFile ];
+      restartTriggers = [browsedFile];
     };
 
     services.printing.extraConf = ''
@@ -523,18 +529,15 @@ in
       </Policy>
     '';
 
-    security.pam.services.cups = { };
+    security.pam.services.cups = {};
 
-    networking.firewall =
-      let
-        listenPorts = parsePorts cfg.listenAddresses;
-      in
+    networking.firewall = let
+      listenPorts = parsePorts cfg.listenAddresses;
+    in
       mkIf cfg.openFirewall {
         allowedTCPPorts = listenPorts;
       };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ matthewbauer ];
-
+  meta.maintainers = with lib.maintainers; [matthewbauer];
 }

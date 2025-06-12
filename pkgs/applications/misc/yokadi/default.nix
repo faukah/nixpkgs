@@ -7,7 +7,6 @@
   setproctitle,
   icalendar,
 }:
-
 buildPythonApplication rec {
   pname = "yokadi";
   version = "1.2.0";
@@ -31,6 +30,6 @@ buildPythonApplication rec {
     description = "Command line oriented, sqlite powered, todo-list";
     homepage = "https://yokadi.github.io/index.html";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.nkpvk ];
+    maintainers = [maintainers.nkpvk];
   };
 }

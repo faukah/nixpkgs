@@ -9,7 +9,6 @@
   npm-lockfile-fix,
   stdenv,
 }:
-
 buildNpmPackage rec {
   pname = "super-productivity";
   version = "13.0.10";
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     CSC_IDENTITY_AUTO_DISCOVERY = "false";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   postPatch = ''
     substituteInPlace electron-builder.yaml \
@@ -61,24 +60,23 @@ buildNpmPackage rec {
     runHook preInstall
 
     ${
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/Applications
-          cp -r "app-builds/mac"*"/Super Productivity.app" "$out/Applications"
-          makeWrapper "$out/Applications/Super Productivity.app/Contents/MacOS/Super Productivity" "$out/bin/super-productivity"
-        ''
-      else
-        ''
-          mkdir -p $out/share/{super-productivity,icons/hicolor/scalable/apps}
-          cp -r app-builds/*-unpacked/resources/app.asar $out/share/super-productivity
-          cp electron/assets/icons/ico-circled.svg $out/share/icons/hicolor/scalable/apps/super-productivity.svg
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/Applications
+        cp -r "app-builds/mac"*"/Super Productivity.app" "$out/Applications"
+        makeWrapper "$out/Applications/Super Productivity.app/Contents/MacOS/Super Productivity" "$out/bin/super-productivity"
+      ''
+      else ''
+        mkdir -p $out/share/{super-productivity,icons/hicolor/scalable/apps}
+        cp -r app-builds/*-unpacked/resources/app.asar $out/share/super-productivity
+        cp electron/assets/icons/ico-circled.svg $out/share/icons/hicolor/scalable/apps/super-productivity.svg
 
-          makeWrapper '${lib.getExe electron}' "$out/bin/super-productivity" \
-            --add-flags "$out/share/super-productivity/app.asar" \
-            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-            --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-            --inherit-argv0
-        ''
+        makeWrapper '${lib.getExe electron}' "$out/bin/super-productivity" \
+          --add-flags "$out/share/super-productivity/app.asar" \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+          --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+          --inherit-argv0
+      ''
     }
 
     runHook postInstall
@@ -102,7 +100,7 @@ buildNpmPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "To Do List / Time Tracker with Jira Integration";

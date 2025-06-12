@@ -5,7 +5,6 @@
   pythonOlder,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "piccolo-theme";
   version = "0.24.0";
@@ -19,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-Cc9w9Lttuk680UlmVQwpIznBHZMclTMiHNPb/+sdG9k=";
   };
 
-  dependencies = [ sphinx ];
+  dependencies = [sphinx];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "piccolo_theme" ];
+  pythonImportsCheck = ["piccolo_theme"];
 
   meta = with lib; {
     description = "Clean and modern Sphinx theme";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

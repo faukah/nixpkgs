@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "annapurna-sil";
   version = "2.100";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
   };
 }

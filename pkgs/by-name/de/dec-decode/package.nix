@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "dec-decode";
   version = "unstable-2022-12-24";
@@ -22,7 +21,7 @@ buildGoModule {
     mainProgram = "dec-decode";
     homepage = "https://github.com/sammiq/dec-decode";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = with platforms; linux ++ darwin;
   };
 }

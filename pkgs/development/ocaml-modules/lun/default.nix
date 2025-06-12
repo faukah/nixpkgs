@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "lun";
   version = "0.0.1";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "Optics in OCaml";
     homepage = "https://git.robur.coop/robur/lun";
     license = lib.licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

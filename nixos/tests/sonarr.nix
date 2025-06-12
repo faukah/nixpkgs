@@ -1,14 +1,10 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "sonarr";
-  meta.maintainers = with lib.maintainers; [ etu ];
+  meta.maintainers = with lib.maintainers; [etu];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.sonarr.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.sonarr.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_unit("sonarr.service")

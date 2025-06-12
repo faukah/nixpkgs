@@ -6,7 +6,6 @@
   bundlerEnv,
   bundlerUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "evil-winrm";
   version = "3.5";

@@ -8,7 +8,6 @@
   mbedtls_2,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dislocker";
   version = "0.7.3";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Read BitLocker encrypted partitions in Linux";
     homepage = "https://github.com/aorimn/dislocker";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
     platforms = platforms.unix;
   };
 }

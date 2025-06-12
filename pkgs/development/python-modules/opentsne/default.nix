@@ -9,9 +9,7 @@
   pytestCheckHook,
   pythonOlder,
   setuptools,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "opentsne";
     version = "1.0.2";
@@ -38,7 +36,7 @@ let
       scikit-learn
     ];
 
-    pythonImportsCheck = [ "openTSNE" ];
+    pythonImportsCheck = ["openTSNE"];
 
     doCheck = false;
 
@@ -65,8 +63,8 @@ let
       homepage = "https://github.com/pavlin-policar/openTSNE";
       changelog = "https://github.com/pavlin-policar/openTSNE/releases/tag/v${version}";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ lucasew ];
+      maintainers = with maintainers; [lucasew];
     };
   };
 in
-self
+  self

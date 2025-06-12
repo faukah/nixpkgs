@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "fontawesomefree";
   version = "6.6.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-WZtXRDHJvZLtX8BU0QRaB8QjNdo2wXiE8rk0dV7vkIk=";
   };
 
-  pythonImportsCheck = [ "fontawesomefree" ];
+  pythonImportsCheck = ["fontawesomefree"];
 
   meta = with lib; {
     homepage = "https://github.com/FortAwesome/Font-Awesome";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
       ofl
       cc-by-40
     ];
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
   };
 }

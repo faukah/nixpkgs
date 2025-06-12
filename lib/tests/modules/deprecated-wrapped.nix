@@ -1,8 +1,8 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) types mkOption;
 
-  inherit (types)
+  inherit
+    (types)
     # attrsOf uses attrsWith internally
     attrsOf
     listOf
@@ -12,13 +12,11 @@ let
     coercedTo
     either
     ;
-in
-{
+in {
   imports = [
     #  Module A
     (
-      { ... }:
-      {
+      {...}: {
         options.attrsWith = mkOption {
           type = attrsOf (listOf types.str);
         };
@@ -33,10 +31,10 @@ in
         };
         # unique
         options.unique = mkOption {
-          type = unique { message = ""; } (listOf types.str);
+          type = unique {message = "";} (listOf types.str);
         };
         options.mergedUnique = mkOption {
-          type = unique { message = ""; } (listOf types.str);
+          type = unique {message = "";} (listOf types.str);
         };
         # nullOr
         options.nullOr = mkOption {
@@ -67,8 +65,7 @@ in
     )
     # Module B
     (
-      { ... }:
-      {
+      {...}: {
         options.mergedAttrsWith = mkOption {
           type = attrsOf (listOf types.str);
         };
@@ -76,7 +73,7 @@ in
           type = listOf (listOf types.str);
         };
         options.mergedUnique = mkOption {
-          type = unique { message = ""; } (listOf types.str);
+          type = unique {message = "";} (listOf types.str);
         };
         options.mergedNullOr = mkOption {
           type = nullOr (listOf types.str);

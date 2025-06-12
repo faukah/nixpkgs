@@ -11,7 +11,6 @@
   zlib,
   xz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "scotch";
   version = "7.0.7";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     "out"
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   nativeBuildInputs = [
     cmake
@@ -54,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://www.labri.fr/perso/pelegrin/scotch";
     license = lib.licenses.cecill-c;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
   };
 })

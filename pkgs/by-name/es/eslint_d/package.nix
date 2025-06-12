@@ -5,7 +5,6 @@
   eslint_d,
   testers,
 }:
-
 buildNpmPackage rec {
   pname = "eslint_d";
   version = "14.3.0";
@@ -30,7 +29,7 @@ buildNpmPackage rec {
     description = "Makes eslint the fastest linter on the planet";
     homepage = "https://github.com/mantoni/eslint_d.js";
     license = licenses.mit;
-    maintainers = [ maintainers.ehllie ];
+    maintainers = [maintainers.ehllie];
     mainProgram = "eslint_d";
   };
 }

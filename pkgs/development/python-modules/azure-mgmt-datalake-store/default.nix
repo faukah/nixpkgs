@@ -7,7 +7,6 @@
   azure-mgmt-datalake-nspkg,
   azure-mgmt-core,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-datalake-store";
   version = "1.0.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     azure-mgmt-datalake-nspkg
   ];
 
-  pythonNamespaces = [ "azure.mgmt.datalake" ];
+  pythonNamespaces = ["azure.mgmt.datalake"];
 
   # has no tests
   doCheck = false;

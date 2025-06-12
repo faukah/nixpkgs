@@ -3,32 +3,29 @@
   config,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkOption
     mkIf
     types
     ;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   cfg = config.services.hebbot;
   settingsFile = format.generate "config.toml" cfg.settings;
-  mkTemplateOption =
-    templateName:
+  mkTemplateOption = templateName:
     mkOption {
       type = types.path;
       description = ''
         A path to the Markdown file for the ${templateName}.
       '';
     };
-in
-{
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+in {
+  meta.maintainers = [lib.maintainers.raitobezarius];
   options.services.hebbot = {
     enable = mkEnableOption "hebbot";
-    package = lib.mkPackageOption pkgs "hebbot" { };
+    package = lib.mkPackageOption pkgs "hebbot" {};
     botPasswordFile = mkOption {
       type = types.path;
       description = ''
@@ -45,7 +42,7 @@ in
     };
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for Hebbot, see, for examples:
 
@@ -58,8 +55,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.hebbot = {
       description = "hebbot - a TWIM-style Matrix bot written in Rust";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ln -sf ${cfg.templates.project} ./project_template.md

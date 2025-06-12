@@ -4,7 +4,6 @@
   fetchPypi,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "prometheus_pve_exporter";
   version = "3.5.4";
@@ -25,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "pve_exporter" ];
+  pythonImportsCheck = ["pve_exporter"];
 
   passthru.tests = {
     inherit (nixosTests.prometheus-exporters) pve;
@@ -36,6 +35,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "pve_exporter";
     homepage = "https://github.com/prometheus-pve/prometheus-pve-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nukaduka ];
+    maintainers = with maintainers; [nukaduka];
   };
 }

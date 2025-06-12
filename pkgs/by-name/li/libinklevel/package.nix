@@ -5,7 +5,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libinklevel";
   version = "0.9.4";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J0cEaC5v4naO4GGUzdfV55kB7KzA+q+v64i5y5Xbp9Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libusb1
   ];
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libinklevel.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ samb96 ];
+    maintainers = with maintainers; [samb96];
   };
 }

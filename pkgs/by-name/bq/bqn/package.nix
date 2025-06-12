@@ -5,7 +5,6 @@
   makeWrapper,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bqn";
   version = "0-unstable-2024-05-13";
@@ -17,9 +16,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-Fru1IIb4IxBQxrEEBoRYStxBqYJJqd+Q+Hwyk++QA68=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   patches = [
     # Creates a @libbqn@ substitution variable, to be filled in postFixup
@@ -56,8 +55,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mlochbaum/BQN/";
     description = "Original BQN implementation in Javascript";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (nodejs.meta) platforms;
   };
 })
 # TODO: install docs and other stuff
+

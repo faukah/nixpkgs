@@ -7,7 +7,6 @@
   perl,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xcftools";
   version = "1.0.7";

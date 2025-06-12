@@ -5,7 +5,6 @@
   stdenv,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "safecloset";
   version = "1.4.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Canop/safecloset";
     changelog = "https://github.com/Canop/safecloset/blob/${src.rev}/CHANGELOG.md";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "safecloset";
   };
 }

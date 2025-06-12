@@ -10,7 +10,6 @@
   libxml2,
   libintl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hivex";
   version = "1.3.24";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pS+kXOzJp4rbLShgXWgmHk8f1FFKd4pUcwE9LMyKGTw=";
   };
 
-  patches = [ ./hivex-syms.patch ];
+  patches = [./hivex-syms.patch];
 
   postPatch = ''
     substituteInPlace ocaml/Makefile.am \
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
       perl
       IOStringy
     ])
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libintl ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libintl];
 
   enableParallelBuilding = true;
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Windows registry hive extraction library";
     license = licenses.lgpl2Only;
     homepage = "https://github.com/libguestfs/hivex";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

@@ -10,7 +10,6 @@
   pytz,
   udatetime,
 }:
-
 buildPythonPackage rec {
   pname = "pycron";
   version = "3.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-AuDqElqu/cbTASHQfWM85JHu8DvkwArZ2leMZSB+XVM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     arrow
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     "tests/test_has_been.py"
   ];
 
-  pythonImportsCheck = [ "pycron" ];
+  pythonImportsCheck = ["pycron"];
 
   meta = with lib; {
     description = "Simple cron-like parser for Python, which determines if current datetime matches conditions";
     license = licenses.mit;
     homepage = "https://github.com/kipe/pycron";
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proverif";
   version = "2.05";

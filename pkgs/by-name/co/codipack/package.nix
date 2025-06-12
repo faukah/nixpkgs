@@ -6,7 +6,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "codipack";
   version = "2.3.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast gradient evaluation in C++ based on Expression Templates";

@@ -11,17 +11,14 @@
   withFzf ? false,
   fzf,
   perl,
-
   # rbw-rofi
   withRofi ? false,
   rofi,
   xclip,
-
   # pass-import
   withPass ? false,
   pass,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rbw";
   version = "1.13.2";
@@ -34,11 +31,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xDb4shDHCbd0yuTSAt80i1aqyuhpkfd/fYF98CfXdcM=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = [ bash ]; # for git-credential-rbw
+  buildInputs = [bash]; # for git-credential-rbw
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isLinux ''
     export OPENSSL_INCLUDE_DIR="${openssl.dev}/include"
@@ -78,7 +77,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://crates.io/crates/rbw";
     changelog = "https://git.tozt.net/rbw/plain/CHANGELOG.md?id=${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ albakham ];
+    maintainers = with lib.maintainers; [albakham];
     mainProgram = "rbw";
   };
 }

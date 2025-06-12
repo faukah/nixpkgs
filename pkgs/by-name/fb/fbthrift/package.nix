@@ -1,14 +1,11 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
   fetchpatch,
-
   cmake,
   ninja,
   removeReferencesTo,
-
   openssl,
   gflags,
   glog,
@@ -18,12 +15,9 @@
   zlib,
   zstd,
   xxHash,
-
   mvfst,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fbthrift";
   version = "2025.04.21.00";
@@ -116,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Facebook's branch of Apache Thrift";

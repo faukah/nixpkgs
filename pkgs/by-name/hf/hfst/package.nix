@@ -13,7 +13,6 @@
   zlib,
   openfst,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hfst";
   version = "3.16.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "FST language processing library";
     homepage = "https://github.com/hfst/hfst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
     platforms = platforms.unix;
   };
 })

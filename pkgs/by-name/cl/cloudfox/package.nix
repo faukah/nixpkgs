@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cloudfox";
   version = "1.15.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/BishopFox/cloudfox";
     changelog = "https://github.com/BishopFox/cloudfox/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cloudfox";
   };
 }

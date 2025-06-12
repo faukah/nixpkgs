@@ -3,22 +3,19 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-}:
-let
-  generic =
-    {
-      version,
-      sha256,
-      rev ? version,
-      ...
-    }@attrs:
-    let
-      attrs' = builtins.removeAttrs attrs [
-        "version"
-        "sha256"
-        "rev"
-      ];
-    in
+}: let
+  generic = {
+    version,
+    sha256,
+    rev ? version,
+    ...
+  } @ attrs: let
+    attrs' = builtins.removeAttrs attrs [
+      "version"
+      "sha256"
+      "rev"
+    ];
+  in
     buildGoModule {
       pname = "kops";
       inherit version;
@@ -32,9 +29,9 @@ let
 
       vendorHash = null;
 
-      nativeBuildInputs = [ installShellFiles ];
+      nativeBuildInputs = [installShellFiles];
 
-      subPackages = [ "cmd/kops" ];
+      subPackages = ["cmd/kops"];
 
       ldflags = [
         "-s"
@@ -67,8 +64,7 @@ let
       };
     }
     // attrs';
-in
-rec {
+in rec {
   mkKops = generic;
 
   kops_1_27 = mkKops rec {

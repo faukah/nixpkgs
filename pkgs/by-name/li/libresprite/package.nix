@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   pkg-config,
   ninja,
   gtest,
-
   curl,
   freetype,
   giflib,
@@ -23,10 +21,8 @@
   SDL2,
   SDL2_image,
   lua,
-
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libresprite";
   version = "1.2";
@@ -106,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
         - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
         - Onion skinning.
     '';
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
     # https://github.com/LibreSprite/LibreSprite/issues/308
     broken = stdenv.hostPlatform.isDarwin;

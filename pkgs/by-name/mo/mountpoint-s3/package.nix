@@ -6,7 +6,6 @@
   fuse3,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mountpoint-s3";
   version = "1.17.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     rustPlatform.bindgenHook
   ];
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
   checkFlags = [
     #thread 's3_crt_client::tests::test_expected_bucket_owner' panicked at mountpoint-s3-client/src/s3_crt_client.rs:1123:47:
@@ -67,7 +66,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/awslabs/mountpoint-s3";
     description = "Simple, high-throughput file client for mounting an Amazon S3 bucket as a local file system";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lblasc ];
+    maintainers = with maintainers; [lblasc];
     platforms = platforms.linux;
   };
 }

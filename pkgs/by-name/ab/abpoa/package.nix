@@ -11,7 +11,6 @@
   runCommand,
   abpoa,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "${lib.optionalString enablePython "py"}abpoa";
   version = "1.5.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-E6XdiRULgJy9rf4NfXGBqUC+m0pMZKMsA5pHvCNNLJk=";
   };
 
-  patches = [ ./simd-arch.patch ];
+  patches = [./simd-arch.patch];
 
   postPatch = ''
     cp -r ${simde.src}/* include/simde
@@ -32,8 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = lib.optionals enablePython (
-    with python3Packages;
-    [
+    with python3Packages; [
       cython_0
       pypaBuildHook
       pypaInstallHook
@@ -44,25 +42,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildFlags = lib.optionals stdenv.hostPlatform.isx86_64 [
     (
-      if enableAvx then
-        "avx2=1"
-      else if enableSse4_1 then
-        "sse41=1"
-      else
-        "sse2=1"
+      if enableAvx
+      then "avx2=1"
+      else if enableSse4_1
+      then "sse41=1"
+      else "sse2=1"
     )
   ];
 
   env = lib.optionalAttrs enablePython (
-    if enableAvx then
-      { "AVX2" = 1; }
-    else if enableSse4_1 then
-      { "SSE41" = 1; }
-    else
-      { "SSE2" = 1; }
+    if enableAvx
+    then {"AVX2" = 1;}
+    else if enableSse4_1
+    then {"SSE41" = 1;}
+    else {"SSE2" = 1;}
   );
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = lib.optionalString (!enablePython) ''
     runHook preInstall
@@ -72,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  pythonImportsCheck = [ "pyabpoa" ];
+  pythonImportsCheck = ["pyabpoa"];
 
   doInstallCheck = enablePython;
 
@@ -85,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
+    simple = runCommand "${finalAttrs.pname}-test" {} ''
       ${lib.getExe abpoa} ${abpoa.src}/test_data/seq.fa > $out
     '';
   };
@@ -95,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/yangao07/abPOA";
     changelog = "https://github.com/yangao07/abPOA/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "abpoa";
     platforms = platforms.unix;
   };

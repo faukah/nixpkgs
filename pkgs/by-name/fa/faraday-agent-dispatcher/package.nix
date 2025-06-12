@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "faraday-agent-dispatcher";
   version = "3.4.2";
@@ -75,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/infobyte/faraday_agent_dispatcher";
     changelog = "https://github.com/infobyte/faraday_agent_dispatcher/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "faraday-dispatcher";
   };
 }

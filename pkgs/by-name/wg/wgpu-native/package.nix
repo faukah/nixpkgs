@@ -8,7 +8,6 @@
   nix-update-script,
   callPackage,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wgpu-native";
   version = "25.0.2.1";
@@ -29,9 +28,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-iOnz//eHQ6WRPWOGcKOXyuwZS9WcbJWslRAz8yDamn8=";
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      rustPlatform.bindgenHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     vulkan-loader
@@ -44,7 +45,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     examples = callPackage ./examples.nix {
       inherit version src;
     };
@@ -57,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ niklaskorz ];
+    maintainers = with lib.maintainers; [niklaskorz];
   };
 }

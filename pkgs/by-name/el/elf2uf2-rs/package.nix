@@ -6,7 +6,6 @@
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elf2uf2-rs";
   version = "2.1.1";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "Convert ELF files to UF2 for USB Flashing Bootloaders";
     mainProgram = "elf2uf2-rs";
     homepage = "https://github.com/JoNil/elf2uf2-rs";
-    license = with licenses; [ bsd0 ];
+    license = with licenses; [bsd0];
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [
       polygon

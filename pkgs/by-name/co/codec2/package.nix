@@ -8,7 +8,6 @@
   freedvSupport ? false,
   lpcnet,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "codec2";
   version = "1.2.0";
@@ -58,12 +57,12 @@ stdenv.mkDerivation (finalAttrs: {
       sed -r -i 's/(\<_Complex)(\s+)(float|double)/\3\2\1/' $dev/include/$pname/freedv_api.h
     ''
     +
-      # generated cmake module is not compatible with multiple outputs
-      ''
-        substituteInPlace $dev/lib/cmake/codec2/codec2-config.cmake --replace-fail \
-          '"''${_IMPORT_PREFIX}/include/codec2' \
-          "\"$dev/include/codec2"
-      '';
+    # generated cmake module is not compatible with multiple outputs
+    ''
+      substituteInPlace $dev/lib/cmake/codec2/codec2-config.cmake --replace-fail \
+        '"''${_IMPORT_PREFIX}/include/codec2' \
+        "\"$dev/include/codec2"
+    '';
 
   cmakeFlags =
     [
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.rowetel.com/codec2.html";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ markuskowa ];
-    pkgConfigModules = [ "codec2" ];
+    maintainers = with maintainers; [markuskowa];
+    pkgConfigModules = ["codec2"];
   };
 })

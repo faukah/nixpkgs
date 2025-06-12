@@ -9,7 +9,6 @@
   fetchpatch,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyssim";
   version = "0.7";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jterrace/pyssim";
     changelog = "https://github.com/jterrace/pyssim/blob/${src.tag}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

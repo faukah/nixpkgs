@@ -5,7 +5,6 @@
   testers,
   yamlfmt,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "yamlfmt";
   version = "0.17.0";
@@ -28,7 +27,7 @@ buildGoModule (finalAttrs: {
 
   # Test failure in vendored yaml package, see:
   # https://github.com/google/yamlfmt/issues/256
-  checkFlags = [ "-run=!S/TestNodeRoundtrip" ];
+  checkFlags = ["-run=!S/TestNodeRoundtrip"];
 
   passthru.tests.version = testers.testVersion {
     package = yamlfmt;
@@ -39,7 +38,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/google/yamlfmt";
     changelog = "https://github.com/google/yamlfmt/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "yamlfmt";
   };
 })

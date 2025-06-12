@@ -5,7 +5,6 @@
   linuxHeaders,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "evdev";
   version = "1.9.2";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
       --replace-fail /usr/include ${linuxHeaders}/include
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ linuxHeaders ];
+  buildInputs = [linuxHeaders];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "evdev" ];
+  pythonImportsCheck = ["evdev"];
 
   meta = with lib; {
     description = "Provides bindings to the generic input event interface in Linux";
     homepage = "https://python-evdev.readthedocs.io/";
     changelog = "https://github.com/gvalkov/python-evdev/blob/v${version}/docs/changelog.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

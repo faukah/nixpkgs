@@ -13,7 +13,6 @@
   libgit2,
   stdenv,
 }:
-
 mkDerivation rec {
   pname = "klayout";
   version = "0.30.2";
@@ -76,21 +75,21 @@ mkDerivation rec {
     wrapQtApp "$out/Applications/klayout.app/Contents/MacOS/klayout"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-parentheses" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-parentheses"];
 
   dontInstall = true; # Installation already happens as part of "build.sh"
 
   # Fix: "gsiDeclQMessageLogger.cc:126:42: error: format not a string literal
   # and no format arguments [-Werror=format-security]"
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "High performance layout viewer and editor with support for GDS and OASIS";
     mainProgram = "klayout";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     homepage = "https://www.klayout.de/";
     changelog = "https://www.klayout.de/development.html#${version}";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

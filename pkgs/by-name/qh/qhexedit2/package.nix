@@ -5,7 +5,6 @@
   qt6,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qhexedit2";
   version = "0.9.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     # I would use testers.testVersion except for some reason it fails, even with my patches that add a --version flag
     # TODO: Debug why testVersion reports a non-zero status code in the nix sandbox
   };
@@ -60,6 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "qhexedit";
     license = lib.licenses.lgpl21Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 })

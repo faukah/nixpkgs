@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-formtools";
   version = "2.5.1";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-R8s0VSxu/KCIhj1pMoTQT8NuqvNQ6yHhodk14N9SPJM=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   checkPhase = ''
     runHook preCheck
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "formtools" ];
+  pythonImportsCheck = ["formtools"];
 
   meta = with lib; {
     description = "Set of high-level abstractions for Django forms";

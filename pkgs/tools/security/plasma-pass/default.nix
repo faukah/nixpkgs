@@ -11,7 +11,6 @@
   plasma-framework,
   qt5,
 }:
-
 mkDerivation rec {
   pname = "plasma-pass";
   version = "1.2.2";
@@ -43,7 +42,7 @@ mkDerivation rec {
     description = "Plasma applet to access passwords from pass, the standard UNIX password manager";
     homepage = "https://invent.kde.org/plasma/plasma-pass";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.unix;
   };
 }

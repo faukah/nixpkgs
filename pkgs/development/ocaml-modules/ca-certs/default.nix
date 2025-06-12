@@ -13,7 +13,6 @@
   alcotest,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "ca-certs";
   version = "1.0.1";
@@ -44,7 +43,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description = "Detect root CA certificates from the operating system";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     license = licenses.isc;
     homepage = "https://github.com/mirage/ca-certs";
   };

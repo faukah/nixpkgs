@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kx-aspe-cli";
   version = "0-unstable-2024-04-06";
@@ -18,9 +17,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-xSJTwyHNqDHyH6dgwlWnvqNCzTvmFntk+XgAaxODWAY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-wOg81NvChOLPiCyhJ5dGn5sRskevpf0QdKwmgZa2/1s=";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     description = "Keyoxide profile generator CLI using ASPE";
     mainProgram = "kx-aspe";
     platforms = lib.platforms.linux;
-    license = [ lib.licenses.asl20 ];
-    maintainers = [ lib.maintainers.nobbz ];
+    license = [lib.licenses.asl20];
+    maintainers = [lib.maintainers.nobbz];
   };
 }

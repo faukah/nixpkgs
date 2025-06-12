@@ -5,7 +5,6 @@
   pnpm_10,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencloud-idp-web";
 

@@ -13,7 +13,6 @@
   pydantic,
   requests,
 }:
-
 buildPythonPackage {
   pname = "prometrix";
   version = "0.1.18-unstable-2024-04-30";
@@ -32,7 +31,7 @@ buildPythonPackage {
     "urllib3"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     boto3
@@ -50,7 +49,7 @@ buildPythonPackage {
   # https://github.com/robusta-dev/prometrix/issues/9
   doCheck = false;
 
-  pythonImportsCheck = [ "prometrix" ];
+  pythonImportsCheck = ["prometrix"];
 
   meta = with lib; {
     description = "Unified Prometheus client";
@@ -60,7 +59,7 @@ buildPythonPackage {
     '';
     homepage = "https://github.com/robusta-dev/prometrix";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     # prometheus-api-client 0.5.5 is not working
     # https://github.com/robusta-dev/prometrix/issues/14
     broken = versionAtLeast prometheus-api-client.version "0.5.3";

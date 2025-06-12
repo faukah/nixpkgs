@@ -8,7 +8,6 @@
   nvidia-ml-py,
   pynvml,
 }:
-
 buildPythonPackage rec {
   pname = "pynvml";
   version = "12.0.0";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ nvidia-ml-py ];
+  dependencies = [nvidia-ml-py];
 
   pythonImportsCheck = [
     "pynvml_utils"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = false;
 
-  passthru.tests.tester-nvmlInit = cudaPackages.writeGpuTestPython { libraries = [ pynvml ]; } ''
+  passthru.tests.tester-nvmlInit = cudaPackages.writeGpuTestPython {libraries = [pynvml];} ''
     from pynvml_utils import nvidia_smi  # noqa: F401
     nvsmi = nvidia_smi.getInstance()
     print(nvsmi.DeviceQuery('memory.free, memory.total'))
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gpuopenanalytics/pynvml";
     changelog = "https://github.com/gpuopenanalytics/pynvml?tab=readme-ov-file#release-notes";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

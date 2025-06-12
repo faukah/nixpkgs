@@ -5,7 +5,6 @@
   drawio,
   xvfb-run,
 }:
-
 writeTextFile {
   name = "${drawio.pname}-headless-${drawio.version}";
 

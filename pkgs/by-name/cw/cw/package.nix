@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cw";
   version = "4.1.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Best way to tail AWS CloudWatch Logs from your terminal";
     homepage = "https://github.com/lucagrulla/cw";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onthestairs ];
+    maintainers = with maintainers; [onthestairs];
     mainProgram = "cw";
   };
 }

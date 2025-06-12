@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "semaphore-compat";
   version = "1.0.2";
@@ -22,6 +21,6 @@ buildDunePackage rec {
       lgpl21Plus
       ocamlLgplLinkingException
     ];
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

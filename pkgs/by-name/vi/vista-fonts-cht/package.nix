@@ -4,7 +4,6 @@
   fetchurl,
   cabextract,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "vista-fonts-cht";
   version = "1";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-fSnbbxlMPzbhFSQyKxQaS5paiWji8njK7tS8Eppsj6g=";
   };
 
-  nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [cabextract];
 
   unpackPhase = ''
     runHook preUnpack
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation {
     description = "TrueType fonts from Microsoft Windows Vista For Traditional Chinese (Microsoft JhengHei)";
     homepage = "https://www.microsoft.com/typography/fonts/family.aspx";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ atkinschang ];
+    maintainers = with lib.maintainers; [atkinschang];
 
     # Set a non-zero priority to allow easy overriding of the
     # fontconfig configuration files.

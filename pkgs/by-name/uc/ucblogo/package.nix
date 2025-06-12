@@ -9,7 +9,6 @@
   autoconf-archive,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ucblogo-code";
   version = "6.2.4";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jrincayc/ucblogo-code";
     changelog = "https://github.com/jrincayc/ucblogo-code/blob/${finalAttrs.src.rev}/changes.txt";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "ucblogo-code";
     platforms = platforms.all;
   };

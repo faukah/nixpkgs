@@ -25,7 +25,6 @@
   wrapGAppsHook3,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wasistlos";
   version = "1.7.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Unofficial WhatsApp desktop application";
     mainProgram = "wasistlos";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ bartuka ];
+    maintainers = with lib.maintainers; [bartuka];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

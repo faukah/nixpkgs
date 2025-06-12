@@ -7,8 +7,7 @@
   gnupatch,
   heirloom-devtools,
   heirloom,
-}:
-let
+}: let
   pname = "heirloom";
   version = "070715";
 
@@ -71,7 +70,7 @@ let
     "LWCHAR='-L../libwchar -lwchar'"
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -82,13 +81,12 @@ bash.runCommand "${pname}-${version}"
       heirloom-devtools
     ];
 
-    passthru.sed = bash.runCommand "${pname}-sed-${version}" { } ''
+    passthru.sed = bash.runCommand "${pname}-sed-${version}" {} ''
       install -D ${heirloom}/bin/sed $out/bin/sed
     '';
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/banner Hello Heirloom
         mkdir $out
       '';
@@ -108,7 +106,7 @@ bash.runCommand "${pname}-${version}"
         lpl-102
         info-zip
       ];
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

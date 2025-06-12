@@ -16,7 +16,7 @@ replaceVarsWith {
   dir = "bin";
   isExecutable = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage ${./nixos-build-vms.8}

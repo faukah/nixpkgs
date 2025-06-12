@@ -11,7 +11,6 @@
   unstableGitUpdater,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hebbot";
   version = "2.1-unstable-2024-09-20";
@@ -49,14 +48,14 @@ rustPlatform.buildRustPackage rec {
     "-L${lib.getLib sqlite}/lib"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Matrix bot which can generate \"This Week in X\" like blog posts ";
     homepage = "https://github.com/haecker-felix/hebbot";
     changelog = "https://github.com/haecker-felix/hebbot/releases/tag/v${version}";
-    license = with lib.licenses; [ agpl3Only ];
+    license = with lib.licenses; [agpl3Only];
     mainProgram = "hebbot";
-    maintainers = with lib.maintainers; [ a-kenji ];
+    maintainers = with lib.maintainers; [a-kenji];
   };
 }

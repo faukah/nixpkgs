@@ -4,7 +4,6 @@
   fetchPypi,
   mopidy,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "Mopidy-Bandcamp";
   version = "1.1.5";
@@ -22,6 +21,6 @@ python3Packages.buildPythonApplication rec {
     description = "Mopidy extension for playing music from bandcamp";
     homepage = "https://github.com/impliedchaos/mopidy-bandcamp";
     license = licenses.mit;
-    maintainers = with maintainers; [ desttinghim ];
+    maintainers = with maintainers; [desttinghim];
   };
 }

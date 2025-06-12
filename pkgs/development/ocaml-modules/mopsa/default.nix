@@ -16,7 +16,6 @@
   yojson,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "mopsa";
   version = "1.1";
@@ -76,7 +75,6 @@ buildDunePackage rec {
     license = lib.licenses.lgpl3Plus;
     homepage = "https://mopsa.lip6.fr/";
     description = "A Modular and Open Platform for Static Analysis using Abstract Interpretation";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

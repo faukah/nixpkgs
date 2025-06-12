@@ -9,7 +9,6 @@
   ptime,
   tls,
 }:
-
 buildDunePackage {
   pname = "tls-eio";
 
@@ -24,7 +23,7 @@ buildDunePackage {
   checkInputs = [
     crowbar
     eio_main
-    (mdx.override { inherit logs; })
+    (mdx.override {inherit logs;})
   ];
 
   propagatedBuildInputs = [

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "audiness";
   version = "0.5.0";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     "validators"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     pytenable
@@ -29,14 +28,14 @@ python3.pkgs.buildPythonApplication rec {
     validators
   ];
 
-  pythonImportsCheck = [ "audiness" ];
+  pythonImportsCheck = ["audiness"];
 
   meta = {
     description = "CLI tool to interact with Nessus";
     homepage = "https://github.com/audiusGmbH/audiness";
     changelog = "https://github.com/audiusGmbH/audiness/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "audiness";
   };
 }

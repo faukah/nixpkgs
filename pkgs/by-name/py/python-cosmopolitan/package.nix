@@ -5,7 +5,6 @@
   unzip,
   bintools-unwrapped,
 }:
-
 stdenv.mkDerivation {
   pname = "python-cosmopolitan";
   version = "3.6.14";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
   ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
-  buildFlags = [ "o//third_party/python" ];
+  buildFlags = ["o//third_party/python"];
   checkTarget = "o//third_party/python/test";
   enableParallelBuilding = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     platforms = platforms.x86_64;
     badPlatforms = platforms.darwin;
     license = licenses.isc;
-    teams = [ teams.cosmopolitan ];
+    teams = [teams.cosmopolitan];
     mainProgram = "python.com";
   };
 }

@@ -10,7 +10,6 @@
   xfce,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thunar-dropbox";
   version = "0.3.1";
@@ -33,13 +32,13 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/Jeinzi/thunar-dropbox";
     description = "Plugin that adds context-menu items for Dropbox to Thunar";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

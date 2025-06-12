@@ -14,7 +14,6 @@
   zlib,
   withApplePCSC ? stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yubico-piv-tool";
   version = "2.7.1";
@@ -43,14 +42,20 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-    zlib
-  ] ++ lib.optionals (!withApplePCSC) [ pcsclite ];
+  buildInputs =
+    [
+      openssl
+      zlib
+    ]
+    ++ lib.optionals (!withApplePCSC) [pcsclite];
 
   cmakeFlags = [
     (lib.cmakeBool "GENERATE_MAN_PAGES" true)
-    (lib.cmakeFeature "BACKEND" (if withApplePCSC then "macscard" else "pcsc"))
+    (lib.cmakeFeature "BACKEND" (
+      if withApplePCSC
+      then "macscard"
+      else "pcsc"
+    ))
     (lib.cmakeFeature "CMAKE_INSTALL_BINDIR" "bin")
     (lib.cmakeFeature "CMAKE_INSTALL_INCLUDEDIR" "include")
     (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib")
@@ -59,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   passthru = {
     updateScript = nix-update-script {

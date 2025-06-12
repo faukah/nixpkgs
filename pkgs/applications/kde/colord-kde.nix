@@ -21,11 +21,10 @@
   libXrandr,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "colord-kde";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     kconfig
@@ -51,6 +50,6 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://projects.kde.org/projects/playground/graphics/colord-kde";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

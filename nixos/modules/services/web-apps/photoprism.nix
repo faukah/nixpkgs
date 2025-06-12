@@ -3,17 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.photoprism;
 
-  env = {
-    PHOTOPRISM_ORIGINALS_PATH = cfg.originalsPath;
-    PHOTOPRISM_STORAGE_PATH = cfg.storagePath;
-    PHOTOPRISM_IMPORT_PATH = cfg.importPath;
-    PHOTOPRISM_HTTP_HOST = cfg.address;
-    PHOTOPRISM_HTTP_PORT = toString cfg.port;
-  } // (lib.mapAttrs (_: toString) cfg.settings);
+  env =
+    {
+      PHOTOPRISM_ORIGINALS_PATH = cfg.originalsPath;
+      PHOTOPRISM_STORAGE_PATH = cfg.storagePath;
+      PHOTOPRISM_IMPORT_PATH = cfg.importPath;
+      PHOTOPRISM_HTTP_HOST = cfg.address;
+      PHOTOPRISM_HTTP_PORT = toString cfg.port;
+    }
+    // (lib.mapAttrs (_: toString) cfg.settings);
 
   manage = pkgs.writeShellScript "manage" ''
     set -o allexport # Export the following env vars
@@ -23,12 +24,10 @@ let
       -t $MainPID -m -S $ServiceUID -G $ServiceUID --wdns=${cfg.storagePath} \
       ${cfg.package}/bin/photoprism "$@"
   '';
-in
-{
-  meta.maintainers = with lib.maintainers; [ stunkymonkey ];
+in {
+  meta.maintainers = with lib.maintainers; [stunkymonkey];
 
   options.services.photoprism = {
-
     enable = lib.mkEnableOption "Photoprism web server";
 
     passwordFile = lib.mkOption {
@@ -80,11 +79,11 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "photoprism" { };
+    package = lib.mkPackageOption pkgs "photoprism" {};
 
     settings = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = ''
         See [the getting-started guide](https://docs.photoprism.app/getting-started/config-options/) for available options.
       '';
@@ -142,7 +141,7 @@ in
         UMask = "0066";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = env;
 
       # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302

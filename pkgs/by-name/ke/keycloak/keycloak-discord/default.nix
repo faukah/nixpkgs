@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keycloak-discord";
   version = "0.5.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wadahiro/keycloak-discord";
     description = "Keycloak Social Login extension for Discord";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mkg20001 ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = with maintainers; [mkg20001];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 }

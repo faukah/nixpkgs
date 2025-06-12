@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rke2;
-in
-{
-  imports = [ ];
+in {
+  imports = [];
 
   options.services.rke2 = {
     enable = lib.mkEnableOption "rke2";
 
-    package = lib.mkPackageOption pkgs "rke2" { };
+    package = lib.mkPackageOption pkgs "rke2" {};
 
     role = lib.mkOption {
       type = lib.types.enum [
@@ -75,7 +73,7 @@ in
     disable = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Do not deploy packaged components and delete any deployed components.";
-      default = [ ];
+      default = [];
     };
 
     nodeName = lib.mkOption {
@@ -87,13 +85,13 @@ in
     nodeLabel = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Registering and starting kubelet with set of labels.";
-      default = [ ];
+      default = [];
     };
 
     nodeTaint = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Registering kubelet with set of taints.";
-      default = [ ];
+      default = [];
     };
 
     nodeIP = lib.mkOption {
@@ -188,7 +186,7 @@ in
         "--disable-kube-proxy"
         "--cluster-cidr=10.24.0.0/16"
       ];
-      default = [ ];
+      default = [];
     };
 
     environmentVars = lib.mkOption {
@@ -222,7 +220,8 @@ in
       }
       {
         assertion =
-          cfg.role == "agent"
+          cfg.role
+          == "agent"
           -> (builtins.pathExists cfg.configPath || cfg.tokenFile != null || cfg.token != "");
         message = "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }
@@ -231,7 +230,7 @@ in
         message = "agentToken or agentTokenFile should NOT be set if role is 'agent'";
       }
       {
-        assertion = cfg.role == "agent" -> !(cfg.disable != [ ]);
+        assertion = cfg.role == "agent" -> !(cfg.disable != []);
         message = "disable should not be set if role is 'agent'";
       }
       {
@@ -240,7 +239,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ config.services.rke2.package ];
+    environment.systemPackages = [config.services.rke2.package];
     # To configure NetworkManager to ignore calico/flannel related network interfaces.
     # See: https://docs.rke2.io/known_issues#networkmanager
     environment.etc."NetworkManager/conf.d/rke2-canal.conf" = {
@@ -260,12 +259,15 @@ in
 
     systemd.services."rke2-${cfg.role}" = {
       description = "Rancher Kubernetes Engine v2";
-      documentation = [ "https://github.com/rancher/rke2#readme" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://github.com/rancher/rke2#readme"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
-        Type = if cfg.role == "agent" then "exec" else "notify";
+        Type =
+          if cfg.role == "agent"
+          then "exec"
+          else "notify";
         EnvironmentFile = [
           "-/etc/default/%N"
           "-/etc/sysconfig/%N"
@@ -301,12 +303,12 @@ in
             ++ (lib.optional (cfg.dataDir != "/var/lib/rancher/rke2") "--data-dir=${cfg.dataDir}")
             ++ (lib.optional (cfg.token != "") "--token=${cfg.token}")
             ++ (lib.optional (cfg.tokenFile != null) "--token-file=${cfg.tokenFile}")
-            ++ (lib.optionals (cfg.role == "server" && cfg.disable != [ ]) (
+            ++ (lib.optionals (cfg.role == "server" && cfg.disable != []) (
               map (d: "--disable=${d}") cfg.disable
             ))
             ++ (lib.optional (cfg.nodeName != null) "--node-name=${cfg.nodeName}")
-            ++ (lib.optionals (cfg.nodeLabel != [ ]) (map (l: "--node-label=${l}") cfg.nodeLabel))
-            ++ (lib.optionals (cfg.nodeTaint != [ ]) (map (t: "--node-taint=${t}") cfg.nodeTaint))
+            ++ (lib.optionals (cfg.nodeLabel != []) (map (l: "--node-label=${l}") cfg.nodeLabel))
+            ++ (lib.optionals (cfg.nodeTaint != []) (map (t: "--node-taint=${t}") cfg.nodeTaint))
             ++ (lib.optional (cfg.nodeIP != null) "--node-ip=${cfg.nodeIP}")
             ++ (lib.optional (cfg.role == "server" && cfg.agentToken != "") "--agent-token=${cfg.agentToken}")
             ++ (lib.optional (
@@ -316,22 +318,22 @@ in
             ++ (lib.optional cfg.selinux "--selinux")
             ++ (lib.optional (cfg.role == "server" && cfg.cni != "canal") "--cni=${cfg.cni}")
             ++ (lib.optional cfg.cisHardening "--profile=${
-              if cfg.package.version >= "1.25" then "cis-1.23" else "cis-1.6"
+              if cfg.package.version >= "1.25"
+              then "cis-1.23"
+              else "cis-1.6"
             }")
             ++ cfg.extraFlags
           )
         }";
-        ExecStopPost =
-          let
-            killProcess = pkgs.writeScript "kill-process.sh" ''
-              #! ${pkgs.runtimeShell}
-              /run/current-system/systemd/bin/systemd-cgls /system.slice/$1 | \
-              ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+ (containerd|kubelet)' | \
-              ${pkgs.gawk}/bin/awk '{print $1}' | \
-              ${pkgs.findutils}/bin/xargs -r ${pkgs.util-linux}/bin/kill
-            '';
-          in
-          "-${killProcess} %n";
+        ExecStopPost = let
+          killProcess = pkgs.writeScript "kill-process.sh" ''
+            #! ${pkgs.runtimeShell}
+            /run/current-system/systemd/bin/systemd-cgls /system.slice/$1 | \
+            ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+ (containerd|kubelet)' | \
+            ${pkgs.gawk}/bin/awk '{print $1}' | \
+            ${pkgs.findutils}/bin/xargs -r ${pkgs.util-linux}/bin/kill
+          '';
+        in "-${killProcess} %n";
       };
     };
   };

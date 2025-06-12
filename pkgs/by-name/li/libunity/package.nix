@@ -13,7 +13,6 @@
   python3,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "libunity";
   version = "unstable-2021-02-01";
@@ -70,6 +69,6 @@ stdenv.mkDerivation {
     homepage = "https://launchpad.net/libunity";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

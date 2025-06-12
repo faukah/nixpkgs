@@ -1,7 +1,9 @@
 # Run:
 #   nix-build -A nixosTests.nix-channel
-{ lib, testers }:
-let
+{
+  lib,
+  testers,
+}: let
   inherit (lib) fileset;
 
   runShellcheck = testers.shellcheck {
@@ -13,8 +15,7 @@ let
       ];
     };
   };
-
 in
-lib.recurseIntoAttrs {
-  inherit runShellcheck;
-}
+  lib.recurseIntoAttrs {
+    inherit runShellcheck;
+  }

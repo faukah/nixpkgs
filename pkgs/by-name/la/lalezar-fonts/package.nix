@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "lalezar-fonts";
   version = "unstable-2017-02-28";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     description = "Multi-script display typeface for popular culture";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

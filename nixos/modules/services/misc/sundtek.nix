@@ -3,23 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sundtek;
-
-in
-{
+in {
   options.services.sundtek = {
     enable = lib.mkEnableOption "Sundtek driver";
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.sundtek ];
+    environment.systemPackages = [pkgs.sundtek];
 
     systemd.services.sundtek = {
       description = "Sundtek driver";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";

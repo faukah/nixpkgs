@@ -16,7 +16,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fretboard";
   version = "9.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   );
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/Fretboard/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "fretboard";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

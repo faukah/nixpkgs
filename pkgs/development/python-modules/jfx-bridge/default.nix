@@ -6,7 +6,6 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jfx-bridge";
   version = "1.0.0";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-fpUrKNGqTpthhTfohCbwO1GBDAP/YnLWeapVhZftldg=";
   };
 
-  patches = [ ./no-invoke-git.patch ];
+  patches = [./no-invoke-git.patch];
 
   postPatch = ''
     substituteInPlace ./setup.py --subst-var-by version ${version}
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     ${python.interpreter} test_bridge_server.py &
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "TestBridgeHookImport"
   ];
 
-  pythonImportsCheck = [ "jfx_bridge" ];
+  pythonImportsCheck = ["jfx_bridge"];
 
   meta = {
     description = "Base Python RPC bridge used for ghidra_bridge";
     homepage = "https://github.com/justfoxing/jfx_bridge";
     changelog = "https://github.com/justfoxing/jfx_bridge/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scoder12 ];
+    maintainers = with lib.maintainers; [scoder12];
   };
 }

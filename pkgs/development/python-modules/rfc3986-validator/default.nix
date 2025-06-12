@@ -6,7 +6,6 @@
   rfc3987,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rfc3986-validator";
   version = "0.1.1";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Pure python rfc3986 validator";
     homepage = "https://github.com/naimetti/rfc3986-validator";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

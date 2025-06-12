@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "openapi-tui";
   version = "0.10.2";
@@ -22,14 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Terminal UI to list, browse and run APIs defined with openapi spec";
     homepage = "https://github.com/zaghaghi/openapi-tui";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     mainProgram = "openapi-tui";
   };
 }

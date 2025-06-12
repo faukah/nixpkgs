@@ -4,7 +4,6 @@
   buildDotnetModule,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "juniper";
   version = "4.0.0";
@@ -33,7 +32,7 @@ buildDotnetModule rec {
     '';
     homepage = "https://www.juniper-lang.org/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ AlexSKaye ];
+    maintainers = with lib.maintainers; [AlexSKaye];
     mainProgram = "Juniper";
     inherit (dotnet-sdk.meta) platforms;
   };

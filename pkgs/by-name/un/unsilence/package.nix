@@ -25,19 +25,19 @@ python3Packages.buildPythonPackage rec {
   ];
 
   makeWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ ffmpeg ]}"
+    "--suffix PATH : ${lib.makeBinPath [ffmpeg]}"
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "unsilence" ];
+  pythonImportsCheck = ["unsilence"];
 
-  pythonRelaxDeps = [ "rich" ];
+  pythonRelaxDeps = ["rich"];
 
   meta = with lib; {
     homepage = "https://github.com/lagmoellertim/unsilence";
     description = "Console Interface and Library to remove silent parts of a media file";
     mainProgram = "unsilence";
     license = licenses.mit;
-    maintainers = with maintainers; [ esau79p ];
+    maintainers = with maintainers; [esau79p];
   };
 }

@@ -15,7 +15,6 @@
   gst_all_1,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "blanket";
   version = "0.7.0";
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     gst_all_1.gst-plugins-bad
   ];
 
-  propagatedBuildInputs = with python3Packages; [ pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [pygobject3];
 
   format = "other";
 
@@ -64,7 +63,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -75,7 +74,7 @@ python3Packages.buildPythonApplication rec {
     maintainers = with lib.maintainers; [
       onny
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 }

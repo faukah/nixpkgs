@@ -7,7 +7,6 @@
   pytz,
   regex,
 }:
-
 buildPythonPackage rec {
   pname = "datefinder";
   version = "0.7.3";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "datefinder" ];
+  pythonImportsCheck = ["datefinder"];
 
   meta = {
     description = "Extract datetime objects from strings";
     homepage = "https://github.com/akoumjian/datefinder";
     license = lib.licenses.mit;
-    teams = [ lib.teams.deshaw ];
+    teams = [lib.teams.deshaw];
   };
 }

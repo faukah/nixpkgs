@@ -10,7 +10,6 @@
   libepoxy,
   libGLU,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsv";
   version = "3.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jabl/fsv";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     mainProgram = "fsv";
   };
 }

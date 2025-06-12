@@ -6,7 +6,6 @@
   libpq,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "virtualpg";
   version = "2.0.1";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

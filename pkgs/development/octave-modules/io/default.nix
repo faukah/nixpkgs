@@ -6,7 +6,6 @@
   jdk,
   unzip,
 }:
-
 buildOctavePackage rec {
   pname = "io";
   version = "2.7.0";
@@ -30,7 +29,7 @@ buildOctavePackage rec {
       gpl3Plus
       bsd2
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Input/Output in external formats";
   };
 }

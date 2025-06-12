@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pydeconz";
   version = "120";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail "wheel==" "wheel>="
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -46,14 +45,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pydeconz" ];
+  pythonImportsCheck = ["pydeconz"];
 
   meta = with lib; {
     description = "Python library wrapping the Deconz REST API";
     homepage = "https://github.com/Kane610/deconz";
     changelog = "https://github.com/Kane610/deconz/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pydeconz";
   };
 }

@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.traccar;
   stateDirectory = "/var/lib/traccar";
   configFilePath = "${stateDirectory}/config.xml";
   expandCamelCase = lib.replaceStrings lib.upperChars (map (s: ".${s}") lib.lowerChars);
   mkConfigEntry = key: value: "<entry key='${expandCamelCase key}'>${value}</entry>";
-  mkConfig =
-    configurationOptions:
+  mkConfig = configurationOptions:
     pkgs.writeText "traccar.xml" ''
       <?xml version='1.0' encoding='UTF-8'?>
       <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
@@ -29,8 +27,7 @@ let
     mediaPath = "${stateDirectory}/media";
     templatesRoot = "${stateDirectory}/templates";
   };
-in
-{
+in {
   options.services.traccar = {
     enable = lib.mkEnableOption "Traccar, an open source GPS tracking system";
     settings = lib.mkOption {
@@ -63,18 +60,17 @@ in
     };
   };
 
-  config =
-    let
-      configuration = mkConfig cfg.settings;
-    in
+  config = let
+    configuration = mkConfig cfg.settings;
+  in
     lib.mkIf cfg.enable {
       systemd.services.traccar = {
         enable = true;
         description = "Traccar";
 
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ];
+        after = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+        wants = ["network-online.target"];
 
         preStart = ''
           # Copy new templates into our state directory.

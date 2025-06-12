@@ -14,7 +14,6 @@
   pythonOlder,
   sip,
 }:
-
 buildPythonPackage rec {
   pname = "enaml";
   version = "0.18.0";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nucleic/enaml";
     changelog = "https://github.com/nucleic/enaml/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

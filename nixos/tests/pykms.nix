@@ -1,18 +1,15 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "pykms-test";
-  meta.maintainers = with pkgs.lib.maintainers; [ zopieux ];
+  meta.maintainers = with pkgs.lib.maintainers; [zopieux];
 
-  nodes.machine =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      services.pykms.enable = true;
-    };
+  nodes.machine = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    services.pykms.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_unit("pykms.service")

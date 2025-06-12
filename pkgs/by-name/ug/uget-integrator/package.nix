@@ -6,7 +6,6 @@
   python3Packages,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uget-integrator";
   version = "1.0.0";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ugetdm/uget-integrator";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

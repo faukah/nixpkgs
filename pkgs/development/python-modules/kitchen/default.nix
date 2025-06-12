@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "kitchen";
   version = "1.2.6";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
   # Waiting for upstream's clean-up
   doCheck = false;
 
-  pythonImportsCheck = [ "kitchen" ];
+  pythonImportsCheck = ["kitchen"];
 
   meta = with lib; {
     description = "Kitchen contains a cornucopia of useful code";
     homepage = "https://github.com/fedora-infra/kitchen";
     changelog = "https://github.com/fedora-infra/kitchen/blob/${version}/NEWS.rst";
     license = licenses.lgpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

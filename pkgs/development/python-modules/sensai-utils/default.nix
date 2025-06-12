@@ -7,7 +7,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "sensai-utils";
   version = "1.4.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-XgZv76tLeTRCvNptasp8EiU2DC+HWkc1xhlCA+YiUZY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
-  pythonImportsCheck = [ "sensai.util" ];
+  pythonImportsCheck = ["sensai.util"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Utilities from sensAI, the Python library for sensible AI";
     homepage = "https://github.com/opcode81/sensAI-utils";
     changelog = "https://github.com/opcode81/sensAI-utils/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

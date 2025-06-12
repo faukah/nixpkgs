@@ -8,7 +8,6 @@
   pytestCheckHook,
   recommonmark,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-image-diff";
   version = "0.0.14";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     imgdiff
   ];
 
-  pythonImportsCheck = [ "pytest_image_diff" ];
+  pythonImportsCheck = ["pytest_image_diff"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Pytest helps for compare images and regression";
     homepage = "https://github.com/Apkawa/pytest-image-diff";
     license = licenses.mit;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

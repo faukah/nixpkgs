@@ -1,11 +1,11 @@
-{ pkgs, haskellPackages }:
-
-let
+{
+  pkgs,
+  haskellPackages,
+}: let
   drv = haskellPackages.random;
   docs = pkgs.haskell.lib.compose.documentationTarball drv;
-
 in
-pkgs.runCommand "test haskell.lib.compose.documentationTarball"
+  pkgs.runCommand "test haskell.lib.compose.documentationTarball"
   {
     meta = {
       inherit (docs.meta) platforms;

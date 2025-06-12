@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "millheater";
   version = "0.12.5";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-DGMG6LabfKGmQ6MDm/skqeQuOhSlr1ssZ2Z7fItzOt0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mill" ];
+  pythonImportsCheck = ["mill"];
 
   meta = with lib; {
     description = "Python library for Mill heater devices";
     homepage = "https://github.com/Danielhiversen/pymill";
     changelog = "https://github.com/Danielhiversen/pymill/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

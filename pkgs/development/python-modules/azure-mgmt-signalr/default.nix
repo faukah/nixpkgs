@@ -8,7 +8,6 @@
   azure-mgmt-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-signalr";
   version = "1.2.0";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure SignalR Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

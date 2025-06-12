@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fortran-fpm";
 
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   buildPath = "build/bootstrap";
 
@@ -48,13 +47,13 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Fortran Package Manager (fpm)";
     homepage = "https://fpm.fortran-lang.org";
-    maintainers = [ lib.maintainers.proofconstruction ];
+    maintainers = [lib.maintainers.proofconstruction];
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
     mainProgram = "fortran-fpm";

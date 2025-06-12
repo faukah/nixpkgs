@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.3.3";
   pname = "randoop";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x9kAoVa4wvUp3gpg9GCodvjwql3CBtn5EqJIZYSSqVI=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p $out/lib $out/doc
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Automatic test generation for Java";
     homepage = "https://randoop.github.io/randoop/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

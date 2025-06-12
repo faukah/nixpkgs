@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.k40-whisperer;
   pkg = cfg.package.override {
     udevGroup = cfg.group;
   };
-in
-{
+in {
   options.programs.k40-whisperer = {
     enable = lib.mkEnableOption "K40-Whisperer";
 
@@ -23,13 +20,13 @@ in
       default = "k40";
     };
 
-    package = lib.mkPackageOption pkgs "k40-whisperer" { };
+    package = lib.mkPackageOption pkgs "k40-whisperer" {};
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
-    environment.systemPackages = [ pkg ];
-    services.udev.packages = [ pkg ];
+    environment.systemPackages = [pkg];
+    services.udev.packages = [pkg];
   };
 }

@@ -1,33 +1,25 @@
-{ pkgs, ... }:
-
-let
-
+{pkgs, ...}: let
   # FIXME: 404s
   stick = pkgs.fetchurl {
     url = "https://nixos.org/~eelco/nix/udisks-test.img.xz";
     sha256 = "0was1xgjkjad91nipzclaz5biv3m4b2nk029ga6nk7iklwi19l8b";
   };
-
-in
-
-{
+in {
   name = "udisks2";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      services.udisks2.enable = true;
-      imports = [ ./common/user-account.nix ];
+  nodes.machine = {...}: {
+    services.udisks2.enable = true;
+    imports = [./common/user-account.nix];
 
-      security.polkit.extraConfig = ''
-        polkit.addRule(function(action, subject) {
-          if (subject.user == "alice") return "yes";
-        });
-      '';
-    };
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (subject.user == "alice") return "yes";
+      });
+    '';
+  };
 
   testScript = ''
     import lzma
@@ -68,5 +60,4 @@ in
     machine.wait_until_fails("udisksctl info -b /dev/sda1")
     machine.fail("[ -e /dev/sda ]")
   '';
-
 }

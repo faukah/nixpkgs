@@ -4,7 +4,6 @@
   rdkafka,
   pcre2,
 }:
-
 buildPecl {
   pname = "rdkafka";
 
@@ -25,6 +24,6 @@ buildPecl {
     description = "Kafka client based on librdkafka";
     license = licenses.mit;
     homepage = "https://github.com/arnaud-lb/php-rdkafka";
-    teams = [ teams.php ];
+    teams = [teams.php];
   };
 }

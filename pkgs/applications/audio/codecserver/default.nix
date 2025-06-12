@@ -7,7 +7,6 @@
   udev,
   protobuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "codecserver";
   version = "0.2.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  propagatedBuildInputs = [ protobuf ];
+  propagatedBuildInputs = [protobuf];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/codecserver.pc \
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Modular audio codec server";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
     mainProgram = "codecserver";
   };
 }

@@ -18,6 +18,6 @@ mkYaziPlugin {
     description = "Yazi plugin for previewing media files";
     homepage = "https://github.com/boydaihungst/mediainfo.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

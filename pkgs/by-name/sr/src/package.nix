@@ -9,7 +9,6 @@
   rcs,
   asciidoctor,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "src";
   version = "1.41";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/esr/src/-/raw/${finalAttrs.version}/NEWS.adoc";
     license = lib.licenses.bsd2;
     mainProgram = "src";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (python3.meta) platforms;
   };
 })

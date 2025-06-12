@@ -6,7 +6,6 @@
   ocaml,
   writeText,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-findlib";
   version = "1.9.8";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZiyRD3dOn+46GcTgV/OAWBqy/E7lLaR2EwSsnDG4hp0=";
   };
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
   buildInputs = lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
 
   patches = [
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags = [
     "-bindir"
@@ -96,6 +95,6 @@ stdenv.mkDerivation rec {
       vbmithr
     ];
     mainProgram = "ocamlfind";
-    platforms = ocaml.meta.platforms or [ ];
+    platforms = ocaml.meta.platforms or [];
   };
 }

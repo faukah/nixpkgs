@@ -16,7 +16,6 @@
   pytest7CheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pmdarima";
   version = "2.0.4";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     python build_tools/get_tag.py
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   build-system = [
     setuptools
@@ -78,13 +77,13 @@ buildPythonPackage rec {
     "test_load_from_web"
   ];
 
-  pythonImportsCheck = [ "pmdarima" ];
+  pythonImportsCheck = ["pmdarima"];
 
   meta = {
     description = "Statistical library designed to fill the void in Python's time series analysis capabilities, including the equivalent of R's auto.arima function";
     homepage = "https://github.com/alkaline-ml/pmdarima";
     changelog = "https://github.com/alkaline-ml/pmdarima/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mbalatsko ];
+    maintainers = with lib.maintainers; [mbalatsko];
   };
 }

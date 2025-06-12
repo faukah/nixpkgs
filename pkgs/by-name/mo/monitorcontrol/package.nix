@@ -4,10 +4,8 @@
   stdenv,
   undmg,
 }:
-
 # This cannot be built from source due to the problematic nature of XCode - so
 # this is what it's like when doves cry?
-
 stdenv.mkDerivation rec {
   pname = "MonitorControl";
   version = "4.3.3";
@@ -17,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-myx3adoU3FYYrs6LFRSiXtwSsoaujjQ/PYgAF/Xuk2g=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "MonitorControl.app";
 

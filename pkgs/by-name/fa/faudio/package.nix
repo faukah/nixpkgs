@@ -5,9 +5,7 @@
   cmake,
   sdl3,
 }:
-
 #TODO: tests
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "faudio";
   version = "25.04";
@@ -19,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-nYpolFizEWCSI/YENViMKDu7ExpFpPivH5RnS7PMfkA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ sdl3 ];
+  buildInputs = [sdl3];
 
   meta = {
     description = "XAudio reimplementation focusing to develop a fully accurate DirectX audio library";
@@ -29,6 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/FNA-XNA/FAudio/releases/tag/${finalAttrs.version}";
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.marius851000 ];
+    maintainers = [lib.maintainers.marius851000];
   };
 })

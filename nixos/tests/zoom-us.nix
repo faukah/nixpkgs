@@ -1,13 +1,14 @@
-{ hostPkgs, lib, ... }:
 {
+  hostPkgs,
+  lib,
+  ...
+}: {
   name = "zoom-us";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      programs.zoom-us.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    programs.zoom-us.enable = true;
+  };
 
   testScript = ''
     machine.succeed("which zoom")  # fail early if this is missing

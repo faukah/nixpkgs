@@ -6,7 +6,6 @@
   coreutils,
   replaceVars,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brillo";
   version = "1.4.13";
@@ -26,14 +25,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ go-md2man ];
+  nativeBuildInputs = [go-md2man];
 
   makeFlags = [
     "PREFIX=$(out)"
     "AADIR=$(out)/etc/apparmor.d"
   ];
 
-  installTargets = [ "install-dist" ];
+  installTargets = ["install-dist"];
 
   meta = with lib; {
     description = "Backlight and Keyboard LED control tool";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
       licenses.bsd0
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.alexarice ];
+    maintainers = [maintainers.alexarice];
   };
 }

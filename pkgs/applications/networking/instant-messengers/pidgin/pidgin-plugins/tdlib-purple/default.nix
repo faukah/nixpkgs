@@ -8,7 +8,6 @@
   pidgin,
   tdlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tdlib-purple";
   version = "0.8.1";
@@ -33,24 +32,24 @@ stdenv.mkDerivation rec {
     sed -i -e 's|DESTINATION.*PURPLE_DATA_DIR}|DESTINATION "share|' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libwebp
     pidgin
     tdlib
   ];
 
-  cmakeFlags = [ "-DNoVoip=True" ]; # libtgvoip required
+  cmakeFlags = ["-DNoVoip=True"]; # libtgvoip required
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [ "-U__ARM_NEON__" ]
+    lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ["-U__ARM_NEON__"]
   );
 
   meta = with lib; {
     homepage = "https://github.com/ars3niy/tdlib-purple";
     description = "libpurple Telegram plugin using tdlib";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
 
     # tdlib-purple is not actively maintained and currently not

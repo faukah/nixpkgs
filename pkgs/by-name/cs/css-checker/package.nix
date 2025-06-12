@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "css-checker";
   version = "0.4.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Command-line tool for identifying similar or duplicated CSS code";
     homepage = "https://github.com/ruilisi/css-checker";
     license = licenses.mit;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "css-checker";
   };
 }

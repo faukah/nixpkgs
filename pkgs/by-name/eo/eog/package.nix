@@ -30,7 +30,6 @@
   gobject-introspection,
   gi-docgen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eog";
   version = "47.0";
@@ -127,7 +126,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/eog";
     changelog = "https://gitlab.gnome.org/GNOME/eog/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.unix;
     mainProgram = "eog";
   };

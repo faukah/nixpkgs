@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hdapsd";
   version = "20141203";
@@ -21,6 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "http://hdaps.sf.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

@@ -7,7 +7,6 @@
   bisect_ppx,
   integers_stubs_js,
 }:
-
 buildDunePackage rec {
   pname = "bls12-381-signature";
   version = "1.0.0";
@@ -20,7 +19,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ bls12-381 ];
+  propagatedBuildInputs = [bls12-381];
 
   checkInputs = [
     alcotest
@@ -34,6 +33,6 @@ buildDunePackage rec {
     description = "Implementation of BLS signatures for the pairing-friendly curve BLS12-381";
     license = lib.licenses.mit;
     homepage = "https://gitlab.com/nomadic-labs/cryptography/ocaml-bls12-381-signature";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

@@ -8,7 +8,6 @@
   requests,
   freezegun,
 }:
-
 buildPythonPackage rec {
   pname = "python-logging-loki";
   version = "0.3.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-1qHuv+xzATo11au+QAhD1lHcLJtnVKZDdQDGohHUhiI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     rfc3339
@@ -35,15 +34,15 @@ buildPythonPackage rec {
 
   # ValueError
   # Considering that the package has not been updated since 2019, it is likely that this test is broken
-  disabledTests = [ "test_can_build_tags_from_converting_dict" ];
+  disabledTests = ["test_can_build_tags_from_converting_dict"];
 
-  pythonImportsCheck = [ "logging_loki" ];
+  pythonImportsCheck = ["logging_loki"];
 
   meta = {
     description = "Python logging handler for Loki";
     homepage = "https://github.com/GreyZmeem/python-logging-loki";
     changelog = "https://github.com/GreyZmeem/python-logging-loki/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 }

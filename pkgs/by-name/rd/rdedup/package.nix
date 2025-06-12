@@ -7,7 +7,6 @@
   libsodium,
   xz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rdedup";
   version = "3.2.1";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "rdedup";
     homepage = "https://github.com/dpc/rdedup";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

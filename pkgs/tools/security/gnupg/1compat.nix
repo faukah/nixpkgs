@@ -4,7 +4,6 @@
   coreutils,
   writeScript,
 }:
-
 stdenv.mkDerivation {
   pname = "gnupg1compat";
   version = gnupg.version;
@@ -28,8 +27,10 @@ stdenv.mkDerivation {
     done
   '';
 
-  meta = gnupg.meta // {
-    description = gnupg.meta.description + " with symbolic links for gpg and gpgv";
-    priority = -1;
-  };
+  meta =
+    gnupg.meta
+    // {
+      description = gnupg.meta.description + " with symbolic links for gpg and gpgv";
+      priority = -1;
+    };
 }

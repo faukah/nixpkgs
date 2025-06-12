@@ -7,7 +7,6 @@
   mashumaro,
   python-socketio,
 }:
-
 buildPythonPackage rec {
   pname = "aioaudiobookshelf";
   version = "0.1.7";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Async python library to interact with Audiobookshelf";
     homepage = "https://github.com/music-assistant/aioaudiobookshelf";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

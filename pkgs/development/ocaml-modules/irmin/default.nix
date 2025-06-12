@@ -19,7 +19,6 @@
   alcotest,
   qcheck-alcotest,
 }:
-
 buildDunePackage {
   pname = "irmin";
 
@@ -53,7 +52,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = ppx_irmin.meta // {
-    description = "Distributed database built on the same principles as Git";
-  };
+  meta =
+    ppx_irmin.meta
+    // {
+      description = "Distributed database built on the same principles as Git";
+    };
 }

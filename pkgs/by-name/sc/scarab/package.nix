@@ -8,7 +8,6 @@
   makeDesktopItem,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "scarab";
   version = "2.6.0.0";
@@ -24,7 +23,7 @@ buildDotnetModule rec {
   nugetDeps = ./deps.json;
   projectFile = "Scarab/Scarab.csproj";
   testProjectFile = "Scarab.Tests/Scarab.Tests.csproj";
-  executables = [ "Scarab" ];
+  executables = ["Scarab"];
 
   runtimeDeps = [
     bc
@@ -58,7 +57,7 @@ buildDotnetModule rec {
       icon = "scarab";
       comment = "Hollow Knight mod installer and manager";
       type = "Application";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 

@@ -6,7 +6,6 @@
   gnupatch,
   gnutar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tla";
   version = "1.3.5";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     ./fix-gcc14.patch
   ];
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
   propagatedBuildInputs = [
     diffutils

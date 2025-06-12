@@ -13,7 +13,6 @@
   sphinx-rtd-theme,
   pytest-rerunfailures,
 }:
-
 buildPythonPackage rec {
   pname = "pyopenssl";
   version = "25.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "doc"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     openssl
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     sphinx-rtd-theme
   ];
 
-  pythonRelaxDeps = [ "cryptography" ];
+  pythonRelaxDeps = ["cryptography"];
 
   dependencies = [
     cryptography
@@ -99,6 +98,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyca/pyopenssl";
     changelog = "https://github.com/pyca/pyopenssl/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

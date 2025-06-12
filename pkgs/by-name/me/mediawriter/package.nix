@@ -9,7 +9,6 @@
   udisks2,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mediawriter";
   version = "5.2.5";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/FedoraQt/MediaWriter";
     changelog = "https://github.com/FedoraQt/MediaWriter/releases/tag/${version}";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "mediawriter";
   };
 }

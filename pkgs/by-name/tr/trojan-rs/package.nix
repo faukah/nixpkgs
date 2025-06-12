@@ -4,7 +4,6 @@
   lib,
   ipset,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "trojan-rs";
   version = "0.16.0-unstable-2024-11-21";
@@ -19,8 +18,8 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1HrIjkv/CyHCiC3RzQ2M8kHl74eMsWNfypr8PsL6kA0=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
-  buildInputs = [ ipset ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
+  buildInputs = [ipset];
 
   env.RUSTC_BOOTSTRAP = true;
   env.RUSTFLAGS = "--cfg tokio_unstable";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage {
     description = "Trojan server and proxy programs written in Rust";
     license = lib.licenses.mit;
     mainProgram = "trojan";
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
   };
 }

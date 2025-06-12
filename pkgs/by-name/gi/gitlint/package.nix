@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gitlint";
   version = "0.19.1";
@@ -45,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     "gitlint"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Linting for your git commit messages";

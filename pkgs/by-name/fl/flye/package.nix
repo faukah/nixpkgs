@@ -10,7 +10,6 @@
   coreutils,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "flye";
   version = "2.9.6";
@@ -37,9 +36,9 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "/bin/bash" "${lib.getExe bash}"
   '';
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  propagatedBuildInputs = [ coreutils ];
+  propagatedBuildInputs = [coreutils];
 
   buildInputs = [
     zlib
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     libdeflate
   ];
 
-  pythonImportsCheck = [ "flye" ];
+  pythonImportsCheck = ["flye"];
 
   nativeCheckInputs = [
     addBinToPathHook
@@ -59,6 +58,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/fenderglass/Flye";
     license = licenses.bsd3;
     mainProgram = "flye";
-    maintainers = with maintainers; [ assistant ];
+    maintainers = with maintainers; [assistant];
   };
 }

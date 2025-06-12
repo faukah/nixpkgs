@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "win2xcur";
   version = "0.1.2";
@@ -25,6 +24,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/quantum5/win2xcur";
     changelog = "https://github.com/quantum5/win2xcur/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ teatwig ];
+    maintainers = with lib.maintainers; [teatwig];
   };
 }

@@ -7,7 +7,6 @@
   alsa-lib,
   rust,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "speakersafetyd";
   version = "1.0.2";
@@ -19,8 +18,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-DnOnqi60JsRX8yqEM/5zZ3yX/rk85/ruwL3aW1FRXKg=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ alsa-lib ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [alsa-lib];
 
   postPatch = ''
     substituteInPlace speakersafetyd.service --replace "/usr" "$out"

@@ -3,19 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.please;
-  ini = pkgs.formats.ini { };
-in
-{
+  ini = pkgs.formats.ini {};
+in {
   options.security.please = {
     enable = lib.mkEnableOption ''
       please, a Sudo clone which allows a users to execute a command or edit a
       file as another user
     '';
 
-    package = lib.mkPackageOption pkgs "please" { };
+    package = lib.mkPackageOption pkgs "please" {};
 
     wheelNeedsPassword = lib.mkOption {
       type = lib.types.bool;
@@ -29,7 +27,7 @@ in
 
     settings = lib.mkOption {
       type = ini.type;
-      default = { };
+      default = {};
       example = {
         jim_run_any_as_root = {
           name = "jim";
@@ -56,22 +54,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    security.wrappers =
-      let
-        owner = "root";
-        group = "root";
-        setuid = true;
-      in
-      {
-        please = {
-          source = "${cfg.package}/bin/please";
-          inherit owner group setuid;
-        };
-        pleaseedit = {
-          source = "${cfg.package}/bin/pleaseedit";
-          inherit owner group setuid;
-        };
+    security.wrappers = let
+      owner = "root";
+      group = "root";
+      setuid = true;
+    in {
+      please = {
+        source = "${cfg.package}/bin/please";
+        inherit owner group setuid;
       };
+      pleaseedit = {
+        source = "${cfg.package}/bin/pleaseedit";
+        inherit owner group setuid;
+      };
+    };
 
     security.please.settings = rec {
       # The "wheel" group is allowed to do anything by default but this can be
@@ -84,20 +80,24 @@ in
         rule = ".*";
         require_pass = cfg.wheelNeedsPassword;
       };
-      wheel_edit_as_any = wheel_run_as_any // {
-        type = "edit";
-      };
-      wheel_list_as_any = wheel_run_as_any // {
-        type = "list";
-      };
+      wheel_edit_as_any =
+        wheel_run_as_any
+        // {
+          type = "edit";
+        };
+      wheel_list_as_any =
+        wheel_run_as_any
+        // {
+          type = "list";
+        };
     };
 
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       etc."please.ini".source = ini.generate "please.ini" (
         cfg.settings
-        // (rec {
+        // rec {
           # The "root" user is allowed to do anything by default and this cannot
           # be overridden.
           root_run_as_any = {
@@ -107,13 +107,17 @@ in
             rule = ".*";
             require_pass = false;
           };
-          root_edit_as_any = root_run_as_any // {
-            type = "edit";
-          };
-          root_list_as_any = root_run_as_any // {
-            type = "list";
-          };
-        })
+          root_edit_as_any =
+            root_run_as_any
+            // {
+              type = "edit";
+            };
+          root_list_as_any =
+            root_run_as_any
+            // {
+              type = "list";
+            };
+        }
       );
     };
 

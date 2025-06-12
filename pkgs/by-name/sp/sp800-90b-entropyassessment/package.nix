@@ -8,7 +8,6 @@
   openssl,
   mpfr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sp800-90b-entropyassessment";
   version = "1.1.8";

@@ -4,7 +4,6 @@
   fetchPypi,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "knot-exporter";
   version = "3.4.7";
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     "knot_exporter"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) knot; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) knot;};
 
   meta = with lib; {
     description = "Prometheus exporter for Knot DNS";

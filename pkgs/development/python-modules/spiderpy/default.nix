@@ -6,7 +6,6 @@
   poetry-core,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "spiderpy";
   version = "1.7.2";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-Yujy8HSMbK2DQ/913r2c74hKPYDfcHFKq04ysqxG+go=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # tests don't mock remote resources
   doCheck = false;
 
-  pythonImportsCheck = [ "spiderpy.spiderapi" ];
+  pythonImportsCheck = ["spiderpy.spiderapi"];
 
   meta = with lib; {
     description = "Unofficial Python wrapper for the Spider API";
     homepage = "https://www.github.com/peternijssen/spiderpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

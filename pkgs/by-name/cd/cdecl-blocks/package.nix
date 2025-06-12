@@ -7,7 +7,6 @@
   readline,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "cdecl-blocks";
   version = "2.5-unstable-2024-05-07";
@@ -75,7 +74,7 @@ stdenv.mkDerivation {
     description = "Translator English -- C/C++ declarations";
     homepage = "https://cdecl.org";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.unix;
     mainProgram = "cdecl";
   };

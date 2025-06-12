@@ -5,8 +5,7 @@ import ../make-test-python.nix (
     lib,
     k3s,
     ...
-  }:
-  let
+  }: let
     pauseImageEnv = pkgs.buildEnv {
       name = "k3s-pause-image-env";
       paths = with pkgs; [
@@ -30,74 +29,71 @@ import ../make-test-python.nix (
       name = "test.local/hello";
       tag = "local";
       copyToRoot = pkgs.hello;
-      config.Entrypoint = [ "${pkgs.hello}/bin/hello" ];
+      config.Entrypoint = ["${pkgs.hello}/bin/hello"];
     };
-  in
-  {
+  in {
     name = "${k3s.name}-auto-deploy";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ k3s ];
+    nodes.machine = {pkgs, ...}: {
+      environment.systemPackages = [k3s];
 
-        # k3s uses enough resources the default vm fails.
-        virtualisation.memorySize = 1536;
-        virtualisation.diskSize = 4096;
+      # k3s uses enough resources the default vm fails.
+      virtualisation.memorySize = 1536;
+      virtualisation.diskSize = 4096;
 
-        services.k3s.enable = true;
-        services.k3s.role = "server";
-        services.k3s.package = k3s;
-        # Slightly reduce resource usage
-        services.k3s.extraFlags = [
-          "--disable coredns"
-          "--disable local-storage"
-          "--disable metrics-server"
-          "--disable servicelb"
-          "--disable traefik"
-          "--pause-image test.local/pause:local"
-        ];
-        services.k3s.images = [
-          pauseImage
-          helloImage
-        ];
-        services.k3s.manifests = {
-          absent = {
-            enable = false;
-            content = {
-              apiVersion = "v1";
-              kind = "Namespace";
-              metadata.name = "absent";
-            };
+      services.k3s.enable = true;
+      services.k3s.role = "server";
+      services.k3s.package = k3s;
+      # Slightly reduce resource usage
+      services.k3s.extraFlags = [
+        "--disable coredns"
+        "--disable local-storage"
+        "--disable metrics-server"
+        "--disable servicelb"
+        "--disable traefik"
+        "--pause-image test.local/pause:local"
+      ];
+      services.k3s.images = [
+        pauseImage
+        helloImage
+      ];
+      services.k3s.manifests = {
+        absent = {
+          enable = false;
+          content = {
+            apiVersion = "v1";
+            kind = "Namespace";
+            metadata.name = "absent";
           };
+        };
 
-          present = {
-            target = "foo-namespace.yaml";
-            content = {
-              apiVersion = "v1";
-              kind = "Namespace";
-              metadata.name = "foo";
-            };
+        present = {
+          target = "foo-namespace.yaml";
+          content = {
+            apiVersion = "v1";
+            kind = "Namespace";
+            metadata.name = "foo";
           };
+        };
 
-          hello.content = {
-            apiVersion = "batch/v1";
-            kind = "Job";
-            metadata.name = "hello";
-            spec = {
-              template.spec = {
-                containers = [
-                  {
-                    name = "hello";
-                    image = "test.local/hello:local";
-                  }
-                ];
-                restartPolicy = "OnFailure";
-              };
+        hello.content = {
+          apiVersion = "batch/v1";
+          kind = "Job";
+          metadata.name = "hello";
+          spec = {
+            template.spec = {
+              containers = [
+                {
+                  name = "hello";
+                  image = "test.local/hello:local";
+                }
+              ];
+              restartPolicy = "OnFailure";
             };
           };
         };
       };
+    };
 
     testScript = ''
       start_all()

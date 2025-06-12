@@ -9,7 +9,6 @@
   intltool,
   nettle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fpm2";
   version = "0.90.1";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://als.regnet.cz/fpm2/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hce ];
+    maintainers = with maintainers; [hce];
   };
 }

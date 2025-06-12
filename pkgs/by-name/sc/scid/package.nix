@@ -8,7 +8,6 @@
   libX11,
   zlib,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "scid";
   version = "5.0.2";
@@ -48,7 +47,7 @@ tcl.mkTclDerivation rec {
 
   meta = {
     description = "Chess database with play and training functionality";
-    maintainers = with lib.maintainers; [ agbrooks ];
+    maintainers = with lib.maintainers; [agbrooks];
     homepage = "https://scid.sourceforge.net/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;

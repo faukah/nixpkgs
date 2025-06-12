@@ -12,7 +12,6 @@
   typing-extensions,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "aiokafka";
   version = "0.12.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   dependencies = [
     async-timeout
@@ -41,10 +40,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    snappy = [ cramjam ];
-    lz4 = [ cramjam ];
-    zstd = [ cramjam ];
-    gssapi = [ gssapi ];
+    snappy = [cramjam];
+    lz4 = [cramjam];
+    zstd = [cramjam];
+    gssapi = [gssapi];
     all = [
       cramjam
       gssapi
@@ -54,13 +53,13 @@ buildPythonPackage rec {
   # Checks require running Kafka server
   doCheck = false;
 
-  pythonImportsCheck = [ "aiokafka" ];
+  pythonImportsCheck = ["aiokafka"];
 
   meta = with lib; {
     description = "Kafka integration with asyncio";
     homepage = "https://aiokafka.readthedocs.org";
     changelog = "https://github.com/aio-libs/aiokafka/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

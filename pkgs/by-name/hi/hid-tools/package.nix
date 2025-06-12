@@ -3,7 +3,6 @@
   lib,
   fetchFromGitLab,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "hid-tools";
   version = "0.7";
@@ -49,6 +48,6 @@ python3.pkgs.buildPythonPackage rec {
     description = "Python scripts to manipulate HID data";
     homepage = "https://gitlab.freedesktop.org/libevdev/hid-tools";
     license = licenses.mit;
-    teams = [ teams.freedesktop ];
+    teams = [teams.freedesktop];
   };
 }

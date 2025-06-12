@@ -8,7 +8,6 @@
   requests,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "world-bank-data";
   version = "0.1.4";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "World Bank Data API in Python";
     homepage = "https://github.com/mwouts/world_bank_data";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ itepastra ];
+    maintainers = with lib.maintainers; [itepastra];
   };
 }

@@ -4,7 +4,6 @@
   fetchPypi,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "django-hcaptcha";
   version = "0.2.0";
@@ -16,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-slGerwzJeGWscvglMBEixc9h4eSFLWiVmUFgIirLbBo=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "hcaptcha" ];
+  pythonImportsCheck = ["hcaptcha"];
 
   meta = with lib; {
     description = "Django hCaptcha provides a simple way to protect your django forms using hCaptcha";
     homepage = "https://github.com/AndrejZbin/django-hcaptcha";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

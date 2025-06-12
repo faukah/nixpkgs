@@ -12,7 +12,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "telegraph";
   version = "0.1.8";
@@ -37,9 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4
     libadwaita
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pygobject3
+        ]
     ))
   ];
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/fkinoshita/Telegraph";
     license = licenses.gpl3Only;
     mainProgram = "telegraph";
-    maintainers = with maintainers; [ michaelgrahamevans ];
+    maintainers = with maintainers; [michaelgrahamevans];
     platforms = platforms.linux;
   };
 })

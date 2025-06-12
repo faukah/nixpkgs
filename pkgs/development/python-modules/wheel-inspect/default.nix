@@ -15,7 +15,6 @@
   setuptools,
   wheel-filename,
 }:
-
 buildPythonPackage rec {
   pname = "wheel-inspect";
   version = "1.7.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     "headerparser"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     attrs
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     jsonschema
   ];
 
-  pythonImportsCheck = [ "wheel_inspect" ];
+  pythonImportsCheck = ["wheel_inspect"];
 
   pytestFlagsArray = [
     "-W"
@@ -65,7 +64,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jwodder/wheel-inspect";
     changelog = "https://github.com/wheelodex/wheel-inspect/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ayazhafiz ];
+    maintainers = with maintainers; [ayazhafiz];
     mainProgram = "wheel2json";
   };
 }

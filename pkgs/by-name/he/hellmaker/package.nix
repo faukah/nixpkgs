@@ -5,7 +5,6 @@
   python3,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "hellmaker";
   version = "0-unstable-2023-03-18";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-zbtzlYGCLW/lt7GJvMHao/MZhdghNBQCQsjUImL1RC4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     description = "Generate FUD backdoors";
     homepage = "https://github.com/0xNinjaCyclone/hellMaker";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "hellmaker";
     platforms = lib.platforms.all;
   };

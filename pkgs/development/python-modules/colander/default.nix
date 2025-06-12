@@ -8,7 +8,6 @@
   iso8601,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "colander";
   version = "2.0";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     iso8601
   ];
 
-  pythonImportsCheck = [ "colander" ];
+  pythonImportsCheck = ["colander"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Simple schema-based serialization and deserialization library";
     homepage = "https://github.com/Pylons/colander";
     license = licenses.free; # http://repoze.org/LICENSE.txt
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

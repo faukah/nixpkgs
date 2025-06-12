@@ -10,7 +10,6 @@
   pygobject3,
   adwaita-icon-theme,
 }:
-
 buildPythonApplication {
   pname = "gscrabble";
   version = "unstable-2020-04-21";
@@ -58,6 +57,6 @@ buildPythonApplication {
     homepage = "https://github.com/RaaH/gscrabble/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

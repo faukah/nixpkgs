@@ -12,7 +12,6 @@
   pythonOlder,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "deezer-python";
   version = "7.1.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-3TYgOa8NWGhkVIT5HkDdpHGyj7FzP8n02a36KHW6IC4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     environs
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [ "deezer" ];
+  pythonImportsCheck = ["deezer"];
 
   disabledTests = [
     # JSONDecodeError issue
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/browniebroke/deezer-python";
     changelog = "https://github.com/browniebroke/deezer-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
   };
 }

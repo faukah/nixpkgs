@@ -8,7 +8,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "citus";
   version = "13.0.3";
@@ -71,7 +70,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://www.citusdata.com/";
     changelog = "https://github.com/citusdata/citus/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     inherit (postgresql.meta) platforms;
   };
 })

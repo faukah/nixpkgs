@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   cloudpickle,
   ipykernel,
@@ -15,7 +13,6 @@
   pyzmq,
   wurlitzer,
 }:
-
 buildPythonPackage rec {
   pname = "spyder-kernels";
   version = "3.1.0a1";
@@ -28,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-/Dd+yCLctOC7ao26EU6LrhBD1SKGd84XLepMdDJnFow=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "ipython"
@@ -47,7 +44,7 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "spyder_kernels" ];
+  pythonImportsCheck = ["spyder_kernels"];
 
   meta = {
     description = "Jupyter kernels for Spyder's console";
@@ -55,6 +52,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/spyder-ide/spyder-kernels/releases";
     changelog = "https://github.com/spyder-ide/spyder-kernels/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

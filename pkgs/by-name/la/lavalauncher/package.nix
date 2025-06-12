@@ -13,7 +13,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lavalauncher";
   version = "2.1.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hobhZ6s9m2xCdAurdj0EF1BeS88j96133zu+2jb1FMM=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://git.sr.ht/~leon_plickat/lavalauncher/refs/${finalAttrs.src.rev}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "lavalauncher";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
     # meson.build:52:23: ERROR: C shared or static library 'rt' not found
     # https://logs.ofborg.org/?key=nixos/nixpkgs.340239&attempt_id=1f05cada-67d2-4cfe-b6a8-4bf4571b9375

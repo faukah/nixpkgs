@@ -4,7 +4,6 @@
   unstableGitUpdater,
   buildLua,
 }:
-
 buildLua {
   pname = "chapterskip";
 
@@ -15,7 +14,7 @@ buildLua {
     rev = "b26825316e3329882206ae78dc903ebc4613f039";
     hash = "sha256-OTrLQE3rYvPQamEX23D6HttNjx3vafWdTMxTiWpDy90=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Automatically skips chapters based on title";
@@ -25,6 +24,6 @@ buildLua {
     '';
     homepage = "https://github.com/po5/chapterskip";
     license = lib.licenses.unfree; # https://github.com/po5/chapterskip/issues/10
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

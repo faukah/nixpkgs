@@ -16,7 +16,6 @@
   nix-update-script,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.19.0";
   pname = "librepo";
@@ -59,19 +58,19 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  cmakeFlags = [ "-DPYTHON_DESIRED=${lib.substring 0 1 python3.pythonVersion}" ];
+  cmakeFlags = ["-DPYTHON_DESIRED=${lib.substring 0 1 python3.pythonVersion}"];
 
   postFixup = ''
     moveToOutput "lib/${python3.libPrefix}" "$py"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages";
     homepage = "https://rpm-software-management.github.io/librepo/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

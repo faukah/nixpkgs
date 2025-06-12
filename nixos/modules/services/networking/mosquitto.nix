@@ -3,20 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mosquitto;
 
   # note that mosquitto config parsing is very simplistic as of may 2021.
   # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
   # there's no escaping available either, so we have to prevent any being necessary.
-  str = lib.types.strMatching "[^\r\n]*" // {
-    description = "single-line string";
-  };
+  str =
+    lib.types.strMatching "[^\r\n]*"
+    // {
+      description = "single-line string";
+    };
   path = lib.types.addCheck lib.types.path (p: str.check "${p}");
   configKey = lib.types.strMatching "[^\r\n\t ]+";
-  optionType =
-    with lib.types;
+  optionType = with lib.types;
     oneOf [
       str
       path
@@ -26,30 +26,24 @@ let
     // {
       description = "string, path, bool, or integer";
     };
-  optionToString =
-    v:
-    if lib.isBool v then
-      lib.boolToString v
-    else if path.check v then
-      "${v}"
-    else
-      toString v;
+  optionToString = v:
+    if lib.isBool v
+    then lib.boolToString v
+    else if path.check v
+    then "${v}"
+    else toString v;
 
-  assertKeysValid =
-    prefix: valid: config:
+  assertKeysValid = prefix: valid: config:
     lib.mapAttrsToList (n: _: {
       assertion = valid ? ${n};
       message = "Invalid config key ${prefix}.${n}.";
-    }) config;
+    })
+    config;
 
-  formatFreeform =
-    {
-      prefix ? "",
-    }:
+  formatFreeform = {prefix ? ""}:
     lib.mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}");
 
-  userOptions =
-    with lib.types;
+  userOptions = with lib.types;
     submodule {
       options = {
         password = lib.mkOption {
@@ -107,7 +101,7 @@ let
             "read A/B"
             "readwrite A/#"
           ];
-          default = [ ];
+          default = [];
           description = ''
             Control client access to topics on the broker.
           '';
@@ -115,12 +109,12 @@ let
       };
     };
 
-  userAsserts =
-    prefix: users:
+  userAsserts = prefix: users:
     lib.mapAttrsToList (n: _: {
       assertion = builtins.match "[^:\r\n]+" n != null;
       message = "Invalid user name ${n} in ${prefix}";
-    }) users
+    })
+    users
     ++ lib.mapAttrsToList (n: u: {
       assertion =
         lib.count (s: s != null) [
@@ -128,63 +122,55 @@ let
           u.passwordFile
           u.hashedPassword
           u.hashedPasswordFile
-        ] <= 1;
+        ]
+        <= 1;
       message = "Cannot set more than one password option for user ${n} in ${prefix}";
-    }) users;
+    })
+    users;
 
   listenerScope = index: "listener-${toString index}";
   userScope = prefix: index: "${prefix}-user-${toString index}";
   credentialID = prefix: credential: "${prefix}-${credential}";
 
-  toScopedUsers =
-    listenerScope: users:
+  toScopedUsers = listenerScope: users:
     lib.pipe users [
       lib.attrNames
       (lib.imap0 (
-        index: user: lib.nameValuePair user (users.${user} // { scope = userScope listenerScope index; })
+        index: user: lib.nameValuePair user (users.${user} // {scope = userScope listenerScope index;})
       ))
       lib.listToAttrs
     ];
 
-  userCredentials =
-    user: credentials:
+  userCredentials = user: credentials:
     lib.pipe credentials [
       (lib.filter (credential: user.${credential} != null))
       (map (credential: "${credentialID user.scope credential}:${user.${credential}}"))
     ];
-  usersCredentials =
-    listenerScope: users: credentials:
+  usersCredentials = listenerScope: users: credentials:
     lib.pipe users [
       (toScopedUsers listenerScope)
       (lib.mapAttrsToList (_: user: userCredentials user credentials))
       lib.concatLists
     ];
-  systemdCredentials =
-    listeners: listenerCredentials:
+  systemdCredentials = listeners: listenerCredentials:
     lib.pipe listeners [
       (lib.imap0 (index: listener: listenerCredentials (listenerScope index) listener))
       lib.concatLists
     ];
 
-  makePasswordFile =
-    listenerScope: users: path:
-    let
-      makeLines =
-        store: file:
-        let
-          scopedUsers = toScopedUsers listenerScope users;
-        in
-        lib.mapAttrsToList (
-          name: user:
-          ''addLine ${lib.escapeShellArg name} "''$(systemd-creds cat ${credentialID user.scope store})"''
-        ) (lib.filterAttrs (_: user: user.${store} != null) scopedUsers)
-        ++ lib.mapAttrsToList (
-          name: user:
-          ''addFile ${lib.escapeShellArg name} "''${CREDENTIALS_DIRECTORY}/${credentialID user.scope file}"''
-        ) (lib.filterAttrs (_: user: user.${file} != null) scopedUsers);
-      plainLines = makeLines "password" "passwordFile";
-      hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
+  makePasswordFile = listenerScope: users: path: let
+    makeLines = store: file: let
+      scopedUsers = toScopedUsers listenerScope users;
     in
+      lib.mapAttrsToList (
+        name: user: ''addLine ${lib.escapeShellArg name} "''$(systemd-creds cat ${credentialID user.scope store})"''
+      ) (lib.filterAttrs (_: user: user.${store} != null) scopedUsers)
+      ++ lib.mapAttrsToList (
+        name: user: ''addFile ${lib.escapeShellArg name} "''${CREDENTIALS_DIRECTORY}/${credentialID user.scope file}"''
+      ) (lib.filterAttrs (_: user: user.${file} != null) scopedUsers);
+    plainLines = makeLines "password" "passwordFile";
+    hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
+  in
     pkgs.writeScript "make-mosquitto-passwd" (
       ''
         #! ${pkgs.runtimeShell}
@@ -209,15 +195,14 @@ let
       ''
       + lib.concatStringsSep "\n" (
         plainLines
-        ++ lib.optional (plainLines != [ ]) ''
+        ++ lib.optional (plainLines != []) ''
           ${cfg.package}/bin/mosquitto_passwd -U "$file"
         ''
         ++ hashedLines
       )
     );
 
-  authPluginOptions =
-    with lib.types;
+  authPluginOptions = with lib.types;
     submodule {
       options = {
         plugin = lib.mkOption {
@@ -242,25 +227,24 @@ let
             Options for the auth plugin. Each key turns into a `auth_opt_*`
              line in the config.
           '';
-          default = { };
+          default = {};
         };
       };
     };
 
-  authAsserts =
-    prefix: auth:
+  authAsserts = prefix: auth:
     lib.mapAttrsToList (n: _: {
       assertion = configKey.check n;
       message = "Invalid auth plugin key ${prefix}.${n}";
-    }) auth;
+    })
+    auth;
 
-  formatAuthPlugin =
-    plugin:
+  formatAuthPlugin = plugin:
     [
       "auth_plugin ${plugin.plugin}"
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
     ]
-    ++ formatFreeform { prefix = "auth_opt_"; } plugin.options;
+    ++ formatFreeform {prefix = "auth_opt_";} plugin.options;
 
   freeformListenerKeys = {
     allow_anonymous = 1;
@@ -294,8 +278,7 @@ let
     use_username_as_clientid = 1;
   };
 
-  listenerOptions =
-    with lib.types;
+  listenerOptions = with lib.types;
     submodule {
       options = {
         port = lib.mkOption {
@@ -322,7 +305,7 @@ let
             Refer to the [mosquitto.conf documentation](https://mosquitto.org/man/mosquitto-conf-5.html)
             for details on authentication plugins.
           '';
-          default = [ ];
+          default = [];
         };
 
         users = lib.mkOption {
@@ -330,13 +313,13 @@ let
           example = {
             john = {
               password = "123456";
-              acl = [ "readwrite john/#" ];
+              acl = ["readwrite john/#"];
             };
           };
           description = ''
             A set of users and their passwords and ACLs.
           '';
-          default = { };
+          default = {};
         };
 
         omitPasswordAuth = lib.mkOption {
@@ -357,7 +340,7 @@ let
             "pattern read #"
             "topic readwrite anon/report/#"
           ];
-          default = [ ];
+          default = [];
         };
 
         settings = lib.mkOption {
@@ -367,25 +350,23 @@ let
           description = ''
             Additional settings for this listener.
           '';
-          default = { };
+          default = {};
         };
       };
     };
 
-  listenerAsserts =
-    prefix: listener:
+  listenerAsserts = prefix: listener:
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
     ++ lib.imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v) listener.authPlugins;
 
-  formatListener =
-    idx: listener:
+  formatListener = idx: listener:
     [
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file /etc/mosquitto/acl-${toString idx}.conf"
     ]
     ++ lib.optional (!listener.omitPasswordAuth) "password_file ${cfg.dataDir}/passwd-${toString idx}"
-    ++ formatFreeform { } listener.settings
+    ++ formatFreeform {} listener.settings
     ++ lib.concatMap formatAuthPlugin listener.authPlugins;
 
   freeformBridgeKeys = {
@@ -424,8 +405,7 @@ let
     try_private = 1;
   };
 
-  bridgeOptions =
-    with lib.types;
+  bridgeOptions = with lib.types;
     submodule {
       options = {
         addresses = lib.mkOption {
@@ -447,7 +427,7 @@ let
               };
             };
           });
-          default = [ ];
+          default = [];
           description = ''
             Remote endpoints for the bridge.
           '';
@@ -460,8 +440,8 @@ let
             Refer to the [
             mosquitto.conf documentation](https://mosquitto.org/man/mosquitto-conf-5.html) for details on the format.
           '';
-          default = [ ];
-          example = [ "# both 2 local/topic/ remote/topic/" ];
+          default = [];
+          example = ["# both 2 local/topic/ remote/topic/"];
         };
 
         settings = lib.mkOption {
@@ -471,13 +451,12 @@ let
           description = ''
             Additional settings for this bridge.
           '';
-          default = { };
+          default = {};
         };
       };
     };
 
-  bridgeAsserts =
-    prefix: bridge:
+  bridgeAsserts = prefix: bridge:
     assertKeysValid "${prefix}.settings" freeformBridgeKeys bridge.settings
     ++ [
       {
@@ -486,14 +465,13 @@ let
       }
     ];
 
-  formatBridge =
-    name: bridge:
+  formatBridge = name: bridge:
     [
       "connection ${name}"
       "addresses ${lib.concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses}"
     ]
     ++ map (t: "topic ${t}") bridge.topics
-    ++ formatFreeform { } bridge.settings;
+    ++ formatFreeform {} bridge.settings;
 
   freeformGlobalKeys = {
     allow_duplicate_messages = 1;
@@ -528,11 +506,11 @@ let
   globalOptions = with lib.types; {
     enable = lib.mkEnableOption "the MQTT Mosquitto broker";
 
-    package = lib.mkPackageOption pkgs "mosquitto" { };
+    package = lib.mkPackageOption pkgs "mosquitto" {};
 
     bridges = lib.mkOption {
       type = attrsOf bridgeOptions;
-      default = { };
+      default = {};
       description = ''
         Bridges to build to other MQTT brokers.
       '';
@@ -540,7 +518,7 @@ let
 
     listeners = lib.mkOption {
       type = listOf listenerOptions;
-      default = [ ];
+      default = [];
       description = ''
         Listeners to configure on this broker.
       '';
@@ -554,7 +532,7 @@ let
         `*.conf` files in the directory will be
         read in case-sensitive alphabetical order.
       '';
-      default = [ ];
+      default = [];
     };
 
     logDest = lib.mkOption {
@@ -570,7 +548,7 @@ let
       description = ''
         Destinations to send log messages to.
       '';
-      default = [ "stderr" ];
+      default = ["stderr"];
     };
 
     logType = lib.mkOption {
@@ -589,7 +567,7 @@ let
       description = ''
         Types of messages to log.
       '';
-      default = [ ];
+      default = [];
     };
 
     persistence = lib.mkOption {
@@ -615,37 +593,35 @@ let
       description = ''
         Global configuration options for the mosquitto broker.
       '';
-      default = { };
+      default = {};
     };
   };
 
-  globalAsserts =
-    prefix: cfg:
+  globalAsserts = prefix: cfg:
     lib.flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
       (lib.imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l) cfg.listeners)
       (lib.mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b) cfg.bridges)
     ];
 
-  formatGlobal =
-    cfg:
+  formatGlobal = cfg:
     [
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ]
-    ++ map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}") cfg.logDest
+    ++ map (d:
+      if path.check d
+      then "log_dest file ${d}"
+      else "log_dest ${d}")
+    cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
-    ++ formatFreeform { } cfg.settings
+    ++ formatFreeform {} cfg.settings
     ++ lib.concatLists (lib.imap0 formatListener cfg.listeners)
     ++ lib.concatLists (lib.mapAttrsToList formatBridge cfg.bridges)
     ++ map (d: "include_dir ${d}") cfg.includeDirs;
 
   configFile = pkgs.writeText "mosquitto.conf" (lib.concatStringsSep "\n" (formatGlobal cfg));
-
-in
-
-{
-
+in {
   ###### Interface
 
   options.services.mosquitto = globalOptions;
@@ -653,14 +629,13 @@ in
   ###### Implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = globalAsserts "services.mosquitto" cfg;
 
     systemd.services.mosquitto = {
       description = "Mosquitto MQTT Broker Daemon";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         Type = "notify";
         NotifyAccess = "main";
@@ -673,26 +648,22 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
         # Credentials
-        SetCredential =
-          let
-            listenerCredentials =
-              listenerScope: listener:
-              usersCredentials listenerScope listener.users [
-                "password"
-                "hashedPassword"
-              ];
-          in
+        SetCredential = let
+          listenerCredentials = listenerScope: listener:
+            usersCredentials listenerScope listener.users [
+              "password"
+              "hashedPassword"
+            ];
+        in
           systemdCredentials cfg.listeners listenerCredentials;
 
-        LoadCredential =
-          let
-            listenerCredentials =
-              listenerScope: listener:
-              usersCredentials listenerScope listener.users [
-                "passwordFile"
-                "hashedPasswordFile"
-              ];
-          in
+        LoadCredential = let
+          listenerCredentials = listenerScope: listener:
+            usersCredentials listenerScope listener.users [
+              "passwordFile"
+              "hashedPasswordFile"
+            ];
+        in
           systemdCredentials cfg.listeners listenerCredentials;
 
         # Hardening
@@ -714,30 +685,34 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         ProtectSystem = "strict";
-        ReadWritePaths = [
-          cfg.dataDir
-          "/tmp" # mosquitto_passwd creates files in /tmp before moving them
-        ] ++ lib.filter path.check cfg.logDest;
+        ReadWritePaths =
+          [
+            cfg.dataDir
+            "/tmp" # mosquitto_passwd creates files in /tmp before moving them
+          ]
+          ++ lib.filter path.check cfg.logDest;
         ReadOnlyPaths = map (p: "${p}") (
           cfg.includeDirs
           ++ lib.filter (v: v != null) (
             lib.flatten [
               (map (l: [
-                (l.settings.psk_file or null)
-                (l.settings.http_dir or null)
-                (l.settings.cafile or null)
-                (l.settings.capath or null)
-                (l.settings.certfile or null)
-                (l.settings.crlfile or null)
-                (l.settings.dhparamfile or null)
-                (l.settings.keyfile or null)
-              ]) cfg.listeners)
+                  (l.settings.psk_file or null)
+                  (l.settings.http_dir or null)
+                  (l.settings.cafile or null)
+                  (l.settings.capath or null)
+                  (l.settings.certfile or null)
+                  (l.settings.crlfile or null)
+                  (l.settings.dhparamfile or null)
+                  (l.settings.keyfile or null)
+                ])
+                cfg.listeners)
               (lib.mapAttrsToList (_: b: [
-                (b.settings.bridge_cafile or null)
-                (b.settings.bridge_capath or null)
-                (b.settings.bridge_certfile or null)
-                (b.settings.bridge_keyfile or null)
-              ]) cfg.bridges)
+                  (b.settings.bridge_cafile or null)
+                  (b.settings.bridge_capath or null)
+                  (b.settings.bridge_certfile or null)
+                  (b.settings.bridge_keyfile or null)
+                ])
+                cfg.bridges)
             ]
           )
         );
@@ -762,8 +737,9 @@ in
       preStart = lib.concatStringsSep "\n" (
         lib.imap0 (
           idx: listener:
-          makePasswordFile (listenerScope idx) listener.users "${cfg.dataDir}/passwd-${toString idx}"
-        ) cfg.listeners
+            makePasswordFile (listenerScope idx) listener.users "${cfg.dataDir}/passwd-${toString idx}"
+        )
+        cfg.listeners
       );
     };
 
@@ -778,12 +754,13 @@ in
             lib.concatStringsSep "\n" (
               lib.flatten [
                 listener.acl
-                (lib.mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) listener.users)
+                (lib.mapAttrsToList (n: u: ["user ${n}"] ++ map (t: "topic ${t}") u.acl) listener.users)
               ]
             )
           );
         };
-      }) cfg.listeners
+      })
+      cfg.listeners
     );
 
     users.users.mosquitto = {
@@ -795,11 +772,10 @@ in
     };
 
     users.groups.mosquitto.gid = config.ids.gids.mosquitto;
-
   };
 
   meta = {
-    maintainers = [ ];
+    maintainers = [];
     doc = ./mosquitto.md;
   };
 }

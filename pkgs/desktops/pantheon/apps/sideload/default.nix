@@ -16,7 +16,6 @@
   libxml2,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sideload";
   version = "6.3.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Flatpak installer, designed for elementary OS";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.sideload";
   };
 }

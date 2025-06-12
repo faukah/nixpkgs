@@ -25,7 +25,6 @@
   uvicorn,
   xxhash,
 }:
-
 buildPythonPackage rec {
   pname = "manifest-ml";
   version = "0.1.9";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
   build-system = [
     setuptools
@@ -74,7 +73,7 @@ buildPythonPackage rec {
       fastapi
       uvicorn
     ];
-    diffusers = [ pillow ];
+    diffusers = [pillow];
     gcp = [
       pg8000
       # cloud-sql-python-connector
@@ -82,9 +81,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -111,13 +112,13 @@ buildPythonPackage rec {
     "test_timing"
   ];
 
-  pythonImportsCheck = [ "manifest" ];
+  pythonImportsCheck = ["manifest"];
 
   meta = with lib; {
     description = "Manifest for Prompting Foundation Models";
     homepage = "https://github.com/HazyResearch/manifest";
     changelog = "https://github.com/HazyResearch/manifest/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

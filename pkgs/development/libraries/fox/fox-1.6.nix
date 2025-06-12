@@ -17,7 +17,6 @@
   mesa,
   xinput,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fox";
   version = "1.6.57";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://fox-toolkit.org";
     license = lib.licenses.lgpl3;
-    maintainers = [ ];
+    maintainers = [];
     inherit (mesa.meta) platforms;
   };
 }

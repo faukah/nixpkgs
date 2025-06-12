@@ -10,7 +10,6 @@
   rustc,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "typst";
   version = "0.13.2";
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  pythonImportsCheck = [ "typst" ];
+  pythonImportsCheck = ["typst"];
 
   env = {
     OPENSSL_NO_VENDOR = true;
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/messense/typst-py";
     changelog = "https://github.com/messense/typst-py/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

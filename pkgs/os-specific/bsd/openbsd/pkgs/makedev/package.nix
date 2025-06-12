@@ -3,12 +3,11 @@
   runtimeShell,
   m4,
 }:
-
 mkDerivation {
   pname = "MAKEDEV";
   path = "etc";
 
-  patches = [ ./bash.patch ];
+  patches = [./bash.patch];
 
   extraNativeBuildInputs = [
     m4
@@ -17,7 +16,7 @@ mkDerivation {
   preBuild = ''
     mkdir -p $out/share/doc
   '';
-  buildTargets = [ "MAKEDEV" ];
+  buildTargets = ["MAKEDEV"];
 
   # patch some build artifacts
   # gnu m4 doesn't seem to recognize the expr() macro but it's only used for simple arithmetic so we convert it to bash

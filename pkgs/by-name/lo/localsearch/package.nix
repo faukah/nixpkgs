@@ -46,7 +46,6 @@
   totem-pl-parser,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "localsearch";
   version = "3.9.0";
@@ -133,13 +132,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "localsearch"; };
+    updateScript = gnome.updateScript {packageName = "localsearch";};
   };
 
   meta = {
     homepage = "https://gitlab.gnome.org/GNOME/localsearch";
     description = "Desktop-neutral user information store, search tool and indexer";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     mainProgram = "localsearch";

@@ -7,7 +7,6 @@
   fetchFromGitLab,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deheader";
   version = "1.11";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-RaWU6075PvgxbsH1+Lt/CEDAcl9Vx6kxcZAA/A/Af4o=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   nativeBuildInputs = [
     xmlto
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "http://catb.org/~esr/deheader";
     changelog = "https://gitlab.com/esr/deheader/-/blob/master/NEWS.adoc";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
 
     platforms = platforms.linux;
   };

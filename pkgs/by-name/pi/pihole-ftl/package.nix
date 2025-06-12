@@ -14,7 +14,6 @@
   iproute2,
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pihole-ftl";
   version = "6.2.2";
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pi-hole/FTL";
     changelog = "https://github.com/pi-hole/FTL/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ averyvigolo ];
+    maintainers = with lib.maintainers; [averyvigolo];
     platforms = lib.platforms.linux;
     mainProgram = "pihole-FTL";
   };

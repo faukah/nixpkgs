@@ -6,7 +6,6 @@
   libGL,
   wxGTK32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wxc";
   version = "1.0.0.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C language binding for wxWidgets";
     homepage = "https://wiki.haskell.org/WxHaskell";
     license = lib.licenses.wxWindows;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = wxGTK32.meta.platforms;
   };
 })

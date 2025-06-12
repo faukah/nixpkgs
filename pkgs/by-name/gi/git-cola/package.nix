@@ -11,7 +11,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "git-cola";
   version = "4.13.0";
@@ -24,10 +23,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-FoCU10EKeNltYh7AEOR+98ryVA6rFVfCDMg5QUSpF0w=";
   };
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ qt5.qtwayland ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [qt5.qtwayland];
 
   propagatedBuildInputs =
-    [ git ]
+    [git]
     ++ (with python3Packages; [
       setuptools
       pyqt5
@@ -36,12 +35,14 @@ python3Packages.buildPythonApplication rec {
       polib
     ]);
 
-  nativeBuildInputs = [
-    gettext
-    qt5.wrapQtAppsHook
-    python3Packages.setuptools-scm
-    imagemagick
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      gettext
+      qt5.wrapQtAppsHook
+      python3Packages.setuptools-scm
+      imagemagick
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [copyDesktopItems];
 
   nativeCheckInputs = [
     git
@@ -51,10 +52,12 @@ python3Packages.buildPythonApplication rec {
 
   versionCheckProgramArg = "--version";
 
-  disabledTestPaths = [
-    "qtpy/"
-    "contrib/win32"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "cola/inotify.py" ];
+  disabledTestPaths =
+    [
+      "qtpy/"
+      "contrib/win32"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["cola/inotify.py"];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
@@ -73,14 +76,14 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Sleek and powerful Git GUI";
     homepage = "https://git-cola.github.io/";
     changelog = "https://github.com/git-cola/git-cola/blob/v${version}/CHANGES.rst";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ bobvanderlinden ];
+    maintainers = with lib.maintainers; [bobvanderlinden];
     mainProgram = "git-cola";
   };
 }

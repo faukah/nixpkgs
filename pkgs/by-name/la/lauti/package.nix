@@ -4,9 +4,7 @@
   fetchFromGitea,
   callPackage,
   nixosTests,
-}:
-
-let
+}: let
   version = "1.0.0";
   src = fetchFromGitea {
     domain = "codeberg.org";
@@ -15,42 +13,41 @@ let
     tag = "v${version}";
     hash = "sha256-cO9rK7GAVRlv5x4WI/xbXNJ594QqB+KIPUteB3TifKM=";
   };
-  frontend = callPackage ./frontend.nix { inherit src version; };
+  frontend = callPackage ./frontend.nix {inherit src version;};
 in
+  buildGoModule rec {
+    pname = "lauti";
+    inherit version src;
 
-buildGoModule rec {
-  pname = "lauti";
-  inherit version src;
+    vendorHash = "sha256-ushTvIpvRLZP3q6tLN6BA4tl2Xp/UImWugm2ZgTAm8k=";
 
-  vendorHash = "sha256-ushTvIpvRLZP3q6tLN6BA4tl2Xp/UImWugm2ZgTAm8k=";
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.version=${version}"
+      "-X main.revision=${src.rev}"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.revision=${src.rev}"
-  ];
+    preConfigure = ''
+      cp -R ${frontend}/. backstage/
+    '';
 
-  preConfigure = ''
-    cp -R ${frontend}/. backstage/
-  '';
+    preCheck = ''
+      # Disable test, requires running Docker daemon
+      rm cmd/lauti/main_test.go
+      rm service/email/email_test.go
+    '';
 
-  preCheck = ''
-    # Disable test, requires running Docker daemon
-    rm cmd/lauti/main_test.go
-    rm service/email/email_test.go
-  '';
+    passthru.tests = {
+      inherit (nixosTests) lauti;
+    };
 
-  passthru.tests = {
-    inherit (nixosTests) lauti;
-  };
-
-  meta = {
-    description = "Open source calendar for events, groups and places";
-    homepage = "https://lauti.org";
-    license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ onny ];
-    platforms = lib.platforms.unix;
-    mainProgram = "lauti";
-  };
-}
+    meta = {
+      description = "Open source calendar for events, groups and places";
+      homepage = "https://lauti.org";
+      license = lib.licenses.agpl3Only;
+      maintainers = with lib.maintainers; [onny];
+      platforms = lib.platforms.unix;
+      mainProgram = "lauti";
+    };
+  }

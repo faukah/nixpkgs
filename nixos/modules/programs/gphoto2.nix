@@ -3,10 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-
-{
-  meta.maintainers = [ lib.maintainers.league ];
+}: {
+  meta.maintainers = [lib.maintainers.league];
 
   ###### interface
   options = {
@@ -26,8 +24,8 @@
 
   ###### implementation
   config = lib.mkIf config.programs.gphoto2.enable {
-    services.udev.packages = [ pkgs.libgphoto2 ];
-    environment.systemPackages = [ pkgs.gphoto2 ];
-    users.groups.camera = { };
+    services.udev.packages = [pkgs.libgphoto2];
+    environment.systemPackages = [pkgs.gphoto2];
+    users.groups.camera = {};
   };
 }

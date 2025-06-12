@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
-
   gensim,
   numpy,
   requests,
   sentencepiece,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "bpemb";
   version = "0.3.5";
@@ -24,7 +21,7 @@ buildPythonPackage {
     hash = "sha256-nVaMXb5TBhO/vWE8AYAA3P9dSPI8O+rmzFvbEj8VEkE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gensim
@@ -37,12 +34,12 @@ buildPythonPackage {
   # need network connection for tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bpemb" ];
+  pythonImportsCheck = ["bpemb"];
 
   meta = with lib; {
     description = "Byte-pair embeddings in 275 languages";
     homepage = "https://github.com/bheinzerling/bpemb";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

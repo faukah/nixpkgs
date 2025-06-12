@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "mealie";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -9,22 +7,20 @@
     ];
   };
 
-  nodes =
-    let
-      sqlite = {
-        services.mealie = {
-          enable = true;
-          port = 9001;
-        };
+  nodes = let
+    sqlite = {
+      services.mealie = {
+        enable = true;
+        port = 9001;
       };
-      postgres = {
-        imports = [ sqlite ];
-        services.mealie.database.createLocally = true;
-      };
-    in
-    {
-      inherit sqlite postgres;
     };
+    postgres = {
+      imports = [sqlite];
+      services.mealie.database.createLocally = true;
+    };
+  in {
+    inherit sqlite postgres;
+  };
 
   testScript = ''
     start_all()

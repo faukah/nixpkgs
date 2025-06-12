@@ -4,10 +4,8 @@
   callPackage,
   fetchFromGitHub,
   testers,
-
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geos";
   version = "3.13.1";
@@ -19,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-zPVP01AMIBKMnKi6Sq++CIaVZb5JA1v8/QAdGzKdL8Y=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/libgeos/geos/issues/930
   cmakeFlags = lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) [
@@ -30,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    geos = callPackage ./tests.nix { geos = finalAttrs.finalPackage; };
+    geos = callPackage ./tests.nix {geos = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {
@@ -38,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://libgeos.org";
     license = licenses.lgpl21Only;
     mainProgram = "geosop";
-    teams = [ teams.geospatial ];
-    pkgConfigModules = [ "geos" ];
+    teams = [teams.geospatial];
+    pkgConfigModules = ["geos"];
     changelog = "https://github.com/libgeos/geos/releases/tag/${finalAttrs.finalPackage.version}";
   };
 })

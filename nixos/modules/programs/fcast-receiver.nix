@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.fcast-receiver;
-in
-{
+in {
   meta = {
     maintainers = pkgs.fcast-receiver.meta.maintainers;
   };
@@ -21,13 +19,13 @@ in
         Open ports needed for the functionality of the program.
       '';
     };
-    package = lib.mkPackageOption pkgs "fcast-receiver" { };
+    package = lib.mkPackageOption pkgs "fcast-receiver" {};
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 46899 ];
+      allowedTCPPorts = [46899];
     };
   };
 }

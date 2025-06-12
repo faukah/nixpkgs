@@ -5,7 +5,6 @@
   mono,
   lib,
 }:
-
 stdenv.mkDerivation (attrs: {
   pname = "Nuget";
   version = "6.6.1.2";
@@ -50,8 +49,8 @@ stdenv.mkDerivation (attrs: {
     '';
     # https://learn.microsoft.com/en-us/nuget/resources/nuget-faq#what-is-the-license-for-nuget-exe-
     license = licenses.mit;
-    sourceProvenance = [ sourceTypes.binaryBytecode ];
-    maintainers = [ maintainers.mdarocha ];
+    sourceProvenance = [sourceTypes.binaryBytecode];
+    maintainers = [maintainers.mdarocha];
     inherit (mono.meta) platforms;
   };
 })

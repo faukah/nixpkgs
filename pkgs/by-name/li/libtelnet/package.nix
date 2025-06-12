@@ -6,7 +6,6 @@
   autoreconfHook,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "libtelnet";
   version = "0.21+45f2d5c";
@@ -22,13 +21,13 @@ stdenv.mkDerivation {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = {
     description = "Simple RFC-complient TELNET implementation as a C library";
     homepage = "https://github.com/seanmiddleditch/libtelnet";
     license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.tomberek ];
+    maintainers = [lib.maintainers.tomberek];
     platforms = lib.platforms.linux;
   };
 }

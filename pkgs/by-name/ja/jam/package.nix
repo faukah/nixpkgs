@@ -8,7 +8,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jam";
   version = "2.6.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     bison
@@ -54,21 +53,21 @@ stdenv.mkDerivation (finalAttrs: {
       substituteInPlace jam.h --replace-fail 'ifdef linux' 'ifdef __linux__'
     ''
     +
-      # When cross-compiling, we need to set the preprocessor macros
-      # OSMAJOR/OSMINOR/OSPLAT to the values from the target platform, not the host
-      # platform. This looks a little ridiculous because the vast majority of build
-      # tools don't embed target-specific information into their binary, but in this
-      # case we behave more like a compiler than a make(1)-alike.
-      lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
-         cat >>jam.h <<EOF
-         #undef OSMAJOR
-         #undef OSMINOR
-         #undef OSPLAT
-         $(
-           ${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc -E -dM jam.h | grep -E '^#define (OSMAJOR|OSMINOR|OSPLAT) '
-          )
-        EOF
-      '';
+    # When cross-compiling, we need to set the preprocessor macros
+    # OSMAJOR/OSMINOR/OSPLAT to the values from the target platform, not the host
+    # platform. This looks a little ridiculous because the vast majority of build
+    # tools don't embed target-specific information into their binary, but in this
+    # case we behave more like a compiler than a make(1)-alike.
+    lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
+       cat >>jam.h <<EOF
+       #undef OSMAJOR
+       #undef OSMINOR
+       #undef OSPLAT
+       $(
+         ${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc -E -dM jam.h | grep -E '^#define (OSMAJOR|OSMINOR|OSPLAT) '
+        )
+      EOF
+    '';
 
   buildPhase = ''
     runHook preBuild
@@ -94,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     };
     tests.os = testers.runCommand {
       name = "${finalAttrs.finalPackage.name}-os";
-      nativeBuildInputs = [ finalAttrs.finalPackage ];
+      nativeBuildInputs = [finalAttrs.finalPackage];
       script = ''
         echo 'echo $(OS) ;' > Jamfile
         os=$(jam -d0)

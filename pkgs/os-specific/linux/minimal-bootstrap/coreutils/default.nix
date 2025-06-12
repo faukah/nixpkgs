@@ -5,8 +5,7 @@
   tinycc,
   gnumake,
   gnupatch,
-}:
-let
+}: let
   pname = "bootstrap-coreutils";
   version = "5.0";
 
@@ -71,7 +70,7 @@ let
     })
   ];
 in
-kaem.runCommand "${pname}-${version}"
+  kaem.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -85,7 +84,7 @@ kaem.runCommand "${pname}-${version}"
       description = "GNU Core Utilities";
       homepage = "https://www.gnu.org/software/coreutils";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

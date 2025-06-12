@@ -8,7 +8,6 @@
   voluptuous,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pybotvac";
   version = "0.0.27";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "urllib3.disable_warnings(urllib3.exceptions.SubjectAltNameWarning)" "# urllib3.disable_warnings(urllib3.exceptions.SubjectAltNameWarning)"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # Module no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pybotvac" ];
+  pythonImportsCheck = ["pybotvac"];
 
   meta = with lib; {
     description = "Python module for interacting with Neato Botvac Connected vacuum robots";
     homepage = "https://github.com/stianaske/pybotvac";
     changelog = "https://github.com/stianaske/pybotvac/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

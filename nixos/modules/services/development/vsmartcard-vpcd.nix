@@ -3,15 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.vsmartcard-vpcd;
-
-in
-{
-
+in {
   options.services.vsmartcard-vpcd = {
     enable = lib.mkEnableOption "Virtual smart card driver.";
 
@@ -42,8 +36,8 @@ in
       ''
     ];
 
-    environment.systemPackages = [ pkgs.vsmartcard-vpcd ];
+    environment.systemPackages = [pkgs.vsmartcard-vpcd];
   };
 
-  meta.maintainers = with lib.maintainers; [ stargate01 ];
+  meta.maintainers = with lib.maintainers; [stargate01];
 }

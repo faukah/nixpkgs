@@ -5,7 +5,6 @@
   fetchpatch,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "process-tests";
   version = "3.0.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # No tests
   doCheck = false;

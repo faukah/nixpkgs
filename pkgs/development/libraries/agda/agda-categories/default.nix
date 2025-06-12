@@ -4,7 +4,6 @@
   fetchFromGitHub,
   standard-library,
 }:
-
 mkDerivation rec {
   version = "0.2.0";
   pname = "agda-categories";
@@ -31,7 +30,7 @@ mkDerivation rec {
     find src -name '*.agda' | sed -e 's|^src/[/]*|import |' -e 's|/|.|g' -e 's/.agda//' -e '/import Everything/d' | LC_COLLATE='C' sort > Everything.agda
   '';
 
-  buildInputs = [ standard-library ];
+  buildInputs = [standard-library];
 
   meta = with lib; {
     inherit (src.meta) homepage;

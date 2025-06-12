@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "hackgen-nf-font";
   version = "2.10.0";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/yuru7/HackGen";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 })

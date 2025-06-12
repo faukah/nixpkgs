@@ -10,7 +10,6 @@
   testers,
   ravedude,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ravedude";
   version = "0.2.0";
@@ -28,14 +27,14 @@ rustPlatform.buildRustPackage rec {
     makeBinaryWrapper
   ];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   postInstall = ''
-    wrapProgram $out/bin/ravedude --suffix PATH : ${lib.makeBinPath [ avrdude ]}
+    wrapProgram $out/bin/ravedude --suffix PATH : ${lib.makeBinPath [avrdude]}
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = ravedude;
       version = "v${version}";

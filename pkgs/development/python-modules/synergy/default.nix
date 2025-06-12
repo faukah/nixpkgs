@@ -13,7 +13,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "synergy";
   version = "1.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-df5CBEcRx55/rSMc6ygMVrHbbEcnU1ISJheO+WoBSCI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -57,12 +56,12 @@ buildPythonPackage rec {
       "test_fit_loewe_antagonism"
     ];
 
-  pythonImportsCheck = [ "synergy" ];
+  pythonImportsCheck = ["synergy"];
 
   meta = with lib; {
     description = "Python library for calculating, analyzing, and visualizing drug combination synergy";
     homepage = "https://github.com/djwooten/synergy";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3Plus;
   };
 }

@@ -7,7 +7,6 @@
   dbus-sharp-2_0,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-sharp-glib";
   version = "0.6";

@@ -5,7 +5,6 @@
   makeWrapper,
   imagemagick,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lsix";
   version = "1.9.1";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sha256 = "sha256-msTG7otjzksg/2XyPDy31LEb7uGXSgB8fzfHvad9nPA=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   postFixup = ''
     wrapProgram $out/bin/lsix \
-      --prefix PATH : ${lib.makeBinPath [ (imagemagick.override { ghostscriptSupport = true; }) ]}
+      --prefix PATH : ${lib.makeBinPath [(imagemagick.override {ghostscriptSupport = true;})]}
   '';
 
   meta = with lib; {

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   beautifulsoup4,
   fiona,
   geodatasets,
@@ -19,7 +18,6 @@
   setuptools-scm,
   shapely,
 }:
-
 buildPythonPackage rec {
   pname = "libpysal";
   version = "4.13.0";
@@ -34,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-lUaSUNNT2alfbBOjo59Dbjc3Yrkim3ZQHdLbxdrhDFw=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     beautifulsoup4
@@ -77,13 +75,13 @@ buildPythonPackage rec {
     "libpysal/weights/tests/test_util.py"
   ];
 
-  pythonImportsCheck = [ "libpysal" ];
+  pythonImportsCheck = ["libpysal"];
 
   meta = {
     description = "Library of spatial analysis functions";
     homepage = "https://pysal.org/libpysal/";
     changelog = "https://github.com/pysal/libpysal/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

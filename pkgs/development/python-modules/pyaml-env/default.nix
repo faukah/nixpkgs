@@ -6,7 +6,6 @@
   pyyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyaml-env";
   version = "1.2.2";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-Mp5Zn2JA6j/OTkPCRggNdqdWkrUYyYHMVK6hy/EI0I8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyyaml ];
+  dependencies = [pyyaml];
 
-  pythonImportsCheck = [ "pyaml_env" ];
+  pythonImportsCheck = ["pyaml_env"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Parse YAML configuration with environment variables in Python";
     homepage = "https://github.com/mkaranasou/pyaml_env";
     changelog = "https://github.com/mkaranasou/pyaml_env/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

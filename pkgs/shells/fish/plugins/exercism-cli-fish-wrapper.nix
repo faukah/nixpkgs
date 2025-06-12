@@ -15,12 +15,12 @@ buildFishPlugin {
     hash = "sha256-R9Vf8tlLytqvMlJdWGyTy1g0TUhOcp7tifz0Bxb4Gts=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fish wrapper for the Exercism CLI";
     homepage = "https://github.com/glennj/exercism-cli-fish-wrapper";
     license = lib.licenses.unfree; # No upstream license
-    maintainers = with lib.maintainers; [ anomalocaris ];
+    maintainers = with lib.maintainers; [anomalocaris];
   };
 }

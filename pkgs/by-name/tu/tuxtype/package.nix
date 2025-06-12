@@ -13,7 +13,6 @@
   SDL_ttf,
   t4kcommon,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.8.3";
   pname = "tuxtype";
@@ -57,14 +56,14 @@ stdenv.mkDerivation rec {
     t4kcommon
   ];
 
-  configureFlags = [ "--without-sdlpango" ];
+  configureFlags = ["--without-sdlpango"];
 
   meta = with lib; {
     description = "Educational Typing Tutor Game Starring Tux, the Linux Penguin";
     mainProgram = "tuxtype";
     homepage = "https://github.com/tux4kids/tuxtype";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.aanderse ];
+    maintainers = [maintainers.aanderse];
     platforms = platforms.linux;
   };
 }

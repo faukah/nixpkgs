@@ -8,7 +8,6 @@
   visitors,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "morbig";
   version = "0.11.0";
@@ -37,6 +36,6 @@ buildDunePackage rec {
     homepage = "https://github.com/colis-anr/${pname}";
     description = "Static parser for POSIX Shell";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ niols ];
+    maintainers = with maintainers; [niols];
   };
 }

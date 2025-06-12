@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 buildWasmBindgenCli rec {
   src = fetchCrate {
     pname = "wasm-bindgen-cli";

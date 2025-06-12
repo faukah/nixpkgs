@@ -3,11 +3,9 @@
   fetchPypi,
   buildPythonPackage,
   cython,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "memory-allocator";
   version = "0.1.4";
@@ -19,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-1gkhawMDGWfitFqASxL/kClXj07AGf3kLPau1soJ7+Q=";
   };
 
-  propagatedBuildInputs = [ cython ];
+  propagatedBuildInputs = [cython];
 
-  pythonImportsCheck = [ "memory_allocator" ];
+  pythonImportsCheck = ["memory_allocator"];
 
   passthru.tests = {
     inherit sage;
@@ -30,7 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Extension class to allocate memory easily with cython";
     homepage = "https://github.com/sagemath/memory_allocator/";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     license = licenses.lgpl3Plus;
   };
 }

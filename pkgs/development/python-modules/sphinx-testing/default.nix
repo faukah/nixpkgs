@@ -7,7 +7,6 @@
   six,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-testing";
   version = "1.0.1";

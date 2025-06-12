@@ -10,7 +10,6 @@
   typing-extensions,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-identity";
   version = "1.21.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-6iLObmsPQpvBuNkhLVufmHe9TILxckv6kQdgYSwHqaY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "azure.identity" ];
+  pythonImportsCheck = ["azure.identity"];
 
   # Requires checkout from mono-repo and a mock account:
   # https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/identity/tests.yml
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/identity/azure-identity";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-identity_${version}/sdk/identity/azure-identity/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -13,7 +13,6 @@
   xorg,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "partio";
   version = "1.19.0";
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wdas/partio";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
   };
 }

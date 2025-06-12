@@ -7,7 +7,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bctoolbox";
   version = "5.2.109";

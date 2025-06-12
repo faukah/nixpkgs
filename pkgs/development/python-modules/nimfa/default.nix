@@ -8,7 +8,6 @@
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nimfa";
   version = "1.4.0";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Nonnegative matrix factorization library";
     homepage = "http://nimfa.biolab.si";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ashgillman ];
+    maintainers = with lib.maintainers; [ashgillman];
   };
 }

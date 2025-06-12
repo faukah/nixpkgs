@@ -11,7 +11,6 @@
   libxcb,
   gperf,
 }:
-
 stdenv.mkDerivation {
   pname = "xcb-util-cursor-0.1.1-3-unstable";
   version = "2017-04-05";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     description = "XCB cursor library (libxcursor port)";
     homepage = "https://cgit.freedesktop.org/xcb/util-cursor";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.linux ++ platforms.darwin;
   };
 

@@ -20,7 +20,6 @@
   shortuuid,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "cloudpathlib";
   version = "0.21.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
       --replace-fail "--report-log reportlog.jsonl" ""
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = lib.optional (pythonOlder "3.11") typing-extensions;
 
@@ -51,29 +50,31 @@ buildPythonPackage rec {
       azure-storage-blob
       azure-storage-file-datalake
     ];
-    gs = [ google-cloud-storage ];
-    s3 = [ boto3 ];
+    gs = [google-cloud-storage];
+    s3 = [boto3];
   };
 
-  pythonImportsCheck = [ "cloudpathlib" ];
+  pythonImportsCheck = ["cloudpathlib"];
 
-  nativeCheckInputs = [
-    azure-identity
-    psutil
-    pydantic
-    pytestCheckHook
-    pytest-cases
-    pytest-cov-stub
-    pytest-xdist
-    python-dotenv
-    shortuuid
-    tenacity
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      azure-identity
+      psutil
+      pydantic
+      pytestCheckHook
+      pytest-cases
+      pytest-cov-stub
+      pytest-xdist
+      python-dotenv
+      shortuuid
+      tenacity
+    ]
+    ++ optional-dependencies.all;
 
   meta = with lib; {
     description = "Python pathlib-style classes for cloud storage services such as Amazon S3, Azure Blob Storage, and Google Cloud Storage";
     homepage = "https://github.com/drivendataorg/cloudpathlib";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

@@ -23,7 +23,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "markdown-it-py";
   version = "3.0.0";
@@ -39,18 +38,20 @@ buildPythonPackage rec {
   };
 
   # fix downstrem usage of markdown-it-py[linkify]
-  pythonRelaxDeps = [ "linkify-it-py" ];
+  pythonRelaxDeps = ["linkify-it-py"];
 
   nativeBuildInputs = [
     flit-core
   ];
 
-  propagatedBuildInputs = [ mdurl ];
+  propagatedBuildInputs = [mdurl];
 
-  nativeCheckInputs = [
-    pytest-regressions
-    pytestCheckHook
-  ] ++ optional-dependencies.linkify;
+  nativeCheckInputs =
+    [
+      pytest-regressions
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.linkify;
 
   # disable and remove benchmark tests
   preCheck = ''
@@ -58,7 +59,7 @@ buildPythonPackage rec {
   '';
   doCheck = !stdenv.hostPlatform.isi686;
 
-  pythonImportsCheck = [ "markdown_it" ];
+  pythonImportsCheck = ["markdown_it"];
 
   optional-dependencies = {
     compare = [
@@ -68,8 +69,8 @@ buildPythonPackage rec {
       mistune
       panflute
     ];
-    linkify = [ linkify-it-py ];
-    plugins = [ mdit-py-plugins ];
+    linkify = [linkify-it-py];
+    plugins = [mdit-py-plugins];
     rtd = [
       attrs
       myst-parser
@@ -86,7 +87,7 @@ buildPythonPackage rec {
     homepage = "https://markdown-it-py.readthedocs.io/";
     changelog = "https://github.com/executablebooks/markdown-it-py/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
     mainProgram = "markdown-it";
   };
 }

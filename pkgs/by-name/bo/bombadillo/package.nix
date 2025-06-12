@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "bombadillo";
   version = "2.4.0";
@@ -15,7 +14,7 @@ buildGoModule rec {
     hash = "sha256-FjU9AyRAdGFr1bVpkmj5STkbzCXvpxOaOj7WNQJq7A0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = null;
 
@@ -33,6 +32,6 @@ buildGoModule rec {
     mainProgram = "bombadillo";
     homepage = "https://bombadillo.colorfield.space/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

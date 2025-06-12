@@ -15,7 +15,6 @@
   electron,
   addDriverRunpath,
   makeDesktopItem,
-
   jdk8,
   jdk17,
   jdk21,
@@ -25,7 +24,6 @@
     jdk21
   ],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdlauncher-carbon";
   version = "2.0.24";
@@ -67,40 +65,38 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  postConfigure =
-    let
-      libPath = lib.makeLibraryPath [
-        xorg.libX11
-        xorg.libXext
-        xorg.libXcursor
-        xorg.libXrandr
-        xorg.libXxf86vm
+  postConfigure = let
+    libPath = lib.makeLibraryPath [
+      xorg.libX11
+      xorg.libXext
+      xorg.libXcursor
+      xorg.libXrandr
+      xorg.libXxf86vm
 
-        # lwjgl
-        libpulseaudio
-        libGL
-        stdenv.cc.cc.lib
+      # lwjgl
+      libpulseaudio
+      libGL
+      stdenv.cc.cc.lib
 
-        # oshi
-        udev
-      ];
-      binPath = lib.makeBinPath [
-        # Used for opening directories and URLs in the electron app
-        xdg-utils
+      # oshi
+      udev
+    ];
+    binPath = lib.makeBinPath [
+      # Used for opening directories and URLs in the electron app
+      xdg-utils
 
-        # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
-        xorg.xrandr
-      ];
-    in
-    ''
-      makeWrapper '${lib.getExe electron}' $out/bin/gdlauncher-carbon \
-        --prefix GDL_JAVA_PATH : ${lib.makeSearchPath "" jdks} \
-        --set LD_LIBRARY_PATH ${addDriverRunpath.driverLink}/lib:${libPath} \
-        --suffix PATH : "${binPath}" \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-        --add-flags $out/share/gdlauncher-carbon/resources/app.asar
-    '';
+      # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
+      xorg.xrandr
+    ];
+  in ''
+    makeWrapper '${lib.getExe electron}' $out/bin/gdlauncher-carbon \
+      --prefix GDL_JAVA_PATH : ${lib.makeSearchPath "" jdks} \
+      --set LD_LIBRARY_PATH ${addDriverRunpath.driverLink}/lib:${libPath} \
+      --suffix PATH : "${binPath}" \
+      --set ELECTRON_FORCE_IS_PACKAGED 1 \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags $out/share/gdlauncher-carbon/resources/app.asar
+  '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -111,13 +107,13 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "gdlauncher-carbon";
       desktopName = "GDLauncher";
       comment = finalAttrs.meta.description;
-      categories = [ "Game" ];
+      categories = ["Game"];
       keywords = [
         "launcher"
         "mod manager"
         "minecraft"
       ];
-      mimeTypes = [ "x-scheme-handler/gdlauncher" ];
+      mimeTypes = ["x-scheme-handler/gdlauncher"];
     })
   ];
 
@@ -130,6 +126,6 @@ stdenv.mkDerivation (finalAttrs: {
       TsubakiDev
     ];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

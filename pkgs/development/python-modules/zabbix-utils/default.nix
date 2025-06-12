@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zabbix-utils";
   version = "2.0.2";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-rRPen/FzWT0cCnXWiSdoybtXeP1pxYqnjq5b0QPVs1I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "zabbix_utils" ];
+  pythonImportsCheck = ["zabbix_utils"];
 
   meta = {
     description = "Library for zabbix";
     homepage = "https://github.com/zabbix/python-zabbix-utils";
     changelog = "https://github.com/zabbix/python-zabbix-utils/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

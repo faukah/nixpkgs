@@ -9,7 +9,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxd-ui";
   version = "0.16";
@@ -61,14 +60,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests.default = nixosTests.lxd.ui;
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Web user interface for LXD";
     homepage = "https://github.com/canonical/lxd-ui";
     changelog = "https://github.com/canonical/lxd-ui/releases/tag/${version}";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

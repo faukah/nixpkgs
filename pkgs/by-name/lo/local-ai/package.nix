@@ -21,33 +21,25 @@
   which,
   opencv,
   curl,
-
   enable_upx ? true,
   upx,
-
   # apply feature parameter names according to
   # https://github.com/NixOS/rfcs/pull/169
-
   # CPU extensions
   enable_avx ? stdenv.hostPlatform.isx86_64,
   enable_avx2 ? stdenv.hostPlatform.isx86_64,
   enable_avx512 ? stdenv.hostPlatform.avx512Support,
   enable_f16c ? stdenv.hostPlatform.isx86_64,
   enable_fma ? stdenv.hostPlatform.isx86_64,
-
   with_openblas ? false,
   openblas,
-
   with_cublas ? config.cudaSupport,
   cudaPackages,
-
   with_clblas ? false,
   clblast,
   ocl-icd,
   opencl-headers,
-
   with_vulkan ? false,
-
   with_tts ? true,
   onnxruntime,
   sonic,
@@ -55,26 +47,24 @@
   fmt,
   espeak-ng,
   piper-tts,
-}:
-let
-  BUILD_TYPE =
-    assert
-      (lib.count lib.id [
-        with_openblas
-        with_cublas
-        with_clblas
-        with_vulkan
-      ]) <= 1;
-    if with_openblas then
-      "openblas"
-    else if with_cublas then
-      "cublas"
-    else if with_clblas then
-      "clblas"
-    else
-      "";
+}: let
+  BUILD_TYPE = assert (lib.count lib.id [
+    with_openblas
+    with_cublas
+    with_clblas
+    with_vulkan
+  ])
+  <= 1;
+    if with_openblas
+    then "openblas"
+    else if with_cublas
+    then "cublas"
+    else if with_clblas
+    then "clblas"
+    else "";
 
-  inherit (cudaPackages)
+  inherit
+    (cudaPackages)
     libcublas
     cuda_nvcc
     cuda_cccl
@@ -85,21 +75,23 @@ let
   llama-cpp-rpc =
     (llama-cpp-grpc.overrideAttrs (prev: {
       name = "llama-cpp-rpc";
-      cmakeFlags = prev.cmakeFlags ++ [
-        (lib.cmakeBool "GGML_AVX" false)
-        (lib.cmakeBool "GGML_AVX2" false)
-        (lib.cmakeBool "GGML_AVX512" false)
-        (lib.cmakeBool "GGML_FMA" false)
-        (lib.cmakeBool "GGML_F16C" false)
-      ];
+      cmakeFlags =
+        prev.cmakeFlags
+        ++ [
+          (lib.cmakeBool "GGML_AVX" false)
+          (lib.cmakeBool "GGML_AVX2" false)
+          (lib.cmakeBool "GGML_AVX512" false)
+          (lib.cmakeBool "GGML_FMA" false)
+          (lib.cmakeBool "GGML_F16C" false)
+        ];
     })).override
-      {
-        cudaSupport = false;
-        openclSupport = false;
-        blasSupport = false;
-        rpcSupport = true;
-        vulkanSupport = false;
-      };
+    {
+      cudaSupport = false;
+      openclSupport = false;
+      blasSupport = false;
+      rpcSupport = true;
+      vulkanSupport = false;
+    };
 
   llama-cpp-grpc =
     (llama-cpp.overrideAttrs (
@@ -126,46 +118,52 @@ let
               -e '$a\install(TARGETS ''${TARGET} RUNTIME)'
             cd ..
           '';
-        cmakeFlags = prev.cmakeFlags ++ [
-          (lib.cmakeBool "BUILD_SHARED_LIBS" false)
-          (lib.cmakeBool "GGML_AVX" enable_avx)
-          (lib.cmakeBool "GGML_AVX2" enable_avx2)
-          (lib.cmakeBool "GGML_AVX512" enable_avx512)
-          (lib.cmakeBool "GGML_FMA" enable_fma)
-          (lib.cmakeBool "GGML_F16C" enable_f16c)
-        ];
-        buildInputs = prev.buildInputs ++ [
-          protobuf # provides also abseil_cpp as propagated build input
-          grpc
-          openssl
-          curl
-        ];
+        cmakeFlags =
+          prev.cmakeFlags
+          ++ [
+            (lib.cmakeBool "BUILD_SHARED_LIBS" false)
+            (lib.cmakeBool "GGML_AVX" enable_avx)
+            (lib.cmakeBool "GGML_AVX2" enable_avx2)
+            (lib.cmakeBool "GGML_AVX512" enable_avx512)
+            (lib.cmakeBool "GGML_FMA" enable_fma)
+            (lib.cmakeBool "GGML_F16C" enable_f16c)
+          ];
+        buildInputs =
+          prev.buildInputs
+          ++ [
+            protobuf # provides also abseil_cpp as propagated build input
+            grpc
+            openssl
+            curl
+          ];
       }
     )).override
-      {
-        cudaSupport = with_cublas;
-        rocmSupport = false;
-        openclSupport = with_clblas;
-        blasSupport = with_openblas;
-        vulkanSupport = with_vulkan;
-      };
+    {
+      cudaSupport = with_cublas;
+      rocmSupport = false;
+      openclSupport = with_clblas;
+      blasSupport = with_openblas;
+      vulkanSupport = with_vulkan;
+    };
 
   espeak-ng' = espeak-ng.overrideAttrs (self: {
     name = "espeak-ng'";
     inherit (go-piper) src;
     sourceRoot = "${go-piper.src.name}/espeak";
-    patches = [ ];
-    nativeBuildInputs = [ cmake ];
-    cmakeFlags = (self.cmakeFlags or [ ]) ++ [
-      (lib.cmakeBool "BUILD_SHARED_LIBS" true)
-      (lib.cmakeBool "USE_ASYNC" false)
-      (lib.cmakeBool "USE_MBROLA" false)
-      (lib.cmakeBool "USE_LIBPCAUDIO" false)
-      (lib.cmakeBool "USE_KLATT" false)
-      (lib.cmakeBool "USE_SPEECHPLAYER" false)
-      (lib.cmakeBool "USE_LIBSONIC" false)
-      (lib.cmakeBool "CMAKE_POSITION_INDEPENDENT_CODE" true)
-    ];
+    patches = [];
+    nativeBuildInputs = [cmake];
+    cmakeFlags =
+      (self.cmakeFlags or [])
+      ++ [
+        (lib.cmakeBool "BUILD_SHARED_LIBS" true)
+        (lib.cmakeBool "USE_ASYNC" false)
+        (lib.cmakeBool "USE_MBROLA" false)
+        (lib.cmakeBool "USE_LIBPCAUDIO" false)
+        (lib.cmakeBool "USE_KLATT" false)
+        (lib.cmakeBool "USE_SPEECHPLAYER" false)
+        (lib.cmakeBool "USE_LIBSONIC" false)
+        (lib.cmakeBool "CMAKE_POSITION_INDEPENDENT_CODE" true)
+      ];
     preConfigure = null;
     postInstall = null;
   });
@@ -189,7 +187,7 @@ let
     passthru.espeak-ng = espeak-ng';
   };
 
-  piper-tts' = (piper-tts.override { inherit piper-phonemize; }).overrideAttrs (self: {
+  piper-tts' = (piper-tts.override {inherit piper-phonemize;}).overrideAttrs (self: {
     name = "piper-tts'";
     inherit (go-piper) src;
     sourceRoot = "${go-piper.src.name}/piper";
@@ -220,7 +218,7 @@ let
       sed -i Makefile \
         -e '/CXXFLAGS *= / s;$; -DSPDLOG_FMT_EXTERNAL=1;'
     '';
-    buildFlags = [ "libpiper_binding.a" ];
+    buildFlags = ["libpiper_binding.a"];
     buildInputs = [
       piper-tts'
       espeak-ng'
@@ -248,13 +246,15 @@ let
       hash = "sha256-y30ZccpF3SCdRGa+P3ddF1tT1KnvlI4Fexx81wZxfTk=";
     };
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ] ++ lib.optionals with_cublas [ cuda_nvcc ];
+    nativeBuildInputs =
+      [
+        cmake
+        pkg-config
+      ]
+      ++ lib.optionals with_cublas [cuda_nvcc];
 
     buildInputs =
-      [ ]
+      []
       ++ lib.optionals with_cublas [
         cuda_cccl
         cuda_cudart
@@ -266,7 +266,7 @@ let
         ocl-icd
         opencl-headers
       ]
-      ++ lib.optionals with_openblas [ openblas.dev ];
+      ++ lib.optionals with_openblas [openblas.dev];
 
     cmakeFlags = [
       (lib.cmakeBool "WHISPER_CUDA" with_cublas)
@@ -299,7 +299,7 @@ let
         | tar cf - --null --files-from - \
         | tar xf - -C $out/build
     '';
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
   };
 
   stable-diffusion = stdenv.mkDerivation {
@@ -321,19 +321,19 @@ let
     cmakeFlags = [
       (lib.cmakeFeature "GGML_BUILD_NUMBER" "1")
     ];
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ opencv ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [opencv];
   };
 
   GO_TAGS = lib.optional with_tts "tts";
 
   effectiveStdenv =
-    if with_cublas then
+    if with_cublas
+    then
       # It's necessary to consistently use backendStdenv when building with CUDA support,
       # otherwise we get libstdc++ errors downstream.
       cudaPackages.backendStdenv
-    else
-      stdenv;
+    else stdenv;
 
   pname = "local-ai";
   version = "2.28.0";
@@ -344,20 +344,22 @@ let
     hash = "sha256-Hpz0dGkgasSY/FGO7mDzqsLjXut0LdQ9PUXGaURUOlY=";
   };
 
-  prepare-sources =
-    let
-      cp = "cp -r --no-preserve=mode,ownership";
-    in
-    ''
-      mkdir sources
-      ${cp} ${if with_tts then go-piper else go-piper.src} sources/go-piper
-      ${cp} ${whisper-cpp.src} sources/whisper.cpp
-      cp ${whisper-cpp}/lib/lib*.a sources/whisper.cpp
-      ${cp} ${bark} sources/bark.cpp
-      ${cp} ${stable-diffusion} sources/stablediffusion-ggml.cpp
-    '';
+  prepare-sources = let
+    cp = "cp -r --no-preserve=mode,ownership";
+  in ''
+    mkdir sources
+    ${cp} ${
+      if with_tts
+      then go-piper
+      else go-piper.src
+    } sources/go-piper
+    ${cp} ${whisper-cpp.src} sources/whisper.cpp
+    cp ${whisper-cpp}/lib/lib*.a sources/whisper.cpp
+    ${cp} ${bark} sources/bark.cpp
+    ${cp} ${stable-diffusion} sources/stablediffusion-ggml.cpp
+  '';
 
-  self = buildGo123Module.override { stdenv = effectiveStdenv; } {
+  self = buildGo123Module.override {stdenv = effectiveStdenv;} {
     inherit pname version src;
 
     vendorHash = "sha256-1OY/y1AeL0K+vOU4Jk/cj7rToVLC9EkkNhgifB+icDM=";
@@ -403,7 +405,7 @@ let
       '';
 
     buildInputs =
-      [ ]
+      []
       ++ lib.optionals with_cublas [
         cuda_cudart
         libcublas
@@ -414,7 +416,7 @@ let
         ocl-icd
         opencl-headers
       ]
-      ++ lib.optionals with_openblas [ openblas.dev ]
+      ++ lib.optionals with_openblas [openblas.dev]
       ++ lib.optionals with_tts go-piper.buildInputs;
 
     nativeBuildInputs =
@@ -427,7 +429,7 @@ let
         which
       ]
       ++ lib.optional enable_upx upx
-      ++ lib.optionals with_cublas [ cuda_nvcc ];
+      ++ lib.optionals with_cublas [cuda_nvcc];
 
     enableParallelBuilding = false;
 
@@ -481,33 +483,31 @@ let
 
     # patching rpath with patchelf doens't work. The executable
     # raises an segmentation fault
-    postFixup =
-      let
-        LD_LIBRARY_PATH =
-          [ ]
-          ++ lib.optionals with_cublas [
-            # driverLink has to be first to avoid loading the stub version of libcuda.so
-            # https://github.com/NixOS/nixpkgs/issues/320145#issuecomment-2190319327
-            addDriverRunpath.driverLink
-            (lib.getLib libcublas)
-            cuda_cudart
-          ]
-          ++ lib.optionals with_clblas [
-            clblast
-            ocl-icd
-          ]
-          ++ lib.optionals with_openblas [ openblas ]
-          ++ lib.optionals with_tts [ piper-phonemize ]
-          ++ lib.optionals (with_tts && enable_upx) [
-            fmt
-            spdlog
-          ];
-      in
-      ''
-        wrapProgram $out/bin/${pname} \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath LD_LIBRARY_PATH}" \
-        --prefix PATH : "${ffmpeg}/bin"
-      '';
+    postFixup = let
+      LD_LIBRARY_PATH =
+        []
+        ++ lib.optionals with_cublas [
+          # driverLink has to be first to avoid loading the stub version of libcuda.so
+          # https://github.com/NixOS/nixpkgs/issues/320145#issuecomment-2190319327
+          addDriverRunpath.driverLink
+          (lib.getLib libcublas)
+          cuda_cudart
+        ]
+        ++ lib.optionals with_clblas [
+          clblast
+          ocl-icd
+        ]
+        ++ lib.optionals with_openblas [openblas]
+        ++ lib.optionals with_tts [piper-phonemize]
+        ++ lib.optionals (with_tts && enable_upx) [
+          fmt
+          spdlog
+        ];
+    in ''
+      wrapProgram $out/bin/${pname} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath LD_LIBRARY_PATH}" \
+      --prefix PATH : "${ffmpeg}/bin"
+    '';
 
     passthru.local-packages = {
       inherit
@@ -533,8 +533,8 @@ let
         ;
     };
 
-    passthru.tests = callPackages ./tests.nix { inherit self; };
-    passthru.lib = callPackages ./lib.nix { };
+    passthru.tests = callPackages ./tests.nix {inherit self;};
+    passthru.lib = callPackages ./lib.nix {};
 
     meta = with lib; {
       description = "OpenAI alternative to run local LLMs, image and audio generation";
@@ -549,4 +549,4 @@ let
     };
   };
 in
-self
+  self

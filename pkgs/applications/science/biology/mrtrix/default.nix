@@ -19,7 +19,6 @@
   less,
   withGui ? true,
 }:
-
 stdenv.mkDerivation {
   pname = "mrtrix";
   version = "3.0.4-unstable-2025-04-09";
@@ -32,11 +31,13 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    less
-    python3
-  ] ++ lib.optional withGui qt5.wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      less
+      python3
+    ]
+    ++ lib.optional withGui qt5.wrapQtAppsHook;
 
   buildInputs =
     [
@@ -57,7 +58,7 @@ stdenv.mkDerivation {
       qt5.qtsvg
     ];
 
-  nativeInstallCheckInputs = [ bc ];
+  nativeInstallCheckInputs = [bc];
 
   postPatch = ''
     patchShebangs --build ./build ./configure ./run_tests
@@ -113,24 +114,23 @@ stdenv.mkDerivation {
   '';
 
   preFixup =
-    if withGui then
-      ''
-        qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ants ]})
-      ''
-    else
-      ''
-        for prog in $out/bin/*; do
-          if [[ -x "$prog" ]]; then
-            wrapProgram $prog --prefix PATH : ${lib.makeBinPath [ ants ]}
-          fi
-        done
-      '';
+    if withGui
+    then ''
+      qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ants]})
+    ''
+    else ''
+      for prog in $out/bin/*; do
+        if [[ -x "$prog" ]]; then
+          wrapProgram $prog --prefix PATH : ${lib.makeBinPath [ants]}
+        fi
+      done
+    '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     homepage = "https://github.com/MRtrix3/mrtrix3";
     description = "Suite of tools for diffusion imaging";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.linux;
     license = licenses.mpl20;
   };

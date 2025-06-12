@@ -3,17 +3,15 @@
   makeWrapper,
   neovim,
   neovim-qt-unwrapped,
-}:
-
-let
+}: let
   unwrapped = neovim-qt-unwrapped;
 in
-stdenvNoCC.mkDerivation {
-  pname = "neovim-qt";
-  version = unwrapped.version;
-  buildCommand =
-    if stdenvNoCC.hostPlatform.isDarwin then
-      ''
+  stdenvNoCC.mkDerivation {
+    pname = "neovim-qt";
+    version = unwrapped.version;
+    buildCommand =
+      if stdenvNoCC.hostPlatform.isDarwin
+      then ''
         mkdir -p $out/Applications
         cp -r ${unwrapped}/bin/nvim-qt.app $out/Applications
 
@@ -21,8 +19,7 @@ stdenvNoCC.mkDerivation {
         wrapProgram $out/Applications/nvim-qt.app/Contents/MacOS/nvim-qt \
           --prefix PATH : ${neovim}/bin
       ''
-    else
-      ''
+      else ''
         makeWrapper ${unwrapped}/bin/nvim-qt $out/bin/nvim-qt \
           --prefix PATH : ${neovim}/bin
 
@@ -32,15 +29,15 @@ stdenvNoCC.mkDerivation {
         ln -s ${unwrapped}/share/icons $out/share/icons
       '';
 
-  preferLocalBuild = true;
+    preferLocalBuild = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  passthru = {
-    inherit unwrapped;
-  };
+    passthru = {
+      inherit unwrapped;
+    };
 
-  inherit (unwrapped) meta;
-}
+    inherit (unwrapped) meta;
+  }

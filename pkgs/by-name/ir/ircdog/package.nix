@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ircdog";
   version = "0.5.5";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/ergochat/ircdog";
     changelog = "https://github.com/ergochat/ircdog/releases/tag/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

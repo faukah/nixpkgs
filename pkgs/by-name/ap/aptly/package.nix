@@ -11,7 +11,6 @@
   testers,
   aptly,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "aptly";
   version = "1.6.2";
@@ -44,13 +43,13 @@ buildGoModule (finalAttrs: {
     installShellCompletion --zsh --name _aptly completion.d/_aptly
     wrapProgram $out/bin/aptly \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnupg
-          bzip2
-          xz
-          graphviz
-        ]
-      }
+      lib.makeBinPath [
+        gnupg
+        bzip2
+        xz
+        graphviz
+      ]
+    }
   '';
 
   doCheck = false;
@@ -65,8 +64,8 @@ buildGoModule (finalAttrs: {
     description = "Debian repository management tool";
     license = lib.licenses.mit;
     changelog = "https://github.com/aptly-dev/aptly/releases/tag/v${finalAttrs.version}";
-    maintainers = [ lib.maintainers.montag451 ];
-    teams = [ lib.teams.bitnomial ];
+    maintainers = [lib.maintainers.montag451];
+    teams = [lib.teams.bitnomial];
     mainProgram = "aptly";
   };
 })

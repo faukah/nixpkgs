@@ -2,14 +2,12 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-}:
-let
-  font-awesome =
-    {
-      version,
-      hash,
-      rev ? version,
-    }:
+}: let
+  font-awesome = {
+    version,
+    hash,
+    rev ? version,
+  }:
     stdenvNoCC.mkDerivation {
       pname = "font-awesome";
       inherit version;
@@ -43,8 +41,7 @@ let
         ];
       };
     };
-in
-{
+in {
   # Keeping version 4 and 5 because version 6 is incompatible for some icons. That
   # means that projects which depend on it need to actively convert the
   # symbols. See:

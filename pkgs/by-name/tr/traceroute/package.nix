@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "traceroute";
   version = "2.1.6";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://traceroute.sourceforge.net/";
     changelog = "https://sourceforge.net/projects/traceroute/files/traceroute/traceroute-${version}/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ koral ];
+    maintainers = with lib.maintainers; [koral];
     platforms = lib.platforms.linux;
     mainProgram = "traceroute";
   };

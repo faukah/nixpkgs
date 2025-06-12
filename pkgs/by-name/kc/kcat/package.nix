@@ -10,7 +10,6 @@
   libserdes,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kcat";
 
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/edenhill/kcat";
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ nyarly ];
+    maintainers = with maintainers; [nyarly];
   };
 }

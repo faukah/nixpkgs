@@ -5,7 +5,6 @@
   lightwalletd,
   testers,
 }:
-
 buildGoModule rec {
   pname = "lightwalletd";
   version = "0.4.16";
@@ -43,7 +42,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Backend service that provides a bandwidth-efficient interface to the Zcash blockchain";
     homepage = "https://github.com/zcash/lightwalletd";
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
     license = licenses.mit;
     mainProgram = "lightwalletd";
   };

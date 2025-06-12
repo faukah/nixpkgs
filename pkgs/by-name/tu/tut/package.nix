@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tut";
   version = "2.0.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "TUI for Mastodon with vim inspired keys";
     homepage = "https://github.com/RasmusLindroth/tut";
     license = licenses.mit;
-    maintainers = with maintainers; [ equirosa ];
+    maintainers = with maintainers; [equirosa];
     mainProgram = "tut";
   };
 }

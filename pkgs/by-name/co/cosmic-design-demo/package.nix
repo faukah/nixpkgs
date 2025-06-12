@@ -9,7 +9,6 @@
   fontconfig,
   freetype,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cosmic-design-demo";
   version = "0-unstable-2024-01-08";
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/pop-os/cosmic-design-demo";
     description = "Design Demo for the COSMIC Desktop Environment";
     license = lib.licenses.mpl20;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
     mainProgram = "cosmic-design-demo";
   };

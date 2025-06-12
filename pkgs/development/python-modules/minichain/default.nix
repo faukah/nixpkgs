@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "minichain";
   version = "0.3.3";
@@ -57,15 +56,15 @@ buildPythonPackage rec {
   # As of 0.3.3, the PyPI distribution does not include any tests.
   doCheck = false;
 
-  pythonImportsCheck = [ "minichain" ];
+  pythonImportsCheck = ["minichain"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Tiny library for coding with large language models";
     homepage = "https://srush-minichain.hf.space";
     changelog = "https://github.com/srush/MiniChain/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

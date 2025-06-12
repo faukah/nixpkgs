@@ -20,6 +20,6 @@ php.buildComposerProject rec {
     description = "Lightweight CalDAV+CardDAV server that offers an extensive web interface with easy management of users, address books and calendars";
     homepage = "https://sabre.io/baikal/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ wrvsrx ];
+    maintainers = with lib.maintainers; [wrvsrx];
   };
 }

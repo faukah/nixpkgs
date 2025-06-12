@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "wcwidth";
   version = "0.2.13";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-cuoMBjmesobZeP3ttpI6nrR+HEhs5j6bTmT8GDA5crU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # To prevent infinite recursion with pytest
   doCheck = false;
 
-  pythonImportsCheck = [ "wcwidth" ];
+  pythonImportsCheck = ["wcwidth"];
 
   meta = with lib; {
     description = "Measures number of Terminal column cells of wide-character codes";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jquast/wcwidth";
     changelog = "https://github.com/jquast/wcwidth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

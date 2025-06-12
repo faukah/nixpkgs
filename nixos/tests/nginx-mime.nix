@@ -1,17 +1,18 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "nginx-mime";
-  meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+  meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        services.nginx = {
-          enable = true;
-          virtualHosts."localhost" = { };
-        };
+    server = {pkgs, ...}: {
+      services.nginx = {
+        enable = true;
+        virtualHosts."localhost" = {};
       };
+    };
   };
 
   testScript = ''

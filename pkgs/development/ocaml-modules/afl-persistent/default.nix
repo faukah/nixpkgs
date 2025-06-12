@@ -6,7 +6,6 @@
   findlib,
   opaline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "afl-persistent";
   version = "1.3";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/stedolan/ocaml-afl-persistent";
     description = "persistent-mode afl-fuzz for ocaml";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

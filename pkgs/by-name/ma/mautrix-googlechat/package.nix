@@ -48,8 +48,7 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiohttp
       commonmark
@@ -59,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
       commonmark
       python-magic
       protobuf
-      (mautrix.override { withOlm = enableE2be; })
+      (mautrix.override {withOlm = enableE2be;})
     ]
     ++ lib.optionals enableE2be optional-dependencies.e2be
     ++ lib.optionals enableMetrics optional-dependencies.metrics
@@ -72,7 +71,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Matrix-Google Chat puppeting bridge";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arcnmx ];
+    maintainers = with maintainers; [arcnmx];
     mainProgram = "mautrix-googlechat";
   };
 }

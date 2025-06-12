@@ -10,7 +10,6 @@
   ttfautohint,
   fonttools,
 }:
-
 buildPythonPackage rec {
   pname = "ttfautohint-py";
   version = "0.5.1";
@@ -45,20 +44,20 @@ buildPythonPackage rec {
     setuptools # for pkg_resources
   ];
 
-  buildInputs = [ ttfautohint ];
+  buildInputs = [ttfautohint];
 
   nativeCheckInputs = [
     pytestCheckHook
     fonttools
   ];
 
-  pythonImportsCheck = [ "ttfautohint" ];
+  pythonImportsCheck = ["ttfautohint"];
 
   meta = {
     description = "Python wrapper for ttfautohint, a free auto-hinter for TrueType fonts";
     homepage = "https://github.com/fonttools/ttfautohint-py";
     changelog = "https://github.com/fonttools/ttfautohint-py/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

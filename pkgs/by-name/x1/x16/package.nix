@@ -8,7 +8,6 @@
   zlib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "x16-emulator";
   version = "48";
@@ -55,12 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
     # through the version is useful to ensure this
     inherit (finalAttrs) version;
     emulator = finalAttrs.finalPackage;
-    rom = callPackage ./rom.nix { };
-    run = (callPackage ./run.nix { }) {
+    rom = callPackage ./rom.nix {};
+    run = (callPackage ./run.nix {}) {
       inherit (finalAttrs.finalPackage) emulator rom;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Official emulator of CommanderX16 8-bit computer";
     changelog = "https://github.com/X16Community/x16-emulator/blob/${finalAttrs.src.rev}/RELEASES.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "x16emu";
     inherit (SDL2.meta) platforms;
     broken = stdenv.hostPlatform.isAarch64; # ofborg fails to compile it

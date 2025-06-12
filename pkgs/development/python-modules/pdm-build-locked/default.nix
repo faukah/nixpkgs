@@ -10,7 +10,6 @@
   pkginfo,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pdm-build-locked";
   version = "0.3.5";
@@ -29,11 +28,11 @@ buildPythonPackage rec {
     sed -i "/addopts/d" pyproject.toml
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  dependencies = lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies = lib.optionals (pythonOlder "3.11") [tomli];
 
-  pythonImportsCheck = [ "pdm_build_locked" ];
+  pythonImportsCheck = ["pdm_build_locked"];
 
   nativeCheckInputs = [
     build
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pdm-project/pdm-build-locked";
     changelog = "https://github.com/pdm-project/pdm-build-locked/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

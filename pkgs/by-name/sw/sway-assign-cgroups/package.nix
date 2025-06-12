@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sway-assign-cgroups";
   version = "0.4.1";
@@ -46,6 +45,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
   };
 }

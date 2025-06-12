@@ -4,10 +4,9 @@
   dune-configurator,
   pkg-config,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg,
 }:
-
 buildDunePackage {
   pname = "ffmpeg-avutil";
 
@@ -15,14 +14,15 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ ffmpeg.dev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [ffmpeg.dev];
 
   doCheck = true;
 
-  meta = ffmpeg-base.meta // {
-    description = "Bindings for the ffmpeg avutil libraries";
-  };
-
+  meta =
+    ffmpeg-base.meta
+    // {
+      description = "Bindings for the ffmpeg avutil libraries";
+    };
 }

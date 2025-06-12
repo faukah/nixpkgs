@@ -10,7 +10,6 @@
   python-dotenv,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cookidoo-api";
   version = "0.13.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-QFOGue5VzM1mrgw+WWBvb5dreDUlmBoYv/vEzQta+LA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
     aiohttp
   ];
 
-  pythonImportsCheck = [ "cookidoo_api" ];
+  pythonImportsCheck = ["cookidoo_api"];
 
   nativeCheckInputs = [
     aioresponses
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Unofficial package to access Cookidoo";
     homepage = "https://github.com/miaucl/cookidoo-api";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

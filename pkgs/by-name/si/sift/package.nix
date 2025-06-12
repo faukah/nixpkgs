@@ -5,7 +5,6 @@
   fetchpatch,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "sift";
   version = "0.9.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -42,7 +41,7 @@ buildGoModule rec {
     description = "Fast and powerful alternative to grep";
     mainProgram = "sift";
     homepage = "https://sift-tool.org";
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
     license = licenses.gpl3;
   };
 }

@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.localtimed;
-in
-{
-  imports = [ (lib.mkRenamedOptionModule [ "services" "localtime" ] [ "services" "localtimed" ]) ];
+in {
+  imports = [(lib.mkRenamedOptionModule ["services" "localtime"] ["services" "localtimed"])];
 
   options = {
     services.localtimed = {
@@ -26,8 +24,8 @@ in
           to make the choice deliberate. An error will be presented otherwise.
         '';
       };
-      package = lib.mkPackageOption pkgs "localtime" { };
-      geoclue2Package = lib.mkPackageOption pkgs "Geoclue2" { default = "geoclue2-with-demo-agent"; };
+      package = lib.mkPackageOption pkgs "localtime" {};
+      geoclue2Package = lib.mkPackageOption pkgs "Geoclue2" {default = "geoclue2-with-demo-agent";};
     };
   };
 
@@ -39,16 +37,16 @@ in
     services.geoclue2.appConfig.localtimed = {
       isAllowed = true;
       isSystem = true;
-      users = [ (toString config.ids.uids.localtimed) ];
+      users = [(toString config.ids.uids.localtimed)];
     };
 
     # Install the polkit rules.
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.localtimed = {
-      wantedBy = [ "multi-user.target" ];
-      partOf = [ "localtimed-geoclue-agent.service" ];
-      after = [ "localtimed-geoclue-agent.service" ];
+      wantedBy = ["multi-user.target"];
+      partOf = ["localtimed-geoclue-agent.service"];
+      after = ["localtimed-geoclue-agent.service"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/localtimed";
         Restart = "on-failure";
@@ -58,9 +56,9 @@ in
     };
 
     systemd.services.localtimed-geoclue-agent = {
-      wantedBy = [ "multi-user.target" ];
-      partOf = [ "geoclue.service" ];
-      after = [ "geoclue.service" ];
+      wantedBy = ["multi-user.target"];
+      partOf = ["geoclue.service"];
+      after = ["geoclue.service"];
       serviceConfig = {
         ExecStart = "${cfg.geoclue2Package}/libexec/geoclue-2.0/demos/agent";
         Restart = "on-failure";

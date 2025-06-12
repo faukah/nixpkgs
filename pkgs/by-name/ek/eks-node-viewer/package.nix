@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "eks-node-viewer";
   version = "0.7.4";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZBkiiDAcgOkIezDHcDjqJ3w5+k5kXdfw2TCZoTx12hc=";
 
-  excludedPackages = [ "hack" ];
+  excludedPackages = ["hack"];
 
   ldflags = [
     "-s"
@@ -39,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/awslabs/eks-node-viewer";
     changelog = "https://github.com/awslabs/eks-node-viewer/releases/tag/${src.rev}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ivankovnatsky ];
+    maintainers = with lib.maintainers; [ivankovnatsky];
     mainProgram = "eks-node-viewer";
   };
 }

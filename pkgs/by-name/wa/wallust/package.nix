@@ -37,10 +37,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postFixup = ''
     wrapProgram $out/bin/wallust \
-      --prefix PATH : "${lib.makeBinPath [ imagemagick ]}"
+      --prefix PATH : "${lib.makeBinPath [imagemagick]}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Better pywal";

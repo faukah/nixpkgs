@@ -8,7 +8,6 @@
   cairo,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "gnome-monitor-config";
   version = "0-unstable-2023-09-26";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     description = "Program to help manage GNOME monitor configuration";
     homepage = "https://github.com/jadahl/gnome-monitor-config";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ aveltras ];
+    maintainers = with maintainers; [aveltras];
     platforms = platforms.linux;
     mainProgram = "gnome-monitor-config";
   };

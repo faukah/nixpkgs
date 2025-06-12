@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "pg_tileserv";
   version = "1.0.11";
@@ -50,6 +49,6 @@ buildGoModule rec {
     mainProgram = "pg_tileserv";
     homepage = "https://github.com/CrunchyData/pg_tileserv";
     license = licenses.asl20;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

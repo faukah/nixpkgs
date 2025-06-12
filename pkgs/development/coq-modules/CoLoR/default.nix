@@ -5,13 +5,11 @@
   bignums,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "color";
   owner = "fblanqui";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = range "8.14" "9.0";
@@ -33,7 +31,8 @@ mkCoqDerivation {
         case = range "8.6" "8.7";
         out = "1.4.0";
       }
-    ] null;
+    ]
+    null;
 
   release."1.8.5".sha256 = "sha256-zKAyj6rKAasDF+iKExmpVHMe2WwgAwv2j1mmiVAl7ys=";
   release."1.8.4".sha256 = "sha256-WlRiaLgnFFW5AY0z6EzdP1mevNe1GHsik6wULJLN4k0=";
@@ -49,7 +48,7 @@ mkCoqDerivation {
 
   mlPlugin = true; # uses coq-bignums.plugin
 
-  propagatedBuildInputs = [ bignums ];
+  propagatedBuildInputs = [bignums];
   enableParallelBuilding = false;
 
   meta = {

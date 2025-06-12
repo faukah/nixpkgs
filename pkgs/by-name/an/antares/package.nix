@@ -8,7 +8,6 @@
   copyDesktopItems,
   icoutils,
 }:
-
 buildNpmPackage rec {
   pname = "antares";
   version = "0.7.29";
@@ -29,7 +28,7 @@ buildNpmPackage rec {
     ./npm-lock.patch
   ];
 
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -53,7 +52,7 @@ buildNpmPackage rec {
     cp icon_1_256x256x32.png $out/share/icon/antares.png
   '';
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
   env.PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
 
@@ -67,7 +66,7 @@ buildNpmPackage rec {
       type = "Application";
       startupWMClass = pname;
       comment = "A modern, fast and productivity driven SQL client with a focus in UX";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -76,6 +75,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/antares-sql/antares";
     changelog = "https://github.com/antares-sql/antares/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ eymeric ];
+    maintainers = with lib.maintainers; [eymeric];
   };
 }

@@ -46,7 +46,6 @@
   libxkbcommon,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tenacity";
   version = "1.3.4";
@@ -156,7 +155,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tenacity";
     homepage = "https://tenacityaudio.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ irenes ];
+    maintainers = with maintainers; [irenes];
     platforms = platforms.linux;
   };
 }

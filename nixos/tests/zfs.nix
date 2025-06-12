@@ -1,126 +1,117 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-
-let
-
-  makeZfsTest =
-    {
-      kernelPackages,
-      enableSystemdStage1 ? false,
-      zfsPackage,
-      extraTest ? "",
-    }:
+with import ../lib/testing-python.nix {inherit system pkgs;}; let
+  makeZfsTest = {
+    kernelPackages,
+    enableSystemdStage1 ? false,
+    zfsPackage,
+    extraTest ? "",
+  }:
     makeTest {
       name = zfsPackage.kernelModuleAttribute;
       meta = with pkgs.lib.maintainers; {
-        maintainers = [ elvishjerricco ];
+        maintainers = [elvishjerricco];
       };
 
-      nodes.machine =
-        {
-          config,
-          pkgs,
-          lib,
-          ...
-        }:
-        let
-          usersharePath = "/var/lib/samba/usershares";
-        in
-        {
-          virtualisation = {
-            emptyDiskImages = [
-              4096
-              4096
-            ];
-            useBootLoader = true;
-            useEFIBoot = true;
-          };
-          boot.loader.systemd-boot.enable = true;
-          boot.loader.timeout = 0;
-          boot.loader.efi.canTouchEfiVariables = true;
-          networking.hostId = "deadbeef";
-          boot.kernelPackages = kernelPackages;
-          boot.zfs.package = zfsPackage;
-          boot.supportedFilesystems = [ "zfs" ];
-          boot.initrd.systemd.enable = enableSystemdStage1;
+      nodes.machine = {
+        config,
+        pkgs,
+        lib,
+        ...
+      }: let
+        usersharePath = "/var/lib/samba/usershares";
+      in {
+        virtualisation = {
+          emptyDiskImages = [
+            4096
+            4096
+          ];
+          useBootLoader = true;
+          useEFIBoot = true;
+        };
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.timeout = 0;
+        boot.loader.efi.canTouchEfiVariables = true;
+        networking.hostId = "deadbeef";
+        boot.kernelPackages = kernelPackages;
+        boot.zfs.package = zfsPackage;
+        boot.supportedFilesystems = ["zfs"];
+        boot.initrd.systemd.enable = enableSystemdStage1;
 
-          environment.systemPackages = [ pkgs.parted ];
+        environment.systemPackages = [pkgs.parted];
 
-          # /dev/disk/by-id doesn't get populated in the NixOS test framework
-          boot.zfs.devNodes = "/dev/disk/by-uuid";
+        # /dev/disk/by-id doesn't get populated in the NixOS test framework
+        boot.zfs.devNodes = "/dev/disk/by-uuid";
 
-          specialisation.samba.configuration = {
-            services.samba = {
-              enable = true;
-              settings.global = {
-                "registry shares" = true;
-                "usershare path" = "${usersharePath}";
-                "usershare allow guests" = true;
-                "usershare max shares" = "100";
-                "usershare owner only" = false;
-              };
-            };
-            systemd.services.samba-smbd.serviceConfig.ExecStartPre =
-              "${pkgs.coreutils}/bin/mkdir -m +t -p ${usersharePath}";
-            virtualisation.fileSystems = {
-              "/tmp/mnt" = {
-                device = "rpool/root";
-                fsType = "zfs";
-              };
-            };
-          };
-
-          specialisation.encryption.configuration = {
-            boot.zfs.requestEncryptionCredentials = [ "automatic" ];
-            virtualisation.fileSystems."/automatic" = {
-              device = "automatic";
-              fsType = "zfs";
-            };
-            virtualisation.fileSystems."/manual" = {
-              device = "manual";
-              fsType = "zfs";
-            };
-            virtualisation.fileSystems."/manual/encrypted" = {
-              device = "manual/encrypted";
-              fsType = "zfs";
-              options = [ "noauto" ];
-            };
-            virtualisation.fileSystems."/manual/httpkey" = {
-              device = "manual/httpkey";
-              fsType = "zfs";
-              options = [ "noauto" ];
-            };
-          };
-
-          specialisation.forcepool.configuration = {
-            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride [ "forcepool.mount" ];
-            systemd.targets.zfs.wantedBy = lib.mkVMOverride [ ];
-            boot.zfs.forceImportAll = true;
-            virtualisation.fileSystems."/forcepool" = {
-              device = "forcepool";
-              fsType = "zfs";
-              options = [ "noauto" ];
-            };
-          };
-
-          services.nginx = {
+        specialisation.samba.configuration = {
+          services.samba = {
             enable = true;
-            virtualHosts = {
-              localhost = {
-                locations = {
-                  "/zfskey" = {
-                    return = ''200 "httpkeyabc"'';
-                  };
+            settings.global = {
+              "registry shares" = true;
+              "usershare path" = "${usersharePath}";
+              "usershare allow guests" = true;
+              "usershare max shares" = "100";
+              "usershare owner only" = false;
+            };
+          };
+          systemd.services.samba-smbd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/mkdir -m +t -p ${usersharePath}";
+          virtualisation.fileSystems = {
+            "/tmp/mnt" = {
+              device = "rpool/root";
+              fsType = "zfs";
+            };
+          };
+        };
+
+        specialisation.encryption.configuration = {
+          boot.zfs.requestEncryptionCredentials = ["automatic"];
+          virtualisation.fileSystems."/automatic" = {
+            device = "automatic";
+            fsType = "zfs";
+          };
+          virtualisation.fileSystems."/manual" = {
+            device = "manual";
+            fsType = "zfs";
+          };
+          virtualisation.fileSystems."/manual/encrypted" = {
+            device = "manual/encrypted";
+            fsType = "zfs";
+            options = ["noauto"];
+          };
+          virtualisation.fileSystems."/manual/httpkey" = {
+            device = "manual/httpkey";
+            fsType = "zfs";
+            options = ["noauto"];
+          };
+        };
+
+        specialisation.forcepool.configuration = {
+          systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride ["forcepool.mount"];
+          systemd.targets.zfs.wantedBy = lib.mkVMOverride [];
+          boot.zfs.forceImportAll = true;
+          virtualisation.fileSystems."/forcepool" = {
+            device = "forcepool";
+            fsType = "zfs";
+            options = ["noauto"];
+          };
+        };
+
+        services.nginx = {
+          enable = true;
+          virtualHosts = {
+            localhost = {
+              locations = {
+                "/zfskey" = {
+                  return = ''200 "httpkeyabc"'';
                 };
               };
             };
           };
         };
+      };
 
       testScript =
         ''
@@ -199,12 +190,8 @@ let
               )
         ''
         + extraTest;
-
     };
-
-in
-{
-
+in {
   series_2_2 = makeZfsTest {
     zfsPackage = pkgs.zfs_2_2;
     kernelPackages = pkgs.linuxPackages;
@@ -226,66 +213,62 @@ in
     enableSystemdStage1 = true;
   };
 
-  installerBoot = (import ./installer.nix { inherit system; }).separateBootZfs;
-  installer = (import ./installer.nix { inherit system; }).zfsroot;
+  installerBoot = (import ./installer.nix {inherit system;}).separateBootZfs;
+  installer = (import ./installer.nix {inherit system;}).zfsroot;
 
   expand-partitions = makeTest {
     name = "multi-disk-zfs";
     nodes = {
-      machine =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.parted ];
-          boot.supportedFilesystems = [ "zfs" ];
-          networking.hostId = "00000000";
+      machine = {pkgs, ...}: {
+        environment.systemPackages = [pkgs.parted];
+        boot.supportedFilesystems = ["zfs"];
+        networking.hostId = "00000000";
 
-          virtualisation = {
-            emptyDiskImages = [
-              20480
-              20480
-              20480
-              20480
-              20480
-              20480
-            ];
-          };
-
-          specialisation.resize.configuration = {
-            services.zfs.expandOnBoot = [ "tank" ];
-          };
+        virtualisation = {
+          emptyDiskImages = [
+            20480
+            20480
+            20480
+            20480
+            20480
+            20480
+          ];
         };
+
+        specialisation.resize.configuration = {
+          services.zfs.expandOnBoot = ["tank"];
+        };
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      ''
-        start_all()
-        machine.wait_for_unit("default.target")
-        print(machine.succeed('mount'))
+    testScript = {nodes, ...}: ''
+      start_all()
+      machine.wait_for_unit("default.target")
+      print(machine.succeed('mount'))
 
-        print(machine.succeed('parted --script /dev/vdb -- mklabel gpt'))
-        print(machine.succeed('parted --script /dev/vdb -- mkpart primary 1M 70M'))
+      print(machine.succeed('parted --script /dev/vdb -- mklabel gpt'))
+      print(machine.succeed('parted --script /dev/vdb -- mkpart primary 1M 70M'))
 
-        print(machine.succeed('parted --script /dev/vdc -- mklabel gpt'))
-        print(machine.succeed('parted --script /dev/vdc -- mkpart primary 1M 70M'))
+      print(machine.succeed('parted --script /dev/vdc -- mklabel gpt'))
+      print(machine.succeed('parted --script /dev/vdc -- mkpart primary 1M 70M'))
 
-        print(machine.succeed('zpool create tank mirror /dev/vdb1 /dev/vdc1 mirror /dev/vdd /dev/vde mirror /dev/vdf /dev/vdg'))
-        print(machine.succeed('zpool list -v'))
-        print(machine.succeed('mount'))
-        start_size = int(machine.succeed('df -k --output=size /tank | tail -n1').strip())
+      print(machine.succeed('zpool create tank mirror /dev/vdb1 /dev/vdc1 mirror /dev/vdd /dev/vde mirror /dev/vdf /dev/vdg'))
+      print(machine.succeed('zpool list -v'))
+      print(machine.succeed('mount'))
+      start_size = int(machine.succeed('df -k --output=size /tank | tail -n1').strip())
 
-        print(machine.succeed("/run/current-system/specialisation/resize/bin/switch-to-configuration test >&2"))
-        machine.wait_for_unit("zpool-expand-pools.service")
-        machine.wait_for_unit("zpool-expand@tank.service")
+      print(machine.succeed("/run/current-system/specialisation/resize/bin/switch-to-configuration test >&2"))
+      machine.wait_for_unit("zpool-expand-pools.service")
+      machine.wait_for_unit("zpool-expand@tank.service")
 
-        print(machine.succeed('zpool list -v'))
-        new_size = int(machine.succeed('df -k --output=size /tank | tail -n1').strip())
+      print(machine.succeed('zpool list -v'))
+      new_size = int(machine.succeed('df -k --output=size /tank | tail -n1').strip())
 
-        if (new_size - start_size) > 20000000:
-          print("Disk grew appropriately.")
-        else:
-          print(f"Disk went from {start_size} to {new_size}, which doesn't seem right.")
-          exit(1)
-      '';
+      if (new_size - start_size) > 20000000:
+        print("Disk grew appropriately.")
+      else:
+        print(f"Disk went from {start_size} to {new_size}, which doesn't seem right.")
+        exit(1)
+    '';
   };
 }

@@ -5,7 +5,6 @@
   testers,
   mmark,
 }:
-
 buildGoModule {
   pname = "mmark";
   version = "2.2.32";
@@ -35,7 +34,7 @@ buildGoModule {
     description = "Powerful markdown processor in Go geared towards the IETF";
     homepage = "https://github.com/mmarkdown/mmark";
     license = with lib.licenses; bsd2;
-    maintainers = with lib.maintainers; [ yrashk ];
+    maintainers = with lib.maintainers; [yrashk];
     mainProgram = "mmark";
   };
 }

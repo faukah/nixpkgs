@@ -7,7 +7,6 @@
   twisted,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "txredisapi";
   version = "1.4.11";
@@ -20,14 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-gPXkpUcHAuXx/olB/nKstRrfIUFFLf4gFyv7ReRvV2E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    six
-    twisted
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      six
+      twisted
+    ]
+    ++ twisted.optional-dependencies.tls;
 
-  pythonImportsCheck = [ "txredisapi" ];
+  pythonImportsCheck = ["txredisapi"];
 
   doCheck = false;
 
@@ -37,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/IlyaSkriblovsky/txredisapi";
     description = "non-blocking redis client for python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

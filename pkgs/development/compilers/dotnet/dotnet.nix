@@ -11,10 +11,9 @@
   fallbackTargetPackages,
   pkgsBuildHost,
   buildDotnetSdk,
-}:
-
-let
-  inherit (lib.importJSON releaseInfoFile)
+}: let
+  inherit
+    (lib.importJSON releaseInfoFile)
     tarballHash
     artifactsUrl
     artifactsHash
@@ -29,39 +28,42 @@ let
       fallbackTargetPackages
       ;
     bootstrapSdk = (buildDotnetSdk bootstrapSdkFile).sdk.unwrapped.overrideAttrs (old: {
-      passthru = old.passthru or { } // {
-        artifacts = stdenvNoCC.mkDerivation {
-          name = lib.nameFromURL artifactsUrl ".tar.gz";
+      passthru =
+        old.passthru or {}
+        // {
+          artifacts = stdenvNoCC.mkDerivation {
+            name = lib.nameFromURL artifactsUrl ".tar.gz";
 
-          src = fetchurl {
-            url = artifactsUrl;
-            hash = artifactsHash;
+            src = fetchurl {
+              url = artifactsUrl;
+              hash = artifactsHash;
+            };
+
+            sourceRoot = ".";
+
+            installPhase = ''
+              mkdir -p $out
+              cp -r * $out/
+            '';
           };
-
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out
-            cp -r * $out/
-          '';
         };
-      };
     });
   };
-
 in
-pkgs
-// {
-  vmr = pkgs.vmr.overrideAttrs (old: {
-    passthru = old.passthru // {
-      updateScript = pkgsBuildHost.callPackage ./update.nix {
-        inherit
-          releaseManifestFile
-          releaseInfoFile
-          bootstrapSdkFile
-          allowPrerelease
-          ;
-      };
-    };
-  });
-}
+  pkgs
+  // {
+    vmr = pkgs.vmr.overrideAttrs (old: {
+      passthru =
+        old.passthru
+        // {
+          updateScript = pkgsBuildHost.callPackage ./update.nix {
+            inherit
+              releaseManifestFile
+              releaseInfoFile
+              bootstrapSdkFile
+              allowPrerelease
+              ;
+          };
+        };
+    });
+  }

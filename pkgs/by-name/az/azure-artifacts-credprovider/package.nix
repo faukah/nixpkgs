@@ -26,8 +26,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/microsoft/artifacts-credprovider";
     description = "Azure Artifacts Credential Provider";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ anpin ];
+    maintainers = with lib.maintainers; [anpin];
     mainProgram = "CredentialProvider.Microsoft";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

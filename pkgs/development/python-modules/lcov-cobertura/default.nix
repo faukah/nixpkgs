@@ -7,7 +7,6 @@
   setuptools-scm,
   distutils,
 }:
-
 buildPythonPackage rec {
   pname = "lcov-cobertura";
   version = "2.1.1";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     setuptools
     setuptools-scm
   ];
-  dependencies = [ distutils ];
+  dependencies = [distutils];
 
-  pythonImportsCheck = [ "lcov_cobertura" ];
+  pythonImportsCheck = ["lcov_cobertura"];
 
   meta = {
     description = "Converts code coverage from lcov format to Cobertura's XML format";

@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustmission";
   version = "0.5.1";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-GwSf/o90RO6LURIcm/kYA8oXmnCJ1OkM+eHkyZduOt0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # There is no tests
   doCheck = false;
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/intuis/rustmission/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "rustmission";
-    maintainers = with lib.maintainers; [ anas ];
+    maintainers = with lib.maintainers; [anas];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

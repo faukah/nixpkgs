@@ -5,14 +5,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.coder;
   name = "coder";
-in
-{
+in {
   options = {
     services.coder = {
       enable = mkEnableOption "Coder service";
@@ -43,7 +39,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "coder" { };
+      package = mkPackageOption pkgs "coder" {};
 
       homeDir = mkOption {
         type = types.str;
@@ -83,7 +79,7 @@ in
         extra = mkOption {
           type = types.attrs;
           description = "Extra environment variables to pass run Coder's server with. See Coder documentation.";
-          default = { };
+          default = {};
           example = {
             CODER_OAUTH2_GITHUB_ALLOW_SIGNUPS = true;
             CODER_OAUTH2_GITHUB_ALLOWED_ORGS = "your-org";
@@ -176,22 +172,24 @@ in
 
     systemd.services.coder = {
       description = "Coder - Self-hosted developer workspaces on your infra";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment = cfg.environment.extra // {
-        CODER_ACCESS_URL = cfg.accessUrl;
-        CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
-        CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
-          optionalString (cfg.database.password != null) "password=${cfg.database.password}"
-        } database=${cfg.database.database} host=${cfg.database.host} ${
-          optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"
-        }";
-        CODER_ADDRESS = cfg.listenAddress;
-        CODER_TLS_ENABLE = optionalString (cfg.tlsCert != null) "1";
-        CODER_TLS_CERT_FILE = cfg.tlsCert;
-        CODER_TLS_KEY_FILE = cfg.tlsKey;
-      };
+      environment =
+        cfg.environment.extra
+        // {
+          CODER_ACCESS_URL = cfg.accessUrl;
+          CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
+          CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
+            optionalString (cfg.database.password != null) "password=${cfg.database.password}"
+          } database=${cfg.database.database} host=${cfg.database.host} ${
+            optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"
+          }";
+          CODER_ADDRESS = cfg.listenAddress;
+          CODER_TLS_ENABLE = optionalString (cfg.tlsCert != null) "1";
+          CODER_TLS_CERT_FILE = cfg.tlsCert;
+          CODER_TLS_KEY_FILE = cfg.tlsKey;
+        };
 
       serviceConfig = {
         ProtectSystem = "full";
@@ -226,7 +224,7 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == name) {
-      "${cfg.group}" = { };
+      "${cfg.group}" = {};
     };
     users.users = optionalAttrs (cfg.user == name) {
       ${name} = {

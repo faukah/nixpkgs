@@ -11,7 +11,6 @@
   stdenv,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "twingate";
   version = "2025.155.154174";
@@ -51,13 +50,13 @@ stdenv.mkDerivation rec {
     mv usr/share $out/share
   '';
 
-  passthru.tests = { inherit (nixosTests) twingate; };
+  passthru.tests = {inherit (nixosTests) twingate;};
 
   meta = with lib; {
     description = "Twingate Client";
     homepage = "https://twingate.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ tonyshkurenko ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [tonyshkurenko];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -11,7 +11,6 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libvncserver";
   version = "0.9.14";
@@ -38,7 +37,11 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DWITH_SYSTEMD=${if withSystemd then "ON" else "OFF"}"
+    "-DWITH_SYSTEMD=${
+      if withSystemd
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   buildInputs =
@@ -60,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "VNC server library";
     homepage = "https://libvnc.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zict";
   version = "3.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-4yHiY7apeq/AeQw8+zwEZWtwZuZzjDf//MqV2APJ+6U=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Mutable mapping tools";
     homepage = "https://github.com/dask/zict";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

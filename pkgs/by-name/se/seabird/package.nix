@@ -12,7 +12,6 @@
   libxml2,
   vte-gtk4,
 }:
-
 buildGoModule rec {
   pname = "seabird";
   version = "0.5.1";
@@ -60,13 +59,13 @@ buildGoModule rec {
     install -Dm644 internal/icon/seabird.svg $out/share/pixmaps/dev.skynomads.Seabird.svg
   '';
 
-  desktopItems = [ "dev.skynomads.Seabird.desktop" ];
+  desktopItems = ["dev.skynomads.Seabird.desktop"];
 
   meta = with lib; {
     description = "Native Kubernetes desktop client";
     homepage = "https://getseabird.github.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nicolas-goudry ];
+    maintainers = with maintainers; [nicolas-goudry];
     mainProgram = "seabird";
   };
 }

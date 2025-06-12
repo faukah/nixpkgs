@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "typship";
   version = "0.4.2";
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/sjfhsjfh/typship";
     license = lib.licenses.mit;
     changelog = "https://github.com/sjfhsjfh/typship/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ heijligen ];
+    maintainers = with lib.maintainers; [heijligen];
   };
 })

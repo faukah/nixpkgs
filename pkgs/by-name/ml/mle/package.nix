@@ -8,7 +8,6 @@
   makeWrapper,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mle";
   version = "1.7.2";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   postInstall = ''
     installManPage mle.1
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/adsr/mle";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ adsr ];
+    maintainers = with maintainers; [adsr];
     mainProgram = "mle";
   };
 }

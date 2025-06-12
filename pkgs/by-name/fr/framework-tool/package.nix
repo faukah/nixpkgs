@@ -5,7 +5,6 @@
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "framework-tool";
   version = "0.4.3";
@@ -20,14 +19,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-fgDZgWQGQEN2dLJjghngqeOLDX+0joSiI6OigGC57Hc=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ udev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [udev];
 
   meta = {
     description = "Swiss army knife for Framework laptops";
     homepage = "https://github.com/FrameworkComputer/framework-system";
     license = lib.licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with lib.maintainers; [
       nickcao
       leona

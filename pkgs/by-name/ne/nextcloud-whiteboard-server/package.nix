@@ -19,7 +19,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-T27oZdvITj9ZCEvd13fDZE3CS35XezgVmQ4iCeN75UA=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     makeWrapper ${lib.getExe nodejs} "$out/bin/nextcloud-whiteboard-server" \
@@ -30,7 +30,7 @@ buildNpmPackage rec {
     description = "Backend server for the Nextcloud Whiteboard app";
     homepage = "https://apps.nextcloud.com/apps/whiteboard";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
     mainProgram = "nextcloud-whiteboard-server";
   };
 }

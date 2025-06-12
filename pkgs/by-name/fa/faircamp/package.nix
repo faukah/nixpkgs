@@ -12,7 +12,6 @@
   testers,
   faircamp,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "faircamp";
   version = "1.4.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xLRoI4MN1DApL4jXBXnMzsqTaOVUn2FZy3o2mTetvJ8=";
 
-  buildFeatures = [ "libvips" ];
+  buildFeatures = ["libvips"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -44,12 +43,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/faircamp \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   passthru.tests = {
-    wav = callPackage ./test-wav.nix { };
-    version = testers.testVersion { package = faircamp; };
+    wav = callPackage ./test-wav.nix {};
+    version = testers.testVersion {package = faircamp;};
   };
 
   meta = with lib; {
@@ -69,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://simonrepp.com/faircamp/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

@@ -9,7 +9,6 @@
   veilid,
   gitUpdater,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "veilid";
   version = "0.4.7";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       veilid-version = testers.testVersion {
         package = veilid;

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   babelfish,
   beautifulsoup4,
   chardet,
@@ -20,7 +19,6 @@
   setuptools,
   stevedore,
   tomli,
-
   pytestCheckHook,
   pytest-cov-stub,
   pytest-xdist,
@@ -28,7 +26,6 @@
   sympy,
   vcrpy,
 }:
-
 buildPythonPackage rec {
   pname = "subliminal";
   version = "2.2.1";
@@ -43,7 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-g7gg2qdLKl7bg/nNXRWN9wZaNShOOc38sVASZrIycMU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     babelfish
@@ -72,7 +69,7 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  pythonImportsCheck = [ "subliminal" ];
+  pythonImportsCheck = ["subliminal"];
 
   disabledTests = [
     # Tests require network access
@@ -86,6 +83,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Diaoul/subliminal";
     changelog = "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

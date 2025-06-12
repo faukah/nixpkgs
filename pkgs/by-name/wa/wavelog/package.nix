@@ -5,7 +5,6 @@
   nix-update-script,
   php,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wavelog";
   version = "2.0.4";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Webbased Amateur Radio Logging Software";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/wavelog/wavelog/releases/tag/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = php.meta.platforms;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 })

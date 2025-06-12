@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "spire";
   version = "1.12.2";
@@ -43,6 +42,6 @@ buildGoModule rec {
     homepage = "https://github.com/spiffe/spire";
     changelog = "https://github.com/spiffe/spire/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fkautz ];
+    maintainers = with lib.maintainers; [fkautz];
   };
 }

@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xboxapi";
   version = "2.0.1";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-rX3lrXzUYqyRyI89fbCEEMevTdi5SBgSp8XxSanasII=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xboxapi" ];
+  pythonImportsCheck = ["xboxapi"];
 
   meta = with lib; {
     description = "Python XBOX One API wrapper";
     homepage = "https://github.com/mKeRix/xboxapi-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

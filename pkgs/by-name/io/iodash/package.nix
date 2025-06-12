@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "iodash";
   version = "0.1.7";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
   };
   # adds missing cmake install directives
   # https://github.com/YukiWorkshop/IODash/pull/2
-  patches = [ ./0001-Add-cmake-install-directives.patch ];
+  patches = [./0001-Add-cmake-install-directives.patch];
 
   nativeBuildInputs = [
     cmake
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/YukiWorkshop/IODash";
     description = "Lightweight C++ I/O library for POSIX operation systems";
     license = licenses.mit;
-    maintainers = with maintainers; [ jappie ];
+    maintainers = with maintainers; [jappie];
     platforms = with platforms; linux;
   };
 }

@@ -5,7 +5,6 @@
   testers,
   git-stack,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-stack";
   version = "0.10.19";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/gitext-rs/git-stack";
     changelog = "https://github.com/gitext-rs/git-stack/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ stehessel ];
+    maintainers = with lib.maintainers; [stehessel];
     mainProgram = "git-stack";
   };
 }

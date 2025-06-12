@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   wheel,
-
   # dependencies
   beartype,
   einops,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "rotary-embedding-torch";
   version = "0.8.6";
@@ -36,7 +33,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "rotary_embedding_torch" ];
+  pythonImportsCheck = ["rotary_embedding_torch"];
 
   doCheck = false; # no tests
 
@@ -45,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lucidrains/rotary-embedding-torch";
     changelog = "https://github.com/lucidrains/rotary-embedding-torch/releases/tag/${version}";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

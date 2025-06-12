@@ -18,7 +18,6 @@
   which,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rivet";
   version = "4.1.0";
@@ -29,21 +28,22 @@ stdenv.mkDerivation rec {
   };
 
   latex = texliveBasic.withPackages (
-    ps: with ps; [
-      collection-pstricks
-      collection-fontsrecommended
-      l3kernel
-      l3packages
-      mathastext
-      pgf
-      relsize
-      sansmath
-      sfmath
-      siunitx
-      xcolor
-      xkeyval
-      xstring
-    ]
+    ps:
+      with ps; [
+        collection-pstricks
+        collection-fontsrecommended
+        l3kernel
+        l3packages
+        mathastext
+        pgf
+        relsize
+        sansmath
+        sfmath
+        siunitx
+        xcolor
+        xkeyval
+        xstring
+      ]
   );
 
   nativeBuildInputs = [
@@ -72,8 +72,10 @@ stdenv.mkDerivation rec {
       --replace-fail 'num_jobs=$(getconf _NPROCESSORS_ONLN)' 'num_jobs=''${NIX_BUILD_CORES:-$(getconf _NPROCESSORS_ONLN)}' \
       --replace-fail 'which' '"${which}/bin/which"' \
       --replace-fail 'mycxx=' 'mycxx=${stdenv.cc}/bin/${
-        if stdenv.cc.isClang or false then "clang++" else "g++"
-      }  #' \
+      if stdenv.cc.isClang or false
+      then "clang++"
+      else "g++"
+    }  #' \
       --replace-fail 'mycxxflags="' "mycxxflags=\"$NIX_CFLAGS_COMPILE $NIX_CXXSTDLIB_COMPILE $NIX_CFLAGS_LINK "
   '';
 
@@ -114,6 +116,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3;
     homepage = "https://rivet.hepforge.org";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

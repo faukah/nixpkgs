@@ -28,7 +28,6 @@
   withSensors ? false,
   zlib,
 }:
-
 stdenv.mkDerivation (finalPackage: {
   pname = "kismet";
   version = "2023-07-R2";
@@ -130,6 +129,6 @@ stdenv.mkDerivation (finalPackage: {
     homepage = "https://www.kismetwireless.net/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ numinit ];
+    maintainers = with lib.maintainers; [numinit];
   };
 })

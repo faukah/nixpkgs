@@ -3,7 +3,6 @@
   callPackage,
   makeSetupHook,
 }:
-
 # See the header comment in ./setup-hook.sh for example usage.
 makeSetupHook {
   name = "install-shell-files";
@@ -13,4 +12,5 @@ makeSetupHook {
       directory = ./tests;
     };
   };
-} ./setup-hook.sh
+}
+./setup-hook.sh

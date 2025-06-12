@@ -7,7 +7,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kuzu";
   version = "0.10.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     versionCheckHook
   ];
   doInstallCheck = true;
-  versionCheckProgramArg = [ "--version" ];
+  versionCheckProgramArg = ["--version"];
 
   meta = {
     changelog = "https://github.com/kuzudb/kuzu/releases/tag/v${finalAttrs.version}";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://kuzudb.com/";
     license = lib.licenses.mit;
     mainProgram = "kuzu";
-    maintainers = with lib.maintainers; [ sdht0 ];
+    maintainers = with lib.maintainers; [sdht0];
     platforms = lib.platforms.all;
   };
 })

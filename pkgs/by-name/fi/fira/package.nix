@@ -4,7 +4,6 @@
   fira-mono,
   fira-sans,
 }:
-
 symlinkJoin rec {
   pname = "fira";
   inherit (fira-sans) version;

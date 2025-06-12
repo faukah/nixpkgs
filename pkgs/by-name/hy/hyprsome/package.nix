@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "hyprsome";
   version = "0.1.12-unstable-2024-05-20";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Awesome-like workspaces for Hyprland";
     homepage = "https://github.com/sopa0/hyprsome";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ bhasherbel ];
+    maintainers = with lib.maintainers; [bhasherbel];
     platforms = lib.platforms.linux;
     mainProgram = "hyprsome";
   };

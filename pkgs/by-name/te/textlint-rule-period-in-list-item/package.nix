@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-period-in-list-item,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-period-in-list-item";
   version = "1.0.1";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-rule/textlint-rule-period-in-list-item";
     changelog = "https://github.com/textlint-rule/textlint-rule-period-in-list-item/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

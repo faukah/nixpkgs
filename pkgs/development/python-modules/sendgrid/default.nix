@@ -12,7 +12,6 @@
   starkbank-ecdsa,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "sendgrid";
   version = "6.12.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-7j/V731e+eXFW42WRHuJpZ3OFObVXLOgl81Ww3EAApU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ecdsa
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "live_test.py"
   ];
 
-  pythonImportsCheck = [ "sendgrid" ];
+  pythonImportsCheck = ["sendgrid"];
 
   meta = with lib; {
     description = "Python client for SendGrid";
     homepage = "https://github.com/sendgrid/sendgrid-python";
     changelog = "https://github.com/sendgrid/sendgrid-python/blob/${src.tag}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

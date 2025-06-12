@@ -4,10 +4,10 @@
   resto-directory,
   cohttp-lwt,
 }:
-
 buildDunePackage {
   pname = "resto-cohttp";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

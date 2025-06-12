@@ -14,13 +14,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-GRJnH431foNI10g95rrtgi31DM15FWhzNq9L0SwoZoM=";
   };
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   meta = with lib; {
     homepage = "https://github.com/ColumPaget/pam_honeycreds";
     description = "PAM module that sends warnings when fake passwords are used";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
   };
 })

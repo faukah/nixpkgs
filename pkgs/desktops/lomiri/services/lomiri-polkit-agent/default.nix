@@ -15,7 +15,6 @@
   properties-cpp,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-polkit-agent";
   version = "0.3";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [
     dbus
-    (python3.withPackages (ps: with ps; [ python-dbusmock ]))
+    (python3.withPackages (ps: with ps; [python-dbusmock]))
   ];
 
   checkInputs = [
@@ -61,17 +60,19 @@ stdenv.mkDerivation (finalAttrs: {
     # The pop-up dialogue times out after awhile, and OCR can't find it in time.
     # Please check the screenshots after running that test, to verify that the pop-up actually happened!
     tests.vm = nixosTests.lomiri.desktop-appinteractions;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Policy kit agent for the Lomiri desktop";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-polkit-agent";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-polkit-agent/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

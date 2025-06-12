@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.surfboard;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9239;
   extraOpts = {
     modemAddress = mkOption {

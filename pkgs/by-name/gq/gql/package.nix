@@ -7,7 +7,6 @@
   zlib,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gql";
   version = "0.38.0";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/AmrDeveloper/GQL";
     changelog = "https://github.com/AmrDeveloper/GQL/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "gitql";
   };
 }

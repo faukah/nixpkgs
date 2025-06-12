@@ -6,7 +6,6 @@
   aiohttp,
   beautifulsoup4,
 }:
-
 buildPythonApplication {
   pname = "cambrinary";
   version = "unstable-2023-07-16";
@@ -28,7 +27,7 @@ buildPythonApplication {
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [ "cambrinary" ];
+  pythonImportsCheck = ["cambrinary"];
 
   meta = with lib; {
     description = "Cambridge dictionary in a terminal";
@@ -36,6 +35,6 @@ buildPythonApplication {
     homepage = "https://github.com/xueyuanl/cambrinary";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

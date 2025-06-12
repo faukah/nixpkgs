@@ -6,7 +6,6 @@
   qt6,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "serial-studio";
   version = "3.0.6";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     mainProgram = "serial-studio";
     homepage = "https://serial-studio.github.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

@@ -11,12 +11,11 @@
   envLocalPath ? "/var/lib/part-db/env.local",
   cachePath ? "/var/cache/part-db/",
   logPath ? "/var/log/part-db/",
-}:
-let
+}: let
   pname = "part-db";
   version = "1.14.5";
 
-  srcWithVendor = php.buildComposerProject ({
+  srcWithVendor = php.buildComposerProject {
     inherit pname version;
 
     src = fetchFromGitHub {
@@ -32,11 +31,14 @@ let
 
     php = php.buildEnv {
       extensions = (
-        { enabled, all }:
-        enabled
-        ++ (with all; [
-          xsl
-        ])
+        {
+          enabled,
+          all,
+        }:
+          enabled
+          ++ (with all; [
+            xsl
+          ])
       );
     };
 
@@ -50,41 +52,41 @@ let
       cd $out/
       php -d memory_limit=256M bin/console cache:warmup
     '';
-  });
+  };
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit pname version;
+  stdenv.mkDerivation (finalAttrs: {
+    inherit pname version;
 
-  src = srcWithVendor;
+    src = srcWithVendor;
 
-  yarnOfflineCache = fetchYarnDeps {
-    yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-Mjss2UUHVUdJ4UAI3GkG6HB6g7LbJTqvgrIXFhZmw1Q=";
-  };
+    yarnOfflineCache = fetchYarnDeps {
+      yarnLock = finalAttrs.src + "/yarn.lock";
+      hash = "sha256-Mjss2UUHVUdJ4UAI3GkG6HB6g7LbJTqvgrIXFhZmw1Q=";
+    };
 
-  nativeBuildInputs = [
-    yarnConfigHook
-    yarnBuildHook
-    nodejs
-  ];
+    nativeBuildInputs = [
+      yarnConfigHook
+      yarnBuildHook
+      nodejs
+    ];
 
-  installPhase = ''
-    rm -r node_modules
-    mkdir $out
-    mv * .* $out/
+    installPhase = ''
+      rm -r node_modules
+      mkdir $out
+      mv * .* $out/
 
-    rm -rf $out/var/{cache,log}
-    ln -s ${envLocalPath} $out/.env.local
-    ln -s ${logPath} $out/var/log
-    ln -s ${cachePath} $out/var/cache
-  '';
+      rm -rf $out/var/{cache,log}
+      ln -s ${envLocalPath} $out/.env.local
+      ln -s ${logPath} $out/var/log
+      ln -s ${cachePath} $out/var/cache
+    '';
 
-  meta = {
-    description = "Open source inventory management system for your electronic components";
-    homepage = "https://docs.part-db.de/";
-    changelog = "https://github.com/Part-DB/Part-DB-server/releases/tag/v${version}";
-    license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ felbinger ];
-    platforms = lib.platforms.linux;
-  };
-})
+    meta = {
+      description = "Open source inventory management system for your electronic components";
+      homepage = "https://docs.part-db.de/";
+      changelog = "https://github.com/Part-DB/Part-DB-server/releases/tag/v${version}";
+      license = lib.licenses.agpl3Plus;
+      maintainers = with lib.maintainers; [felbinger];
+      platforms = lib.platforms.linux;
+    };
+  })

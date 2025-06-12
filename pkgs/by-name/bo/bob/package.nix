@@ -6,7 +6,6 @@
   installShellFiles,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "bob";
   version = "0.8.2";
@@ -41,7 +40,7 @@ buildGoModule rec {
     "tui-example"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd bob \
@@ -57,6 +56,6 @@ buildGoModule rec {
     mainProgram = "bob";
     homepage = "https://bob.build";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zuzuleinen ];
+    maintainers = with maintainers; [zuzuleinen];
   };
 }

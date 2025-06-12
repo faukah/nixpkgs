@@ -6,7 +6,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dynein";
   version = "0.3.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-PA7Hvn+vYBD80thkIamwOhw4lJWAmU/TQBnwJro4r7c=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
 
   # The integration tests will start downloading docker image of DynamoDB, which
   # will naturally fail for nix build. The CLI tests do not need DynamoDB.
-  cargoTestFlags = [ "cli_tests" ];
+  cargoTestFlags = ["cli_tests"];
 
   meta = with lib; {
     description = "DynamoDB CLI written in Rust";
@@ -47,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/awslabs/dynein";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pimeys ];
+    maintainers = with maintainers; [pimeys];
   };
 }

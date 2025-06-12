@@ -6,17 +6,14 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  themeVariants ? [ ], # default: blue
-  colorVariants ? [ ], # default: all
-  sizeVariants ? [ ], # default: standard
-  tweaks ? [ ],
-}:
-
-let
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  sizeVariants ? [], # default: standard
+  tweaks ? [],
+}: let
   pname = "colloid-gtk-theme";
-
 in
-lib.checkListOfEnum "colloid-gtk-theme: theme variants"
+  lib.checkListOfEnum "colloid-gtk-theme: theme variants"
   [
     "default"
     "purple"
@@ -32,11 +29,11 @@ lib.checkListOfEnum "colloid-gtk-theme: theme variants"
   themeVariants
   lib.checkListOfEnum
   "colloid-gtk-theme: color variants"
-  [ "standard" "light" "dark" ]
+  ["standard" "light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "colloid-gtk-theme: size variants"
-  [ "standard" "compact" ]
+  ["standard" "compact"]
   sizeVariants
   lib.checkListOfEnum
   "colloid-gtk-theme: tweaks"
@@ -53,7 +50,6 @@ lib.checkListOfEnum "colloid-gtk-theme: theme variants"
     "float"
   ]
   tweaks
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -87,10 +83,10 @@ lib.checkListOfEnum "colloid-gtk-theme: theme variants"
       runHook preInstall
 
       name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (sizeVariants != []) "--size " + builtins.toString sizeVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -103,6 +99,6 @@ lib.checkListOfEnum "colloid-gtk-theme: theme variants"
       homepage = "https://github.com/vinceliuice/Colloid-gtk-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

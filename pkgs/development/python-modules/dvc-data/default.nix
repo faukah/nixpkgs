@@ -14,7 +14,6 @@
   sqltrie,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-data";
   version = "3.16.10";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-kYPgEsLrcSYf6YAjFENf2HZKdQ4391pFxaZDIFOubkY=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     attrs
@@ -46,14 +45,14 @@ buildPythonPackage rec {
   # Tests depend on upath which is unmaintained and only available as wheel
   doCheck = false;
 
-  pythonImportsCheck = [ "dvc_data" ];
+  pythonImportsCheck = ["dvc_data"];
 
   meta = with lib; {
     description = "DVC's data management subsystem";
     homepage = "https://github.com/iterative/dvc-data";
     changelog = "https://github.com/iterative/dvc-data/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "dvc-data";
   };
 }

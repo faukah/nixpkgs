@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   fetchzip,
-}:
-
-let
+}: let
   fonts = [
     {
       name = "azuki";
@@ -37,42 +35,43 @@ let
       hash = "sha256-s4uodxyXP5R7jwkzjmg6qJZCllJ/MtgkkVOeELI8hLI=";
     }
   ];
-
 in
-stdenvNoCC.mkDerivation {
-  pname = "azuki";
-  version = "0-unstable-2021-07-02";
+  stdenvNoCC.mkDerivation {
+    pname = "azuki";
+    version = "0-unstable-2021-07-02";
 
-  sourceRoot = "azuki";
+    sourceRoot = "azuki";
 
-  srcs = map (
-    {
-      name,
-      downloadVersion,
-      hash,
-    }:
-    fetchzip {
-      url = "https://azukifont.com/font/azukifont${downloadVersion}.zip";
-      stripRoot = false;
-      inherit name hash;
-    }
-  ) fonts;
+    srcs =
+      map (
+        {
+          name,
+          downloadVersion,
+          hash,
+        }:
+          fetchzip {
+            url = "https://azukifont.com/font/azukifont${downloadVersion}.zip";
+            stripRoot = false;
+            inherit name hash;
+          }
+      )
+      fonts;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    for font in $srcs; do
-      install -Dm644 $font/azukifont*/*.ttf -t $out/share/fonts/truetype
-    done
+      for font in $srcs; do
+        install -Dm644 $font/azukifont*/*.ttf -t $out/share/fonts/truetype
+      done
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    homepage = "http://azukifont.com/font/azuki.html";
-    description = "Azuki Font";
-    license = lib.licenses.unfree;
-    platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ nyadiia ];
-  };
-}
+    meta = {
+      homepage = "http://azukifont.com/font/azuki.html";
+      description = "Azuki Font";
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.all;
+      maintainers = with lib.maintainers; [nyadiia];
+    };
+  }

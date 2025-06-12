@@ -20,9 +20,7 @@
   python3Packages,
   vala,
   wrapGAppsHook3,
-}:
-
-let
+}: let
   self = python3Packages.buildPythonApplication rec {
     pname = "click";
     version = "0.5.2";
@@ -147,7 +145,7 @@ let
     '';
 
     passthru = {
-      updateScript = gitUpdater { };
+      updateScript = gitUpdater {};
     };
 
     meta = {
@@ -159,7 +157,7 @@ let
       maintainers = with lib.maintainers; [
         ilyakooo0
       ];
-      teams = [ lib.teams.lomiri ];
+      teams = [lib.teams.lomiri];
       platforms = lib.platforms.linux;
       pkgConfigModules = [
         "click-0.4"
@@ -167,11 +165,13 @@ let
     };
   };
 in
-self
-// {
-  passthru = self.passthru // {
-    tests.pkg-config = testers.hasPkgConfigModules {
-      package = self;
-    };
-  };
-}
+  self
+  // {
+    passthru =
+      self.passthru
+      // {
+        tests.pkg-config = testers.hasPkgConfigModules {
+          package = self;
+        };
+      };
+  }

@@ -5,10 +5,7 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.deepin;
 
@@ -16,10 +13,8 @@ let
     extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
     extraGSettingsOverrides = cfg.extraGSettingsOverrides;
   };
-in
-{
+in {
   options = {
-
     services.xserver.desktopManager.deepin = {
       enable = mkEnableOption "Deepin desktop manager";
       extraGSettingsOverrides = mkOption {
@@ -28,22 +23,21 @@ in
         description = "Additional gsettings overrides.";
       };
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = "List of packages for which gsettings are overridden.";
       };
     };
 
     environment.deepin.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       description = "List of default packages to exclude from the configuration";
     };
-
   };
 
   config = mkIf cfg.enable {
-    services.displayManager.sessionPackages = [ pkgs.deepin.dde-session ];
+    services.displayManager.sessionPackages = [pkgs.deepin.dde-session];
     services.displayManager.defaultSession = mkDefault "dde-x11";
 
     # Update the DBus activation environment after launching the desktop manager.
@@ -72,7 +66,7 @@ in
     programs.dconf.enable = mkDefault true;
     programs.gnupg.agent.pinentryPackage = mkDefault pkgs.pinentry-qt;
 
-    fonts.packages = with pkgs; [ noto-fonts ];
+    fonts.packages = with pkgs; [noto-fonts];
     xdg.mime.enable = true;
     xdg.menus.enable = true;
     xdg.icons.enable = true;
@@ -82,11 +76,11 @@ in
     ];
 
     # https://github.com/NixOS/nixpkgs/pull/247766#issuecomment-1722839259
-    xdg.portal.config.deepin.default = mkDefault [ "gtk" ];
+    xdg.portal.config.deepin.default = mkDefault ["gtk"];
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
+      DDE_POLKIT_AGENT_PLUGINS_DIRS = ["${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins"];
     };
 
     environment.pathsToLink = [
@@ -122,75 +116,73 @@ in
       session   include       login
     '';
 
-    environment.systemPackages =
-      with pkgs;
-      with deepin;
-      let
-        requiredPackages = [
-          pciutils # for dtkcore/startdde
-          xdotool # for dde-daemon
-          glib # for gsettings program / gdbus
-          gtk3 # for gtk-launch program
-          xdg-user-dirs # Update user dirs
-          util-linux # runuser
-          polkit_gnome
-          librsvg # dde-api use rsvg-convert
-          lshw # for dtkcore
-          libsForQt5.kde-gtk-config # deepin-api/gtk-thumbnailer need
-          libsForQt5.kglobalaccel
-          xsettingsd # lightdm-deepin-greeter
-          dtkcommon
-          dtkcore
-          dtkgui
-          dtkwidget
-          dtkdeclarative
-          qt5platform-plugins
-          qt6platform-plugins
-          qt5integration
-          qt6integration
-          deepin-pw-check
+    environment.systemPackages = with pkgs;
+    with deepin; let
+      requiredPackages = [
+        pciutils # for dtkcore/startdde
+        xdotool # for dde-daemon
+        glib # for gsettings program / gdbus
+        gtk3 # for gtk-launch program
+        xdg-user-dirs # Update user dirs
+        util-linux # runuser
+        polkit_gnome
+        librsvg # dde-api use rsvg-convert
+        lshw # for dtkcore
+        libsForQt5.kde-gtk-config # deepin-api/gtk-thumbnailer need
+        libsForQt5.kglobalaccel
+        xsettingsd # lightdm-deepin-greeter
+        dtkcommon
+        dtkcore
+        dtkgui
+        dtkwidget
+        dtkdeclarative
+        qt5platform-plugins
+        qt6platform-plugins
+        qt5integration
+        qt6integration
+        deepin-pw-check
 
-          dde-account-faces
-          deepin-icon-theme
-          deepin-desktop-theme
-          deepin-sound-theme
-          deepin-gtk-theme
-          deepin-wallpapers
-          deepin-desktop-base
+        dde-account-faces
+        deepin-icon-theme
+        deepin-desktop-theme
+        deepin-sound-theme
+        deepin-gtk-theme
+        deepin-wallpapers
+        deepin-desktop-base
 
-          startdde
-          dde-shell
-          dde-launchpad
-          dde-session-ui
-          dde-session-shell
-          dde-file-manager
-          dde-control-center
-          dde-network-core
-          dde-clipboard
-          dde-polkit-agent
-          dpa-ext-gnomekeyring
-          deepin-desktop-schemas
-          deepin-kwin
-          dde-session
-          dde-widgets
-          dde-appearance
-          dde-application-manager
-          deepin-service-manager
-          dde-api-proxy
-          dde-tray-loader
-        ];
-        optionalPackages = [
-          dde-calendar
-          dde-grand-search
-          deepin-terminal
-          onboard # dde-dock plugin
-          deepin-calculator
-          deepin-compressor
-          deepin-editor
-          deepin-system-monitor
-          deepin-shortcut-viewer
-        ];
-      in
+        startdde
+        dde-shell
+        dde-launchpad
+        dde-session-ui
+        dde-session-shell
+        dde-file-manager
+        dde-control-center
+        dde-network-core
+        dde-clipboard
+        dde-polkit-agent
+        dpa-ext-gnomekeyring
+        deepin-desktop-schemas
+        deepin-kwin
+        dde-session
+        dde-widgets
+        dde-appearance
+        dde-application-manager
+        deepin-service-manager
+        dde-api-proxy
+        dde-tray-loader
+      ];
+      optionalPackages = [
+        dde-calendar
+        dde-grand-search
+        deepin-terminal
+        onboard # dde-dock plugin
+        deepin-calculator
+        deepin-compressor
+        deepin-editor
+        deepin-system-monitor
+        deepin-shortcut-viewer
+      ];
+    in
       requiredPackages
       ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
 

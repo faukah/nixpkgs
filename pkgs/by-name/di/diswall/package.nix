@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "diswall";
   version = "0.6.1";
@@ -32,8 +31,8 @@ rustPlatform.buildRustPackage rec {
       intruder to get any system information.
     '';
     homepage = "https://www.diswall.stream";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ izorkin ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "diswall";
   };
 }

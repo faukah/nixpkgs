@@ -7,7 +7,6 @@
   iverilog,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "vhd2vl";
   version = "unstable-2022-12-26";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
 
   # the "translate" target both (a) builds the software and (b) runs
   # the tests (without validating the results)
-  buildTargets = [ "translate" ];
+  buildTargets = ["translate"];
 
   # the "diff" target examines the test results
   checkTarget = "diff";
@@ -47,6 +46,6 @@ stdenv.mkDerivation {
     mainProgram = "vhd2vl";
     homepage = "https://github.com/ldoolitt/vhd2vl";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

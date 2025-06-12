@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "recursive";
   version = "1.085";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://recursive.design/";
     description = "Variable font family for code & UI";
     license = licenses.ofl;
-    maintainers = [ maintainers.eadwu ];
+    maintainers = [maintainers.eadwu];
     platforms = platforms.all;
   };
 }

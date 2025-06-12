@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-tonic";
   version = "0.4.1";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ihEHLFCC5jNpFIIvBUFCxKvpjY/OhOH5UgbvuQMFv3s=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Protoc plugin that generates Tonic gRPC server and client code using the Prost code generation engine";

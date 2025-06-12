@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-voting";
   src = fetchFromGitHub {
@@ -14,7 +13,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-voting";
-    maintainers = with maintainers; [ dpausp ];
+    maintainers = with maintainers; [dpausp];
     license = licenses.gpl2Only;
     description = "Adds the ability for voting on a topic within a specified category in Discourse";
   };

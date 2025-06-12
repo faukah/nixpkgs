@@ -10,7 +10,6 @@
   python,
   isPy27,
 }:
-
 buildPythonPackage rec {
   pname = "cytoolz";
   version = "1.0.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ toolz ];
+  propagatedBuildInputs = [toolz];
 
   # tests are located in cytoolz/tests, however we can't import cytoolz
   # from $PWD, as it will break relative imports
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     "test_inspect_wrapped_property"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/pytoolz/cytoolz/";

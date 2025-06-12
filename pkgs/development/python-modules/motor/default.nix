@@ -7,7 +7,6 @@
   mockupdb,
   pymongo,
 }:
-
 buildPythonPackage rec {
   pname = "motor";
   version = "3.7.0";
@@ -25,22 +24,22 @@ buildPythonPackage rec {
     hatch-requirements-txt
   ];
 
-  pythonRelaxDeps = [ "pymongo" ];
+  pythonRelaxDeps = ["pymongo"];
 
-  dependencies = [ pymongo ];
+  dependencies = [pymongo];
 
-  nativeCheckInputs = [ mockupdb ];
+  nativeCheckInputs = [mockupdb];
 
   # network connections
   doCheck = false;
 
-  pythonImportsCheck = [ "motor" ];
+  pythonImportsCheck = ["motor"];
 
   meta = {
     description = "Non-blocking MongoDB driver for Tornado or asyncio";
     license = lib.licenses.asl20;
     homepage = "https://github.com/mongodb/motor";
     changelog = "https://github.com/mongodb/motor/releases/tag/${src.tag}";
-    maintainers = with lib.maintainers; [ globin ];
+    maintainers = with lib.maintainers; [globin];
   };
 }

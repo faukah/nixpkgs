@@ -23,18 +23,20 @@ stdenv.mkDerivation {
     installManPage $src/doc/rp.1
     wrapProgram $out/bin/rp \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gawk
-          rosenpass
-          wireguard-tools
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        findutils
+        gawk
+        rosenpass
+        wireguard-tools
+      ]
+    }
   '';
 
-  meta = rosenpass.meta // {
-    description = "Rosenpass tool `rp`, which is a script that wraps the `rosenpass` binary";
-    mainProgram = "rp";
-  };
+  meta =
+    rosenpass.meta
+    // {
+      description = "Rosenpass tool `rp`, which is a script that wraps the `rosenpass` binary";
+      mainProgram = "rp";
+    };
 }

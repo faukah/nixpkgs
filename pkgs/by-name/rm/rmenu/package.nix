@@ -81,7 +81,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/imgurbot12/rmenu";
     license = lib.licenses.mit;
     mainProgram = "rmenu";
-    maintainers = with lib.maintainers; [ grimmauld ];
+    maintainers = with lib.maintainers; [grimmauld];
     platforms = lib.platforms.linux;
   };
 }

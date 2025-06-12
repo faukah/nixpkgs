@@ -14,7 +14,6 @@
   wayland,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gpustat";
   version = "0.1.5";
@@ -66,7 +65,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple utility for viewing GPU utilization";
     homepage = "https://github.com/arduano/gpustat";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arduano ];
+    maintainers = with maintainers; [arduano];
     mainProgram = "gpustat";
     platforms = platforms.linux;
   };

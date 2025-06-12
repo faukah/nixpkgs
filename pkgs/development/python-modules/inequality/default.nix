@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   libpysal,
   mapclassify,
   matplotlib,
@@ -13,7 +12,6 @@
   seaborn,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "inequality";
   version = "1.1.1";
@@ -27,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-JVim2u+VF35dvD+y14WbA2+G4wktAGpin/GMe0uGhjc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     libpysal
@@ -42,12 +40,12 @@ buildPythonPackage rec {
     seaborn
   ];
 
-  pythonImportsCheck = [ "inequality" ];
+  pythonImportsCheck = ["inequality"];
 
   meta = {
     description = "Spatial inequality analysis";
     homepage = "https://github.com/pysal/inequality";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

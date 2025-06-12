@@ -6,7 +6,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kaput-cli";
   version = "2.5.0";
@@ -33,14 +32,14 @@ rustPlatform.buildRustPackage rec {
     openssl
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/davidchalifoux/kaput-cli/releases/tag/v${version}";
     description = "unofficial CLI client for Put.io";
     homepage = "https://kaput.sh/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "kaput";
   };
 }

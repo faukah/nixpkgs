@@ -14,7 +14,6 @@
   vte,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sakura";
   version = "3.8.8";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dabisu";
     repo = "sakura";
-    rev = "SAKURA_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "SAKURA_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-YeZIYIfFgkK5nxMHq9mslrjIWTRAebhXyzXv5hTmOpI=";
   };
 

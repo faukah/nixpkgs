@@ -30,7 +30,6 @@
   qttools,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-indicator-network";
   version = "1.1.0";
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtbase
   ];
 
-  nativeCheckInputs = [ (python3.withPackages (ps: with ps; [ python-dbusmock ])) ];
+  nativeCheckInputs = [(python3.withPackages (ps: with ps; [python-dbusmock]))];
 
   checkInputs = [
     gmenuharness
@@ -121,14 +120,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     ayatana-indicators = {
-      lomiri-indicator-network = [ "lomiri" ];
+      lomiri-indicator-network = ["lomiri"];
     };
     tests = {
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       startup = nixosTests.ayatana-indicators;
       lomiri = nixosTests.lomiri.desktop-ayatana-indicator-network;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -136,8 +135,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lomiri-indicator-network";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-indicator-network/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "lomiri-connectivity-qt1" ];
+    pkgConfigModules = ["lomiri-connectivity-qt1"];
   };
 })

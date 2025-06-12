@@ -14,7 +14,6 @@
   trove-classifiers,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-core";
   version = "2.1.2";
@@ -52,10 +51,10 @@ buildPythonPackage rec {
     "test_dist_info_date_time_default_value"
   ];
 
-  pythonImportsCheck = [ "poetry.core" ];
+  pythonImportsCheck = ["poetry.core"];
 
   # Allow for packages to use PEP420's native namespace
-  pythonNamespaces = [ "poetry" ];
+  pythonNamespaces = ["poetry"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-int-conversion";
 
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     description = "Poetry PEP 517 Build Backend";
     homepage = "https://github.com/python-poetry/poetry-core/";
     license = licenses.mit;
-    teams = [ teams.python ];
+    teams = [teams.python];
   };
 }

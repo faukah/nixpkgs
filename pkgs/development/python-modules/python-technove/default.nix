@@ -14,7 +14,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-technove";
   version = "2.0.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-LgrydBgx68HP8yaywkMMeS71VqhilYGODppBZbdkssQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "technove" ];
+  pythonImportsCheck = ["technove"];
 
   meta = with lib; {
     description = "Python library to interact with TechnoVE local device API";
     homepage = "https://github.com/Moustachauve/pytechnove";
     changelog = "https://github.com/Moustachauve/pytechnove/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

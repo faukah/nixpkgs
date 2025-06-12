@@ -10,7 +10,6 @@
   setuptools-scm,
   libfdt,
 }:
-
 buildPythonPackage rec {
   pname = "dtschema";
   version = "2024.02";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     ./fix_libfdt_name.patch
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     jsonschema
@@ -42,7 +41,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dtschema" ];
+  pythonImportsCheck = ["dtschema"];
 
   meta = with lib; {
     description = "Tooling for devicetree validation using YAML and jsonschema";
@@ -52,15 +51,14 @@ buildPythonPackage rec {
       bsd2 # or
       gpl2Only
     ];
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
 
     broken = (
       # Library not loaded: @rpath/libfdt.1.dylib
       stdenv.hostPlatform.isDarwin
       ||
-
-        # see https://github.com/devicetree-org/dt-schema/issues/108
-        versionAtLeast jsonschema.version "4.18"
+      # see https://github.com/devicetree-org/dt-schema/issues/108
+      versionAtLeast jsonschema.version "4.18"
     );
   };
 }

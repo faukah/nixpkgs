@@ -10,7 +10,6 @@
   readline,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "augeas";
   version = "1.14.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://augeas.net/";
     changelog = "https://github.com/hercules-team/augeas/releases/tag/release-${version}";
     mainProgram = "augtool";
-    maintainers = with lib.maintainers; [ offline ];
+    maintainers = with lib.maintainers; [offline];
     platforms = lib.platforms.unix;
   };
 }

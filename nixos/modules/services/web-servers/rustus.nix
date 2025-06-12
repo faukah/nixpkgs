@@ -4,15 +4,12 @@
   config,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.rustus;
-in
-{
-  meta.maintainers = with maintainers; [ happysalada ];
+in {
+  meta.maintainers = with maintainers; [happysalada];
 
   options.services.rustus = {
-
     enable = mkEnableOption "TUS protocol implementation in Rust";
 
     host = mkOption {
@@ -76,7 +73,7 @@ in
       description = ''
         list of origins allowed to upload
       '';
-      default = [ "*" ];
+      default = ["*"];
       example = [
         "*.staging.domain"
         "*.prod.domain"
@@ -122,7 +119,7 @@ in
       description = ''
         Storages are used to actually store your files. You can configure where you want to store files.
       '';
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           type = "hybrid-s3"
@@ -186,11 +183,11 @@ in
       description = ''
         Info storages are used to store information about file uploads. These storages must be persistent, because every time chunk is uploaded rustus updates information about upload. And when someone wants to download file, information about it requested from storage to get actual path of an upload.
       '';
-      default = { };
+      default = {};
       type = lib.types.submodule {
         options = {
           type = lib.mkOption {
-            type = lib.types.enum [ "file-info-storage" ];
+            type = lib.types.enum ["file-info-storage"];
             description = "Type of info storage to use";
             default = "file-info-storage";
           };
@@ -205,69 +202,72 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.services.rustus = let
+      isHybridS3 = cfg.storage.type == "hybrid-s3";
+    in {
+      description = "Rustus server";
+      documentation = ["https://s3rius.github.io/rustus/"];
 
-    systemd.services.rustus =
-      let
-        isHybridS3 = cfg.storage.type == "hybrid-s3";
-      in
-      {
-        description = "Rustus server";
-        documentation = [ "https://s3rius.github.io/rustus/" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-
-        environment = {
-          RUSTUS_SERVER_HOST = cfg.host;
-          RUSTUS_SERVER_PORT = toString cfg.port;
-          RUSTUS_LOG_LEVEL = cfg.log_level;
-          RUSTUS_MAX_BODY_SIZE = cfg.max_body_size;
-          RUSTUS_URL = cfg.url;
-          RUSTUS_DISABLE_HEALTH_ACCESS_LOG = lib.mkIf cfg.disable_health_access_logs "true";
-          RUSTUS_CORS = lib.concatStringsSep "," cfg.cors;
-          RUSTUS_TUS_EXTENSIONS = lib.concatStringsSep "," cfg.tus_extensions;
-          RUSTUS_REMOVE_PARTS = if cfg.remove_parts then "true" else "false";
-          RUSTUS_STORAGE = cfg.storage.type;
-          RUSTUS_DATA_DIR = cfg.storage.data_dir;
-          RUSTUS_DIR_STRUCTURE = cfg.storage.dir_structure;
-          RUSTUS_FORCE_FSYNC = if cfg.storage.force_sync then "true" else "false";
-          RUSTUS_S3_URL = mkIf isHybridS3 cfg.storage.s3_url;
-          RUSTUS_S3_BUCKET = mkIf isHybridS3 cfg.storage.s3_bucket;
-          RUSTUS_S3_REGION = mkIf isHybridS3 cfg.storage.s3_region;
-          RUSTUS_S3_ACCESS_KEY_PATH = mkIf isHybridS3 "%d/S3_ACCESS_KEY_PATH";
-          RUSTUS_S3_SECRET_KEY_PATH = mkIf isHybridS3 "%d/S3_SECRET_KEY_PATH";
-          RUSTUS_INFO_STORAGE = cfg.info_storage.type;
-          RUSTUS_INFO_DIR = cfg.info_storage.dir;
-        };
-
-        serviceConfig = {
-          ExecStart = "${pkgs.rustus}/bin/rustus";
-          StateDirectory = "rustus";
-          # User name is defined here to enable restoring a backup for example
-          # You will run the backup restore command as sudo -u rustus in order
-          # to have write permissions to /var/lib
-          User = "rustus";
-          DynamicUser = true;
-          LoadCredential = lib.optionals isHybridS3 [
-            "S3_ACCESS_KEY_PATH:${cfg.storage.s3_access_key_file}"
-            "S3_SECRET_KEY_PATH:${cfg.storage.s3_secret_key_file}"
-          ];
-          # hardening
-          RestrictRealtime = true;
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-          ProtectHostUserNamespaces = true;
-          ProtectClock = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          CapabilityBoundingSet = "";
-          ProtectProc = "invisible";
-          # TODO consider SystemCallFilter LimitAS ProcSubset
-        };
+      environment = {
+        RUSTUS_SERVER_HOST = cfg.host;
+        RUSTUS_SERVER_PORT = toString cfg.port;
+        RUSTUS_LOG_LEVEL = cfg.log_level;
+        RUSTUS_MAX_BODY_SIZE = cfg.max_body_size;
+        RUSTUS_URL = cfg.url;
+        RUSTUS_DISABLE_HEALTH_ACCESS_LOG = lib.mkIf cfg.disable_health_access_logs "true";
+        RUSTUS_CORS = lib.concatStringsSep "," cfg.cors;
+        RUSTUS_TUS_EXTENSIONS = lib.concatStringsSep "," cfg.tus_extensions;
+        RUSTUS_REMOVE_PARTS =
+          if cfg.remove_parts
+          then "true"
+          else "false";
+        RUSTUS_STORAGE = cfg.storage.type;
+        RUSTUS_DATA_DIR = cfg.storage.data_dir;
+        RUSTUS_DIR_STRUCTURE = cfg.storage.dir_structure;
+        RUSTUS_FORCE_FSYNC =
+          if cfg.storage.force_sync
+          then "true"
+          else "false";
+        RUSTUS_S3_URL = mkIf isHybridS3 cfg.storage.s3_url;
+        RUSTUS_S3_BUCKET = mkIf isHybridS3 cfg.storage.s3_bucket;
+        RUSTUS_S3_REGION = mkIf isHybridS3 cfg.storage.s3_region;
+        RUSTUS_S3_ACCESS_KEY_PATH = mkIf isHybridS3 "%d/S3_ACCESS_KEY_PATH";
+        RUSTUS_S3_SECRET_KEY_PATH = mkIf isHybridS3 "%d/S3_SECRET_KEY_PATH";
+        RUSTUS_INFO_STORAGE = cfg.info_storage.type;
+        RUSTUS_INFO_DIR = cfg.info_storage.dir;
       };
+
+      serviceConfig = {
+        ExecStart = "${pkgs.rustus}/bin/rustus";
+        StateDirectory = "rustus";
+        # User name is defined here to enable restoring a backup for example
+        # You will run the backup restore command as sudo -u rustus in order
+        # to have write permissions to /var/lib
+        User = "rustus";
+        DynamicUser = true;
+        LoadCredential = lib.optionals isHybridS3 [
+          "S3_ACCESS_KEY_PATH:${cfg.storage.s3_access_key_file}"
+          "S3_SECRET_KEY_PATH:${cfg.storage.s3_secret_key_file}"
+        ];
+        # hardening
+        RestrictRealtime = true;
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        ProtectHostUserNamespaces = true;
+        ProtectClock = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        CapabilityBoundingSet = "";
+        ProtectProc = "invisible";
+        # TODO consider SystemCallFilter LimitAS ProcSubset
+      };
+    };
   };
 }

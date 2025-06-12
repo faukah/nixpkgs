@@ -29,17 +29,17 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # has no tests
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://pypi.org/project/pkgutil_resolve_name/";
     description = "Backport of Python 3.9’s pkgutil.resolve_name";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yajo ];
+    maintainers = with lib.maintainers; [yajo];
   };
 }

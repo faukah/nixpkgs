@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   python-dateutil,
-
   # tests
   pytestCheckHook,
   duckdb,
 }:
-
 buildPythonPackage rec {
   pname = "sqlglot";
   version = "26.16.2";
@@ -42,13 +38,13 @@ buildPythonPackage rec {
     duckdb
   ];
 
-  pythonImportsCheck = [ "sqlglot" ];
+  pythonImportsCheck = ["sqlglot"];
 
   meta = {
     description = "No dependency Python SQL parser, transpiler, and optimizer";
     homepage = "https://github.com/tobymao/sqlglot";
     changelog = "https://github.com/tobymao/sqlglot/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cpcloud ];
+    maintainers = with lib.maintainers; [cpcloud];
   };
 }

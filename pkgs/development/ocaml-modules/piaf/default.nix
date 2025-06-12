@@ -20,7 +20,6 @@
   dune-site,
   eio_main,
 }:
-
 buildDunePackage rec {
   pname = "piaf";
   version = "0.2.0";
@@ -58,6 +57,6 @@ buildDunePackage rec {
     description = "HTTP library with HTTP/2 support written entirely in OCaml";
     homepage = "https://github.com/anmonteiro/piaf";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ anmonteiro ];
+    maintainers = with lib.maintainers; [anmonteiro];
   };
 }

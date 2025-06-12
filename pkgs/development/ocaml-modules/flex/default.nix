@@ -4,7 +4,6 @@
   lib,
   reason,
 }:
-
 buildDunePackage {
   pname = "flex";
   version = "unstable-2020-09-12";
@@ -16,12 +15,12 @@ buildDunePackage {
     sha256 = "sha256-GomTOdlU5ZwElKK8CM4DEMr51YDIrFKmTxUCGMLL3c4=";
   };
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   meta = with lib; {
     description = "Native Reason implementation of CSS Flexbox layout. An Yoga project port";
     homepage = "https://github.com/jordwalke/flex";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

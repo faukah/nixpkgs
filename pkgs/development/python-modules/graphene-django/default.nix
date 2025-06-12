@@ -4,14 +4,12 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   graphene,
   graphql-core,
   django,
   djangorestframework,
   promise,
   text-unidecode,
-
   django-filter,
   mock,
   py,
@@ -19,7 +17,6 @@
   pytest-random-order,
   pytest7CheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "graphene-django";
   version = "3.2.3";
@@ -79,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/graphql-python/graphene-django";
     changelog = "https://github.com/graphql-python/graphene-django/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

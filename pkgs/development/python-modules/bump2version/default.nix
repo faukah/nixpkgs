@@ -7,7 +7,6 @@
   setuptools,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "bump2version";
   version = "1.0.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "sha256-j6HKi3jTwSgGBrA8PCJJNg+yQqRMo1aqaLgPGf4KAKU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     "test_defaults_in_usage_with_config"
   ];
 
-  pythonImportsCheck = [ "bumpversion" ];
+  pythonImportsCheck = ["bumpversion"];
 
   meta = with lib; {
     description = "Version-bump your software with a single command";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/c4urself/bump2version";
     changelog = "https://github.com/c4urself/bump2version/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jefflabonte ];
+    maintainers = with maintainers; [jefflabonte];
   };
 }

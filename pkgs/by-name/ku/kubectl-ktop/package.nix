@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-ktop";
   version = "0.3.7";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-MLIcTHWo7lsqtAqH8naSvpS013t8KBVPRbch+CfeUNk=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://github.com/vladimirvivien/ktop";
     changelog = "https://github.com/vladimirvivien/ktop/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

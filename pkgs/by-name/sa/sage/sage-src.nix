@@ -5,12 +5,10 @@
   fetchpatch,
   fetchurl,
 }:
-
 # This file is responsible for fetching the sage source and adding necessary patches.
 # It does not actually build anything, it just copies the patched sources to $out.
 # This is done because multiple derivations rely on these sources and they should
 # all get the same sources with the same patches applied.
-
 stdenv.mkDerivation rec {
   version = "10.6";
   pname = "sage-src";

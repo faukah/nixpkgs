@@ -19,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-zLnvbu0G2mJKCHLCjbIKHBqSfdEyhR+1afkOFU++TfI=";
   };
 
-  propagatedBuildInputs = [ kicad ];
+  propagatedBuildInputs = [kicad];
 
-  nativeBuildInputs = [ versioneer ];
+  nativeBuildInputs = [versioneer];
 
-  pythonImportsCheck = [ "pcbnewTransition" ];
+  pythonImportsCheck = ["pcbnewTransition"];
 
   meta = with lib; {
     description = "Library that allows you to support both, KiCad 5, 6 and 7 in your plugins";

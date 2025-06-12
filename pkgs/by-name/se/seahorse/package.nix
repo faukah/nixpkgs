@@ -27,7 +27,6 @@
   gsettings-desktop-schemas,
   libhandy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seahorse";
   version = "47.0.1";
@@ -75,13 +74,13 @@ stdenv.mkDerivation rec {
 
   env =
     lib.optionalAttrs (stdenv.cc.isGNU && (lib.versionAtLeast (lib.getVersion stdenv.cc.cc) "14"))
-      {
-        NIX_CFLAGS_COMPILE = toString [
-          "-Wno-error=implicit-function-declaration"
-          "-Wno-error=int-conversion"
-          "-Wno-error=return-mismatch"
-        ];
-      };
+    {
+      NIX_CFLAGS_COMPILE = toString [
+        "-Wno-error=implicit-function-declaration"
+        "-Wno-error=int-conversion"
+        "-Wno-error=return-mismatch"
+      ];
+    };
 
   preCheck = ''
     # Add “org.gnome.crypto.pgp” GSettings schema to path
@@ -109,7 +108,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/seahorse";
     description = "Application for managing encryption keys and passwords in the GnomeKeyring";
     mainProgram = "seahorse";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

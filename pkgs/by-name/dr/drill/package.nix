@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "drill";
   version = "0.8.3";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "HTTP load testing application inspired by Ansible syntax";
     homepage = "https://github.com/fcsonline/drill";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "drill";
   };
 }

@@ -6,7 +6,6 @@
   installShellFiles,
   openssl,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "grype";
   version = "0.92.2";
@@ -32,14 +31,14 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-Dp+BVwlBqMbAZivOHQWALMrLVtAncGT/rvbbIk1BFFQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     git
     openssl
   ];
 
-  subPackages = [ "cmd/grype" ];
+  subPackages = ["cmd/grype"];
 
   excludedPackages = "test/integration";
 
@@ -125,7 +124,7 @@ buildGoModule (finalAttrs: {
       As a vulnerability scanner grype is able to scan the contents of a
       container image or filesystem to find known vulnerabilities.
     '';
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     maintainers = with lib.maintainers; [
       fab
       jk

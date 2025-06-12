@@ -3,9 +3,7 @@
   fetchurl,
   buildDotnetPackage,
   unzip,
-}:
-
-attrs@{
+}: attrs @ {
   pname,
   version,
   url ? "https://www.nuget.org/api/v2/package/${pname}/${version}",
@@ -14,13 +12,14 @@ attrs@{
   md5 ? "",
   ...
 }:
-if md5 != "" then
+if md5 != ""
+then
   throw "fetchnuget does not support md5 anymore, please use 'hash' attribute with SRI hash: ${
-    lib.generators.toPretty { } attrs
+    lib.generators.toPretty {} attrs
   }"
 # This is also detected in fetchurl, but we just throw here to avoid confusion
-else if (sha256 != "" && hash != "") then
-  throw "multiple hashes passed to fetchNuGet: ${lib.generators.toPretty { } url}"
+else if (sha256 != "" && hash != "")
+then throw "multiple hashes passed to fetchNuGet: ${lib.generators.toPretty {} url}"
 else
   buildDotnetPackage (
     {
@@ -31,7 +30,7 @@ else
 
       sourceRoot = ".";
 
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
 
       dontBuild = true;
 

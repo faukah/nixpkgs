@@ -3,35 +3,33 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.aria2;
 
   homeDir = "/var/lib/aria2";
   defaultRpcListenPort = 6800;
   defaultDir = "${homeDir}/Downloads";
 
-  portRangesToString =
-    ranges:
+  portRangesToString = ranges:
     lib.concatStringsSep "," (
       map (
         x:
-        if x.from == x.to then
-          builtins.toString x.from
-        else
-          builtins.toString x.from + "-" + builtins.toString x.to
-      ) ranges
+          if x.from == x.to
+          then builtins.toString x.from
+          else builtins.toString x.from + "-" + builtins.toString x.to
+      )
+      ranges
     );
 
   customToKeyValue = lib.generators.toKeyValue {
     mkKeyValue = lib.generators.mkKeyValueDefault {
-      mkValueString =
-        v: if builtins.isList v then portRangesToString v else lib.generators.mkValueStringDefault { } v;
+      mkValueString = v:
+        if builtins.isList v
+        then portRangesToString v
+        else lib.generators.mkValueStringDefault {} v;
     } "=";
   };
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -43,17 +41,20 @@ in
       "aria2"
       "extraArguments"
     ] "Use services.aria2.settings instead")
-    (lib.mkRenamedOptionModule
-      [ "services" "aria2" "downloadDir" ]
-      [ "services" "aria2" "settings" "dir" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "aria2" "downloadDir"]
+      ["services" "aria2" "settings" "dir"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "aria2" "listenPortRange" ]
-      [ "services" "aria2" "settings" "listen-port" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "aria2" "listenPortRange"]
+      ["services" "aria2" "settings" "listen-port"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "aria2" "rpcListenPort" ]
-      [ "services" "aria2" "settings" "rpc-listen-port" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "aria2" "rpcListenPort"]
+      ["services" "aria2" "settings" "rpc-listen-port"]
     )
   ];
 
@@ -123,10 +124,9 @@ in
 
           [0]: https://aria2.github.io/manual/en/html/aria2c.html#synopsis
         '';
-        default = { };
+        default = {};
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             attrsOf (oneOf [
               bool
               int
@@ -190,7 +190,7 @@ in
     # Need to open ports for proper functioning
     networking.firewall = lib.mkIf cfg.openPorts {
       allowedUDPPortRanges = config.services.aria2.settings.listen-port;
-      allowedTCPPorts = [ config.services.aria2.settings.rpc-listen-port ];
+      allowedTCPPorts = [config.services.aria2.settings.rpc-listen-port];
     };
 
     users.users.aria2 = {
@@ -210,8 +210,8 @@ in
 
     systemd.services.aria2 = {
       description = "aria2 Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         if [[ ! -e "${cfg.settings.save-session}" ]]
         then
@@ -234,5 +234,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.timhae ];
+  meta.maintainers = [lib.maintainers.timhae];
 }

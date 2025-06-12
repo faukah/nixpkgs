@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "1.1.1";
   pname = "grappelli-safe";
@@ -19,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-7jSz4qNxFJix+No9naqKEjnv3yVaISGBdCtqWJD6wDk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "grappelli_safe" ];
+  pythonImportsCheck = ["grappelli_safe"];
 
   meta = with lib; {
     description = "Snapshot of django-grappelli for the Mezzanine CMS";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     downloadPage = "http://pypi.python.org/pypi/grappelli_safe/";
     changelog = "https://github.com/stephenmcd/grappelli-safe/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

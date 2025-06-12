@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.cdemu;
-in
-{
-
+in {
   options = {
     programs.cdemu = {
       enable = lib.mkOption {
@@ -45,20 +41,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     boot = {
-      extraModulePackages = [ config.boot.kernelPackages.vhba ];
-      kernelModules = [ "vhba" ];
+      extraModulePackages = [config.boot.kernelPackages.vhba];
+      kernelModules = ["vhba"];
     };
 
     services = {
       udev.extraRules = ''
         KERNEL=="vhba_ctl", MODE="0660", OWNER="root", GROUP="${cfg.group}"
       '';
-      dbus.packages = [ pkgs.cdemu-daemon ];
+      dbus.packages = [pkgs.cdemu-daemon];
     };
 
-    users.groups.${config.programs.cdemu.group} = { };
+    users.groups.${config.programs.cdemu.group} = {};
 
     # Systemd User service
     # manually adapted from example in source package:
@@ -79,5 +74,4 @@ in
       ++ lib.optional cfg.gui pkgs.gcdemu
       ++ lib.optional cfg.image-analyzer pkgs.image-analyzer;
   };
-
 }

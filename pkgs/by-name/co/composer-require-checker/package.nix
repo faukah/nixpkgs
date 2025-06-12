@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "composer-require-checker";
   version = "4.16.1";
@@ -19,15 +18,15 @@ php.buildComposerProject2 (finalAttrs: {
   vendorHash = "sha256-bNeQEfwXly3LFuEKeSK6J6pRfQF6TNwUqu3SdTswmFI=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
     description = "CLI tool to check whether a specific composer package uses imported symbols that aren't part of its direct composer dependencies";
     homepage = "https://github.com/maglnet/ComposerRequireChecker/";
     changelog = "https://github.com/maglnet/ComposerRequireChecker/releases/tag/${finalAttrs.version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ drupol ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "composer-require-checker";
   };
 })

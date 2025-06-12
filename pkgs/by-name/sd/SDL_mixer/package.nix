@@ -17,7 +17,6 @@
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
   enableSmpegtest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_mixer";
   version = "1.2.12";
@@ -114,7 +113,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "SDL multi-channel audio mixer library";
     homepage = "http://www.libsdl.org/projects/SDL_mixer/";
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     license = lib.licenses.zlib;
     inherit (SDL.meta) platforms;
   };

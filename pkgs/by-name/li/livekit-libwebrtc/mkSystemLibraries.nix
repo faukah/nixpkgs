@@ -11,8 +11,7 @@
   libxslt,
   minizip,
   ffmpeg_6,
-}:
-{
+}: {
   "brotli" = {
     package = brotli;
     path = "third_party/brotli/BUILD.gn";

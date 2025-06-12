@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-9yAvqz99YlBfFU/hGs1PB/sH0iOyWaVadqGhfXMkj5E=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = 1;
 
@@ -29,19 +29,20 @@ buildGoModule rec {
   ];
 
   passthru = {
-    inherit (callPackages ./lib.nix { })
+    inherit
+      (callPackages ./lib.nix {})
       evalConfig
       withConfig
       buildConfig
       ;
 
-    tests = callPackages ./tests.nix { };
+    tests = callPackages ./tests.nix {};
 
     # Documentation for functions defined in `./lib.nix`
-    functionsDoc = callPackages ./functions-doc.nix { };
+    functionsDoc = callPackages ./functions-doc.nix {};
 
     # Documentation for options declared in `treefmt.evalConfig` configurations
-    optionsDoc = callPackages ./options-doc.nix { };
+    optionsDoc = callPackages ./options-doc.nix {};
   };
 
   meta = {

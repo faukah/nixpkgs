@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apache-felix";
   version = "7.0.5";
@@ -20,9 +19,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OSGi gateway";
     homepage = "https://felix.apache.org";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     mainProgram = "felix.jar";
   };
 }

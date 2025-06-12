@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pymupdf-fonts";
   version = "1.0.5";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "pymupdf_fonts" ];
+  pythonImportsCheck = ["pymupdf_fonts"];
 
   meta = {
     description = "Collection of optional fonts for PyMuPDF";
     homepage = "https://github.com/pymupdf/pymupdf-fonts";
     license = lib.licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

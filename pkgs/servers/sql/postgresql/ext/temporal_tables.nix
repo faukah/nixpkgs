@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "temporal_tables";
   version = "1.2.2";
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
   meta = {
     description = "Temporal Tables PostgreSQL Extension";
     homepage = "https://github.com/arkhipov/temporal_tables";
-    maintainers = with lib.maintainers; [ ggpeti ];
+    maintainers = with lib.maintainers; [ggpeti];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.bsd2;
   };

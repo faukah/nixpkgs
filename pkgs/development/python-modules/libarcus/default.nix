@@ -8,7 +8,6 @@
   sip4,
   protobuf,
 }:
-
 buildPythonPackage rec {
   pname = "libarcus";
   version = "4.12.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ sip4 ];
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ protobuf ];
+  propagatedBuildInputs = [sip4];
+  nativeBuildInputs = [cmake];
+  buildInputs = [protobuf];
 
   postPatch = ''
     sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake

@@ -7,7 +7,6 @@
   hatchling,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-llms-openai";
   version = "0.3.44";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     "llama-index-agent-openai"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     llama-index-core
@@ -36,12 +35,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.llms.openai" ];
+  pythonImportsCheck = ["llama_index.llms.openai"];
 
   meta = with lib; {
     description = "LlamaIndex LLMS Integration for OpenAI";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/llms/llama-index-llms-openai";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

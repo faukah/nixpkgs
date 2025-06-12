@@ -5,7 +5,6 @@
   rakudo,
   makeBinaryWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zef";
   version = "1.0.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ugexe/zef";
     license = lib.licenses.artistic2;
     mainProgram = "zef";
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
     platforms = lib.platforms.unix;
   };
 })

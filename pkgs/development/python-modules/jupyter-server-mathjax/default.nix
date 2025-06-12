@@ -8,7 +8,6 @@
   pytest-jupyter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-server-mathjax";
   version = "0.2.6";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ jupyter-server ];
+  propagatedBuildInputs = [jupyter-server];
 
   nativeCheckInputs = [
     pytest-jupyter
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jupyter_server_mathjax" ];
+  pythonImportsCheck = ["jupyter_server_mathjax"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "MathJax resources as a Jupyter Server Extension";
     homepage = "https://github.com/jupyter-server/jupyter_server_mathjax";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

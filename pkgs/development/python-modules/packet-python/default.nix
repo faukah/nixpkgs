@@ -8,7 +8,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "packet-python";
   version = "1.44.3";
@@ -26,22 +25,22 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-mock
   ];
 
-  pythonImportsCheck = [ "packet" ];
+  pythonImportsCheck = ["packet"];
 
   meta = with lib; {
     description = "Python client for the Packet API";
     homepage = "https://github.com/packethost/packet-python";
     changelog = "https://github.com/packethost/packet-python/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ dipinhora ];
+    maintainers = with maintainers; [dipinhora];
   };
 }

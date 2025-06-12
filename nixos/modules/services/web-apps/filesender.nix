@@ -3,28 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-let
-  format = pkgs.formats.php { finalVariable = "config"; };
+}: let
+  format = pkgs.formats.php {finalVariable = "config";};
 
   cfg = config.services.filesender;
   simpleSamlCfg = config.services.simplesamlphp.filesender;
   fpm = config.services.phpfpm.pools.filesender;
 
-  filesenderConfigDirectory = pkgs.runCommand "filesender-config" { } ''
+  filesenderConfigDirectory = pkgs.runCommand "filesender-config" {} ''
     mkdir $out
     cp ${format.generate "config.php" cfg.settings} $out/config.php
   '';
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ nhnn ];
+    maintainers = with lib.maintainers; [nhnn];
     doc = ./filesender.md;
   };
 
   options.services.filesender = with lib; {
     enable = mkEnableOption "FileSender";
-    package = mkPackageOption pkgs "filesender" { };
+    package = mkPackageOption pkgs "filesender" {};
     user = mkOption {
       description = "User under which filesender runs.";
       type = types.str;
@@ -97,12 +95,12 @@ in
           };
           log_facilities = mkOption {
             type = format.type;
-            default = [ { type = "error_log"; } ];
+            default = [{type = "error_log";}];
             description = "Defines where FileSender logging is sent. You can sent logging to a file, to syslog or to the default PHP log facility (as configured through your webserver's PHP module). The directive takes an array of one or more logging targets. Logging can be sent to multiple targets simultaneously. Each logging target is a list containing the name of the logging target and a number of attributes which vary per log target. See below for the exact definiation of each log target.";
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Configuration options used by FileSender.
         See [](https://docs.filesender.org/filesender/v2.0/admin/configuration/)
@@ -120,8 +118,7 @@ in
       description = "The domain serving your FileSender instance.";
     };
     poolSettings = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -155,10 +152,12 @@ in
           FILESENDER_CONFIG_DIR = toString filesenderConfigDirectory;
           SIMPLESAMLPHP_CONFIG_DIR = toString simpleSamlCfg.configDir;
         };
-        settings = {
-          "listen.owner" = config.services.nginx.user;
-          "listen.group" = config.services.nginx.group;
-        } // cfg.poolSettings;
+        settings =
+          {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          // cfg.poolSettings;
       };
     };
 
@@ -190,7 +189,7 @@ in
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -227,7 +226,7 @@ in
         "multi-user.target"
         "phpfpm-filesender.service"
       ];
-      after = [ "postgresql.service" ];
+      after = ["postgresql.service"];
 
       restartIfChanged = true;
 

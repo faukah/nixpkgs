@@ -12,7 +12,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sleuthkit";
   version = "4.12.1"; # Note: when updating don't forget to also update the rdeps outputHash

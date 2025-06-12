@@ -40,7 +40,6 @@
   gnome-session-ctl,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-settings-daemon";
   version = "48.1";
@@ -133,7 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

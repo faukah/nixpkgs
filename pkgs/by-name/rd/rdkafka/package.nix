@@ -10,7 +10,6 @@
   ninja,
   deterministic-host-uname,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rdkafka";
   version = "2.10.0";
@@ -72,6 +71,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/confluentinc/librdkafka";
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ commandodev ];
+    maintainers = with maintainers; [commandodev];
   };
 })

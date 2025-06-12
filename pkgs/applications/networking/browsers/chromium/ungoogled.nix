@@ -4,13 +4,10 @@
   python3Packages,
   makeWrapper,
   patch,
-}:
-
-{
+}: {
   rev,
   hash,
 }:
-
 stdenv.mkDerivation {
   pname = "ungoogled-chromium";
 

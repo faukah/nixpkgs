@@ -7,7 +7,6 @@
   gtk3,
   glib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "filepicker";
   version = "1.0.1";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/paulrouget/static-filepicker";
     license = licenses.gpl2;
     mainProgram = "filepicker";
-    maintainers = with maintainers; [ hannesgith ];
+    maintainers = with maintainers; [hannesgith];
   };
 }

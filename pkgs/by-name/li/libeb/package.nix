@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ perl ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [perl];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "C library for accessing Japanese CD-ROM books";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       the EB, EBG, EBXA, EBXA-C, S-EBXA and EPWING formats.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   unstableGitUpdater,
 }:
-
 buildGoModule {
   pname = "gssg";
   version = "0-unstable-2023-05-29";
@@ -24,14 +23,14 @@ buildGoModule {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     description = "Gemini static site generator";
     homepage = "https://git.sr.ht/~gsthnz/gssg";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "gssg";
   };
 }

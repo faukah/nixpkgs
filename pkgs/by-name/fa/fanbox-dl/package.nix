@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "fanbox-dl";
   version = "0.27.3";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "fanbox-dl";
     homepage = "https://github.com/hareku/fanbox-dl";
     license = licenses.mit;
-    maintainers = [ maintainers.moni ];
+    maintainers = [maintainers.moni];
   };
 }

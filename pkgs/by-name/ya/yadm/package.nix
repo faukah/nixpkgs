@@ -8,13 +8,13 @@
   openssl,
   gawk,
   /*
-    TODO: yadm can use git-crypt and transcrypt
-    but it does so in a way that resholve 0.6.0
-    can't yet do anything smart about. It looks
-    like these are for interactive use, so the
-    main impact should just be that users still
-    need both of these packages in their profile
-    to support their use in yadm.
+  TODO: yadm can use git-crypt and transcrypt
+  but it does so in a way that resholve 0.6.0
+  can't yet do anything smart about. It looks
+  like these are for interactive use, so the
+  main impact should just be that users still
+  need both of these packages in their profile
+  to support their use in yadm.
   */
   # , git-crypt
   # , transcrypt
@@ -27,12 +27,11 @@
   runCommand,
   yadm,
 }:
-
 resholve.mkDerivation rec {
   pname = "yadm";
   version = "3.3.0";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   src = fetchFromGitHub {
     owner = "TheLocehiliosan";
@@ -59,7 +58,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     yadm = {
-      scripts = [ "bin/yadm" ];
+      scripts = ["bin/yadm"];
       interpreter = "${bash}/bin/sh";
       inputs = [
         git
@@ -76,18 +75,21 @@ resholve.mkDerivation rec {
         gnutar
       ];
       fake = {
-        external = if stdenv.hostPlatform.isCygwin then [ ] else [ "cygpath" ];
+        external =
+          if stdenv.hostPlatform.isCygwin
+          then []
+          else ["cygpath"];
       };
       fix = {
-        "$GPG_PROGRAM" = [ "gpg" ];
-        "$OPENSSL_PROGRAM" = [ "openssl" ];
-        "$GIT_PROGRAM" = [ "git" ];
-        "$AWK_PROGRAM" = [ "awk" ];
+        "$GPG_PROGRAM" = ["gpg"];
+        "$OPENSSL_PROGRAM" = ["openssl"];
+        "$GIT_PROGRAM" = ["git"];
+        "$AWK_PROGRAM" = ["awk"];
         # see head comment
         # "$GIT_CRYPT_PROGRAM" = [ "git-crypt" ];
         # "$TRANSCRYPT_PROGRAM" = [ "transcrypt" ];
-        "$J2CLI_PROGRAM" = [ "j2" ];
-        "$ESH_PROGRAM" = [ "esh" ];
+        "$J2CLI_PROGRAM" = ["j2"];
+        "$ESH_PROGRAM" = ["esh"];
         # not in nixpkgs (yet)
         # "$ENVTPL_PROGRAM" = [ "envtpl" ];
         # "$LSB_RELEASE_PROGRAM" = [ "lsb_release" ];
@@ -97,15 +99,15 @@ resholve.mkDerivation rec {
         "$template_cmd" = true; # dynamic, template-engine
         "$SHELL" = true; # probably user env? unsure
         "$hook_command" = true; # ~git hooks?
-        "exec" = [ "$YADM_BOOTSTRAP" ]; # yadm bootstrap script
+        "exec" = ["$YADM_BOOTSTRAP"]; # yadm bootstrap script
 
         # not in nixpkgs
         "$ENVTPL_PROGRAM" = true;
         "$LSB_RELEASE_PROGRAM" = true;
       };
       /*
-        TODO: these should be dropped as fast as they can be dealt
-              with properly in binlore and/or resholve.
+      TODO: these should be dropped as fast as they can be dealt
+            with properly in binlore and/or resholve.
       */
       execer = [
         "cannot:${j2cli}/bin/j2"
@@ -117,7 +119,7 @@ resholve.mkDerivation rec {
   };
 
   passthru.tests = {
-    minimal = runCommand "${pname}-test" { } ''
+    minimal = runCommand "${pname}-test" {} ''
       export HOME=$out
       ${yadm}/bin/yadm init
     '';
@@ -134,7 +136,7 @@ resholve.mkDerivation rec {
     '';
     changelog = "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ abathur ];
+    maintainers = with lib.maintainers; [abathur];
     platforms = lib.platforms.unix;
     mainProgram = "yadm";
   };

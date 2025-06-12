@@ -9,7 +9,6 @@
   pkg-config,
   json-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bitlbee-facebook";
   version = "1.2.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Facebook protocol plugin for bitlbee";
     homepage = "https://github.com/bitlbee/bitlbee-facebook";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ toonn ];
+    maintainers = with maintainers; [toonn];
     platforms = platforms.linux;
   };
 }

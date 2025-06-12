@@ -7,7 +7,6 @@
   coreutils,
   gnugrep,
 }:
-
 stdenv.mkDerivation rec {
   pname = "likwid";
   version = "5.4.1";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-V3OFFFXbukieLjc1kx5RVHN3zReWyYKlrIjQ8imcCBE=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     ./nosetuid.patch
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
 
   postPatch = "patchShebangs bench/ perl/";
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://hpc.fau.de/research/tools/likwid/";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     # Might work on ARM by appropriately setting COMPILER in config.mk
     platforms = lib.intersectLists lib.platforms.linux lib.platforms.x86;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "likwid-perfctr";
   };
 }

@@ -5,7 +5,6 @@
   ldc,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtools";
   version = "2.110.0";
@@ -25,8 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-ldc-arm64.diff
   ];
 
-  nativeBuildInputs = [ ldc ];
-  buildInputs = [ curl ];
+  nativeBuildInputs = [ldc];
+  buildInputs = [curl];
 
   makeFlags = [
     "CC=${stdenv.cc}/bin/cc"
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Ancillary tools for the D programming language";
     homepage = "https://github.com/dlang/tools";
     license = licenses.boost;
-    maintainers = with maintainers; [ jtbx ];
+    maintainers = with maintainers; [jtbx];
     platforms = platforms.unix;
   };
 })

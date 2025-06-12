@@ -16,7 +16,6 @@
   scipy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "qcengine";
   version = "0.32.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-HvvWak7a2djF6wDJaHsBltaG1dTGbKH7wjsngO+fh2U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msgpack
@@ -50,15 +49,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "qcengine" ];
+  pythonImportsCheck = ["qcengine"];
 
   meta = with lib; {
     description = "Quantum chemistry program executor and IO standardizer (QCSchema) for quantum chemistry";
     homepage = "https://molssi.github.io/QCElemental/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
     mainProgram = "qcengine";
   };
 }

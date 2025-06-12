@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   bitarray,
   ckzg,
@@ -17,14 +15,12 @@
   hexbytes,
   rlp,
   websockets,
-
   # tests
   hypothesis,
   pydantic,
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "eth-account";
   version = "0.13.5";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-CBD0vJLYA+3FreOTsVXJlDJhRvPbDUn4X55o6EF+uBA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bitarray
@@ -72,13 +68,13 @@ buildPythonPackage rec {
     "test_install_local_wheel"
   ];
 
-  pythonImportsCheck = [ "eth_account" ];
+  pythonImportsCheck = ["eth_account"];
 
   meta = {
     description = "Account abstraction library for web3.py";
     homepage = "https://github.com/ethereum/eth-account";
     changelog = "https://github.com/ethereum/eth-account/blob/v${version}/docs/release_notes.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

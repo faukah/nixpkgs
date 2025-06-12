@@ -3,17 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.kbdlight;
-
-in
-{
+in {
   options.programs.kbdlight.enable = lib.mkEnableOption "kbdlight";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.kbdlight ];
+    environment.systemPackages = [pkgs.kbdlight];
     security.wrappers.kbdlight = {
       setuid = true;
       owner = "root";

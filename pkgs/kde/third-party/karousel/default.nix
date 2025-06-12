@@ -7,7 +7,6 @@
   nodejs,
   typescript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "karousel";
   version = "0.13";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
     typescript
   ];
-  buildInputs = [ kwin ];
+  buildInputs = [kwin];
   dontWrapQtApps = true;
 
   installPhase = ''
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Scrollable tiling Kwin script";
     homepage = "https://github.com/peterfajdiga/karousel";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
     platforms = lib.platforms.all;
   };
 })

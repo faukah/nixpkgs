@@ -5,7 +5,6 @@
   makeWrapper,
   unstableGitUpdater,
 }:
-
 buildLua {
   pname = "video-cutter";
   version = "0-unstable-2023-11-10";
@@ -16,9 +15,9 @@ buildLua {
     rev = "01a0396c075d5f8bbd1de5b571e6231f8899ab65";
     sha256 = "sha256-veoRFzUCRH8TrvR7x+WWoycpDyxqrJZ/bnp61dVc0pE=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace cutter.lua \
@@ -32,7 +31,7 @@ buildLua {
   '';
 
   passthru.scriptName = "cutter.lua";
-  extraScripts = [ "c_concat.sh" ];
+  extraScripts = ["c_concat.sh"];
 
   postInstall = ''
     wrapProgram $out/share/mpv/scripts/c_concat.sh \
@@ -43,6 +42,6 @@ buildLua {
     description = "Cut videos and concat them automatically";
     homepage = "https://github.com/rushmj/mpv-video-cutter";
     license = licenses.mit;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
   };
 }

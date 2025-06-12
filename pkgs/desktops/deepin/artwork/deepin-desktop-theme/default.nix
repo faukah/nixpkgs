@@ -10,7 +10,6 @@
   hicolor-icon-theme,
   deepin-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-desktop-theme";
   version = "1.0.13";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-uNeRAsPbgC7IHHBIlczPXhnwZI65Le70D9MsbH+6Fwk=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   nativeBuildInputs = [
     cmake
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
     ];
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -4,13 +4,9 @@
   socket ? true, # whether to use socket activation
   listenTcp ? true, # whether to open port 631 on client
   ...
-}:
-
-let
+}: let
   inherit (pkgs) lib;
-in
-
-{
+in {
   name = "printing";
   meta = with lib.maintainers; {
     maintainers = [
@@ -18,49 +14,45 @@ in
     ];
   };
 
-  nodes.server =
-    { ... }:
-    {
-      services.printing = {
-        enable = true;
-        stateless = true;
-        startWhenNeeded = socket;
-        listenAddresses = [ "*:631" ];
-        defaultShared = true;
-        openFirewall = true;
-        extraConf = ''
-          <Location />
-            Order allow,deny
-            Allow from all
-          </Location>
-        '';
-      };
-      # Add a HP Deskjet printer connected via USB to the server.
-      hardware.printers.ensurePrinters = [
-        {
-          name = "DeskjetLocal";
-          deviceUri = "usb://foobar/printers/foobar";
-          model = "drv:///sample.drv/deskjet.ppd";
-        }
-      ];
+  nodes.server = {...}: {
+    services.printing = {
+      enable = true;
+      stateless = true;
+      startWhenNeeded = socket;
+      listenAddresses = ["*:631"];
+      defaultShared = true;
+      openFirewall = true;
+      extraConf = ''
+        <Location />
+          Order allow,deny
+          Allow from all
+        </Location>
+      '';
     };
+    # Add a HP Deskjet printer connected via USB to the server.
+    hardware.printers.ensurePrinters = [
+      {
+        name = "DeskjetLocal";
+        deviceUri = "usb://foobar/printers/foobar";
+        model = "drv:///sample.drv/deskjet.ppd";
+      }
+    ];
+  };
 
-  nodes.client =
-    { lib, ... }:
-    {
-      services.printing.enable = true;
-      services.printing.startWhenNeeded = socket;
-      services.printing.listenAddresses = lib.mkIf (!listenTcp) [ ];
-      # Add printer to the client as well, via IPP.
-      hardware.printers.ensurePrinters = [
-        {
-          name = "DeskjetRemote";
-          deviceUri = "ipp://server/printers/DeskjetLocal";
-          model = "drv:///sample.drv/deskjet.ppd";
-        }
-      ];
-      hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
-    };
+  nodes.client = {lib, ...}: {
+    services.printing.enable = true;
+    services.printing.startWhenNeeded = socket;
+    services.printing.listenAddresses = lib.mkIf (!listenTcp) [];
+    # Add printer to the client as well, via IPP.
+    hardware.printers.ensurePrinters = [
+      {
+        name = "DeskjetRemote";
+        deviceUri = "ipp://server/printers/DeskjetLocal";
+        model = "drv:///sample.drv/deskjet.ppd";
+      }
+    ];
+    hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
+  };
 
   testScript = ''
     import os

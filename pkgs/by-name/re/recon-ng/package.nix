@@ -47,15 +47,13 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  postPatch =
-    let
-      setup = replaceVars ./setup.py {
-        inherit pname version;
-      };
-    in
-    ''
-      ln -s ${setup} setup.py
-    '';
+  postPatch = let
+    setup = replaceVars ./setup.py {
+      inherit pname version;
+    };
+  in ''
+    ln -s ${setup} setup.py
+  '';
 
   postInstall = ''
     cp VERSION $out/${python3.sitePackages}/
@@ -66,6 +64,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Full-featured framework providing a powerful environment to conduct web-based reconnaissance";
     license = lib.licenses.gpl3Only;
     homepage = "https://github.com/lanmaster53/recon-ng/";
-    maintainers = with lib.maintainers; [ gamedungeon ];
+    maintainers = with lib.maintainers; [gamedungeon];
   };
 }

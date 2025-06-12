@@ -27,7 +27,6 @@
   shared-mime-info,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rygel";
   version = "0.40.4";
@@ -109,7 +108,7 @@ stdenv.mkDerivation rec {
     description = "Home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
     homepage = "https://gitlab.gnome.org/GNOME/rygel";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

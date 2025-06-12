@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.desktopManager.kodi;
-in
-
-{
+in {
   options = {
     services.xserver.desktopManager.kodi = {
       enable = mkOption {
@@ -37,6 +32,6 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

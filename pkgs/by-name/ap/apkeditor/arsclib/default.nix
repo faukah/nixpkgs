@@ -3,9 +3,7 @@
   gradle,
   lib,
   REAndroidLibrary,
-}:
-
-let
+}: let
   self = REAndroidLibrary {
     pname = "arsclib";
     # 1.3.5 is not new enough for APKEditor because of API changes
@@ -30,4 +28,4 @@ let
     meta.license = lib.licenses.asl20;
   };
 in
-self
+  self

@@ -1,5 +1,7 @@
-{ lib, mkAppleDerivation }:
-
+{
+  lib,
+  mkAppleDerivation,
+}:
 mkAppleDerivation {
   releaseName = "basic_cmds";
 

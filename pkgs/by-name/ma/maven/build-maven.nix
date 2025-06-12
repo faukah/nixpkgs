@@ -21,15 +21,14 @@
 #
 # @example
 #     project = pkgs.buildMaven ./project-info.json
-infoFile:
-let
+infoFile: let
   info = lib.importJSON infoFile;
 
   dependencies = lib.flatten (
     map (
-      dep:
-      let
-        inherit (dep)
+      dep: let
+        inherit
+          (dep)
           sha1
           groupId
           artifactId
@@ -42,36 +41,46 @@ let
         url = dep.url or "";
 
         fetch =
-          if (url != "") then
-            ((if authenticated then requireFile else fetchurl) {
-              inherit url sha1;
-            })
-          else
-            "";
+          if (url != "")
+          then
+            ((
+                if authenticated
+                then requireFile
+                else fetchurl
+              ) {
+                inherit url sha1;
+              })
+          else "";
 
-        fetchMetadata = (if authenticated then requireFile else fetchurl) {
-          inherit (metadata) url sha1;
-        };
+        fetchMetadata =
+          (
+            if authenticated
+            then requireFile
+            else fetchurl
+          ) {
+            inherit (metadata) url sha1;
+          };
 
-        layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
+        layout = "${builtins.replaceStrings ["."] ["/"] groupId}/${artifactId}/${versionDir}";
       in
-      lib.optional (url != "") {
-        layout = "${layout}/${fetch.name}";
-        drv = fetch;
-      }
-      ++ lib.optionals (dep ? metadata) (
-        [
-          {
-            layout = "${layout}/maven-metadata-${repository-id}.xml";
-            drv = fetchMetadata;
-          }
-        ]
-        ++ lib.optional (fetch != "") {
-          layout = "${layout}/${builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name}";
+        lib.optional (url != "") {
+          layout = "${layout}/${fetch.name}";
           drv = fetch;
         }
-      )
-    ) info.dependencies
+        ++ lib.optionals (dep ? metadata) (
+          [
+            {
+              layout = "${layout}/maven-metadata-${repository-id}.xml";
+              drv = fetchMetadata;
+            }
+          ]
+          ++ lib.optional (fetch != "") {
+            layout = "${layout}/${builtins.replaceStrings [version] [dep.unresolved-version] fetch.name}";
+            drv = fetch;
+          }
+        )
+    )
+    info.dependencies
   );
 
   repo = linkFarm "maven-repository" (
@@ -91,19 +100,20 @@ let
   '';
 
   src = dirOf infoFile;
-in
-{
+in {
   inherit repo settings info;
 
   build = stdenv.mkDerivation {
     name = "${info.project.artifactId}-${info.project.version}.jar";
 
-    src = builtins.filterSource (
-      path: type:
-      (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
-    ) src;
+    src =
+      builtins.filterSource (
+        path: type:
+          (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
+      )
+      src;
 
-    buildInputs = [ maven ];
+    buildInputs = [maven];
 
     buildPhase = "mvn --offline --settings ${settings} compile";
 

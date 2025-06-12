@@ -4,15 +4,16 @@
   options,
   pkgs,
   ...
-}:
-let
-
+}: let
   gid = config.ids.gids.mediatomb;
   cfg = config.services.mediatomb;
   opt = options.services.mediatomb;
   name = cfg.package.pname;
   pkg = cfg.package;
-  optionYesNo = option: if option then "yes" else "no";
+  optionYesNo = option:
+    if option
+    then "yes"
+    else "no";
   # configuration on media directory
   mediaDirectory = {
     options = {
@@ -34,14 +35,12 @@ let
       };
     };
   };
-  toMediaDirectory =
-    d:
-    "<directory location=\"${d.path}\" mode=\"inotify\" recursive=\"${optionYesNo d.recursive}\" hidden-files=\"${optionYesNo d.hidden-files}\" />\n";
+  toMediaDirectory = d: "<directory location=\"${d.path}\" mode=\"inotify\" recursive=\"${optionYesNo d.recursive}\" hidden-files=\"${optionYesNo d.hidden-files}\" />\n";
 
   transcodingConfig =
-    if cfg.transcoding then
-      with pkgs;
-      ''
+    if cfg.transcoding
+    then
+      with pkgs; ''
         <transcoding enabled="yes">
           <mimetype-profile-mappings>
             <transcode mimetype="video/x-flv" using="vlcmpeg" />
@@ -69,11 +68,10 @@ let
           </profiles>
         </transcoding>
       ''
-    else
-      ''
-        <transcoding enabled="no">
-        </transcoding>
-      '';
+    else ''
+      <transcoding enabled="no">
+      </transcoding>
+    '';
 
   configText = lib.optionalString (!cfg.customCfg) ''
     <?xml version="1.0" encoding="UTF-8"?>
@@ -97,16 +95,16 @@ let
           </storage>
           <protocolInfo extend="${optionYesNo cfg.ps3Support}"/>
           ${lib.optionalString cfg.dsmSupport ''
-            <custom-http-headers>
-              <add header="X-User-Agent: redsonic"/>
-            </custom-http-headers>
+      <custom-http-headers>
+        <add header="X-User-Agent: redsonic"/>
+      </custom-http-headers>
 
-            <manufacturerURL>redsonic.com</manufacturerURL>
-            <modelNumber>105</modelNumber>
-          ''}
+      <manufacturerURL>redsonic.com</manufacturerURL>
+      <modelNumber>105</modelNumber>
+    ''}
             ${lib.optionalString cfg.tg100Support ''
-              <upnp-string-limit>101</upnp-string-limit>
-            ''}
+      <upnp-string-limit>101</upnp-string-limit>
+    ''}
           <extended-runtime-options>
             <mark-played-items enabled="yes" suppress-cds-updates="yes">
               <string mode="prepend">*</string>
@@ -149,11 +147,11 @@ let
               <map from="mkv" to="video/x-matroska"/>
               <map from="mka" to="audio/x-matroska"/>
               ${lib.optionalString cfg.ps3Support ''
-                <map from="avi" to="video/divx"/>
-              ''}
+      <map from="avi" to="video/divx"/>
+    ''}
               ${lib.optionalString cfg.dsmSupport ''
-                <map from="avi" to="video/avi"/>
-              ''}
+      <map from="avi" to="video/avi"/>
+    ''}
             </extension-mimetype>
             <mimetype-upnpclass>
               <map from="audio/*" to="object.item.audioItem.musicTrack"/>
@@ -200,18 +198,13 @@ let
       1900
       cfg.port
     ];
-    allowedTCPPorts = [ cfg.port ];
+    allowedTCPPorts = [cfg.port];
   };
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.mediatomb = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -228,7 +221,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "gerbera" { };
+      package = lib.mkPackageOption pkgs "gerbera" {};
 
       ps3Support = lib.mkOption {
         type = lib.types.bool;
@@ -333,7 +326,7 @@ in
 
       mediaDirectories = lib.mkOption {
         type = with lib.types; listOf (submodule mediaDirectory);
-        default = [ ];
+        default = [];
         description = ''
           Declare media directories to index.
         '';
@@ -363,31 +356,27 @@ in
           configuration file.
         '';
       };
-
     };
   };
 
   ###### implementation
 
-  config =
-    let
-      binaryCommand = "${pkg}/bin/${name}";
-      interfaceFlag = lib.optionalString (cfg.interface != "") "--interface ${cfg.interface}";
-      configFlag = lib.optionalString (
-        !cfg.customCfg
-      ) "--config ${pkgs.writeText "config.xml" configText}";
-    in
+  config = let
+    binaryCommand = "${pkg}/bin/${name}";
+    interfaceFlag = lib.optionalString (cfg.interface != "") "--interface ${cfg.interface}";
+    configFlag = lib.optionalString (!cfg.customCfg) "--config ${pkgs.writeText "config.xml" configText}";
+  in
     lib.mkIf cfg.enable {
       systemd.services.mediatomb = {
         description = "${cfg.serverName} media Server";
         # Gerbera might fail if the network interface is not available on startup
         # https://github.com/gerbera/gerbera/issues/1324
-        wants = [ "network-online.target" ];
+        wants = ["network-online.target"];
         after = [
           "network.target"
           "network-online.target"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig.ExecStart = "${binaryCommand} --port ${toString cfg.port} ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
         serviceConfig.User = cfg.user;
         serviceConfig.Group = cfg.group;

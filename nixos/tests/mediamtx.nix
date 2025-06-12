@@ -1,11 +1,12 @@
-{ pkgs, lib, ... }:
-
-let
-  rtmpUrl = "rtmp://localhost:1935/test";
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  rtmpUrl = "rtmp://localhost:1935/test";
+in {
   name = "mediamtx";
-  meta.maintainers = with lib.maintainers; [ fpletz ];
+  meta.maintainers = with lib.maintainers; [fpletz];
 
   nodes = {
     machine = {
@@ -19,9 +20,9 @@ in
 
       systemd.services.rtmp-publish = {
         description = "Publish an RTMP stream to mediamtx";
-        after = [ "mediamtx.service" ];
-        bindsTo = [ "mediamtx.service" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["mediamtx.service"];
+        bindsTo = ["mediamtx.service"];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           DynamicUser = true;
           Restart = "on-failure";
@@ -33,9 +34,9 @@ in
 
       systemd.services.rtmp-receive = {
         description = "Receive an RTMP stream from mediamtx";
-        after = [ "rtmp-publish.service" ];
-        bindsTo = [ "rtmp-publish.service" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["rtmp-publish.service"];
+        bindsTo = ["rtmp-publish.service"];
+        wantedBy = ["multi-user.target"];
         unitConfig.StartLimitIntervalSec = 0;
         serviceConfig = {
           DynamicUser = true;

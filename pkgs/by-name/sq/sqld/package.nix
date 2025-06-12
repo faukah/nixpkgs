@@ -9,11 +9,9 @@
   sqlite,
   zstd,
   cmake,
-
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sqld";
   version = "0.24.32";
@@ -64,19 +62,19 @@ rustPlatform.buildRustPackage rec {
   # requires a complex setup with podman for the end-to-end tests
   doCheck = false;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "LibSQL with extended capabilities like HTTP protocol, replication, and more";
     homepage = "https://github.com/tursodatabase/libsql";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "sqld";
   };
 }

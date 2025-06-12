@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "managesieve";
   version = "0.8.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-LVwe0Pn6YPIAuoIaxXMfvCbOfS4NAjozkrdMNZDq+uU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "managesieve" ];
+  pythonImportsCheck = ["managesieve"];
 
   meta = with lib; {
     description = "ManageSieve client library for remotely managing Sieve scripts";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       gpl3Only
       psfl
     ];
-    maintainers = with maintainers; [ dadada ];
+    maintainers = with maintainers; [dadada];
     mainProgram = "sieveshell";
   };
 }

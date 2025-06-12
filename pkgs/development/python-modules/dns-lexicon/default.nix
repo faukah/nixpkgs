@@ -20,7 +20,6 @@
   tldextract,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "dns_lexicon";
   version = "3.16.1";
@@ -35,24 +34,26 @@ buildPythonPackage rec {
     hash = "sha256-79/zz0TOCpx26TEo6gi9JDBQeVW2azWnxAjWr/FGRLA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    cryptography
-    pyotp
-    pyyaml
-    requests
-    tldextract
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      beautifulsoup4
+      cryptography
+      pyotp
+      pyyaml
+      requests
+      tldextract
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   optional-dependencies = {
-    route53 = [ boto3 ];
-    localzone = [ localzone ];
-    softlayer = [ softlayer ];
-    ddns = [ dnspython ];
-    duckdns = [ dnspython ];
-    oci = [ oci ];
+    route53 = [boto3];
+    localzone = [localzone];
+    softlayer = [softlayer];
+    ddns = [dnspython];
+    duckdns = [dnspython];
+    oci = [oci];
     full = [
       boto3
       dnspython
@@ -63,12 +64,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-vcr
-  ] ++ optional-dependencies.full;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-vcr
+    ]
+    ++ optional-dependencies.full;
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTestPaths = [
     # Needs network access
@@ -87,14 +90,14 @@ buildPythonPackage rec {
     "action_is_correctly"
   ];
 
-  pythonImportsCheck = [ "lexicon" ];
+  pythonImportsCheck = ["lexicon"];
 
   meta = with lib; {
     description = "Manipulate DNS records on various DNS providers in a standardized way";
     mainProgram = "lexicon";
     homepage = "https://github.com/AnalogJ/lexicon";
     changelog = "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ aviallon ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [aviallon];
   };
 }

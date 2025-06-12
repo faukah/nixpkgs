@@ -12,7 +12,6 @@
   pygobject3,
   webkitgtk_4_1,
 }:
-
 buildPythonApplication rec {
   pname = "formiko";
   version = "1.5.0";
@@ -47,7 +46,7 @@ buildPythonApplication rec {
     description = "reStructuredText editor and live previewer";
     homepage = "https://github.com/ondratu/formiko";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

@@ -14,7 +14,6 @@
   gtk3,
   libayatana-appindicator,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "keymapper";
   version = "4.12.1";

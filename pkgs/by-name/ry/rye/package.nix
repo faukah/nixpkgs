@@ -2,22 +2,17 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   installShellFiles,
   pkg-config,
-
   # buildInputs
   openssl,
   stdenv,
-
   buildPackages,
   versionCheckHook,
-
   # passthru
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rye";
   version = "0.44.0";
@@ -45,16 +40,14 @@ rustPlatform.buildRustPackage rec {
     openssl
   ];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      installShellCompletion --cmd rye \
-        --bash <(${emulator} $out/bin/rye self completion -s bash) \
-        --fish <(${emulator} $out/bin/rye self completion -s fish) \
-        --zsh <(${emulator} $out/bin/rye self completion -s zsh)
-    '';
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    installShellCompletion --cmd rye \
+      --bash <(${emulator} $out/bin/rye self completion -s bash) \
+      --fish <(${emulator} $out/bin/rye self completion -s fish) \
+      --zsh <(${emulator} $out/bin/rye self completion -s zsh)
+  '';
 
   checkFlags = [
     "--skip=utils::test_is_inside_git_work_tree"
@@ -98,7 +91,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -106,7 +99,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mitsuhiko/rye";
     changelog = "https://github.com/mitsuhiko/rye/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "rye";
   };
 }

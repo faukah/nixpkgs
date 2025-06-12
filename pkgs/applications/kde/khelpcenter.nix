@@ -14,7 +14,6 @@
   kservice,
   xapian,
 }:
-
 mkDerivation {
   pname = "khelpcenter";
   nativeBuildInputs = [

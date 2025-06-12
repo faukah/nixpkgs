@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "clarity-city";
   version = "1.0.0";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/vmware/clarity-city";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ sagikazarmark ];
+    maintainers = with maintainers; [sagikazarmark];
   };
 })

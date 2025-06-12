@@ -7,7 +7,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "envio";
   version = "0.6.1";
@@ -52,6 +51,6 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ afh ];
+    maintainers = with lib.maintainers; [afh];
   };
 }

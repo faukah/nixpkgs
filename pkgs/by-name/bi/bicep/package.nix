@@ -7,7 +7,6 @@
   mono,
   jq,
 }:
-
 buildDotnetModule rec {
   pname = "bicep";
   version = "0.36.1";
@@ -41,11 +40,11 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  nativeBuildInputs = [ jq ];
+  nativeBuildInputs = [jq];
 
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64); # mono is not available on aarch64-darwin
 
-  nativeCheckInputs = [ mono ];
+  nativeCheckInputs = [mono];
 
   testProjectFile = "src/Bicep.Cli.UnitTests/Bicep.Cli.UnitTests.csproj";
 
@@ -56,8 +55,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/Azure/bicep/";
     changelog = "https://github.com/Azure/bicep/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
-    teams = [ lib.teams.stridtech ];
+    maintainers = [];
+    teams = [lib.teams.stridtech];
     mainProgram = "bicep";
   };
 }

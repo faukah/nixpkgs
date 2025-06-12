@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "config-visualizer";
   version = "unstable-2022-02-23";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/precice/config-visualizer";
     description = "Small python tool for visualizing the preCICE xml configuration";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
     mainProgram = "precice-config-visualizer";
   };
 }

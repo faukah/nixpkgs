@@ -1,62 +1,59 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "dex-oidc";
-  meta.maintainers = with lib.maintainers; [ Flakebi ];
+  meta.maintainers = with lib.maintainers; [Flakebi];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [ jq ];
-      services.dex = {
-        enable = true;
-        settings = {
-          issuer = "http://127.0.0.1:8080/dex";
-          storage = {
-            type = "postgres";
-            config.host = "/var/run/postgresql";
-          };
-          web.http = "127.0.0.1:8080";
-          oauth2.skipApprovalScreen = true;
-          staticClients = [
-            {
-              id = "oidcclient";
-              name = "Client";
-              redirectURIs = [ "https://example.com/callback" ];
-              secretFile = "/etc/dex/oidcclient";
-            }
-          ];
-          connectors = [
-            {
-              type = "mockPassword";
-              id = "mock";
-              name = "Example";
-              config = {
-                username = "admin";
-                password = "password";
-              };
-            }
-          ];
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [jq];
+    services.dex = {
+      enable = true;
+      settings = {
+        issuer = "http://127.0.0.1:8080/dex";
+        storage = {
+          type = "postgres";
+          config.host = "/var/run/postgresql";
         };
-      };
-
-      # This should not be set from nix but through other means to not leak the secret.
-      environment.etc."dex/oidcclient" = {
-        mode = "0400";
-        user = "dex";
-        text = "oidcclientsecret";
-      };
-
-      services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "dex" ];
-        ensureUsers = [
+        web.http = "127.0.0.1:8080";
+        oauth2.skipApprovalScreen = true;
+        staticClients = [
           {
-            name = "dex";
-            ensureDBOwnership = true;
+            id = "oidcclient";
+            name = "Client";
+            redirectURIs = ["https://example.com/callback"];
+            secretFile = "/etc/dex/oidcclient";
+          }
+        ];
+        connectors = [
+          {
+            type = "mockPassword";
+            id = "mock";
+            name = "Example";
+            config = {
+              username = "admin";
+              password = "password";
+            };
           }
         ];
       };
     };
+
+    # This should not be set from nix but through other means to not leak the secret.
+    environment.etc."dex/oidcclient" = {
+      mode = "0400";
+      user = "dex";
+      text = "oidcclientsecret";
+    };
+
+    services.postgresql = {
+      enable = true;
+      ensureDatabases = ["dex"];
+      ensureUsers = [
+        {
+          name = "dex";
+          ensureDBOwnership = true;
+        }
+      ];
+    };
+  };
 
   testScript = ''
     with subtest("Web server gets ready"):

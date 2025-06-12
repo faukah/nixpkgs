@@ -2,7 +2,6 @@
   callPackage,
   fetchFromGitHub,
 }:
-
 callPackage ../generic.nix rec {
   pname = "rkpd2";
   version = "2.0.8";

@@ -22,7 +22,6 @@
   procps,
   optipng,
 }:
-
 buildPythonPackage rec {
   pname = "mne";
   # https://github.com/mne-tools/mne-python/pull/13049 is required to build, it does not apply if fetchpatch'ed
@@ -71,11 +70,13 @@ buildPythonPackage rec {
     pymatreader
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov-stub
-    pytest-timeout
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-cov-stub
+      pytest-timeout
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -99,7 +100,7 @@ buildPythonPackage rec {
     "--disable-warnings"
   ];
 
-  pythonImportsCheck = [ "mne" ];
+  pythonImportsCheck = ["mne"];
 
   meta = with lib; {
     description = "Magnetoencephelography and electroencephalography in Python";

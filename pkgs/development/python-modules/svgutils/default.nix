@@ -7,7 +7,6 @@
   lxml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "svgutils";
   version = "0.3.4";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-ITvZx+3HMbTyaRmCb7tR0LKqCxGjqDdV9/2taziUD0c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ lxml ];
+  dependencies = [lxml];
 
   patches = [
     # Remove nose dependency, see: https://github.com/btel/svg_utils/pull/131
@@ -40,14 +39,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "svgutils" ];
+  pythonImportsCheck = ["svgutils"];
 
   meta = with lib; {
     description = "Python tools to create and manipulate SVG files";
     homepage = "https://github.com/btel/svg_utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "maison";
   version = "2.0.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-1hsnSYDoCO5swWm3B4R5eXs0Mn4s8arlCQKfsS1OWRk=";
   };
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
   nativeBuildInputs = [
     poetry-core
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "maison" ];
+  pythonImportsCheck = ["maison"];
 
   meta = with lib; {
     description = "Library to read settings from config files";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dbatten5/maison";
     changelog = "https://github.com/dbatten5/maison/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

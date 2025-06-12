@@ -15,7 +15,6 @@
   six,
   w3lib,
 }:
-
 buildPythonPackage rec {
   pname = "extruct";
   version = "0.17.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-CfhIqbhrZkJ232grhHxrmj4H1/Bq33ZXe8kovSOWSK0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     html-text
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "extruct" ];
+  pythonImportsCheck = ["extruct"];
 
   disabledTests = [
     # AssertionError: Lists differ
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scrapinghub/extruct";
     changelog = "https://github.com/scrapinghub/extruct/blob/v${version}/HISTORY.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

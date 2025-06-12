@@ -6,7 +6,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.6.3";
   pname = "docopt.cpp";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  cmakeFlags = [ "-DWITH_TESTS=ON" ];
+  cmakeFlags = ["-DWITH_TESTS=ON"];
 
   strictDeps = true;
 
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
       boost
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

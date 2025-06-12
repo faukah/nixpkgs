@@ -8,7 +8,6 @@
   gawk,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "git-secret";
   version = "0.5.0-unstable-2024-12-09";
@@ -25,32 +24,30 @@ stdenv.mkDerivation {
     installShellFiles
   ];
 
-  installPhase =
-    let
-      binPath = lib.makeBinPath [
-        git
-        gnupg
-        gawk
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    binPath = lib.makeBinPath [
+      git
+      gnupg
+      gawk
+    ];
+  in ''
+    runHook preInstall
 
-      installBin git-secret
-      wrapProgram "$out/bin/git-secret" --prefix PATH : "${binPath}"
+    installBin git-secret
+    wrapProgram "$out/bin/git-secret" --prefix PATH : "${binPath}"
 
-      shopt -s extglob
-      installManPage man/**/!(*.md)
-      shopt -u extglob
+    shopt -s extglob
+    installManPage man/**/!(*.md)
+    shopt -u extglob
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     description = "Bash-tool to store your private data inside a git repository";
     homepage = "https://sobolevn.me/git-secret/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lo1tuma ];
+    maintainers = [lib.maintainers.lo1tuma];
     platforms = lib.platforms.all;
     mainProgram = "git-secret";
   };

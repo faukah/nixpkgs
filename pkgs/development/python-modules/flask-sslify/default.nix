@@ -5,7 +5,6 @@
   flask,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-sslify";
   version = "0.1.5";
@@ -17,18 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-0z4dPAnNlRVBdqqKcxlBjlISn8SC3VbYqK18JFANVD4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flask ];
+  dependencies = [flask];
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "flask_sslify" ];
+  pythonImportsCheck = ["flask_sslify"];
 
   meta = {
     description = "Flask extension that redirects all incoming requests to HTTPS";
     homepage = "https://github.com/kennethreitz42/flask-sslify";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ zhaofengli ];
+    maintainers = with lib.maintainers; [zhaofengli];
   };
 }

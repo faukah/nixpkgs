@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "pwnat";
   # Latest release has an annoying segmentation fault bug, see:
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     homepage = "http://samy.pl/pwnat/";
     description = "ICMP NAT to NAT client-server communication";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; linux;
     mainProgram = "pwnat";
   };

@@ -3,7 +3,6 @@
   fetchurl,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "egypt";
   version = "1.10";
@@ -13,7 +12,7 @@ perlPackages.buildPerlPackage rec {
     url = "https://www.gson.org/egypt/download/${pname}-${version}.tar.gz";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   enableParallelBuilding = true;
 

@@ -17,7 +17,6 @@
   openssl,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notify-client";
   version = "0.1.5";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ranfdev/Notify";
     license = licenses.gpl3Plus;
     mainProgram = "notify";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

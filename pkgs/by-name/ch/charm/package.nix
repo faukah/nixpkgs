@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "charm";
   version = "0.12.6";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/charmbracelet/charm";
     changelog = "https://github.com/charmbracelet/charm/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ penguwin ];
+    maintainers = with lib.maintainers; [penguwin];
     mainProgram = "charm";
   };
 }

@@ -8,7 +8,6 @@
   perl,
 }:
 # TODO: withTex
-
 stdenv.mkDerivation rec {
   pname = "latex2html";
   version = "2025";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   configurePhase = ''
     ./configure \
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2Only;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

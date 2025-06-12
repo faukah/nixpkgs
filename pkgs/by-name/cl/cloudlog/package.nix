@@ -6,7 +6,6 @@
   nixosTests,
   php,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "cloudlog";
   version = "2.6.18";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     tests = {
       inherit (nixosTests) cloudlog;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -40,6 +39,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://www.magicbug.co.uk/cloudlog";
     platforms = php.meta.platforms;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

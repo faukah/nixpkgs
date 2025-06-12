@@ -13,7 +13,6 @@
   libadwaita,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "halftone";
   version = "0.7.0";
@@ -58,7 +57,7 @@ python3Packages.buildPythonApplication rec {
     description = "Simple app for giving images that pixel-art style";
     license = licenses.gpl3Plus;
     mainProgram = "halftone";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = platforms.linux;
   };
 }

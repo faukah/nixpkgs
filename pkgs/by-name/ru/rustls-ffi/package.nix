@@ -12,7 +12,6 @@
   apacheHttpd,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rustls-ffi";
   version = "0.15.0";
@@ -70,12 +69,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "C-to-rustls bindings";
     homepage = "https://github.com/rustls/rustls-ffi/";
-    pkgConfigModules = [ "rustls" ];
+    pkgConfigModules = ["rustls"];
     license = with lib.licenses; [
       mit
       asl20
       isc
     ];
-    maintainers = [ maintainers.lesuisse ];
+    maintainers = [maintainers.lesuisse];
   };
 })

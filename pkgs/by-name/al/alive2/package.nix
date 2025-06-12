@@ -10,7 +10,6 @@
   ninja,
   nix-update-script,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "alive2";
   version = "20.0";
@@ -59,15 +58,15 @@ clangStdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Automatic verification of LLVM optimizations";
     homepage = "https://github.com/AliveToolkit/alive2";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ shogo ];
-    teams = [ lib.teams.ngi ];
+    maintainers = with lib.maintainers; [shogo];
+    teams = [lib.teams.ngi];
     mainProgram = "alive";
   };
 })

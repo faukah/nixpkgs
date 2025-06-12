@@ -19,7 +19,6 @@
   ruamel-yaml,
   strict-rfc3339,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab-server";
   version = "2.27.3";
@@ -37,17 +36,19 @@ buildPythonPackage rec {
     sed -i "/timeout/d" pyproject.toml
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    babel
-    jinja2
-    json5
-    jsonschema
-    jupyter-server
-    packaging
-    requests
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      babel
+      jinja2
+      json5
+      jsonschema
+      jupyter-server
+      packaging
+      requests
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   optional-dependencies = {
     openapi = [
@@ -56,12 +57,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-jupyter
-    pytestCheckHook
-    requests-mock
-    strict-rfc3339
-  ] ++ optional-dependencies.openapi;
+  nativeCheckInputs =
+    [
+      pytest-jupyter
+      pytestCheckHook
+      requests-mock
+      strict-rfc3339
+    ]
+    ++ optional-dependencies.openapi;
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -88,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyterlab/jupyterlab_server";
     changelog = "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

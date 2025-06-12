@@ -6,7 +6,6 @@
   liquid-dsp,
   soapysdr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fm-tune";
   version = "1.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pwL2G1Ni1Ixw/N0diSoGGIoVrtmF92mWZ5i57OOvkX4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     liquid-dsp
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/viraptor/fm_tune";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
     mainProgram = "fm_tune";
   };
 }

@@ -11,7 +11,6 @@
   libyaml,
   zlib,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "icr";
   version = "0.9.0";
@@ -44,12 +43,12 @@ crystal.buildCrystalPackage rec {
   postFixup = ''
     wrapProgram $out/bin/icr \
       --prefix PATH : ${
-        lib.makeBinPath [
-          crystal
-          shards
-          which
-        ]
-      }
+      lib.makeBinPath [
+        crystal
+        shards
+        which
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -57,6 +56,6 @@ crystal.buildCrystalPackage rec {
     mainProgram = "icr";
     homepage = "https://github.com/crystal-community/icr";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

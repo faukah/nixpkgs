@@ -9,7 +9,6 @@
   xmltodict,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymatreader";
   version = "1.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail '"hatch-regex-commit"' ""
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   propagatedBuildInputs = [
     h5py
@@ -37,15 +36,15 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pymatreader" ];
+  pythonImportsCheck = ["pymatreader"];
 
   meta = with lib; {
     description = "Python package to read all kinds and all versions of Matlab mat files";
     homepage = "https://gitlab.com/obob/pymatreader/";
     changelog = "https://gitlab.com/obob/pymatreader/-/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

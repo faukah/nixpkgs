@@ -30,7 +30,6 @@
   pytest-responses,
   nettools,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-net";
   version = "10.2.3";
@@ -48,35 +47,39 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    autocommand
-    more-itertools
-    beautifulsoup4
-    mechanize
-    keyring
-    requests
-    feedparser
-    icmplib
-    jaraco-text
-    jaraco-logging
-    jaraco-email
-    jaraco-functools
-    jaraco-collections
-    path
-    python-dateutil
-    pathvalidate
-    jsonpickle
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ ifconfig-parser ];
+  dependencies =
+    [
+      autocommand
+      more-itertools
+      beautifulsoup4
+      mechanize
+      keyring
+      requests
+      feedparser
+      icmplib
+      jaraco-text
+      jaraco-logging
+      jaraco-email
+      jaraco-functools
+      jaraco-collections
+      path
+      python-dateutil
+      pathvalidate
+      jsonpickle
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ifconfig-parser];
 
-  pythonImportsCheck = [ "jaraco.net" ];
+  pythonImportsCheck = ["jaraco.net"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    cherrypy
-    importlib-resources
-    pyparsing
-    pytest-responses
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ nettools ];
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      cherrypy
+      importlib-resources
+      pyparsing
+      pytest-responses
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [nettools];
 
   disabledTestPaths = [
     # require networking
@@ -90,6 +93,6 @@ buildPythonPackage rec {
     description = "Networking tools by jaraco";
     homepage = "https://github.com/jaraco/jaraco.net";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

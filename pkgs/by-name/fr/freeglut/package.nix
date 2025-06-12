@@ -12,7 +12,6 @@
   cmake,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeglut";
   version = "3.6.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libICE
     libXext
@@ -57,8 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://freeglut.sourceforge.net/";
     license = licenses.mit;
-    pkgConfigModules = [ "glut" ];
+    pkgConfigModules = ["glut"];
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 })

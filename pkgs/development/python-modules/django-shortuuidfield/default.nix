@@ -6,7 +6,6 @@
   shortuuid,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "django-shortuuidfield";
   version = "0.1.3";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "shortuuidfield" ];
+  pythonImportsCheck = ["shortuuidfield"];
 
   meta = with lib; {
     description = "Short UUIDField for Django. Good for use in urls & file names";
     homepage = "https://github.com/benrobster/django-shortuuidfield";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

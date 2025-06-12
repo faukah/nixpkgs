@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "shadowsocks-v2ray-plugin";
   version = "1.3.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
     description = "Yet another SIP003 plugin for shadowsocks, based on v2ray";
     homepage = "https://github.com/shadowsocks/v2ray-plugin/";
     license = licenses.mit;
-    maintainers = [ maintainers.ahrzb ];
+    maintainers = [maintainers.ahrzb];
     mainProgram = "v2ray-plugin";
   };
 }

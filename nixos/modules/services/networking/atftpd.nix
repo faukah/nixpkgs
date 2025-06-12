@@ -4,19 +4,11 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.atftpd;
-
-in
-
-{
-
+in {
   options = {
-
     services.atftpd = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -27,7 +19,7 @@ in
       };
 
       extraOptions = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = lib.literalExpression ''
           [ "--bind-address 192.168.9.1"
@@ -46,21 +38,16 @@ in
           Document root directory for the atftpd.
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.atftpd = {
       description = "TFTP Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # runs as nobody
       serviceConfig.ExecStart = "${pkgs.atftp}/sbin/atftpd --daemon --no-fork ${lib.concatStringsSep " " cfg.extraOptions} ${cfg.root}";
     };
-
   };
-
 }

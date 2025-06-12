@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sshpass";
   version = "1.10";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/sshpass/";
     description = "Non-interactive ssh password auth";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.madjar ];
+    maintainers = [maintainers.madjar];
     platforms = platforms.unix;
     mainProgram = "sshpass";
   };

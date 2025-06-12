@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   dask-glm,
   distributed,
@@ -18,12 +16,10 @@
   scikit-learn,
   scipy,
   dask,
-
   # tests
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dask-ml";
   version = "2025.1.0";
@@ -98,6 +94,6 @@ buildPythonPackage rec {
     description = "Scalable Machine Learn with Dask";
     homepage = "https://github.com/dask/dask-ml";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

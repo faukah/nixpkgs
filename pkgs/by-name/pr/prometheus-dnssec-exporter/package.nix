@@ -20,6 +20,6 @@ buildGoModule {
     homepage = "https://github.com/chrj/prometheus-dnssec-exporter";
     description = "DNSSEC Exporter for Prometheus";
     license = licenses.mit;
-    maintainers = with maintainers; [ swendel ];
+    maintainers = with maintainers; [swendel];
   };
 }

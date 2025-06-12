@@ -8,7 +8,6 @@
   bos,
   rresult,
 }:
-
 buildDunePackage rec {
   pname = "base64";
   version = "3.5.1";
@@ -21,7 +20,7 @@ buildDunePackage rec {
     hash = "sha256-2P7apZvRL+rnrMCLWSjdR4qsUj9MqNJARw0lAGUcZe0=";
   };
 
-  nativeBuildInputs = [ findlib ];
+  nativeBuildInputs = [findlib];
 
   # otherwise fmt breaks evaluation
   doCheck = lib.versionAtLeast ocaml.version "4.08";
@@ -35,6 +34,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-base64";
     description = "Base64 encoding and decoding in OCaml";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

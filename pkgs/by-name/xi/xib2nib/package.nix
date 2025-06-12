@@ -6,7 +6,6 @@
   plistcpp,
   pugixml,
 }:
-
 stdenv.mkDerivation {
   pname = "xib2nib";
   version = "0-unstable-2017-04-12";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     description = "Compiles CocoaTouch .xib files into .nib";
     license = licenses.mit;
     platforms = platforms.unix;

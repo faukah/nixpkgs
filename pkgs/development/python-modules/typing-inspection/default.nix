@@ -6,7 +6,6 @@
   pytestCheckHook,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "typing-inspection";
   version = "0.4.0";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-sWWO+TRqNf791s+q5YeEcl9ZMHCBuxQLGXHmEk1AU0Y=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "typing_inspection" ];
+  pythonImportsCheck = ["typing_inspection"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Runtime typing introspection tools";
     homepage = "https://github.com/pydantic/typing-inspection";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

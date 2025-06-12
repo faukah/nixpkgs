@@ -1,18 +1,18 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   inherit (import ./common.nix) baseConfig;
-in
-{
+in {
   name = "hydra";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ lewo ];
+    maintainers = [lewo];
   };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
-      imports = [ baseConfig ];
-    };
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    imports = [baseConfig];
+  };
 
   testScript = ''
     # let the system boot up

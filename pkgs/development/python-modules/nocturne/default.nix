@@ -12,7 +12,6 @@
   hydra-core,
   pyvirtualdisplay,
 }:
-
 buildPythonPackage {
   pname = "nocturne";
   version = "0-unstable-2024-06-19";
@@ -42,10 +41,10 @@ buildPythonPackage {
     setuptools
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ sfml_2 ];
+  buildInputs = [sfml_2];
 
   # hydra-core and pyvirtualdisplay are not declared as dependences but they are requirements
   dependencies = [
@@ -56,12 +55,12 @@ buildPythonPackage {
   # Test suite requires hydra-submitit-launcher which is not packaged as of 2022-01-02
   doCheck = false;
 
-  pythonImportsCheck = [ "nocturne" ];
+  pythonImportsCheck = ["nocturne"];
 
   meta = {
     description = "Data-driven, fast driving simulator for multi-agent coordination under partial observability";
     homepage = "https://github.com/facebookresearch/nocturne";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

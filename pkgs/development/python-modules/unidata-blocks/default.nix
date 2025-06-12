@@ -8,7 +8,6 @@
   hatchling,
   langcodes,
 }:
-
 buildPythonPackage rec {
   pname = "unidata-blocks";
   version = "0.0.16";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-b/5Yq9wI+qSYSObBMCqZ3j8fSXwe4ssenNlvpkJSZro=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     langcodes
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "unidata_blocks" ];
+  pythonImportsCheck = ["unidata_blocks"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/TakWolf/unidata-blocks";

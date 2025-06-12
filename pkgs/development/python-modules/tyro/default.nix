@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   docstring-parser,
   rich,
   shtab,
   typeguard,
   typing-extensions,
-
   # tests
   attrs,
   flax,
@@ -23,7 +20,6 @@
   pytestCheckHook,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "tyro";
   version = "0.9.19";
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-A1Vplc84Xy8TufqmklPUzIdgiPpFcIjqV0eUgdKmYRM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     docstring-parser
@@ -57,13 +53,13 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "tyro" ];
+  pythonImportsCheck = ["tyro"];
 
   meta = {
     description = "CLI interfaces & config objects, from types";
     homepage = "https://github.com/brentyi/tyro";
     changelog = "https://github.com/brentyi/tyro/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hoh ];
+    maintainers = with lib.maintainers; [hoh];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "yaffshiv";
   version = "0-unstable-2024-08-30";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-C43UzkaPKheexvVcKi/Krcik+arPXggWAYMSi9RY5eo=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -D -m755 src/yaffshiv $out/bin/yaffshiv
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     description = "Simple YAFFS file system parser and extractor";
     homepage = "https://github.com/devttys0/yaffshiv";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
     mainProgram = "yaffshiv";
   };
 }

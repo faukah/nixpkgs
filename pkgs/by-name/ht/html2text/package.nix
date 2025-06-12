@@ -5,7 +5,6 @@
   autoreconfHook,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "html2text";
   version = "2.2.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7Ch51nJ5BeRqs4PEIPnjCGk+Nm2ydgJQCtkcpihXun8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/grobian/html2text";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.eikek ];
+    maintainers = [lib.maintainers.eikek];
   };
 }

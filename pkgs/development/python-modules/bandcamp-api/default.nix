@@ -8,7 +8,6 @@
   lxml,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "bandcamp-api";
   version = "0.2.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "bandcamp_api" ];
+  pythonImportsCheck = ["bandcamp_api"];
 
   # upstream has no tests
   doCheck = false;
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Obtains information from bandcamp.com";
     homepage = "https://github.com/RustyRin/bandcamp-api";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

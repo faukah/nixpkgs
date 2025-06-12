@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.11";
   pname = "chibi-scheme";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i+xiaYwM7a+0T824VSuh7UUNI6HV9KpqzQPE1WAZ+As=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     make install PREFIX="$out"
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Small Footprint Scheme for use as a C Extension Language";
     platforms = lib.platforms.all;
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.DerGuteMoritz ];
+    maintainers = [lib.maintainers.DerGuteMoritz];
   };
 }

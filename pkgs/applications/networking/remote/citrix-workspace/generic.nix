@@ -54,20 +54,16 @@
   libjson,
   libsecret,
   libcanberra-gtk3,
-
   homepage,
   version,
   prefix,
   hash,
-
-  extraCerts ? [ ],
-}:
-
-let
+  extraCerts ? [],
+}: let
   openssl' = symlinkJoin {
     name = "openssl-backwards-compat";
-    nativeBuildInputs = [ makeWrapper ];
-    paths = [ (lib.getLib openssl) ];
+    nativeBuildInputs = [makeWrapper];
+    paths = [(lib.getLib openssl)];
     postBuild = ''
       ln -sf $out/lib/libcrypto.so $out/lib/libcrypto.so.1.0.0
       ln -sf $out/lib/libssl.so $out/lib/libssl.so.1.0.0
@@ -76,8 +72,8 @@ let
 
   opencv4' = symlinkJoin {
     name = "opencv4-compat";
-    nativeBuildInputs = [ makeWrapper ];
-    paths = [ opencv4 ];
+    nativeBuildInputs = [makeWrapper];
+    paths = [opencv4];
     postBuild = ''
       for so in ${opencv4}/lib/*.so; do
         ln -s "$so" $out/lib/$(basename "$so").407 || true
@@ -85,124 +81,123 @@ let
       done
     '';
   };
-
 in
+  stdenv.mkDerivation rec {
+    pname = "citrix-workspace";
+    inherit version;
 
-stdenv.mkDerivation rec {
-  pname = "citrix-workspace";
-  inherit version;
+    src = requireFile rec {
+      name = "${prefix}-${version}.tar.gz";
+      sha256 = hash;
 
-  src = requireFile rec {
-    name = "${prefix}-${version}.tar.gz";
-    sha256 = hash;
+      message = ''
+        In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
+        the ${
+          if stdenv.hostPlatform.is64bit
+          then "64-bit"
+          else "32-bit"
+        } binaries, .tar.gz from:
 
-    message = ''
-      In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
-      the ${if stdenv.hostPlatform.is64bit then "64-bit" else "32-bit"} binaries, .tar.gz from:
+        ${homepage}
 
-      ${homepage}
+        (if you do not find version ${version} there, try at
+        https://www.citrix.com/downloads/workspace-app/)
 
-      (if you do not find version ${version} there, try at
-      https://www.citrix.com/downloads/workspace-app/)
+        Once you have downloaded the file, please use the following command and re-run the
+        installation:
 
-      Once you have downloaded the file, please use the following command and re-run the
-      installation:
+        nix-prefetch-url file://\$PWD/${name}
+      '';
+    };
 
-      nix-prefetch-url file://\$PWD/${name}
-    '';
-  };
+    dontBuild = true;
+    dontConfigure = true;
+    sourceRoot = ".";
+    preferLocalBuild = true;
+    passthru.icaroot = "${placeholder "out"}/opt/citrix-icaclient";
 
-  dontBuild = true;
-  dontConfigure = true;
-  sourceRoot = ".";
-  preferLocalBuild = true;
-  passthru.icaroot = "${placeholder "out"}/opt/citrix-icaclient";
+    nativeBuildInputs = [
+      autoPatchelfHook
+      file
+      makeWrapper
+      more
+      which
+      wrapGAppsHook3
+      libfaketime
+    ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    file
-    makeWrapper
-    more
-    which
-    wrapGAppsHook3
-    libfaketime
-  ];
+    buildInputs = [
+      alsa-lib
+      atk
+      cairo
+      dconf
+      fontconfig
+      freetype
+      gdk-pixbuf
+      gnome2.gtkglext
+      glib-networking
+      webkitgtk_4_0
+      gtk2
+      gtk2-x11
+      gtk3
+      gtk_engines
+      heimdal
+      krb5
+      libcap
+      libcanberra-gtk3
+      libcxx
+      libinput
+      libjpeg
+      libjson
+      libpng12
+      libpulseaudio
+      libsecret
+      libsoup_2_4
+      libvorbis
+      libxml2
+      llvmPackages.libunwind
+      libgbm
+      nspr
+      nss
+      opencv4'
+      openssl'
+      pango
+      pcsclite
+      speex
+      (lib.getLib systemd)
+      stdenv.cc.cc
+      xorg.libXaw
+      xorg.libXmu
+      xorg.libXScrnSaver
+      xorg.libXtst
+      zlib
+    ];
 
-  buildInputs = [
-    alsa-lib
-    atk
-    cairo
-    dconf
-    fontconfig
-    freetype
-    gdk-pixbuf
-    gnome2.gtkglext
-    glib-networking
-    webkitgtk_4_0
-    gtk2
-    gtk2-x11
-    gtk3
-    gtk_engines
-    heimdal
-    krb5
-    libcap
-    libcanberra-gtk3
-    libcxx
-    libinput
-    libjpeg
-    libjson
-    libpng12
-    libpulseaudio
-    libsecret
-    libsoup_2_4
-    libvorbis
-    libxml2
-    llvmPackages.libunwind
-    libgbm
-    nspr
-    nss
-    opencv4'
-    openssl'
-    pango
-    pcsclite
-    speex
-    (lib.getLib systemd)
-    stdenv.cc.cc
-    xorg.libXaw
-    xorg.libXmu
-    xorg.libXScrnSaver
-    xorg.libXtst
-    zlib
-  ];
+    runtimeDependencies = [
+      glib
+      glib-networking
+      pcsclite
 
-  runtimeDependencies = [
-    glib
-    glib-networking
-    pcsclite
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXinerama
+      xorg.libXmu
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.xprop
+      xorg.xdpyinfo
+    ];
 
-    xorg.libX11
-    xorg.libXScrnSaver
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXinerama
-    xorg.libXmu
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    xorg.xprop
-    xorg.xdpyinfo
-  ];
-
-  installPhase =
-    let
-      icaFlag =
-        program:
-        if (builtins.match "selfservice(.*)" program) != null then
-          "--icaroot"
-        else if (builtins.match "wfica(.*)" program != null) then
-          null
-        else
-          "-icaroot";
+    installPhase = let
+      icaFlag = program:
+        if (builtins.match "selfservice(.*)" program) != null
+        then "--icaroot"
+        else if (builtins.match "wfica(.*)" program != null)
+        then null
+        else "-icaroot";
       wrap = program: ''
         wrapProgram $out/opt/citrix-icaclient/${program} \
           ${lib.optionalString (icaFlag program != null) ''--add-flags "${icaFlag program} $ICAInstDir"''} \
@@ -229,8 +224,7 @@ stdenv.mkDerivation rec {
         "util/conncenter"
         "util/ctx_rehash"
       ];
-    in
-    ''
+    in ''
       runHook preInstall
 
       mkdir -p $out/{bin,share/applications}
@@ -287,28 +281,28 @@ stdenv.mkDerivation rec {
       runHook postInstall
     '';
 
-  # Make sure that `autoPatchelfHook` is executed before
-  # running `ctx_rehash`.
-  dontAutoPatchelf = true;
-  preFixup = ''
-    find $out/opt/citrix-icaclient/lib -name "libopencv_imgcodecs.so.*" | while read -r fname; do
-      # lib needs libtiff.so.5, but nixpkgs provides libtiff.so.6
-      patchelf --replace-needed libtiff.so.5 libtiff.so $fname
-      # lib needs libjpeg.so.8, but nixpkgs provides libjpeg.so.9
-      patchelf --replace-needed libjpeg.so.8 libjpeg.so $fname
-    done
-  '';
-  postFixup = ''
-    autoPatchelf -- "$out"
-    $out/opt/citrix-icaclient/util/ctx_rehash
-  '';
+    # Make sure that `autoPatchelfHook` is executed before
+    # running `ctx_rehash`.
+    dontAutoPatchelf = true;
+    preFixup = ''
+      find $out/opt/citrix-icaclient/lib -name "libopencv_imgcodecs.so.*" | while read -r fname; do
+        # lib needs libtiff.so.5, but nixpkgs provides libtiff.so.6
+        patchelf --replace-needed libtiff.so.5 libtiff.so $fname
+        # lib needs libjpeg.so.8, but nixpkgs provides libjpeg.so.9
+        patchelf --replace-needed libjpeg.so.8 libjpeg.so $fname
+      done
+    '';
+    postFixup = ''
+      autoPatchelf -- "$out"
+      $out/opt/citrix-icaclient/util/ctx_rehash
+    '';
 
-  meta = with lib; {
-    license = licenses.unfree;
-    description = "Citrix Workspace";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ] ++ optional (versionOlder version "24") "i686-linux";
-    maintainers = with maintainers; [ flacks ];
-    inherit homepage;
-  };
-}
+    meta = with lib; {
+      license = licenses.unfree;
+      description = "Citrix Workspace";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      platforms = ["x86_64-linux"] ++ optional (versionOlder version "24") "i686-linux";
+      maintainers = with maintainers; [flacks];
+      inherit homepage;
+    };
+  }

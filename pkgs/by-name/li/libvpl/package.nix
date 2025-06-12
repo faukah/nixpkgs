@@ -7,7 +7,6 @@
   replaceVars,
   addDriverRunpath,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvpl";
   version = "2.15.0";

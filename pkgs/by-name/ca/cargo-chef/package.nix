@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-chef";
   version = "0.1.71";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo-chef";
     homepage = "https://github.com/LukeMathWalker/cargo-chef";
     license = licenses.mit;
-    maintainers = with maintainers; [ kkharji ];
+    maintainers = with maintainers; [kkharji];
   };
 }

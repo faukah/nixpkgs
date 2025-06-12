@@ -9,7 +9,6 @@
   ninja,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "phodav";
   version = "3.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "WebDav server implementation and library using libsoup";
     homepage = "https://gitlab.gnome.org/GNOME/phodav";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

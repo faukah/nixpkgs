@@ -2,11 +2,9 @@
   lib,
   fetchurl,
   fetchFromGitea,
-}:
-let
+}: let
   src = lib.importJSON ./src.json;
-in
-{
+in {
   inherit (src) packageVersion;
   source = fetchFromGitea (
     src.source

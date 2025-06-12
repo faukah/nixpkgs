@@ -8,7 +8,6 @@
   pkg-config,
   cairo,
 }:
-
 buildDunePackage rec {
   pname = "cairo2";
   version = "0.6.5";
@@ -21,7 +20,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.02";
   useDune2 = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     dune-configurator

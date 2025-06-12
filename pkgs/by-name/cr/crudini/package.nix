@@ -5,7 +5,6 @@
   help2man,
   installShellFiles,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "crudini";
   version = "0.9.6";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.wheel
   ];
 
-  propagatedBuildInputs = with python3Packages; [ iniparse ];
+  propagatedBuildInputs = with python3Packages; [iniparse];
 
   postInstall = ''
     # this just creates the man page
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     description = "Utility for manipulating ini files";
     homepage = "https://www.pixelbeat.org/programs/crudini/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "crudini";
   };
 }

@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "charset-normalizer";
   version = "3.4.1";
@@ -38,9 +37,9 @@ buildPythonPackage rec {
 
   env.CHARSET_NORMALIZER_USE_MYPYC = "1";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "charset_normalizer" ];
+  pythonImportsCheck = ["charset_normalizer"];
 
   passthru.tests = {
     inherit aiohttp requests;
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://charset-normalizer.readthedocs.io/";
     changelog = "https://github.com/Ousret/charset_normalizer/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

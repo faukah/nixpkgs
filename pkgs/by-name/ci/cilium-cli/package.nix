@@ -6,7 +6,6 @@
   installShellFiles,
   testers,
 }:
-
 buildGoModule rec {
   pname = "cilium-cli";
   version = "0.18.3";
@@ -18,11 +17,11 @@ buildGoModule rec {
     hash = "sha256-9+nNZEXjSoNB/Ftn/CtoBcR/uaD71C1jzDEaEG3Wpb4=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = null;
 
-  subPackages = [ "cmd/cilium" ];
+  subPackages = ["cmd/cilium"];
 
   ldflags = [
     "-s"

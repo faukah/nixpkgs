@@ -7,7 +7,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "israel-rail-api";
   version = "0.1.2";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-OiWK3gi7dQ7SF4fvusKtSFzdhrsvePlscX0EYQ/hlYk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytz
     requests
   ];
 
-  pythonImportsCheck = [ "israelrailapi" ];
+  pythonImportsCheck = ["israelrailapi"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/sh0oki/israel-rail-api/releases/tag/v${version}";
     description = "Python wrapping of the Israeli Rail API";
     homepage = "https://github.com/sh0oki/israel-rail-api";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -11,7 +11,6 @@
   gperf,
   libpaper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "a2ps";
   version = "4.15.6";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/a2ps/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bennofs ];
+    maintainers = [maintainers.bennofs];
     platforms = platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   matrix-synapse-unwrapped,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-synapse-mjolnir-antispam";
   version = "1.10.0";
@@ -19,10 +18,10 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/synapse_antispam";
 
-  buildInputs = [ matrix-synapse-unwrapped ];
+  buildInputs = [matrix-synapse-unwrapped];
 
   doCheck = false; # no tests
-  pythonImportsCheck = [ "mjolnir" ];
+  pythonImportsCheck = ["mjolnir"];
 
   meta = with lib; {
     description = "AntiSpam / Banlist plugin to be used with mjolnir";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/matrix-org/mjolnir/blob/main/docs/synapse_module.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

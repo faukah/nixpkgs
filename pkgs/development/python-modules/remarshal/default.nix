@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build deps
   poetry-core,
-
   # propagates
   cbor2,
   colorama,
@@ -15,11 +13,9 @@
   ruamel-yaml,
   tomlkit,
   u-msgpack-python,
-
   # tested using
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "remarshal";
   version = "1.0.0";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-14vkLX7wKi+AYv2wPeHJ7MhKBKp+GB3oHWqxiPdkQhs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     cbor2
@@ -45,14 +41,14 @@ buildPythonPackage rec {
     u-msgpack-python
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/remarshal-project/remarshal/releases/tag/v${version}";
     description = "Convert between TOML, YAML and JSON";
     license = licenses.mit;
     homepage = "https://github.com/dbohdan/remarshal";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     mainProgram = "remarshal";
   };
 }

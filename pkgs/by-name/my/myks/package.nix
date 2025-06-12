@@ -7,7 +7,6 @@
   myks,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "myks";
   version = "4.8.4";
@@ -31,11 +30,11 @@ buildGoModule rec {
     "-X=main.date=1970-01-01"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = 0;
 
-  passthru.tests.version = testers.testVersion { package = myks; };
+  passthru.tests.version = testers.testVersion {package = myks;};
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd myks \

@@ -4,7 +4,6 @@
   rustPlatform,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "foxmarks";
   version = "2.1.1";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-BAUqH2RVpLLXvN43J67xqtrQZT3OgNA9ot+joOB70DY=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   meta = {
     description = "CLI read-only interface for Mozilla Firefox's bookmarks";
     homepage = "https://github.com/zer0-x/foxmarks";
     changelog = "https://github.com/zer0-x/foxmarks/blobl/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ loicreynier ];
+    maintainers = with lib.maintainers; [loicreynier];
   };
 }

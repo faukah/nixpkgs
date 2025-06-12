@@ -4,7 +4,6 @@
   fetchFromGitHub,
   runtimeShell,
 }:
-
 stdenv.mkDerivation {
   pname = "zsh-autoenv";
   version = "unstable-2017-12-16";

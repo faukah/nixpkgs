@@ -6,7 +6,6 @@
   stdenv,
   tbb,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openpgl";
   version = "0.7.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Intel Open Path Guiding Library";
     homepage = "https://github.com/OpenPathGuidingLibrary/openpgl";
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.amarshall ];
+    maintainers = [lib.maintainers.amarshall];
     license = lib.licenses.asl20;
   };
 })

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "emu2";
   version = "0.pre+unstable=2021-09-22";
@@ -15,13 +14,13 @@ stdenv.mkDerivation {
     hash = "sha256-Jafl0Pw2k5RCF9GgpdAWcQ+HBTsiX7dOKSMCWPHQ+2E=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/dmsc/emu2/";
     description = "Simple text-mode x86 + DOS emulator";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2Plus;
     mainProgram = "emu2";
   };

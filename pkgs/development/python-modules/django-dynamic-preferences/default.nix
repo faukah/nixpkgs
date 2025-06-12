@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-dynamic-preferences";
   version = "1.17.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     distutils
   ];
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  dependencies = [ persisting-theory ];
+  dependencies = [persisting-theory];
 
   nativeCheckInputs = [
     djangorestframework
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pytest-django
   ];
 
-  pythonImportsCheck = [ "dynamic_preferences" ];
+  pythonImportsCheck = ["dynamic_preferences"];
 
   env.DJANGO_SETTINGS = "tests.settings";
 
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/agateblue/django-dynamic-preferences/blob/${version}/HISTORY.rst";
     homepage = "https://github.com/agateblue/django-dynamic-preferences";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

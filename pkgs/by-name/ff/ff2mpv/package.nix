@@ -5,7 +5,6 @@
   python3,
   mpv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ff2mpv";
   version = "5.1.0";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Native Messaging Host for ff2mpv firefox addon";
     homepage = "https://github.com/woodruffw/ff2mpv";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ff2mpv.py";
   };
 }

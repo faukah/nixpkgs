@@ -18,7 +18,6 @@
   types-requests,
   types-setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "schema-salad";
   version = "8.8.20250205075315";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-Lev5daC3RCuXN1GJjOwplTx9PB3HTNZdNNzusn2dBaI=";
   };
 
-  pythonRelaxDeps = [ "mistune" ];
+  pythonRelaxDeps = ["mistune"];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     sed -i "/black>=/d" pyproject.toml
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies =
     [
@@ -57,9 +56,9 @@ buildPythonPackage rec {
       types-setuptools
     ]
     ++ cachecontrol.optional-dependencies.filecache
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.pycodegen;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.pycodegen;
 
   preCheck = ''
     rm tox.ini
@@ -76,17 +75,17 @@ buildPythonPackage rec {
     "test_bad_schemas"
   ];
 
-  pythonImportsCheck = [ "schema_salad" ];
+  pythonImportsCheck = ["schema_salad"];
 
   optional-dependencies = {
-    pycodegen = [ black ];
+    pycodegen = [black];
   };
 
   meta = with lib; {
     description = "Semantic Annotations for Linked Avro Data";
     homepage = "https://github.com/common-workflow-language/schema_salad";
     changelog = "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [veprbl];
   };
 }

@@ -17,7 +17,6 @@
   pkg-config,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "foliate";
   version = "3.3.0";

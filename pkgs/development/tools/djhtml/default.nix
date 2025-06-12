@@ -16,16 +16,16 @@ buildPythonApplication rec {
     hash = "sha256-1bopV6mjwjXdoIN9i3An4NvSpeGcVlQ24nLLjP/UfQU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "djhtml" ];
+  pythonImportsCheck = ["djhtml"];
 
   meta = with lib; {
     homepage = "https://github.com/rtts/djhtml";
     description = "Django/Jinja template indenter";
     changelog = "https://github.com/rtts/djhtml/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "djhtml";
   };
 }

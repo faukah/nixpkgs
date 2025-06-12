@@ -5,7 +5,6 @@
   dotnetCorePackages,
   testers,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "seq-cli";
   version = "2024.3.922";
@@ -24,7 +23,7 @@ buildDotnetModule (finalAttrs: {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  executables = [ "seqcli" ];
+  executables = ["seqcli"];
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
@@ -35,7 +34,7 @@ buildDotnetModule (finalAttrs: {
     description = "Seq command-line client. Administer, log, ingest, search, from any OS";
     homepage = "https://github.com/datalust/seqcli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hausken ];
+    maintainers = with lib.maintainers; [hausken];
     mainProgram = "seqcli";
     platforms = lib.platforms.all;
   };

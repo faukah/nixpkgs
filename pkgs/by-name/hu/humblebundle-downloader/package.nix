@@ -3,7 +3,6 @@
   lib,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "humblebundle-downloader";
   version = "0.4.3";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "hbd";
     homepage = "https://github.com/xtream1101/humblebundle-downloader";
     changelog = "https://github.com/xtream1101/humblebundle-downloader/blob/${src.tag}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

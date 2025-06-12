@@ -12,7 +12,6 @@
   dejavu_fonts,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xwax";
   version = "1.9";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=${placeholder "out"}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-h";
   doInstallCheck = true;
 
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Digital vinyl on Linux";
     mainProgram = "xwax";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ obsoleszenz ];
+    maintainers = with lib.maintainers; [obsoleszenz];
     platforms = lib.platforms.linux;
   };
 })

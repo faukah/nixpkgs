@@ -3,12 +3,11 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "terraform_landscape";
 
   gemdir = ./.;
-  exes = [ "landscape" ];
+  exes = ["landscape"];
 
   passthru.updateScript = bundlerUpdateScript "terraform-landscape";
 

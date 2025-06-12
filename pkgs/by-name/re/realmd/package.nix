@@ -12,7 +12,6 @@
   stdenv,
   systemdLibs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "realmd";
   version = "0.17.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://gitlab.freedesktop.org/realmd/realmd/-/blob/${finalAttrs.version}/NEWS";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.freedesktop.org/realmd/realmd";
     license = lib.licenses.lgpl21Only;
     mainProgram = "realm";
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
     platforms = lib.platforms.linux;
   };
 })

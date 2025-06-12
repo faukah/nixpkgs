@@ -5,7 +5,6 @@
   fetchurl,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "duration";
   version = "0.2.1";
@@ -18,13 +17,12 @@ buildDunePackage rec {
   };
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     homepage = "https://github.com/hannesm/duration";
     description = "Conversions to various time units";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

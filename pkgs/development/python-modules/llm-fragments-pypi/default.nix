@@ -7,7 +7,6 @@
   llm-fragments-pypi,
   httpx,
 }:
-
 buildPythonPackage rec {
   pname = "llm-fragments-pypi";
   version = "0.1.1";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-1XqAmuZ1WMHD6JbLbLsK9K4Uf3FvvKJD4mn1G2J/3C8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     httpx
     llm
   ];
 
-  pythonImportsCheck = [ "llm_fragments_pypi" ];
+  pythonImportsCheck = ["llm_fragments_pypi"];
 
   passthru.tests = llm.mkPluginTest llm-fragments-pypi;
 
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/samueldg/llm-fragments-pypi";
     changelog = "https://github.com/samueldg/llm-fragments-pypi/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

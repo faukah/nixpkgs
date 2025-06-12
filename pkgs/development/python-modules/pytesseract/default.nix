@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytesseract";
   version = "0.3.13";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ tesseract ];
+  buildInputs = [tesseract];
 
   propagatedBuildInputs = [
     packaging
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     "invalid_tessdata_dir"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pytesseract/";
     license = licenses.asl20;
     description = "Python wrapper for Google Tesseract";
     mainProgram = "pytesseract";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "2048-in-terminal";
   version = "unstable-2022-06-13";
@@ -17,15 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y5ZQYWOiG3QZZsr+d7olUDGAQ1LhRG9X2hBNQDx+Ztw=";
   };
 
-  buildInputs = [ ncurses ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ncurses];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 
   preInstall = ''
     mkdir -p $out/bin
   '';
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     inherit (src.meta) homepage;

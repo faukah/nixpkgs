@@ -7,7 +7,6 @@
   autoSignDarwinBinariesHook,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liquid-dsp";
   version = "1.6.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     ];
 
   nativeBuildInputs =
-    [ autoreconfHook ]
+    [autoreconfHook]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       cctools
       autoSignDarwinBinariesHook

@@ -5,7 +5,6 @@
   setuptools,
   pyasyncore,
 }:
-
 buildPythonPackage rec {
   pname = "pysecretsocks";
   version = "0.9.1-unstable-2023-11-04";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-3jvMVsoKgBN4eRc6hyj7X/uu7NoJvofsbljVcgGfcPc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyasyncore ];
+  dependencies = [pyasyncore];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "secretsocks" ];
+  pythonImportsCheck = ["secretsocks"];
 
   meta = {
     description = "Socks server for tunneling a connection over another channel";
     homepage = "https://github.com/BC-SECURITY/PySecretSOCKS";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

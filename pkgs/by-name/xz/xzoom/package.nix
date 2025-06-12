@@ -8,7 +8,6 @@
   imake,
   gccmakedep,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xzoom";
   version = "0.3";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "X11 screen zoom tool";
     license = lib.licenses.free;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     mainProgram = "xzoom";
   };

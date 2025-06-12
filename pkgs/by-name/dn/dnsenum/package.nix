@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dnsenum";
   version = "1.2.4.2";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     NetWhoisIP
     WWWMechanize
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -vD dnsenum.pl $out/bin/dnsenum
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fwaeytens/dnsenum";
     description = "Tool to enumerate DNS information";
     mainProgram = "dnsenum";
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

@@ -12,7 +12,6 @@
   perl,
   perlPackages,
 }:
-
 mkDerivation {
   pname = "kdoctools";
   nativeBuildInputs = [
@@ -37,7 +36,7 @@ mkDerivation {
     "dev"
   ];
   patches =
-    [ ./kdoctools-no-find-docbook-xml.patch ]
+    [./kdoctools-no-find-docbook-xml.patch]
     # kf.doctools.core: Error: Could not find kdoctools catalogs
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       (fetchpatch {

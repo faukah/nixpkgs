@@ -8,7 +8,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "efibooteditor";
   version = "1.5.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xD40ZzkpwerDYC8nzGVqEHLV0KWbxcc0ApquQjrPJTc=";
   };
 
-  buildInputs = [ zlib ] ++ lib.optional stdenv.hostPlatform.isLinux efivar;
+  buildInputs = [zlib] ++ lib.optional stdenv.hostPlatform.isLinux efivar;
 
   nativeBuildInputs = [
     cmake
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.BUILD_VERSION = "v${finalAttrs.version}";
   cmakeBuildType = "MinSizeRel";
-  cmakeFlags = [ "-DQT_VERSION_MAJOR=6" ];
+  cmakeFlags = ["-DQT_VERSION_MAJOR=6"];
 
   postInstall = ''
     install -Dm644 $src/LICENSE.txt $out/share/licenses/efibooteditor/LICENSE
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Neverous/efibooteditor/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux; # TODO build is broken on darwin
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "efibooteditor";
   };
 })

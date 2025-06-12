@@ -10,7 +10,6 @@
   python3,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hobbits";
   version = "0.55.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt5.wrapQtAppsHook
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "USE_SYSTEM_PFFFT" true) ];
+  cmakeFlags = [(lib.cmakeBool "USE_SYSTEM_PFFFT" true)];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch64 "-Wno-error=narrowing";
 
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi-platform GUI for bit-based analysis, processing, and visualization";
     homepage = "https://github.com/Mahlet-Inc/hobbits";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = with lib.platforms; linux ++ darwin;
   };
 })

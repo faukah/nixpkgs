@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "lovelace-card-mod";
   version = "3.5.0";
@@ -32,7 +31,7 @@ buildNpmPackage rec {
     description = "Add CSS styles to (almost) any lovelace card";
     homepage = "https://github.com/thomasloven/lovelace-card-mod";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     platforms = platforms.all;
   };
 }

@@ -6,7 +6,6 @@
   ffmpeg,
   mpv,
 }:
-
 buildGoModule rec {
   pname = "invidtui";
   version = "0.4.6";
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://darkhz.github.io/invidtui/";
     description = "Invidious TUI client";
     license = licenses.mit;
-    maintainers = with maintainers; [ rettetdemdativ ];
+    maintainers = with maintainers; [rettetdemdativ];
     mainProgram = "invidtui";
   };
 }

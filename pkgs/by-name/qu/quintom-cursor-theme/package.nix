@@ -3,7 +3,6 @@
   fetchFromGitLab,
   lib,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "quintom-cursor-theme";
   version = "unstable-2019-10-24";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation {
       cc-by-sa-40
       gpl3Only
     ];
-    maintainers = with maintainers; [ frogamic ];
+    maintainers = with maintainers; [frogamic];
   };
 }

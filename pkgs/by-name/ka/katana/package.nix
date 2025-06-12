@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "katana";
   version = "1.1.3";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-L7ycSzLbZUJ/4E+2lyN52xQFOJoxiRopgTfJkflFP9Q=";
 
-  subPackages = [ "cmd/katana" ];
+  subPackages = ["cmd/katana"];
 
   ldflags = [
     "-w"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/katana";
     changelog = "https://github.com/projectdiscovery/katana/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "katana";
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "kazoo";
   version = "2.10.0";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://kazoo.readthedocs.org";
     description = "Higher Level Zookeeper Client";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

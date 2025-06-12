@@ -10,7 +10,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "faba-icon-theme";
   version = "4.3";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
       gpl3
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

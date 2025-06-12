@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "muffet";
   version = "2.10.9";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/raviqqe/muffet";
     changelog = "https://github.com/raviqqe/muffet/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "muffet";
   };
 }

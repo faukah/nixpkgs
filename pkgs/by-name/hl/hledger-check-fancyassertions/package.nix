@@ -5,7 +5,6 @@
   fetchurl,
   writers,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hledger-check-fancyassertions";
   inherit (haskellPackages.hledger-lib) version;
@@ -19,23 +18,25 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
   dontBuild = true;
 
-  executable = writers.writeHaskell "hledger-check-fancyassertions" {
-    libraries = with haskellPackages; [
-      hledger-lib
-      base
-      base-compat
-      base-compat-batteries
-      filepath
-      megaparsec
-      microlens
-      optparse-applicative
-      string-qq
-      text
-      time
-      transformers
-    ];
-    inherit (haskellPackages) ghc;
-  } src;
+  executable =
+    writers.writeHaskell "hledger-check-fancyassertions" {
+      libraries = with haskellPackages; [
+        hledger-lib
+        base
+        base-compat
+        base-compat-batteries
+        filepath
+        megaparsec
+        microlens
+        optparse-applicative
+        string-qq
+        text
+        time
+        transformers
+      ];
+      inherit (haskellPackages) ghc;
+    }
+    src;
 
   installPhase = ''
     runHook preInstall
@@ -48,7 +49,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://hledger.org/";
     changelog = "https://github.com/simonmichael/hledger/blob/master/CHANGES.md";
     license = licenses.gpl3;
-    maintainers = [ maintainers.DamienCassou ];
+    maintainers = [maintainers.DamienCassou];
     platforms = lib.platforms.all; # GHC can cross-compile
     mainProgram = "hledger-check-fancyassertions";
   };

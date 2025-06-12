@@ -15,7 +15,6 @@
   tuxclocker-without-unfree,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tuxclocker";
   version = "1.5.1";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Qt overclocking tool for GNU/Linux";
     homepage = "https://github.com/Lurkki14/tuxclocker";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
     platforms = platforms.linux;
   };
 })

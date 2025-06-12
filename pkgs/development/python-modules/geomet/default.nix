@@ -7,7 +7,6 @@
   six,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "geomet";
   version = "1.1.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-YfI29925nffzRBMJb6Gm3muvlpwP3zSw2YJ2vWcf+Bo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     click
     six
   ];
 
-  pythonImportsCheck = [ "geomet" ];
+  pythonImportsCheck = ["geomet"];
 
   meta = with lib; {
     description = "Convert GeoJSON to WKT/WKB (Well-Known Text/Binary) and vice versa";

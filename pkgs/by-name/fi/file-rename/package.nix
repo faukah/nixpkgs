@@ -5,7 +5,6 @@
   perl,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage {
   pname = "File-Rename";
   version = "0.20";
@@ -31,7 +30,7 @@ perlPackages.buildPerlPackage {
   meta = with lib; {
     description = "Perl extension for renaming multiple files";
     license = licenses.artistic1;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "rename";
   };
 }

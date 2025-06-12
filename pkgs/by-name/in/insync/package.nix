@@ -14,9 +14,7 @@
   libthai,
   libsForQt5,
   xz,
-}:
-
-let
+}: let
   pname = "insync";
   # Find a binary from https://www.insynchq.com/downloads/linux
   version = "3.9.6.60027";
@@ -40,14 +38,16 @@ let
       libsForQt5.qt5.wrapQtAppsHook
     ];
 
-    buildInputs = [
-      alsa-lib
-      nss
-      lz4
-      libgcrypt
-      libthai
-      xz
-    ] ++ (with libsForQt5; [ qt5.qtvirtualkeyboard ]);
+    buildInputs =
+      [
+        alsa-lib
+        nss
+        lz4
+        libgcrypt
+        libthai
+        xz
+      ]
+      ++ (with libsForQt5; [qt5.qtvirtualkeyboard]);
 
     installPhase = ''
       runHook preInstall
@@ -64,63 +64,62 @@ let
     # NB! This did the trick, otherwise it segfaults! However I don't understand why!
     dontStrip = true;
   };
-
 in
-buildFHSEnv {
-  inherit pname version;
+  buildFHSEnv {
+    inherit pname version;
 
-  targetPkgs =
-    pkgs: with pkgs; [
-      libudev0-shim
-      insync-pkg
-    ];
+    targetPkgs = pkgs:
+      with pkgs; [
+        libudev0-shim
+        insync-pkg
+      ];
 
-  extraInstallCommands = ''
-    cp -rsHf "${insync-pkg}"/share $out/
-  '';
-
-  runScript = writeShellScript "insync-wrapper.sh" ''
-    # xkb configuration needed: https://github.com/NixOS/nixpkgs/issues/236365
-    export XKB_CONFIG_ROOT=${xkeyboard_config}/share/X11/xkb/
-
-    # When using Ubuntu deb package, this might be needed for showing system tray icon.
-    # export XDG_CURRENT_DESKTOP=Unity
-
-    # For debugging:
-    # export QT_DEBUG_PLUGINS=1
-
-    exec /usr/lib/insync/insync "$@"
-  '';
-
-  # As intended by this bubble wrap, share as much namespaces as possible with user.
-  unshareUser = false;
-  unshareIpc = false;
-  unsharePid = false;
-  unshareNet = false;
-  unshareUts = false;
-  unshareCgroup = false;
-
-  dieWithParent = true;
-
-  meta = {
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ hellwolf ];
-    homepage = "https://www.insynchq.com";
-    description = "Google Drive sync and backup with multiple account support";
-    longDescription = ''
-      Insync is a commercial application that syncs your Drive files to your
-      computer.  It has more advanced features than Google's official client
-      such as multiple account support, Google Doc conversion, symlink support,
-      and built in sharing.
-
-      There is a 15-day free trial, and it is a paid application after that.
-
-      Known bug(s):
-
-      1) Currently the system try icon does not render correctly.
+    extraInstallCommands = ''
+      cp -rsHf "${insync-pkg}"/share $out/
     '';
-    mainProgram = "insync";
-  };
-}
+
+    runScript = writeShellScript "insync-wrapper.sh" ''
+      # xkb configuration needed: https://github.com/NixOS/nixpkgs/issues/236365
+      export XKB_CONFIG_ROOT=${xkeyboard_config}/share/X11/xkb/
+
+      # When using Ubuntu deb package, this might be needed for showing system tray icon.
+      # export XDG_CURRENT_DESKTOP=Unity
+
+      # For debugging:
+      # export QT_DEBUG_PLUGINS=1
+
+      exec /usr/lib/insync/insync "$@"
+    '';
+
+    # As intended by this bubble wrap, share as much namespaces as possible with user.
+    unshareUser = false;
+    unshareIpc = false;
+    unsharePid = false;
+    unshareNet = false;
+    unshareUts = false;
+    unshareCgroup = false;
+
+    dieWithParent = true;
+
+    meta = {
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [hellwolf];
+      homepage = "https://www.insynchq.com";
+      description = "Google Drive sync and backup with multiple account support";
+      longDescription = ''
+        Insync is a commercial application that syncs your Drive files to your
+        computer.  It has more advanced features than Google's official client
+        such as multiple account support, Google Doc conversion, symlink support,
+        and built in sharing.
+
+        There is a 15-day free trial, and it is a paid application after that.
+
+        Known bug(s):
+
+        1) Currently the system try icon does not render correctly.
+      '';
+      mainProgram = "insync";
+    };
+  }

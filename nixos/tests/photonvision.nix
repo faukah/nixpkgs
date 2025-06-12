@@ -1,15 +1,16 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "photonvision";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.photonvision = {
-          enable = true;
-        };
+    machine = {pkgs, ...}: {
+      services.photonvision = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''
@@ -18,5 +19,5 @@
     machine.wait_for_open_port(5800)
   '';
 
-  meta.maintainers = with lib.maintainers; [ max-niederman ];
+  meta.maintainers = with lib.maintainers; [max-niederman];
 }

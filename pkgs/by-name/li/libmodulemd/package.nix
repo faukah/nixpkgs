@@ -16,7 +16,6 @@
   docbook_xml_dtd_412,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmodulemd";
   version = "2.15.0";
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
     mainProgram = "modulemd-validator";
     homepage = "https://github.com/fedora-modularity/libmodulemd";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

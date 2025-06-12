@@ -7,7 +7,6 @@
   help2man,
   curl,
 }:
-
 stdenv.mkDerivation {
   pname = "libykclient";
   version = "unstable-2019-03-18";
@@ -23,13 +22,13 @@ stdenv.mkDerivation {
     pkg-config
     help2man
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     description = "Yubikey C client library";
     mainProgram = "ykclient";
     homepage = "https://developers.yubico.com/yubico-c-client";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

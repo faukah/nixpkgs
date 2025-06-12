@@ -7,7 +7,6 @@
   python3Packages,
   runtimeShell,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "argbash";
   version = "2.11.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://argbash.dev/";
     description = "Bash argument parsing code generator";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

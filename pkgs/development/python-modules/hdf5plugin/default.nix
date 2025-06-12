@@ -12,7 +12,6 @@
   zlib,
   zstd,
 }:
-
 buildPythonPackage rec {
   pname = "hdf5plugin";
   version = "5.1.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     pkgconfig # only needed if HDF5PLUGIN_SYSTEM_LIBRARIES is used
   ];
 
-  dependencies = [ h5py ];
+  dependencies = [h5py];
 
   buildInputs = [
     #c-blosc
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     python test/test.py
   '';
 
-  pythonImportsCheck = [ "hdf5plugin" ];
+  pythonImportsCheck = ["hdf5plugin"];
 
   preBuild = ''
     mkdir src/hdf5plugin/plugins
@@ -77,6 +76,6 @@ buildPythonPackage rec {
     '';
     homepage = "http://www.silx.org/doc/hdf5plugin/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

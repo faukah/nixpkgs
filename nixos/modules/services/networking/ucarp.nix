@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.networking.ucarp;
 
   ucarpExec = concatStringsSep " " (
@@ -31,8 +28,7 @@ let
     ++ (optional cfg.noMcast "--nomcast")
     ++ (optional (cfg.extraParam != null) "--xparam=${cfg.extraParam}")
   );
-in
-{
+in {
   options.networking.ucarp = {
     enable = mkEnableOption "ucarp, userspace implementation of CARP";
 
@@ -161,8 +157,8 @@ in
     systemd.services.ucarp = {
       description = "ucarp, userspace implementation of CARP";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "exec";
@@ -180,5 +176,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ oxzi ];
+  meta.maintainers = with lib.maintainers; [oxzi];
 }

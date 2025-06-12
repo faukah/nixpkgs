@@ -5,11 +5,10 @@
   fetchFromGitHub,
   libbsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kcgi";
   version = "0.10.8";
-  underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] version;
+  underscoreVersion = lib.replaceStrings ["."] ["_"] version;
 
   src = fetchFromGitHub {
     owner = "kristapsdz";
@@ -22,20 +21,20 @@ stdenv.mkDerivation rec {
       --replace /usr/local /
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libbsd ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [] ++ lib.optionals stdenv.hostPlatform.isLinux [libbsd];
 
   dontAddPrefix = true;
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     homepage = "https://kristaps.bsd.lv/kcgi";
     description = "Minimal CGI and FastCGI library for C/C++";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = [ maintainers.leenaars ];
+    maintainers = [maintainers.leenaars];
     mainProgram = "kfcgi";
   };
 }

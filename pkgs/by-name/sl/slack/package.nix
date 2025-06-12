@@ -38,9 +38,7 @@
   wayland,
   xdg-utils,
   xorg,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "slack does not support system: ${system}";
 
@@ -61,12 +59,13 @@ let
       x86_64-linux = x86_64-linux-version;
       aarch64-darwin = aarch64-darwin-version;
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
-  src =
-    let
-      base = "https://downloads.slack-edge.com";
-    in
+  src = let
+    base = "https://downloads.slack-edge.com";
+  in
     {
       x86_64-darwin = fetchurl {
         url = "${base}/desktop-releases/mac/universal/${version}/Slack-${version}-macOS.dmg";
@@ -81,13 +80,15 @@ let
         sha256 = aarch64-darwin-sha256;
       };
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
   meta = with lib; {
     description = "Desktop client for Slack";
     homepage = "https://slack.com";
     changelog = "https://slack.com/release-notes";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       mmahut
@@ -197,7 +198,7 @@ let
         rm $out/bin/slack
         makeWrapper $out/lib/slack/slack $out/bin/slack \
           --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-          --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+          --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
           --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true}}"
 
         # Fix the desktop link
@@ -226,7 +227,7 @@ let
 
     passthru.updateScript = ./update.sh;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = "Slack.app";
 
@@ -238,4 +239,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

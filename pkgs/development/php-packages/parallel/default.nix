@@ -3,7 +3,6 @@
   lib,
   php,
 }:
-
 buildPecl {
   pname = "parallel";
   version = "1.2.6";
@@ -15,6 +14,6 @@ buildPecl {
     broken = !php.ztsSupport;
     homepage = "https://pecl.php.net/package/parallel";
     license = lib.licenses.php301;
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 }

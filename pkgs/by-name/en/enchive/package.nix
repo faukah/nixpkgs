@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enchive";
   version = "3.5";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fdrfc5l42lj2bvmv9dmkmhmm7qiszwk7cmdvnqad3fs7652g0qa";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/skeeto/enchive";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

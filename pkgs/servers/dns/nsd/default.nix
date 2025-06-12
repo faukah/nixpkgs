@@ -16,10 +16,8 @@
   rootServer ? false,
   rrtypes ? false,
   zoneStats ? false,
-
   configFile ? "/etc/nsd/nsd.conf",
 }:
-
 stdenv.mkDerivation rec {
   pname = "nsd";
   version = "4.11.1";
@@ -40,10 +38,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags =
-    let
-      edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
-    in
+  configureFlags = let
+    edf = c: o:
+      if c
+      then ["--enable-${o}"]
+      else ["--disable-${o}"];
+  in
     edf bind8Stats "bind8-stats"
     ++ edf checking "checking"
     ++ edf ipv6 "ipv6"
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     description = "Authoritative only, high performance, simple and open source name server";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
   };
 }

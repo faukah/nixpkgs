@@ -5,7 +5,6 @@
   cmake,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clap";
   version = "1.2.6";
@@ -22,16 +21,16 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '$'"{prefix}/@CMAKE_INSTALL_INCLUDEDIR@" '@CMAKE_INSTALL_FULL_INCLUDEDIR@'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+  passthru.tests.pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
 
   meta = with lib; {
     description = "Clever Audio Plugin API interface headers";
     homepage = "https://cleveraudio.org/";
-    pkgConfigModules = [ "clap" ];
+    pkgConfigModules = ["clap"];
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 })

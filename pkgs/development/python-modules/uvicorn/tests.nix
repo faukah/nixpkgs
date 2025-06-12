@@ -11,7 +11,6 @@
   watchgod,
   wsproto,
 }:
-
 buildPythonPackage {
   pname = "uvicorn-tests";
   inherit (uvicorn) version;
@@ -22,19 +21,21 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    uvicorn
-    httpx
-    pytestCheckHook
-    pytest-mock
-    trustme
-    typing-extensions
+  nativeCheckInputs =
+    [
+      uvicorn
+      httpx
+      pytestCheckHook
+      pytest-mock
+      trustme
+      typing-extensions
 
-    # strictly optional dependencies
-    a2wsgi
-    watchgod
-    wsproto
-  ] ++ uvicorn.optional-dependencies.standard;
+      # strictly optional dependencies
+      a2wsgi
+      watchgod
+      wsproto
+    ]
+    ++ uvicorn.optional-dependencies.standard;
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 

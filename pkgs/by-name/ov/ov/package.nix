@@ -9,7 +9,6 @@
   testers,
   ov,
 }:
-
 buildGoModule rec {
   pname = "ov";
   version = "0.41.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     "-X=main.Revision=${src.rev}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles

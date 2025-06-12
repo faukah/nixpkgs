@@ -14,7 +14,6 @@
   SDL_mixer,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openlierox";
   version = "0.58_rc5";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [ "-DSYSTEM_DATA_DIR=${placeholder "out"}/share" ];
+  cmakeFlags = ["-DSYSTEM_DATA_DIR=${placeholder "out"}/share"];
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev libxml2}/include/libxml2";
 
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://openlierox.net";
     license = lib.licenses.lgpl2Plus;
     mainProgram = "openlierox";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 })

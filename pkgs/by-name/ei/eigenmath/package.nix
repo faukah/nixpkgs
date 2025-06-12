@@ -5,7 +5,6 @@
   buildPackages,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "eigenmath";
   version = "340-unstable-2025-05-05";
@@ -17,19 +16,17 @@ stdenv.mkDerivation {
     hash = "sha256-2bdO0nRXhDZlEmGRfNf6g9zwc65Ih9Ymlo6PxlpAxes=";
   };
 
-  checkPhase =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      runHook preCheck
+  checkPhase = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    runHook preCheck
 
-      for testcase in selftest1 selftest2; do
-        ${emulator} ./eigenmath "test/$testcase"
-      done
+    for testcase in selftest1 selftest2; do
+      ${emulator} ./eigenmath "test/$testcase"
+    done
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -40,7 +37,7 @@ stdenv.mkDerivation {
   doCheck = true;
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
@@ -48,7 +45,7 @@ stdenv.mkDerivation {
     mainProgram = "eigenmath";
     homepage = "https://georgeweigt.github.io";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.unix;
   };
 }

@@ -11,7 +11,6 @@
   lwt,
   mtime,
 }:
-
 buildDunePackage {
   pname = "happy-eyeballs-lwt";
 
@@ -37,8 +36,10 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = happy-eyeballs.meta // {
-    mainProgram = "happy_eyeballs_client";
-    description = "Connecting to a remote host via IP version 4 or 6 using Lwt_unix";
-  };
+  meta =
+    happy-eyeballs.meta
+    // {
+      mainProgram = "happy_eyeballs_client";
+      description = "Connecting to a remote host via IP version 4 or 6 using Lwt_unix";
+    };
 }

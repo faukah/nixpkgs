@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubexit";
   version = "0.3.2";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "kubexit";
     homepage = "https://github.com/karlkfi/kubexit/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

@@ -3,7 +3,6 @@
   fetchurl,
   mkTclDerivation,
 }:
-
 mkTclDerivation {
   pname = "wapp";
   version = "0-unstable-2024-11-22";
@@ -31,6 +30,6 @@ mkTclDerivation {
     homepage = "https://wapp.tcl-lang.org/home/doc/trunk/README.md";
     description = "Framework for writing web applications in Tcl";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nat-418 ];
+    maintainers = with maintainers; [nat-418];
   };
 }

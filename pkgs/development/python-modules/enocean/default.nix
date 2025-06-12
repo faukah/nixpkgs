@@ -3,18 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch2,
-
   # build-system
   setuptools,
-
   # dependencies
   beautifulsoup4,
   pyserial,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "enocean";
   version = "0.60.1";
@@ -35,16 +31,16 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRemoveDeps = [ "enum-compat" ];
+  pythonRemoveDeps = ["enum-compat"];
 
   dependencies = [
     beautifulsoup4
     pyserial
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "enocean.communicators"
@@ -58,6 +54,6 @@ buildPythonPackage rec {
     mainProgram = "enocean_example.py";
     homepage = "https://github.com/kipe/enocean";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

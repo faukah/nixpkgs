@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   audioread,
   decorator,
@@ -24,7 +22,6 @@
   standard-aifc,
   standard-sunau,
   typing-extensions,
-
   # tests
   ffmpeg-headless,
   packaging,
@@ -35,7 +32,6 @@
   samplerate,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "librosa";
   version = "0.11.0";
@@ -49,7 +45,7 @@ buildPythonPackage rec {
     hash = "sha256-T58J/Gi3tHzelr4enbYJi1KmO46QxE5Zlhkc0+EgvRg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     audioread
@@ -69,21 +65,23 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  optional-dependencies.matplotlib = [ matplotlib ];
+  optional-dependencies.matplotlib = [matplotlib];
 
   # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
-  pythonImportsCheck = [ "librosa" ];
+  pythonImportsCheck = ["librosa"];
 
-  nativeCheckInputs = [
-    ffmpeg-headless
-    packaging
-    pytest-cov-stub
-    pytest-mpl
-    pytestCheckHook
-    resampy
-    samplerate
-    writableTmpDirAsHomeHook
-  ] ++ optional-dependencies.matplotlib;
+  nativeCheckInputs =
+    [
+      ffmpeg-headless
+      packaging
+      pytest-cov-stub
+      pytest-mpl
+      pytestCheckHook
+      resampy
+      samplerate
+      writableTmpDirAsHomeHook
+    ]
+    ++ optional-dependencies.matplotlib;
 
   disabledTests =
     [
@@ -119,6 +117,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/librosa/librosa";
     changelog = "https://github.com/librosa/librosa/releases/tag/${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ GuillaumeDesforges ];
+    maintainers = with lib.maintainers; [GuillaumeDesforges];
   };
 }

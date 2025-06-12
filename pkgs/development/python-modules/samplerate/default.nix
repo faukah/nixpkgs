@@ -2,24 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   setuptools,
   setuptools-scm,
   pybind11,
-
   # dependencies
   cffi,
   numpy,
-
   # native dependencies
   libsamplerate,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "samplerate";
   version = "0.2.1";
@@ -48,16 +43,16 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ libsamplerate ];
+  buildInputs = [libsamplerate];
 
   propagatedBuildInputs = [
     cffi
     numpy
   ];
 
-  pythonImportsCheck = [ "samplerate" ];
+  pythonImportsCheck = ["samplerate"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     rm -rf samplerate
@@ -68,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tuxu/python-samplerate";
     changelog = "https://github.com/tuxu/python-samplerate/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

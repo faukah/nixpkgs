@@ -4,7 +4,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 qtModule {
   pname = "qtpim";
 
@@ -23,6 +22,6 @@ qtModule {
   ];
 
   meta = {
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 }

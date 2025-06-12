@@ -6,7 +6,6 @@
   pkg-config,
   zeromq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zmqpp";
   version = "4.2.0";
@@ -28,13 +27,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [ zeromq ];
+  propagatedBuildInputs = [zeromq];
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "C++ wrapper for czmq. Aims to be minimal, simple and consistent";
     license = licenses.lgpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ chris-martin ];
+    maintainers = with maintainers; [chris-martin];
   };
 }

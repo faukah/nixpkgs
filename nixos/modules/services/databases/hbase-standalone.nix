@@ -4,21 +4,19 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hbase-standalone;
   opt = options.services.hbase-standalone;
 
-  buildProperty =
-    configAttr:
-    (builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (name: value: ''
-        <property>
-          <name>${name}</name>
-          <value>${builtins.toString value}</value>
-        </property>
-      '') configAttr
-    ));
+  buildProperty = configAttr: (builtins.concatStringsSep "\n" (
+    lib.mapAttrsToList (name: value: ''
+      <property>
+        <name>${name}</name>
+        <value>${builtins.toString value}</value>
+      </property>
+    '')
+    configAttr
+  ));
 
   configFile = pkgs.writeText "hbase-site.xml" ''
     <configuration>
@@ -26,31 +24,27 @@ let
           </configuration>
   '';
 
-  configDir = pkgs.runCommand "hbase-config-dir" { preferLocalBuild = true; } ''
+  configDir = pkgs.runCommand "hbase-config-dir" {preferLocalBuild = true;} ''
     mkdir -p $out
     cp ${cfg.package}/conf/* $out/
     rm $out/hbase-site.xml
     ln -s ${configFile} $out/hbase-site.xml
   '';
-
-in
-{
-
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "hbase" ] [ "services" "hbase-standalone" ])
+    (lib.mkRenamedOptionModule ["services" "hbase"] ["services" "hbase-standalone"])
   ];
 
   ###### interface
 
   options = {
     services.hbase-standalone = {
-
       enable = lib.mkEnableOption ''
         HBase master in standalone mode with embedded regionserver and zookeper.
         Do not use this configuration for production nor for evaluating HBase performance
       '';
 
-      package = lib.mkPackageOption pkgs "hbase" { };
+      package = lib.mkPackageOption pkgs "hbase" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -87,8 +81,7 @@ in
       };
 
       settings = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
@@ -108,14 +101,12 @@ in
           configurations in hbase-site.xml, see <https://github.com/apache/hbase/blob/master/hbase-server/src/test/resources/hbase-site.xml> for details.
         '';
       };
-
     };
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
       "d '${cfg.logDir}' - ${cfg.user} ${cfg.group} - -"
@@ -123,7 +114,7 @@ in
 
     systemd.services.hbase = {
       description = "HBase Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         # JRE 15 removed option `UseConcMarkSweepGC` which is needed.
@@ -145,6 +136,5 @@ in
     };
 
     users.groups.hbase.gid = config.ids.gids.hbase;
-
   };
 }

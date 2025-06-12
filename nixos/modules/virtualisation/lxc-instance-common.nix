@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   meta = {
     maintainers = lib.teams.lxc.members;
   };

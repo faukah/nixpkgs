@@ -9,7 +9,6 @@
   version,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "mlton";
   inherit version;
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     mltonBootstrap
   ];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   strictDeps = true;
 

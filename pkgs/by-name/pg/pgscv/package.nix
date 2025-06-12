@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pgscv";
   version = "0.13.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     changelog = "https://github.com/CHERTS/pgscv/releases/${version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
     mainProgram = "pgscv";
   };
 }

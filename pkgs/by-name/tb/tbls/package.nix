@@ -7,7 +7,6 @@
   testers,
   tbls,
 }:
-
 buildGoModule rec {
   pname = "tbls";
   version = "1.85.4";
@@ -21,16 +20,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-Sqr5UiT4NNiFKNEqZRDbS92AYa9SKWqYTYl4Ljx/raY=";
 
-  excludedPackages = [ "scripts/jsonschema" ];
+  excludedPackages = ["scripts/jsonschema"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  CGO_CFLAGS = [ "-Wno-format-security" ];
+  CGO_CFLAGS = ["-Wno-format-security"];
 
   preCheck = ''
     # Remove tests that require additional services.
@@ -57,7 +56,7 @@ buildGoModule rec {
     homepage = "https://github.com/k1LoW/tbls";
     changelog = "https://github.com/k1LoW/tbls/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ azahi ];
+    maintainers = with lib.maintainers; [azahi];
     mainProgram = "tbls";
   };
 }

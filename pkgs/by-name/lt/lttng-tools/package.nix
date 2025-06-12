@@ -10,7 +10,6 @@
   kmod,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lttng-tools";
   version = "2.13.15";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lupCNR7hEsGdrZ/ceq6TtYPZ8XIrIXVmSjgdLTN3A8Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     popt
     libuuid
@@ -41,7 +40,6 @@ stdenv.mkDerivation rec {
       gpl2Only
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
-
 }

@@ -8,7 +8,6 @@
   setuptools,
   scikit-build,
 }:
-
 buildPythonPackage rec {
   pname = "py-slvs";
   version = "1.0.6";

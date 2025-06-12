@@ -4,7 +4,6 @@
   fetchurl,
   lib,
 }:
-
 buildNpmPackage {
   pname = "hyperssh";
   version = "5.0.3";
@@ -34,7 +33,7 @@ buildNpmPackage {
     description = "Run SSH over hyperswarm";
     homepage = "https://github.com/mafintosh/hyperssh";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ davhau ];
+    maintainers = with lib.maintainers; [davhau];
     mainProgram = "hyperssh";
     platforms = lib.platforms.all;
   };

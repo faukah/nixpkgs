@@ -32,14 +32,14 @@ stdenvNoCC.mkDerivation {
     runHook postFixup
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Nonsense phrase generator";
     mainProgram = "bullshit";
     homepage = "https://github.com/fceschmidt/bullshit-arch";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ krloer ];
+    maintainers = with maintainers; [krloer];
     inherit (gawk.meta) platforms;
   };
 }

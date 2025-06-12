@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cfdyndns";
   version = "0.2.1";
@@ -19,8 +18,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-VA4oT8WeXdxjr/tKbrRuZPLpXmmXbeKC5d6laRHr+uo=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "CloudFlare Dynamic DNS Client";

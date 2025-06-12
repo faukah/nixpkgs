@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mousam";
   version = "1.4.0";
@@ -51,9 +50,9 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Beautiful and lightweight weather app based on Python and GTK4";
     homepage = "https://amit9838.github.io/mousam";
-    license = with licenses; [ gpl3Plus ];
+    license = with licenses; [gpl3Plus];
     mainProgram = "mousam";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

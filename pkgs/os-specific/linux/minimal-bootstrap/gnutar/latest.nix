@@ -13,8 +13,7 @@
   gawk,
   gzip,
   gnutarBoot,
-}:
-let
+}: let
   pname = "gnutar";
   version = "1.35";
 
@@ -23,7 +22,7 @@ let
     hash = "sha256-FNVeMgY+qVJuBX+/Nfyr1TN452l4fv95GcN1WwLStX4=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -39,9 +38,8 @@ bash.runCommand "${pname}-${version}"
       gnutarBoot
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/tar --version
         mkdir $out
       '';
@@ -50,7 +48,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU implementation of the `tar' archiver";
       homepage = "https://www.gnu.org/software/tar";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       mainProgram = "tar";
       platforms = platforms.unix;
     };

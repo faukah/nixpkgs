@@ -7,7 +7,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "sing-box";
   version = "1.11.13";
@@ -37,7 +36,7 @@ buildGoModule (finalAttrs: {
     "cmd/sing-box"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-X=github.com/sagernet/sing-box/constant.Version=${finalAttrs.version}"
@@ -53,8 +52,8 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = { inherit (nixosTests) sing-box; };
+    updateScript = nix-update-script {};
+    tests = {inherit (nixosTests) sing-box;};
   };
 
   meta = {

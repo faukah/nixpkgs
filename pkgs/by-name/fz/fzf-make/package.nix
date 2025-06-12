@@ -8,7 +8,6 @@
   gnugrep,
   gnumake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fzf-make";
   version = "0.59.0";
@@ -24,18 +23,18 @@ rustPlatform.buildRustPackage rec {
 
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/fzf-make \
       --set SHELL ${runtimeShell} \
       --suffix PATH : ${
-        lib.makeBinPath [
-          bat
-          gnugrep
-          gnumake
-        ]
-      }
+      lib.makeBinPath [
+        bat
+        gnugrep
+        gnumake
+      ]
+    }
   '';
 
   meta = {

@@ -17,12 +17,12 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-8IEYA2gNchCa7O9kzrCbO5DxYWJqPzQN3SJIr9zCWc8=";
   };
 
-  extraBuildInputs = [ tinyxml ];
+  extraBuildInputs = [tinyxml];
 
   meta = with lib; {
     description = "RAR archive Virtual Filesystem add-on for Kodi";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

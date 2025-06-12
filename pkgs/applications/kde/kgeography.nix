@@ -10,15 +10,14 @@
   kdoctools,
   kitemviews,
 }:
-
 mkDerivation {
   pname = "kgeography";
   meta = {
     homepage = "https://apps.kde.org/kgeography/";
     description = "Geography trainer";
     mainProgram = "kgeography";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ lib.maintainers.globin ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [lib.maintainers.globin];
   };
   nativeBuildInputs = [
     cmake

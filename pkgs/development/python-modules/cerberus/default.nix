@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cerberus";
   version = "1.3.7";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cerberus" ];
+  pythonImportsCheck = ["cerberus"];
 
   disabledTestPaths = [
     # We don't care about benchmarks
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "http://python-cerberus.org/";
     changelog = "https://github.com/pyeve/cerberus/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

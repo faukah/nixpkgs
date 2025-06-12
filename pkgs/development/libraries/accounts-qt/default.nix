@@ -11,7 +11,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "accounts-qt";
   version = "1.17";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     libaccounts-glib
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   nativeBuildInputs = [
     doxygen
     pkg-config

@@ -4,7 +4,6 @@
   fetchFromGitLab,
   fetchpatch,
   cmake,
-
   arpa2cm,
   doxygen,
   e2fsprogs,
@@ -15,7 +14,6 @@
   pkg-config,
   ragel,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "arpa2common";
   version = "2.6.2";
@@ -67,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
       isc
     ];
-    maintainers = with lib.maintainers; [ fufexan ];
+    maintainers = with lib.maintainers; [fufexan];
     platforms = lib.platforms.linux;
   };
 })

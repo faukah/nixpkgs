@@ -18,7 +18,6 @@
   # or store password by its name. Most users would want this dependency.
   tree ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "passage";
   version = "1.7.4a2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./set-correct-program-name-for-sleep.patch
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   extraPath = lib.makeBinPath [
     age

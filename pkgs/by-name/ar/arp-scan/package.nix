@@ -7,7 +7,6 @@
   makeWrapper,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "arp-scan";
   version = "1.10.0";

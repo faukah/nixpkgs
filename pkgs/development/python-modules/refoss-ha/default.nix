@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "refoss-ha";
   version = "1.2.5";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-HLPTXE16PizldeURVmoxcRVci12lc1PsCKH+gA1hr8Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "refoss_ha" ];
+  pythonImportsCheck = ["refoss_ha"];
 
   # upstream has no tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Refoss support for Home Assistant";
     homepage = "https://github.com/ashionky/refoss_ha";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

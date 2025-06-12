@@ -4,7 +4,6 @@
   buildDunePackage,
   ezjsonm,
 }:
-
 buildDunePackage rec {
   pname = "ezjsonm-encoding";
   version = "2.1.0";
@@ -14,12 +13,12 @@ buildDunePackage rec {
     hash = "sha256-qR8Nn3pL1K33qTBLkElaqsTjLjudtI8IMe0GEK08qW4=";
   };
 
-  propagatedBuildInputs = [ ezjsonm ];
+  propagatedBuildInputs = [ezjsonm];
 
   meta = {
     description = "Encoding combinators a la Data_encoding for Ezjsonm";
     homepage = "https://github.com/lthms/ezjsonmi-encoding";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

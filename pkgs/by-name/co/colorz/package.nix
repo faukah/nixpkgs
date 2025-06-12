@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "colorz";
   version = "1.0.3";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     description = "Color scheme generator";
     homepage = "https://github.com/metakirby5/colorz";
     license = licenses.mit;
-    maintainers = with maintainers; [ skykanin ];
+    maintainers = with maintainers; [skykanin];
     mainProgram = "colorz";
   };
 }

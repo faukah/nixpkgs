@@ -9,9 +9,7 @@
   writeShellScriptBin,
   symlinkJoin,
   use64 ? false,
-}:
-
-let
+}: let
   pname = "exact-audio-copy";
   version = "1.8.0";
 
@@ -53,7 +51,11 @@ let
 
   wrapper = writeShellScriptBin pname ''
     export WINEPREFIX="''${EXACT_AUDIO_COPY_HOME:-"''${XDG_DATA_HOME:-"''${HOME}/.local/share"}/exact-audio-copy"}/wine"
-    export WINEARCH=${if use64 then "win64" else "win32"}
+    export WINEARCH=${
+      if use64
+      then "win64"
+      else "win32"
+    }
     export WINEDLLOVERRIDES="mscoree=" # disable mono
     export WINEDEBUG=-all
     if [ ! -d "$WINEPREFIX" ] ; then
@@ -76,20 +78,20 @@ let
     icon = "${patched_eac}/eac.ico.128.png";
   };
 in
-symlinkJoin {
-  name = "${pname}-${version}";
+  symlinkJoin {
+    name = "${pname}-${version}";
 
-  paths = [
-    wrapper
-    desktopItem
-  ];
+    paths = [
+      wrapper
+      desktopItem
+    ];
 
-  meta = with lib; {
-    description = "Precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
-    homepage = "https://www.exactaudiocopy.de/";
-    changelog = "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
-    license = licenses.unfree;
-    maintainers = [ maintainers.brendanreis ];
-    platforms = wine.meta.platforms;
-  };
-}
+    meta = with lib; {
+      description = "Precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
+      homepage = "https://www.exactaudiocopy.de/";
+      changelog = "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
+      license = licenses.unfree;
+      maintainers = [maintainers.brendanreis];
+      platforms = wine.meta.platforms;
+    };
+  }

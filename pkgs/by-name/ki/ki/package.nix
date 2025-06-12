@@ -5,7 +5,6 @@
   cmake,
   anki,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "ki";
   version = "0-unstable-2023-11-08";
@@ -27,10 +26,10 @@ python3Packages.buildPythonApplication {
     ./update-to-newer-anki-versions.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   propagatedBuildInputs =
-    [ anki ]
+    [anki]
     ++ (with python3Packages; [
       beartype
       click
@@ -66,6 +65,6 @@ python3Packages.buildPythonApplication {
     description = "Version control for Anki collections";
     homepage = "https://github.com/langfield/ki";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eljamm ];
+    maintainers = with maintainers; [eljamm];
   };
 }

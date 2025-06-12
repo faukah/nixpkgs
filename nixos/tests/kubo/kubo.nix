@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "kubo";
   meta = with lib.maintainers; {
     maintainers = [
@@ -8,21 +7,19 @@
     ];
   };
 
-  nodes.machine =
-    { config, ... }:
-    {
-      services.kubo = {
-        enable = true;
-        # Also will add a unix domain socket socket API address, see module.
-        startWhenNeeded = true;
-        settings.Addresses.API = "/ip4/127.0.0.1/tcp/2324";
-        dataDir = "/mnt/ipfs";
-      };
-      users.users.alice = {
-        isNormalUser = true;
-        extraGroups = [ config.services.kubo.group ];
-      };
+  nodes.machine = {config, ...}: {
+    services.kubo = {
+      enable = true;
+      # Also will add a unix domain socket socket API address, see module.
+      startWhenNeeded = true;
+      settings.Addresses.API = "/ip4/127.0.0.1/tcp/2324";
+      dataDir = "/mnt/ipfs";
     };
+    users.users.alice = {
+      isNormalUser = true;
+      extraGroups = [config.services.kubo.group];
+    };
+  };
 
   testScript = ''
     start_all()

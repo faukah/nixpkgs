@@ -18,123 +18,120 @@
   perlPackages,
   testers,
   nix-update-script,
-
   # gui does not cross compile properly
   withGui ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 assert systemdSupport -> dbusSupport;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "pcsc-tools";
+    version = "1.7.3";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "pcsc-tools";
-  version = "1.7.3";
+    src = fetchFromGitHub {
+      owner = "LudovicRousseau";
+      repo = "pcsc-tools";
+      tag = finalAttrs.version;
+      hash = "sha256-pNTEiXAcT0NivDMIHGI+0VC9rKqLMc07yQB15mDWZhM=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "LudovicRousseau";
-    repo = "pcsc-tools";
-    tag = finalAttrs.version;
-    hash = "sha256-pNTEiXAcT0NivDMIHGI+0VC9rKqLMc07yQB15mDWZhM=";
-  };
-
-  configureFlags = [
-    "--datarootdir=${placeholder "out"}/share"
-  ];
-
-  buildInputs =
-    lib.optionals dbusSupport [
-      dbus
-    ]
-    ++ [
-      perlPackages.perl
-      pcsclite
-    ]
-    ++ lib.optional systemdSupport systemd;
-
-  nativeBuildInputs =
-    [
-      autoconf-archive
-      autoreconfHook
-      makeWrapper
-      pkg-config
-    ]
-    ++ lib.optionals withGui [
-      gobject-introspection
-      wrapGAppsHook3
+    configureFlags = [
+      "--datarootdir=${placeholder "out"}/share"
     ];
 
-  preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
+    buildInputs =
+      lib.optionals dbusSupport [
+        dbus
+      ]
+      ++ [
+        perlPackages.perl
+        pcsclite
+      ]
+      ++ lib.optional systemdSupport systemd;
 
-  postInstall =
-    ''
-      wrapProgram $out/bin/scriptor \
-        --set PERL5LIB "${
+    nativeBuildInputs =
+      [
+        autoconf-archive
+        autoreconfHook
+        makeWrapper
+        pkg-config
+      ]
+      ++ lib.optionals withGui [
+        gobject-introspection
+        wrapGAppsHook3
+      ];
+
+    preFixup = ''
+      makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    '';
+
+    postInstall =
+      ''
+        wrapProgram $out/bin/scriptor \
+          --set PERL5LIB "${
           with perlPackages;
-          makePerlPath [
-            ChipcardPCSC
-            libintl-perl
-          ]
+            makePerlPath [
+              ChipcardPCSC
+              libintl-perl
+            ]
         }"
 
-    ''
-    + lib.optionalString withGui ''
-      wrapProgram $out/bin/gscriptor \
-        ''${makeWrapperArgs[@]} \
-        --set PERL5LIB "${
+      ''
+      + lib.optionalString withGui ''
+        wrapProgram $out/bin/gscriptor \
+          ''${makeWrapperArgs[@]} \
+          --set PERL5LIB "${
           with perlPackages;
-          makePerlPath [
-            ChipcardPCSC
-            libintl-perl
-            GlibObjectIntrospection
-            Glib
-            Gtk3
-            Pango
-            Cairo
-            CairoGObject
-          ]
+            makePerlPath [
+              ChipcardPCSC
+              libintl-perl
+              GlibObjectIntrospection
+              Glib
+              Gtk3
+              Pango
+              Cairo
+              CairoGObject
+            ]
         }"
-    ''
-    + ''
+      ''
+      + ''
 
-      wrapProgram $out/bin/ATR_analysis \
-        --set PERL5LIB "${
+        wrapProgram $out/bin/ATR_analysis \
+          --set PERL5LIB "${
           with perlPackages;
-          makePerlPath [
-            ChipcardPCSC
-            libintl-perl
-          ]
+            makePerlPath [
+              ChipcardPCSC
+              libintl-perl
+            ]
         }"
 
-      wrapProgram $out/bin/pcsc_scan \
-        --prefix PATH : "$out/bin:${
+        wrapProgram $out/bin/pcsc_scan \
+          --prefix PATH : "$out/bin:${
           lib.makeBinPath [
             coreutils
             wget
           ]
         }"
 
-      install -Dm444 -t $out/share/pcsc smartcard_list.txt
-    '';
+        install -Dm444 -t $out/share/pcsc smartcard_list.txt
+      '';
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-      command = "pcsc_scan -V";
+    passthru = {
+      tests.version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        command = "pcsc_scan -V";
+      };
+      updateScript = nix-update-script {};
     };
-    updateScript = nix-update-script { };
-  };
 
-  meta = with lib; {
-    description = "Tools used to test a PC/SC driver, card or reader";
-    homepage = "https://pcsc-tools.apdu.fr/";
-    changelog = "https://github.com/LudovicRousseau/pcsc-tools/releases/tag/${finalAttrs.version}";
-    license = licenses.gpl2Plus;
-    mainProgram = "pcsc_scan";
-    maintainers = with maintainers; [
-      peterhoeg
-      anthonyroussel
-    ];
-    platforms = platforms.unix;
-  };
-})
+    meta = with lib; {
+      description = "Tools used to test a PC/SC driver, card or reader";
+      homepage = "https://pcsc-tools.apdu.fr/";
+      changelog = "https://github.com/LudovicRousseau/pcsc-tools/releases/tag/${finalAttrs.version}";
+      license = licenses.gpl2Plus;
+      mainProgram = "pcsc_scan";
+      maintainers = with maintainers; [
+        peterhoeg
+        anthonyroussel
+      ];
+      platforms = platforms.unix;
+    };
+  })

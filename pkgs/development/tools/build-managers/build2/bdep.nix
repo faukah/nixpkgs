@@ -10,7 +10,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bdep";
   version = "0.17.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/bdep/tree/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

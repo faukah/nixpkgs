@@ -6,7 +6,6 @@
   llvmPackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luau";
   version = "0.677";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cX0WoiK1CZBwPrQfYSJAGcQzM91Trn3PGsQigGX8jds=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.libunwind ];
+  buildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.libunwind];
 
   installPhase = ''
     runHook preInstall
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast, small, safe, gradually typed embeddable scripting language derived from Lua";

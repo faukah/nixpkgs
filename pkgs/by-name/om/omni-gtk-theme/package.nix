@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gtk-engine-murrine,
 }:
-
 stdenv.mkDerivation {
   pname = "omni-gtk-theme";
   version = "unstable-2021-03-30";
@@ -34,6 +33,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/getomni/gtk";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zoedsoupe ];
+    maintainers = with maintainers; [zoedsoupe];
   };
 }

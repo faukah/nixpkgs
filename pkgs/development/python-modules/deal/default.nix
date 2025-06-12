@@ -18,7 +18,6 @@
   urllib3,
   vaa,
 }:
-
 buildPythonPackage rec {
   pname = "deal";
   version = "4.24.5";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-oSvLi+9JYnwilJa63MuGb2iir2Mjr3UewzpPLCtOVzs=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     astroid
@@ -90,7 +89,7 @@ buildPythonPackage rec {
     "tests/test_testing.py"
   ];
 
-  pythonImportsCheck = [ "deal" ];
+  pythonImportsCheck = ["deal"];
 
   meta = with lib; {
     description = "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
@@ -102,6 +101,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/life4/deal";
     changelog = "https://github.com/life4/deal/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -6,7 +6,6 @@
   pycountry,
   repoze-lru,
 }:
-
 buildPythonPackage rec {
   pname = "pycountry-convert";
   version = "0.7.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRemoveDeps = [
     "pprintpp"
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     repoze-lru
   ];
 
-  pythonImportsCheck = [ "pycountry_convert" ];
+  pythonImportsCheck = ["pycountry_convert"];
 
   # upstream has no tests
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Python conversion functions between ISO country codes, countries, and continents";
     homepage = "https://github.com/jefftune/pycountry-convert";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -6,7 +6,6 @@
   autoreconfHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adns";
   version = "1.6.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cTizeJt1Br1oP0UdT32FMHepGAO3s12G7GZ/D5zUAc0=";
   };
 
-  patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./darwin.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [./darwin.patch];
 
   nativeBuildInputs = [
     gnum4

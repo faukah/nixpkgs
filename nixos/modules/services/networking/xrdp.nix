@@ -4,13 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xrdp;
 
-  confDir = pkgs.runCommand "xrdp.conf" { preferLocalBuild = true; } ''
+  confDir = pkgs.runCommand "xrdp.conf" {preferLocalBuild = true;} ''
     mkdir -p $out
 
     cp -r ${cfg.package}/etc/xrdp/* $out
@@ -45,22 +42,18 @@ let
 
     ${cfg.extraConfDirCommands}
   '';
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.xrdp = {
-
       enable = mkEnableOption "xrdp, the Remote Desktop Protocol server";
 
-      package = mkPackageOption pkgs "xrdp" { };
+      package = mkPackageOption pkgs "xrdp" {};
 
       audio = {
         enable = mkEnableOption "audio support for xrdp sessions. So far it only works with PulseAudio sessions on the server side. No PipeWire support yet";
-        package = mkPackageOption pkgs "pulseaudio-module-xrdp" { };
+        package = mkPackageOption pkgs "pulseaudio-module-xrdp" {};
       };
 
       port = mkOption {
@@ -138,14 +131,13 @@ in
 
   config = lib.mkMerge [
     (mkIf cfg.audio.enable {
-      environment.systemPackages = [ cfg.audio.package ]; # needed for autostart
+      environment.systemPackages = [cfg.audio.package]; # needed for autostart
 
-      services.pulseaudio.extraModules = [ cfg.audio.package ];
+      services.pulseaudio.extraModules = [cfg.audio.package];
     })
 
     (mkIf cfg.enable {
-
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
       # xrdp can run X11 program even if "services.xserver.enable = false"
       xdg = {
@@ -161,10 +153,10 @@ in
 
       systemd = {
         services.xrdp = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           description = "xrdp daemon";
-          requires = [ "xrdp-sesman.service" ];
+          requires = ["xrdp-sesman.service"];
           preStart = ''
             # prepare directory for unix sockets (the sockets will be owned by loggedinuser:xrdp)
             mkdir -p /tmp/.xrdp || true
@@ -196,8 +188,8 @@ in
         };
 
         services.xrdp-sesman = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           description = "xrdp session manager";
           restartIfChanged = false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
           serviceConfig = {
@@ -205,7 +197,6 @@ in
             ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
           };
         };
-
       };
 
       users.users.xrdp = {
@@ -213,14 +204,12 @@ in
         isSystemUser = true;
         group = "xrdp";
       };
-      users.groups.xrdp = { };
+      users.groups.xrdp = {};
 
       security.pam.services.xrdp-sesman = {
         allowNullPassword = true;
         startSession = true;
       };
-
     })
   ];
-
 }

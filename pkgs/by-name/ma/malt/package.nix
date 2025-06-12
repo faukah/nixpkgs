@@ -7,7 +7,6 @@
   libelf,
   libunwind,
 }:
-
 stdenv.mkDerivation rec {
   pname = "malt";
   version = "1.2.6";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
       src/integration/malt-{webview,passwd}.sh.in
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libelf
     libunwind
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Memory tool to find where you allocate your memory";
     homepage = "https://github.com/memtt/malt";
     license = licenses.cecill-c;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

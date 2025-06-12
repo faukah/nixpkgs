@@ -5,7 +5,6 @@
   nixosTests,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "acme-dns";
   # Unstable version to allow building with toolchains later than EOL Go 1.22,
@@ -33,14 +32,14 @@ buildGoModule rec {
     substituteInPlace $out/lib/systemd/system/acme-dns.service --replace "/usr/local/bin/acme-dns" "$out/bin/acme-dns"
   '';
 
-  passthru.tests = { inherit (nixosTests) acme-dns; };
+  passthru.tests = {inherit (nixosTests) acme-dns;};
 
   meta = {
     description = "Limited DNS server to handle ACME DNS challenges easily and securely";
     homepage = "https://github.com/joohoi/acme-dns";
     changelog = "https://github.com/joohoi/acme-dns/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emilylange ];
+    maintainers = with lib.maintainers; [emilylange];
     mainProgram = "acme-dns";
     # Tests time out on darwin.
     broken = stdenv.hostPlatform.isDarwin;

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiofiles,
   aiohttp,
@@ -15,12 +13,10 @@
   pyyaml,
   torch,
   typing-extensions,
-
   # tests
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "torchsnapshot";
   version = "0.1.0";
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "torchsnapshot" ];
+  pythonImportsCheck = ["torchsnapshot"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -66,7 +62,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytorch/torchsnapshot/";
     changelog = "https://github.com/pytorch/torchsnapshot/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     badPlatforms = [
       # test suite gets stuck and eventually times out with: "torch.distributed.DistNetworkError: The client socket has timed out after"
       lib.systems.inspect.patterns.isDarwin

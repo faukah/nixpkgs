@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "pipetools";
   version = "1.1.0";
@@ -18,11 +17,11 @@ buildPythonPackage {
     hash = "sha256-BoZFePQCQfz1dkct5p/WQLuXoNX3eLcnKf3Mf0fG6u8=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "pipetools" ];
+  pythonImportsCheck = ["pipetools"];
 
   meta = {
     description = "Library that enables function composition similar to using Unix pipes";

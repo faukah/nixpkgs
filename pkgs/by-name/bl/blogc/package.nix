@@ -8,7 +8,6 @@
   git,
   cmocka,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blogc";
   version = "0.20.1";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://blogc.rgm.io";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

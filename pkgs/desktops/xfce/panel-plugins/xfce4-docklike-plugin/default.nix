@@ -18,7 +18,6 @@
   xfce4-panel,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-docklike-plugin";
   version = "0.5.0";
@@ -58,13 +57,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfce4-panel
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-docklike-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-docklike-plugin-";};
 
   meta = {
     homepage = "https://docs.xfce.org/panel-plugins/xfce4-docklike-plugin/start";
     description = "Modern, minimalist taskbar for Xfce";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

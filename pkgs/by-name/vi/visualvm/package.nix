@@ -6,14 +6,13 @@
   makeDesktopItem,
   jdk,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.2";
   pname = "visualvm";
 
   src = fetchzip {
     url = "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.zip";
     sha256 = "sha256-xEqzSNM5Mkt9SQ+23Edb2NMN/o8koBjhQWTGuyZ/0m4=";
   };
@@ -24,10 +23,10 @@ stdenv.mkDerivation rec {
     comment = "Java Troubleshooting Tool";
     desktopName = "VisualVM";
     genericName = "Java Troubleshooting Tool";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     find . -type f -name "*.dll" -o -name "*.exe"  -delete;

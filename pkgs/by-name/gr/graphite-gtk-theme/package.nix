@@ -7,20 +7,17 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  themeVariants ? [ ], # default: blue
-  colorVariants ? [ ], # default: all
-  sizeVariants ? [ ], # default: standard
-  tweaks ? [ ],
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  sizeVariants ? [], # default: standard
+  tweaks ? [],
   wallpapers ? false,
   withGrub ? false,
-  grubScreens ? [ ], # default: 1080p
-}:
-
-let
+  grubScreens ? [], # default: 1080p
+}: let
   pname = "graphite-gtk-theme";
-
 in
-lib.checkListOfEnum "${pname}: theme variants"
+  lib.checkListOfEnum "${pname}: theme variants"
   [
     "default"
     "purple"
@@ -36,11 +33,11 @@ lib.checkListOfEnum "${pname}: theme variants"
   themeVariants
   lib.checkListOfEnum
   "${pname}: color variants"
-  [ "standard" "light" "dark" ]
+  ["standard" "light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "${pname}: size variants"
-  [ "standard" "compact" ]
+  ["standard" "compact"]
   sizeVariants
   lib.checkListOfEnum
   "${pname}: tweaks"
@@ -56,9 +53,8 @@ lib.checkListOfEnum "${pname}: theme variants"
   tweaks
   lib.checkListOfEnum
   "${pname}: grub screens"
-  [ "1080p" "2k" "4k" ]
+  ["1080p" "2k" "4k"]
   grubScreens
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -90,10 +86,10 @@ lib.checkListOfEnum "${pname}: theme variants"
       patchShebangs install.sh
 
       name= ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (sizeVariants != []) "--size " + builtins.toString sizeVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       ${lib.optionalString wallpapers ''
@@ -112,7 +108,7 @@ lib.checkListOfEnum "${pname}: theme variants"
 
         ./install.sh --justcopy --dest $out/share/grub/themes \
           ${lib.optionalString (builtins.elem "nord" tweaks) "--theme nord"} \
-          ${lib.optionalString (grubScreens != [ ]) "--screen " + builtins.toString grubScreens}
+          ${lib.optionalString (grubScreens != []) "--screen " + builtins.toString grubScreens}
         )
       ''}
 
@@ -121,13 +117,13 @@ lib.checkListOfEnum "${pname}: theme variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat Gtk+ theme based on Elegant Design";
       homepage = "https://github.com/vinceliuice/Graphite-gtk-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

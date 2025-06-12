@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "exposor";
   version = "1.0.0";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     rm pyproject.toml
   '';
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     python-dotenv
@@ -32,14 +31,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "exposor" ];
+  pythonImportsCheck = ["exposor"];
 
   meta = {
     description = "Tool using internet search engines to detect exposed technologies with a unified syntax";
     homepage = "https://github.com/abuyv/exposor";
     changelog = "https://github.com/abuyv/exposor/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "exposor";
   };
 }

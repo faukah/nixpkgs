@@ -8,7 +8,6 @@
   texinfo,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-zlib";
   version = "0.2.2";
@@ -28,9 +27,9 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [ guile ];
-  propagatedBuildInputs = [ zlib ];
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  buildInputs = [guile];
+  propagatedBuildInputs = [zlib];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   doCheck = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Guile-zlib is a GNU Guile library providing bindings to zlib";
     homepage = "https://notabug.org/guile-zlib/guile-zlib";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

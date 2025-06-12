@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-event";
   version = "5.0";
@@ -18,21 +17,21 @@ buildPythonPackage rec {
     hash = "sha256-85jXSrploTcskdOBI84KGGf9Bno41ZTtT/TrbgmTxiA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zope.event" ];
+  pythonImportsCheck = ["zope.event"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "src/zope/event/tests.py" ];
+  pytestFlagsArray = ["src/zope/event/tests.py"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Event publishing system";
     homepage = "https://github.com/zopefoundation/zope.event";
     changelog = "https://github.com/zopefoundation/zope.event/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

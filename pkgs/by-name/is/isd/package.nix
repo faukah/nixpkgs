@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "isd";
   version = "0.5.1";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     "isd_tui"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "TUI to interactively work with systemd units";

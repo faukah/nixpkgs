@@ -3,7 +3,6 @@
   buildKodiAddon,
   fetchFromGitHub,
 }:
-
 buildKodiAddon rec {
   pname = "xbmcswift2";
   namespace = "script.module.xbmcswift2";
@@ -24,6 +23,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/XBMC-Addons/script.module.xbmcswift2";
     description = "Framework to ease development of Kodi addons";
     license = licenses.gpl3Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

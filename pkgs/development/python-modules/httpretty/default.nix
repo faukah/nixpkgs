@@ -3,14 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-
   # tests
   freezegun,
   mock,
   pytestCheckHook,
   sure,
 }:
-
 buildPythonPackage rec {
   pname = "httpretty";
   version = "1.1.4";
@@ -27,7 +25,7 @@ buildPythonPackage rec {
     ./urllib-2.3.0-compat.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     freezegun

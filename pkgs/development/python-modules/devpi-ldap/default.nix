@@ -13,7 +13,6 @@
   setuptools,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "devpi-ldap";
   version = "2.1.1-unstable-2023-11-28";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-vwX0bOb2byN3M6iBk0tZJy8H39fjwBYvA0Nxi7OTzFQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     devpi-server
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     webtest
   ];
 
-  pythonImportsCheck = [ "devpi_ldap" ];
+  pythonImportsCheck = ["devpi_ldap"];
 
   meta = {
     homepage = "https://github.com/devpi/devpi-ldap";
     description = "LDAP authentication for devpi-server";
     changelog = "https://github.com/devpi/devpi-ldap/blob/main/CHANGELOG.rst";
     license = lib.licenses.mit; # according to its setup.py
-    maintainers = with lib.maintainers; [ confus ];
+    maintainers = with lib.maintainers; [confus];
   };
 }

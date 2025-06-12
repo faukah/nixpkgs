@@ -5,7 +5,6 @@
   cpio,
   replaceVarsWith,
 }:
-
 stdenv.mkDerivation {
   name = "rpmextract";
 
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     description = "Script to extract RPM archives";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "rpmextract";
   };
 }

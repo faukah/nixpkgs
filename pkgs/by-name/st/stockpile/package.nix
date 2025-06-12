@@ -12,7 +12,6 @@
   appstream-glib,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stockpile";
   version = "0.5.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   meta = {
     description = "Keep count of restockable items";
@@ -49,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "stockpile";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

@@ -9,7 +9,6 @@
   libdevil,
   soundtouch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "avisynthplus";
   version = "3.7.5";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -51,8 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://avs-plus.net/";
     changelog = "https://github.com/AviSynth/AviSynthPlus/releases/tag/${finalAttrs.src.rev}";
     license = licenses.gpl2Only;
-    pkgConfigModules = [ "avisynth" ];
+    pkgConfigModules = ["avisynth"];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jopejoe1 ];
+    maintainers = with maintainers; [jopejoe1];
   };
 })

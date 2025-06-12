@@ -6,7 +6,6 @@
   sqlcmd,
   testers,
 }:
-
 buildGoModule rec {
   pname = "sqlcmd";
   version = "1.8.3";
@@ -27,9 +26,9 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "cmd/modern" ];
+  subPackages = ["cmd/modern"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -56,6 +55,6 @@ buildGoModule rec {
     homepage = "https://github.com/microsoft/go-sqlcmd";
     changelog = "https://github.com/microsoft/go-sqlcmd/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ratsclub ];
+    maintainers = [lib.maintainers.ratsclub];
   };
 }

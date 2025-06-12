@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpulimit";
   version = "0.2";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     mainProgram = "cpulimit";
-    maintainers = [ maintainers.jsoo1 ];
+    maintainers = [maintainers.jsoo1];
   };
 }

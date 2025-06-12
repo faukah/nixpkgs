@@ -4,7 +4,6 @@
   fetchurl,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "checkinstall";
   version = "1.6.2";
@@ -46,16 +45,14 @@ stdenv.mkDerivation rec {
         hash = "sha256-InodEfvVMuN708yjXPrVXb+q8aUcyFhCLx35PHls0Eo=";
       })
     ]
+    ++ lib.optional (stdenv.hostPlatform.system == "x86_64-linux")
+    # Force use of old memcpy so that installwatch works on Glibc <
+    # 2.14.
+    ./use-old-memcpy.patch;
 
-    ++
-      lib.optional (stdenv.hostPlatform.system == "x86_64-linux")
-        # Force use of old memcpy so that installwatch works on Glibc <
-        # 2.14.
-        ./use-old-memcpy.patch;
+  buildInputs = [gettext];
 
-  buildInputs = [ gettext ];
-
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   preBuild = ''
     makeFlagsArray=(PREFIX=$out)
@@ -78,7 +75,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://checkinstall.izto.org/";
     description = "Tool for automatically generating Slackware, RPM or Debian packages when doing `make install'";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
     knownVulnerabilities = [

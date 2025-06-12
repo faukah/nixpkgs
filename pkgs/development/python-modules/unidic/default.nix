@@ -12,7 +12,6 @@
   cython,
   platformdirs,
 }:
-
 buildPythonPackage rec {
   pname = "unidic";
   version = "1.1.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-srhQDXGgoIMhYuCbyQB3kF4LrODnoOqLbjBQMvhPieY=";
   };
 
-  patches = [ ./fix-download-directory.patch ];
+  patches = [./fix-download-directory.patch];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -50,12 +49,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "unidic" ];
+  pythonImportsCheck = ["unidic"];
 
   meta = with lib; {
     description = "Contemporary Written Japanese dictionary";
     homepage = "https://github.com/polm/unidic-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ laurent-f1z1 ];
+    maintainers = with maintainers; [laurent-f1z1];
   };
 }

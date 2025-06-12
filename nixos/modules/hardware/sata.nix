@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -14,8 +14,7 @@ let
 
   cfg = config.hardware.sata.timeout;
 
-  buildRule =
-    d:
+  buildRule = d:
     lib.concatStringsSep ", " [
       ''ACTION=="add"''
       ''SUBSYSTEM=="block"''
@@ -38,10 +37,8 @@ let
       --quietmode errorsonly \
       "$device"
   '';
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+in {
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   options.hardware.sata.timeout = {
     enable = mkEnableOption "SATA drive timeouts";
@@ -90,24 +87,25 @@ in
     systemd.services = lib.listToAttrs (
       map (
         e:
-        lib.nameValuePair (unitName e) {
-          description = "SATA timeout for ${e.name}";
-          wantedBy = [ "sata-timeout.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${startScript} '${devicePath e}'";
-            PrivateTmp = true;
-            PrivateNetwork = true;
-            ProtectHome = "tmpfs";
-            ProtectSystem = "strict";
-          };
-        }
-      ) cfg.drives
+          lib.nameValuePair (unitName e) {
+            description = "SATA timeout for ${e.name}";
+            wantedBy = ["sata-timeout.target"];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${startScript} '${devicePath e}'";
+              PrivateTmp = true;
+              PrivateNetwork = true;
+              ProtectHome = "tmpfs";
+              ProtectSystem = "strict";
+            };
+          }
+      )
+      cfg.drives
     );
 
     systemd.targets.sata-timeout = {
       description = "SATA timeout";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

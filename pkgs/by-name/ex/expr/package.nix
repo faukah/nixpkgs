@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "expr";
   version = "1.17.5";
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://github.com/expr-lang/expr";
     changelog = "https://github.com/expr-lang/expr/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "expr";
   };
 }

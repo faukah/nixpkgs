@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   # Originally, this package was under the attribute `du-dust`, since `dust` was taken.
   # Since then, `dust` has been freed up, allowing this package to take that attribute.
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-IZv4XQmBvxUp5k5bn5B4qTJAVBrRO0OZaUlqCni6NpI=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   checkFlags = [
     # disable tests that depend on the unicode files we removed above
@@ -47,12 +46,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellCompletion completions/dust.{bash,fish} --zsh completions/_dust
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/dust";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "du + rust = dust. Like du but more intuitive";

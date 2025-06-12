@@ -6,7 +6,6 @@
   pcsclite,
   pkg-config,
 }:
-
 buildGoModule rec {
   pname = "piv-agent";
   version = "0.23.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4yfQQxMf00263OKEXTWD34YifK7oDclvPk8JDz5N1I0=";
 
-  subPackages = [ "cmd/piv-agent" ];
+  subPackages = ["cmd/piv-agent"];
 
   ldflags = [
     "-s"
@@ -29,15 +28,15 @@ buildGoModule rec {
     "-X main.shortCommit=${src.rev}"
   ];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ pcsclite ];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [pcsclite];
 
   meta = with lib; {
     description = "SSH and GPG agent which you can use with your PIV hardware security device (e.g. a Yubikey)";
     homepage = "https://github.com/smlx/piv-agent";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "piv-agent";
   };
 }

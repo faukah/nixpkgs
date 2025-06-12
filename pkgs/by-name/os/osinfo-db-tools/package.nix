@@ -17,7 +17,6 @@
   json-glib,
   libsoup_3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "osinfo-db-tools";
   version = "1.12.0";
@@ -53,6 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/libosinfo/osinfo-db-tools/-/blob/v${finalAttrs.version}/NEWS";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
   };
 })

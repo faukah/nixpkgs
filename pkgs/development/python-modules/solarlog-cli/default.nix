@@ -11,7 +11,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "solarlog-cli";
   version = "0.4.0";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-G7DZHFg0NH3rY/tbWpXDchYHkrvG8dUvINNxBIUKnzk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
     mashumaro
   ];
 
-  pythonImportsCheck = [ "solarlog_cli" ];
+  pythonImportsCheck = ["solarlog_cli"];
 
   nativeCheckInputs = [
     aioresponses
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Python library to access the Solar-Log JSON interface";
     homepage = "https://github.com/dontinelli/solarlog_cli";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -17,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/csa";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "C code for cubic spline approximation of 2D scattered data";
     homepage = "https://github.com/sakov/csa-c/";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mkez ];
+    maintainers = with maintainers; [mkez];
     mainProgram = "csabathy";
   };
 })

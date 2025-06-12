@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.programs.cpu-energy-meter = {
     enable = lib.mkEnableOption "CPU Energy Meter";
-    package = lib.mkPackageOption pkgs "cpu-energy-meter" { };
+    package = lib.mkPackageOption pkgs "cpu-energy-meter" {};
   };
 
-  config =
-    let
-      cfg = config.programs.cpu-energy-meter;
-    in
+  config = let
+    cfg = config.programs.cpu-energy-meter;
+  in
     lib.mkIf cfg.enable {
       hardware.cpu.x86.msr.enable = true;
 
@@ -25,5 +23,5 @@
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ lorenzleutgeb ];
+  meta.maintainers = with lib.maintainers; [lorenzleutgeb];
 }

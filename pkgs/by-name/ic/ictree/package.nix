@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ictree";
   version = "1.0.1";
@@ -16,13 +15,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Like tree but interactive";
     homepage = "https://github.com/NikitaIvanovV/ictree";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     mainProgram = "ictree";
   };
 }

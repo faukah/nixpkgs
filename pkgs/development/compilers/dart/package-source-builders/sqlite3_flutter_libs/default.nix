@@ -1,9 +1,8 @@
-{
-  stdenv,
+{stdenv}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation {
   pname = "sqlite3_flutter_libs";
   inherit version src;

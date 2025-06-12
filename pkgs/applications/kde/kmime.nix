@@ -7,14 +7,13 @@
   kcodecs,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kmime";
   meta = {
-    license = [ lib.licenses.lgpl21 ];
+    license = [lib.licenses.lgpl21];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcodecs
     ki18n

@@ -21,14 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Ybr5dNmjBBPTYPvgorJ6t2+zvAjxYQISWXJmgUVHBVE=";
   };
 
-  buildInputs = [ nlohmann_json ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [nlohmann_json];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "JSON schema validator for JSON for Modern C++";
     homepage = "https://github.com/pboettch/json-schema-validator";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ br337 ];
+    maintainers = with lib.maintainers; [br337];
     platforms = lib.platforms.all;
   };
 })

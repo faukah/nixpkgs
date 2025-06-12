@@ -4,7 +4,6 @@
   stdenv,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nmon";
   version = "16q";
@@ -14,18 +13,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G3ioFnLBkpGz0RpuMZ3ZsjoCKiYtuh786gCNbfUaylE=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   dontUnpack = true;
   buildPhase = "${stdenv.cc.targetPrefix}cc -o nmon ${src} -g -O2 -D JFS -D GETUSER -Wall -D LARGEMEM -lncurses -lm -g -D ${
     with stdenv.hostPlatform;
-    if isx86 then
-      "X86"
-    else if isAarch then
-      "ARM"
-    else if isPower then
-      "POWER"
-    else
-      "UNKNOWN"
+      if isx86
+      then "X86"
+      else if isAarch
+      then "ARM"
+      else if isPower
+      then "POWER"
+      else "UNKNOWN"
   }";
   installPhase = ''
     mkdir -p $out/bin
@@ -38,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://nmon.sourceforge.net";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sveitser ];
+    maintainers = with maintainers; [sveitser];
   };
 }

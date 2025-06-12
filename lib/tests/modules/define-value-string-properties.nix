@@ -1,6 +1,4 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   imports = [
     {
       value = lib.mkDefault "def";
@@ -11,5 +9,4 @@
     (lib.mkIf false "nope")
     "yes"
   ];
-
 }

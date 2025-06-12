@@ -1,48 +1,45 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "geth";
   meta = with pkgs.lib; {
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      services.geth."mainnet" = {
+  nodes.machine = {...}: {
+    services.geth."mainnet" = {
+      enable = true;
+      http = {
         enable = true;
-        http = {
-          enable = true;
-        };
-      };
-
-      services.geth."holesky" = {
-        enable = true;
-        port = 30304;
-        network = "holesky";
-        http = {
-          enable = true;
-          port = 18545;
-        };
-        authrpc = {
-          enable = true;
-          port = 18551;
-        };
-      };
-
-      services.geth."sepolia" = {
-        enable = true;
-        port = 30305;
-        network = "sepolia";
-        http = {
-          enable = true;
-          port = 28545;
-        };
-        authrpc = {
-          enable = true;
-          port = 28551;
-        };
       };
     };
+
+    services.geth."holesky" = {
+      enable = true;
+      port = 30304;
+      network = "holesky";
+      http = {
+        enable = true;
+        port = 18545;
+      };
+      authrpc = {
+        enable = true;
+        port = 18551;
+      };
+    };
+
+    services.geth."sepolia" = {
+      enable = true;
+      port = 30305;
+      network = "sepolia";
+      http = {
+        enable = true;
+        port = 28545;
+      };
+      authrpc = {
+        enable = true;
+        port = 28551;
+      };
+    };
+  };
 
   testScript = ''
     start_all()

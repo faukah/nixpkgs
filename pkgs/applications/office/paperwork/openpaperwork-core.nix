@@ -2,22 +2,18 @@
   buildPythonPackage,
   lib,
   callPackage,
-
   isPy3k,
   isPyPy,
-
   distro,
   setuptools,
   psutil,
   certifi,
   setuptools-scm,
-
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "openpaperwork-core";
-  inherit (callPackage ./src.nix { }) version src;
+  inherit (callPackage ./src.nix {}) version src;
   format = "pyproject";
 
   sourceRoot = "${src.name}/openpaperwork-core";

@@ -5,15 +5,13 @@
   texliveMedium,
   buildDocs ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "asl";
   version = "142-bld232";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchzip {
       name = "${pname}-${version}";
       url = "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-${version}.tar.bz2";
@@ -26,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  nativeBuildInputs = lib.optionals buildDocs [ texliveMedium ];
+  nativeBuildInputs = lib.optionals buildDocs [texliveMedium];
 
   postPatch =
     lib.optionalString (!buildDocs) ''
@@ -58,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       are used in workstations and PCs.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 })
@@ -66,3 +64,4 @@ stdenv.mkDerivation (finalAttrs: {
 # TODO: customize TeX input
 # TODO: report upstream about `mkdir -p .objdir/`
 # TODO: suggest upstream about building docs as an option
+

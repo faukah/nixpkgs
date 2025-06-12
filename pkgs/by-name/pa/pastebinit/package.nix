@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    (python3.withPackages (p: [ p.distro ]))
+    (python3.withPackages (p: [p.distro]))
   ];
 
   buildPhase = ''

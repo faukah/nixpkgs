@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xkBldXOlgLMgrvzm7ajXzJ92mpXrxHD1RX4DeBxU3kk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     pcsclite.dev
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '$(DESTDIR)/usr/bin' '$(DESTDIR)/bin'
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
   sourceRoot = "${finalAttrs.src.name}/linux";
 
   postInstall = ''
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/Fedict/fts-beidconnect/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jovandeginste ];
+    maintainers = [lib.maintainers.jovandeginste];
     platforms = lib.platforms.linux;
   };
 })

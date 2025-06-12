@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tigerbeetle;
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ danielsidhion ];
+    maintainers = with lib.maintainers; [danielsidhion];
     doc = ./tigerbeetle.md;
     buildDocsInSandbox = true;
   };
@@ -18,7 +16,7 @@ in
     services.tigerbeetle = with lib; {
       enable = mkEnableOption "TigerBeetle server";
 
-      package = mkPackageOption pkgs "tigerbeetle" { };
+      package = mkPackageOption pkgs "tigerbeetle" {};
 
       clusterId = mkOption {
         type = types.either types.ints.unsigned (types.strMatching "[0-9]+");
@@ -58,7 +56,7 @@ in
 
       addresses = mkOption {
         type = types.listOf types.nonEmptyStr;
-        default = [ "3001" ];
+        default = ["3001"];
         description = ''
           The addresses of all replicas in the cluster.
           This should be a list of IPv4/IPv6 addresses with port numbers.
@@ -70,68 +68,63 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions =
-      let
-        numAddresses = builtins.length cfg.addresses;
-      in
-      [
-        {
-          assertion = cfg.replicaIndex < cfg.replicaCount;
-          message = "the TigerBeetle replica index must fit the configured replica count";
-        }
-        {
-          assertion = cfg.replicaCount == numAddresses;
-          message =
-            if cfg.replicaCount < numAddresses then
-              "TigerBeetle must not have more addresses than the configured number of replicas"
-            else
-              "TigerBeetle must be configured with the addresses of all replicas";
-        }
-      ];
-
-    systemd.services.tigerbeetle =
-      let
-        replicaDataPath = "/var/lib/tigerbeetle/${builtins.toString cfg.clusterId}_${builtins.toString cfg.replicaIndex}.tigerbeetle";
-      in
+    assertions = let
+      numAddresses = builtins.length cfg.addresses;
+    in [
       {
-        description = "TigerBeetle server";
+        assertion = cfg.replicaIndex < cfg.replicaCount;
+        message = "the TigerBeetle replica index must fit the configured replica count";
+      }
+      {
+        assertion = cfg.replicaCount == numAddresses;
+        message =
+          if cfg.replicaCount < numAddresses
+          then "TigerBeetle must not have more addresses than the configured number of replicas"
+          else "TigerBeetle must be configured with the addresses of all replicas";
+      }
+    ];
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+    systemd.services.tigerbeetle = let
+      replicaDataPath = "/var/lib/tigerbeetle/${builtins.toString cfg.clusterId}_${builtins.toString cfg.replicaIndex}.tigerbeetle";
+    in {
+      description = "TigerBeetle server";
 
-        preStart = ''
-          if ! test -e "${replicaDataPath}"; then
-            ${lib.getExe cfg.package} format --cluster="${builtins.toString cfg.clusterId}" --replica="${builtins.toString cfg.replicaIndex}" --replica-count="${builtins.toString cfg.replicaCount}" "${replicaDataPath}"
-          fi
-        '';
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-        serviceConfig = {
-          DevicePolicy = "closed";
-          DynamicUser = true;
-          ExecStart = "${lib.getExe cfg.package} start --cache-grid=${cfg.cacheGridSize} --addresses=${lib.escapeShellArg (builtins.concatStringsSep "," cfg.addresses)} ${replicaDataPath}";
-          LockPersonality = true;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "noaccess";
-          ProtectSystem = "strict";
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-          ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          StateDirectory = "tigerbeetle";
-          StateDirectoryMode = 700;
-          Type = "exec";
-        };
+      preStart = ''
+        if ! test -e "${replicaDataPath}"; then
+          ${lib.getExe cfg.package} format --cluster="${builtins.toString cfg.clusterId}" --replica="${builtins.toString cfg.replicaIndex}" --replica-count="${builtins.toString cfg.replicaCount}" "${replicaDataPath}"
+        fi
+      '';
+
+      serviceConfig = {
+        DevicePolicy = "closed";
+        DynamicUser = true;
+        ExecStart = "${lib.getExe cfg.package} start --cache-grid=${cfg.cacheGridSize} --addresses=${lib.escapeShellArg (builtins.concatStringsSep "," cfg.addresses)} ${replicaDataPath}";
+        LockPersonality = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "noaccess";
+        ProtectSystem = "strict";
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        StateDirectory = "tigerbeetle";
+        StateDirectoryMode = 700;
+        Type = "exec";
       };
+    };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

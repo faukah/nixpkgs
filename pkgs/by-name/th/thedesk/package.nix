@@ -12,7 +12,6 @@
   libgbm,
   nss,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thedesk";
   version = "24.2.1";
@@ -60,10 +59,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Mastodon/Misskey Client for PC";
     homepage = "https://thedesk.top";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     mainProgram = "thedesk";
   };
 }

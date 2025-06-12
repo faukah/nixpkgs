@@ -14,63 +14,61 @@
   enableSPRAL ? true,
   spral,
 }:
-
 assert (!blas.isILP64) && (!lapack.isILP64);
+  stdenv.mkDerivation rec {
+    pname = "ipopt";
+    version = "3.14.17";
 
-stdenv.mkDerivation rec {
-  pname = "ipopt";
-  version = "3.14.17";
+    src = fetchFromGitHub {
+      owner = "coin-or";
+      repo = "Ipopt";
+      rev = "releases/${version}";
+      sha256 = "sha256-0IRHryADQArhhtfbQjCy+EDvVRi/ywc51IwiQOfWlR4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "coin-or";
-    repo = "Ipopt";
-    rev = "releases/${version}";
-    sha256 = "sha256-0IRHryADQArhhtfbQjCy+EDvVRi/ywc51IwiQOfWlR4=";
-  };
-
-  CXXDEFS = [
-    "-DHAVE_RAND"
-    "-DHAVE_CSTRING"
-    "-DHAVE_CSTDIO"
-  ];
-
-  configureFlags =
-    lib.optionals enableAMPL [
-      "--with-asl-cflags=-I${libamplsolver}/include"
-      "--with-asl-lflags=-lamplsolver"
-    ]
-    ++ lib.optionals enableMUMPS [
-      "--with-mumps-cflags=-I${mumps}/include"
-      "--with-mumps-lflags=-ldmumps"
-    ]
-    ++ lib.optionals enableSPRAL [
-      "--with-spral-cflags=-I${spral}/include"
-      "--with-spral-lflags=-lspral"
+    CXXDEFS = [
+      "-DHAVE_RAND"
+      "-DHAVE_CSTRING"
+      "-DHAVE_CSTDIO"
     ];
 
-  nativeBuildInputs = [
-    pkg-config
-    gfortran
-  ];
-  buildInputs =
-    [
-      blas
-      lapack
-    ]
-    ++ lib.optionals enableAMPL [ libamplsolver ]
-    ++ lib.optionals enableMUMPS [
-      mumps
-      mpi
-    ]
-    ++ lib.optionals enableSPRAL [ spral ];
+    configureFlags =
+      lib.optionals enableAMPL [
+        "--with-asl-cflags=-I${libamplsolver}/include"
+        "--with-asl-lflags=-lamplsolver"
+      ]
+      ++ lib.optionals enableMUMPS [
+        "--with-mumps-cflags=-I${mumps}/include"
+        "--with-mumps-lflags=-ldmumps"
+      ]
+      ++ lib.optionals enableSPRAL [
+        "--with-spral-cflags=-I${spral}/include"
+        "--with-spral-lflags=-lspral"
+      ];
 
-  enableParallelBuilding = true;
+    nativeBuildInputs = [
+      pkg-config
+      gfortran
+    ];
+    buildInputs =
+      [
+        blas
+        lapack
+      ]
+      ++ lib.optionals enableAMPL [libamplsolver]
+      ++ lib.optionals enableMUMPS [
+        mumps
+        mpi
+      ]
+      ++ lib.optionals enableSPRAL [spral];
 
-  meta = {
-    description = "Software package for large-scale nonlinear optimization";
-    homepage = "https://projects.coin-or.org/Ipopt";
-    license = lib.licenses.epl10;
-    platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ abbradar ];
-  };
-}
+    enableParallelBuilding = true;
+
+    meta = {
+      description = "Software package for large-scale nonlinear optimization";
+      homepage = "https://projects.coin-or.org/Ipopt";
+      license = lib.licenses.epl10;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [abbradar];
+    };
+  }

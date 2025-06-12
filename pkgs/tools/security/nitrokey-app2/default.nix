@@ -8,7 +8,6 @@
   qtwayland,
   qtsvg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nitrokey-app2";
   version = "2.3.3";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs =
-    [ qtbase ]
+    [qtbase]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       qtwayland
       qtsvg
@@ -41,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     usb-monitor
   ];
 
-  pythonRelaxDeps = [ "nitrokey" ];
+  pythonRelaxDeps = ["nitrokey"];
 
   pythonImportsCheck = [
     "nitrokeyapp"

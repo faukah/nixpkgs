@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation {
   pname = "linux-libertine-g";
   version = "2012-01-16";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Graphite versions of Linux Libertine and Linux Biolinum font families for LibreOffice and OpenOffice.org";
     homepage = "https://numbertext.org/linux/";
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.ofl;
   };
 }

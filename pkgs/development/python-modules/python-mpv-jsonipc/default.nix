@@ -7,7 +7,6 @@
   websocket-client,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "python-mpv-jsonipc";
   version = "1.2.0";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  pythonImportsCheck = [ "python_mpv_jsonipc" ];
+  pythonImportsCheck = ["python_mpv_jsonipc"];
 
   meta = with lib; {
     homepage = "https://github.com/iwalton3/python-mpv-jsonipc";
     description = "Python API to MPV using JSON IPC";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

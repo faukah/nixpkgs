@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-base-url";
   version = "2.1.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   __darwinAllowLocalNetworking = true;
 
@@ -43,20 +42,20 @@ buildPythonPackage rec {
     pytest-metadata
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # should be xfail? or mocking doesn't work
     "test_url_fails"
   ];
 
-  pythonImportsCheck = [ "pytest_base_url" ];
+  pythonImportsCheck = ["pytest_base_url"];
 
   meta = with lib; {
     description = "pytest plugin for URL based tests";
     homepage = "https://github.com/pytest-dev/pytest-base-url";
     changelog = "https://github.com/pytest-dev/pytest-base-url/blob/${src.rev}/CHANGES.rst";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   ipykernel,
 }:
-
 buildPythonPackage rec {
   pname = "ipynbname";
   version = "2024.1.0.0";
@@ -16,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-HTxpze6Kl4FPRWpyBOnMGVtLu0ueRcvnV3lrFiST9gY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ipykernel ];
+  dependencies = [ipykernel];
 
-  pythonImportsCheck = [ "ipynbname" ];
+  pythonImportsCheck = ["ipynbname"];
 
   # upstream has no tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Simply returns either notebook filename or the full path to the notebook";
     homepage = "https://github.com/msm1089/ipynbname";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

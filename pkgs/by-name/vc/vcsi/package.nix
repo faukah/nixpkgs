@@ -5,7 +5,6 @@
   ffmpeg,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "vcsi";
   version = "7.0.16";
@@ -35,9 +34,9 @@ python3Packages.buildPythonApplication rec {
     texttable
   ];
 
-  pythonImportsCheck = [ "vcsi" ];
+  pythonImportsCheck = ["vcsi"];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [ffmpeg]}"];
 
   nativeCheckInputs =
     [

@@ -2,10 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   perl,
   pkg-config,
-
   json_c,
   libaio,
   liburcu,
@@ -14,11 +12,9 @@
   readline,
   systemd,
   util-linuxMinimal,
-
   cmocka,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "multipath-tools";
   version = "0.11.1";
@@ -63,9 +59,9 @@ stdenv.mkDerivation (finalAttrs: {
     # skip test attempting to access /sys/dev/block
     substituteInPlace tests/Makefile --replace-fail ' devt ' ' '
   '';
-  checkInputs = [ cmocka ];
+  checkInputs = [cmocka];
 
-  passthru.tests = { inherit (nixosTests) iscsi-multipath-root; };
+  passthru.tests = {inherit (nixosTests) iscsi-multipath-root;};
 
   meta = {
     description = "Tools for the Linux multipathing storage driver";

@@ -1,28 +1,25 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   port = "7745";
-in
-{
+in {
   name = "homebox";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ patrickdag ];
+    maintainers = [patrickdag];
   };
-  nodes =
-    let
-      self = {
-        simple = {
-          services.homebox = {
-            enable = true;
-            settings.HBOX_WEB_PORT = port;
-          };
-        };
-
-        postgres = {
-          imports = [ self.simple ];
-          services.homebox.database.createLocally = true;
+  nodes = let
+    self = {
+      simple = {
+        services.homebox = {
+          enable = true;
+          settings.HBOX_WEB_PORT = port;
         };
       };
-    in
+
+      postgres = {
+        imports = [self.simple];
+        services.homebox.database.createLocally = true;
+      };
+    };
+  in
     self;
   testScript = ''
     def test_homebox(node):

@@ -28,9 +28,9 @@
   newScope,
   stdenv,
   runCommand,
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     attrsets
     customisation
     fixedPoints
@@ -44,11 +44,13 @@ let
   # Since Jetson capabilities are never built by default, we can check if any of them were requested
   # through final.config.cudaCapabilities and use that to determine if we should change some manifest versions.
   # Copied from backendStdenv.
-  jetsonCudaCapabilities = lib.filter (
-    cudaCapability: _cuda.db.cudaCapabilityToInfo.${cudaCapability}.isJetson
-  ) _cuda.db.allSortedCudaCapabilities;
+  jetsonCudaCapabilities =
+    lib.filter (
+      cudaCapability: _cuda.db.cudaCapabilityToInfo.${cudaCapability}.isJetson
+    )
+    _cuda.db.allSortedCudaCapabilities;
   hasJetsonCudaCapability =
-    lib.intersectLists jetsonCudaCapabilities (config.cudaCapabilities or [ ]) != [ ];
+    lib.intersectLists jetsonCudaCapabilities (config.cudaCapabilities or []) != [];
   redistSystem = _cuda.lib.getRedistSystem hasJetsonCudaCapability stdenv.hostPlatform.system;
 
   passthruFunction = final: {
@@ -76,9 +78,11 @@ let
     # want. We want to provide the `cudaPackages` from the final scope -- that is, the *current*
     # scope. However, we also want to prevent `pkgs/top-level/release-attrpaths-superset.nix` from
     # recursing more than one level here.
-    cudaPackages = final // {
-      __attrsFailEvaluation = true;
-    };
+    cudaPackages =
+      final
+      // {
+        __attrsFailEvaluation = true;
+      };
 
     flags =
       cudaLib.formatCapabilities {
@@ -89,8 +93,7 @@ let
       # time to allow users to migrate to cudaLib and backendStdenv.
       // {
         inherit (cudaLib) dropDots;
-        cudaComputeCapabilityToName =
-          cudaCapability: _cuda.db.cudaCapabilityToInfo.${cudaCapability}.archName;
+        cudaComputeCapabilityToName = cudaCapability: _cuda.db.cudaCapabilityToInfo.${cudaCapability}.archName;
         dropDot = cudaLib.dropDots;
         isJetsonBuild = final.backendStdenv.hasJetsonCudaCapability;
       };
@@ -101,49 +104,62 @@ let
     # discovered and added to the package set.
 
     # TODO: Move to aliases.nix once all Nixpkgs has migrated to the splayed CUDA packages
-    cudatoolkit = final.callPackage ../development/cuda-modules/cudatoolkit/redist-wrapper.nix { };
-    cudatoolkit-legacy-runfile = final.callPackage ../development/cuda-modules/cudatoolkit { };
+    cudatoolkit = final.callPackage ../development/cuda-modules/cudatoolkit/redist-wrapper.nix {};
+    cudatoolkit-legacy-runfile = final.callPackage ../development/cuda-modules/cudatoolkit {};
 
-    tests =
-      let
-        bools = [
-          true
-          false
-        ];
-        configs = {
-          openCVFirst = bools;
-          useOpenCVDefaultCuda = bools;
-          useTorchDefaultCuda = bools;
-        };
-        builder =
-          {
-            openCVFirst,
-            useOpenCVDefaultCuda,
-            useTorchDefaultCuda,
-          }@config:
-          {
-            name = strings.concatStringsSep "-" (
-              [
-                "test"
-                (if openCVFirst then "opencv" else "torch")
-              ]
-              ++ lists.optionals (if openCVFirst then useOpenCVDefaultCuda else useTorchDefaultCuda) [
-                "with-default-cuda"
-              ]
-              ++ [
-                "then"
-                (if openCVFirst then "torch" else "opencv")
-              ]
-              ++ lists.optionals (if openCVFirst then useTorchDefaultCuda else useOpenCVDefaultCuda) [
-                "with-default-cuda"
-              ]
-            );
-            value = final.callPackage ../development/cuda-modules/tests/opencv-and-torch config;
-          };
-      in
+    tests = let
+      bools = [
+        true
+        false
+      ];
+      configs = {
+        openCVFirst = bools;
+        useOpenCVDefaultCuda = bools;
+        useTorchDefaultCuda = bools;
+      };
+      builder = {
+        openCVFirst,
+        useOpenCVDefaultCuda,
+        useTorchDefaultCuda,
+      } @ config: {
+        name = strings.concatStringsSep "-" (
+          [
+            "test"
+            (
+              if openCVFirst
+              then "opencv"
+              else "torch"
+            )
+          ]
+          ++ lists.optionals (
+            if openCVFirst
+            then useOpenCVDefaultCuda
+            else useTorchDefaultCuda
+          ) [
+            "with-default-cuda"
+          ]
+          ++ [
+            "then"
+            (
+              if openCVFirst
+              then "torch"
+              else "opencv"
+            )
+          ]
+          ++ lists.optionals (
+            if openCVFirst
+            then useTorchDefaultCuda
+            else useOpenCVDefaultCuda
+          ) [
+            "with-default-cuda"
+          ]
+        );
+        value = final.callPackage ../development/cuda-modules/tests/opencv-and-torch config;
+      };
+    in
       attrsets.listToAttrs (attrsets.mapCartesianProduct builder configs)
       // {
-        flags = final.callPackage ../development/cuda-modules/tests/flags.nix { };
+        flags = final.callPackage ../development/cuda-modules/tests/flags.nix {};
       };
   };
 
@@ -151,15 +167,15 @@ let
     [
       (
         final: _:
-        {
-          cuda_compat = runCommand "cuda_compat" { meta.platforms = [ ]; } "false"; # Prevent missing attribute errors
-        }
-        // lib.packagesFromDirectoryRecursive {
-          inherit (final) callPackage;
-          directory = ../development/cuda-modules/packages;
-        }
+          {
+            cuda_compat = runCommand "cuda_compat" {meta.platforms = [];} "false"; # Prevent missing attribute errors
+          }
+          // lib.packagesFromDirectoryRecursive {
+            inherit (final) callPackage;
+            directory = ../development/cuda-modules/packages;
+          }
       )
-      (import ../development/cuda-modules/cuda/extension.nix { inherit cudaMajorMinorVersion lib; })
+      (import ../development/cuda-modules/cuda/extension.nix {inherit cudaMajorMinorVersion lib;})
       (import ../development/cuda-modules/generic-builders/multiplex.nix {
         inherit
           cudaLib
@@ -204,10 +220,10 @@ let
       (import ../development/cuda-modules/cuda-samples/extension.nix {
         inherit cudaMajorMinorVersion lib stdenv;
       })
-      (import ../development/cuda-modules/cuda-library-samples/extension.nix { inherit lib stdenv; })
+      (import ../development/cuda-modules/cuda-library-samples/extension.nix {inherit lib stdenv;})
     ]
     ++ lib.optionals config.allowAliases [
-      (import ../development/cuda-modules/aliases.nix { inherit lib; })
+      (import ../development/cuda-modules/aliases.nix {inherit lib;})
     ]
   );
 
@@ -215,10 +231,10 @@ let
     fixedPoints.extends composedExtension passthruFunction
   );
 in
-# We want to warn users about the upcoming deprecation of old CUDA
-# versions, without breaking Nixpkgs CI with evaluation warnings. This
-# gross hack ensures that the warning only triggers if aliases are
-# enabled, which is true by default, but not for ofborg.
-lib.warnIf (cudaPackages.cudaOlder "12.0" && config.allowAliases)
+  # We want to warn users about the upcoming deprecation of old CUDA
+  # versions, without breaking Nixpkgs CI with evaluation warnings. This
+  # gross hack ensures that the warning only triggers if aliases are
+  # enabled, which is true by default, but not for ofborg.
+  lib.warnIf (cudaPackages.cudaOlder "12.0" && config.allowAliases)
   "CUDA versions older than 12.0 will be removed in Nixpkgs 25.05; see the 24.11 release notes for more information"
   cudaPackages

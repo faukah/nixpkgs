@@ -15,7 +15,6 @@
   libjpeg,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tulip";
   version = "5.7.4";
@@ -25,10 +24,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-7z21WkPi1v2AGishDmXZPAedMjgXPRnpUiHTzEnc5LY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      cmake
+      wrapQtAppsHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -39,13 +40,13 @@ stdenv.mkDerivation rec {
       qtbase
       python3
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libGLU
       libGL
     ];
 
-  qtWrapperArgs = [ ''--prefix PATH : ${lib.makeBinPath [ python3 ]}'' ];
+  qtWrapperArgs = [''--prefix PATH : ${lib.makeBinPath [python3]}''];
 
   env.NIX_CFLAGS_COMPILE =
     # error: invalid conversion from 'unsigned char*' to 'char*'
@@ -75,7 +76,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

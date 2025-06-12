@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdivecomputer";
   version = "0.8.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.libdivecomputer.org";
     description = "Cross-platform and open source library for communication with dive computers from various manufacturers";
     mainProgram = "dctool";
-    maintainers = [ maintainers.mguentner ];
+    maintainers = [maintainers.mguentner];
     license = licenses.lgpl21;
     platforms = platforms.all;
   };

@@ -27,7 +27,6 @@
   polib,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "libretranslate";
   version = "1.6.5";
@@ -78,18 +77,18 @@ buildPythonPackage rec {
 
   doCheck = false; # needs network access
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # required for import check to work (argostranslate)
   env.HOME = "/tmp";
 
-  pythonImportsCheck = [ "libretranslate" ];
+  pythonImportsCheck = ["libretranslate"];
 
   meta = with lib; {
     description = "Free and Open Source Machine Translation API. Self-hosted, no limits, no ties to proprietary services";
     homepage = "https://libretranslate.com";
     changelog = "https://github.com/LibreTranslate/LibreTranslate/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

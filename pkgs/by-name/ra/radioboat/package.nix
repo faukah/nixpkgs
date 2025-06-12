@@ -9,7 +9,6 @@
   testers,
   radioboat,
 }:
-
 buildGoModule rec {
   pname = "radioboat";
   version = "0.3.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
   ];
 
   preFixup = ''
-    wrapProgram $out/bin/radioboat --prefix PATH ":" "${lib.makeBinPath [ mpv ]}";
+    wrapProgram $out/bin/radioboat --prefix PATH ":" "${lib.makeBinPath [mpv]}";
   '';
 
   postInstall = ''
@@ -46,7 +45,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = radioboat;
       command = "radioboat version";
@@ -59,6 +58,6 @@ buildGoModule rec {
     homepage = "https://github.com/slashformotion/radioboat";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

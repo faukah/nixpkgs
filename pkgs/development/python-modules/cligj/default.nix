@@ -5,7 +5,6 @@
   click,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "cligj";
   version = "0.7.2";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-0f9+I6ozX93Vn0l7+WR0mpddDZymJQ3+Krovt6co22Y=";
   };
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   nativeCheckInputs = [
     pytest
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Click params for command line interfaces to GeoJSON";
     homepage = "https://github.com/mapbox/cligj";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

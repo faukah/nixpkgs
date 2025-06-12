@@ -1,11 +1,11 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "TOML code formatter.";
   hash = "sha256-ASbIESaRVC0wtSpjkHbsyD4Hus6HdjjO58aRX9Nrhik=";
   initConfig = {
-    configExcludes = [ ];
+    configExcludes = [];
     configKey = "toml";
-    fileExtensions = [ "toml" ];
+    fileExtensions = ["toml"];
   };
   pname = "dprint-plugin-toml";
   updateUrl = "https://plugins.dprint.dev/dprint/toml/latest.json";

@@ -11,74 +11,71 @@
   qtserialport,
   qtsvg,
   wrapQtAppsHook,
-}:
-
-let
+}: let
   isQt6 = lib.versions.major qtbase.version == "6";
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "gpxsee";
-  version = "13.43";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "gpxsee";
+    version = "13.43";
 
-  src = fetchFromGitHub {
-    owner = "tumic0";
-    repo = "GPXSee";
-    tag = finalAttrs.version;
-    hash = "sha256-IP5l8YUsCNm9rixgpQqbyyhfcBNQgrZha1MNjetug2c=";
-  };
+    src = fetchFromGitHub {
+      owner = "tumic0";
+      repo = "GPXSee";
+      tag = finalAttrs.version;
+      hash = "sha256-IP5l8YUsCNm9rixgpQqbyyhfcBNQgrZha1MNjetug2c=";
+    };
 
-  buildInputs =
-    [
-      qtserialport
-    ]
-    ++ (
-      if isQt6 then
-        [
+    buildInputs =
+      [
+        qtserialport
+      ]
+      ++ (
+        if isQt6
+        then [
           qtbase
           qtpositioning
           qtsvg
         ]
-      else
-        [
+        else [
           qtlocation
         ]
-    );
+      );
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapQtAppsHook
-  ];
-
-  preConfigure = ''
-    lrelease gpxsee.pro
-  '';
-
-  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p $out/Applications
-    mv GPXSee.app $out/Applications
-    mkdir -p $out/bin
-    ln -s $out/Applications/GPXSee.app/Contents/MacOS/GPXSee $out/bin/gpxsee
-  '';
-
-  passthru = {
-    updateScript = nix-update-script { };
-  };
-
-  meta = {
-    changelog = "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
-    description = "GPS log file viewer and analyzer";
-    mainProgram = "gpxsee";
-    homepage = "https://www.gpxsee.org/";
-    license = lib.licenses.gpl3Only;
-    longDescription = ''
-      GPXSee is a Qt-based GPS log file viewer and analyzer that supports
-      all common GPS log file formats.
-    '';
-    maintainers = with lib.maintainers; [
-      womfoo
-      sikmir
+    nativeBuildInputs = [
+      qmake
+      qttools
+      wrapQtAppsHook
     ];
-    platforms = lib.platforms.unix;
-  };
-})
+
+    preConfigure = ''
+      lrelease gpxsee.pro
+    '';
+
+    postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p $out/Applications
+      mv GPXSee.app $out/Applications
+      mkdir -p $out/bin
+      ln -s $out/Applications/GPXSee.app/Contents/MacOS/GPXSee $out/bin/gpxsee
+    '';
+
+    passthru = {
+      updateScript = nix-update-script {};
+    };
+
+    meta = {
+      changelog = "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
+      description = "GPS log file viewer and analyzer";
+      mainProgram = "gpxsee";
+      homepage = "https://www.gpxsee.org/";
+      license = lib.licenses.gpl3Only;
+      longDescription = ''
+        GPXSee is a Qt-based GPS log file viewer and analyzer that supports
+        all common GPS log file formats.
+      '';
+      maintainers = with lib.maintainers; [
+        womfoo
+        sikmir
+      ];
+      platforms = lib.platforms.unix;
+    };
+  })

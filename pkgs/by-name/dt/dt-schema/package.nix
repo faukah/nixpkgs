@@ -1,9 +1,7 @@
 {
   lib,
   python3,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
@@ -17,24 +15,22 @@ let
           hash = "sha256-D4ZEN6uLYHa6ZwdFPvj5imoNUSqA6T+KvbZ29zfstg0=";
         };
 
-        propagatedBuildInputs =
-          with self;
-          (
-            [
-              attrs
-              pyrsistent
-            ]
-            ++ lib.optionals (pythonOlder "3.8") [
-              importlib-metadata
-              typing-extensions
-            ]
-            ++ lib.optionals (pythonOlder "3.9") [
-              importlib-resources
-              pkgutil-resolve-name
-            ]
-          );
+        propagatedBuildInputs = with self; (
+          [
+            attrs
+            pyrsistent
+          ]
+          ++ lib.optionals (pythonOlder "3.8") [
+            importlib-metadata
+            typing-extensions
+          ]
+          ++ lib.optionals (pythonOlder "3.9") [
+            importlib-resources
+            pkgutil-resolve-name
+          ]
+        );
       });
     };
   };
 in
-python.pkgs.toPythonApplication python.pkgs.dtschema
+  python.pkgs.toPythonApplication python.pkgs.dtschema

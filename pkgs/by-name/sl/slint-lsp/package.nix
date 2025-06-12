@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     fontconfig
   ];
-  buildInputs = finalAttrs.rpathLibs ++ [ xorg.libxcb.dev ];
+  buildInputs = finalAttrs.rpathLibs ++ [xorg.libxcb.dev];
 
   # Tests requires `i_slint_backend_testing` which is only a dev dependency
   doCheck = false;
@@ -55,9 +55,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   dontPatchELF = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language Server Protocol (LSP) for Slint UI language";
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://slint-ui.com/";
     downloadPage = "https://github.com/slint-ui/slint/";
     changelog = "https://github.com/slint-ui/slint/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ xgroleau ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [xgroleau];
   };
 })

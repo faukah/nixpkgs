@@ -9,8 +9,7 @@
   writeScript,
   _7zz,
   commandLineArgs ? "",
-}:
-let
+}: let
   pname = "obsidian";
   version = "1.8.10";
   appname = "Obsidian";
@@ -31,14 +30,15 @@ let
   };
 
   filename =
-    if stdenv.hostPlatform.isDarwin then "Obsidian-${version}.dmg" else "obsidian-${version}.tar.gz";
+    if stdenv.hostPlatform.isDarwin
+    then "Obsidian-${version}.dmg"
+    else "obsidian-${version}.tar.gz";
   src = fetchurl {
     url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
     hash =
-      if stdenv.hostPlatform.isDarwin then
-        "sha256-3BiPbT1ME75WpR/mTDl8/TI+yq6+WMU+RaZXykUG8yE="
-      else
-        "sha256-xZoi4Z9JMM/FEPfvjBXEag3pT/uJH9dvFp8qHnTFNKE=";
+      if stdenv.hostPlatform.isDarwin
+      then "sha256-3BiPbT1ME75WpR/mTDl8/TI+yq6+WMU+RaZXykUG8yE="
+      else "sha256-xZoi4Z9JMM/FEPfvjBXEag3pT/uJH9dvFp8qHnTFNKE=";
   };
 
   icon = fetchurl {
@@ -52,8 +52,8 @@ let
     comment = "Knowledge base";
     icon = "obsidian";
     exec = "obsidian %u";
-    categories = [ "Office" ];
-    mimeTypes = [ "x-scheme-handler/obsidian" ];
+    categories = ["Office"];
+    mimeTypes = ["x-scheme-handler/obsidian"];
   };
 
   linux = stdenv.mkDerivation {
@@ -64,12 +64,14 @@ let
       desktopItem
       icon
       ;
-    meta = meta // {
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
+    meta =
+      meta
+      // {
+        platforms = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+      };
     nativeBuildInputs = [
       makeWrapper
       imagemagick
@@ -108,12 +110,14 @@ let
       src
       appname
       ;
-    meta = meta // {
-      platforms = [
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-    };
+    meta =
+      meta
+      // {
+        platforms = [
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+      };
     sourceRoot = "${appname}.app";
     nativeBuildInputs = [
       makeWrapper
@@ -128,4 +132,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

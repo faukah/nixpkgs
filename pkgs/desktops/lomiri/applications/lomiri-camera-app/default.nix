@@ -25,7 +25,6 @@
   wrapQtAppsHook,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-camera-app";
   version = "4.0.8";
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
       gst-plugins-ugly
     ]);
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   cmakeFlags = [
     (lib.cmakeBool "INSTALL_TESTS" false)
@@ -102,20 +101,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}
-      export QML2_IMPORT_PATH=${
-        listToQtVar qtbase.qtQmlPrefix [
-          lomiri-ui-toolkit
-          lomiri-content-hub
-          lomiri-thumbnailer
-        ]
-      }
-    '';
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [qtbase]}
+    export QML2_IMPORT_PATH=${
+      listToQtVar qtbase.qtQmlPrefix [
+        lomiri-ui-toolkit
+        lomiri-content-hub
+        lomiri-thumbnailer
+      ]
+    }
+  '';
 
   postInstall = ''
     mkdir -p $out/share/lomiri-app-launch/splash
@@ -133,13 +130,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests.lomiri-camera-app)
+      inherit
+        (nixosTests.lomiri-camera-app)
         basic
         v4l2-photo
         v4l2-qr
         ;
     };
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -151,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-sa-30 # extra graphics
     ];
     mainProgram = "lomiri-camera-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

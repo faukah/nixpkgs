@@ -10,7 +10,6 @@
   kxmlgui,
   sonnet,
 }:
-
 mkDerivation {
   pname = "kmenuedit";
   nativeBuildInputs = [

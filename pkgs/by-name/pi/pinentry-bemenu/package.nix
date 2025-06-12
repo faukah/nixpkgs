@@ -10,7 +10,6 @@
   popt,
   bemenu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pinentry-bemenu";
   version = "0.14.0";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Pinentry implementation based on bemenu";
     homepage = "https://github.com/t-8ch/pinentry-bemenu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jc ];
+    maintainers = with maintainers; [jc];
     platforms = with platforms; linux;
     mainProgram = "pinentry-bemenu";
   };

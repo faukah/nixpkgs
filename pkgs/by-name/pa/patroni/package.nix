@@ -7,7 +7,6 @@
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "patroni";
   version = "4.0.6";
@@ -38,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     ydiff
   ];
 
-  pythonImportsCheck = [ "patroni" ];
+  pythonImportsCheck = ["patroni"];
 
   nativeCheckInputs = with python3Packages; [
     flake8
@@ -56,7 +55,7 @@ python3Packages.buildPythonApplication rec {
   passthru = {
     tests.patroni = nixosTests.patroni;
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -65,6 +64,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/patroni/patroni/blob/v${version}/docs/releases.rst";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.deshaw ];
+    teams = [lib.teams.deshaw];
   };
 }

@@ -43,10 +43,7 @@
   TimeDate,
   URI,
   XMLTreePP,
-}:
-
-let
-
+}: let
   skippedTests = [
     # fatal: Could not make /tmp/pi-search-9188-DGZM/a.git/branches/ writable by group
     "search"
@@ -84,111 +81,109 @@ let
   ];
 
   testConditions = lib.concatMapStringsSep " " (n: "! -name ${lib.escapeShellArg n}.t") skippedTests;
-
 in
+  buildPerlPackage rec {
+    pname = "public-inbox";
+    version = "1.9.0";
 
-buildPerlPackage rec {
-  pname = "public-inbox";
-  version = "1.9.0";
+    src = fetchurl {
+      url = "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
+      sha256 = "sha256-ENnT2YK7rpODII9TqiEYSCp5mpWOnxskeSuAf8Ilqro=";
+    };
 
-  src = fetchurl {
-    url = "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
-    sha256 = "sha256-ENnT2YK7rpODII9TqiEYSCp5mpWOnxskeSuAf8Ilqro=";
-  };
-
-  outputs = [
-    "out"
-    "devdoc"
-    "sa_config"
-  ];
-
-  postConfigure = ''
-    substituteInPlace Makefile --replace 'TEST_FILES = t/*.t' \
-        'TEST_FILES = $(shell find t -name *.t ${testConditions})'
-    substituteInPlace lib/PublicInbox/TestCommon.pm \
-      --replace /bin/cp ${coreutils}/bin/cp
-  '';
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [
-    AnyURIEscape
-    DBDSQLite
-    DBI
-    EmailAddressXS
-    highlight
-    IOSocketSSL
-    #IOSocketSocks
-    IPCRun
-    Inline
-    InlineC
-    MailIMAPClient
-    #NetNetrc
-    #NetNNTP
-    ParseRecDescent
-    Plack
-    PlackMiddlewareReverseProxy
-    Xapian
-    TimeDate
-    URI
-    libgit2 # For Gcf2
-    man
-  ];
-
-  doCheck = !stdenv.hostPlatform.isDarwin;
-  nativeCheckInputs =
-    [
-      curl
-      git
-      openssl
-      pkg-config
-      sqlite
-      xapian
-      EmailMIME
-      PlackTestExternalServer
-      TestSimple13
-      XMLTreePP
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      LinuxInotify2
+    outputs = [
+      "out"
+      "devdoc"
+      "sa_config"
     ];
-  preCheck = ''
-    perl certs/create-certs.perl
-    export TEST_LEI_ERR_LOUD=1
-    export HOME="$NIX_BUILD_TOP"/home
-    mkdir -p "$HOME"/.cache/public-inbox/inline-c
-  '';
 
-  installTargets = [ "install" ];
-  postInstall = ''
-    for prog in $out/bin/*; do
-        wrapProgram $prog \
-            --set NIX_CFLAGS_COMPILE_${stdenv.cc.suffixSalt} -I${lib.getDev libxcrypt}/include \
-            --prefix PATH : ${
-              lib.makeBinPath [
-                git
-                xapian
-                # for InlineC
-                gnumake
-                stdenv.cc
-              ]
-            }
-    done
+    postConfigure = ''
+      substituteInPlace Makefile --replace 'TEST_FILES = t/*.t' \
+          'TEST_FILES = $(shell find t -name *.t ${testConditions})'
+      substituteInPlace lib/PublicInbox/TestCommon.pm \
+        --replace /bin/cp ${coreutils}/bin/cp
+    '';
 
-    mv sa_config $sa_config
-  '';
+    nativeBuildInputs = [makeWrapper];
 
-  passthru.tests = {
-    nixos-public-inbox = nixosTests.public-inbox;
-  };
-
-  meta = with lib; {
-    homepage = "https://public-inbox.org/";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      julm
-      qyliss
+    buildInputs = [
+      AnyURIEscape
+      DBDSQLite
+      DBI
+      EmailAddressXS
+      highlight
+      IOSocketSSL
+      #IOSocketSocks
+      IPCRun
+      Inline
+      InlineC
+      MailIMAPClient
+      #NetNetrc
+      #NetNNTP
+      ParseRecDescent
+      Plack
+      PlackMiddlewareReverseProxy
+      Xapian
+      TimeDate
+      URI
+      libgit2 # For Gcf2
+      man
     ];
-    platforms = platforms.all;
-  };
-}
+
+    doCheck = !stdenv.hostPlatform.isDarwin;
+    nativeCheckInputs =
+      [
+        curl
+        git
+        openssl
+        pkg-config
+        sqlite
+        xapian
+        EmailMIME
+        PlackTestExternalServer
+        TestSimple13
+        XMLTreePP
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        LinuxInotify2
+      ];
+    preCheck = ''
+      perl certs/create-certs.perl
+      export TEST_LEI_ERR_LOUD=1
+      export HOME="$NIX_BUILD_TOP"/home
+      mkdir -p "$HOME"/.cache/public-inbox/inline-c
+    '';
+
+    installTargets = ["install"];
+    postInstall = ''
+      for prog in $out/bin/*; do
+          wrapProgram $prog \
+              --set NIX_CFLAGS_COMPILE_${stdenv.cc.suffixSalt} -I${lib.getDev libxcrypt}/include \
+              --prefix PATH : ${
+        lib.makeBinPath [
+          git
+          xapian
+          # for InlineC
+          gnumake
+          stdenv.cc
+        ]
+      }
+      done
+
+      mv sa_config $sa_config
+    '';
+
+    passthru.tests = {
+      nixos-public-inbox = nixosTests.public-inbox;
+    };
+
+    meta = with lib; {
+      homepage = "https://public-inbox.org/";
+      license = licenses.agpl3Plus;
+      maintainers = with maintainers; [
+        julm
+        qyliss
+      ];
+      platforms = platforms.all;
+    };
+  }

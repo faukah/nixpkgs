@@ -1,10 +1,12 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   nixpkgsFun = import ../../top-level;
 in
-lib.recurseIntoAttrs {
-  platformEquality =
-    let
+  lib.recurseIntoAttrs {
+    platformEquality = let
       configsLocal = [
         # crossSystem is implicitly set to localSystem.
         {
@@ -61,7 +63,7 @@ lib.recurseIntoAttrs {
       pkgsLocal = map nixpkgsFun configsLocal;
       pkgsCross = map nixpkgsFun configsCross;
     in
-    assert lib.all (p: p.buildPlatform == p.hostPlatform) pkgsLocal;
-    assert lib.all (p: p.buildPlatform != p.hostPlatform) pkgsCross;
-    pkgs.emptyFile;
-}
+      assert lib.all (p: p.buildPlatform == p.hostPlatform) pkgsLocal;
+      assert lib.all (p: p.buildPlatform != p.hostPlatform) pkgsCross;
+        pkgs.emptyFile;
+  }

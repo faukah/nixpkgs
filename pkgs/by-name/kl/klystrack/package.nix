@@ -7,7 +7,6 @@
   SDL2_image,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klystrack";
   version = "1.7.6";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     SDL2
     SDL2_image
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patches = [
     (fetchpatch {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Chiptune tracker";
     homepage = "https://kometbomb.github.io/klystrack";
     license = licenses.mit;
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
     platforms = platforms.linux;
     mainProgram = "klystrack";
   };

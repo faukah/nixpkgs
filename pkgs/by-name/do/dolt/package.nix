@@ -3,7 +3,6 @@
   lib,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "dolt";
   version = "1.54.1";
@@ -16,7 +15,7 @@ buildGoModule rec {
   };
 
   modRoot = "./go";
-  subPackages = [ "cmd/dolt" ];
+  subPackages = ["cmd/dolt"];
   vendorHash = "sha256-+UHw4cDcgRtzl8TGXLjUbBkUwJFhnuUbrwy1JUbS1ko=";
   proxyVendor = true;
   doCheck = false;
@@ -26,6 +25,6 @@ buildGoModule rec {
     mainProgram = "dolt";
     homepage = "https://github.com/dolthub/dolt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
   };
 }

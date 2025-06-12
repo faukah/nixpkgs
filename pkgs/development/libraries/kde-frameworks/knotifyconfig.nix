@@ -8,10 +8,9 @@
   phonon,
   qtbase,
 }:
-
 mkDerivation {
   pname = "knotifyconfig";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcompletion
     kconfig
@@ -19,7 +18,7 @@ mkDerivation {
     kio
     phonon
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

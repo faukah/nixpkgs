@@ -5,7 +5,6 @@
   setuptools,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "confight";
   version = "2.0";
@@ -16,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-iodoexnh9tG4dgkjDXCUzWRFDhRlJ3HRgaNhxG2lwPY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ toml ];
+  propagatedBuildInputs = [toml];
 
-  pythonImportsCheck = [ "confight" ];
+  pythonImportsCheck = ["confight"];
 
   doCheck = false;
 
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     description = "Python context manager for managing pid files";
     mainProgram = "confight";
     homepage = "https://github.com/avature/confight";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ mkg20001 ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [mkg20001];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-mommy";
   version = "0.3.1";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ GoldsteinE ];
+    maintainers = with maintainers; [GoldsteinE];
   };
 }

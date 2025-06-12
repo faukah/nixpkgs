@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "git-backdate";
   version = "2023-07-19";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     description = "Backdate a commit or range of commit to a date or range of dates";
     homepage = "https://github.com/rixx/git-backdate";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     mainProgram = "git-backdate";
   };
 }

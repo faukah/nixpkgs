@@ -13,7 +13,6 @@
   webkitgtk_4_1,
   pandoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "marker";
   version = "2023.05.02";

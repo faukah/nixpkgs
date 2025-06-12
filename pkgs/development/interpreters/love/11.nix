@@ -22,7 +22,6 @@
   libtool,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "love";
   version = "11.5";
@@ -72,6 +71,6 @@ stdenv.mkDerivation rec {
     mainProgram = "love";
     license = lib.licenses.zlib;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
   };
 }

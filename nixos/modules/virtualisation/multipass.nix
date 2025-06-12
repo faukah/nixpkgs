@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.multipass;
-in
-{
+in {
   options = {
     virtualisation.multipass = {
       enable = lib.mkEnableOption "Multipass, a simple manager for virtualised Ubuntu instances";
@@ -27,19 +24,19 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "multipass" { };
+      package = lib.mkPackageOption pkgs "multipass" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.multipass = {
       description = "Multipass orchestrates virtual Ubuntu instances.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       environment = {
         "XDG_DATA_HOME" = "/var/lib/multipass/data";

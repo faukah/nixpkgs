@@ -8,9 +8,7 @@
   python3,
   cmake,
   writableTmpDirAsHomeHook,
-}:
-
-let
+}: let
   src = fetchFromGitHub {
     owner = "mike-fabian";
     repo = "ibus-table-chinese";
@@ -18,37 +16,37 @@ let
     sha256 = "sha256-KA4jRSlQ78IeP7od3VtgdR58Z/6psNkMCVwvg3vhFIM=";
   };
 in
-stdenv.mkDerivation {
-  pname = "ibus-table-chinese";
-  version = "1.8.12";
+  stdenv.mkDerivation {
+    pname = "ibus-table-chinese";
+    version = "1.8.12";
 
-  inherit src;
+    inherit src;
 
-  postConfigure = ''
-    substituteInPlace cmake_install.cmake --replace-fail /var/empty $out
-    substituteInPlace CMakeLists.txt --replace-fail /var/empty $out
-  '';
-  # Fails otherwise with "no such file or directory: <table>.txt"
-  dontUseCmakeBuildDir = true;
+    postConfigure = ''
+      substituteInPlace cmake_install.cmake --replace-fail /var/empty $out
+      substituteInPlace CMakeLists.txt --replace-fail /var/empty $out
+    '';
+    # Fails otherwise with "no such file or directory: <table>.txt"
+    dontUseCmakeBuildDir = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    writableTmpDirAsHomeHook
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      writableTmpDirAsHomeHook
+    ];
 
-  buildInputs = [
-    ibus
-    ibus-table
-    python3
-  ];
+    buildInputs = [
+      ibus
+      ibus-table
+      python3
+    ];
 
-  meta = {
-    isIbusEngine = true;
-    description = "Chinese tables for IBus-Table";
-    homepage = "https://github.com/definite/ibus-table-chinese";
-    license = lib.licenses.gpl3;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ pneumaticat ];
-  };
-}
+    meta = {
+      isIbusEngine = true;
+      description = "Chinese tables for IBus-Table";
+      homepage = "https://github.com/definite/ibus-table-chinese";
+      license = lib.licenses.gpl3;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [pneumaticat];
+    };
+  }

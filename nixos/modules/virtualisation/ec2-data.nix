@@ -1,23 +1,18 @@
 # This module defines a systemd service that sets the SSH host key and
 # authorized client key and host name of virtual machines running on
 # Amazon EC2, Eucalyptus and OpenStack Compute (Nova).
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   imports = [
-    (mkRemovedOptionModule [ "ec2" "metadata" ] "")
+    (mkRemovedOptionModule ["ec2" "metadata"] "")
   ];
 
   config = {
-
     systemd.services.apply-ec2-data = {
       description = "Apply EC2 Data";
 
@@ -25,10 +20,10 @@ with lib;
         "multi-user.target"
         "sshd.service"
       ];
-      before = [ "sshd.service" ];
-      after = [ "fetch-ec2-metadata.service" ];
+      before = ["sshd.service"];
+      after = ["fetch-ec2-metadata.service"];
 
-      path = [ pkgs.iproute2 ];
+      path = [pkgs.iproute2];
 
       script = ''
         ${optionalString (config.networking.hostName == "") ''
@@ -79,8 +74,8 @@ with lib;
 
     systemd.services.print-host-key = {
       description = "Print SSH Host Key";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "sshd.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["sshd.service"];
       script = ''
         # Print the host public key on the console so that the user
         # can obtain it securely by parsing the output of
@@ -94,8 +89,7 @@ with lib;
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
     };
-
   };
 
-  meta.maintainers = with maintainers; [ arianvp ];
+  meta.maintainers = with maintainers; [arianvp];
 }

@@ -7,7 +7,6 @@
   makeDesktopItem,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stretchly";
   version = "1.17.2";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-tO0cNKopG/recQus7KDUTyGpApvR5/tpmF5C4V14DnI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -45,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
     icon = finalAttrs.icon;
     desktopName = "Stretchly";
     genericName = "Stretchly";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://hovancik.net/stretchly";
     downloadPage = "https://hovancik.net/stretchly/downloads/";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ _1000101 ];
+    maintainers = with lib.maintainers; [_1000101];
     platforms = lib.platforms.linux;
     mainProgram = "stretchly";
   };

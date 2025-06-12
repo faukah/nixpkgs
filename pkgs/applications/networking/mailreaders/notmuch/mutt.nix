@@ -7,16 +7,15 @@
   coreutils,
   notmuch,
 }:
-
 stdenv.mkDerivation {
   pname = "notmuch-mutt";
   version = notmuch.version;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   dontStrip = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       perl
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     mainProgram = "notmuch-mutt";
     homepage = "https://notmuchmail.org/";
     license = with licenses; gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

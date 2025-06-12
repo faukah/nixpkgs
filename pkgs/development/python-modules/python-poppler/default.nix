@@ -10,7 +10,6 @@
   pkg-config,
   pybind11,
 }:
-
 buildPythonPackage rec {
   pname = "python-poppler";
   version = "0.4.1";
@@ -32,20 +31,20 @@ buildPythonPackage rec {
     ./poppler-25.patch
   ];
 
-  build-system = [ meson-python ];
+  build-system = [meson-python];
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   nativeBuildInputs = [
     ninja
     pkg-config
   ];
 
-  propagatedBuildInputs = [ poppler ];
+  propagatedBuildInputs = [poppler];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "poppler" ];
+  pythonImportsCheck = ["poppler"];
 
   meta = {
     description = "Python binding to poppler-cpp";
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     # Contradictory license definition
     # https://github.com/cbrunet/python-poppler/issues/90
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

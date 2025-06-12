@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polytopes_db";
   version = "20170220";
@@ -22,6 +21,6 @@ stdenv.mkDerivation rec {
     description = "Reflexive polytopes database";
     license = licenses.gpl2;
     platforms = platforms.all;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

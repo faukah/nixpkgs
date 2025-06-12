@@ -11,7 +11,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "wordcloud";
   version = "1.9.4";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace " --cov --cov-report xml --tb=short" ""
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   dependencies = [
     matplotlib
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd test
   '';
 
-  pythonImportsCheck = [ "wordcloud" ];
+  pythonImportsCheck = ["wordcloud"];
 
   disabledTests = [
     # Don't tests CLI
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/amueller/word_cloud";
     changelog = "https://github.com/amueller/word_cloud/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jm2dev ];
+    maintainers = with maintainers; [jm2dev];
   };
 }

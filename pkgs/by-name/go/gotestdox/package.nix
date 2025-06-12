@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gotestdox";
   version = "0.2.2";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool for formatting Go test results as readable documentation";
     homepage = "https://github.com/bitfield/gotestdox";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
     mainProgram = "gotestdox";
   };
 }

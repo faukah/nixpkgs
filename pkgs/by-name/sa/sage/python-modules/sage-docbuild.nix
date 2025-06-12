@@ -8,7 +8,6 @@
   sphinx-copybutton,
   sphinx-inline-tabs,
 }:
-
 buildPythonPackage rec {
   version = src.version;
   pname = "sage-docbuild";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Build system of the Sage documentation";
     homepage = "https://www.sagemath.org";
     license = licenses.gpl2Plus;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

@@ -5,7 +5,6 @@
   premake4,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "bootil";
   version = "unstable-2019-11-18";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     cp -r ${zlib.dev}/include/z{conf,lib}.h src/3rdParty/zlib
   '';
 
-  nativeBuildInputs = [ premake4 ];
+  nativeBuildInputs = [premake4];
 
   premakefile = "projects/premake4.lua";
 
@@ -45,9 +44,9 @@ stdenv.mkDerivation {
     homepage = "https://github.com/garrynewman/bootil";
     # License unsure - see https://github.com/garrynewman/bootil/issues/21
     license = licenses.free;
-    maintainers = with maintainers; [ abigailbuccaneer ];
+    maintainers = with maintainers; [abigailbuccaneer];
     # Build uses `-msse` and `-mfpmath=sse`
     platforms = platforms.all;
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

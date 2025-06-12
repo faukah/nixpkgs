@@ -8,7 +8,6 @@
   mongoc,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmongocrypt";
   version = "1.7.4";

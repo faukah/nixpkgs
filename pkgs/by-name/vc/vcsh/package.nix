@@ -7,7 +7,6 @@
   git,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vcsh";
   version = "2.0.8";
@@ -22,10 +21,10 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   nativeCheckInputs =
-    [ ]
+    []
     ++ (with perlPackages; [
       perl
       ShellCommand

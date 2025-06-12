@@ -5,7 +5,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "hypopg";
   version = "1.4.1";
@@ -28,6 +27,6 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://hypopg.readthedocs.io";
     license = lib.licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with lib.maintainers; [ bbigras ];
+    maintainers = with lib.maintainers; [bbigras];
   };
 })

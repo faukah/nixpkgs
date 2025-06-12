@@ -6,7 +6,6 @@
   py,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rply";
   version = "0.7.8";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-mO/wcIsDIBjoxUsFvzftj5H5ziJijJcoyrUk52fcyE4=";
   };
 
-  propagatedBuildInputs = [ appdirs ];
+  propagatedBuildInputs = [appdirs];
 
   nativeCheckInputs = [
     py
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Python Lex/Yacc that works with RPython";
     homepage = "https://github.com/alex/rply";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

@@ -3,7 +3,6 @@
   faircamp,
   ffmpeg,
 }:
-
 stdenv.mkDerivation {
   name = "faircamp-test-wav";
   meta.timeout = 60;

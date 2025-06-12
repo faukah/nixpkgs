@@ -13,7 +13,6 @@
   qtwayland,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "focuswriter";
   version = "1.8.11";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     description = "Simple, distraction-free writing environment";

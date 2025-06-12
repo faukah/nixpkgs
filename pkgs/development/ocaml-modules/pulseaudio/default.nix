@@ -6,7 +6,6 @@
   pkg-config,
   pulseaudio,
 }:
-
 buildDunePackage rec {
   pname = "pulseaudio";
   version = "0.1.5";
@@ -18,14 +17,14 @@ buildDunePackage rec {
     sha256 = "sha256-eG2HS5g3ycDftRDyXGBwPJE7VRnLXNUgcEgNfVm//ds=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ pulseaudio ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [pulseaudio];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-pulseaudio";
     description = "Bindings to Pulseaudio client library";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

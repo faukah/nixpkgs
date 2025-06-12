@@ -4,7 +4,6 @@
   python3Packages,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ansible-later";
   version = "4.0.8";
@@ -50,14 +49,14 @@ python3Packages.buildPythonApplication rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "ansiblelater" ];
+  pythonImportsCheck = ["ansiblelater"];
 
   meta = {
     description = "Best practice scanner for Ansible roles and playbooks";
     homepage = "https://github.com/thegeeklab/ansible-later";
     changelog = "https://github.com/thegeeklab/ansible-later/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tboerger ];
+    maintainers = with lib.maintainers; [tboerger];
     mainProgram = "ansible-later";
   };
 }

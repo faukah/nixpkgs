@@ -12,18 +12,16 @@
   lit,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "triton";
   version = "3.1.0";
   format = "wheel";
 
-  src =
-    let
-      pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-      unsupported = throw "Unsupported system";
-      srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
-    in
+  src = let
+    pyVerNoDot = lib.replaceStrings ["."] [""] python.pythonVersion;
+    unsupported = throw "Unsupported system";
+    srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
+  in
     fetchurl srcs;
 
   disabled = pythonOlder "3.8";
@@ -34,7 +32,7 @@ buildPythonPackage rec {
     "torch"
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -66,8 +64,8 @@ buildPythonPackage rec {
       unfreeRedistributable
       mit
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ junjihashimoto ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

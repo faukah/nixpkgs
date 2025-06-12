@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.13.3";
   pname = "frostwire";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wRT8Oo+niOFBpEnq3pgjO9jpagZMgSE44V9RBYnGwig=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ gavin ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [gavin];
+    platforms = ["x86_64-linux"];
   };
 }

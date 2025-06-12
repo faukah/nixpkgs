@@ -19,7 +19,6 @@
   requests,
   ruamel-yaml,
 }:
-
 buildPythonPackage rec {
   pname = "dateparser";
   version = "1.2.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-O0FsLWbH0kGjwGCTklBMVVqosxXlXRyS9aAcggtBLsA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     python-dateutil
@@ -49,25 +48,27 @@ buildPythonPackage rec {
       hijri-converter
       convertdate
     ];
-    fasttext = [ fasttext ];
-    langdetect = [ langdetect ];
+    fasttext = [fasttext];
+    langdetect = [langdetect];
   };
 
-  nativeCheckInputs = [
-    parameterized
-    pytestCheckHook
-    gitpython
-    parsel
-    requests
-    ruamel-yaml
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      parameterized
+      pytestCheckHook
+      gitpython
+      parsel
+      requests
+      ruamel-yaml
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME="$TEMPDIR"
   '';
 
   # Upstream only runs the tests in tests/ in CI, others use git clone
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # access network
@@ -79,7 +80,7 @@ buildPythonPackage rec {
     "test_relative_base"
   ];
 
-  pythonImportsCheck = [ "dateparser" ];
+  pythonImportsCheck = ["dateparser"];
 
   meta = with lib; {
     changelog = "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
@@ -87,6 +88,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;
     mainProgram = "dateparser-download";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

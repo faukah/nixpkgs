@@ -7,7 +7,6 @@
   pnpm_9,
   esbuild,
 }:
-
 buildGoModule rec {
   pname = "syncyomi";
   version = "1.1.2";
@@ -27,7 +26,8 @@ buildGoModule rec {
     sourceRoot = "${finalAttrs.src.name}/web";
 
     pnpmDeps = pnpm_9.fetchDeps {
-      inherit (finalAttrs)
+      inherit
+        (finalAttrs)
         pname
         version
         src
@@ -43,8 +43,7 @@ buildGoModule rec {
 
     env.ESBUILD_BINARY_PATH = lib.getExe (
       esbuild.override {
-        buildGoModule =
-          args:
+        buildGoModule = args:
           buildGoModule (
             args
             // rec {
@@ -93,7 +92,7 @@ buildGoModule rec {
     homepage = "https://github.com/SyncYomi/SyncYomi";
     changelog = "https://github.com/SyncYomi/SyncYomi/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ eriedaberrie ];
+    maintainers = with lib.maintainers; [eriedaberrie];
     mainProgram = "syncyomi";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

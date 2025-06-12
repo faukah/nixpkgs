@@ -3,12 +3,10 @@
   stdenvNoCC,
   fetchFromGitHub,
   fetchpatch,
-  flavour ? [ "frappe" ],
-  accents ? [ "blue" ],
-  winDecStyles ? [ "modern" ],
-}:
-
-let
+  flavour ? ["frappe"],
+  accents ? ["blue"],
+  winDecStyles ? ["modern"],
+}: let
   validFlavours = [
     "mocha"
     "macchiato"
@@ -38,8 +36,7 @@ let
 
   colorScript = ./color.sh;
 in
-
-lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
+  lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
   accents
   lib.checkListOfEnum
   "Invalid flavour, valid flavours are ${toString validFlavours}"
@@ -49,7 +46,6 @@ lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
   "Invalid window decoration style, valid styles are ${toString validWinDecStyles}"
   validWinDecStyles
   winDecStyles
-
   stdenvNoCC.mkDerivation
   rec {
     pname = "kde";

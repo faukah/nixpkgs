@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubeconform";
   version = "0.7.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "kubeconform";
     homepage = "https://github.com/yannh/kubeconform/";
     license = licenses.asl20;
-    maintainers = [ maintainers.j4m3s ];
+    maintainers = [maintainers.j4m3s];
   };
 }

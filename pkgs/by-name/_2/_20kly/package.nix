@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "20kly";
   version = "1.5.0";
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "lightyears";
     homepage = "http://jwhitham.org.uk/20kly/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

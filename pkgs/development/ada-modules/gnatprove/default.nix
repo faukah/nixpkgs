@@ -9,8 +9,7 @@
   ocamlPackages,
   makeWrapper,
   gpr2,
-}:
-let
+}: let
   gnat_version = lib.versions.major gnat.version;
 
   # gnatprove fsf-14 requires gpr2 from a special branch
@@ -19,18 +18,20 @@ let
       # pregenerated kb db is not included
       gpr2kbdir = "${gprbuild}/share/gprconfig";
     }).overrideAttrs
-      (old: rec {
-        version = "24.2.0-next";
-        src = fetchFromGitHub {
-          owner = "AdaCore";
-          repo = "gpr";
-          rev = "v${version}";
-          hash = "sha256-Tp+N9VLKjVWs1VRPYE0mQY3rl4E5iGb8xDoNatEYBg4=";
-        };
-      });
+    (old: rec {
+      version = "24.2.0-next";
+      src = fetchFromGitHub {
+        owner = "AdaCore";
+        repo = "gpr";
+        rev = "v${version}";
+        hash = "sha256-Tp+N9VLKjVWs1VRPYE0mQY3rl4E5iGb8xDoNatEYBg4=";
+      };
+    });
 
-  fetchSpark2014 =
-    { rev, hash }:
+  fetchSpark2014 = {
+    rev,
+    hash,
+  }:
     fetchFromGitHub {
       owner = "AdaCore";
       repo = "spark2014";
@@ -75,79 +76,78 @@ let
   thisSpark =
     spark2014.${gnat_version}
       or (builtins.throw "GNATprove depends on a specific GNAT version and can't be built using GNAT ${gnat_version}.");
-
 in
-stdenv.mkDerivation {
-  pname = "gnatprove";
-  version = "fsf-${gnat_version}_${thisSpark.commit_date}";
+  stdenv.mkDerivation {
+    pname = "gnatprove";
+    version = "fsf-${gnat_version}_${thisSpark.commit_date}";
 
-  src = thisSpark.src;
+    src = thisSpark.src;
 
-  patches = thisSpark.patches or [ ];
+    patches = thisSpark.patches or [];
 
-  nativeBuildInputs =
-    [
-      gnat
+    nativeBuildInputs =
+      [
+        gnat
+        gprbuild
+        python3
+        makeWrapper
+      ]
+      ++ (with ocamlPackages; [
+        ocaml
+        findlib
+        menhir
+      ]);
+
+    buildInputs =
+      [
+        gnatcoll-core
+      ]
+      ++ (with ocamlPackages; [
+        ocamlgraph
+        zarith
+        ppx_deriving
+        ppx_sexp_conv
+        camlzip
+        menhirLib
+        num
+        re
+        sexplib
+        yojson
+      ])
+      ++ (lib.optionals (gnat_version == "14") [
+        gpr2_24_2_next
+      ]);
+
+    propagatedBuildInputs = [
       gprbuild
-      python3
-      makeWrapper
-    ]
-    ++ (with ocamlPackages; [
-      ocaml
-      findlib
-      menhir
-    ]);
+    ];
 
-  buildInputs =
-    [
-      gnatcoll-core
-    ]
-    ++ (with ocamlPackages; [
-      ocamlgraph
-      zarith
-      ppx_deriving
-      ppx_sexp_conv
-      camlzip
-      menhirLib
-      num
-      re
-      sexplib
-      yojson
-    ])
-    ++ (lib.optionals (gnat_version == "14") [
-      gpr2_24_2_next
-    ]);
+    postPatch = ''
+      # gnat2why/gnat_src points to the GNAT sources
+      tar xf ${gnat.cc.src} --wildcards 'gcc-*/gcc/ada'
+      mv gcc-*/gcc/ada gnat2why/gnat_src
+    '';
 
-  propagatedBuildInputs = [
-    gprbuild
-  ];
+    configurePhase = ''
+      runHook preConfigure
+      make setup
+      runHook postConfigure
+    '';
 
-  postPatch = ''
-    # gnat2why/gnat_src points to the GNAT sources
-    tar xf ${gnat.cc.src} --wildcards 'gcc-*/gcc/ada'
-    mv gcc-*/gcc/ada gnat2why/gnat_src
-  '';
+    installPhase = ''
+      runHook preInstall
+      make install-all
+      cp -a ./install/. $out
+      mkdir $out/share/gpr
+      ln -s $out/lib/gnat/* $out/share/gpr/
+      runHook postInstall
+    '';
 
-  configurePhase = ''
-    runHook preConfigure
-    make setup
-    runHook postConfigure
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    make install-all
-    cp -a ./install/. $out
-    mkdir $out/share/gpr
-    ln -s $out/lib/gnat/* $out/share/gpr/
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Software development technology specifically designed for engineering high-reliability applications";
-    homepage = "https://github.com/AdaCore/spark2014";
-    maintainers = [ maintainers.jiegec ];
-    license = licenses.gpl3;
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "Software development technology specifically designed for engineering high-reliability applications";
+      homepage = "https://github.com/AdaCore/spark2014";
+      maintainers = [maintainers.jiegec];
+      license = licenses.gpl3;
+      platforms = platforms.all;
+    };
+  }

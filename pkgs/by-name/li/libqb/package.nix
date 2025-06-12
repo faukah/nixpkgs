@@ -7,7 +7,6 @@
   pkg-config,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libqb";
   version = "2.0.8";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   postPatch = ''
     sed -i '/# --enable-new-dtags:/,/--enable-new-dtags is required/ d' configure.ac

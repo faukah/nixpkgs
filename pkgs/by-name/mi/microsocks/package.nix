@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "microsocks";
   version = "1.0.5";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rofl0r/microsocks";
     license = lib.licenses.mit;
     mainProgram = "microsocks";
-    maintainers = with lib.maintainers; [ ramblurr ];
+    maintainers = with lib.maintainers; [ramblurr];
   };
 }

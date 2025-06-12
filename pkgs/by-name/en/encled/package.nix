@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-40TaS09+X/0oIrdFbPKZJWTDtC2DnDCEMQWMrb/8z+M=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   dontBuild = true;
   installPhase = ''
@@ -28,6 +28,6 @@ stdenv.mkDerivation {
     mainProgram = "encled";
     homepage = "https://github.com/amarao/sdled";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

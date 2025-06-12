@@ -1,5 +1,4 @@
-{ godot3 }:
-
+{godot3}:
 godot3.overrideAttrs (
   self: base: {
     pname = "godot3-export-templates";
@@ -21,10 +20,12 @@ godot3.overrideAttrs (
     # This also impacts the size of the exported games.
     # This is added explicitly here because mkDerivation does not automatically
     # strip binaries in the template directory.
-    stripAllList = (base.stripAllList or [ ]) ++ [ "share/godot/templates" ];
+    stripAllList = (base.stripAllList or []) ++ ["share/godot/templates"];
 
-    meta = base.meta // {
-      homepage = "https://docs.godotengine.org/en/stable/development/compiling/compiling_for_x11.html#building-export-templates";
-    };
+    meta =
+      base.meta
+      // {
+        homepage = "https://docs.godotengine.org/en/stable/development/compiling/compiling_for_x11.html#building-export-templates";
+      };
   }
 )

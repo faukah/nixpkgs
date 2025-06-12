@@ -3,7 +3,6 @@
   melpaBuild,
   fetchurl,
 }:
-
 melpaBuild rec {
   pname = "jam-mode";
   version = "0.3";
@@ -30,6 +29,6 @@ melpaBuild rec {
   meta = {
     description = "Emacs major mode for editing Jam files";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ qyliss ];
+    maintainers = with lib.maintainers; [qyliss];
   };
 }

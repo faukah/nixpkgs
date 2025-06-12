@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "rotate-backups";
   version = "8.1";
@@ -35,6 +34,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "rotate-backups";
     homepage = "https://github.com/xolox/python-rotate-backups";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

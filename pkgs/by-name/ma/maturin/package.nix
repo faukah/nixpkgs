@@ -10,7 +10,6 @@
   maturin,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "maturin";
   version = "1.8.3";
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru = {
     tests = {
-      version = testers.testVersion { package = maturin; };
+      version = testers.testVersion {package = maturin;};
       pyo3 = python3.pkgs.callPackage ./pyo3-test {
         format = "pyproject";
         buildAndTestSubdir = "examples/word-count";
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -76,7 +75,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "maturin";
   };
 }

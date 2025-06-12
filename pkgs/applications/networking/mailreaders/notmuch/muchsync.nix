@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     url = "http://www.muchsync.org/src/${pname}-${version}.tar.gz";
     hash = "sha256-+D4vb80O9IE0df3cjTkoVoZlTaX0FWWh6ams14Gjvqw=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     notmuch
     openssl
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "muchsync";
     homepage = "http://www.muchsync.org/";
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl2Plus;
   };
 }

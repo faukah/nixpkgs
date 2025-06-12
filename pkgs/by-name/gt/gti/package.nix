@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gti";
   version = "1.9.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://r-wos.org/hacks/gti";
     license = licenses.mit;
     description = "Humorous typo-based git runner; drives a car over the terminal";
-    maintainers = with maintainers; [ fadenb ];
+    maintainers = with maintainers; [fadenb];
     platforms = platforms.unix;
     mainProgram = "gti";
   };

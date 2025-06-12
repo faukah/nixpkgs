@@ -10,9 +10,7 @@
   version ? "2024-12-11",
   rev ? "b871679a2d54dbc6bf3e6566033fadd2dc651592",
   sha256 ? "sha256-t9R0QPky7zvjgGMq4kV8DdQFToJ/qngbJCw+8FlQztM=",
-}:
-
-let
+}: let
   common = callPackage ./common.nix {
     inherit tiles debug useXdgDir;
   };
@@ -32,14 +30,17 @@ let
       ./locale-path-git.patch
     ];
 
-    makeFlags = common.makeFlags ++ [
-      "VERSION=git-${version}-${lib.substring 0 8 src.rev}"
-    ];
+    makeFlags =
+      common.makeFlags
+      ++ [
+        "VERSION=git-${version}-${lib.substring 0 8 src.rev}"
+      ];
 
-    meta = common.meta // {
-      maintainers = with lib.maintainers; common.meta.maintainers ++ [ rardiol ];
-    };
+    meta =
+      common.meta
+      // {
+        maintainers = with lib.maintainers; common.meta.maintainers ++ [rardiol];
+      };
   });
 in
-
-attachPkgs pkgs self
+  attachPkgs pkgs self

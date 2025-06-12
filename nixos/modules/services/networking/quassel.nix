@@ -5,24 +5,19 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.quassel;
   opt = options.services.quassel;
   quassel = cfg.package;
-  user = if cfg.user != null then cfg.user else "quassel";
-in
-
-{
-
+  user =
+    if cfg.user != null
+    then cfg.user
+    else "quassel";
+in {
   ###### interface
 
   options = {
-
     services.quassel = {
-
       enable = mkEnableOption "the Quassel IRC client daemon";
 
       certificateFile = mkOption {
@@ -41,11 +36,11 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "quasselDaemon" { };
+      package = mkPackageOption pkgs "quasselDaemon" {};
 
       interfaces = mkOption {
         type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         description = ''
           The interfaces the Quassel daemon will be listening to.  If `[ 127.0.0.1 ]`,
           only clients on the local host can connect to it; if `[ 0.0.0.0 ]`, clients
@@ -79,9 +74,7 @@ in
           The existing user the Quassel daemon should run as. If left empty, a default "quassel" user will be created.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -117,9 +110,9 @@ in
     systemd.services.quassel = {
       description = "Quassel IRC client daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ optional config.services.postgresql.enable "postgresql.service"
         ++ optional config.services.mysql.enable "mysql.service";
 
@@ -137,7 +130,5 @@ in
         User = user;
       };
     };
-
   };
-
 }

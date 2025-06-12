@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "pbrt";
   version = "2.4";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mransan/ocaml-protoc";
     description = "Runtime library for Protobuf tooling";
     license = licenses.mit;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

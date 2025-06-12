@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pip-audit";
   version = "2.9.0";
@@ -16,10 +15,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-j8ZKqE7PEwaCTUNnJunqM0A2eyuWfx8zG5i3nmZERow=";
   };
 
-  build-system = with python3.pkgs; [ flit-core ];
+  build-system = with python3.pkgs; [flit-core];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       cachecontrol
       cyclonedx-python-lib
@@ -38,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pip_audit" ];
+  pythonImportsCheck = ["pip_audit"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -64,7 +62,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/trailofbits/pip-audit";
     changelog = "https://github.com/pypa/pip-audit/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pip-audit";
   };
 }

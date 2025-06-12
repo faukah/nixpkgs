@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cma";
   version = "4.0.0";
@@ -22,22 +21,22 @@ buildPythonPackage rec {
     hash = "sha256-W4KDtX/Ho/XUrZr2cmS66Q0q90FEHRJN0VF4sMgonRw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   checkPhase = ''
     # At least one doctest fails, thus only limited amount of files is tested
     ${python.executable} -m cma.test interfaces.py purecma.py logger.py optimization_tools.py transformations.py
   '';
 
-  pythonImportsCheck = [ "cma" ];
+  pythonImportsCheck = ["cma"];
 
   meta = with lib; {
     description = "Library for Covariance Matrix Adaptation Evolution Strategy for non-linear numerical optimization";
     homepage = "https://github.com/CMA-ES/pycma";
     changelog = "https://github.com/CMA-ES/pycma/releases/tag/r${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

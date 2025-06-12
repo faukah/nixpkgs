@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   inherit src indent;
   name = "shfmt-${name}";
   dontUnpack = true; # Unpack phase tries to extract archive
-  nativeBuildInputs = [ shfmt ];
+  nativeBuildInputs = [shfmt];
   doCheck = true;
   dontConfigure = true;
   dontBuild = true;

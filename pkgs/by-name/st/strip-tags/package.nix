@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "strip-tags";
   version = "0.6";
@@ -39,7 +38,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/simonw/strip-tags";
     changelog = "https://github.com/simonw/strip-tags/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ erethon ];
+    maintainers = with lib.maintainers; [erethon];
     mainProgram = "strip-tags";
   };
 }

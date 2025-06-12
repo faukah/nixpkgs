@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gh-i";
   version = "0.0.10";
@@ -17,14 +16,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-eqSAwHFrvBxLl5zcZyp3+1wTf7+JmpogFBDuVgzNm+w=";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   meta = {
     description = "Search github issues interactively";
     changelog = "https://github.com/gennaro-tedesco/gh-i/releases/tag/v${version}";
     homepage = "https://github.com/gennaro-tedesco/gh-i";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "gh-i";
   };
 }

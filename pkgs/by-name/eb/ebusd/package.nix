@@ -13,7 +13,6 @@
   pkg-config,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ebusd";
   version = "25.1";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "ebusd";
     homepage = "https://github.com/john30/ebusd";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nathan-gs ];
+    maintainers = with maintainers; [nathan-gs];
     platforms = platforms.linux;
   };
 }

@@ -9,7 +9,6 @@
   procps,
   glibc,
 }:
-
 buildGoModule {
   pname = "gvisor";
   version = "20250512.0";
@@ -33,7 +32,7 @@ buildGoModule {
 
   vendorHash = "sha256-3fKFr8viabGEwIHYxg9vjhKMVOxCjji3PDgs8wBBZzY=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   env.CGO_ENABLED = 0;
 
@@ -51,22 +50,22 @@ buildGoModule {
     # Needed for the 'runsc do' subcommand
     wrapProgram $out/bin/runsc \
       --prefix PATH : ${
-        lib.makeBinPath [
-          iproute2
-          iptables
-          procps
-        ]
-      }
+      lib.makeBinPath [
+        iproute2
+        iptables
+        procps
+      ]
+    }
     mv $out/bin/shim $out/bin/containerd-shim-runsc-v1
   '';
 
-  passthru.tests = { inherit (nixosTests) gvisor; };
+  passthru.tests = {inherit (nixosTests) gvisor;};
 
   meta = with lib; {
     description = "Application Kernel for Containers";
     homepage = "https://github.com/google/gvisor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gpl ];
+    maintainers = with maintainers; [gpl];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

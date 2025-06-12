@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ghciwatch";
   version = "1.1.5";
@@ -34,5 +33,5 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "ghciwatch";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 }

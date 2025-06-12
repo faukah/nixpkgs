@@ -9,7 +9,6 @@
   unstableGitUpdater,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dumpifs";
   version = "0-unstable-2020-05-07";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vFiMKcPfowLQQZXlXbq5ZR1X6zr7u3iQwz3o4A6aQMY=";
   };
 
-  nativeBuildInputs = [ clang ];
+  nativeBuildInputs = [clang];
 
   buildInputs = [
     lzo
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     rm source/{dumpifs,exMifsLzo,uuu,zzz}
   '';
 
-  patches = [ ./package.patch ];
+  patches = [./package.patch];
 
   installPhase = ''
     runHook preInstall
@@ -44,13 +43,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Tool for those who are interested in hacking MIB2 firmware";
     homepage = "https://github.com/askac/dumpifs";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     mainProgram = "dumpifs";
   };
 })

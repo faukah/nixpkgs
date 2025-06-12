@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "padre";
   version = "2.1.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     changelog = "https://github.com/glebarez/padre/releases/tag/v${version}";
     # https://github.com/glebarez/padre/issues/28
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "padre";
   };
 }

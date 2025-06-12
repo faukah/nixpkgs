@@ -9,7 +9,6 @@
   requests-toolbelt,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "pushover-complete";
   version = "1.2.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-v0+JgShJMEdVXJ1xZD4UCKZzgV+uOuOstPn3nWtHDJw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -34,12 +33,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "pushover_complete" ];
+  pythonImportsCheck = ["pushover_complete"];
 
   meta = with lib; {
     description = "Python package for interacting with *all* aspects of the Pushover API";
     homepage = "https://github.com/scolby33/pushover_complete";
     license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

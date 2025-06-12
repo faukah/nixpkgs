@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "voluptuous";
   version = "0.15.2";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-TGTdYme3ZRM51YFNX/ESFc6+3QpeO/gAXYW6MT73/Ss=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "voluptuous" ];
+  pythonImportsCheck = ["voluptuous"];
 
-  pytestFlagsArray = [ "voluptuous/tests/" ];
+  pytestFlagsArray = ["voluptuous/tests/"];
 
   meta = with lib; {
     description = "Python data validation library";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "http://alecthomas.github.io/voluptuous/";
     changelog = "https://github.com/alecthomas/voluptuous/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,35 +3,31 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.libreswan;
 
   libexec = "${pkgs.libreswan}/libexec/ipsec";
   ipsec = "${pkgs.libreswan}/sbin/ipsec";
 
-  trim =
-    chars: str:
-    let
-      nonchars = lib.filter (x: !(lib.elem x.value chars)) (
-        lib.imap0 (i: v: {
-          ind = i;
-          value = v;
-        }) (lib.stringToCharacters str)
-      );
-    in
-    lib.optionalString (nonchars != [ ]) (
+  trim = chars: str: let
+    nonchars = lib.filter (x: !(lib.elem x.value chars)) (
+      lib.imap0 (i: v: {
+        ind = i;
+        value = v;
+      }) (lib.stringToCharacters str)
+    );
+  in
+    lib.optionalString (nonchars != []) (
       lib.substring (lib.head nonchars).ind (lib.add 1 (
         lib.sub (lib.last nonchars).ind (lib.head nonchars).ind
-      )) str
+      ))
+      str
     );
-  indent =
-    str:
+  indent = str:
     lib.concatStrings (
       lib.concatMap (s: [
         "  "
-        (trim [ " " "\t" ] s)
+        (trim [" " "\t"] s)
         "\n"
       ]) (lib.splitString "\n" str)
     );
@@ -40,7 +36,8 @@ let
     lib.mapAttrsToList (n: v: ''
       conn ${n}
       ${indent v}
-    '') cfg.connections
+    '')
+    cfg.connections
   );
 
   configFile = pkgs.writeText "ipsec-nixos.conf" ''
@@ -50,21 +47,17 @@ let
     ${connectionText}
   '';
 
-  policyFiles = lib.mapAttrs' (name: text: {
-    name = "ipsec.d/policies/${name}";
-    value.source = pkgs.writeText "ipsec-policy-${name}" text;
-  }) cfg.policies;
-
-in
-
-{
-
+  policyFiles =
+    lib.mapAttrs' (name: text: {
+      name = "ipsec.d/policies/${name}";
+      value.source = pkgs.writeText "ipsec-policy-${name}" text;
+    })
+    cfg.policies;
+in {
   ###### interface
 
   options = {
-
     services.libreswan = {
-
       enable = lib.mkEnableOption "Libreswan IPsec service";
 
       configSetup = lib.mkOption {
@@ -83,7 +76,7 @@ in
 
       connections = lib.mkOption {
         type = lib.types.attrsOf lib.types.lines;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           { myconnection = '''
               auto=add
@@ -102,7 +95,7 @@ in
 
       policies = lib.mkOption {
         type = lib.types.attrsOf lib.types.lines;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           { private-or-clear = '''
               # Attempt opportunistic IPsec for the entire Internet
@@ -129,36 +122,35 @@ in
           FAQ](https://libreswan.org/wiki/FAQ#Why_is_it_recommended_to_disable_send_redirects_in_.2Fproc.2Fsys.2Fnet_.3F) page for why this is recommended.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     # Install package, systemd units, etc.
     environment.systemPackages = [
       pkgs.libreswan
       pkgs.iproute2
     ];
-    systemd.packages = [ pkgs.libreswan ];
-    systemd.tmpfiles.packages = [ pkgs.libreswan ];
+    systemd.packages = [pkgs.libreswan];
+    systemd.tmpfiles.packages = [pkgs.libreswan];
 
     # Install configuration files
-    environment.etc = {
-      "ipsec.secrets".text = ''
-        include ${pkgs.libreswan}/etc/ipsec.secrets
-      '';
-      "ipsec.conf".source = "${pkgs.libreswan}/etc/ipsec.conf";
-      "ipsec.d/01-nixos.conf".source = configFile;
-    } // policyFiles;
+    environment.etc =
+      {
+        "ipsec.secrets".text = ''
+          include ${pkgs.libreswan}/etc/ipsec.secrets
+        '';
+        "ipsec.conf".source = "${pkgs.libreswan}/etc/ipsec.conf";
+        "ipsec.d/01-nixos.conf".source = configFile;
+      }
+      // policyFiles;
 
     systemd.services.ipsec = {
       description = "Internet Key Exchange (IKE) Protocol Daemon for IPsec";
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ] ++ lib.mapAttrsToList (n: v: v.source) policyFiles;
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile] ++ lib.mapAttrsToList (n: v: v.source) policyFiles;
       path = with pkgs; [
         libreswan
         iproute2
@@ -177,7 +169,5 @@ in
         StateDirectoryMode = 700;
       };
     };
-
   };
-
 }

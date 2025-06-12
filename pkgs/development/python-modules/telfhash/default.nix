@@ -28,7 +28,7 @@ buildPythonPackage rec {
        --replace-fail "nose>=1.3.7" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     capstone
@@ -39,13 +39,13 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "telfhash" ];
+  pythonImportsCheck = ["telfhash"];
 
   meta = with lib; {
     description = "Symbol hash for ELF files";
     mainProgram = "telfhash";
     homepage = "https://github.com/trendmicro/telfhash";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   openssl,
   stdenv,
 }:
-
 buildDotnetModule rec {
   pname = "bicep-lsp";
   version = "0.34.44";
@@ -34,7 +33,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     icu
@@ -50,8 +49,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/Azure/bicep/";
     changelog = "https://github.com/Azure/bicep/releases/tag/v${version}";
     license = lib.licenses.mit;
-    teams = [ lib.teams.stridtech ];
+    teams = [lib.teams.stridtech];
     platforms = lib.platforms.all;
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

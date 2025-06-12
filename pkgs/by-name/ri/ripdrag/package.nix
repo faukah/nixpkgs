@@ -6,7 +6,6 @@
   wrapGAppsHook4,
   gtk4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ripdrag";
   version = "0.4.10";
@@ -26,14 +25,14 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   meta = with lib; {
     description = "Application that lets you drag and drop files from and to the terminal";
     homepage = "https://github.com/nik012003/ripdrag";
     changelog = "https://github.com/nik012003/ripdrag/releases/tag/${src.rev}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "ripdrag";
   };
 }

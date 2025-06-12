@@ -39,7 +39,7 @@ buildPythonPackage rec {
     hypothesis
     mock
   ];
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
   propagatedBuildInputs =
     [
       attrs
@@ -52,8 +52,8 @@ buildPythonPackage rec {
       wcwidth
       packaging
     ]
-    ++ lib.optionals (!isPy3k) [ funcsigs ]
-    ++ lib.optionals (pythonOlder "3.6") [ pathlib2 ];
+    ++ lib.optionals (!isPy3k) [funcsigs]
+    ++ lib.optionals (pythonOlder "3.6") [pathlib2];
 
   doCheck = !isPyPy; # https://github.com/pytest-dev/pytest/issues/3460
   checkPhase = ''

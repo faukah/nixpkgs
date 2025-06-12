@@ -4,7 +4,6 @@
   fetchurl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kyotocabinet";
   version = "1.2.80";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
         --replace stdc++ c++
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     homepage = "https://dbmx.net/kyotocabinet";

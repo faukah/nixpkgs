@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jtc";
   version = "1.76";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     mainProgram = "jtc";
     homepage = "https://github.com/ldn-softdev/jtc";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

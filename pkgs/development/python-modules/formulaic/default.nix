@@ -15,7 +15,6 @@
   typing-extensions,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "formulaic";
   version = "1.1.1";
@@ -48,17 +47,17 @@ buildPythonPackage rec {
     sympy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "formulaic" ];
+  pythonImportsCheck = ["formulaic"];
 
-  disabledTestPaths = [ "tests/transforms/test_poly.py" ];
+  disabledTestPaths = ["tests/transforms/test_poly.py"];
 
   meta = with lib; {
     description = "High-performance implementation of Wilkinson formulas";
     homepage = "https://matthewwardrop.github.io/formulaic/";
     changelog = "https://github.com/matthewwardrop/formulaic/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ swflint ];
+    maintainers = with maintainers; [swflint];
   };
 }

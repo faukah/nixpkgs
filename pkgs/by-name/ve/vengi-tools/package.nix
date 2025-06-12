@@ -2,13 +2,11 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   pkg-config,
   ninja,
   python3,
   makeWrapper,
-
   backward-cpp,
   curl,
   enet,
@@ -27,11 +25,9 @@
   SDL2,
   SDL2_mixer,
   wayland-protocols,
-
   callPackage,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vengi-tools";
   version = "0.0.38";
@@ -89,14 +85,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/Applications
-        mv $out/*.app $out/Applications/
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir -p $out/Applications
+      mv $out/*.app $out/Applications/
 
-        mkdir -p $out/bin
-        ln -s $out/Applications/vengi-voxconvert.app/Contents/MacOS/vengi-voxconvert $out/bin/vengi-voxconvert
-      ''
+      mkdir -p $out/bin
+      ln -s $out/Applications/vengi-voxconvert.app/Contents/MacOS/vengi-voxconvert $out/bin/vengi-voxconvert
+    ''
     else
       # Set the data directory for each executable. We cannot set it at build time
       # with the PKGDATADIR cmake variable because each executable needs a specific
@@ -111,8 +107,8 @@ stdenv.mkDerivation (finalAttrs: {
       '';
 
   passthru.tests = {
-    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix { };
-    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix { };
+    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix {};
+    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix {};
     run-voxedit = nixosTests.vengi-tools;
   };
 
@@ -131,7 +127,7 @@ stdenv.mkDerivation (finalAttrs: {
       licenses.mit
       licenses.cc-by-sa-30
     ];
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 })

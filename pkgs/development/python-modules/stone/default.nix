@@ -10,7 +10,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "stone";
   version = "3.3.8";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner == 5.3.2'," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ply
@@ -43,14 +42,14 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "stone" ];
+  pythonImportsCheck = ["stone"];
 
   meta = with lib; {
     description = "Official Api Spec Language for Dropbox";
     homepage = "https://github.com/dropbox/stone";
     changelog = "https://github.com/dropbox/stone/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "stone";
   };
 }

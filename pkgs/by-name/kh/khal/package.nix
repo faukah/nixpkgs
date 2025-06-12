@@ -6,7 +6,6 @@
   installShellFiles,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "khal";
   version = "0.13.0";
@@ -64,10 +63,11 @@ python3Packages.buildPythonApplication rec {
     # man page
     PATH="${
       python3Packages.python.withPackages (
-        ps: with ps; [
-          sphinx
-          sphinxcontrib-newsfeed
-        ]
+        ps:
+          with ps; [
+            sphinx
+            sphinxcontrib-newsfeed
+          ]
       )
     }/bin:$PATH" \
       make -C doc man
@@ -93,6 +93,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://lostpackets.de/khal/";
     changelog = "https://github.com/pimutils/khal/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

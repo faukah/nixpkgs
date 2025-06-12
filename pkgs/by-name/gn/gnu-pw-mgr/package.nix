@@ -4,7 +4,6 @@
   fetchurl,
   gnulib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnu-pw-mgr";
   version = "2.7.4";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fhwvsmsqpw0vnivarfg63l8pgwqfv7d5wi6l80jpb41dj6qpjz8";
   };
 
-  buildInputs = [ gnulib ];
+  buildInputs = [gnulib];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/gnu-pw-mgr/";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
     ];
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ qoelet ];
+    maintainers = with maintainers; [qoelet];
   };
 }

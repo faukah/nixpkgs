@@ -13,7 +13,6 @@
   python3,
   talloc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libosmocore";
   version = "1.11.1";

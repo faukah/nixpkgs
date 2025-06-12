@@ -8,7 +8,6 @@
   pytest-asyncio,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "blockbuster";
   version = "1.5.23";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-AxRnP8/fIae5ovWQVpfs3ZLIIkxXqVZmuhGjPTX5B/g=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ forbiddenfruit ];
+  dependencies = [forbiddenfruit];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,12 +37,12 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "blockbuster" ];
+  pythonImportsCheck = ["blockbuster"];
 
   meta = {
     description = "Utility to detect blocking calls in the async event loop";
     homepage = "https://github.com/cbornet/blockbuster";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

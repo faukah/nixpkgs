@@ -6,7 +6,6 @@
   testers,
   sou,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "sou";
   version = "0.2.0";
@@ -30,7 +29,7 @@ buildGoModule (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       command = "HOME=$TMPDIR sou --version";
       package = sou;
@@ -42,7 +41,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/knqyf263/sou";
     changelog = "https://github.com/knqyf263/sou/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nicolas-goudry ];
+    maintainers = with lib.maintainers; [nicolas-goudry];
     mainProgram = "sou";
   };
 })

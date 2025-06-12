@@ -5,7 +5,6 @@
   moreutils,
   texlivePackages,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension (finalAttrs: {
   mktplcRef = {
     name = "latex-utilities";
@@ -19,7 +18,7 @@ vscode-utils.buildVscodeMarketplaceExtension (finalAttrs: {
     moreutils
   ];
 
-  buildInputs = [ texlivePackages.texcount ];
+  buildInputs = [texlivePackages.texcount];
 
   postInstall = ''
     cd "$out/$installPrefix"
@@ -33,6 +32,6 @@ vscode-utils.buildVscodeMarketplaceExtension (finalAttrs: {
     homepage = "https://github.com/tecosaur/LaTeX-Utilities";
     changelog = "https://marketplace.visualstudio.com/items/tecosaur.latex-utilities/changelog";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jeancaspar ];
+    maintainers = with lib.maintainers; [jeancaspar];
   };
 })

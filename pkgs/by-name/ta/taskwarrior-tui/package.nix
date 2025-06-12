@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "taskwarrior-tui";
   version = "0.26.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-y5tHZIsbHLU9acIUM/QUx1T0eLK/E/jR+XXys5JnGjU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Because there's a test that requires terminal access
   doCheck = false;
@@ -32,8 +31,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal user interface for taskwarrior";
     homepage = "https://github.com/kdheepak/taskwarrior-tui";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ matthiasbeyer ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [matthiasbeyer];
     mainProgram = "taskwarrior-tui";
   };
 }

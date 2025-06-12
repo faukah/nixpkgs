@@ -5,7 +5,6 @@
   jre,
   lib,
 }:
-
 maven.buildMavenPackage rec {
   pname = "joularjx";
   version = "2.9.0";
@@ -21,7 +20,7 @@ maven.buildMavenPackage rec {
 
   mvnParameters = "-DskipTests";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ maven.buildMavenPackage rec {
     description = "Java-based agent for software power monitoring at the source code level";
     homepage = "https://github.com/joular/joularjx";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ julienmalka ];
+    maintainers = with maintainers; [julienmalka];
     platforms = platforms.linux;
   };
 }

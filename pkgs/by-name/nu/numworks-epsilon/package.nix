@@ -14,7 +14,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "numworks-epsilon";
   version = "23.2.3";
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Simulator for Epsilon, a High-performance graphing calculator operating system";
     homepage = "https://numworks.com/";
     license = licenses.cc-by-nc-sa-40;
-    maintainers = with maintainers; [ erikbackman ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [erikbackman];
+    platforms = ["x86_64-linux"];
   };
 }

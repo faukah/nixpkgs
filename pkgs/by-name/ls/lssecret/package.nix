@@ -5,7 +5,6 @@
   pkg-config,
   libsecret,
 }:
-
 stdenv.mkDerivation {
   pname = "lssecret";
   version = "unstable-2022-12-02";
@@ -17,16 +16,16 @@ stdenv.mkDerivation {
     hash = "sha256-yU70WZj4EC/sFJxyq2SQ0YQ6RCQHYiW/aQiYWo7+ujk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsecret ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libsecret];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = {
     description = "Tool to list passwords and other secrets stored using the org.freedesktop.secrets dbus api";
     homepage = "https://gitlab.com/GrantMoyer/lssecret";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ genericnerdyusername ];
+    maintainers = with lib.maintainers; [genericnerdyusername];
     platforms = lib.platforms.unix;
     mainProgram = "lssecret";
   };

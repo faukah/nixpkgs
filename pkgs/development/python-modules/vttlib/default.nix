@@ -10,7 +10,6 @@
   ufolib2,
   ufo2ft,
 }:
-
 buildPythonPackage rec {
   pname = "vttlib";
   version = "0.12.0";
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     ufo2ft
   ];
 
-  pythonImportsCheck = [ "vttLib" ];
+  pythonImportsCheck = ["vttLib"];
 
   meta = {
     description = "Dump, merge and compile Visual TrueType data in UFO3 with FontTools";
     homepage = "https://github.com/daltonmaag/vttLib";
     changelog = "https://github.com/daltonmaag/vttLib/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

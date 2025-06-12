@@ -6,7 +6,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-health";
   version = "0.4.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-3DE/NwPdi//7xaoV2SVgF5l3ndrEYraoyg5NLJzvzBI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libiconv
     openssl
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Check the health of your Nix setup";
     homepage = "https://github.com/juspay/nix-health";
     license = licenses.asl20;
-    maintainers = with maintainers; [ shivaraj-bh ];
+    maintainers = with maintainers; [shivaraj-bh];
     mainProgram = "nix-health";
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lao";
   version = "0.0.20060226";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "TrueType font for Lao language";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

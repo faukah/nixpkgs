@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterhub-ldapauthenticator";
   version = "2.0.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-xixgry/++E6RimB8wo1NF8SsfzxKL1ZlNQVrlBhQ674=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jupyterhub
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "ldapauthenticator" ];
+  pythonImportsCheck = ["ldapauthenticator"];
 
   nativeCheckInputs = [
     pytest-asyncio

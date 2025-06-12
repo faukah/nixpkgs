@@ -7,7 +7,6 @@
   libsForQt5,
   ffmpeg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "onthespot";
   version = "0.5";
@@ -70,7 +69,7 @@ python3.pkgs.buildPythonApplication rec {
       icon = "onthespot";
       desktopName = "Onthespot";
       comment = meta.description;
-      categories = [ "Audio" ];
+      categories = ["Audio"];
     })
   ];
 
@@ -79,7 +78,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/casualsnek/onthespot";
     changelog = "https://github.com/casualsnek/onthespot/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     platforms = lib.platforms.linux;
     mainProgram = "onthespot_gui";
   };

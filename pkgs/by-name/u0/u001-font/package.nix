@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "u001";
   version = "unstable-2016-08-01"; # date in the zip file, actual creation date unknown
@@ -42,6 +41,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://fontlibrary.org/en/font/u001";
     license = licenses.aladdin;
     platforms = platforms.all;
-    maintainers = with maintainers; [ toastal ];
+    maintainers = with maintainers; [toastal];
   };
 }

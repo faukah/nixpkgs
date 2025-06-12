@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "termcolor";
   version = "2.1.0";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2RXQ8sn2VNhQ2WZfwCCeQuM6x6C+sLA6ulAaFtaDMZw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DTERMCOLOR_TESTS=ON" ];
+  cmakeFlags = ["-DTERMCOLOR_TESTS=ON"];
   CXXFLAGS = [
     # GCC 13: error: 'uint8_t' has not been declared
     "-include cstdint"
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ikalnytskyi/termcolor";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

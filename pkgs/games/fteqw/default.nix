@@ -18,13 +18,12 @@
   libopus,
   xorg,
   libGL,
-}@attrs:
-{
+} @ attrs: {
   fteqw = import ./generic.nix (
     rec {
       pname = "fteqw";
 
-      buildFlags = [ "m-rel" ];
+      buildFlags = ["m-rel"];
 
       nativeBuildInputs = [
         vulkan-headers
@@ -67,7 +66,7 @@
       pname = "fteqw-dedicated";
       releaseFile = "fteqw-sv";
 
-      buildFlags = [ "sv-rel" ];
+      buildFlags = ["sv-rel"];
 
       buildInputs = [
         gnutls
@@ -88,7 +87,7 @@
     {
       pname = "fteqcc";
 
-      buildFlags = [ "qcc-rel" ];
+      buildFlags = ["qcc-rel"];
 
       buildInputs = [
         zlib

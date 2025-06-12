@@ -40,7 +40,6 @@
   qtspeech,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "okular";
 
@@ -49,42 +48,44 @@ mkDerivation {
     kdoctools
   ];
 
-  buildInputs = [
-    breeze-icons
-    discount
-    djvulibre
-    ebook_tools
-    kactivities
-    karchive
-    kbookmarks
-    kcompletion
-    kconfig
-    kconfigwidgets
-    kcoreaddons
-    kdbusaddons
-    kdegraphics-mobipocket
-    kiconthemes
-    kjs
-    khtml
-    kio
-    kparts
-    kpty
-    kpurpose
-    kwallet
-    kwindowsystem
-    libkexiv2
-    libspectre
-    libzip
-    phonon
-    poppler
-    qca-qt5
-    qtdeclarative
-    qtsvg
-    threadweaver
-    kcrash
-    chmlib
-    qtx11extras
-  ] ++ lib.optional withSpeech qtspeech;
+  buildInputs =
+    [
+      breeze-icons
+      discount
+      djvulibre
+      ebook_tools
+      kactivities
+      karchive
+      kbookmarks
+      kcompletion
+      kconfig
+      kconfigwidgets
+      kcoreaddons
+      kdbusaddons
+      kdegraphics-mobipocket
+      kiconthemes
+      kjs
+      khtml
+      kio
+      kparts
+      kpty
+      kpurpose
+      kwallet
+      kwindowsystem
+      libkexiv2
+      libspectre
+      libzip
+      phonon
+      poppler
+      qca-qt5
+      qtdeclarative
+      qtsvg
+      threadweaver
+      kcrash
+      chmlib
+      qtx11extras
+    ]
+    ++ lib.optional withSpeech qtspeech;
 
   # InitialPreference values are too high and end up making okular
   # default for anything considered text/plain. Resetting to 1, which
@@ -106,7 +107,7 @@ mkDerivation {
       fdl12Plus
       bsd3
     ];
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = lib.platforms.linux;
   };
 }

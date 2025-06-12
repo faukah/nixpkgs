@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildNpmPackage rec {
   pname = "npm-check";
   version = "6.0.1";
@@ -17,7 +16,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-KRLgLWikcCWMF8/cOxThom6DHE9ar6WO/9HtosJQnLE=";
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   dontNpmBuild = true;
 
@@ -27,6 +26,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/dylang/npm-check";
     changelog = "https://github.com/dylang/npm-check/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.thomasjm ];
+    maintainers = [lib.maintainers.thomasjm];
   };
 }

@@ -13,7 +13,6 @@
   packaging,
   apispec,
 }:
-
 buildPythonPackage rec {
   pname = "pyipv8";
   version = "3.0.0";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Python implementation of Tribler's IPv8 p2p-networking layer";
     homepage = "https://github.com/Tribler/py-ipv8";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

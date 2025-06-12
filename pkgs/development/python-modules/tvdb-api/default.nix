@@ -5,7 +5,6 @@
   requests-cache,
   pytest,
 }:
-
 buildPythonPackage {
   pname = "tvdb-api";
   version = "3.2.0-beta";
@@ -18,9 +17,9 @@ buildPythonPackage {
     hash = "sha256-poUuwySr6+8U9PIHhqFaR7nXzh8kSaW7mZkuKTUJKj8=";
   };
 
-  propagatedBuildInputs = [ requests-cache ];
+  propagatedBuildInputs = [requests-cache];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # requires network access
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage {
     description = "Simple to use TVDB (thetvdb.com) API in Python";
     homepage = "https://github.com/dbr/tvdb_api";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

@@ -13,7 +13,6 @@
   libqglviewer,
   spdlog,
 }:
-
 mkDerivation rec {
   pname = "g2o";
   version = "20241228";
@@ -26,7 +25,7 @@ mkDerivation rec {
   };
 
   # Removes a reference to gcc that is only used in a debug message
-  patches = [ ./remove-compiler-reference.patch ];
+  patches = [./remove-compiler-reference.patch];
 
   outputs = [
     "out"
@@ -34,7 +33,7 @@ mkDerivation rec {
   ];
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     suitesparse
@@ -44,7 +43,7 @@ mkDerivation rec {
     qtbase
     libqglviewer
   ];
-  propagatedBuildInputs = [ spdlog ];
+  propagatedBuildInputs = [spdlog];
 
   dontWrapQtApps = true;
 
@@ -56,10 +55,26 @@ mkDerivation rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isx86_64 [
       "-DDO_SSE_AUTODETECT=OFF"
-      "-DDISABLE_SSE3=${if stdenv.hostPlatform.sse3Support then "OFF" else "ON"}"
-      "-DDISABLE_SSE4_1=${if stdenv.hostPlatform.sse4_1Support then "OFF" else "ON"}"
-      "-DDISABLE_SSE4_2=${if stdenv.hostPlatform.sse4_2Support then "OFF" else "ON"}"
-      "-DDISABLE_SSE4_A=${if stdenv.hostPlatform.sse4_aSupport then "OFF" else "ON"}"
+      "-DDISABLE_SSE3=${
+        if stdenv.hostPlatform.sse3Support
+        then "OFF"
+        else "ON"
+      }"
+      "-DDISABLE_SSE4_1=${
+        if stdenv.hostPlatform.sse4_1Support
+        then "OFF"
+        else "ON"
+      }"
+      "-DDISABLE_SSE4_2=${
+        if stdenv.hostPlatform.sse4_2Support
+        then "OFF"
+        else "ON"
+      }"
+      "-DDISABLE_SSE4_A=${
+        if stdenv.hostPlatform.sse4_aSupport
+        then "OFF"
+        else "ON"
+      }"
     ];
 
   meta = with lib; {
@@ -70,7 +85,7 @@ mkDerivation rec {
       lgpl3
       gpl3
     ];
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
     # fatal error: 'qglviewer.h' file not found
     broken = stdenv.hostPlatform.isDarwin;

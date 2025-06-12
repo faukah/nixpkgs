@@ -7,7 +7,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stacer";
   version = "1.1.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Linux System Optimizer and Monitoring";
     homepage = "https://github.com/oguzhaninan/stacer";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     platforms = platforms.linux;
     mainProgram = "stacer";
   };

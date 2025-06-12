@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   logPrefix = "services.prometheus.exporter.scaphandre";
   cfg = config.services.prometheus.exporters.scaphandre;
-in
-{
+in {
   port = 8080;
   extraOpts = {
     telemetryPath = lib.mkOption {

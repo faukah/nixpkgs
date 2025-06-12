@@ -7,7 +7,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pproxy";
   version = "2.7.9";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     sha256 = "sha256-bOqDdNiaZ5MRi/UeF0hJwMs+rfQBKRsTmXrZ6ieIguo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pycryptodome
     uvloop
   ];
 
-  pythonImportsCheck = [ "pproxy" ];
+  pythonImportsCheck = ["pproxy"];
 
   disabledTests = [
     # Tests try to connect to outside Internet, so disabled
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     mainProgram = "pproxy";
     homepage = "https://github.com/qwj/python-proxy";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

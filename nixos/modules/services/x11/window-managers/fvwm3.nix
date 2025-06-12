@@ -4,16 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.fvwm3;
   inherit (pkgs) fvwm3;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -33,6 +27,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ fvwm3 ];
+    environment.systemPackages = [fvwm3];
   };
 }

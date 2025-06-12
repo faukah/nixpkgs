@@ -52,7 +52,7 @@ buildGoModule rec {
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   preBuild = ''
     go generate ./...
@@ -71,7 +71,7 @@ buildGoModule rec {
     description = "Zeroconf peer-to-peer mesh VPN using Wireguard® and Interactive Connectivity Establishment (ICE)";
     homepage = "https://cunicu.li";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = with lib.maintainers; [stv0g];
     platforms = lib.platforms.linux;
     mainProgram = "cunicu";
   };

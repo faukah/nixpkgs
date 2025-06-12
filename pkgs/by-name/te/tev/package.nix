@@ -11,7 +11,6 @@
   xorg,
   zenity,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tev";
   version = "1.29";
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # needs apple frameworks + SDK fix? see #205247
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

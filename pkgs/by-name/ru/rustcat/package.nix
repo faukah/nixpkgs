@@ -4,7 +4,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustcat";
   version = "3.0.0";
@@ -19,18 +18,18 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-76/JK9IKYD6mxMddUyTgKAw53GM4EUhC0NbKFKdg8CI=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
-  versionCheckProgram = [ "${placeholder "out"}/bin/rcat" ];
+  versionCheckProgram = ["${placeholder "out"}/bin/rcat"];
 
   meta = {
     description = "Port listener and reverse shell";
     homepage = "https://github.com/robiot/rustcat";
     changelog = "https://github.com/robiot/rustcat/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "rcat";
   };
 }

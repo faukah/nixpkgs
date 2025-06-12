@@ -7,7 +7,7 @@
 stdenvNoCC.mkDerivation rec {
   pname = "traccar";
   version = "6.7.2";
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = [pkgs.makeWrapper];
 
   src = fetchzip {
     stripRoot = false;
@@ -35,9 +35,9 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Open source GPS tracking system";
     homepage = "https://www.traccar.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     mainProgram = "traccar";
-    maintainers = with maintainers; [ frederictobiasc ];
+    maintainers = with maintainers; [frederictobiasc];
   };
 }

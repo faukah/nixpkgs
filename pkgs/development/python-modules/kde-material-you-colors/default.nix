@@ -3,13 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   setuptools,
-
   dbus-python,
   numpy,
   pillow,
   materialyoucolor,
 }:
-
 buildPythonPackage rec {
   pname = "kde-material-you-colors";
   version = "1.10.0";
@@ -22,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-qT2F3OtRzYagbBH/4kijuy4udD6Ak74WacIhfzaNWqo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     dbus-python
     numpy
@@ -30,7 +28,7 @@ buildPythonPackage rec {
     materialyoucolor
   ];
 
-  pythonImportsCheck = [ "kde_material_you_colors" ];
+  pythonImportsCheck = ["kde_material_you_colors"];
 
   doCheck = false; # no unittests, and would require KDE desktop environment
 
@@ -38,7 +36,7 @@ buildPythonPackage rec {
     homepage = "https://store.kde.org/p/2136963";
     description = "Automatic color scheme generator from your wallpaper for KDE Plasma powered by Material You";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "kde-material-you-colors";
   };
 }

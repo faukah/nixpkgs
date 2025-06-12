@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "vendir";
   version = "0.44.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/vendir" ];
+  subPackages = ["cmd/vendir"];
 
   ldflags = [
     "-X carvel.dev/vendir/pkg/vendir/version.Version=${version}"
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "vendir";
     homepage = "https://carvel.dev/vendir/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ russell ];
+    maintainers = with maintainers; [russell];
   };
 }

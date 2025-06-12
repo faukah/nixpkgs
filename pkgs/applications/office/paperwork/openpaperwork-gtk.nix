@@ -2,22 +2,18 @@
   buildPythonPackage,
   lib,
   callPackage,
-
   isPy3k,
   isPyPy,
-
   openpaperwork-core,
   pillow,
   pygobject3,
   distro,
   setuptools-scm,
-
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "openpaperwork-gtk";
-  inherit (callPackage ./src.nix { }) version src;
+  inherit (callPackage ./src.nix {}) version src;
   format = "pyproject";
 
   sourceRoot = "${src.name}/openpaperwork-gtk";

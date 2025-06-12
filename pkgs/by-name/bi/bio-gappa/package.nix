@@ -9,7 +9,6 @@
   bzip2,
   xz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bio-gappa";
   version = "0.9.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
     mainProgram = "gappa";
   };
 })

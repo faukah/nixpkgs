@@ -17,7 +17,6 @@
   wayland-protocols,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mako";
   version = "1.10.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -56,12 +55,12 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          systemdMinimal # for busctl
-          jq
-          bash
-        ]
-      }"
+      lib.makeBinPath [
+        systemdMinimal # for busctl
+        jq
+        bash
+      ]
+    }"
     )
   '';
 

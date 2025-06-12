@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   xcfg = config.services.xserver;
@@ -32,13 +28,9 @@ let
     ${optionalString (xcfg.dpi != null) "xft-dpi=${toString xcfg.dpi}"}
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   options = {
-
     services.xserver.displayManager.lightdm.greeters.gtk = {
-
       enable = mkOption {
         type = types.bool;
         default = true;
@@ -48,7 +40,6 @@ in
       };
 
       theme = {
-
         package = mkOption {
           type = types.package;
           default = pkgs.gnome-themes-extra;
@@ -65,11 +56,9 @@ in
             Name of the theme to use for the lightdm-gtk-greeter.
           '';
         };
-
       };
 
       iconTheme = {
-
         package = mkOption {
           type = types.package;
           default = pkgs.adwaita-icon-theme;
@@ -86,11 +75,9 @@ in
             Name of the icon theme to use for the lightdm-gtk-greeter.
           '';
         };
-
       };
 
       cursorTheme = {
-
         package = mkOption {
           type = types.package;
           default = pkgs.adwaita-icon-theme;
@@ -163,13 +150,10 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
-
     services.xserver.displayManager.lightdm.greeter = mkDefault {
       package = pkgs.lightdm-gtk-greeter.xgreeters;
       name = "lightdm-gtk-greeter";
@@ -182,6 +166,5 @@ in
     ];
 
     environment.etc."lightdm/lightdm-gtk-greeter.conf".source = gtkGreeterConf;
-
   };
 }

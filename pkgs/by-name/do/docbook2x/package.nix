@@ -15,7 +15,6 @@
   bash,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "docbook2X";
   version = "0.8.8";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
 
   # This patch makes sure that `docbook2texi --to-stdout' actually
   # writes its output to stdout instead of creating a file.
-  patches = [ ./db2x_texixml-to-stdout.patch ];
+  patches = [./db2x_texixml-to-stdout.patch];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -70,13 +69,13 @@ stdenv.mkDerivation rec {
       # spaces below by inserting escaped backslashes.
       wrapProgram $out/bin/$i \
         --prefix PERL5LIB : ${
-          with perlPackages;
-          makeFullPerlPath [
-            XMLSAX
-            XMLParser
-            XMLNamespaceSupport
-          ]
-        } \
+      with perlPackages;
+        makeFullPerlPath [
+          XMLSAX
+          XMLParser
+          XMLNamespaceSupport
+        ]
+    } \
         --prefix XML_CATALOG_FILES "\ " \
         "$out/share/docbook2X/dtd/catalog.xml\ $out/share/docbook2X/xslt/catalog.xml\ ${docbook_xml_dtd_43}/xml/dtd/docbook/catalog.xml"
     done

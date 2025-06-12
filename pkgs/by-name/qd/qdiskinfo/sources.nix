@@ -1,5 +1,4 @@
-{ fetchzip }:
-{
+{fetchzip}: {
   aoi = fetchzip {
     url = "https://pilotfiber.dl.sourceforge.net/project/crystaldiskinfo/9.3.2/CrystalDiskInfo9_3_2Aoi.zip?viasf=1#cdi.zip";
     hash = "sha256-yldOX/aQYK1Fsd+BpD0SdcyfnHxtwB5rmZHU1nY7Ov8=";

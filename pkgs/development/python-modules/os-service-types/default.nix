@@ -6,7 +6,6 @@
   six,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "os-service-types";
   version = "1.7.0";
@@ -32,15 +31,15 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "os_service_types" ];
+  pythonImportsCheck = ["os_service_types"];
 
   meta = with lib; {
     description = "Python library for consuming OpenStack service-types-authority data";
     homepage = "https://github.com/openstack/os-service-types";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

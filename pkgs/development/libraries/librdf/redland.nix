@@ -19,7 +19,6 @@
   db,
   withBdb ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "redland";
   version = "1.0.17";
@@ -29,10 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681";
   };
 
-  nativeBuildInputs = [
-    perl
-    pkg-config
-  ] ++ lib.optional withPostgresql libpq.pg_config;
+  nativeBuildInputs =
+    [
+      perl
+      pkg-config
+    ]
+    ++ lib.optional withPostgresql libpq.pg_config;
 
   buildInputs =
     [
@@ -47,12 +48,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPostgresql libpq
     ++ lib.optional withBdb db;
 
-  propagatedBuildInputs = [ librdf_rasqal ];
+  propagatedBuildInputs = [librdf_rasqal];
 
   postInstall = "rm -rvf $out/share/gtk-doc";
 
   configureFlags =
-    [ "--with-threads" ]
+    ["--with-threads"]
     ++ lib.optionals withBdb [
       "--with-bdb-include=${db.dev}/include"
       "--with-bdb-lib=${db.out}/lib"

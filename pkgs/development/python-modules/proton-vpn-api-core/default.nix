@@ -17,7 +17,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "proton-vpn-api-core";
   version = "0.42.4";

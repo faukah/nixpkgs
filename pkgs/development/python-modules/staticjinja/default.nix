@@ -16,7 +16,6 @@
   staticjinja,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "staticjinja";
   version = "5.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-LfJTQhZtnTOm39EWF1m2MP5rxz/5reE0G1Uk9L7yx0w=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     jinja2
@@ -54,8 +53,8 @@ buildPythonPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = staticjinja; };
-    minimal-template = callPackage ./test-minimal-template { };
+    version = testers.testVersion {package = staticjinja;};
+    minimal-template = callPackage ./test-minimal-template {};
   };
 
   meta = with lib; {
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     mainProgram = "staticjinja";
     homepage = "https://staticjinja.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

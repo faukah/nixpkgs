@@ -7,7 +7,6 @@
   pythonAtLeast,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-json-logger";
   version = "3.2.1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-dM9/ehPY/BnJSNBq1BiTUpJRigdzbGb3jD8Uhx+hmKc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     freezegun
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Json Formatter for the standard python logger";
     homepage = "https://github.com/madzak/python-json-logger";
     license = licenses.bsdOriginal;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

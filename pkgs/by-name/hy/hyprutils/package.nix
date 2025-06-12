@@ -7,7 +7,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyprutils";
   version = "0.7.1";
@@ -35,13 +34,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeBuildType = "RelWithDebInfo";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/hyprwm/hyprutils";
     description = "Small C++ library for utilities used across the Hypr* ecosystem";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
   };
 })

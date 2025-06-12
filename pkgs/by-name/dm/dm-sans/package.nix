@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "dm-sans";
   version = "1.002";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Geometric sans-serif typeface";
     homepage = "https://github.com/googlefonts/dm-fonts";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ gilice ];
+    maintainers = with lib.maintainers; [gilice];
   };
 }

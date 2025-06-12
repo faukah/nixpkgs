@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "spicedb";
   version = "1.44.0";
@@ -22,9 +21,9 @@ buildGoModule rec {
     "-X 'github.com/jzelinskie/cobrautil/v2.Version=${src.rev}'"
   ];
 
-  subPackages = [ "cmd/spicedb" ];
+  subPackages = ["cmd/spicedb"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd spicedb \

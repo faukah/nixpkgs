@@ -2,15 +2,12 @@
   stdenv,
   lib,
   callPackage,
-
   releaseManifestFile,
   tarballHash,
   depsFile,
   bootstrapSdk,
   fallbackTargetPackages,
-}@args:
-
-let
+} @ args: let
   mkPackages = callPackage ./packages.nix;
   mkVMR = callPackage ./vmr.nix;
 
@@ -26,16 +23,17 @@ let
       inherit releaseManifestFile tarballHash;
       bootstrapSdk = stage0.sdk.unwrapped;
     }).overrideAttrs
-      (old: {
-        passthru = old.passthru or { } // {
+    (old: {
+      passthru =
+        old.passthru or {}
+        // {
           inherit (stage0.vmr) fetch-deps;
         };
-      });
-
+    });
 in
-mkPackages {
-  inherit vmr fallbackTargetPackages;
-}
-// {
-  stage0 = lib.dontRecurseIntoAttrs stage0;
-}
+  mkPackages {
+    inherit vmr fallbackTargetPackages;
+  }
+  // {
+    stage0 = lib.dontRecurseIntoAttrs stage0;
+  }

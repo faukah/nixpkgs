@@ -2,21 +2,17 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-
   # build-system
   incremental,
   setuptools,
-
   # dependencies
   attrs,
   hyperlink,
   requests,
   twisted,
-
   # tests
   httpbin,
 }:
-
 buildPythonPackage rec {
   pname = "treq";
   version = "24.9.1";
@@ -32,13 +28,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    attrs
-    hyperlink
-    incremental
-    requests
-    twisted
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      attrs
+      hyperlink
+      incremental
+      requests
+      twisted
+    ]
+    ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     httpbin
@@ -57,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/twisted/treq";
     description = "Requests-like API built on top of twisted.web's Agent";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

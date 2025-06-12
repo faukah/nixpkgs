@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "hyperbeam";
   version = "3.1.0";
@@ -24,7 +23,7 @@ buildNpmPackage (finalAttrs: {
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "1-1 End-to-End Encrypted Internet Pipe Powered by Hyperswarm ";
@@ -32,7 +31,7 @@ buildNpmPackage (finalAttrs: {
     mainProgram = "hyperbeam";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ davhau ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [davhau];
   };
 })

@@ -3,20 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.nix.sshServe;
   command =
-    if cfg.protocol == "ssh" then
-      "nix-store --serve ${lib.optionalString cfg.write "--write"}"
-    else
-      "nix-daemon --stdio";
-in
-{
+    if cfg.protocol == "ssh"
+    then "nix-store --serve ${lib.optionalString cfg.write "--write"}"
+    else "nix-daemon --stdio";
+in {
   options = {
-
     nix.sshServe = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -37,8 +32,8 @@ in
 
       keys = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "ssh-dss AAAAB3NzaC1k... alice@example.org" ];
+        default = [];
+        example = ["ssh-dss AAAAB3NzaC1k... alice@example.org"];
         description = "A list of SSH public keys allowed to access the binary cache via SSH.";
       };
 
@@ -50,22 +45,19 @@ in
         default = "ssh";
         description = "The specific Nix-over-SSH protocol to use.";
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.nix-ssh = {
       description = "Nix SSH store user";
       isSystemUser = true;
       group = "nix-ssh";
       shell = pkgs.bashInteractive;
     };
-    users.groups.nix-ssh = { };
+    users.groups.nix-ssh = {};
 
-    nix.settings.trusted-users = lib.mkIf cfg.trusted [ "nix-ssh" ];
+    nix.settings.trusted-users = lib.mkIf cfg.trusted ["nix-ssh"];
 
     services.openssh.enable = true;
 
@@ -81,6 +73,5 @@ in
     '';
 
     users.users.nix-ssh.openssh.authorizedKeys.keys = cfg.keys;
-
   };
 }

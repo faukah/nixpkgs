@@ -11,7 +11,6 @@
   readline,
   tcp_wrappers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atftp";
   version = "0.8.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     changelog = "https://sourceforge.net/p/atftp/code/ci/v${version}/tree/Changelog";
     homepage = "https://sourceforge.net/projects/atftp/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
   };
 }

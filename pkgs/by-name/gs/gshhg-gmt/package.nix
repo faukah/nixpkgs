@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gshhg-gmt";
   version = "2.3.7";
@@ -29,8 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
       Mapping Tools.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tviti ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [tviti];
+    teams = [lib.teams.geospatial];
   };
-
 })

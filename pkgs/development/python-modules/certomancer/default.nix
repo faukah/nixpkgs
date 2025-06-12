@@ -26,7 +26,6 @@
   pytz,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "certomancer";
   version = "0.12.3";
@@ -56,30 +55,32 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    requests-mocker = [ requests-mock ];
+    requests-mocker = [requests-mock];
     web-api = [
       jinja2
       werkzeug
     ];
-    pkcs11 = [ python-pkcs11 ];
+    pkcs11 = [python-pkcs11];
   };
 
-  nativeCheckInputs = [
-    freezegun
-    pyhanko-certvalidator
-    pytest-aiohttp
-    pytestCheckHook
-    pytz
-    requests
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      freezegun
+      pyhanko-certvalidator
+      pytest-aiohttp
+      pytestCheckHook
+      pytz
+      requests
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "certomancer" ];
+  pythonImportsCheck = ["certomancer"];
 
   meta = {
     description = "Quickly construct, mock & deploy PKI test configurations using simple declarative configuration";
     mainProgram = "certomancer";
     homepage = "https://github.com/MatthiasValvekens/certomancer";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

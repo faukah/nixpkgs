@@ -16,7 +16,6 @@
   withAlsa ? stdenv.hostPlatform.isLinux,
   alsa-lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcanberra";
   version = "0.30";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libpulseaudio
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withAlsa alsa-lib;
 
   configureFlags =
-    [ "--disable-oss" ]
+    ["--disable-oss"]
     ++ lib.optional stdenv.hostPlatform.isLinux "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system";
 
   patches =
@@ -83,7 +82,10 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = lib.optionalAttrs (gtkSupport != null) {
-    gtkModule = if gtkSupport == "gtk2" then "/lib/gtk-2.0" else "/lib/gtk-3.0/";
+    gtkModule =
+      if gtkSupport == "gtk2"
+      then "/lib/gtk-2.0"
+      else "/lib/gtk-3.0/";
   };
 
   meta = with lib; {
@@ -98,7 +100,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://0pointer.de/lennart/projects/libcanberra/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ RossComputerGuy ];
+    maintainers = with maintainers; [RossComputerGuy];
     platforms = platforms.unix;
   };
 }

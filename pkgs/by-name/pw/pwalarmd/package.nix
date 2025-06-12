@@ -5,13 +5,12 @@
   pkg-config,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pwalarmd";
   version = "0.1.0";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ alsa-lib ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [alsa-lib];
 
   src = fetchFromGitHub {
     owner = "amyipdev";
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
     badPlatforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ amyipdev ];
+    maintainers = with lib.maintainers; [amyipdev];
   };
 }

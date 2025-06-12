@@ -7,7 +7,6 @@
   python-miio,
   nix-update-script,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "al-one";
   domain = "xiaomi_miot";
@@ -26,7 +25,7 @@ buildHomeAssistantComponent rec {
     python-miio
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=^v([0-9.]+)$" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=^v([0-9.]+)$"];};
 
   meta = {
     changelog = "https://github.com/al-one/hass-xiaomi-miot/releases/tag/v${version}";
@@ -45,7 +44,7 @@ buildHomeAssistantComponent rec {
       ```
     '';
     homepage = "https://github.com/al-one/hass-xiaomi-miot";
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     license = lib.licenses.asl20;
   };
 }

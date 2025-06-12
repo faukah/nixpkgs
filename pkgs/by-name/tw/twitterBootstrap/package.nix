@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bootstrap";
   version = "5.3.6";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-BbjBwQPqm89SqqZs2aE+w+7KujEwFLcJLMSvCtKtYl8=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontBuild = true;
   installPhase = ''

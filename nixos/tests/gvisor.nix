@@ -1,32 +1,28 @@
 # This test runs a container through gvisor and checks if simple container starts
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "gvisor";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
   nodes = {
-    gvisor =
-      { pkgs, ... }:
-      {
-        virtualisation.docker = {
-          enable = true;
-          extraOptions = "--add-runtime runsc=${pkgs.gvisor}/bin/runsc";
-        };
-
-        networking = {
-          dhcpcd.enable = false;
-          defaultGateway = "192.168.1.1";
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-            {
-              address = "192.168.1.2";
-              prefixLength = 24;
-            }
-          ];
-        };
+    gvisor = {pkgs, ...}: {
+      virtualisation.docker = {
+        enable = true;
+        extraOptions = "--add-runtime runsc=${pkgs.gvisor}/bin/runsc";
       };
+
+      networking = {
+        dhcpcd.enable = false;
+        defaultGateway = "192.168.1.1";
+        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = "192.168.1.2";
+            prefixLength = 24;
+          }
+        ];
+      };
+    };
   };
 
   testScript = ''

@@ -7,7 +7,6 @@
   shadow,
   util-linux,
 }:
-
 buildGoModule rec {
   pname = "lilipod";
   version = "0.0.3";
@@ -58,7 +57,7 @@ buildGoModule rec {
     homepage = "https://github.com/89luca89/lilipod";
     license = lib.licenses.gpl3Only;
     mainProgram = "lilipod";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

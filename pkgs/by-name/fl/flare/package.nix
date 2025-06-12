@@ -4,16 +4,15 @@
   callPackage,
   makeWrapper,
 }:
-
 buildEnv {
   name = "flare-1.14";
 
   paths = [
-    (callPackage ./engine.nix { })
-    (callPackage ./game.nix { })
+    (callPackage ./engine.nix {})
+    (callPackage ./game.nix {})
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postBuild = ''
     mkdir -p $out/bin
     makeWrapper $out/games/flare $out/bin/flare --chdir "$out/share/games/flare"

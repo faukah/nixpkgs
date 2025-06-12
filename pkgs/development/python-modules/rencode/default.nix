@@ -5,7 +5,6 @@
   cython,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "rencode";
   version = "unstable-2021-08-10";
@@ -19,9 +18,9 @@ buildPythonPackage {
     hash = "sha256-cL1hV3RMDuSdcjpPXXDYIEbzQrxiPeRs82PU8HTEQYk=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # import from $out
@@ -32,6 +31,6 @@ buildPythonPackage {
     homepage = "https://github.com/aresch/rencode";
     description = "Fast (basic) object serialization similar to bencode";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

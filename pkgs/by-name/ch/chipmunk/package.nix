@@ -15,7 +15,6 @@
   fetchpatch,
   libXrandr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chipmunk";
   majorVersion = "7";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libglut
     libGLU

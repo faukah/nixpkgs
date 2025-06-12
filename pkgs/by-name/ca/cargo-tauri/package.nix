@@ -10,7 +10,6 @@
   pkg-config,
   webkitgtk_4_1,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tauri";
   version = "2.5.0";
@@ -25,24 +24,24 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1YLpK2frSmdCj5aksuZhnHkAZdwHX/ZuVKXyqVJel/s=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       gtk4
       webkitgtk_4_1
     ];
 
-  cargoBuildFlags = [ "--package tauri-cli" ];
+  cargoBuildFlags = ["--package tauri-cli"];
   cargoTestFlags = cargoBuildFlags;
 
   passthru = {
     # See ./doc/hooks/tauri.section.md
-    hook = callPackage ./hook.nix { };
+    hook = callPackage ./hook.nix {};
 
     tests = {
-      hook = callPackage ./test-app.nix { };
+      hook = callPackage ./test-app.nix {};
     };
 
     updateScript = nix-update-script {

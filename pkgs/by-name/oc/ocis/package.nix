@@ -8,8 +8,7 @@
   pnpm_9,
   nodejs,
   ocis,
-}:
-let
+}: let
   idp-assets = stdenvNoCC.mkDerivation {
     pname = "idp-assets";
     version = "0-unstable-2020-10-14";
@@ -28,61 +27,61 @@ let
     dontFixup = true;
   };
 in
-buildGoModule rec {
-  pname = "ocis";
-  version = "5.0.9";
+  buildGoModule rec {
+    pname = "ocis";
+    version = "5.0.9";
 
-  vendorHash = null;
+    vendorHash = null;
 
-  src = fetchFromGitHub {
-    owner = "owncloud";
-    repo = "ocis";
-    tag = "v${version}";
-    hash = "sha256-TsMrQx+P1F2t66e0tGG0VvRi4W7+pCpDHd0aNsacOsI=";
-  };
+    src = fetchFromGitHub {
+      owner = "owncloud";
+      repo = "ocis";
+      tag = "v${version}";
+      hash = "sha256-TsMrQx+P1F2t66e0tGG0VvRi4W7+pCpDHd0aNsacOsI=";
+    };
 
-  nativeBuildInputs = [
-    gnumake
-    nodejs
-    pnpm_9.configHook
-  ];
+    nativeBuildInputs = [
+      gnumake
+      nodejs
+      pnpm_9.configHook
+    ];
 
-  pnpmDeps = pnpm_9.fetchDeps {
-    inherit pname version src;
-    sourceRoot = "${src.name}/services/idp";
-    hash = "sha256-gNlN+u/bobnTsXrsOmkDcWs67D/trH3inT5AVQs3Brs=";
-  };
-  pnpmRoot = "services/idp";
+    pnpmDeps = pnpm_9.fetchDeps {
+      inherit pname version src;
+      sourceRoot = "${src.name}/services/idp";
+      hash = "sha256-gNlN+u/bobnTsXrsOmkDcWs67D/trH3inT5AVQs3Brs=";
+    };
+    pnpmRoot = "services/idp";
 
-  buildPhase = ''
-    runHook preBuild
-    cp -r ${ocis.web}/share/* services/web/assets/
-    pnpm -C services/idp build
+    buildPhase = ''
+      runHook preBuild
+      cp -r ${ocis.web}/share/* services/web/assets/
+      pnpm -C services/idp build
 
-    mkdir -p services/idp/assets/identifier/static
-    cp -r ${idp-assets}/share/* services/idp/assets/identifier/static/
+      mkdir -p services/idp/assets/identifier/static
+      cp -r ${idp-assets}/share/* services/idp/assets/identifier/static/
 
-    make -C ocis VERSION=${version} DATE=${version} build
-    runHook postBuild
-  '';
+      make -C ocis VERSION=${version} DATE=${version} build
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin/
-    cp ocis/bin/ocis $out/bin/
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin/
+      cp ocis/bin/ocis $out/bin/
+      runHook postInstall
+    '';
 
-  passthru = {
-    web = callPackage ./web.nix { };
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      web = callPackage ./web.nix {};
+      updateScript = ./update.sh;
+    };
 
-  meta = {
-    homepage = "https://github.com/owncloud/web";
-    description = "Next generation frontend for ownCloud Infinite Scale";
-    license = lib.licenses.asl20;
-    mainProgram = "ocis";
-    maintainers = with lib.maintainers; [ xinyangli ];
-  };
-}
+    meta = {
+      homepage = "https://github.com/owncloud/web";
+      description = "Next generation frontend for ownCloud Infinite Scale";
+      license = lib.licenses.asl20;
+      mainProgram = "ocis";
+      maintainers = with lib.maintainers; [xinyangli];
+    };
+  }

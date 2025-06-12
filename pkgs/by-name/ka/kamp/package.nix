@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kamp";
   version = "0.2.3";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to control Kakoune editor from the command line";
     homepage = "https://github.com/vbauerster/kamp";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ erikeah ];
+    maintainers = with lib.maintainers; [erikeah];
     mainProgram = "kamp";
     platforms = lib.platforms.linux;
   };

@@ -13,7 +13,6 @@
   boto3,
   importlib-metadata,
 }:
-
 buildPythonPackage rec {
   version = "0.8.1";
   format = "setuptools";

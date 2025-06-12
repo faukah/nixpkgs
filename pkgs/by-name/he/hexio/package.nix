@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   buildInputs = [
     pcsclite
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vanrein/hexio";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

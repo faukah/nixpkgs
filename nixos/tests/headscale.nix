@@ -1,6 +1,9 @@
-{ pkgs, lib, ... }:
-let
-  tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  tls-cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
     openssl req \
       -x509 -newkey rsa:4096 -sha256 -days 365 \
       -nodes -out cert.pem -keyout key.pem \
@@ -9,69 +12,66 @@ let
     mkdir -p $out
     cp key.pem cert.pem $out
   '';
-in
-{
+in {
   name = "headscale";
   meta.maintainers = with lib.maintainers; [
     kradalby
     misterio77
   ];
 
-  nodes =
-    let
-      headscalePort = 8080;
-      stunPort = 3478;
-      peer = {
-        services.tailscale.enable = true;
-        security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-      };
-    in
-    {
-      peer1 = peer;
-      peer2 = peer;
-
-      headscale = {
-        services = {
-          headscale = {
-            enable = true;
-            port = headscalePort;
-            settings = {
-              server_url = "https://headscale";
-              ip_prefixes = [ "100.64.0.0/10" ];
-              derp.server = {
-                enabled = true;
-                region_id = 999;
-                stun_listen_addr = "0.0.0.0:${toString stunPort}";
-              };
-              dns = {
-                base_domain = "tailnet";
-                override_local_dns = false;
-              };
-            };
-          };
-          nginx = {
-            enable = true;
-            virtualHosts.headscale = {
-              addSSL = true;
-              sslCertificate = "${tls-cert}/cert.pem";
-              sslCertificateKey = "${tls-cert}/key.pem";
-              locations."/" = {
-                proxyPass = "http://127.0.0.1:${toString headscalePort}";
-                proxyWebsockets = true;
-              };
-            };
-          };
-        };
-        networking.firewall = {
-          allowedTCPPorts = [
-            80
-            443
-          ];
-          allowedUDPPorts = [ stunPort ];
-        };
-        environment.systemPackages = [ pkgs.headscale ];
-      };
+  nodes = let
+    headscalePort = 8080;
+    stunPort = 3478;
+    peer = {
+      services.tailscale.enable = true;
+      security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
     };
+  in {
+    peer1 = peer;
+    peer2 = peer;
+
+    headscale = {
+      services = {
+        headscale = {
+          enable = true;
+          port = headscalePort;
+          settings = {
+            server_url = "https://headscale";
+            ip_prefixes = ["100.64.0.0/10"];
+            derp.server = {
+              enabled = true;
+              region_id = 999;
+              stun_listen_addr = "0.0.0.0:${toString stunPort}";
+            };
+            dns = {
+              base_domain = "tailnet";
+              override_local_dns = false;
+            };
+          };
+        };
+        nginx = {
+          enable = true;
+          virtualHosts.headscale = {
+            addSSL = true;
+            sslCertificate = "${tls-cert}/cert.pem";
+            sslCertificateKey = "${tls-cert}/key.pem";
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString headscalePort}";
+              proxyWebsockets = true;
+            };
+          };
+        };
+      };
+      networking.firewall = {
+        allowedTCPPorts = [
+          80
+          443
+        ];
+        allowedUDPPorts = [stunPort];
+      };
+      environment.systemPackages = [pkgs.headscale];
+    };
+  };
 
   testScript = ''
     start_all()

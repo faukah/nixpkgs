@@ -1,28 +1,22 @@
-{ ... }:
-
-let
-  node =
-    { pkgs, ... }:
-    {
-      networking = {
-        firewall = {
-          allowedUDPPorts = [ 4791 ]; # open RoCE port
-          allowedTCPPorts = [ 4800 ]; # port for test utils
-        };
-        rxe = {
-          enable = true;
-          interfaces = [ "eth1" ];
-        };
+{...}: let
+  node = {pkgs, ...}: {
+    networking = {
+      firewall = {
+        allowedUDPPorts = [4791]; # open RoCE port
+        allowedTCPPorts = [4800]; # port for test utils
       };
-
-      environment.systemPackages = with pkgs; [
-        rdma-core
-        screen
-      ];
+      rxe = {
+        enable = true;
+        interfaces = ["eth1"];
+      };
     };
 
-in
-{
+    environment.systemPackages = with pkgs; [
+      rdma-core
+      screen
+    ];
+  };
+in {
   name = "rxe";
 
   nodes = {

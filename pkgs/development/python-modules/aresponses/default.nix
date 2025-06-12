@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aresponses";
   version = "3.0.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-RklXlIsbdq46/7D6Hv4mdskunqw1a7SFF09OjhrvMRY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     pytest-asyncio
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Disable tests which requires network access
@@ -40,13 +39,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "aresponses" ];
+  pythonImportsCheck = ["aresponses"];
 
   meta = with lib; {
     changelog = "https://github.com/aresponses/aresponses/blob/${src.rev}/README.md#changelog";
     description = "Asyncio testing server";
     homepage = "https://github.com/aresponses/aresponses";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

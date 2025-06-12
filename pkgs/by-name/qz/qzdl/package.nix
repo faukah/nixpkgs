@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       icon = "zdl3";
       desktopName = "ZDL";
       genericName = "A ZDoom WAD Launcher";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
     homepage = "https://zdl.vectec.net";
     license = lib.licenses.gpl3Only;
     inherit (libsForQt5.qtbase.meta) platforms;
-    maintainers = [ lib.maintainers.azahi ];
+    maintainers = [lib.maintainers.azahi];
     mainProgram = "zdl";
   };
 }

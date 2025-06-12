@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sockstat";
   version = "1.1.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7VfideKNWlWb9nnAL2TK7HiD0T5EJsQiagT2kPMwrdA=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -29,11 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-v";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mezantrop/sockstat";
     changelog = "https://github.com/mezantrop/sockstat/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = lib.platforms.darwin;
     mainProgram = "sockstat";
   };

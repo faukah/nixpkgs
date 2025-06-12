@@ -3,22 +3,18 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   django,
   djangorestframework,
   ujson,
-
   # tests
   pytest-cov-stub,
   pytest-django,
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "drf-ujson2";
   version = "1.8.0";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-NtloZWsEmRbPl7pdxPQqpzIzTyyOEFO9KtZ60F7VuUQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     description = "JSON parser and renderer using ujson for Django Rest Framework";
     homepage = "https://github.com/Amertz08/drf_ujson2";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

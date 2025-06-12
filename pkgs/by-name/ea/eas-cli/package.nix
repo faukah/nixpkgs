@@ -52,6 +52,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "EAS command line tool from submodule";
     homepage = "https://github.com/expo/eas-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ zestsystem ];
+    maintainers = with lib.maintainers; [zestsystem];
   };
 })

@@ -7,7 +7,6 @@
   version,
   src,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "tilt-assets";
   src = "${src}/web";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation {
     name = "tilt-assets-deps";
     src = "${src}/web";
 
-    nativeBuildInputs = [ yarn-berry ];
+    nativeBuildInputs = [yarn-berry];
 
     supportedArchitectures = builtins.toJSON {
       os = [
@@ -102,7 +101,7 @@ stdenvNoCC.mkDerivation {
     description = "Assets needed for Tilt";
     homepage = "https://tilt.dev/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ anton-dessiatov ];
+    maintainers = with lib.maintainers; [anton-dessiatov];
     platforms = platforms.all;
   };
 }

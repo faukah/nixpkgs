@@ -5,10 +5,7 @@
   cpio,
   xz,
   pkgs,
-}:
-
-let
-
+}: let
   version = "1.43_5";
 
   # Updated according to https://github.com/patjak/bcwc_pcie/pull/81/files
@@ -35,46 +32,42 @@ let
     xzcat -Q $src | cpio --format odc -i -d ${firmwareIn}
     exit 0
   '';
-
 in
+  stdenvNoCC.mkDerivation {
+    pname = "facetimehd-firmware";
+    inherit version;
+    src = fetchurl {
+      url = dmgUrl;
+      sha256 = "0s8crlh8rvpanzk1w4z3hich0a3mw0m5xhpcg07bxy02calhpdk1";
+      curlOpts = "-r ${dmgRange}";
+    };
 
-stdenvNoCC.mkDerivation {
+    dontUnpack = true;
+    dontInstall = true;
 
-  pname = "facetimehd-firmware";
-  inherit version;
-  src = fetchurl {
-    url = dmgUrl;
-    sha256 = "0s8crlh8rvpanzk1w4z3hich0a3mw0m5xhpcg07bxy02calhpdk1";
-    curlOpts = "-r ${dmgRange}";
-  };
-
-  dontUnpack = true;
-  dontInstall = true;
-
-  nativeBuildInputs = [
-    cpio
-    xz
-  ];
-
-  buildPhase = ''
-    ${unpack}/bin/unpack
-    dd bs=1 skip=${firmwareOffset} count=${firmwareSize} if=${firmwareIn} of=${firmwareOut}.gz &> /dev/null
-    mkdir -p $out/lib/firmware/facetimehd
-    gunzip -c ${firmwareOut}.gz > $out/lib/firmware/facetimehd/${firmwareOut}
-  '';
-
-  meta = with lib; {
-    description = "facetimehd firmware";
-    homepage = "https://support.apple.com/kb/DL1877";
-    license = licenses.unfree;
-    maintainers = with maintainers; [
-      womfoo
-      grahamc
+    nativeBuildInputs = [
+      cpio
+      xz
     ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-  };
 
-}
+    buildPhase = ''
+      ${unpack}/bin/unpack
+      dd bs=1 skip=${firmwareOffset} count=${firmwareSize} if=${firmwareIn} of=${firmwareOut}.gz &> /dev/null
+      mkdir -p $out/lib/firmware/facetimehd
+      gunzip -c ${firmwareOut}.gz > $out/lib/firmware/facetimehd/${firmwareOut}
+    '';
+
+    meta = with lib; {
+      description = "facetimehd firmware";
+      homepage = "https://support.apple.com/kb/DL1877";
+      license = licenses.unfree;
+      maintainers = with maintainers; [
+        womfoo
+        grahamc
+      ];
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

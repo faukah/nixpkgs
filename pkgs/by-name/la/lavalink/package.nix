@@ -7,7 +7,6 @@
   fetchurl,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lavalink";
   version = "4.0.8";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) lavalink; };
+  passthru.tests = {inherit (nixosTests) lavalink;};
 
   meta = {
     description = "Standalone audio sending node based on Lavaplayer and Koe";
@@ -44,8 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lavalink.dev/";
     changelog = "https://github.com/lavalink-devs/Lavalink/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nanoyaki ];
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    maintainers = with lib.maintainers; [nanoyaki];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     mainProgram = "lavalink";
     inherit (jdk.meta) platforms;
   };

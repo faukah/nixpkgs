@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "buckle";
   version = "1.1.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/benbrittain/buckle";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cbarrete ];
+    maintainers = with lib.maintainers; [cbarrete];
     mainProgram = "buckle";
   };
 }

@@ -3,12 +3,11 @@
   stdenv,
   kernel,
 }:
-
 stdenv.mkDerivation {
   pname = "intel-speed-select";
   inherit (kernel) src version;
 
-  makeFlags = [ "bindir=${placeholder "out"}/bin" ];
+  makeFlags = ["bindir=${placeholder "out"}/bin"];
 
   postPatch = ''
     cd tools/power/x86/intel-speed-select

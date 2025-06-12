@@ -6,7 +6,6 @@
   glib,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lcm";
   version = "1.5.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight Communications and Marshalling (LCM)";
     homepage = "https://github.com/lcm-proj/lcm";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ kjeremy ];
+    maintainers = with maintainers; [kjeremy];
     platforms = lib.platforms.unix;
   };
 }

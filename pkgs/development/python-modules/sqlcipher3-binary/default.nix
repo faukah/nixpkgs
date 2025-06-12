@@ -5,8 +5,8 @@
 mkPythonMetaPackage {
   pname = "sqlcipher3-binary";
   inherit (sqlcipher3) version;
-  dependencies = [ sqlcipher3 ];
-  optional-dependencies = sqlcipher3.optional-dependencies or { };
+  dependencies = [sqlcipher3];
+  optional-dependencies = sqlcipher3.optional-dependencies or {};
   meta = {
     inherit (sqlcipher3.meta) description homepage license;
   };

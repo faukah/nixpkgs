@@ -4,19 +4,16 @@
   fetchPypi,
   python,
   nix-update-script,
-
   # build-system
   cython,
   setuptools,
   typing-extensions,
-
   # dependencies
   tree-sitter,
   tree-sitter-c-sharp,
   tree-sitter-embedded-template,
   tree-sitter-yaml,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-language-pack";
   version = "0.7.3";
@@ -78,13 +75,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Comprehensive collection of tree-sitter languages";
     homepage = "https://github.com/Goldziher/tree-sitter-language-pack";
     changelog = "https://github.com/Goldziher/tree-sitter-language-pack/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

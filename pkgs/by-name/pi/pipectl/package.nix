@@ -5,7 +5,6 @@
   cmake,
   scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pipectl";
   version = "0.5.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Ferdi265/pipectl";
     license = licenses.gpl3;
     description = "Simple named pipe management utility";
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
     mainProgram = "pipectl";
   };
 }

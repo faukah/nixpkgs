@@ -6,7 +6,6 @@
   lwt,
   tcpip,
 }:
-
 buildDunePackage {
   pname = "dns-mirage";
 
@@ -20,7 +19,9 @@ buildDunePackage {
     tcpip
   ];
 
-  meta = dns.meta // {
-    description = "Opinionated Domain Name System (DNS) library";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "Opinionated Domain Name System (DNS) library";
+    };
 }

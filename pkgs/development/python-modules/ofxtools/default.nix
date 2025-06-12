@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ofxtools";
   version = "0.9.5";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-NsImnD+erhpakQnl1neuHfSKiV6ipNBMPGKMDM0gwWc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # override $HOME directory:
   #   error: [Errno 13] Permission denied: '/homeless-shelter'
   preCheck = ''

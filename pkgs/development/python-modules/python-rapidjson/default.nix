@@ -9,7 +9,6 @@
   setuptools,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   version = "1.20";
   pname = "python-rapidjson";
@@ -30,20 +29,20 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytz
   ];
 
-  disabledTestPaths = [ "benchmarks" ];
+  disabledTestPaths = ["benchmarks"];
 
   meta = with lib; {
     changelog = "https://github.com/python-rapidjson/python-rapidjson/blob/${src.rev}/CHANGES.rst";
     homepage = "https://github.com/python-rapidjson/python-rapidjson";
     description = "Python wrapper around rapidjson";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

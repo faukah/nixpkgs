@@ -3,35 +3,33 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.listmonk;
-  tomlFormat = pkgs.formats.toml { };
+  tomlFormat = pkgs.formats.toml {};
   cfgFile = tomlFormat.generate "listmonk.toml" cfg.settings;
   # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
-  setDatabaseOption =
-    key: value:
-    "UPDATE settings SET value = '${
-      lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
-    }' WHERE key = '${key}';";
+  setDatabaseOption = key: value: "UPDATE settings SET value = '${
+    lib.replaceStrings ["'"] ["''"] (builtins.toJSON value)
+  }' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList setDatabaseOption (
-        if (cfg.database.settings != null) then cfg.database.settings else { }
+        if (cfg.database.settings != null)
+        then cfg.database.settings
+        else {}
       )
     )
   );
   updateDatabaseConfigScript = pkgs.writeShellScriptBin "update-database-config.sh" ''
     ${
-      if cfg.database.mutableSettings then
-        ''
-          if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-            ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-            touch /var/lib/listmonk/.db_settings_initialized
-          fi
-        ''
-      else
-        "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"
+      if cfg.database.mutableSettings
+      then ''
+        if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+          ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+          touch /var/lib/listmonk/.db_settings_initialized
+        fi
+      ''
+      else "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"
     }
   '';
 
@@ -47,7 +45,7 @@ let
     options = {
       "app.notify_emails" = lib.mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "Administrator emails for system notifications";
       };
 
@@ -64,7 +62,7 @@ let
 
       "privacy.domain_blocklist" = lib.mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "E-mail addresses with these domains are disallowed from subscribing.";
       };
 
@@ -106,19 +104,18 @@ let
         type = listOf (submodule {
           freeformType = with lib.types; listOf (attrsOf anything);
         });
-        default = [ ];
+        default = [];
         description = "List of bounce mailboxes";
       };
 
       messengers = lib.mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
       };
     };
   };
-in
-{
+in {
   ###### interface
   options = {
     services.listmonk = {
@@ -144,9 +141,9 @@ in
           '';
         };
       };
-      package = lib.mkPackageOption pkgs "listmonk" { };
+      package = lib.mkPackageOption pkgs "listmonk" {};
       settings = lib.mkOption {
-        type = lib.types.submodule { freeformType = tomlFormat.type; };
+        type = lib.types.submodule {freeformType = tomlFormat.type;};
         description = ''
           Static settings set in the config.toml, see <https://github.com/knadh/listmonk/blob/master/config.toml.sample> for details.
           You can set secrets using the secretFile option with environment variables following <https://listmonk.app/docs/configuration/#environment-variables>.
@@ -165,11 +162,11 @@ in
     # Default parameters from https://github.com/knadh/listmonk/blob/master/config.toml.sample
     services.listmonk.settings."app".address = lib.mkDefault "localhost:9000";
     services.listmonk.settings."db" = lib.mkMerge [
-      ({
+      {
         max_open = lib.mkDefault 25;
         max_idle = lib.mkDefault 25;
         max_lifetime = lib.mkDefault "300s";
-      })
+      }
       (lib.mkIf cfg.database.createLocally {
         host = lib.mkDefault "/run/postgresql";
         port = lib.mkDefault 5432;
@@ -188,16 +185,16 @@ in
         }
       ];
 
-      ensureDatabases = [ "listmonk" ];
+      ensureDatabases = ["listmonk"];
     };
 
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
-      after = [ "network.target" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"] ++ lib.optional cfg.database.createLocally "postgresql.service";
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
-        EnvironmentFile = lib.mkIf (cfg.secretFile != null) [ cfg.secretFile ];
+        EnvironmentFile = lib.mkIf (cfg.secretFile != null) [cfg.secretFile];
         ExecStartPre = [
           # StateDirectory cannot be used when DynamicUser = true is set this way.
           # Indeed, it will try to create all the folders and realize one of them already exist.
@@ -214,7 +211,7 @@ in
 
         Restart = "on-failure";
 
-        StateDirectory = [ "listmonk" ];
+        StateDirectory = ["listmonk"];
 
         User = "listmonk";
         Group = "listmonk";
