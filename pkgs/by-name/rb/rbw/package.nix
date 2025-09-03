@@ -80,6 +80,7 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [
       albakham
       jasonxue1
+      faukah
     ];
     mainProgram = "rbw";
   };
