@@ -59,6 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mdaniels5757
       viperML
       midischwarz12
+      faukah
     ];
   };
 })
